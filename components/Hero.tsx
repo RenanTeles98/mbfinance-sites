@@ -9,8 +9,6 @@ const WHATSAPP_MSG = encodeURIComponent(
   "Olá! Vim pelo site da MB Finance e quero conhecer as melhores condições financeiras para minha empresa."
 );
 
-const partners = ["Bradesco", "Santander", "Itaú BBA", "BTG Pactual", "Banco Inter", "C6 Bank"];
-
 export default function Hero() {
   return (
     <>
