@@ -82,6 +82,13 @@ const timeline = [
     badge: "95.000 contas PJ",
   },
   {
+    year: "2025",
+    title: "R$ 100 Milhões em Movimentação com Mercado Pago",
+    description:
+      "Em parceria com o Mercado Pago, atingimos a marca de R$ 100 milhões em movimentação em tempo recorde — um marco histórico que consolida a MB Finance como referência nacional em soluções financeiras para empresas.",
+    badge: "R$ 100Mi · Mercado Pago",
+  },
+  {
     year: "2026",
     title: "Expansão do Portfólio de Produtos",
     description:
