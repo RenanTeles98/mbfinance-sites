@@ -234,7 +234,7 @@ export default function SobrePage() {
               <p className="text-white/80 text-lg leading-relaxed mb-6">
                 A MB Finance tem como missão conectar empresas brasileiras às
                 soluções financeiras mais adequadas para cada etapa da sua
-                trajetória, com inteligência, transparência e visão estratégica.
+                trajetória, com tecnologia, visão financeira e soluções inovadoras.
                 Nossa evolução para um{" "}
                 <strong className="text-white">Hub de Produtos Financeiros</strong>{" "}
                 reflete o compromisso de oferecer ao mercado uma atuação mais
