@@ -255,8 +255,8 @@ export default function SobrePage() {
                 { label: "Fundação", value: "2013" },
                 { label: "Sede", value: "Rio de Janeiro, RJ" },
                 { label: "Parceiro principal", value: "+ 40 parceiros" },
-                { label: "Foco", value: "Empresas PJ — ME a empresas de grande porte" },
-                { label: "Contas abertas", value: "300.000 contas PF / dez de 2025", primary: true },
+                { label: "Foco", value: "Empresas de pequeno, médio e grande porte" },
+                { label: "Clientes ativos", value: "+200.000 PJs", primary: true },
                 { label: "Crédito transacionado", value: "R$ 500 milhões / dez de 2025", primary: true },
               ].map((item) => (
                 <div
