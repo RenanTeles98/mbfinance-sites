@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(rm -f conta-pj.png credito-rapido.png logo-horizontal-logo.branca.png logo-horizontal-logo.png.png maquina-de-cartao.png seguro-e-consorcios.png solucoes-personalizadas.png solucoes-tributarias.png telemedicina.png)",
+      "Bash(cp \"POLÍTICA DE PRIVACIDADE - Mb finance.pdf\" \"public/POLÍTICA DE PRIVACIDADE - Mb finance.pdf\")",
+      "Bash(cp \"Termos de uso - mb finance.pdf\" \"public/Termos de uso - mb finance.pdf\")"
     ]
   }
 }
