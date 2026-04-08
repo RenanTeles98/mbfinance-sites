@@ -37,7 +37,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script>
         function smoothScrollTo(id, duration) {
             const target = document.getElementById(id);
@@ -97,6 +97,14 @@
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: -0.02em; }
+        .hero-highlight {
+            background: linear-gradient(90deg, #ff6b81 0%, #ffc06a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
         html { scroll-behavior: auto; }
         /* ── Custom Animations ── */
         @keyframes aurora-drift {
@@ -184,6 +192,9 @@
         #navbar.scrolled a { color: #003956 !important; }
         #navbar.scrolled .product-panel a { color: #fff !important; }
         #navbar.scrolled svg { stroke: #003956 !important; }
+        .product-icon-navy {
+            filter: brightness(0) saturate(100%) invert(16%) sepia(37%) saturate(1310%) hue-rotate(167deg) brightness(94%) contrast(101%);
+        }
 
         /* ── Mega Menu Styles ── */
         .mega-menu {
@@ -632,7 +643,7 @@
                                             <li>
                                                 <button data-panel="conta-pj" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-50 transition-colors text-left group/btn">
                                                     <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-gray-400 group-hover/btn:text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 9 12 4l9 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10h14" stroke-width="2" stroke-linecap="round"/><path d="M6 10v8" stroke-width="2"/><path d="M10 10v8" stroke-width="2"/><path d="M14 10v8" stroke-width="2"/><path d="M18 10v8" stroke-width="2"/><path d="M4 20h16" stroke-width="2" stroke-linecap="round"/></svg>
+                                                        <img src="conta-pj.png" alt="Ícone Conta PJ" class="product-icon-navy w-4 h-4 object-contain opacity-80 group-hover/btn:opacity-100 transition-opacity">
                                                     </div>
                                                     <div class="flex-1 min-w-0">
                                                         <div class="text-[13px] font-bold text-gray-700 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Conta Corrente Empresarial</div>
@@ -646,7 +657,7 @@
                                             <li>
                                                 <button data-panel="maquina" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-50 transition-colors text-left group/btn">
                                                     <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-gray-400 group-hover/btn:text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 3h6v4l-1.6 1.4h-2.8L9 7V3Z" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 7h10a2 2 0 0 1 2 2v9.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 18.5V9a2 2 0 0 1 2-2Z" stroke-width="1.8" stroke-linejoin="round"/><rect x="7.8" y="10" width="8.4" height="4.6" rx="0.8" stroke-width="1.6"/><path d="M8 17.2h1.5" stroke-width="1.6" stroke-linecap="round"/><path d="M11.2 17.2h1.5" stroke-width="1.6" stroke-linecap="round"/><path d="M14.4 17.2h1.5" stroke-width="1.6" stroke-linecap="round"/><path d="M19 10h1.2a1.8 1.8 0 0 1 1.8 1.8v5.7" stroke-width="1.6" stroke-linecap="round"/></svg>
+                                                        <img src="maquina-de-cartao.png" alt="Ícone Máquina de Cartão" class="product-icon-navy w-4 h-4 object-contain opacity-80 group-hover/btn:opacity-100 transition-opacity">
                                                     </div>
                                                     <div class="flex-1 min-w-0">
                                                         <div class="text-[13px] font-bold text-gray-700 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Máquina de Cartão</div>
@@ -660,7 +671,7 @@
                                             <li>
                                                 <button data-panel="capital" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:bg-brand-secondary/5 hover:border-brand-secondary/20 transition-all text-left group/btn">
                                                     <div class="w-8 h-8 rounded-lg bg-brand-secondary/10 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary transition-colors">
-                                                        <svg class="w-4 h-4 text-brand-secondary group-hover/btn:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" stroke-width="2"/><path d="M3 10h18" stroke-width="2"/><path d="M7 14h4" stroke-width="2" stroke-linecap="round"/><path d="M15 14h2" stroke-width="2" stroke-linecap="round"/></svg>
+                                                        <img src="credito-rapido.png" alt="Ícone Crédito Rápido" class="product-icon-navy w-4 h-4 object-contain opacity-90 group-hover/btn:opacity-100 transition-opacity">
                                                     </div>
                                                     <div class="flex-1 min-w-0 min-w-0">
                                                         <div class="flex items-center gap-1.5">
@@ -677,7 +688,7 @@
                                             <li>
                                                 <button data-panel="seguros" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-50 transition-colors text-left group/btn">
                                                     <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-gray-400 group-hover/btn:text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.418-3.134 8.545-7 9.5C8.134 20.545 5 16.418 5 12V7l7-4Z" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 8v6" stroke-width="1.8" stroke-linecap="round"/><path d="M9 11h6" stroke-width="1.8" stroke-linecap="round"/></svg>
+                                                        <img src="seguro-e-consorcios.png" alt="Ícone Seguros e Consórcios" class="product-icon-navy w-4 h-4 object-contain opacity-80 group-hover/btn:opacity-100 transition-opacity">
                                                     </div>
                                                     <div class="flex-1 min-w-0">
                                                         <div class="text-[13px] font-bold text-gray-700 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Seguros e Consórcios</div>
@@ -691,7 +702,7 @@
                                             <li>
                                                 <button data-panel="tributario" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-50 transition-colors text-left group/btn">
                                                     <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-gray-400 group-hover/btn:text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.5 19.5H12" stroke-width="1.8" stroke-linecap="round"/><path d="M9.8 4.5 15 9.7" stroke-width="1.8" stroke-linecap="round"/><path d="M8.3 6.3 12 4.3l5.7 5.7-2.2 4.3-7.2-8Z" stroke-width="1.8" stroke-linejoin="round"/><text x="14.2" y="11.2" font-size="4.6" font-weight="700" fill="currentColor" stroke="none">TAX</text><path d="M14.1 14.6H20" stroke-width="1.4" stroke-linecap="round"/><path d="M14.1 17.6H18.7" stroke-width="1.4" stroke-linecap="round"/></svg>
+                                                        <img src="solucoes-tributarias.png" alt="Ícone Soluções Tributárias" class="product-icon-navy w-4 h-4 object-contain opacity-80 group-hover/btn:opacity-100 transition-opacity">
                                                     </div>
                                                     <div class="flex-1 min-w-0">
                                                         <div class="text-[13px] font-bold text-gray-700 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Soluções Tributárias</div>
@@ -705,7 +716,7 @@
                                             <li>
                                                 <button data-panel="telemedicina" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-50 transition-colors text-left group/btn">
                                                     <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-gray-400 group-hover/btn:text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="12.5" height="19" rx="2.6" stroke-width="1.8"/><path d="M7.2 5.2h3.1" stroke-width="1.6" stroke-linecap="round"/><path d="M6.2 16.8c.7-2.2 1.9-3.3 2.6-3.7.8-.3 1.5-.3 2.3 0 .8.4 1.9 1.5 2.6 3.7" stroke-width="1.5" stroke-linecap="round"/><circle cx="9.1" cy="10.2" r="2.2" stroke-width="1.5"/><path d="M18.2 7.4h3.3a1.5 1.5 0 0 1 1.5 1.5v5" stroke-width="1.7" stroke-linecap="round"/><path d="M17.3 11h4.7" stroke-width="1.7" stroke-linecap="round"/><path d="M17.3 14.5h4.7" stroke-width="1.7" stroke-linecap="round"/><path d="M19.2 17.8l2.3-2.3-2.3-2.3" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                                        <img src="telemedicina.png" alt="Ícone Telemedicina" class="product-icon-navy w-4 h-4 object-contain opacity-80 group-hover/btn:opacity-100 transition-opacity">
                                                     </div>
                                                     <div class="flex-1 min-w-0">
                                                         <div class="text-[13px] font-bold text-gray-700 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Telemedicina</div>
@@ -719,7 +730,7 @@
                                             <li>
                                                 <button data-panel="personalizado" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-50 transition-colors text-left group/btn">
                                                     <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-gray-400 group-hover/btn:text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" stroke-width="1.8"/><line x1="8" y1="7" x2="16" y2="7" stroke-width="1.8"/><line x1="8" y1="11" x2="16" y2="11" stroke-width="1.8"/><line x1="8" y1="15" x2="12" y2="15" stroke-width="1.8"/></svg>
+                                                        <img src="solucoes-personalizadas.png" alt="Ícone Soluções Personalizadas" class="product-icon-navy w-4 h-4 object-contain opacity-80 group-hover/btn:opacity-100 transition-opacity">
                                                     </div>
                                                     <div class="flex-1 min-w-0">
                                                         <div class="text-[13px] font-bold text-gray-700 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Soluções Personalizadas</div>
@@ -896,8 +907,8 @@
                         </div>
 
                         <!-- SOBRE -->
-                        <div class="relative group" style="display:none;">
-                            <a href="#sobre" onclick="event.preventDefault(); smoothScrollTo('sobre', 1400)" class="nav-link text-[13px] font-bold tracking-wider text-white hover:text-brand-secondary transition-colors" id="nav-nav-sobre">SOBRE</a>
+                        <div class="relative group">
+                            <a href="sobre.html" class="nav-link text-[13px] font-bold tracking-wider text-white hover:text-brand-secondary transition-colors" id="nav-nav-sobre">SOBRE</a>
                         </div>
 
                         <!-- PARCEIROS -->
@@ -954,6 +965,9 @@
                     </div>
                 </div>
                 <div class="mobile-menu-section">
+                    <a href="sobre.html" onclick="closeMobileMenu();" class="mobile-menu-root-link font-black text-brand-primary block">SOBRE</a>
+                </div>
+                <div class="mobile-menu-section">
                     <a href="#parceiros" onclick="event.preventDefault(); smoothScrollTo('parceiros', 1400); closeMobileMenu();" class="mobile-menu-root-link font-black text-brand-primary block">PARCEIROS</a>
                 </div>
                 <div class="mobile-menu-section">
@@ -986,34 +1000,34 @@
         <canvas id="hero-canvas" class="absolute inset-0 z-[1] pointer-events-none opacity-[0.15]"></canvas>
 
         <div class="relative z-10 text-center px-4 animate-fade-in-up">
-            <h1 class="font-serif font-bold text-white tracking-normal mb-6" style="font-size: clamp(2.5rem, 5.5vw, 4.2rem); line-height: 1.1;">
-                Hub de Soluções Financeiras para<br class="hero-br">
-                <span class="text-brand-secondary">Empresas que Querem Crescer</span>
+            <h1 class="font-sans font-light text-white mb-6" style="font-size: clamp(2.5rem, 5.5vw, 4.2rem); line-height: 1.1; font-weight: 300; letter-spacing: -0.02em;">
+                Hub de Soluções Financeiras<br class="hero-br">
+                <span style="color: #FFFFFF;">Para Empresas que Querem <span class="hero-highlight">Crescer</span></span>
             </h1>
             <p class="mt-8 text-white/70 text-[clamp(1rem,1.2vw,1.15rem)] max-w-3xl mx-auto font-medium leading-relaxed tracking-wide">
                 Conectamos sua empresa a diversos produtos financeiros em um único lugar, com as melhores condições do mercado.
             </p>
 
             <!-- Authority Metrics -->
-            <div class="mt-14 mb-4 flex flex-wrap justify-center items-center gap-x-12 gap-y-6 opacity-80">
-                <div class="text-center group">
-                    <div class="text-2xl sm:text-3xl font-black text-white/70 mb-1 group-hover:text-white transition-colors" data-counter="13" data-suffix="+">0+</div>
-                    <div class="text-[10px] text-white/30 uppercase tracking-[2px] font-bold">Anos de Mercado</div>
+            <div class="mt-14 mb-4 flex flex-wrap justify-center items-center gap-x-12 gap-y-6">
+                <div class="text-center group cursor-default">
+                    <div class="text-2xl sm:text-3xl font-black text-white/40 mb-1 group-hover:text-white group-hover:scale-105 transition-all duration-300" data-counter="13" data-suffix="+">0+</div>
+                    <div class="text-[10px] text-white/20 uppercase tracking-[2px] font-bold group-hover:text-white transition-colors">Anos de Mercado</div>
                 </div>
                 <div class="w-px h-8 bg-white/5 hidden sm:block"></div>
-                <div class="text-center group">
-                    <div class="text-2xl sm:text-3xl font-black text-white/70 mb-1 group-hover:text-white transition-colors" data-counter="40" data-suffix="+">0+</div>
-                    <div class="text-[10px] text-white/30 uppercase tracking-[2px] font-bold">Bancos Parceiros</div>
+                <div class="text-center group cursor-default">
+                    <div class="text-2xl sm:text-3xl font-black text-white/40 mb-1 group-hover:text-white group-hover:scale-105 transition-all duration-300" data-counter="40" data-suffix="+">0+</div>
+                    <div class="text-[10px] text-white/20 uppercase tracking-[2px] font-bold group-hover:text-white transition-colors">Bancos Parceiros</div>
                 </div>
                 <div class="w-px h-8 bg-white/5 hidden sm:block"></div>
-                <div class="text-center group">
-                    <div class="text-2xl sm:text-3xl font-black text-white/70 mb-1 group-hover:text-white transition-colors" data-counter="300" data-suffix="k+">0k+</div>
-                    <div class="text-[10px] text-white/30 uppercase tracking-[2px] font-bold">Empresas Atendidas</div>
+                <div class="text-center group cursor-default">
+                    <div class="text-2xl sm:text-3xl font-black text-white/40 mb-1 group-hover:text-white group-hover:scale-105 transition-all duration-300" data-counter="300" data-suffix="k+">0k+</div>
+                    <div class="text-[10px] text-white/20 uppercase tracking-[2px] font-bold group-hover:text-white transition-colors">Empresas Atendidas</div>
                 </div>
                 <div class="w-px h-8 bg-white/5 hidden sm:block"></div>
-                <div class="text-center group">
-                    <div class="text-2xl sm:text-3xl font-black text-white/70 mb-1 group-hover:text-white transition-colors" data-counter="500" data-prefix="R$ " data-suffix="Mi">R$ 0Mi</div>
-                    <div class="text-[10px] text-white/30 uppercase tracking-[2px] font-bold">Crédito Transacionado</div>
+                <div class="text-center group cursor-default">
+                    <div class="text-2xl sm:text-3xl font-black text-white/40 mb-1 group-hover:text-white group-hover:scale-105 transition-all duration-300" data-counter="500" data-prefix="R$ " data-suffix="Mi">R$ 0Mi</div>
+                    <div class="text-[10px] text-white/20 uppercase tracking-[2px] font-bold group-hover:text-white transition-colors">Crédito Transacionado</div>
                 </div>
             </div>
 
@@ -1100,7 +1114,7 @@
             .acc-link { font-size: 14px; font-weight: 700; color: #0099dd; text-decoration: none; display: inline-flex; align-items: center; line-height: 1; gap: 6px; background: none; border: none; padding: 0; border-radius: 0; transition: all 0.2s; }
             .acc-link svg { display: block; flex-shrink: 0; }
             .acc-link:hover { color: #003956; gap: 10px; }
-            .acc-icon { width: 36px; height: 36px; flex-shrink: 0; color: #9ca3af; }
+            .acc-icon { width: 36px; height: 36px; flex-shrink: 0; color: #9ca3af; object-fit: contain; }
             .acc-title { font-size: 17px; font-weight: 700; color: #003956; line-height: 1.2; transition: color 0.2s; }
             .acc-subtitle { font-size: 13px; color: #9ca3af; font-weight: 500; margin-top: 2px; }
         </style>
@@ -1121,7 +1135,7 @@
                 <!-- 1. Conta PJ -->
                 <div class="acc-item" id="acc-conta-pj">
                     <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg class="acc-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 9 12 4l9 5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10h14" stroke-width="1.6" stroke-linecap="round"/><path d="M6 10v8" stroke-width="1.6"/><path d="M10 10v8" stroke-width="1.6"/><path d="M14 10v8" stroke-width="1.6"/><path d="M18 10v8" stroke-width="1.6"/><path d="M4 20h16" stroke-width="1.6" stroke-linecap="round"/></svg>
+                        <img src="conta-pj.png" alt="Ícone Conta PJ" class="acc-icon product-icon-navy">
                         <div>
                             <div class="acc-title">Conta PJ</div>
                             <div class="acc-subtitle">Abertura simplificada nos principais bancos</div>
@@ -1146,7 +1160,7 @@
                 <!--2. Adquirência -->
                 <div class="acc-item" id="acc-adquirencia">
                     <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg class="acc-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 3h6v4l-1.6 1.4h-2.8L9 7V3Z" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 7h10a2 2 0 0 1 2 2v9.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 18.5V9a2 2 0 0 1 2-2Z" stroke-width="1.6" stroke-linejoin="round"/><rect x="7.8" y="10" width="8.4" height="4.6" rx="0.8" stroke-width="1.4"/><path d="M8 17.2h1.5" stroke-width="1.4" stroke-linecap="round"/><path d="M11.2 17.2h1.5" stroke-width="1.4" stroke-linecap="round"/><path d="M14.4 17.2h1.5" stroke-width="1.4" stroke-linecap="round"/><path d="M19 10h1.2a1.8 1.8 0 0 1 1.8 1.8v5.7" stroke-width="1.4" stroke-linecap="round"/></svg>
+                        <img src="maquina-de-cartao.png" alt="Ícone Máquina de Cartão" class="acc-icon product-icon-navy">
                         <div>
                             <div class="acc-title">Máquina de Cartão</div>
                             <div class="acc-subtitle">Maquininhas e gateway de pagamento</div>
@@ -1171,7 +1185,7 @@
                 <!--3. Seguros e Consórcios -->
                 <div class="acc-item" id="acc-seguros">
                     <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg class="acc-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.418-3.134 8.545-7 9.5C8.134 20.545 5 16.418 5 12V7l7-4Z" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 8v6" stroke-width="1.6" stroke-linecap="round"/><path d="M9 11h6" stroke-width="1.6" stroke-linecap="round"/></svg>
+                        <img src="seguro-e-consorcios.png" alt="Ícone Seguros e Consórcios" class="acc-icon product-icon-navy">
                         <div>
                             <div class="acc-title">Seguros e Consórcios</div>
                             <div class="acc-subtitle">Proteção patrimonial e planejamento de aquisições</div>
@@ -1197,7 +1211,7 @@
                 <!--4. Capital de Giro -->
                 <div class="acc-item" id="acc-capital-giro">
                     <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg class="acc-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5" stroke-width="1.6"/><line x1="2" y1="10" x2="22" y2="10" stroke-width="1.6"/><line x1="6" y1="14" x2="11" y2="14" stroke-width="1.6" stroke-linecap="round"/><line x1="15" y1="14" x2="18" y2="14" stroke-width="1.6" stroke-linecap="round"/></svg>
+                        <img src="credito-rapido.png" alt="Ícone Crédito Rápido" class="acc-icon product-icon-navy">
                         <div>
                             <div class="acc-title">Crédito Rápido</div>
                             <div class="acc-subtitle">Crédito empresarial, imobiliário e veicular</div>
@@ -1224,7 +1238,7 @@
                 <!--5. Soluções Tributárias -->
                 <div class="acc-item" id="acc-tributarias">
                     <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg class="acc-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.5 19.5H12" stroke-width="1.6" stroke-linecap="round"/><path d="M9.8 4.5 15 9.7" stroke-width="1.6" stroke-linecap="round"/><path d="M8.3 6.3 12 4.3l5.7 5.7-2.2 4.3-7.2-8Z" stroke-width="1.6" stroke-linejoin="round"/><text x="14.2" y="11.2" font-size="4.6" font-weight="700" fill="currentColor" stroke="none">TAX</text><path d="M14.1 14.6H20" stroke-width="1.2" stroke-linecap="round"/><path d="M14.1 17.6H18.7" stroke-width="1.2" stroke-linecap="round"/></svg>
+                        <img src="solucoes-tributarias.png" alt="Ícone Soluções Tributárias" class="acc-icon product-icon-navy">
                         <div>
                             <div class="acc-title">Soluções Tributárias</div>
                             <div class="acc-subtitle">Diagnóstico, recuperação e planejamento fiscal</div>
@@ -1232,7 +1246,7 @@
                         <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div class="acc-body">
-                        <p class="acc-desc">Identificamos tributos pagos a maior nos últimos 5 anos e recuperamos esses valores para o seu caixa. Revisão de enquadramento, planejamento fiscal e adequação à Reforma Tributária. Você só paga sobre o que é efetivamente recuperado.</p>
+                        <p class="acc-desc">Revisão de enquadramentos, planejamento fiscal, recuperação de tributos indevidos ou pagos a maior e adequação à Reforma Tributária.</p>
                         <div class="acc-tags">
                             <span class="acc-tag">Diagnóstico Tributário</span>
                             <span class="acc-tag">Recuperação de Créditos</span>
@@ -1249,7 +1263,7 @@
                 <!--6. Telemedicina -->
                 <div class="acc-item" id="acc-telemedicina">
                     <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg class="acc-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="12.5" height="19" rx="2.6" stroke-width="1.6"/><path d="M7.2 5.2h3.1" stroke-width="1.4" stroke-linecap="round"/><path d="M6.2 16.8c.7-2.2 1.9-3.3 2.6-3.7.8-.3 1.5-.3 2.3 0 .8.4 1.9 1.5 2.6 3.7" stroke-width="1.3" stroke-linecap="round"/><circle cx="9.1" cy="10.2" r="2.2" stroke-width="1.3"/><path d="M18.2 7.4h3.3a1.5 1.5 0 0 1 1.5 1.5v5" stroke-width="1.5" stroke-linecap="round"/><path d="M17.3 11h4.7" stroke-width="1.5" stroke-linecap="round"/><path d="M17.3 14.5h4.7" stroke-width="1.5" stroke-linecap="round"/><path d="M19.2 17.8l2.3-2.3-2.3-2.3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <img src="telemedicina.png" alt="Ícone Telemedicina" class="acc-icon product-icon-navy">
                         <div>
                             <div class="acc-title">Telemedicina</div>
                             <div class="acc-subtitle">Médico na tela para toda a sua família</div>
@@ -1274,7 +1288,7 @@
                 <!--7. Soluções Personalizadas -->
                 <div class="acc-item" id="acc-personalizadas">
                     <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg class="acc-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" stroke-width="1.5"/><line x1="8" y1="7" x2="16" y2="7" stroke-width="1.5"/><line x1="8" y1="11" x2="16" y2="11" stroke-width="1.5"/><line x1="8" y1="15" x2="12" y2="15" stroke-width="1.5"/></svg>
+                        <img src="solucoes-personalizadas.png" alt="Ícone Soluções Personalizadas" class="acc-icon product-icon-navy">
                         <div>
                             <div class="acc-title">Soluções Personalizadas</div>
                             <div class="acc-subtitle">Operações estruturadas para grandes empresas</div>
@@ -2348,7 +2362,7 @@
             </div>
             <div class="mt-16 flex flex-wrap justify-center gap-10 text-[11px] font-bold uppercase tracking-[4px]" style="color:rgba(255,255,255,0.6);">
                 <span class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-brand-secondary"></div> Sem Custo de Análise</span>
-                <span class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-brand-secondary"></div> Resposta em até 2h</span>
+                <span class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-brand-secondary"></div> Resposta em até 48h</span>
                 <span class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-brand-secondary"></div> Formalização Digital</span>
             </div>
         </div>
@@ -2869,7 +2883,7 @@
                 <div style="width:6px;height:6px;border-radius:50%;background:#0099dd;"></div>
                 <span style="font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#0099dd;">Seja um Parceiro</span>
             </div>
-            <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:10px;">Vamos crescer<br><span style="color:#0099dd;">juntos?</span></h2>
+            <h2 style="font-family:'Inter',sans-serif;font-size:26px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:10px;">Vamos crescer<br><span style="color:#0099dd;">juntos?</span></h2>
             <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.65;margin-bottom:28px;">Preencha os dados abaixo e nosso time entrará em contato para apresentar as condições da parceria.</p>
         </div>
 
