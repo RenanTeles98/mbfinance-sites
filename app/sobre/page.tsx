@@ -76,17 +76,10 @@ const timeline = [
   },
   {
     year: "2025",
-    title: "Novo Recorde 95.000 Contas PJ",
+    title: "Novo Recorde 95.000 Contas PJ e R$ 100Mi com Mercado Pago",
     description:
-      "Superamos o próprio recorde: 95.000 contas PJ abertas em um único ano. Conquistamos novamente o prêmio de melhor escritório do Conexão C6 — referência absoluta nacional em abertura de contas PJ.",
-    badge: "95.000 contas PJ",
-  },
-  {
-    year: "2025",
-    title: "R$ 100 Milhões em Movimentação com Mercado Pago",
-    description:
-      "Em parceria com o Mercado Pago, atingimos a marca de R$ 100 milhões em movimentação em tempo recorde — um marco histórico que consolida a MB Finance como referência nacional em soluções financeiras para empresas.",
-    badge: "R$ 100Mi · Mercado Pago",
+      "Superamos o próprio recorde: 95.000 contas PJ abertas em um único ano e conquistamos novamente o prêmio de melhor escritório do Conexão C6. Em parceria com o Mercado Pago, atingimos a marca de R$ 100 milhões em movimentação em tempo recorde — consolidando a MB Finance como referência nacional em soluções financeiras para empresas.",
+    badge: "95.000 contas PJ · R$ 100Mi · Mercado Pago",
   },
   {
     year: "2026",
