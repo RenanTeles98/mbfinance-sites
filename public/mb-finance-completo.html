@@ -786,7 +786,7 @@
                                                 <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Limite de crédito empresarial</span></li>
                                                 <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Abertura 100% digital, sem burocracia</span></li>
                                             </ul>
-                                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Conta PJ')" class="w-full block text-center text-[13px] font-light py-3 rounded-xl transition-all active:scale-95 cursor-pointer" style="color:#fff; background-color:#0099dd;">
+                                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Conta Corrente Empresarial')" class="w-full block text-center text-[13px] font-light py-3 rounded-xl transition-all active:scale-95 cursor-pointer" style="color:#fff; background-color:#0099dd;">
                                                 Abrir minha Conta Empresarial →
                                             </button>
                                         </div>
@@ -1180,7 +1180,7 @@
                     <button class="acc-header" onclick="toggleAcc(this)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 10v11"/><path d="M19 10v11"/><path d="M9 10v11"/><path d="M15 10v11"/><path d="m2 10 10-8 10 8"/><circle cx="12" cy="6.5" r="1"/></svg>
                         <div>
-                            <div class="acc-title" style="font-weight: 600 !important;">Conta PJ</div>
+                            <div class="acc-title" style="font-weight: 600 !important;">Conta Corrente Empresarial</div>
                             <div class="acc-subtitle">Abertura simplificada nos principais bancos</div>
                         </div>
                         <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -1193,7 +1193,7 @@
                             <span class="acc-tag">Cartão sem anuidade</span>
                             <span class="acc-tag">Web banking completo</span>
                         </div>
-                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Conta PJ')" class="acc-link cursor-pointer">
+                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Conta Corrente Empresarial')" class="acc-link cursor-pointer">
                             Solicitar abertura
                             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </button>
@@ -1218,7 +1218,7 @@
                             <span class="acc-tag">Taxas negociadas</span>
                             <span class="acc-tag">E-commerce</span>
                         </div>
-                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Adquirência')" class="acc-link cursor-pointer">
+                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Máquina de Cartão')" class="acc-link cursor-pointer">
                             Cotar taxas
                             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </button>
@@ -2439,8 +2439,8 @@
                 <div class="lg:col-span-3">
                     <h4 class="font-bold text-sm uppercase tracking-widest mb-10" style="color: #ffffff !important;">Soluções</h4>
                     <ul class="space-y-4 font-medium text-sm" style="color: rgba(255,255,255,0.4);">
-                        <li><a href="#produtos" onclick="openProduct('acc-conta-pj')" class="hover:text-brand-secondary transition-colors">Conta PJ</a></li>
-                        <li><a href="#produtos" onclick="openProduct('acc-adquirencia')" class="hover:text-brand-secondary transition-colors">Adquirência</a></li>
+                        <li><a href="#produtos" onclick="openProduct('acc-conta-pj')" class="hover:text-brand-secondary transition-colors">Conta Corrente Empresarial</a></li>
+                        <li><a href="#produtos" onclick="openProduct('acc-adquirencia')" class="hover:text-brand-secondary transition-colors">Máquina de Cartão</a></li>
                         <li><a href="#produtos" onclick="openProduct('acc-seguros')" class="hover:text-brand-secondary transition-colors">Seguros e Consórcios</a></li>
                         <li><a href="#produtos" onclick="openProduct('acc-capital-giro')" class="hover:text-brand-secondary transition-colors">Crédito Rápido</a></li>
                         <li><a href="#produtos" onclick="openProduct('acc-tributarias')" class="hover:text-brand-secondary transition-colors">Soluções Tributárias</a></li>
@@ -2674,8 +2674,8 @@
                 <select id="lead-produto-select" style="display:none; width:100%; border:1.5px solid #e2e8f0; border-radius:12px; padding:13px 16px; font-size:14px; color:#64748b; outline:none; font-family:inherit; box-sizing:border-box; background:#fff; cursor:pointer; appearance:none; -webkit-appearance:none;"
                     onfocus="this.style.borderColor='#0099dd'" onblur="this.style.borderColor='#e2e8f0'">
                     <option value="">Produto de interesse (opcional)</option>
-                    <option value="Conta PJ">Conta PJ</option>
-                    <option value="Adquirência">Adquirência</option>
+                    <option value="Conta Corrente Empresarial">Conta Corrente Empresarial</option>
+                    <option value="Máquina de Cartão">Máquina de Cartão</option>
                     <option value="Seguros e Consórcios">Seguros e Consórcios</option>
                     <option value="Crédito Rápido">Crédito Rápido</option>
                     <option value="Soluções Tributárias">Soluções Tributárias</option>
@@ -2802,8 +2802,8 @@
 
             // Monta mensagem personalizada pro WhatsApp
             const msgsPorProduto = {
-                'Conta PJ': `Olá! Gostaria de abrir uma Conta PJ para minha empresa pela MB Finance. Podem me ajudar?`,
-                'Adquirência': `Olá! Tenho interesse nas soluções de maquininha e gateway de pagamento da MB Finance. Podem me passar mais informações?`,
+                'Conta Corrente Empresarial': `Olá! Gostaria de abrir uma Conta Corrente Empresarial para minha empresa pela MB Finance. Podem me ajudar?`,
+                'Máquina de Cartão': `Olá! Tenho interesse nas soluções de maquininha e gateway de pagamento da MB Finance. Podem me passar mais informações?`,
                 'Seguros e Consórcios': `Olá! Gostaria de conhecer as opções de Seguros e Consórcios da MB Finance. Podem me ajudar?`,
                 'Crédito Rápido': `Olá! Preciso de crédito rápido para minha empresa. Gostaria de saber as condições disponíveis.`,
                 'Soluções Tributárias': `Olá! Tenho interesse nas Soluções Tributárias da MB Finance. Podem me passar mais detalhes?`,
