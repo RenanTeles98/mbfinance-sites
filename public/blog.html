@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="https://i.ibb.co/MDGzVRmC/logo-mb-finance.png">
     <link rel="stylesheet" href="tailwind.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1a2332; }
@@ -23,7 +23,7 @@
         .hero-inner { max-width: 1200px; margin: 0 auto; }
         .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,153,221,0.15); color: #0099dd; font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(0,153,221,0.25); margin-bottom: 24px; }
         .hero-tag::before { content: ""; width: 6px; height: 6px; background: #0099dd; border-radius: 50%; }
-        .hero-title { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; font-size: clamp(36px, 5vw, 60px); font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 20px; }
+        .hero-title { font-family: 'Inter', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 700; letter-spacing: -0.025em; color: #fff; line-height: 1.1; margin-bottom: 20px; }
         .hero-title span { color: #0099dd; }
         .hero-sub { color: rgba(255,255,255,0.62); font-size: 17px; line-height: 1.7; max-width: 640px; }
         .search-box { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 10px 16px; max-width: 640px; margin-top: 32px; transition: border-color 0.2s; }
@@ -52,7 +52,7 @@
         .featured-badge { position: relative; z-index: 1; background: #0099dd; color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; display: inline-block; }
         .featured-content { padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; }
         .article-category { font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: #0099dd; margin-bottom: 14px; }
-        .featured-title { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; font-size: 28px; font-weight: 700; color: #003956; line-height: 1.3; margin-bottom: 16px; }
+        .featured-title { font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 700; color: #003956; line-height: 1.3; margin-bottom: 16px; }
         .featured-excerpt { font-size: 15px; color: #64748b; line-height: 1.7; margin-bottom: 28px; }
         .article-meta { display: flex; align-items: center; gap: 16px; font-size: 12px; color: #94a3b8; font-weight: 600; }
         .article-meta span { display: flex; align-items: center; gap: 5px; }
@@ -69,7 +69,7 @@
         .card-read-time { display: flex; align-items: center; gap: 4px; }
         .card-link { color: #0099dd; font-weight: 800; }
         .newsletter { background: #003956; border-radius: 20px; padding: 56px 48px; text-align: center; }
-        .newsletter h3 { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+        .newsletter h3 { font-family: 'Inter', sans-serif; font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 12px; }
         .newsletter p { color: rgba(255,255,255,0.55); font-size: 15px; margin-bottom: 32px; }
         .newsletter-form { display: flex; gap: 12px; max-width: 520px; margin: 0 auto; }
         .newsletter-input { flex: 1; padding: 14px 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08); color: #fff; font-size: 14px; outline: none; }
@@ -120,6 +120,7 @@
             <button class="filter-btn" onclick="filterCat(this, 'gestao')">Gestao Financeira</button>
             <button class="filter-btn" onclick="filterCat(this, 'conta-pj')">Conta PJ</button>
             <button class="filter-btn" onclick="filterCat(this, 'antecipacao')">Antecipacao</button>
+            <button class="filter-btn" onclick="filterCat(this, 'gestao-tributaria')">Gestão Tributária</button>
         </div>
     </div>
     <main class="main">
@@ -131,7 +132,7 @@
             <span class="intro-badge">Atualizado</span>
         </div>
         <p class="section-title">Destaque</p>
-        <a class="featured" data-cat="credito" href="/blog/como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado">
+        <a class="featured" data-cat="credito" href="artigo-capital-de-giro-melhores-taxas.html">
             <div class="featured-image" style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&q=80&fit=crop');">
                 <div class="featured-image-overlay"></div>
                 <span class="featured-badge">Artigo em destaque</span>
@@ -149,7 +150,16 @@
         </a>
         <p class="section-title">Artigos recentes</p>
         <div class="grid-3">
-            <a class="card" data-cat="conta-pj" href="/blog/conta-pj-o-que-sua-empresa-precisa-saber-antes-de-escolher">
+            <a class="card" data-cat="gestao-tributaria" href="artigo-reforma-tributaria-o-que-muda-para-sua-empresa.html">
+                <div class="card-thumb" style="background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&fit=crop');"></div>
+                <div class="card-body">
+                    <p class="card-category">Gestão Tributária</p>
+                    <h3 class="card-title">Reforma Tributária: o que muda para a sua empresa a partir de 2026</h3>
+                    <p class="card-excerpt">CBS, IBS, fim do ICMS e ISS. Entenda o cronograma e o que sua empresa precisa fazer antes das mudanças chegarem.</p>
+                    <div class="card-footer"><span class="card-read-time">9 min</span><span class="card-link">Ler agora</span></div>
+                </div>
+            </a>
+            <a class="card" data-cat="conta-pj" href="artigo-conta-pj-o-que-sua-empresa-precisa-saber.html">
                 <div class="card-thumb" style="background-image:url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80&fit=crop');"></div>
                 <div class="card-body">
                     <p class="card-category">Conta PJ</p>
@@ -158,7 +168,7 @@
                     <div class="card-footer"><span class="card-read-time">6 min</span><span class="card-link">Ler agora</span></div>
                 </div>
             </a>
-            <a class="card" data-cat="antecipacao" href="/blog/antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio">
+            <a class="card" data-cat="antecipacao" href="artigo-antecipacao-de-recebiveis-quando-vale-a-pena.html">
                 <div class="card-thumb" style="background-image:url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80&fit=crop');"></div>
                 <div class="card-body">
                     <p class="card-category">Antecipacao</p>
@@ -167,7 +177,7 @@
                     <div class="card-footer"><span class="card-read-time">5 min</span><span class="card-link">Ler agora</span></div>
                 </div>
             </a>
-            <a class="card" data-cat="gestao" href="/blog/fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes">
+            <a class="card" data-cat="gestao" href="artigo-fluxo-de-caixa-como-evitar-surpresas.html">
                 <div class="card-thumb" style="background-image:url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80&fit=crop');"></div>
                 <div class="card-body">
                     <p class="card-category">Gestao Financeira</p>
