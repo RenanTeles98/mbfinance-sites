@@ -78,6 +78,7 @@
 
         /* Cada "slide" ocupa a tela toda — scroll natural */
         .tl-slide {
+            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -126,12 +127,10 @@
 
         /* Conteúdo do slide */
         .tl-content {
-            max-width: 700px;
+            max-width: 580px;
+            width: 100%;
             position: relative;
             z-index: 2;
-        }
-        .tl-slide.reverse .tl-content {
-            width: min(100%, 700px);
         }
 
         /* Animação escalonada de cada elemento */
