@@ -1,5 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { Redis } from "@upstash/redis";
 import { BlogPost } from "@/types/blog";
 
 const contentDir = path.join(process.cwd(), "content");
@@ -12,7 +13,6 @@ const hasKV = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 const writePath = isVercel && !hasKV ? tmpPath : postsPath;
 
 function getRedis() {
-  const { Redis } = require("@upstash/redis");
   return new Redis({
     url: process.env.KV_REST_API_URL!,
     token: process.env.KV_REST_API_TOKEN!,
