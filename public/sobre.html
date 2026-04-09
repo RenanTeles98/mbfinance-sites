@@ -912,28 +912,19 @@ function animateCounter(el) {
 
         drawnLen = Math.min(totalLen, Math.max(0, drawnLen));
         pathFg.style.strokeDashoffset = totalLen - drawnLen;
-    }
 
-    // IntersectionObserver — ativa animação quando slide entra na tela
-    var tlObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            var slide = entry.target;
-            if (entry.isIntersecting) {
+        // Ativa o slide quando a linha chega na posição Y do círculo
+        slides.forEach(function(slide) {
+            var isReverse = slide.classList.contains('reverse');
+            var dotFraction = isReverse ? 0.26 : 0.5;
+            var dotY = slide.offsetTop + slide.offsetHeight * dotFraction;
+            if (targetY >= dotY) {
                 slide.classList.add('active');
             } else {
-                var rect = entry.boundingClientRect;
-                if (rect.bottom < 0) {
-                    // Já passou — mantém visível (não reseta)
-                    slide.classList.add('active');
-                } else {
-                    // Ainda não chegou
-                    slide.classList.remove('active');
-                }
+                slide.classList.remove('active');
             }
         });
-    }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
-
-    slides.forEach(function(s) { tlObserver.observe(s); });
+    }
 
     if (document.readyState === 'complete') {
         buildPath(); updateSvg();
