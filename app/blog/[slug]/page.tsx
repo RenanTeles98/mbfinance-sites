@@ -44,6 +44,18 @@ export default async function BlogArticlePage({
 
   return (
     <main className="min-h-screen bg-slate-50">
+      <nav style={{ background: "#003956", position: "sticky", top: 0, zIndex: 100 }}>
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+          <a href="/mb-finance-completo.html">
+            <img src="/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto", display: "block" }} />
+          </a>
+          <a href="/blog.html" className="flex items-center gap-2 text-sm font-semibold text-white/65 transition-colors hover:text-white">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Voltar ao blog
+          </a>
+        </div>
+      </nav>
+
       <section className="bg-[#003956] px-6 py-14 text-white">
         <div className="mx-auto max-w-4xl">
           <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.28em] text-sky-300">
