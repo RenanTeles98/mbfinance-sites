@@ -8,8 +8,16 @@ const tmpPath = "/tmp/mb-blog-posts.json";
 const KV_KEY = "mb_blog_posts";
 
 const isVercel = !!process.env.VERCEL;
-const hasKV = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+const hasKV = !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
 const writePath = isVercel && !hasKV ? tmpPath : postsPath;
+
+function getRedis() {
+  const { Redis } = require("@upstash/redis");
+  return new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL!,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+  });
+}
 
 async function ensureStore() {
   if (!isVercel) {
@@ -39,10 +47,10 @@ function normalizePost(post: BlogPost): BlogPost {
 }
 
 export async function readBlogPosts(): Promise<BlogPost[]> {
-  // Vercel KV — banco persistente (quando configurado)
+  // Upstash Redis — banco persistente (quando configurado)
   if (hasKV) {
-    const { kv } = await import("@vercel/kv");
-    const posts = await kv.get<BlogPost[]>(KV_KEY);
+    const redis = getRedis();
+    const posts = await redis.get<BlogPost[]>(KV_KEY);
     return (posts || []).map(normalizePost);
   }
 
@@ -71,10 +79,10 @@ export async function writeBlogPosts(posts: BlogPost[]): Promise<void> {
     .map(normalizePost)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  // Vercel KV — banco persistente (quando configurado)
+  // Upstash Redis — banco persistente (quando configurado)
   if (hasKV) {
-    const { kv } = await import("@vercel/kv");
-    await kv.set(KV_KEY, normalized);
+    const redis = getRedis();
+    await redis.set(KV_KEY, normalized);
     return;
   }
 
