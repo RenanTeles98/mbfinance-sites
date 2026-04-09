@@ -145,16 +145,17 @@
             </div>
         </div>
     </main>
-    <footer style="background:#040f1a; padding: 96px 0; color: #fff; width:100%; display:block;">
-        <div style="display:block; width:100%; max-width:1280px; margin-left:auto; margin-right:auto; padding-left:48px; padding-right:48px; box-sizing:border-box;">
-            <!-- Grid 4 colunas -->
-            <div style="display:grid; grid-template-columns: 4fr 3fr 2fr 3fr; gap:48px; margin-bottom:80px;">
+    <footer class="text-white" style="background:#040f1a; padding: 80px 0 64px;">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
 
-                <!-- Col 1: Brand -->
-                <div style="display:flex; flex-direction:column; gap:28px;">
-                    <a href="mb-finance-completo.html" style="display:inline-block;">
-                        <img src="logo-horizontal-logo.branca.png" alt="MB Finance" style="height:36px; width:auto;">
-                    </a>
+                <!-- Col 1: Brand & Bio -->
+                <div class="lg:col-span-4" style="display:flex;flex-direction:column;gap:28px;">
+                    <div>
+                        <a href="mb-finance-completo.html" style="display:inline-block;opacity:1;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                            <img src="logo-horizontal-logo.branca.png" alt="MB Finance" style="height:36px; width:auto;">
+                        </a>
+                    </div>
                     <p style="font-size:15px; line-height:1.7; color:rgba(255,255,255,0.45); font-weight:500; max-width:280px;">
                         Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado. Seu elo estratégico com as principais instituições bancárias do Brasil.
                     </p>
@@ -169,27 +170,27 @@
                 </div>
 
                 <!-- Col 2: Soluções -->
-                <div>
+                <div class="lg:col-span-3">
                     <h4 style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:3px; color:#fff; margin:0 0 32px 0;">Soluções</h4>
                     <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px;">
-                        <li><a href="#produtos" onclick="openProduct('acc-conta-pj')" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Conta Corrente Empresarial</a></li>
-                        <li><a href="#produtos" onclick="openProduct('acc-adquirencia')" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Máquina de Cartão</a></li>
-                        <li><a href="#produtos" onclick="openProduct('acc-seguros')" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Seguros e Consórcios</a></li>
-                        <li><a href="#produtos" onclick="openProduct('acc-capital-giro')" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Crédito Rápido</a></li>
-                        <li><a href="#produtos" onclick="openProduct('acc-tributarias')" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Soluções Tributárias</a></li>
-                        <li><a href="#produtos" onclick="openProduct('acc-telemedicina')" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Telemedicina</a></li>
-                        <li><a href="#produtos" onclick="openProduct('acc-personalizadas')" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Soluções Personalizadas</a></li>
+                        <li><a href="mb-finance-completo.html#produtos" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Conta Corrente Empresarial</a></li>
+                        <li><a href="mb-finance-completo.html#produtos" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Máquina de Cartão</a></li>
+                        <li><a href="mb-finance-completo.html#produtos" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Seguros e Consórcios</a></li>
+                        <li><a href="mb-finance-completo.html#produtos" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Crédito Rápido</a></li>
+                        <li><a href="mb-finance-completo.html#produtos" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Soluções Tributárias</a></li>
+                        <li><a href="mb-finance-completo.html#produtos" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Telemedicina</a></li>
+                        <li><a href="mb-finance-completo.html#produtos" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Soluções Personalizadas</a></li>
                     </ul>
                 </div>
 
                 <!-- Col 3: Empresa + Legal -->
-                <div style="display:flex; flex-direction:column; gap:40px;">
+                <div class="lg:col-span-2" style="display:flex; flex-direction:column; gap:40px;">
                     <div>
                         <h4 style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:3px; color:#fff; margin:0 0 32px 0;">Empresa</h4>
                         <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px;">
-                            <li><a href="#como-funciona" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Como Funciona</a></li>
-                            <li><a href="#vagas" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Trabalhe Conosco</a></li>
-                            <li><a href="#" onclick="event.preventDefault();openParceriaModal()" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Seja um Parceiro</a></li>
+                            <li><a href="mb-finance-completo.html#como-funciona" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Como Funciona</a></li>
+                            <li><a href="mb-finance-completo.html#vagas" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Trabalhe Conosco</a></li>
+                            <li><a href="mb-finance-completo.html" style="color:rgba(255,255,255,0.4); font-size:14px; font-weight:500; text-decoration:none;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Seja um Parceiro</a></li>
                         </ul>
                     </div>
                     <div>
@@ -202,7 +203,7 @@
                 </div>
 
                 <!-- Col 4: Contato -->
-                <div>
+                <div class="lg:col-span-3">
                     <h4 style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:3px; color:#fff; margin:0 0 32px 0;">Contato</h4>
                     <div style="display:flex; flex-direction:column; gap:24px;">
                         <div>
