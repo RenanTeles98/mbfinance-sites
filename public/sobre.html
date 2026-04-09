@@ -858,14 +858,12 @@ function animateCounter(el) {
 
         if (isMobile) {
             var hookW = startX - dotX;
-            d = 'M ' + startX + ',0'
-              + ' L ' + startX + ',' + zigY
-              + ' L ' + dotX   + ',' + zigY
-              + ' L ' + dotX   + ',' + svgH;
+            d = 'M ' + dotX + ',' + headerH
+              + ' L ' + dotX + ',' + svgH;
 
             railMetrics = {
                 mode: 'single',
-                zigY: zigY,
+                zigY: headerH,
                 hookW: hookW
             };
         } else {
