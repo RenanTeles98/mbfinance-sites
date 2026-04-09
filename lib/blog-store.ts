@@ -51,7 +51,19 @@ export async function readBlogPosts(): Promise<BlogPost[]> {
   if (hasKV) {
     const redis = getRedis();
     const posts = await redis.get<BlogPost[]>(KV_KEY);
-    return (posts || []).map(normalizePost);
+    if (posts && posts.length > 0) {
+      return posts.map(normalizePost);
+    }
+    // KV vazio — seed automatico a partir do arquivo bundled
+    try {
+      const raw = await fs.readFile(postsPath, "utf8");
+      const seeded = JSON.parse(raw) as BlogPost[];
+      if (seeded.length > 0) {
+        await redis.set(KV_KEY, seeded);
+        return seeded.map(normalizePost);
+      }
+    } catch { /* ignora */ }
+    return [];
   }
 
   // Fallback: arquivo local (dev) ou /tmp (Vercel sem KV)
