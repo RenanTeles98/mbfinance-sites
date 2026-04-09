@@ -76,10 +76,8 @@
             overflow: hidden;
         }
 
-        /* Cada "slide" ocupa a tela toda — sticky stacking */
+        /* Cada "slide" ocupa a tela toda — scroll natural */
         .tl-slide {
-            position: sticky;
-            top: 0;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -139,25 +137,14 @@
         /* Animação escalonada de cada elemento */
         .tl-year, .tl-title, .tl-desc, .tl-badge {
             opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.65s cubic-bezier(.16,1,.3,1),
-                        transform 0.65s cubic-bezier(.16,1,.3,1);
+            transform: translateY(36px);
+            transition: opacity 0.7s cubic-bezier(.16,1,.3,1),
+                        transform 0.7s cubic-bezier(.16,1,.3,1);
         }
         .tl-slide.active .tl-year  { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
-        .tl-slide.active .tl-title { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
-        .tl-slide.active .tl-desc  { opacity: 1; transform: translateY(0); transition-delay: 0.32s; }
-        .tl-slide.active .tl-badge { opacity: 1; transform: translateY(0); transition-delay: 0.46s; }
-
-        /* Slide "coberto" — sai suavemente para cima e para trás */
-        .tl-slide.covered .tl-year,
-        .tl-slide.covered .tl-title,
-        .tl-slide.covered .tl-desc,
-        .tl-slide.covered .tl-badge {
-            opacity: 0; transform: translateY(-14px); transition-delay: 0s;
-        }
-        .tl-slide.covered .tl-bg-year { opacity: 0 !important; transform: translateY(-50%) scale(1.12) !important; }
-        .tl-slide.covered .tl-dot { opacity: 0.15; box-shadow: none; }
-        .tl-slide.covered .tl-connector { opacity: 0; }
+        .tl-slide.active .tl-title { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+        .tl-slide.active .tl-desc  { opacity: 1; transform: translateY(0); transition-delay: 0.28s; }
+        .tl-slide.active .tl-badge { opacity: 1; transform: translateY(0); transition-delay: 0.40s; }
 
         .tl-year {
             font-size: 11px; font-weight: 800; color: #0099dd;
@@ -193,8 +180,7 @@
             transition: opacity 0.35s cubic-bezier(.16,1,.3,1), transform 0.35s cubic-bezier(.16,1,.3,1);
             mix-blend-mode: multiply;
         }
-        .tl-slide.active .tl-trophy-img { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0s; }
-        .tl-slide.covered .tl-trophy-img { opacity: 0; transform: translateY(-6px) scale(0.97); transition-delay: 0s; }
+        .tl-slide.active .tl-trophy-img { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.1s; }
         .tl-trophy-label {
             font-size: 11px; font-weight: 700; color: rgba(0,30,46,0.4);
             letter-spacing: 0.1em; text-transform: uppercase;
@@ -202,8 +188,7 @@
             opacity: 0;
             transition: opacity 0.35s cubic-bezier(.16,1,.3,1);
         }
-        .tl-slide.active .tl-trophy-label { opacity: 1; transition-delay: 0.08s; }
-        .tl-slide.covered .tl-trophy-label { opacity: 0; transition-delay: 0s; }
+        .tl-slide.active .tl-trophy-label { opacity: 1; transition-delay: 0.18s; }
 
         /* Número do ano em background — sutil watermark */
         .tl-bg-year {
@@ -837,7 +822,7 @@ function animateCounter(el) {
 
     if (!section || !slides.length) return;
 
-    slides.forEach(function(slide, i) { slide.style.zIndex = i + 1; });
+    // z-index não necessário sem sticky stacking
 
     var totalLen = 0;
     var railMetrics = null;
@@ -903,73 +888,62 @@ function animateCounter(el) {
         }
     }
 
-    var MIN_ACTIVE_MS = 350;
-    var activeSince   = new Array(slides.length).fill(0);
+    // Anima linha SVG conforme scroll
+    function updateSvg() {
+        if (!pathFg || totalLen <= 0) return;
+        var secTopAbs = section.getBoundingClientRect().top + window.scrollY;
+        var targetY   = window.scrollY - secTopAbs + window.innerHeight * 0.65;
+        var drawnLen  = 0;
 
-    function update() {
-        var currentIndex = -1;
-        var now = Date.now();
-        var pivotIndex = slides.findIndex(function(slide) { return slide.id === 'tl-5'; });
+        if (railMetrics && railMetrics.mode === 'zig') {
+            var bendLen = railMetrics.zigY
+                + railMetrics.topHookW
+                + (railMetrics.pivotY - railMetrics.zigY)
+                + railMetrics.crossLen;
 
-        slides.forEach(function(slide, i) {
-            var top = slide.getBoundingClientRect().top;
-            if (top <= 2) {
-                if (!slide.classList.contains('active')) activeSince[i] = now;
-                slide.classList.add('active');
-                currentIndex = i;
+            if (targetY <= railMetrics.zigY) {
+                drawnLen = Math.max(0, targetY);
+            } else if (targetY <= railMetrics.pivotY) {
+                drawnLen = railMetrics.zigY + railMetrics.topHookW + (targetY - railMetrics.zigY);
             } else {
-                slide.classList.remove('active');
-                slide.classList.remove('covered');
-                activeSince[i] = 0;
+                drawnLen = bendLen + (targetY - railMetrics.pivotY);
             }
-        });
-
-        slides.forEach(function(slide, i) {
-            if (i < currentIndex) {
-                if (now - (activeSince[i] || now) >= MIN_ACTIVE_MS) slide.classList.add('covered');
-            } else if (i === currentIndex) {
-                slide.classList.remove('covered');
-            }
-        });
-
-        if (pathFg && totalLen > 0) {
-            var secTopAbs = section.getBoundingClientRect().top + window.scrollY;
-            var targetY   = window.scrollY - secTopAbs + window.innerHeight * 0.5;
-            var drawnLen  = 0;
-
-            if (railMetrics && railMetrics.mode === 'zig') {
-                var bendLen = railMetrics.zigY
-                    + railMetrics.topHookW
-                    + (railMetrics.pivotY - railMetrics.zigY)
-                    + railMetrics.crossLen;
-
-                if (targetY <= railMetrics.zigY) {
-                    drawnLen = Math.max(0, targetY);
-                } else if (targetY <= railMetrics.pivotY) {
-                    drawnLen = railMetrics.zigY + railMetrics.topHookW + (targetY - railMetrics.zigY);
-                } else {
-                    drawnLen = bendLen + (targetY - railMetrics.pivotY);
-                }
-
-                if (pivotIndex >= 0 && currentIndex >= pivotIndex) {
-                    drawnLen = Math.max(drawnLen, bendLen);
-                }
-            } else if (railMetrics) {
-                drawnLen = railMetrics.hookW + targetY;
-            }
-
-            drawnLen = Math.min(totalLen, Math.max(0, drawnLen));
-            pathFg.style.strokeDashoffset = totalLen - drawnLen;
+        } else if (railMetrics) {
+            drawnLen = railMetrics.hookW + targetY;
         }
+
+        drawnLen = Math.min(totalLen, Math.max(0, drawnLen));
+        pathFg.style.strokeDashoffset = totalLen - drawnLen;
     }
+
+    // IntersectionObserver — ativa animação quando slide entra na tela
+    var tlObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            var slide = entry.target;
+            if (entry.isIntersecting) {
+                slide.classList.add('active');
+            } else {
+                var rect = entry.boundingClientRect;
+                if (rect.bottom < 0) {
+                    // Já passou — mantém visível (não reseta)
+                    slide.classList.add('active');
+                } else {
+                    // Ainda não chegou
+                    slide.classList.remove('active');
+                }
+            }
+        });
+    }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+
+    slides.forEach(function(s) { tlObserver.observe(s); });
 
     if (document.readyState === 'complete') {
-        buildPath(); update();
+        buildPath(); updateSvg();
     } else {
-        window.addEventListener('load', function() { buildPath(); update(); });
+        window.addEventListener('load', function() { buildPath(); updateSvg(); });
     }
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', function() { buildPath(); update(); });
+    window.addEventListener('scroll', updateSvg, { passive: true });
+    window.addEventListener('resize', function() { buildPath(); updateSvg(); });
 })();
 </script>
 
