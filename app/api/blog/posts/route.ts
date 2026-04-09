@@ -4,7 +4,7 @@ import { BlogPost } from "@/types/blog";
 
 function isAuthorized(request: NextRequest) {
   const token = request.headers.get("x-blog-admin-token");
-  const expected = process.env.BLOG_ADMIN_TOKEN || "mbfinance2025";
+  const expected = process.env.BLOG_ADMIN_TOKEN || "mbfinance2026";
   return token === expected;
 }
 

@@ -4,13 +4,20 @@ import { BlogPost } from "@/types/blog";
 
 const contentDir = path.join(process.cwd(), "content");
 const postsPath = path.join(contentDir, "blog-posts.json");
+const tmpPath = "/tmp/mb-blog-posts.json";
+
+// No Vercel, o sistema de arquivos é somente leitura — usamos /tmp para escrita
+const isVercel = !!process.env.VERCEL;
+const writePath = isVercel ? tmpPath : postsPath;
 
 async function ensureStore() {
-  await fs.mkdir(contentDir, { recursive: true });
-  try {
-    await fs.access(postsPath);
-  } catch {
-    await fs.writeFile(postsPath, "[]\n", "utf8");
+  if (!isVercel) {
+    await fs.mkdir(contentDir, { recursive: true });
+    try {
+      await fs.access(postsPath);
+    } catch {
+      await fs.writeFile(postsPath, "[]\n", "utf8");
+    }
   }
 }
 
@@ -32,9 +39,23 @@ function normalizePost(post: BlogPost): BlogPost {
 
 export async function readBlogPosts(): Promise<BlogPost[]> {
   await ensureStore();
-  const raw = await fs.readFile(postsPath, "utf8");
-  const parsed = JSON.parse(raw) as BlogPost[];
-  return parsed.map(normalizePost);
+  // No Vercel: tenta ler /tmp primeiro (escrito pelo PUT), senão usa o bundled
+  let readFrom = postsPath;
+  if (isVercel) {
+    try {
+      await fs.access(tmpPath);
+      readFrom = tmpPath;
+    } catch {
+      readFrom = postsPath;
+    }
+  }
+  try {
+    const raw = await fs.readFile(readFrom, "utf8");
+    const parsed = JSON.parse(raw) as BlogPost[];
+    return parsed.map(normalizePost);
+  } catch {
+    return [];
+  }
 }
 
 export async function writeBlogPosts(posts: BlogPost[]): Promise<void> {
@@ -42,7 +63,7 @@ export async function writeBlogPosts(posts: BlogPost[]): Promise<void> {
   const normalized = posts
     .map(normalizePost)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  await fs.writeFile(postsPath, `${JSON.stringify(normalized, null, 2)}\n`, "utf8");
+  await fs.writeFile(writePath, `${JSON.stringify(normalized, null, 2)}\n`, "utf8");
 }
 
 export async function readPublishedBlogPosts(): Promise<BlogPost[]> {

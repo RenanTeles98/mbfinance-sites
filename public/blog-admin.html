@@ -674,6 +674,12 @@ let currentId = null;
 function init() {
     if (sessionStorage.getItem(SESSION_KEY) === '1') showApp();
     document.getElementById('f-date').value = today();
+    // Pré-configura URL do site oficial se ainda não estiver salva
+    if (!localStorage.getItem(API_BASE_KEY)) {
+        localStorage.setItem(API_BASE_KEY, 'https://mbfinance-sites.vercel.app');
+        localStorage.setItem(API_TOKEN_KEY, 'mbfinance2026');
+        localStorage.setItem('mb_site_domain', 'https://mbfinance-sites.vercel.app');
+    }
     updateOfficialBlogUi();
 }
 
@@ -1047,7 +1053,7 @@ function getApiBase() {
 }
 
 function getApiToken() {
-    return (localStorage.getItem(API_TOKEN_KEY) || PASSWORD).trim();
+    return (localStorage.getItem(API_TOKEN_KEY) || 'mbfinance2026').trim();
 }
 
 function getPostsApiUrl() {
@@ -1056,16 +1062,11 @@ function getPostsApiUrl() {
 }
 
 function updateOfficialBlogUi() {
-    const base = getApiBase();
+    const base = getApiBase() || 'https://mbfinance-sites.vercel.app';
     const link = document.getElementById('official-blog-link');
     if (!link) return;
-    if (base) {
-        link.href = `${base}/blog`;
-        link.textContent = 'Ver Blog Oficial';
-    } else {
-        link.href = 'blog.html';
-        link.textContent = 'Ver Blog';
-    }
+    link.href = `${base}/blog.html`;
+    link.textContent = 'Ver Blog Oficial';
 }
 
 function setSyncStatus(text, tone) {
@@ -1076,8 +1077,8 @@ function setSyncStatus(text, tone) {
 }
 
 function configureOfficialBlog() {
-    const currentBase = getApiBase() || 'http://localhost:3000';
-    const base = prompt('URL base do blog oficial / app Next.js\nEx: http://localhost:3000 ou https://seudominio.com', currentBase);
+    const currentBase = getApiBase() || 'https://mbfinance-sites.vercel.app';
+    const base = prompt('URL do site oficial MB Finance:', currentBase);
     if (base === null) return;
     const normalizedBase = base.trim().replace(/\/$/, '');
     if (!normalizedBase) {
@@ -1087,12 +1088,11 @@ function configureOfficialBlog() {
         setSyncStatus('Somente local', 'offline');
         return;
     }
-    const token = prompt('Token do painel para publicar no blog oficial', getApiToken());
-    if (token === null) return;
     localStorage.setItem(API_BASE_KEY, normalizedBase);
-    localStorage.setItem(API_TOKEN_KEY, token.trim() || PASSWORD);
+    localStorage.setItem(API_TOKEN_KEY, 'mbfinance2026');
+    localStorage.setItem('mb_site_domain', normalizedBase);
     updateOfficialBlogUi();
-    setSyncStatus('API configurada', 'warn');
+    setSyncStatus('Site oficial configurado', 'warn');
     loadPosts();
 }
 
