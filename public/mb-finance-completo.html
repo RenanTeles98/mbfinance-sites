@@ -1439,18 +1439,6 @@
                     flex-direction: column;
                     gap: 28px;
                 }
-                #cf-steps-grid::before {
-                    content: '';
-                    position: absolute;
-                    left: 11px;
-                    top: 0;
-                    height: 100%;
-                    width: 1px;
-                    background: rgba(255,255,255,0.2);
-                    z-index: 0;
-                    transform-origin: top;
-                    animation: cf-line-v 1.15s cubic-bezier(.4,0,.2,1) 0.3s both;
-                }
                 .cf-step {
                     display: grid !important;
                     grid-template-columns: 24px 1fr;
@@ -1464,6 +1452,19 @@
                     display: flex;
                     justify-content: center;
                     padding-top: 2px;
+                    position: relative;
+                }
+                /* Linha entre passos — apenas nos que NÃO são o último */
+                .cf-step:not(:last-child) > div:first-child::after {
+                    content: '';
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    top: 12px;
+                    height: calc(100% - 12px + 28px);
+                    width: 1px;
+                    background: rgba(255,255,255,0.2);
+                    animation: cf-line-v 1.15s cubic-bezier(.4,0,.2,1) 0.3s both;
                 }
                 .cf-step-title {
                     grid-column: 2;
