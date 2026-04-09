@@ -126,66 +126,14 @@
     <main class="main">
         <div class="intro-banner">
             <div>
-                <h3>4 artigos ja publicados no blog</h3>
-                <p>O indice abaixo agora abre paginas completas com conteudo real, leitura guiada e CTA para o time comercial da MB Finance.</p>
+                <h3 id="posts-count">Carregando artigos...</h3>
+                <p>Conteudo sobre credito empresarial, gestao financeira e solucoes para fazer o seu negocio crescer.</p>
             </div>
-            <span class="intro-badge">Atualizado</span>
+            <span class="intro-badge" id="posts-status">Ao vivo</span>
         </div>
-        <p class="section-title">Destaque</p>
-        <a class="featured" data-cat="credito" href="artigo-capital-de-giro-melhores-taxas.html">
-            <div class="featured-image" style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&q=80&fit=crop');">
-                <div class="featured-image-overlay"></div>
-                <span class="featured-badge">Artigo em destaque</span>
-            </div>
-            <div class="featured-content">
-                <p class="article-category">Credito Empresarial</p>
-                <h2 class="featured-title">Como conseguir capital de giro com as melhores taxas do mercado</h2>
-                <p class="featured-excerpt">Entenda como funciona a analise de credito, o que pesa nas condicoes oferecidas e como negociar de forma mais inteligente para sua empresa.</p>
-                <div class="article-meta">
-                    <span><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>8 min de leitura</span>
-                    <span>Publicado</span>
-                </div>
-                <span class="read-btn">Ler artigo</span>
-            </div>
-        </a>
-        <p class="section-title">Artigos recentes</p>
-        <div class="grid-3">
-            <a class="card" data-cat="gestao-tributaria" href="artigo-reforma-tributaria-o-que-muda-para-sua-empresa.html">
-                <div class="card-thumb" style="background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&fit=crop');"></div>
-                <div class="card-body">
-                    <p class="card-category">Gestão Tributária</p>
-                    <h3 class="card-title">Reforma Tributária: o que muda para a sua empresa a partir de 2026</h3>
-                    <p class="card-excerpt">CBS, IBS, fim do ICMS e ISS. Entenda o cronograma e o que sua empresa precisa fazer antes das mudanças chegarem.</p>
-                    <div class="card-footer"><span class="card-read-time">9 min</span><span class="card-link">Ler agora</span></div>
-                </div>
-            </a>
-            <a class="card" data-cat="conta-pj" href="artigo-conta-pj-o-que-sua-empresa-precisa-saber.html">
-                <div class="card-thumb" style="background-image:url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80&fit=crop');"></div>
-                <div class="card-body">
-                    <p class="card-category">Conta PJ</p>
-                    <h3 class="card-title">Conta PJ: o que sua empresa precisa saber antes de escolher</h3>
-                    <p class="card-excerpt">Tarifas, servicos, experiencia do app e integracoes mudam o custo operacional da sua rotina financeira.</p>
-                    <div class="card-footer"><span class="card-read-time">6 min</span><span class="card-link">Ler agora</span></div>
-                </div>
-            </a>
-            <a class="card" data-cat="antecipacao" href="artigo-antecipacao-de-recebiveis-quando-vale-a-pena.html">
-                <div class="card-thumb" style="background-image:url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80&fit=crop');"></div>
-                <div class="card-body">
-                    <p class="card-category">Antecipacao</p>
-                    <h3 class="card-title">Antecipacao de recebiveis: quando vale a pena para o seu negocio</h3>
-                    <p class="card-excerpt">Veja como comparar custo efetivo, urgencia de caixa e retorno sobre o capital antes de antecipar.</p>
-                    <div class="card-footer"><span class="card-read-time">5 min</span><span class="card-link">Ler agora</span></div>
-                </div>
-            </a>
-            <a class="card" data-cat="gestao" href="artigo-fluxo-de-caixa-como-evitar-surpresas.html">
-                <div class="card-thumb" style="background-image:url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80&fit=crop');"></div>
-                <div class="card-body">
-                    <p class="card-category">Gestao Financeira</p>
-                    <h3 class="card-title">Fluxo de caixa: como evitar surpresas no fim do mes</h3>
-                    <p class="card-excerpt">Processos simples e indicadores basicos ajudam a manter previsibilidade mesmo em meses de maior pressao.</p>
-                    <div class="card-footer"><span class="card-read-time">7 min</span><span class="card-link">Ler agora</span></div>
-                </div>
-            </a>
+        <div id="featured-wrap"></div>
+        <p class="section-title" id="recent-title" style="display:none">Artigos recentes</p>
+        <div class="grid-3" id="posts-grid">
             <div id="no-results" class="no-results">Nenhum artigo encontrado para esta busca.</div>
         </div>
         <div class="newsletter">
@@ -280,6 +228,103 @@
         </div>
     </footer>
     <script>
+        var API_URL = '/api/blog/posts';
+
+        function escHtml(s) {
+            if (!s) return '';
+            return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        function fmtDate(d) {
+            try {
+                return new Date(d + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'long', year:'numeric'});
+            } catch(e) { return d || ''; }
+        }
+
+        function updateCount(n) {
+            var el = document.getElementById('posts-count');
+            if (el) el.textContent = n + (n === 1 ? ' artigo publicado' : ' artigos publicados') + ' no blog';
+        }
+
+        function renderFeatured(post) {
+            var wrap = document.getElementById('featured-wrap');
+            var imgStyle = post.image ? "background-image:url('" + escHtml(post.image) + "')" : 'background:#003956';
+            wrap.innerHTML =
+                '<p class="section-title">Destaque</p>' +
+                '<a class="featured" data-cat="' + escHtml(post.category) + '" href="/blog/' + escHtml(post.slug) + '">' +
+                    '<div class="featured-image" style="' + imgStyle + ';">' +
+                        '<div class="featured-image-overlay"></div>' +
+                        '<span class="featured-badge">Artigo em destaque</span>' +
+                    '</div>' +
+                    '<div class="featured-content">' +
+                        '<p class="article-category">' + escHtml(post.categoryLabel || post.category) + '</p>' +
+                        '<h2 class="featured-title">' + escHtml(post.title) + '</h2>' +
+                        '<p class="featured-excerpt">' + escHtml(post.excerpt) + '</p>' +
+                        '<div class="article-meta">' +
+                            '<span>' + fmtDate(post.date) + '</span>' +
+                            '<span>' + escHtml(post.readTime) + '</span>' +
+                        '</div>' +
+                        '<span class="read-btn">Ler artigo <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align:middle"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg></span>' +
+                    '</div>' +
+                '</a>';
+        }
+
+        function renderGrid(posts) {
+            var grid = document.getElementById('posts-grid');
+            var title = document.getElementById('recent-title');
+            if (posts.length === 0) {
+                grid.innerHTML = '<div id="no-results" class="no-results">Nenhum artigo encontrado para esta busca.</div>';
+                if (title) title.style.display = 'none';
+                return;
+            }
+            if (title) title.style.display = '';
+            grid.innerHTML = posts.map(function(post) {
+                var imgStyle = post.image ? "background-image:url('" + escHtml(post.image) + "')" : 'background:#003956';
+                return '<a class="card" data-cat="' + escHtml(post.category) + '" href="/blog/' + escHtml(post.slug) + '">' +
+                    '<div class="card-thumb" style="' + imgStyle + ';"></div>' +
+                    '<div class="card-body">' +
+                        '<p class="card-category">' + escHtml(post.categoryLabel || post.category) + '</p>' +
+                        '<h3 class="card-title">' + escHtml(post.title) + '</h3>' +
+                        '<p class="card-excerpt">' + escHtml(post.excerpt) + '</p>' +
+                        '<div class="card-footer"><span class="card-read-time">' + escHtml(post.readTime) + '</span><span class="card-link">Ler agora</span></div>' +
+                    '</div></a>';
+            }).join('') +
+            '<div id="no-results" class="no-results">Nenhum artigo encontrado para esta busca.</div>';
+        }
+
+        function showEmpty() {
+            updateCount(0);
+            var wrap = document.getElementById('featured-wrap');
+            var title = document.getElementById('recent-title');
+            var status = document.getElementById('posts-status');
+            wrap.innerHTML = '';
+            document.getElementById('posts-grid').innerHTML =
+                '<div style="text-align:center;padding:64px 24px;grid-column:1/-1;">' +
+                    '<div style="font-size:48px;margin-bottom:16px;">✍️</div>' +
+                    '<div style="font-size:20px;font-weight:800;color:#003956;margin-bottom:8px;">Nenhum artigo publicado ainda</div>' +
+                    '<p style="color:#64748b;">Em breve novos conteudos estarao disponiveis aqui.</p>' +
+                '</div>';
+            if (title) title.style.display = 'none';
+            if (status) status.textContent = 'Em breve';
+        }
+
+        async function loadPosts() {
+            try {
+                var res = await fetch(API_URL);
+                if (!res.ok) throw new Error('api');
+                var data = await res.json();
+                var posts = (data.posts || []).filter(function(p) { return p.published !== false; });
+                if (posts.length === 0) { showEmpty(); return; }
+                var featured = posts.find(function(p) { return p.featured; }) || posts[0];
+                var rest = posts.filter(function(p) { return p.id !== featured.id; });
+                renderFeatured(featured);
+                renderGrid(rest);
+                updateCount(posts.length);
+            } catch(e) {
+                showEmpty();
+            }
+        }
+
         function searchCards(query) {
             var q = query.toLowerCase().trim();
             var cards = document.querySelectorAll('[data-cat]');
@@ -290,12 +335,14 @@
                 card.style.display = show ? '' : 'none';
                 if (show) visible++;
             });
-            document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+            var nr = document.getElementById('no-results');
+            if (nr) nr.style.display = visible === 0 ? 'block' : 'none';
             if (q) {
                 document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
                 document.querySelector('.filter-btn').classList.add('active');
             }
         }
+
         function filterCat(btn, cat) {
             document.getElementById('search-input').value = '';
             document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -307,8 +354,11 @@
                 el.style.display = show ? '' : 'none';
                 if (show) visible++;
             });
-            document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+            var nr = document.getElementById('no-results');
+            if (nr) nr.style.display = visible === 0 ? 'block' : 'none';
         }
+
+        document.addEventListener('DOMContentLoaded', loadPosts);
     </script>
 </body>
 </html>

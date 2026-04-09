@@ -5,10 +5,11 @@ import { BlogPost } from "@/types/blog";
 const contentDir = path.join(process.cwd(), "content");
 const postsPath = path.join(contentDir, "blog-posts.json");
 const tmpPath = "/tmp/mb-blog-posts.json";
+const KV_KEY = "mb_blog_posts";
 
-// No Vercel, o sistema de arquivos é somente leitura — usamos /tmp para escrita
 const isVercel = !!process.env.VERCEL;
-const writePath = isVercel ? tmpPath : postsPath;
+const hasKV = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+const writePath = isVercel && !hasKV ? tmpPath : postsPath;
 
 async function ensureStore() {
   if (!isVercel) {
@@ -38,8 +39,15 @@ function normalizePost(post: BlogPost): BlogPost {
 }
 
 export async function readBlogPosts(): Promise<BlogPost[]> {
+  // Vercel KV — banco persistente (quando configurado)
+  if (hasKV) {
+    const { kv } = await import("@vercel/kv");
+    const posts = await kv.get<BlogPost[]>(KV_KEY);
+    return (posts || []).map(normalizePost);
+  }
+
+  // Fallback: arquivo local (dev) ou /tmp (Vercel sem KV)
   await ensureStore();
-  // No Vercel: tenta ler /tmp primeiro (escrito pelo PUT), senão usa o bundled
   let readFrom = postsPath;
   if (isVercel) {
     try {
@@ -59,10 +67,19 @@ export async function readBlogPosts(): Promise<BlogPost[]> {
 }
 
 export async function writeBlogPosts(posts: BlogPost[]): Promise<void> {
-  await ensureStore();
   const normalized = posts
     .map(normalizePost)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  // Vercel KV — banco persistente (quando configurado)
+  if (hasKV) {
+    const { kv } = await import("@vercel/kv");
+    await kv.set(KV_KEY, normalized);
+    return;
+  }
+
+  // Fallback: arquivo
+  await ensureStore();
   await fs.writeFile(writePath, `${JSON.stringify(normalized, null, 2)}\n`, "utf8");
 }
 
