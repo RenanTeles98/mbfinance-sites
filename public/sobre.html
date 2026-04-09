@@ -118,7 +118,7 @@
         .tl-slide.reverse .tl-dot {
             left: auto;
             right: 64px;
-            top: 26%;
+            top: 50%;
         }
 
         /* Linha horizontal do dot até o conteúdo */
@@ -137,7 +137,7 @@
         .tl-slide.reverse .tl-connector {
             left: auto;
             right: 82px;
-            top: 26%;
+            top: 50%;
             background: linear-gradient(to left, #0099dd, rgba(0,153,221,0.3));
         }
 
@@ -866,13 +866,12 @@ function animateCounter(el) {
                 hookW: hookW
             };
         } else {
-            var pivotSlide = document.getElementById('tl-5');
-            var pivotIndex = slides.findIndex(function(slide) { return slide.id === 'tl-5'; });
-            var leftX = 73;
+            var slide2020  = document.getElementById('tl-4');
+            var leftX  = 73;
             var rightX = svgW - 73;
-            var slideH = pivotSlide ? pivotSlide.offsetHeight : window.innerHeight;
-            var pivotY = pivotIndex >= 0
-                ? Math.round(headerH + (pivotIndex * slideH) + (slideH * 0.26))
+            // Pivot na fronteira exata entre 2020 e 2021 (não dentro do slide)
+            var pivotY = slide2020
+                ? Math.round(slide2020.offsetTop + slide2020.offsetHeight)
                 : Math.round(svgH * 0.4);
             var topHookW = Math.abs(startX - leftX);
             var crossLen = Math.abs(rightX - leftX);
@@ -932,7 +931,7 @@ function animateCounter(el) {
         // Ativa o slide quando a linha chega na posição Y do círculo
         slides.forEach(function(slide) {
             var isReverse = slide.classList.contains('reverse');
-            var dotFraction = isReverse ? 0.26 : 0.5;
+            var dotFraction = 0.5;
             var dotY = slide.offsetTop + slide.offsetHeight * dotFraction;
             if (targetY >= dotY) {
                 slide.classList.add('active');
