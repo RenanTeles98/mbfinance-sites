@@ -212,23 +212,29 @@
         /* Navbar scrolled state */
         #navbar.scrolled { background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-bottom: 1px solid #f1f5f9; }
         #navbar.scrolled a { color: #003956 !important; }
-        #navbar.scrolled .product-panel a { color: #fff !important; }
-        #navbar.scrolled svg { stroke: #003956 !important; }
-        .product-icon-navy {
-            filter: brightness(0) saturate(100%) invert(16%) sepia(37%) saturate(1310%) hue-rotate(167deg) brightness(94%) contrast(101%);
-        }
+        #navbar.scrolled > div svg { stroke: #003956 !important; }
 
-        /* ── Mega Menu Styles ── */
-        .mega-menu {
+        /* ── Full-Width Mega Menu ── */
+        #mega-menu-fullwidth {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(15px);
-            transition: all 0.3s ease-out;
+            transform: translateY(-8px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+            z-index: 99;
         }
-        .group:hover .mega-menu {
+        #mega-menu-fullwidth.open {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+        }
+        .mega-prod-card:hover {
+            background: #f0f7ff !important;
+            border-color: #bde0f8 !important;
         }
         .nav-link {
             position: relative;
@@ -586,285 +592,13 @@
                 <!-- Desktop Navigation (Center) -->
                 <div id="desktop-nav" class="flex-1 hidden lg:flex justify-center">
                     <nav class="flex items-center gap-10">
-                        <!-- NOSSOS PRODUTOS (Mega Menu) -->
-                        <div class="relative group py-2" id="mega-menu-wrapper">
-                            <a href="#produtos" onclick="event.preventDefault(); smoothScrollTo('produtos', 1400)" class="nav-link flex items-center gap-1 text-[13px] font-semibold tracking-wider text-white group-hover:text-brand-secondary transition-colors" id="nav-nav-produtos">
+                        <!-- NOSSOS PRODUTOS (Mega Menu Trigger) -->
+                        <div class="py-2" id="mega-menu-wrapper">
+                            <button class="nav-link flex items-center gap-1 text-[13px] font-semibold tracking-wider text-white hover:text-brand-secondary transition-colors" id="nav-nav-produtos" style="background:none;border:none;cursor:pointer;padding:0;">
                                 PRODUTOS
-                                <svg class="w-3 h-3 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
-                            </a>
-                            <div class="mega-menu absolute top-full left-1/2 -translate-x-1/2 mt-2" id="mega-menu-panel">
-                                <div class="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden flex items-stretch border-b-4 border-b-brand-secondary text-left">
-                                    
-                                    <!-- Left Side: Product List -->
-                                    <div class="p-6 border-r border-gray-100 flex-shrink-0" style="width:320px;">
-                                        <h4 class="text-[10px] font-light text-slate-400 uppercase tracking-[2px] mb-5">SOLUÇÕES</h4>
-                                        <ul class="space-y-1">
-
-                                            <!-- Conta Corrente Empresarial -->
-                                            <li>
-                                                <button data-panel="conta-pj" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-slate-50 transition-colors text-left group/btn">
-                                                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-brand-secondary/80 group-hover/btn:text-brand-secondary transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 10v11"/><path d="M19 10v11"/><path d="M9 10v11"/><path d="M15 10v11"/><path d="m2 10 10-8 10 8"/><circle cx="12" cy="6.5" r="1"/></svg>
-                                                    </div>
-                                                    <div class="flex-1 min-w-0">
-                                                        <div class="text-[13px] font-bold text-slate-500 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Conta Corrente Empresarial</div>
-                                                        <div class="text-[11px] text-slate-400">Conta digital completa</div>
-                                                    </div>
-                                                    <svg class="w-3.5 h-3.5 text-gray-300 group-hover/btn:text-brand-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                                </button>
-                                            </li>
-
-                                            <!-- Máquina de Cartão -->
-                                            <li>
-                                                <button data-panel="maquina" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-slate-50 transition-colors text-left group/btn">
-                                                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-brand-secondary/80 group-hover/btn:text-brand-secondary transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M9 6h6"/><path d="M7 10h10v4H7V10z"/><path d="M7 17h2"/><path d="M11 17h2"/><path d="M15 17h2"/></svg>
-                                                    </div>
-                                                    <div class="flex-1 min-w-0">
-                                                        <div class="text-[13px] font-bold text-slate-500 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Máquina de Cartão</div>
-                                                        <div class="text-[11px] text-slate-400">Venda com ou sem fio</div>
-                                                    </div>
-                                                    <svg class="w-3.5 h-3.5 text-gray-300 group-hover/btn:text-brand-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                                </button>
-                                            </li>
-
-                                            <!-- Capital de Giro -->
-                                            <li>
-                                                <button data-panel="capital" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:bg-brand-secondary/5 hover:border-brand-secondary/20 transition-all text-left group/btn">
-                                                    <div class="w-8 h-8 rounded-lg bg-brand-secondary/10 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary transition-colors">
-                                                        <svg class="w-4 h-4 text-brand-secondary group-hover/btn:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a4.5 4.5 0 1 0 0 9h5a4.5 4.5 0 1 1 0 9H7"/></svg>
-                                                    </div>
-                                                    <div class="flex-1 min-w-0 min-w-0">
-                                                        <div class="flex items-center gap-1.5">
-                                                            <span class="text-[13px] font-bold text-brand-secondary whitespace-nowrap" style="font-weight: 700 !important;">Crédito Rápido</span>
-                                                            <span class="text-[8px] font-light bg-brand-secondary text-white px-1.5 py-0.5 rounded uppercase tracking-wide leading-none">fomenta+</span>
-                                                        </div>
-                                                        <div class="text-[11px] text-slate-400">Plataforma multibanco</div>
-                                                    </div>
-                                                    <svg class="w-3.5 h-3.5 text-brand-secondary/40 group-hover/btn:text-brand-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                                </button>
-                                            </li>
-
-                                            <!-- Seguros e Consórcios -->
-                                            <li>
-                                                <button data-panel="seguros" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-slate-50 transition-colors text-left group/btn">
-                                                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-brand-secondary/80 group-hover/btn:text-brand-secondary transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                                                    </div>
-                                                    <div class="flex-1 min-w-0">
-                                                        <div class="text-[13px] font-bold text-slate-500 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Seguros e Consórcios</div>
-                                                        <div class="text-[11px] text-slate-400">Proteção e planejamento</div>
-                                                    </div>
-                                                    <svg class="w-3.5 h-3.5 text-gray-300 group-hover/btn:text-brand-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                                </button>
-                                            </li>
-
-                                            <!-- Soluções Tributárias -->
-                                            <li>
-                                                <button data-panel="tributario" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-slate-50 transition-colors text-left group/btn">
-                                                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-brand-secondary/80 group-hover/btn:text-brand-secondary transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg>
-                                                    </div>
-                                                    <div class="flex-1 min-w-0">
-                                                        <div class="text-[13px] font-bold text-slate-500 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Soluções Tributárias</div>
-                                                        <div class="text-[11px] text-slate-400">Recuperação e planejamento fiscal</div>
-                                                    </div>
-                                                    <svg class="w-3.5 h-3.5 text-gray-300 group-hover/btn:text-brand-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                                </button>
-                                            </li>
-
-                                            <!-- Telemedicina -->
-                                            <li>
-                                                <button data-panel="telemedicina" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-slate-50 transition-colors text-left group/btn">
-                                                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-brand-secondary/80 group-hover/btn:text-brand-secondary transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 7v6m-3-3h6"/></svg>
-                                                    </div>
-                                                    <div class="flex-1 min-w-0">
-                                                        <div class="text-[13px] font-bold text-slate-500 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Telemedicina</div>
-                                                        <div class="text-[11px] text-slate-400">Saúde para sua equipe</div>
-                                                    </div>
-                                                    <svg class="w-3.5 h-3.5 text-gray-300 group-hover/btn:text-brand-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                                </button>
-                                            </li>
-
-                                            <!-- Soluções Personalizadas -->
-                                            <li>
-                                                <button data-panel="personalizado" class="product-btn w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-slate-50 transition-colors text-left group/btn">
-                                                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover/btn:bg-brand-secondary/20 transition-colors">
-                                                        <svg class="w-4 h-4 text-brand-secondary/80 group-hover/btn:text-brand-secondary transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="12" r="3"/></svg>
-                                                    </div>
-                                                    <div class="flex-1 min-w-0">
-                                                        <div class="text-[13px] font-bold text-slate-500 group-hover/btn:text-brand-secondary transition-colors whitespace-nowrap">Soluções Personalizadas</div>
-                                                        <div class="text-[11px] text-slate-400">Operações estruturadas</div>
-                                                    </div>
-                                                    <svg class="w-3.5 h-3.5 text-gray-300 group-hover/btn:text-brand-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                                </button>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-
-                                    <!-- Right Side: Dynamic Panel -->
-                                    <div id="product-panel-area" class="overflow-hidden transition-all duration-300 self-stretch flex" style="width:0;opacity:0;">
-
-                                        <!-- Panel: Conta PJ -->
-                                        <div id="panel-conta-pj" class="product-panel hidden p-7 bg-slate-50 border-l border-gray-100 flex flex-col justify-center w-full">
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <div class="w-7 h-7 rounded-lg bg-brand-secondary/15 flex items-center justify-center">
-                                                    <svg class="w-4 h-4 text-brand-secondary" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 10v11"/><path d="M19 10v11"/><path d="M9 10v11"/><path d="M15 10v11"/><path d="m2 10 10-8 10 8"/><circle cx="12" cy="6.5" r="1"/></svg>
-                                                </div>
-                                                <h3 class="text-[15px] font-extrabold text-brand-primary">Conta Corrente Empresarial</h3>
-                                            </div>
-                                            <p class="text-[11px] text-brand-secondary font-light uppercase tracking-wider mb-4">CONTA DIGITAL COMPLETA</p>
-                                            <ul class="space-y-2.5 mb-6" style="white-space:nowrap;">
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">PIX ilimitado e gratuito, 24h</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Cartão de débito e crédito sem anuidade</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Boletos e TEDs gratuitos</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Múltiplos cartões para funcionários</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Gestão financeira integrada no app</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Limite de crédito empresarial</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Abertura 100% digital, sem burocracia</span></li>
-                                            </ul>
-                                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Conta Corrente Empresarial')" class="w-full block text-center text-[13px] font-light py-3 rounded-xl transition-all active:scale-95 cursor-pointer" style="color:#fff; background-color:#0099dd;">
-                                                Abrir minha Conta Empresarial →
-                                            </button>
-                                        </div>
-
-                                        <!-- Panel: Máquina de Cartão -->
-                                        <div id="panel-maquina" class="product-panel hidden p-7 bg-slate-50 border-l border-gray-100 flex flex-col justify-center w-full">
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <div class="w-7 h-7 rounded-lg bg-brand-secondary/15 flex items-center justify-center">
-                                                    <svg class="w-4 h-4 text-brand-secondary" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M9 6h6"/><path d="M7 10h10v4H7V10z"/><path d="M7 17h2"/><path d="M11 17h2"/><path d="M15 17h2"/></svg>
-                                                </div>
-                                                <h3 class="text-[15px] font-extrabold text-brand-primary">Máquina de Cartão</h3>
-                                            </div>
-                                            <p class="text-[11px] text-brand-secondary font-light uppercase tracking-wider mb-4">ACEITE MAIS, PAGUE MENOS</p>
-                                            <ul class="space-y-2.5 mb-6" style="white-space:nowrap;">
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Aceita débito, crédito e Pix na maquininha</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Recebimento no próximo dia útil (D+1)</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Taxas competitivas, sem mensalidade</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Funciona com e sem internet (offline)</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Bateria de longa duração</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Relatórios de vendas direto no app</span></li>
-                                                <li class="flex items-center gap-2 whitespace-nowrap"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Integração direta com sua Conta Empresarial</span></li>
-                                            </ul>
-                                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Máquina de Cartão')" class="w-full block text-center text-[13px] font-light py-3 rounded-xl transition-all active:scale-95 cursor-pointer" style="color:#fff; background-color:#0099dd;">
-                                                Quero minha Maquininha →
-                                            </button>
-                                        </div>
-
-                                        <!-- Panel: Capital de Giro (fomenta+) -->
-                                        <div id="panel-capital" class="product-panel hidden p-10 border-l border-gray-100 flex flex-col items-center justify-center text-center w-full" style="background:white;">
-                                            <div class="mb-5">
-                                                <div class="flex flex-col items-center justify-center text-center" style="font-family:'Inter',sans-serif; line-height:1;">
-                                                    <div>
-                                                        <span class="text-[36px] font-extrabold" style="color:#2BAEE4;">fomenta</span><span class="text-[36px] font-extrabold" style="color:#2BAEE4;">+</span>
-                                                    </div>
-                                                    <div style="margin-top:-6px;">
-                                                        <span class="text-[32px] font-extrabold" style="color:#0D3554;">mais</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-[10px] font-light uppercase tracking-[3px] mb-3" style="color:#2BAEE4;">PLATAFORMA MULTIBANCO</div>
-                                            <p class="text-[12px] text-slate-400 leading-relaxed mb-6 font-light">
-                                                Conectamos sua empresa a diversas linhas de crédito em um único lugar, com as melhores condições do mercado.
-                                            </p>
-                                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Crédito Rápido')" class="w-full block text-center text-[13px] font-light py-3 rounded-xl transition-all active:scale-95 cursor-pointer" style="color:#fff; background-color:#0099dd;">
-                                                Acessar Plataforma →
-                                            </button>
-                                        </div>
-
-                                        <!-- Panel: Seguros e Consórcios -->
-                                        <div id="panel-seguros" class="product-panel hidden p-7 bg-slate-50 border-l border-gray-100 flex flex-col justify-center w-full">
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <div class="w-7 h-7 rounded-lg bg-brand-secondary/15 flex items-center justify-center">
-                                                    <svg class="w-4 h-4 text-brand-secondary" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                                                </div>
-                                                <h3 class="text-[15px] font-extrabold text-brand-primary">Seguros e Consórcios</h3>
-                                            </div>
-                                            <p class="text-[11px] text-brand-secondary font-light uppercase tracking-wider mb-4">PROTEÇÃO E PLANEJAMENTO</p>
-                                            <ul class="space-y-2.5 mb-6">
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Seguro de Vida para sócios e colaboradores</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Seguro Patrimonial e Responsabilidade Civil</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Consórcio imobiliário e de veículos</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">+20 seguradoras parceiras</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Assessoria especializada sem custo</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Parcelas que cabem no orçamento</span></li>
-                                            </ul>
-                                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Seguros e Consórcios')" class="w-full block text-center text-[13px] font-light py-3 rounded-xl transition-all active:scale-95 cursor-pointer" style="color:#fff; background-color:#0099dd;">
-                                                Fazer cotação →
-                                            </button>
-                                        </div>
-
-                                        <!-- Panel: Soluções Tributárias -->
-                                        <div id="panel-tributario" class="product-panel hidden p-7 bg-slate-50 border-l border-gray-100 flex flex-col justify-center w-full">
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <div class="w-7 h-7 rounded-lg bg-brand-secondary/15 flex items-center justify-center">
-                                                    <svg class="w-4 h-4 text-brand-secondary" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg>
-                                                </div>
-                                                <h3 class="text-[15px] font-extrabold text-brand-primary">Soluções Tributárias</h3>
-                                            </div>
-                                            <p class="text-[11px] text-brand-secondary font-light uppercase tracking-wider mb-4">RECUPERAÇÃO E PLANEJAMENTO FISCAL</p>
-                                            <ul class="space-y-2.5 mb-6">
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Recuperação de tributos dos últimos 5 anos</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Revisão e otimização do regime tributário</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Adequação à Reforma Tributária</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Planejamento fiscal estratégico</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Você paga só sobre o que for recuperado</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Diagnóstico gratuito e sem compromisso</span></li>
-                                            </ul>
-                                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Soluções Tributárias')" class="w-full block text-center text-[13px] font-light py-3 rounded-xl transition-all active:scale-95 cursor-pointer" style="color:#fff; background-color:#0099dd;">
-                                                Diagnóstico gratuito →
-                                            </button>
-                                        </div>
-
-                                        <!-- Panel: Soluções Personalizadas -->
-                                        <div id="panel-personalizado" class="product-panel hidden p-7 bg-slate-50 border-l border-gray-100 flex flex-col justify-center w-full">
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <div class="w-7 h-7 rounded-lg bg-brand-secondary/15 flex items-center justify-center">
-                                                    <svg class="w-4 h-4 text-brand-secondary" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="12" r="3"/></svg>
-                                                </div>
-                                                <h3 class="text-[15px] font-extrabold text-brand-primary">Soluções Personalizadas</h3>
-                                            </div>
-                                            <p class="text-[11px] text-brand-secondary font-light uppercase tracking-wider mb-4">OPERAÇÕES ESTRUTURADAS</p>
-                                            <ul class="space-y-2.5 mb-6">
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Especialista financeiro dedicado ao negócio</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Reestruturação e consolidação de dívidas</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Financiamento via Leasing, CDC e BNDES</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Assessoria em fusões e aquisições (M&amp;A)</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Acesso ao mercado de capitais (CRI/CRA)</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Atendimento exclusivo e prioritário</span></li>
-                                            </ul>
-                                            <button onclick="openLeadModal('https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20uma%20proposta%20de%20Solu%C3%A7%C3%A3o%20Personalizada.')" class="w-full block text-center text-[13px] font-light py-3 rounded-xl transition-all active:scale-95 cursor-pointer" style="background-color:#0099dd; color:#fff;">
-                                                Falar com especialista →
-                                            </button>
-                                        </div>
-
-                                        <!-- Panel: Telemedicina -->
-                                        <div id="panel-telemedicina" class="product-panel hidden p-7 bg-slate-50 border-l border-gray-100 flex flex-col justify-center w-full">
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <div class="w-7 h-7 rounded-lg bg-brand-secondary/15 flex items-center justify-center">
-                                                    <svg class="w-4 h-4 text-brand-secondary" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 7v6m-3-3h6"/></svg>
-                                                </div>
-                                                <h3 class="text-[15px] font-extrabold text-brand-primary">Telemedicina</h3>
-                                            </div>
-                                            <p class="text-[11px] text-brand-secondary font-light uppercase tracking-wider mb-3">MÉDICO NA TELA PARA TODA A SUA FAMÍLIA!</p>
-                                            <p class="text-[12px] text-slate-500 font-light mb-4 leading-relaxed">Tenha acesso rápido, prático e seguro a atendimento médico sem sair de casa. Com poucos cliques, você cuida da saúde de quem mais importa.</p>
-                                            <ul class="space-y-2.5 mb-4">
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Atendimento ágil</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Profissionais qualificados</span></li>
-                                                <li class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-[12px] text-slate-500 font-light">Mais conforto e segurança para sua família</span></li>
-                                            </ul>
-                                            <p class="text-[11px] text-slate-400 italic mb-4">Cuide de quem você ama com a facilidade que a vida moderna pede.</p>
-                                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Telemedicina')" class="w-full block text-center text-[13px] font-light py-3 rounded-xl transition-all active:scale-95 cursor-pointer" style="color:#fff; background-color:#0099dd;">
-                                                Fale conosco e saiba mais →
-                                            </button>
-                                        </div>
-
-                                    </div><!-- end product-panel-area -->
-
-                                </div>
-                            </div>
+                                <svg id="mega-menu-chevron" class="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                        
                         </div>
 
                         <!-- SOBRE -->
@@ -920,6 +654,94 @@
             </div>
         </div>
 
+        <!-- ── Full-Width Mega Menu ── -->
+        <div id="mega-menu-fullwidth">
+            <div style="border-top:3px solid #0099dd;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,0.13);">
+                <div style="max-width:1280px;margin:0 auto;padding:28px 32px 32px;">
+                    <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#94a3b8;font-weight:400;margin-bottom:20px;">NOSSAS SOLUÇÕES FINANCEIRAS</p>
+                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+
+                        <!-- 1. Conta Corrente -->
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Conta Corrente Empresarial')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                                <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 10v11"/><path d="M19 10v11"/><path d="M9 10v11"/><path d="M15 10v11"/><path d="m2 10 10-8 10 8"/><circle cx="12" cy="6.5" r="1"/></svg>
+                            </div>
+                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Conta Corrente Empresarial</div>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Conta digital completa</div>
+                        </button>
+
+                        <!-- 2. Máquina de Cartão -->
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Máquina de Cartão')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                                <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M9 6h6"/><path d="M7 10h10v4H7V10z"/><path d="M7 17h2"/><path d="M11 17h2"/><path d="M15 17h2"/></svg>
+                            </div>
+                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Máquina de Cartão</div>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Venda com ou sem fio</div>
+                        </button>
+
+                        <!-- 3. Crédito Rápido FEATURED -->
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Crédito Rápido')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid #bee3f8;background:linear-gradient(135deg,#e8f6fd 0%,#d0edf9 100%);text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:#0099dd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                                <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a4.5 4.5 0 1 0 0 9h5a4.5 4.5 0 1 1 0 9H7"/></svg>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;">
+                                <span style="font-size:13px;font-weight:700;color:#003956;line-height:1.3;">Crédito Rápido</span>
+                                <span style="font-size:8px;font-weight:600;background:#0099dd;color:#fff;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:1px;line-height:1.6;">fomenta+</span>
+                            </div>
+                            <div style="font-size:11px;color:#0099dd;font-weight:500;">Plataforma multibanco</div>
+                        </button>
+
+                        <!-- 4. Seguros e Consórcios -->
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Seguros e Consórcios')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                                <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Seguros e Consórcios</div>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Proteção e planejamento</div>
+                        </button>
+
+                        <!-- 5. Soluções Tributárias -->
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Soluções Tributárias')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                                <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg>
+                            </div>
+                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Soluções Tributárias</div>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Recuperação e planejamento fiscal</div>
+                        </button>
+
+                        <!-- 6. Telemedicina -->
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Telemedicina')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                                <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 7v6m-3-3h6"/></svg>
+                            </div>
+                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Telemedicina</div>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Saúde para sua equipe</div>
+                        </button>
+
+                        <!-- 7. Soluções Personalizadas -->
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Soluções Personalizadas')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                                <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+                            </div>
+                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Soluções Personalizadas</div>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Operações estruturadas</div>
+                        </button>
+
+                        <!-- 8. CTA Card -->
+                        <div style="display:flex;flex-direction:column;justify-content:space-between;padding:18px;border-radius:12px;background:linear-gradient(135deg,#003956 0%,#005a8a 100%);">
+                            <div>
+                                <div style="font-size:10px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">ESPECIALISTA</div>
+                                <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.5;margin-bottom:16px;">Não sabe por onde começar?</div>
+                            </div>
+                            <button onclick="openLeadModal('https://wa.me/552139008295','Geral')" style="background:#0099dd;color:#fff;font-size:11px;font-weight:600;padding:10px 12px;border-radius:8px;border:none;cursor:pointer;width:100%;text-align:center;letter-spacing:0.3px;">
+                                Falar via WhatsApp →
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- ── Hero ── -->
@@ -2428,50 +2250,30 @@
             }
         });
 
-        // ── Product Panel System ──
-        const panelArea      = document.getElementById('product-panel-area');
-        const productBtns    = document.querySelectorAll('.product-btn');
-        const allPanels      = document.querySelectorAll('.product-panel');
+        // ── Full-Width Mega Menu ──
+        const megaMenuFull    = document.getElementById('mega-menu-fullwidth');
         const megaMenuWrapper = document.getElementById('mega-menu-wrapper');
+        const megaChevron     = document.getElementById('mega-menu-chevron');
+        let megaHideTimer     = null;
 
-        let activePanel = null;
-
-        function openPanel(panelId) {
-            // Hide all panels first
-            allPanels.forEach(p => p.classList.add('hidden'));
-            productBtns.forEach(b => {
-                b.classList.remove('bg-brand-secondary/10', 'border-brand-secondary/30', 'text-white');
-            });
-
-            const panel = document.getElementById('panel-' + panelId);
-            if (!panel) return;
-
-            // Show selected panel
-            panel.classList.remove('hidden');
-            panelArea.style.width   = '420px';
-            panelArea.style.opacity = '1';
-            activePanel = panelId;
+        function showMegaMenu() {
+            clearTimeout(megaHideTimer);
+            if (megaMenuFull) megaMenuFull.classList.add('open');
+            if (megaChevron) megaChevron.style.transform = 'rotate(180deg)';
         }
-
-        function closePanels() {
-            allPanels.forEach(p => p.classList.add('hidden'));
-            panelArea.style.width   = '0px';
-            panelArea.style.opacity = '0';
-            activePanel = null;
+        function hideMegaMenu() {
+            megaHideTimer = setTimeout(() => {
+                if (megaMenuFull) megaMenuFull.classList.remove('open');
+                if (megaChevron) megaChevron.style.transform = '';
+            }, 120);
         }
-
-        productBtns.forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                const panelId = btn.getAttribute('data-panel');
-                openPanel(panelId);
-            });
-        });
-
-        // Close when mouse leaves the mega menu
         if (megaMenuWrapper) {
-            megaMenuWrapper.addEventListener('mouseleave', () => {
-                closePanels();
-            });
+            megaMenuWrapper.addEventListener('mouseenter', showMegaMenu);
+            megaMenuWrapper.addEventListener('mouseleave', hideMegaMenu);
+        }
+        if (megaMenuFull) {
+            megaMenuFull.addEventListener('mouseenter', showMegaMenu);
+            megaMenuFull.addEventListener('mouseleave', hideMegaMenu);
         }
 
         // ── FAQ Toggle System ──
