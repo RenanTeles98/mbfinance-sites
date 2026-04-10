@@ -56,6 +56,17 @@ function getEnv(name: string) {
   return process.env[name]?.trim() || "";
 }
 
+function normalizePrivateKey(value: string) {
+  return value
+    .trim()
+    .replace(/^"|"$/g, "")
+    .replace(/\\n/g, "\n")
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .replace(/-----BEGIN PRIVATE KEY-----\s*/, "-----BEGIN PRIVATE KEY-----\n")
+    .replace(/\s*-----END PRIVATE KEY-----/, "\n-----END PRIVATE KEY-----");
+}
+
 export function hasGa4Config() {
   return Boolean(
     getEnv("GA4_PROPERTY_ID") &&
@@ -74,7 +85,7 @@ function base64UrlEncode(input: string) {
 
 async function getAccessToken() {
   const clientEmail = getEnv("GA4_CLIENT_EMAIL");
-  const privateKey = getEnv("GA4_PRIVATE_KEY").replace(/\\n/g, "\n");
+  const privateKey = normalizePrivateKey(getEnv("GA4_PRIVATE_KEY"));
 
   const now = Math.floor(Date.now() / 1000);
   const header = base64UrlEncode(JSON.stringify({ alg: "RS256", typ: "JWT" }));
