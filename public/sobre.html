@@ -227,30 +227,46 @@
             z-index: 0;
         }
         .tl-slide.active .tl-bg-awards { opacity: 1; }
-        .tl-bg-awards img {
+        .tl-bg-awards-row {
             position: absolute;
-            height: auto;
-            filter: grayscale(1);
-            opacity: 0.16;
-            mix-blend-mode: multiply;
-        }
-        .tl-bg-awards img:nth-child(1) {
-            left: 72px;
+            left: 56px;
+            right: calc(50% + 90px);
             top: 50%;
-            width: clamp(150px, 18vw, 220px);
-            transform: translateY(-50%) rotate(-10deg);
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 14px;
+            pointer-events: auto;
         }
-        .tl-bg-awards img:nth-child(2) {
-            left: 200px;
-            top: 42%;
-            width: clamp(150px, 18vw, 220px);
-            transform: translateY(-50%) rotate(6deg);
+        .tl-bg-award {
+            flex: 0 0 auto;
+            width: clamp(84px, 8vw, 118px);
+            border-radius: 18px;
+            padding: 10px;
+            background: rgba(255,255,255,0.55);
+            border: 1px solid rgba(0,57,86,0.08);
+            box-shadow: 0 18px 42px rgba(0,30,46,0.08);
+            backdrop-filter: blur(10px);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease;
         }
-        .tl-bg-awards img:nth-child(3) {
-            left: 340px;
-            top: 58%;
-            width: clamp(150px, 18vw, 220px);
-            transform: translateY(-50%) rotate(-4deg);
+        .tl-bg-award:hover {
+            transform: translateY(-10px) scale(1.06);
+            background: rgba(255,255,255,0.92);
+            border-color: rgba(0,153,221,0.4);
+            box-shadow: 0 24px 54px rgba(0,153,221,0.22);
+        }
+        .tl-bg-award img {
+            display: block;
+            width: 100%;
+            height: auto;
+            filter: grayscale(1) brightness(0.95);
+            opacity: 0.5;
+            transition: filter 0.35s ease, opacity 0.35s ease;
+        }
+        .tl-bg-award:hover img {
+            filter: grayscale(0) brightness(1.04);
+            opacity: 1;
         }
 
         /* Cabeçalho da timeline */
@@ -492,9 +508,13 @@
         <div class="tl-dot"></div>
         <div class="tl-connector"></div>
         <div class="tl-bg-awards">
-            <img src="premios/premio-2023.png" alt="">
-            <img src="premios/premio-2024.png" alt="">
-            <img src="premios/premio-cashme.png" alt="">
+            <div class="tl-bg-awards-row">
+                <div class="tl-bg-award"><img src="premios/premio-2021.png" alt="Prêmio 2021"></div>
+                <div class="tl-bg-award"><img src="premios/premio-2022.png" alt="Destaque 2022"></div>
+                <div class="tl-bg-award"><img src="premios/premio-2023.png" alt="Prêmio 2023"></div>
+                <div class="tl-bg-award"><img src="premios/premio-2024.png" alt="Prêmio 2024"></div>
+                <div class="tl-bg-award"><img src="premios/premio-cashme.png" alt="Prêmio AgeRio"></div>
+            </div>
         </div>
         <div class="tl-content">
             <span class="tl-year">2023-2025</span>
