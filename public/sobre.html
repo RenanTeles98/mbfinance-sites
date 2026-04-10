@@ -258,6 +258,31 @@
             opacity: 0.07;
         }
         .tl-slide.active .tl-bg-old-logo { opacity: 1; }
+
+        /* Ícone SVG de fundo — watermark temático */
+        .tl-bg-icon {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            user-select: none;
+        }
+        .tl-slide.reverse .tl-bg-icon {
+            right: auto;
+            left: 60px;
+        }
+        .tl-slide.active .tl-bg-icon { opacity: 1; }
+        .tl-bg-icon svg {
+            width: clamp(180px, 22vw, 300px);
+            height: auto;
+            display: block;
+            color: rgba(0, 30, 46, 0.055);
+        }
+        @media (max-width: 768px) { .tl-bg-icon { display: none; } }
         @media (max-width: 768px) {
             .tl-bg-old-logo { display: none; }
         }
@@ -589,7 +614,13 @@
     <div class="tl-slide" id="tl-1">
         <div class="tl-dot"></div>
         <div class="tl-connector"></div>
-        <div class="tl-bg-year">2014-2019</div>
+        <!-- Ícone: gráfico de crescimento -->
+        <div class="tl-bg-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                <polyline points="16 7 22 7 22 13"/>
+            </svg>
+        </div>
         <div class="tl-content">
             <span class="tl-year">2014-2019</span>
             <div class="tl-title">Estruturação e<br>Expansão</div>
@@ -601,7 +632,19 @@
     <div class="tl-slide reverse" id="tl-2">
         <div class="tl-dot"></div>
         <div class="tl-connector"></div>
-        <div class="tl-bg-year">2020-2022</div>
+        <!-- Ícone: foguete (escala) -->
+        <div class="tl-bg-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                <path d="m3.5 11.5 1.41 1.41"/>
+                <path d="m11.5 3.5 1.41 1.41"/>
+                <path d="M13.5 6.5 17 3s3 1 3 3l-3.5 3.5"/>
+                <path d="M6.5 13.5 3 17s1 3 3 3l3.5-3.5"/>
+                <path d="M14.5 9.5 9.5 14.5"/>
+                <path d="M20 4c0 0-8 0-12 8"/>
+                <path d="M4 20c0 0 0-8 8-12"/>
+            </svg>
+        </div>
         <div class="tl-content">
             <span class="tl-year">2020-2022</span>
             <div class="tl-title">Escala</div>
@@ -613,6 +656,17 @@
     <div class="tl-slide reverse" id="tl-3">
         <div class="tl-dot"></div>
         <div class="tl-connector"></div>
+        <!-- Ícone: troféu (consolidação) -->
+        <div class="tl-bg-icon" style="right:60px;left:auto;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                <path d="M4 22h16"/>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/>
+            </svg>
+        </div>
         <div class="tl-bg-awards">
             <div class="tl-bg-awards-row">
                 <div class="tl-bg-award"><img src="premios/premio-2021.png" alt="Prêmio 2021"></div>
@@ -633,7 +687,13 @@
     <div class="tl-slide reverse" id="tl-4">
         <div class="tl-dot"></div>
         <div class="tl-connector"></div>
-        <div class="tl-bg-year">2026</div>
+        <!-- Ícone: estrela/expansão -->
+        <div class="tl-bg-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                <circle cx="12" cy="12" r="4"/>
+            </svg>
+        </div>
         <div class="tl-content">
             <span class="tl-year">2026</span>
             <div class="tl-title">Expansão de<br>Portfólio</div>
