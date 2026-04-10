@@ -637,6 +637,32 @@
 
             <div class="analytics-panels" style="margin-bottom:18px;">
                 <div class="analytics-panel">
+                    <h3>Paises com mais acessos</h3>
+                    <div class="analytics-panel-sub">Origem geografica mais forte dos usuarios e sessoes do site.</div>
+                    <div id="ga-top-countries"></div>
+                </div>
+                <div class="analytics-panel">
+                    <h3>Estados e regioes</h3>
+                    <div class="analytics-panel-sub">Locais com maior concentracao de acessos dentro do pais.</div>
+                    <div id="ga-top-regions"></div>
+                </div>
+            </div>
+
+            <div class="analytics-panels" style="margin-bottom:18px;">
+                <div class="analytics-panel">
+                    <h3>Genero</h3>
+                    <div class="analytics-panel-sub">Distribuicao demografica quando o GA4 tiver esse sinal disponivel.</div>
+                    <div id="ga-gender-breakdown"></div>
+                </div>
+                <div class="analytics-panel">
+                    <h3>Faixa etaria</h3>
+                    <div class="analytics-panel-sub">Faixas de idade estimadas pelo Google Analytics.</div>
+                    <div id="ga-age-breakdown"></div>
+                </div>
+            </div>
+
+            <div class="analytics-panels" style="margin-bottom:18px;">
+                <div class="analytics-panel">
                     <h3>Distribuicao por categoria</h3>
                     <div class="analytics-panel-sub">Veja quais temas estao recebendo mais conteudo no seu blog.</div>
                     <div id="analytics-categories"></div>
@@ -937,6 +963,41 @@ function formatDuration(seconds) {
     return minutes + 'min ' + remainder + 's';
 }
 
+function renderGeoTable(targetId, rows, emptyMessage, secondaryLabel) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    if (!Array.isArray(rows) || !rows.length) {
+        target.innerHTML = '<div class="analytics-empty">' + esc(emptyMessage) + '</div>';
+        return;
+    }
+
+    target.innerHTML = '<table class="analytics-table"><thead><tr><th>' + esc(secondaryLabel ? 'Local' : 'Pais') + '</th><th>Usuarios</th><th>Sessoes</th></tr></thead><tbody>'
+        + rows.map(row => '<tr>'
+            + '<td><div class="analytics-post-title">' + esc(row.label || 'Nao informado') + '</div>'
+            + (secondaryLabel && row.secondaryLabel ? '<div class="analytics-post-meta">' + esc(row.secondaryLabel) + '</div>' : '')
+            + '</td>'
+            + '<td>' + formatInteger(row.activeUsers) + '</td>'
+            + '<td>' + formatInteger(row.sessions) + '</td>'
+            + '</tr>').join('')
+        + '</tbody></table>';
+}
+
+function renderDemographicList(targetId, rows, emptyMessage) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    if (!Array.isArray(rows) || !rows.length) {
+        target.innerHTML = '<div class="analytics-empty">' + esc(emptyMessage) + '</div>';
+        return;
+    }
+
+    target.innerHTML = '<div class="analytics-highlight-list">'
+        + rows.map(row => '<div class="analytics-highlight-item">'
+            + '<div class="analytics-highlight-label">' + esc(row.label || 'Nao informado') + '</div>'
+            + '<div class="analytics-highlight-value">' + formatInteger(row.activeUsers) + ' usuarios</div>'
+            + '</div>').join('')
+        + '</div>';
+}
+
 function getAnalyticsApiUrl() {
     const base = (localStorage.getItem('mb_site_domain') || '').replace(/\/$/, '');
     if (base) return base + '/api/analytics/overview';
@@ -954,6 +1015,10 @@ async function renderTrafficAnalytics() {
     document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Carregando dados do Google Analytics...</div>';
     document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Carregando paginas mais acessadas...</div>';
     document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Carregando indicadores de trafego...</div>';
+    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Carregando paises com mais acessos...</div>';
+    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Carregando estados e regioes...</div>';
+    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Carregando genero...</div>';
+    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Carregando faixa etaria...</div>';
 
     try {
         const response = await fetch(getAnalyticsApiUrl(), { cache: 'no-store' });
@@ -965,12 +1030,20 @@ async function renderTrafficAnalytics() {
             document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">' + esc(message) + '</div>';
             document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de trafego por enquanto.</div>';
             document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Configure as variaveis do GA4 no Vercel e confirme o acesso da service account na propriedade.</div>';
+            document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Sem dados geograficos disponiveis ainda.</div>';
+            document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Sem dados regionais disponiveis ainda.</div>';
+            document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de genero disponiveis ainda.</div>';
+            document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de idade disponiveis ainda.</div>';
             return;
         }
 
         const summary = data.summary || {};
         const trend = Array.isArray(data.trend) ? data.trend : [];
         const topPages = Array.isArray(data.topPages) ? data.topPages : [];
+        const topCountries = Array.isArray(data.topCountries) ? data.topCountries : [];
+        const topRegions = Array.isArray(data.topRegions) ? data.topRegions : [];
+        const genderBreakdown = Array.isArray(data.genderBreakdown) ? data.genderBreakdown : [];
+        const ageBreakdown = Array.isArray(data.ageBreakdown) ? data.ageBreakdown : [];
         const avgViewsPerSession = summary.sessions ? (summary.screenPageViews / summary.sessions).toFixed(2) : '0.00';
 
         totalUsersEl.textContent = formatInteger(summary.totalUsers);
@@ -1012,11 +1085,38 @@ async function renderTrafficAnalytics() {
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Views por sessao</div><div class="analytics-highlight-value">' + esc(avgViewsPerSession) + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Property GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'N/A') + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Status</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
+
+        renderGeoTable(
+            'ga-top-countries',
+            topCountries,
+            'Ainda nao ha paises suficientes registrados no periodo.',
+            false
+        );
+        renderGeoTable(
+            'ga-top-regions',
+            topRegions,
+            'Ainda nao ha estados ou regioes suficientes registrados no periodo.',
+            true
+        );
+        renderDemographicList(
+            'ga-gender-breakdown',
+            genderBreakdown,
+            'O GA4 ainda nao disponibilizou genero para este periodo ou propriedade.'
+        );
+        renderDemographicList(
+            'ga-age-breakdown',
+            ageBreakdown,
+            'O GA4 ainda nao disponibilizou faixa etaria para este periodo ou propriedade.'
+        );
     } catch (error) {
         document.getElementById('analytics-last-update').textContent = 'Falha no GA4';
         document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Nao foi possivel consultar o endpoint de analytics.</div>';
         document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Verifique se o deploy novo do site e da API ja esta ativo.</div>';
         document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">' + esc(error && error.message ? error.message : 'Erro desconhecido') + '</div>';
+        document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Falha ao carregar paises.</div>';
+        document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Falha ao carregar estados e regioes.</div>';
+        document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Falha ao carregar genero.</div>';
+        document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Falha ao carregar faixa etaria.</div>';
     }
 }
 

@@ -27,6 +27,18 @@ export type GaTopPage = {
   sessions: number;
 };
 
+export type GaGeoRow = {
+  label: string;
+  secondaryLabel?: string;
+  activeUsers: number;
+  sessions: number;
+};
+
+export type GaDemographicRow = {
+  label: string;
+  activeUsers: number;
+};
+
 export type GaOverviewResponse = {
   configured: boolean;
   propertyId?: string;
@@ -34,6 +46,10 @@ export type GaOverviewResponse = {
   summary?: GaOverviewMetric;
   trend?: GaTrendPoint[];
   topPages?: GaTopPage[];
+  topCountries?: GaGeoRow[];
+  topRegions?: GaGeoRow[];
+  genderBreakdown?: GaDemographicRow[];
+  ageBreakdown?: GaDemographicRow[];
 };
 
 type RunReportRequest = {
@@ -161,6 +177,14 @@ function formatDateLabel(raw: string) {
   return `${raw.slice(6, 8)}/${raw.slice(4, 6)}`;
 }
 
+function cleanDimensionValue(value?: string, fallback = "Nao informado") {
+  const normalized = (value || "").trim();
+  if (!normalized || normalized === "(not set)" || normalized === "unknown") {
+    return fallback;
+  }
+  return normalized;
+}
+
 export async function getGa4Overview(): Promise<GaOverviewResponse> {
   if (!hasGa4Config()) {
     return { configured: false };
@@ -169,7 +193,15 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
   const propertyId = getEnv("GA4_PROPERTY_ID");
   const accessToken = await getAccessToken();
 
-  const [summaryReport, trendReport, topPagesReport] = await Promise.all([
+  const [
+    summaryReport,
+    trendReport,
+    topPagesReport,
+    topCountriesReport,
+    topRegionsReport,
+    genderReport,
+    ageReport,
+  ] = await Promise.all([
     runReport(accessToken, propertyId, {
       dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
       metrics: [
@@ -202,6 +234,34 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
       orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
       limit: "10",
     }),
+    runReport(accessToken, propertyId, {
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dimensions: [{ name: "country" }],
+      metrics: [{ name: "activeUsers" }, { name: "sessions" }],
+      orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
+      limit: "10",
+    }),
+    runReport(accessToken, propertyId, {
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dimensions: [{ name: "region" }, { name: "country" }],
+      metrics: [{ name: "activeUsers" }, { name: "sessions" }],
+      orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
+      limit: "10",
+    }),
+    runReport(accessToken, propertyId, {
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dimensions: [{ name: "userGender" }],
+      metrics: [{ name: "activeUsers" }],
+      orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
+      limit: "10",
+    }),
+    runReport(accessToken, propertyId, {
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dimensions: [{ name: "userAgeBracket" }],
+      metrics: [{ name: "activeUsers" }],
+      orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
+      limit: "10",
+    }),
   ]);
 
   const summaryRow = summaryReport.rows?.[0];
@@ -224,18 +284,58 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
   const topPages: GaTopPage[] =
     topPagesReport.rows?.map((row) => ({
       pagePath: row.dimensionValues?.[0]?.value || "/",
-      pageTitle: row.dimensionValues?.[1]?.value || "Sem título",
+      pageTitle: row.dimensionValues?.[1]?.value || "Sem titulo",
       screenPageViews: toNumber(row.metricValues?.[0]?.value),
       activeUsers: toNumber(row.metricValues?.[1]?.value),
       sessions: toNumber(row.metricValues?.[2]?.value),
     })) || [];
 
+  const topCountries: GaGeoRow[] =
+    topCountriesReport.rows?.map((row) => ({
+      label: cleanDimensionValue(
+        row.dimensionValues?.[0]?.value,
+        "Pais nao identificado"
+      ),
+      activeUsers: toNumber(row.metricValues?.[0]?.value),
+      sessions: toNumber(row.metricValues?.[1]?.value),
+    })) || [];
+
+  const topRegions: GaGeoRow[] =
+    topRegionsReport.rows?.map((row) => ({
+      label: cleanDimensionValue(
+        row.dimensionValues?.[0]?.value,
+        "Estado/regiao nao identificado"
+      ),
+      secondaryLabel: cleanDimensionValue(
+        row.dimensionValues?.[1]?.value,
+        "Pais nao identificado"
+      ),
+      activeUsers: toNumber(row.metricValues?.[0]?.value),
+      sessions: toNumber(row.metricValues?.[1]?.value),
+    })) || [];
+
+  const genderBreakdown: GaDemographicRow[] =
+    genderReport.rows?.map((row) => ({
+      label: cleanDimensionValue(row.dimensionValues?.[0]?.value),
+      activeUsers: toNumber(row.metricValues?.[0]?.value),
+    })) || [];
+
+  const ageBreakdown: GaDemographicRow[] =
+    ageReport.rows?.map((row) => ({
+      label: cleanDimensionValue(row.dimensionValues?.[0]?.value),
+      activeUsers: toNumber(row.metricValues?.[0]?.value),
+    })) || [];
+
   return {
     configured: true,
     propertyId,
-    rangeLabel: "Últimos 30 dias",
+    rangeLabel: "Ultimos 30 dias",
     summary,
     trend,
     topPages,
+    topCountries,
+    topRegions,
+    genderBreakdown,
+    ageBreakdown,
   };
 }
