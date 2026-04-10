@@ -214,7 +214,7 @@
         #navbar.scrolled a { color: #003956 !important; }
         #navbar.scrolled > div svg { stroke: #003956 !important; }
 
-        /* ── Full-Width Mega Menu ── */
+        /* ── Full-Width Mega Menu (Glass) ── */
         #mega-menu-fullwidth {
             position: absolute;
             left: 0;
@@ -222,19 +222,26 @@
             top: 100%;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-8px);
-            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
             z-index: 99;
         }
         #mega-menu-fullwidth.open {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
-            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s;
+        }
+        #mega-menu-fullwidth .mega-inner {
+            background: rgba(4, 15, 26, 0.82);
+            backdrop-filter: blur(28px) saturate(1.6);
+            -webkit-backdrop-filter: blur(28px) saturate(1.6);
+            border-top: 1px solid rgba(0,153,221,0.5);
+            box-shadow: 0 32px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06);
         }
         .mega-prod-card:hover {
-            background: #f0f7ff !important;
-            border-color: #bde0f8 !important;
+            background: rgba(255,255,255,0.08) !important;
+            border-color: rgba(0,153,221,0.35) !important;
         }
         .nav-link {
             position: relative;
@@ -656,81 +663,81 @@
 
         <!-- ── Full-Width Mega Menu ── -->
         <div id="mega-menu-fullwidth">
-            <div style="border-top:3px solid #0099dd;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,0.13);">
+            <div class="mega-inner">
                 <div style="max-width:1280px;margin:0 auto;padding:28px 32px 32px;">
-                    <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#94a3b8;font-weight:400;margin-bottom:20px;">NOSSAS SOLUÇÕES FINANCEIRAS</p>
+                    <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:400;margin-bottom:20px;">NOSSAS SOLUÇÕES FINANCEIRAS</p>
                     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
 
                         <!-- 1. Conta Corrente -->
-                        <button onclick="openLeadModal('https://wa.me/552139008295','Conta Corrente Empresarial')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
-                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Conta Corrente Empresarial')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:rgba(0,153,221,0.18);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
                                 <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 10v11"/><path d="M19 10v11"/><path d="M9 10v11"/><path d="M15 10v11"/><path d="m2 10 10-8 10 8"/><circle cx="12" cy="6.5" r="1"/></svg>
                             </div>
-                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Conta Corrente Empresarial</div>
-                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Conta digital completa</div>
+                            <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:4px;line-height:1.3;">Conta Corrente Empresarial</div>
+                            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;">Conta digital completa</div>
                         </button>
 
                         <!-- 2. Máquina de Cartão -->
-                        <button onclick="openLeadModal('https://wa.me/552139008295','Máquina de Cartão')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
-                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Máquina de Cartão')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:rgba(0,153,221,0.18);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
                                 <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M9 6h6"/><path d="M7 10h10v4H7V10z"/><path d="M7 17h2"/><path d="M11 17h2"/><path d="M15 17h2"/></svg>
                             </div>
-                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Máquina de Cartão</div>
-                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Venda com ou sem fio</div>
+                            <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:4px;line-height:1.3;">Máquina de Cartão</div>
+                            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;">Venda com ou sem fio</div>
                         </button>
 
                         <!-- 3. Crédito Rápido FEATURED -->
-                        <button onclick="openLeadModal('https://wa.me/552139008295','Crédito Rápido')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid #bee3f8;background:linear-gradient(135deg,#e8f6fd 0%,#d0edf9 100%);text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Crédito Rápido')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid rgba(0,153,221,0.45);background:rgba(0,153,221,0.18);text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
                             <div style="width:40px;height:40px;background:#0099dd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
                                 <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a4.5 4.5 0 1 0 0 9h5a4.5 4.5 0 1 1 0 9H7"/></svg>
                             </div>
                             <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;">
-                                <span style="font-size:13px;font-weight:700;color:#003956;line-height:1.3;">Crédito Rápido</span>
+                                <span style="font-size:13px;font-weight:700;color:#ffffff;line-height:1.3;">Crédito Rápido</span>
                                 <span style="font-size:8px;font-weight:600;background:#0099dd;color:#fff;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:1px;line-height:1.6;">fomenta+</span>
                             </div>
-                            <div style="font-size:11px;color:#0099dd;font-weight:500;">Plataforma multibanco</div>
+                            <div style="font-size:11px;color:#5cc8f5;font-weight:500;">Plataforma multibanco</div>
                         </button>
 
                         <!-- 4. Seguros e Consórcios -->
-                        <button onclick="openLeadModal('https://wa.me/552139008295','Seguros e Consórcios')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
-                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Seguros e Consórcios')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:rgba(0,153,221,0.18);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
                                 <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                             </div>
-                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Seguros e Consórcios</div>
-                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Proteção e planejamento</div>
+                            <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:4px;line-height:1.3;">Seguros e Consórcios</div>
+                            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;">Proteção e planejamento</div>
                         </button>
 
                         <!-- 5. Soluções Tributárias -->
-                        <button onclick="openLeadModal('https://wa.me/552139008295','Soluções Tributárias')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
-                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Soluções Tributárias')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:rgba(0,153,221,0.18);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
                                 <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg>
                             </div>
-                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Soluções Tributárias</div>
-                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Recuperação e planejamento fiscal</div>
+                            <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:4px;line-height:1.3;">Soluções Tributárias</div>
+                            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;">Recuperação e planejamento fiscal</div>
                         </button>
 
                         <!-- 6. Telemedicina -->
-                        <button onclick="openLeadModal('https://wa.me/552139008295','Telemedicina')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
-                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Telemedicina')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:rgba(0,153,221,0.18);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
                                 <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 7v6m-3-3h6"/></svg>
                             </div>
-                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Telemedicina</div>
-                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Saúde para sua equipe</div>
+                            <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:4px;line-height:1.3;">Telemedicina</div>
+                            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;">Saúde para sua equipe</div>
                         </button>
 
                         <!-- 7. Soluções Personalizadas -->
-                        <button onclick="openLeadModal('https://wa.me/552139008295','Soluções Personalizadas')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
-                            <div style="width:40px;height:40px;background:#e8f6fd;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
+                        <button onclick="openLeadModal('https://wa.me/552139008295','Soluções Personalizadas')" class="mega-prod-card" style="display:flex;flex-direction:column;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);text-align:left;cursor:pointer;width:100%;transition:all 0.2s;">
+                            <div style="width:40px;height:40px;background:rgba(0,153,221,0.18);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;">
                                 <svg width="20" height="20" fill="none" stroke="#0099dd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
                             </div>
-                            <div style="font-size:13px;font-weight:700;color:#003956;margin-bottom:4px;line-height:1.3;">Soluções Personalizadas</div>
-                            <div style="font-size:11px;color:#94a3b8;font-weight:400;">Operações estruturadas</div>
+                            <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:4px;line-height:1.3;">Soluções Personalizadas</div>
+                            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;">Operações estruturadas</div>
                         </button>
 
                         <!-- 8. CTA Card -->
                         <div style="display:flex;flex-direction:column;justify-content:space-between;padding:18px;border-radius:12px;background:linear-gradient(135deg,#003956 0%,#005a8a 100%);">
                             <div>
-                                <div style="font-size:10px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">ESPECIALISTA</div>
+                                <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">ESPECIALISTA</div>
                                 <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.5;margin-bottom:16px;">Não sabe por onde começar?</div>
                             </div>
                             <button onclick="openLeadModal('https://wa.me/552139008295','Geral')" style="background:#0099dd;color:#fff;font-size:11px;font-weight:600;padding:10px 12px;border-radius:8px;border:none;cursor:pointer;width:100%;text-align:center;letter-spacing:0.3px;">
