@@ -364,7 +364,7 @@
 <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      NAVBAR
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<header id="navbar" class="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 py-6" style="background:transparent;">
+<header id="navbar" class="absolute top-0 left-0 right-0 z-[100] py-6" style="background:transparent;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between">
             <div class="w-1/4">
@@ -788,13 +788,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('navbar');
     const logoImg = document.getElementById('logo-img');
-    function updateNav() {
-        const isScrolled = window.scrollY > 80;
-        navbar.classList.toggle('scrolled', isScrolled);
-        if (logoImg) logoImg.src = isScrolled ? 'logo-horizontal-logo.png.png' : 'logo-horizontal-logo.branca.png';
-    }
-    window.addEventListener('scroll', updateNav, { passive: true });
-    updateNav();
+    // Navbar é absoluto na página sobre — sem scroll effect
 
     // Mobile Menu
     const mobileMenu = document.getElementById('mobile-menu');
