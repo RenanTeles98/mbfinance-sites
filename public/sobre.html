@@ -218,6 +218,40 @@
             left: 80px;
         }
         .tl-slide.active .tl-bg-year { opacity: 1; }
+        .tl-bg-awards {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            z-index: 0;
+        }
+        .tl-slide.active .tl-bg-awards { opacity: 1; }
+        .tl-bg-awards img {
+            position: absolute;
+            height: auto;
+            filter: grayscale(1);
+            opacity: 0.16;
+            mix-blend-mode: multiply;
+        }
+        .tl-bg-awards img:nth-child(1) {
+            left: 72px;
+            top: 50%;
+            width: clamp(150px, 18vw, 220px);
+            transform: translateY(-50%) rotate(-10deg);
+        }
+        .tl-bg-awards img:nth-child(2) {
+            left: 200px;
+            top: 42%;
+            width: clamp(150px, 18vw, 220px);
+            transform: translateY(-50%) rotate(6deg);
+        }
+        .tl-bg-awards img:nth-child(3) {
+            left: 340px;
+            top: 58%;
+            width: clamp(150px, 18vw, 220px);
+            transform: translateY(-50%) rotate(-4deg);
+        }
 
         /* Cabeçalho da timeline */
         .tl-header {
@@ -242,6 +276,7 @@
                 background: linear-gradient(to right, #0099dd, rgba(0,153,221,0.3));
             }
             .tl-slide.reverse .tl-bg-year { left: auto; right: 16px; }
+            .tl-bg-awards { display: none; }
         }
 
         /* Progress bar */
@@ -456,7 +491,11 @@
     <div class="tl-slide reverse" id="tl-3">
         <div class="tl-dot"></div>
         <div class="tl-connector"></div>
-        <div class="tl-bg-year">2023-2025</div>
+        <div class="tl-bg-awards">
+            <img src="premios/premio-2023.png" alt="">
+            <img src="premios/premio-2024.png" alt="">
+            <img src="premios/premio-cashme.png" alt="">
+        </div>
         <div class="tl-content">
             <span class="tl-year">2023-2025</span>
             <div class="tl-title">Consolidação</div>
