@@ -256,9 +256,9 @@
 <div id="auth-screen">
     <div class="auth-card">
         <div class="auth-logo"><span>mb</span><span>finance.</span></div>
-        <p class="auth-subtitle">Painel de administraÃ§Ã£o do Blog</p>
+        <p class="auth-subtitle">Painel de administração do Blog</p>
         <label class="auth-label" for="auth-pass">Senha de acesso</label>
-        <input type="password" id="auth-pass" class="auth-input" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" onkeydown="if(event.key==='Enter')login()">
+        <input type="password" id="auth-pass" class="auth-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()">
         <p id="auth-error" class="auth-error">Senha incorreta. Tente novamente.</p>
         <button class="auth-btn" onclick="login()">Entrar no painel</button>
     </div>
@@ -318,7 +318,7 @@
                 </button>
             </div>
             <div class="post-list" id="post-list">
-                <div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para comeÃ§ar.</div>
+                <div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para começar.</div>
             </div>
         </div>
 
@@ -329,7 +329,7 @@
                     <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                 </div>
                 <h2 class="welcome-h">Editor de Blog</h2>
-                <p class="welcome-p">Selecione um post na lista ou clique em "Novo Post" para comeÃ§ar a criar conteÃºdo.</p>
+                <p class="welcome-p">Selecione um post na lista ou clique em "Novo Post" para começar a criar conteúdo.</p>
             </div>
 
             <div id="post-form" style="display:none">
@@ -343,7 +343,7 @@
                 </div>
 
                 <div class="field-group">
-                    <label class="field-label" for="f-title">TÃ­tulo</label>
+                    <label class="field-label" for="f-title">Título</label>
                     <input type="text" id="f-title" class="field-input" placeholder="Ex: Como conseguir capital de giro com as melhores taxas" style="font-size:16px;font-weight:700;padding:12px 14px;" oninput="updateSeoPreview()">
                 </div>
 
@@ -351,16 +351,16 @@
                     <div>
                         <label class="field-label" for="f-category">Categoria</label>
                         <select id="f-category" class="field-select">
-                            <option value="credito">CrÃ©dito Empresarial</option>
-                            <option value="gestao">GestÃ£o Financeira</option>
+                            <option value="credito">Crédito Empresarial</option>
+                            <option value="gestao">Gestão Financeira</option>
                             <option value="conta-pj">Conta PJ</option>
                             <option value="mercado">Mercado</option>
-                            <option value="antecipacao">AntecipaÃ§Ã£o</option>
-                            <option value="noticias">NotÃ­cias</option>
+                            <option value="antecipacao">Antecipação</option>
+                            <option value="noticias">Notícias</option>
                         </select>
                     </div>
                     <div>
-                        <label class="field-label" for="f-date">Data de publicaÃ§Ã£o</label>
+                        <label class="field-label" for="f-date">Data de publicação</label>
                         <input type="date" id="f-date" class="field-input">
                     </div>
                 </div>
@@ -395,21 +395,21 @@
                                 <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
                                 <div>
                                     <div style="font-size:11px;font-weight:800;color:#003956;margin-bottom:2px;">Capa / Destaque</div>
-                                    <div style="font-size:11px;color:#64748b;line-height:1.5;">1200 Ã— 630 px<br>ProporÃ§Ã£o 16:9 Â· JPG ou PNG</div>
+                                    <div style="font-size:11px;color:#64748b;line-height:1.5;">1200 Á— 630 px<br>Proporção 16:9 · JPG ou PNG</div>
                                 </div>
                             </div>
                             <div style="display:flex;align-items:flex-start;gap:7px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;flex:1;min-width:160px;">
                                 <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><rect x="3" y="3" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M3 9l4-4 4 4 4-4 4 4"/></svg>
                                 <div>
                                     <div style="font-size:11px;font-weight:800;color:#003956;margin-bottom:2px;">Card do blog</div>
-                                    <div style="font-size:11px;color:#64748b;line-height:1.5;">800 Ã— 450 px<br>ProporÃ§Ã£o 16:9 Â· mÃ¡x. 500 KB</div>
+                                    <div style="font-size:11px;color:#64748b;line-height:1.5;">800 Á— 450 px<br>Proporção 16:9 · máx. 500 KB</div>
                                 </div>
                             </div>
                             <div style="display:flex;align-items:flex-start;gap:7px;background:#fff8ed;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;flex:1;min-width:160px;">
                                 <svg width="16" height="16" fill="none" stroke="#d97706" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 8v4M12 16h.01"/></svg>
                                 <div>
                                     <div style="font-size:11px;font-weight:800;color:#92400e;margin-bottom:2px;">Dica SEO</div>
-                                    <div style="font-size:11px;color:#78350f;line-height:1.5;">Essa imagem tambÃ©m aparece<br>quando o link Ã© compartilhado<br>no WhatsApp e redes sociais</div>
+                                    <div style="font-size:11px;color:#78350f;line-height:1.5;">Essa imagem também aparece<br>quando o link é compartilhado<br>no WhatsApp e redes sociais</div>
                                 </div>
                             </div>
                         </div>
@@ -445,15 +445,15 @@
                 </div>
 
                 <div class="field-group">
-                    <label class="field-label">ConteÃºdo do Artigo</label>
+                    <label class="field-label">Conteúdo do Artigo</label>
                     <div class="editor-wrap">
                         <div class="editor-toolbar">
                             <button class="tb-btn" onclick="cmd('bold')" title="Negrito"><b>N</b></button>
-                            <button class="tb-btn" onclick="cmd('italic')" title="ItÃ¡lico"><i style="font-style:italic">I</i></button>
+                            <button class="tb-btn" onclick="cmd('italic')" title="Itálico"><i style="font-style:italic">I</i></button>
                             <div class="tb-sep"></div>
-                            <button class="tb-btn" onclick="cmd('formatBlock','h2')" title="TÃ­tulo H2" style="font-size:11px;width:36px">H2</button>
-                            <button class="tb-btn" onclick="cmd('formatBlock','h3')" title="TÃ­tulo H3" style="font-size:11px;width:36px">H3</button>
-                            <button class="tb-btn" onclick="cmd('formatBlock','p')" title="ParÃ¡grafo" style="font-size:11px;width:28px">P</button>
+                            <button class="tb-btn" onclick="cmd('formatBlock','h2')" title="Título H2" style="font-size:11px;width:36px">H2</button>
+                            <button class="tb-btn" onclick="cmd('formatBlock','h3')" title="Título H3" style="font-size:11px;width:36px">H3</button>
+                            <button class="tb-btn" onclick="cmd('formatBlock','p')" title="Parágrafo" style="font-size:11px;width:28px">P</button>
                             <div class="tb-sep"></div>
                             <button class="tb-btn" onclick="cmd('insertUnorderedList')" title="Lista">
                                 <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -461,7 +461,7 @@
                             <button class="tb-btn" onclick="cmd('insertOrderedList')" title="Lista numerada">
                                 <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
                             </button>
-                            <button class="tb-btn" onclick="cmd('formatBlock','blockquote')" title="CitaÃ§Ã£o" style="font-size:16px;font-weight:900;color:#0099dd">"</button>
+                            <button class="tb-btn" onclick="cmd('formatBlock','blockquote')" title="Citação" style="font-size:16px;font-weight:900;color:#0099dd">"</button>
                             <div class="tb-sep"></div>
                             <button class="tb-btn" onclick="insertLink()" title="Link">
                                 <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
@@ -474,7 +474,7 @@
                                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10H11a8 8 0 000 16h10m0-16l-4-4m4 4l-4 4"/></svg>
                             </button>
                         </div>
-                        <div id="editor-content" class="editor-content" contenteditable="true" data-placeholder="Escreva o conteÃºdo do artigo aqui. Use a barra de ferramentas para formatar..."></div>
+                        <div id="editor-content" class="editor-content" contenteditable="true" data-placeholder="Escreva o conteúdo do artigo aqui. Use a barra de ferramentas para formatar..."></div>
                     </div>
                 </div>
 
@@ -482,33 +482,33 @@
                 <div class="seo-box">
                     <div class="seo-box-title">
                         <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
-                        SEO â€” Como vai aparecer no Google
+                        SEO — Como vai aparecer no Google
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="f-seo-title">TÃ­tulo SEO <span class="field-hint">(aba do navegador e resultado do Google Â· mÃ¡x. 60 caracteres)</span></label>
+                        <label class="field-label" for="f-seo-title">Título SEO <span class="field-hint">(aba do navegador e resultado do Google · máx. 60 caracteres)</span></label>
                         <input type="text" id="f-seo-title" class="field-input" placeholder="Ex: Capital de Giro com as Melhores Taxas | MB Finance" maxlength="70" oninput="updateCharCount('f-seo-title','cnt-seo-title',60)">
                         <div class="char-count" id="cnt-seo-title">0/60</div>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="f-seo-desc">Meta DescriÃ§Ã£o <span class="field-hint">(texto abaixo do tÃ­tulo no Google Â· mÃ¡x. 155 caracteres)</span></label>
-                        <textarea id="f-seo-desc" class="field-textarea" rows="2" placeholder="Ex: A MB Finance compara as melhores condiÃ§Ãµes de capital de giro entre bancos e fintech para a sua empresa. AprovaÃ§Ã£o em 24h." maxlength="160" oninput="updateCharCount('f-seo-desc','cnt-seo-desc',155)"></textarea>
+                        <label class="field-label" for="f-seo-desc">Meta Descrição <span class="field-hint">(texto abaixo do título no Google · máx. 155 caracteres)</span></label>
+                        <textarea id="f-seo-desc" class="field-textarea" rows="2" placeholder="Ex: A MB Finance compara as melhores condições de capital de giro entre bancos e fintech para a sua empresa. Aprovação em 24h." maxlength="160" oninput="updateCharCount('f-seo-desc','cnt-seo-desc',155)"></textarea>
                         <div class="char-count" id="cnt-seo-desc">0/155</div>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="f-keywords">Palavras-chave <span class="field-hint">(separe por vÃ­rgulas â€” ex: capital de giro, crÃ©dito PJ, financiamento)</span></label>
-                        <input type="text" id="f-keywords" class="field-input" placeholder="capital de giro, crÃ©dito empresarial, financiamento PJ">
+                        <label class="field-label" for="f-keywords">Palavras-chave <span class="field-hint">(separe por vírgulas — ex: capital de giro, crédito PJ, financiamento)</span></label>
+                        <input type="text" id="f-keywords" class="field-input" placeholder="capital de giro, crédito empresarial, financiamento PJ">
                     </div>
 
                     <!-- Google preview -->
                     <div class="field-group">
                         <div class="field-label" style="margin-bottom:8px">Preview no Google</div>
                         <div class="seo-preview">
-                            <div class="seo-preview-site" id="seo-prev-site">mbfinance.com.br â€º blog â€º artigo-slug</div>
-                            <div class="seo-preview-title" id="seo-prev-title">TÃ­tulo SEO aparecerÃ¡ aqui</div>
-                            <div class="seo-preview-desc" id="seo-prev-desc">A meta descriÃ§Ã£o aparecerÃ¡ aqui. Escreva algo atrativo para fazer o cliente clicar no seu resultado.</div>
+                            <div class="seo-preview-site" id="seo-prev-site">mbfinance.com.br › blog › artigo-slug</div>
+                            <div class="seo-preview-title" id="seo-prev-title">Título SEO aparecerá aqui</div>
+                            <div class="seo-preview-desc" id="seo-prev-desc">A meta descrição aparecerá aqui. Escreva algo atrativo para fazer o cliente clicar no seu resultado.</div>
                         </div>
                     </div>
                 </div>
@@ -526,12 +526,12 @@
         <div class="banners-wrap">
             <div class="banners-page-header">
                 <h2>Banners de Publicidade</h2>
-                <p>Configure os slots de anÃºncio que aparecerÃ£o na lateral direita das pÃ¡ginas do blog exportadas. Cole o cÃ³digo do Google AdSense ou qualquer outra rede de anÃºncios.</p>
+                <p>Configure os slots de anúncio que aparecerão na lateral direita das páginas do blog exportadas. Cole o código do Google AdSense ou qualquer outra rede de anúncios.</p>
             </div>
 
             <div class="banners-info-box">
                 <strong>Como funciona?</strong>
-                Os banners aparecerÃ£o em uma coluna lateral (300px) ao lado do conteÃºdo do blog e dos artigos, quando vocÃª exportar o blog. Tamanhos IAB padrÃ£o reconhecidos por todas as redes de anÃºncios.
+                Os banners aparecerão em uma coluna lateral (300px) ao lado do conteúdo do blog e dos artigos, quando vocª exportar o blog. Tamanhos IAB padrão reconhecidos por todas as redes de anúncios.
             </div>
 
             <!-- Slot 1: 300x250 -->
@@ -541,15 +541,15 @@
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
                     </div>
                     <div>
-                        <div class="slot-info-title">Slot 1 â€” Medium Rectangle</div>
-                        <div class="slot-info-sub">PosiÃ§Ã£o: topo da lateral Â· Mais clicado do mercado</div>
+                        <div class="slot-info-title">Slot 1 — Medium Rectangle</div>
+                        <div class="slot-info-sub">Posição: topo da lateral · Mais clicado do mercado</div>
                     </div>
                 </div>
-                <span class="slot-size-pill">300 Ã— 250 px</span>
-                <p class="slot-tip">Cole aqui o cÃ³digo do seu banner (Google AdSense, Taboola, etc.). Deixe em branco se nÃ£o quiser usar este slot.</p>
-                <textarea id="banner-slot1" class="slot-textarea" placeholder="<!-- Cole aqui o cÃ³digo do banner 300x250 -->&#10;&#10;Ex: cÃ³digo do Google AdSense, script de rede de anÃºncios, etc."></textarea>
+                <span class="slot-size-pill">300 Á— 250 px</span>
+                <p class="slot-tip">Cole aqui o código do seu banner (Google AdSense, Taboola, etc.). Deixe em branco se não quiser usar este slot.</p>
+                <textarea id="banner-slot1" class="slot-textarea" placeholder="<!-- Cole aqui o código do banner 300x250 -->&#10;&#10;Ex: código do Google AdSense, script de rede de anúncios, etc."></textarea>
                 <div class="slot-preview">
-                    <div class="slot-preview-box" style="width:150px;height:75px;">300 Ã— 250</div>
+                    <div class="slot-preview-box" style="width:150px;height:75px;">300 Á— 250</div>
                 </div>
             </div>
 
@@ -560,15 +560,15 @@
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
                     </div>
                     <div>
-                        <div class="slot-info-title">Slot 2 â€” Half Page / Skyscraper</div>
-                        <div class="slot-info-sub">PosiÃ§Ã£o: abaixo do slot 1 Â· Alta visibilidade</div>
+                        <div class="slot-info-title">Slot 2 — Half Page / Skyscraper</div>
+                        <div class="slot-info-sub">Posição: abaixo do slot 1 · Alta visibilidade</div>
                     </div>
                 </div>
-                <span class="slot-size-pill">300 Ã— 600 px</span>
-                <p class="slot-tip">Banner grande que acompanha a rolagem da pÃ¡gina. Excelente para CPM alto.</p>
-                <textarea id="banner-slot2" class="slot-textarea" placeholder="<!-- Cole aqui o cÃ³digo do banner 300x600 -->&#10;&#10;Ex: cÃ³digo do Google AdSense, script de rede de anÃºncios, etc."></textarea>
+                <span class="slot-size-pill">300 Á— 600 px</span>
+                <p class="slot-tip">Banner grande que acompanha a rolagem da página. Excelente para CPM alto.</p>
+                <textarea id="banner-slot2" class="slot-textarea" placeholder="<!-- Cole aqui o código do banner 300x600 -->&#10;&#10;Ex: código do Google AdSense, script de rede de anúncios, etc."></textarea>
                 <div class="slot-preview">
-                    <div class="slot-preview-box" style="width:100px;height:200px;">300 Ã— 600</div>
+                    <div class="slot-preview-box" style="width:100px;height:200px;">300 Á— 600</div>
                 </div>
             </div>
 
@@ -644,7 +644,7 @@
 <div id="preview-modal" onclick="if(event.target===this)closePreview()">
     <div class="preview-inner">
         <div class="preview-topbar">
-            <span class="preview-label">PrÃ©-visualizaÃ§Ã£o</span>
+            <span class="preview-label">Pré-visualização</span>
             <button class="preview-close" onclick="closePreview()">Fechar</button>
         </div>
         <div id="preview-content"></div>
@@ -659,12 +659,12 @@ const API_TOKEN_KEY = 'mb_blog_api_token';
 const PASSWORD_HASH = '06eb7d8563729c3c373f97f16875d98f99e457b9b28d56eecceeb04be61b3e4c';
 
 const CAT_LABELS = {
-    'credito':     'CrÃ©dito Empresarial',
-    'gestao':      'GestÃ£o Financeira',
+    'credito':     'Crédito Empresarial',
+    'gestao':      'Gestão Financeira',
     'conta-pj':    'Conta PJ',
     'mercado':     'Mercado',
-    'antecipacao': 'AntecipaÃ§Ã£o',
-    'noticias':    'NotÃ­cias'
+    'antecipacao': 'Antecipação',
+    'noticias':    'Notícias'
 };
 
 let posts = [];
@@ -774,7 +774,7 @@ function editPost(id) {
 
 async function savePost() {
     const title = document.getElementById('f-title').value.trim();
-    if (!title) { alert('O tÃ­tulo Ã© obrigatÃ³rio.'); document.getElementById('f-title').focus(); return; }
+    if (!title) { alert('O título é obrigatório.'); document.getElementById('f-title').focus(); return; }
 
     const cat = document.getElementById('f-category').value;
     const content = document.getElementById('editor-content').innerHTML;
@@ -820,7 +820,7 @@ async function savePost() {
 async function deleteCurrentPost() {
     if (!currentId) return;
     const p = posts.find(x => x.id === currentId);
-    if (!p || !confirm(`Excluir "${p.title}"?\nEsta aÃ§Ã£o nÃ£o pode ser desfeita.`)) return;
+    if (!p || !confirm(`Excluir "${p.title}"?\nEsta ação não pode ser desfeita.`)) return;
     posts = posts.filter(x => x.id !== currentId);
     persistLocal();
     await syncOfficialBlog(false);
@@ -971,7 +971,7 @@ function renderAnalytics() {
 function renderSidebar() {
     const list = document.getElementById('post-list');
     if (!posts.length) {
-        list.innerHTML = '<div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para comeÃ§ar.</div>';
+        list.innerHTML = '<div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para começar.</div>';
         renderAnalytics();
         return;
     }
@@ -1142,7 +1142,7 @@ function insertLink() {
 
 /* â”€â”€ PREVIEW â”€â”€ */
 function previewPost() {
-    const title   = document.getElementById('f-title').value.trim() || 'Sem tÃ­tulo';
+    const title   = document.getElementById('f-title').value.trim() || 'Sem título';
     const cat     = document.getElementById('f-category').value;
     const excerpt = document.getElementById('f-excerpt').value.trim();
     const image   = getImageValue();
@@ -1183,13 +1183,13 @@ function updateCharCount(fieldId, counterId, max) {
     updateSeoPreview();
 }
 function updateSeoPreview() {
-    const title  = document.getElementById('f-seo-title').value.trim() || document.getElementById('f-title').value.trim() || 'TÃ­tulo SEO aparecerÃ¡ aqui';
-    const desc   = document.getElementById('f-seo-desc').value.trim()  || 'A meta descriÃ§Ã£o aparecerÃ¡ aqui. Escreva algo atrativo para fazer o cliente clicar no seu resultado.';
+    const title  = document.getElementById('f-seo-title').value.trim() || document.getElementById('f-title').value.trim() || 'Título SEO aparecerá aqui';
+    const desc   = document.getElementById('f-seo-desc').value.trim()  || 'A meta descrição aparecerá aqui. Escreva algo atrativo para fazer o cliente clicar no seu resultado.';
     const slug   = slugify(document.getElementById('f-title').value.trim() || 'artigo');
     const domain = localStorage.getItem('mb_site_domain') || 'mbfinance.com.br';
     document.getElementById('seo-prev-title').textContent = title;
     document.getElementById('seo-prev-desc').textContent  = desc;
-    document.getElementById('seo-prev-site').textContent  = domain.replace(/https?:\/\//,'') + ' â€º blog â€º artigo-' + slug;
+    document.getElementById('seo-prev-site').textContent  = domain.replace(/https?:\/\//,'') + ' › blog › artigo-' + slug;
 }
 
 /* â”€â”€ EXPORT â”€â”€ */
@@ -1199,7 +1199,7 @@ async function exportBlog() {
 
     let domain = localStorage.getItem('mb_site_domain') || '';
     if (!domain) {
-        domain = prompt('Qual Ã© a URL do seu site?\n(Ex: https://mbfinance.com.br)', 'https://mbfinance.com.br');
+        domain = prompt('Qual é a URL do seu site?\n(Ex: https://mbfinance.com.br)', 'https://mbfinance.com.br');
         if (!domain) return;
         domain = domain.replace(/\/$/, '');
         localStorage.setItem('mb_site_domain', domain);
@@ -1226,7 +1226,7 @@ async function exportBlog() {
     a.download = 'mb-finance-blog.zip';
     a.click();
     URL.revokeObjectURL(a.href);
-    alert('âœ… Blog exportado!\n\nDescompacte o arquivo e envie TODOS os arquivos para a pasta do seu site (onde estÃ¡ o mb-finance-completo.html).');
+    alert('âœ… Blog exportado!\n\nDescompacte o arquivo e envie TODOS os arquivos para a pasta do seu site (onde está o mb-finance-completo.html).');
 }
 
 function cardHTML(p) {
@@ -1387,15 +1387,15 @@ ${artMainOpen}
   ${p.excerpt ? `<div class="art-excerpt-box">${esc(p.excerpt)}</div>` : ''}
   <div class="art-content">${p.content}</div>
   <div class="art-cta">
-    <h3>Precisa de crÃ©dito para sua empresa?</h3>
-    <p>A MB Finance encontra as melhores condiÃ§Ãµes entre todos os nossos parceiros.</p>
-    <a href="https://wa.me/552139008295?text=${encodeURIComponent('OlÃ¡! Li o artigo "' + p.title + '" e gostaria de falar com um especialista da MB Finance.')}">
+    <h3>Precisa de crédito para sua empresa?</h3>
+    <p>A MB Finance encontra as melhores condições entre todos os nossos parceiros.</p>
+    <a href="https://wa.me/552139008295?text=${encodeURIComponent('Olá! Li o artigo "' + p.title + '" e gostaria de falar com um especialista da MB Finance.')}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Falar com um especialista
     </a>
   </div>
 ${artMainClose}
-<footer class="footer"><p>Â© ${yr} MB Finance. Todos os direitos reservados.</p></footer>
+<footer class="footer"><p>© ${yr} MB Finance. Todos os direitos reservados.</p></footer>
 </body>
 </html>`;
 }
@@ -1426,13 +1426,13 @@ function buildBlogHTML(featured, gridPosts, allPosts, domain) {
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog MB Finance | CrÃ©dito, FinanÃ§as e GestÃ£o Empresarial</title>
-<meta name="description" content="Artigos sobre crÃ©dito empresarial, gestÃ£o financeira, conta PJ e oportunidades de mercado. ConteÃºdo exclusivo da MB Finance para empresÃ¡rios.">
+<title>Blog MB Finance | Crédito, Finanças e Gestão Empresarial</title>
+<meta name="description" content="Artigos sobre crédito empresarial, gestão financeira, conta PJ e oportunidades de mercado. Conteúdo exclusivo da MB Finance para empresários.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="${canonical}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Blog MB Finance | CrÃ©dito e FinanÃ§as Empresariais">
-<meta property="og:description" content="Artigos sobre crÃ©dito empresarial, gestÃ£o financeira e oportunidades para empresas.">
+<meta property="og:title" content="Blog MB Finance | Crédito e Finanças Empresariais">
+<meta property="og:description" content="Artigos sobre crédito empresarial, gestão financeira e oportunidades para empresas.">
 <meta property="og:url" content="${canonical}">
 <link rel="icon" type="image/png" href="https://i.ibb.co/MDGzVRmC/logo-mb-finance.png">
 <link rel="stylesheet" href="tailwind.min.css">
@@ -1541,9 +1541,9 @@ ${blogSidebarCSS}
 </nav>
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">ConteÃºdo exclusivo</div>
-    <h1 class="hero-title">InteligÃªncia financeira para<br>o seu <span>negÃ³cio crescer</span></h1>
-    <p class="hero-sub">AnÃ¡lises, guias prÃ¡ticos e insights sobre crÃ©dito empresarial, gestÃ£o financeira e oportunidades de mercado.</p>
+    <div class="hero-tag">Conteúdo exclusivo</div>
+    <h1 class="hero-title">Inteligªncia financeira para<br>o seu <span>negócio crescer</span></h1>
+    <p class="hero-sub">Análises, guias práticos e insights sobre crédito empresarial, gestão financeira e oportunidades de mercado.</p>
     <div class="search-box">
       <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
       <input type="text" id="search-input" placeholder="Buscar artigos..." oninput="searchCards(this.value)">
@@ -1554,12 +1554,12 @@ ${blogSidebarCSS}
 <div class="filter-bar">
   <div class="filter-inner">
     <button class="filter-btn active" onclick="filterCat(this,'todos')">Todos</button>
-    <button class="filter-btn" onclick="filterCat(this,'credito')">CrÃ©dito Empresarial</button>
-    <button class="filter-btn" onclick="filterCat(this,'gestao')">GestÃ£o Financeira</button>
+    <button class="filter-btn" onclick="filterCat(this,'credito')">Crédito Empresarial</button>
+    <button class="filter-btn" onclick="filterCat(this,'gestao')">Gestão Financeira</button>
     <button class="filter-btn" onclick="filterCat(this,'conta-pj')">Conta PJ</button>
     <button class="filter-btn" onclick="filterCat(this,'mercado')">Mercado</button>
-    <button class="filter-btn" onclick="filterCat(this,'antecipacao')">AntecipaÃ§Ã£o</button>
-    <button class="filter-btn" onclick="filterCat(this,'noticias')">NotÃ­cias</button>
+    <button class="filter-btn" onclick="filterCat(this,'antecipacao')">Antecipação</button>
+    <button class="filter-btn" onclick="filterCat(this,'noticias')">Notícias</button>
   </div>
 </div>
 ${blogMainOpen}
@@ -1571,15 +1571,15 @@ ${blogMainOpen}
     <div id="no-results" class="no-results">Nenhum artigo encontrado.</div>
   </div>
   <div class="newsletter">
-    <h3>Receba os melhores conteÃºdos</h3>
-    <p>AnÃ¡lises e artigos sobre finanÃ§as empresariais direto no seu e-mail, sem spam.</p>
+    <h3>Receba os melhores conteúdos</h3>
+    <p>Análises e artigos sobre finanças empresariais direto no seu e-mail, sem spam.</p>
     <div class="newsletter-form">
       <input type="email" class="newsletter-input" placeholder="seu@email.com.br">
       <button class="newsletter-btn">Quero receber</button>
     </div>
   </div>
 ${blogMainClose}
-<footer class="footer"><p>Â© ${yr} MB Finance. Todos os direitos reservados.</p></footer>
+<footer class="footer"><p>© ${yr} MB Finance. Todos os direitos reservados.</p></footer>
 <script>
 function searchCards(q){q=q.toLowerCase().trim();var cards=document.querySelectorAll('[data-cat]');var v=0;cards.forEach(function(c){var show=!q||c.textContent.toLowerCase().includes(q);c.style.display=show?'':'none';if(show)v++;});document.getElementById('no-results').style.display=v===0?'block':'none';if(q)document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});document.querySelector('.filter-btn').classList.add('active');}
 function filterCat(btn,cat){document.getElementById('search-input').value='';document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');document.querySelectorAll('[data-cat]').forEach(function(el){el.style.display=(cat==='todos'||el.getAttribute('data-cat')===cat)?'':'none';});}
