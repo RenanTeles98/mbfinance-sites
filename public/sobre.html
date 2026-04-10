@@ -879,7 +879,6 @@ function animateCounter(el) {
         }
 
         slides.forEach(function(slide) {
-            var isReverse = slide.classList.contains('reverse');
             var dotFraction = 0.5;
             var dotY = slide.offsetTop + slide.offsetHeight * dotFraction;
             if (targetY >= dotY) {
@@ -891,12 +890,12 @@ function animateCounter(el) {
     }
 
     if (document.readyState === 'complete') {
-        buildPath(); updateSvg();
+        buildPath(); update();
     } else {
-        window.addEventListener('load', function() { buildPath(); updateSvg(); });
+        window.addEventListener('load', function() { buildPath(); update(); });
     }
-    window.addEventListener('scroll', updateSvg, { passive: true });
-    window.addEventListener('resize', function() { buildPath(); updateSvg(); });
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', function() { buildPath(); update(); });
 })();
 </script>
 
