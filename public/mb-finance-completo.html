@@ -259,21 +259,26 @@
             flex-shrink: 0;
             transition: background 0.15s;
         }
-        .dd-fomenta-card {
+        .eco-card {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            padding: 18px 0;
+            padding: 13px 14px;
             border: none;
             border-bottom: 1px solid #e8eaed;
             background: none;
             cursor: pointer;
             text-align: left;
-            transition: background 0.15s;
+            transition: background 0.18s;
         }
-        .dd-fomenta-card:hover .dd-fomenta-name { color: #0099dd; }
-        .dd-fomenta-card:hover svg { stroke: #0099dd; }
+        .eco-card:last-child { border-bottom: none; }
+        .eco-card:hover { background: #003956; border-radius: 0; }
+        .eco-card:hover .eco-name { color: #fff; }
+        .eco-card:hover .eco-desc { color: rgba(255,255,255,0.55); }
+        .eco-card:hover svg { stroke: #fff; }
+        .eco-name { font-size: 14px; font-weight: 700; color: #003956; transition: color 0.18s; }
+        .eco-desc { font-size: 11px; color: #94a3b8; margin-top: 2px; font-weight: 400; transition: color 0.18s; }
         .nav-link {
             position: relative;
         }
@@ -738,18 +743,37 @@
                         </div>
                     </div>
 
-                    <!-- Direita: Plataforma fomenta+ -->
+                    <!-- Direita: Nosso Ecossistema -->
                     <div style="width:300px;border-left:1px solid #e8eaed;padding-left:48px;flex-shrink:0;">
-                        <p style="font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:20px;">Plataforma</p>
+                        <p style="font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:16px;">Nosso Ecossistema</p>
 
-                        <button onclick="closeProdDropdown(); window.open('https://fomentamais.com.br/', '_blank')" class="dd-fomenta-card">
-                            <div>
-                                <img src="https://i.ibb.co/G6ksvm0/Design-sem-nome-2025-12-12-T160554-083.png" alt="fomenta+" style="height:28px;width:auto;display:block;margin-bottom:4px;">
-                                <div style="font-size:12px;color:#94a3b8;font-weight:400;">Plataforma de crédito multibanco</div>
-                            </div>
-                            <svg width="16" height="16" fill="none" stroke="#c0ccd8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-                        </button>
+                        <div style="border:1px solid #e8eaed;border-radius:10px;overflow:hidden;">
 
+                            <button onclick="closeProdDropdown(); window.open('mb-tributos.html', '_self')" class="eco-card">
+                                <div>
+                                    <div class="eco-name">MB Tributos</div>
+                                    <div class="eco-desc">Consultoria e recuperação tributária</div>
+                                </div>
+                                <svg width="15" height="15" fill="none" stroke="#c0ccd8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                            </button>
+
+                            <button onclick="closeProdDropdown(); window.open('https://fomentamais.com.br/', '_blank')" class="eco-card">
+                                <div>
+                                    <div class="eco-name">Fomenta+</div>
+                                    <div class="eco-desc">Crédito empresarial rápido</div>
+                                </div>
+                                <svg width="15" height="15" fill="none" stroke="#c0ccd8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                            </button>
+
+                            <button onclick="closeProdDropdown(); window.open('https://www.mbnegocios.com.br/', '_blank')" class="eco-card">
+                                <div>
+                                    <div class="eco-name">MB Negócios</div>
+                                    <div class="eco-desc">Distribuição de produtos financeiros</div>
+                                </div>
+                                <svg width="15" height="15" fill="none" stroke="#c0ccd8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                            </button>
+
+                        </div>
                     </div>
 
                 </div>
