@@ -692,16 +692,16 @@
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 48px;">
 
                             <div>
-                                <button onclick="openLeadModal('https://wa.me/552139008295','Conta Corrente Empresarial')" class="dd-prod-link">Conta Corrente Empresarial</button>
-                                <button onclick="openLeadModal('https://wa.me/552139008295','Máquina de Cartão')" class="dd-prod-link">Máquina de Cartão</button>
-                                <button onclick="openLeadModal('https://wa.me/552139008295','Seguros e Consórcios')" class="dd-prod-link">Seguros e Consórcios</button>
-                                <button onclick="openLeadModal('https://wa.me/552139008295','Telemedicina')" class="dd-prod-link">Telemedicina</button>
+                                <button onclick="closeProdDropdown(); openProduct('acc-conta-pj')" class="dd-prod-link">Conta Corrente Empresarial</button>
+                                <button onclick="closeProdDropdown(); openProduct('acc-adquirencia')" class="dd-prod-link">Máquina de Cartão</button>
+                                <button onclick="closeProdDropdown(); openProduct('acc-seguros')" class="dd-prod-link">Seguros e Consórcios</button>
+                                <button onclick="closeProdDropdown(); openProduct('acc-telemedicina')" class="dd-prod-link">Telemedicina</button>
                             </div>
 
                             <div>
-                                <button onclick="openLeadModal('https://wa.me/552139008295','Crédito Rápido')" class="dd-prod-link" style="color:#0099dd;font-weight:600;">Crédito Rápido</button>
-                                <button onclick="openLeadModal('https://wa.me/552139008295','Soluções Tributárias')" class="dd-prod-link">Soluções Tributárias</button>
-                                <button onclick="openLeadModal('https://wa.me/552139008295','Soluções Personalizadas')" class="dd-prod-link">Soluções Personalizadas</button>
+                                <button onclick="closeProdDropdown(); openProduct('acc-capital-giro')" class="dd-prod-link">Crédito Rápido</button>
+                                <button onclick="closeProdDropdown(); openProduct('acc-tributarias')" class="dd-prod-link">Soluções Tributárias</button>
+                                <button onclick="closeProdDropdown(); openProduct('acc-personalizadas')" class="dd-prod-link">Soluções Personalizadas</button>
                             </div>
 
                         </div>
@@ -711,7 +711,7 @@
                     <div style="width:300px;border-left:1px solid #e8eaed;padding-left:48px;flex-shrink:0;">
                         <p style="font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:20px;">Plataforma</p>
 
-                        <button onclick="openLeadModal('https://wa.me/552139008295','Crédito Rápido')" class="dd-fomenta-card">
+                        <button onclick="closeProdDropdown(); openProduct('acc-capital-giro')" class="dd-fomenta-card">
                             <div>
                                 <div class="dd-fomenta-name" style="font-size:16px;font-weight:800;color:#003956;letter-spacing:-0.5px;transition:color 0.15s;">
                                     fomenta<span style="color:#0099dd;">+</span>
@@ -2260,6 +2260,12 @@
             dropdown.addEventListener('mouseenter', showDropdown);
             dropdown.addEventListener('mouseleave', hideDropdown);
         }
+
+        // Fecha o dropdown via onclick (acessível globalmente)
+        window.closeProdDropdown = function() {
+            if (dropdown) dropdown.classList.remove('open');
+            if (megaChevron) megaChevron.style.transform = '';
+        };
 
         // ── FAQ Toggle System ──
         function toggleFAQ(button) {
