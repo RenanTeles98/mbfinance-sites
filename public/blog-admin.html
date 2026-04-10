@@ -587,33 +587,52 @@
         <div class="analytics-wrap">
             <div class="analytics-page-header">
                 <div>
-                    <h2>Analytics do Blog</h2>
-                    <p>Acompanhe o volume de conteudo, status editorial, distribuicao por categoria e os posts mais recentes do painel.</p>
+                    <h2>Analytics do Site</h2>
+                    <p>Acompanhe visitas, usuarios, sessoes, visualizacoes e as paginas mais acessadas do site. Abaixo, voce continua vendo o resumo editorial do blog.</p>
                 </div>
                 <div class="analytics-stamp" id="analytics-last-update">Atualizado agora</div>
             </div>
 
             <div class="analytics-grid">
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Total de Posts</div>
-                    <div class="analytics-card-value" id="analytics-total">0</div>
-                    <div class="analytics-card-note">Quantidade total de artigos cadastrados no painel.</div>
+                    <div class="analytics-card-label">Usuarios Totais</div>
+                    <div class="analytics-card-value" id="ga-total-users">--</div>
+                    <div class="analytics-card-note">Usuarios totais registrados no periodo consultado.</div>
                 </div>
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Publicados</div>
-                    <div class="analytics-card-value" id="analytics-published">0</div>
-                    <div class="analytics-card-note">Posts prontos para aparecer no blog oficial.</div>
+                    <div class="analytics-card-label">Usuarios Ativos</div>
+                    <div class="analytics-card-value" id="ga-active-users">--</div>
+                    <div class="analytics-card-note">Pessoas que navegaram ativamente pelo site.</div>
                 </div>
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Rascunhos</div>
-                    <div class="analytics-card-value" id="analytics-drafts">0</div>
-                    <div class="analytics-card-note">Conteudos ainda em edicao ou aguardando publicacao.</div>
+                    <div class="analytics-card-label">Sessoes</div>
+                    <div class="analytics-card-value" id="ga-sessions">--</div>
+                    <div class="analytics-card-note">Quantidade de sessoes abertas no site.</div>
                 </div>
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Destaques</div>
-                    <div class="analytics-card-value" id="analytics-featured">0</div>
-                    <div class="analytics-card-note">Posts marcados como destaque na home do blog.</div>
+                    <div class="analytics-card-label">Visualizacoes</div>
+                    <div class="analytics-card-value" id="ga-pageviews">--</div>
+                    <div class="analytics-card-note">Total de visualizacoes de paginas no periodo.</div>
                 </div>
+            </div>
+
+            <div class="analytics-panels" style="margin-bottom:18px;">
+                <div class="analytics-panel">
+                    <h3>Trafego diario</h3>
+                    <div class="analytics-panel-sub">Ultimos dias com usuarios ativos, sessoes e visualizacoes.</div>
+                    <div id="ga-traffic-trend"></div>
+                </div>
+                <div class="analytics-panel">
+                    <h3>Paginas mais acessadas</h3>
+                    <div class="analytics-panel-sub">Ranking real das paginas mais vistas no site.</div>
+                    <div id="ga-top-pages"></div>
+                </div>
+            </div>
+
+            <div class="analytics-panel" style="margin-bottom:18px;">
+                <h3>Indicadores de trafego</h3>
+                <div class="analytics-panel-sub">Leitura rapida do comportamento do site com base no GA4.</div>
+                <div class="analytics-highlight-list" id="ga-highlights"></div>
             </div>
 
             <div class="analytics-panels" style="margin-bottom:18px;">
@@ -623,8 +642,8 @@
                     <div id="analytics-categories"></div>
                 </div>
                 <div class="analytics-panel">
-                    <h3>Indicadores rapidos</h3>
-                    <div class="analytics-panel-sub">Resumo editorial do painel.</div>
+                    <h3>Indicadores editoriais</h3>
+                    <div class="analytics-panel-sub">Resumo do painel de conteudo.</div>
                     <div class="analytics-highlight-list" id="analytics-highlights"></div>
                 </div>
             </div>
@@ -905,8 +924,104 @@ function parseReadTime(value) {
     return match ? Number(match[0]) : 0;
 }
 
-function renderAnalytics() {
-    const root = document.getElementById('analytics-total');
+function formatInteger(value) {
+    return Number(value || 0).toLocaleString('pt-BR');
+}
+
+function formatDuration(seconds) {
+    const total = Math.round(Number(seconds || 0));
+    const minutes = Math.floor(total / 60);
+    const remainder = total % 60;
+    if (!minutes) return remainder + 's';
+    if (!remainder) return minutes + 'min';
+    return minutes + 'min ' + remainder + 's';
+}
+
+function getAnalyticsApiUrl() {
+    const base = (localStorage.getItem('mb_site_domain') || '').replace(/\/$/, '');
+    if (base) return base + '/api/analytics/overview';
+    return '/api/analytics/overview';
+}
+
+async function renderTrafficAnalytics() {
+    const totalUsersEl = document.getElementById('ga-total-users');
+    if (!totalUsersEl) return;
+
+    totalUsersEl.textContent = '--';
+    document.getElementById('ga-active-users').textContent = '--';
+    document.getElementById('ga-sessions').textContent = '--';
+    document.getElementById('ga-pageviews').textContent = '--';
+    document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Carregando dados do Google Analytics...</div>';
+    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Carregando paginas mais acessadas...</div>';
+    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Carregando indicadores de trafego...</div>';
+
+    try {
+        const response = await fetch(getAnalyticsApiUrl(), { cache: 'no-store' });
+        const data = await response.json();
+
+        if (!response.ok || !data || !data.configured || !data.summary) {
+            const message = (data && data.error) ? data.error : 'GA4 nao configurado ou sem acesso liberado.';
+            document.getElementById('analytics-last-update').textContent = 'GA4 indisponivel';
+            document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">' + esc(message) + '</div>';
+            document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de trafego por enquanto.</div>';
+            document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Configure as variaveis do GA4 no Vercel e confirme o acesso da service account na propriedade.</div>';
+            return;
+        }
+
+        const summary = data.summary || {};
+        const trend = Array.isArray(data.trend) ? data.trend : [];
+        const topPages = Array.isArray(data.topPages) ? data.topPages : [];
+        const avgViewsPerSession = summary.sessions ? (summary.screenPageViews / summary.sessions).toFixed(2) : '0.00';
+
+        totalUsersEl.textContent = formatInteger(summary.totalUsers);
+        document.getElementById('ga-active-users').textContent = formatInteger(summary.activeUsers);
+        document.getElementById('ga-sessions').textContent = formatInteger(summary.sessions);
+        document.getElementById('ga-pageviews').textContent = formatInteger(summary.screenPageViews);
+        document.getElementById('analytics-last-update').textContent = data.rangeLabel ? 'Dados reais: ' + data.rangeLabel : 'Dados reais do GA4';
+
+        if (!trend.length) {
+            document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Ainda nao ha volume suficiente para montar a tendencia diaria.</div>';
+        } else {
+            const trendRows = trend.slice(-10).map(point =>
+                '<div class="analytics-highlight-item">'
+                + '<div class="analytics-highlight-label">' + esc(point.date) + '</div>'
+                + '<div class="analytics-highlight-value">'
+                + formatInteger(point.screenPageViews) + ' views<br>'
+                + formatInteger(point.sessions) + ' sessoes · '
+                + formatInteger(point.activeUsers) + ' ativos'
+                + '</div></div>'
+            ).join('');
+            document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-highlight-list">' + trendRows + '</div>';
+        }
+
+        if (!topPages.length) {
+            document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Nenhuma pagina acessada registrada ainda.</div>';
+        } else {
+            document.getElementById('ga-top-pages').innerHTML = '<table class="analytics-table"><thead><tr><th>Pagina</th><th>Views</th><th>Usuarios</th><th>Sessoes</th></tr></thead><tbody>'
+                + topPages.map(page => '<tr>'
+                    + '<td><div class="analytics-post-title">' + esc(page.pageTitle || 'Sem titulo') + '</div><div class="analytics-post-meta">' + esc(page.pagePath || '/') + '</div></td>'
+                    + '<td>' + formatInteger(page.screenPageViews) + '</td>'
+                    + '<td>' + formatInteger(page.activeUsers) + '</td>'
+                    + '<td>' + formatInteger(page.sessions) + '</td>'
+                    + '</tr>').join('')
+                + '</tbody></table>';
+        }
+
+        document.getElementById('ga-highlights').innerHTML = ''
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Duracao media da sessao</div><div class="analytics-highlight-value">' + formatDuration(summary.averageSessionDuration) + '</div></div>'
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Views por sessao</div><div class="analytics-highlight-value">' + esc(avgViewsPerSession) + '</div></div>'
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Property GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'N/A') + '</div></div>'
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Status</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
+    } catch (error) {
+        document.getElementById('analytics-last-update').textContent = 'Falha no GA4';
+        document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Nao foi possivel consultar o endpoint de analytics.</div>';
+        document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Verifique se o deploy novo do site e da API ja esta ativo.</div>';
+        document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">' + esc(error && error.message ? error.message : 'Erro desconhecido') + '</div>';
+    }
+}
+
+function renderEditorialAnalytics() {
+    const root = document.getElementById('analytics-categories');
     if (!root) return;
 
     const total = posts.length;
@@ -923,12 +1038,6 @@ function renderAnalytics() {
     });
     const categories = Object.entries(categoryMap).sort((a, b) => b[1] - a[1]);
     const topCategory = categories[0] || ['Sem categoria', 0];
-
-    document.getElementById('analytics-total').textContent = total;
-    document.getElementById('analytics-published').textContent = published;
-    document.getElementById('analytics-drafts').textContent = drafts;
-    document.getElementById('analytics-featured').textContent = featured;
-    document.getElementById('analytics-last-update').textContent = latestDate ? 'Atualizado com base em ' + formatAnalyticsDate(latestDate) : 'Atualizado agora';
 
     const categoriesEl = document.getElementById('analytics-categories');
     if (!total) {
@@ -966,6 +1075,11 @@ function renderAnalytics() {
             + '<td><span class="analytics-status-badge ' + (post.published !== false ? 'pub' : 'draft') + '">' + (post.published !== false ? 'Publicado' : 'Rascunho') + '</span></td>'
             + '</tr>').join('')
         + '</tbody></table>';
+}
+
+function renderAnalytics() {
+    renderEditorialAnalytics();
+    renderTrafficAnalytics();
 }
 
 function renderSidebar() {
