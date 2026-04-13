@@ -611,6 +611,9 @@
             #tl-2 .tl-dot      { top: 50%; left: 18px; }
             #tl-2 .tl-connector { top: 50%; left: 36px; }
 
+            /* No mobile, eleva o SVG acima do background dos slides */
+            .tl-rail-svg { z-index: 57; }
+
             /* Conteúdo */
             .tl-content { margin-top: 0; max-width: 100%; }
 
@@ -1613,10 +1616,15 @@ function animateCounter(el) {
         if (!rafId) rafId = requestAnimationFrame(renderLine);
     }
 
-    if (document.readyState === 'complete') {
+    function initTimeline() {
         buildPath(); computeCheckpoints(); update();
+        // Re-executa após 300ms para garantir layout correto no mobile
+        setTimeout(function() { buildPath(); computeCheckpoints(); update(); }, 300);
+    }
+    if (document.readyState === 'complete') {
+        initTimeline();
     } else {
-        window.addEventListener('load', function() { buildPath(); computeCheckpoints(); update(); });
+        window.addEventListener('load', initTimeline);
     }
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('scroll', releaseScrollLockIfReached, { passive: true });
