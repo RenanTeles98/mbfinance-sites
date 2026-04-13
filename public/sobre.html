@@ -318,15 +318,27 @@
             animation: icon-draw 1.6s cubic-bezier(.4,0,.2,1) forwards;
             animation-delay: 0.3s;
         }
-        /* Seta do gráfico: flutua para cima após ser desenhada */
-        @keyframes chart-rise {
-            0%   { transform: translateY(0px);  }
-            50%  { transform: translateY(-12px); }
-            100% { transform: translateY(0px);  }
+        /* Override genérico para as polylines do gráfico 2014-2019 */
+        #tl-1 .tl-bg-icon svg .chart-line,
+        #tl-1 .tl-bg-icon svg .chart-arrow {
+            stroke-dasharray: 120;
+            stroke-dashoffset: 120;
+            opacity: 0;
+            animation: none;
         }
-        #tl-1.active .tl-bg-icon svg {
-            animation: chart-rise 2.8s ease-in-out infinite;
-            animation-delay: 2s;
+
+        /* Gráfico 2014-2019: linha se desenha, depois seta */
+        #tl-1.active .tl-bg-icon svg .chart-line,
+        #tl-1.active .tl-bg-icon svg .chart-arrow {
+            stroke-dasharray: 120;
+            stroke-dashoffset: 120;
+            opacity: 1;
+            animation: chart-draw 1.2s cubic-bezier(.4,0,.2,1) forwards;
+        }
+        #tl-1.active .tl-bg-icon svg .chart-line  { animation-delay: 0.3s; }
+        #tl-1.active .tl-bg-icon svg .chart-arrow { animation-delay: 1.2s; }
+        @keyframes chart-draw {
+            to { stroke-dashoffset: 0; }
         }
 
         /* Bloco de cima: cai após a base ser desenhada */
@@ -704,8 +716,8 @@
         <!-- Ícone: gráfico de crescimento -->
         <div class="tl-bg-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-                <polyline points="16 7 22 7 22 13"/>
+                <polyline class="chart-line" points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                <polyline class="chart-arrow" points="16 7 22 7 22 13"/>
             </svg>
         </div>
         <div class="tl-content">
