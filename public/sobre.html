@@ -1163,10 +1163,79 @@ function animateCounter(el) {
     var MIN_ACTIVE_MS = 350;
     var activeSince   = new Array(slides.length).fill(0);
 
+    // Lerp state
+    var currentLen = 0;
+    var targetLen  = 0;
+    var rafId      = null;
+
+    var pivotIndex = slides.findIndex(function(slide) { return slide.id === 'tl-2'; });
+
+    function computeTargetLen() {
+        if (!pathFg || totalLen === 0) return 0;
+        var secTopAbs = section.getBoundingClientRect().top + window.scrollY;
+        var scrollY   = window.scrollY - secTopAbs + window.innerHeight * 0.5;
+        var len = 0;
+
+        if (railMetrics && railMetrics.mode === 'zig') {
+            var bendLen = railMetrics.zigY
+                + railMetrics.topHookW
+                + (railMetrics.pivotY - railMetrics.zigY)
+                + railMetrics.crossLen;
+
+            if (scrollY <= railMetrics.zigY) {
+                len = Math.max(0, scrollY);
+            } else if (scrollY <= railMetrics.pivotY) {
+                len = railMetrics.zigY + railMetrics.topHookW + (scrollY - railMetrics.zigY);
+            } else {
+                len = bendLen + (scrollY - railMetrics.pivotY);
+            }
+
+            // Once past pivot slide, guarantee the bend is fully drawn
+            var currentIndex = -1;
+            slides.forEach(function(slide, i) {
+                if (slide.getBoundingClientRect().top <= 2) currentIndex = i;
+            });
+            if (pivotIndex >= 0 && currentIndex >= pivotIndex) {
+                len = Math.max(len, bendLen);
+            }
+        } else if (railMetrics) {
+            var secTopAbs2 = section.getBoundingClientRect().top + window.scrollY;
+            var scrollY2   = window.scrollY - secTopAbs2 + window.innerHeight * 0.5;
+            len = railMetrics.hookW + scrollY2;
+        }
+
+        return Math.min(totalLen, Math.max(0, len));
+    }
+
+    function renderLine() {
+        var LERP = 0.09;
+        currentLen += (targetLen - currentLen) * LERP;
+        var diff = Math.abs(targetLen - currentLen);
+        if (diff < 0.4) currentLen = targetLen;
+
+        pathFg.style.strokeDashoffset = totalLen - currentLen;
+
+        if (dotEl) {
+            if (currentLen > 2) {
+                var pt = pathFg.getPointAtLength(currentLen);
+                dotEl.setAttribute('cx', pt.x);
+                dotEl.setAttribute('cy', pt.y);
+                dotEl.style.display = '';
+            } else {
+                dotEl.style.display = 'none';
+            }
+        }
+
+        if (diff > 0.4) {
+            rafId = requestAnimationFrame(renderLine);
+        } else {
+            rafId = null;
+        }
+    }
+
     function update() {
         var currentIndex = -1;
         var now = Date.now();
-        var pivotIndex = slides.findIndex(function(slide) { return slide.id === 'tl-2'; });
 
         slides.forEach(function(slide, i) {
             var top = slide.getBoundingClientRect().top;
@@ -1189,56 +1258,8 @@ function animateCounter(el) {
             }
         });
 
-        if (pathFg && totalLen > 0) {
-            var secTopAbs = section.getBoundingClientRect().top + window.scrollY;
-            var targetY   = window.scrollY - secTopAbs + window.innerHeight * 0.5;
-            var drawnLen  = 0;
-
-            if (railMetrics && railMetrics.mode === 'zig') {
-                var bendLen = railMetrics.zigY
-                    + railMetrics.topHookW
-                    + (railMetrics.pivotY - railMetrics.zigY)
-                    + railMetrics.crossLen;
-
-                if (targetY <= railMetrics.zigY) {
-                    drawnLen = Math.max(0, targetY);
-                } else if (targetY <= railMetrics.pivotY) {
-                    drawnLen = railMetrics.zigY + railMetrics.topHookW + (targetY - railMetrics.zigY);
-                } else {
-                    drawnLen = bendLen + (targetY - railMetrics.pivotY);
-                }
-
-                if (pivotIndex >= 0 && currentIndex >= pivotIndex) {
-                    drawnLen = Math.max(drawnLen, bendLen);
-                }
-            } else if (railMetrics) {
-                drawnLen = railMetrics.hookW + targetY;
-            }
-
-            drawnLen = Math.min(totalLen, Math.max(0, drawnLen));
-            pathFg.style.strokeDashoffset = totalLen - drawnLen;
-
-            if (dotEl) {
-                if (drawnLen > 2) {
-                    var pt = pathFg.getPointAtLength(drawnLen);
-                    dotEl.setAttribute('cx', pt.x);
-                    dotEl.setAttribute('cy', pt.y);
-                    dotEl.style.display = '';
-                } else {
-                    dotEl.style.display = 'none';
-                }
-            }
-        }
-
-        slides.forEach(function(slide) {
-            var dotFraction = 0.5;
-            var dotY = slide.offsetTop + slide.offsetHeight * dotFraction;
-            if (targetY >= dotY) {
-                slide.classList.add('active');
-            } else {
-                slide.classList.remove('active');
-            }
-        });
+        targetLen = computeTargetLen();
+        if (!rafId) rafId = requestAnimationFrame(renderLine);
     }
 
     if (document.readyState === 'complete') {
