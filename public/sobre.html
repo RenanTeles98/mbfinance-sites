@@ -339,30 +339,19 @@
             animation: icon-draw 1.6s cubic-bezier(.4,0,.2,1) forwards;
             animation-delay: 0.3s;
         }
-        /* Hub 2026: linhas e nós com animação escalonada */
-        #tl-4 .tl-bg-icon svg .hub-line,
-        #tl-4 .tl-bg-icon svg .hub-node,
-        #tl-4 .tl-bg-icon svg .hub-center {
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
+        /* Layers 2026: camadas se desenham de baixo pra cima */
+        #tl-4 .tl-bg-icon svg .layer-bottom,
+        #tl-4 .tl-bg-icon svg .layer-mid,
+        #tl-4 .tl-bg-icon svg .layer-top {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
             opacity: 0;
             animation: none;
         }
-        #tl-4.active .tl-bg-icon svg .hub-center {
-            animation: hub-draw 0.7s cubic-bezier(.4,0,.2,1) forwards;
-            animation-delay: 0.3s;
-        }
-        #tl-4.active .tl-bg-icon svg .hub-line:nth-child(1) { animation: hub-draw 0.5s ease forwards; animation-delay: 0.9s; }
-        #tl-4.active .tl-bg-icon svg .hub-line:nth-child(2) { animation: hub-draw 0.5s ease forwards; animation-delay: 1.0s; }
-        #tl-4.active .tl-bg-icon svg .hub-line:nth-child(3) { animation: hub-draw 0.5s ease forwards; animation-delay: 1.1s; }
-        #tl-4.active .tl-bg-icon svg .hub-line:nth-child(4) { animation: hub-draw 0.5s ease forwards; animation-delay: 1.2s; }
-        #tl-4.active .tl-bg-icon svg .hub-line:nth-child(5) { animation: hub-draw 0.5s ease forwards; animation-delay: 1.3s; }
-        #tl-4.active .tl-bg-icon svg .hub-node:nth-child(6) { animation: hub-draw 0.5s ease forwards; animation-delay: 1.4s; }
-        #tl-4.active .tl-bg-icon svg .hub-node:nth-child(7) { animation: hub-draw 0.5s ease forwards; animation-delay: 1.5s; }
-        #tl-4.active .tl-bg-icon svg .hub-node:nth-child(8) { animation: hub-draw 0.5s ease forwards; animation-delay: 1.6s; }
-        #tl-4.active .tl-bg-icon svg .hub-node:nth-child(9) { animation: hub-draw 0.5s ease forwards; animation-delay: 1.7s; }
-        #tl-4.active .tl-bg-icon svg .hub-node:nth-child(10){ animation: hub-draw 0.5s ease forwards; animation-delay: 1.8s; }
-        @keyframes hub-draw {
+        #tl-4.active .tl-bg-icon svg .layer-bottom { animation: layer-draw 0.7s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 0.3s; }
+        #tl-4.active .tl-bg-icon svg .layer-mid    { animation: layer-draw 0.7s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 0.8s; }
+        #tl-4.active .tl-bg-icon svg .layer-top    { animation: layer-draw 0.9s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 1.3s; }
+        @keyframes layer-draw {
             to { stroke-dashoffset: 0; opacity: 1; }
         }
 
@@ -902,23 +891,12 @@
     <div class="tl-slide reverse" id="tl-4">
         <div class="tl-dot"></div>
         <div class="tl-connector"></div>
-        <!-- Ícone: hub financeiro molecular -->
+        <!-- Ícone: blocos empilhados (layers) -->
         <div class="tl-bg-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Linhas do centro para os nós -->
-                <line class="hub-line" x1="12" y1="12" x2="19" y2="4"/>
-                <line class="hub-line" x1="12" y1="12" x2="3"  y2="9.5"/>
-                <line class="hub-line" x1="12" y1="12" x2="21" y2="13.5"/>
-                <line class="hub-line" x1="12" y1="12" x2="4"  y2="19.5"/>
-                <line class="hub-line" x1="12" y1="12" x2="16" y2="21"/>
-                <!-- Nós externos -->
-                <circle class="hub-node" cx="19"  cy="4"    r="2.2"/>
-                <circle class="hub-node" cx="3"   cy="9.5"  r="2"/>
-                <circle class="hub-node" cx="21"  cy="13.5" r="1.7"/>
-                <circle class="hub-node" cx="4"   cy="19.5" r="2.8"/>
-                <circle class="hub-node" cx="16"  cy="21"   r="2.8"/>
-                <!-- Nó central (desenhado por último) -->
-                <circle class="hub-center" cx="12" cy="12" r="3.2"/>
+                <polyline class="layer-bottom" points="2 17 12 22 22 17"/>
+                <polyline class="layer-mid"    points="2 12 12 17 22 12"/>
+                <polygon  class="layer-top"    points="12 2 2 7 12 12 22 7 12 2"/>
             </svg>
         </div>
         <div class="tl-content">
@@ -946,7 +924,7 @@
     <div style="max-width:980px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1;" class="fade-up">
         <p style="color:#0099dd;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;margin-bottom:16px;">Vamos conversar</p>
         <h2 style="color:#fff;font-size:clamp(32px,5vw,64px);font-weight:700;line-height:1.08;letter-spacing:-0.025em;margin-bottom:32px;max-width:900px;margin-left:auto;margin-right:auto;">
-            <span style="display:block;white-space:nowrap;">Fale com a mb finance e encontre a</span><span style="display:block;color:#0099dd;">solução certa para o seu negócio.</span>
+            <span style="display:block;white-space:nowrap;">Fale com a mb finance e encontre a</span><span style="display:block;color:#0099dd;white-space:nowrap;">solução certa para o seu negócio.</span>
         </h2>
         <p style="color:rgba(255,255,255,0.72);font-size:clamp(16px,2vw,20px);font-weight:300;line-height:1.7;margin-bottom:56px;max-width:680px;margin-left:auto;margin-right:auto;">
             Fale com um consultor mb finance e acesse soluções mais inteligentes, competitivas e aderentes ao momento do seu negócio.
