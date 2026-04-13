@@ -1407,7 +1407,8 @@ function animateCounter(el) {
                 len = bendLen + (y - railMetrics.pivotY);
             }
         } else if (railMetrics) {
-            len = railMetrics.hookW + y;
+            // Mobile: linha vertical começa em zigY (= headerH)
+            len = Math.max(0, y - railMetrics.zigY);
         }
         return Math.min(totalLen, Math.max(0, len));
     }
