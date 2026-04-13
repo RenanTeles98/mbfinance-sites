@@ -457,9 +457,7 @@
         }
 
         @media (max-width: 768px) { .tl-bg-icon { display: none; } }
-        @media (max-width: 768px) {
-            .tl-bg-old-logo { display: none; }
-        }
+        @media (max-width: 768px) { .tl-bg-old-logo { display: none; } }
 
         /* Número do ano em background — sutil watermark */
         .tl-bg-year {
@@ -551,24 +549,74 @@
             z-index: 2;
         }
         /* Mobile: ajusta posição da linha e conteúdo */
+        /* ── MOBILE ── */
         @media (max-width: 768px) {
-            .tl-dot { left: 20px; }
-            .tl-connector { left: 38px; width: 24px; }
-            .tl-slide { padding: 32px 24px 32px 72px; overflow: hidden; }
-            .tl-header { padding: 48px 24px 16px 24px; background: #ffffff; position: relative; z-index: 3; }
-            .tl-bg-year { right: 16px; font-size: clamp(60px, 16vw, 100px); }
-            .tl-slide.reverse { justify-content: flex-start; padding: 60px 24px 60px 72px; }
-            .tl-slide.reverse .tl-dot { right: auto; left: 20px; top: 50%; }
+
+            /* Slides */
+            .tl-slide {
+                padding: 48px 20px 48px 56px;
+                min-height: auto;
+                align-items: flex-start;
+            }
+            .tl-slide.reverse {
+                justify-content: flex-start;
+                padding: 48px 20px 48px 56px;
+            }
+
+            /* Header da timeline */
+            .tl-header { padding: 48px 20px 24px 20px; }
+
+            /* Dot e conector */
+            .tl-dot { left: 18px; }
+            .tl-connector { left: 36px; width: 20px; }
+            .tl-slide.reverse .tl-dot  { right: auto; left: 18px; top: 50%; }
             .tl-slide.reverse .tl-connector {
-                right: auto;
-                left: 38px;
-                top: 50%;
+                right: auto; left: 36px; top: 50%;
                 background: linear-gradient(to right, #0099dd, rgba(0,153,221,0.3));
             }
-            .tl-slide.reverse .tl-bg-year { left: auto; right: 16px; }
-            .tl-consolidation-side { display: none; }
-            .tl-consolidation-awards { margin-top: 26px; gap: 12px; }
-            .tl-consolidation-award { width: calc(50% - 6px); max-width: 106px; }
+
+            /* Fix dot/conector de #tl-3 e #tl-4 (reverse com offset extra) */
+            #tl-3.tl-slide.reverse .tl-dot,
+            #tl-4.tl-slide.reverse .tl-dot { right: auto; left: 18px; }
+            #tl-3.tl-slide.reverse .tl-connector,
+            #tl-4.tl-slide.reverse .tl-connector { right: auto; left: 36px; }
+
+            /* Fix foguete #tl-2: dot e conector voltam para top:50% */
+            #tl-2 .tl-dot      { top: 50%; left: 18px; }
+            #tl-2 .tl-connector { top: 50%; left: 36px; }
+
+            /* Conteúdo */
+            .tl-content { margin-top: 0; max-width: 100%; }
+
+            /* Badge de ano */
+            .tl-year { font-size: 14px; padding: 3px 10px; margin-bottom: 16px; letter-spacing: 0.1em; }
+
+            /* Título */
+            .tl-title { font-size: clamp(26px, 8vw, 40px); margin-bottom: 16px; }
+
+            /* Descrição */
+            .tl-desc { font-size: 15px; line-height: 1.6; }
+
+            /* Badge */
+            .tl-badge { margin-top: 16px; }
+
+            /* Watermark do ano */
+            .tl-bg-year { right: 8px; font-size: clamp(48px, 14vw, 80px); }
+            .tl-slide.reverse .tl-bg-year { left: auto; right: 8px; }
+
+            /* Slide 2026: reduz espaçamento excessivo */
+            #tl-4 { min-height: auto; padding-top: 56px; padding-bottom: 56px; }
+            #tl-4 .tl-year   { margin-bottom: 16px; }
+            #tl-4 .tl-title  { margin-bottom: 20px; }
+            #tl-4 .tl-desc   { margin-bottom: 8px; }
+
+            /* Consolidação */
+            .tl-consolidation-side   { display: none; }
+            .tl-consolidation-awards { margin-top: 20px; gap: 10px; }
+            .tl-consolidation-award  { width: calc(50% - 5px); max-width: 100px; }
+
+            /* CTA */
+            .cta-nowrap-desktop { white-space: normal; }
         }
         @media (min-width: 1024px) {
             .cta-nowrap-desktop { white-space: nowrap; }
