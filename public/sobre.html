@@ -550,6 +550,34 @@
             position: relative;
             z-index: 2;
         }
+        .tl-finish {
+            position: absolute;
+            right: 76px;
+            bottom: 0;
+            transform: translateY(50%);
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none;
+        }
+        .tl-finish-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(0,30,46,0.48);
+            white-space: nowrap;
+            transform: translateY(-6px);
+        }
+        .tl-finish-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            background: #0099dd;
+            box-shadow: 0 0 0 7px rgba(0,153,221,0.18), 0 0 24px rgba(0,153,221,0.22);
+        }
 
         /* Mobile: ajusta posição da linha e conteúdo */
         @media (max-width: 768px) {
@@ -570,6 +598,17 @@
             .tl-consolidation-side { display: none; }
             .tl-consolidation-awards { margin-top: 26px; gap: 12px; }
             .tl-consolidation-award { width: calc(50% - 6px); max-width: 106px; }
+            .tl-finish {
+                right: auto;
+                left: 20px;
+                transform: translate(-50%, 50%);
+            }
+            .tl-finish-label {
+                transform: translateX(34px);
+                transform-origin: left center;
+                white-space: normal;
+                max-width: 140px;
+            }
         }
         @media (min-width: 1024px) {
             .cta-nowrap-desktop { white-space: nowrap; }
@@ -916,7 +955,13 @@
             <div class="tl-desc">Novas frentes: Seguros, Consórcios, Consultoria Tributária e Telemedicina.</div>
             <span class="tl-badge">Novas frentes</span>
         </div>
-    </div></section>
+    </div>
+
+    <div class="tl-finish" aria-hidden="true">
+        <div class="tl-finish-label">Seguimos expandindo</div>
+        <div class="tl-finish-dot"></div>
+    </div>
+</section>
 
 
 <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -932,10 +977,10 @@
     <div style="position:absolute;inset:0;opacity:0.05;pointer-events:none;background-image:url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
     <div style="position:absolute;top:0;right:0;width:520px;height:520px;background:rgba(0,153,221,0.12);filter:blur(140px);pointer-events:none;"></div>
     <div style="position:absolute;bottom:0;left:0;width:420px;height:420px;background:rgba(255,255,255,0.06);filter:blur(120px);pointer-events:none;"></div>
-    <div style="max-width:980px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;" class="fade-up">
+    <div style="max-width:780px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1;" class="fade-up">
         <p style="color:#0099dd;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;margin-bottom:16px;">Vamos conversar</p>
-        <h2 style="color:#fff;font-size:clamp(32px,5vw,64px);font-weight:700;line-height:1.08;letter-spacing:-0.025em;margin-bottom:32px;max-width:900px;width:100%;text-align:center;">
-            <span class="cta-nowrap-desktop" style="display:block;text-align:center;">Fale com a gente e encontre a</span><span class="cta-nowrap-desktop" style="display:block;text-align:center;color:#0099dd;">solução certa para o seu negócio.</span>
+        <h2 style="color:#fff;font-size:clamp(32px,5vw,64px);font-weight:700;line-height:1.08;letter-spacing:-0.025em;margin-bottom:32px;text-align:center;">
+            Fale com a gente e encontre a <span style="color:#0099dd;">solução certa para o seu negócio.</span>
         </h2>
         <p style="color:rgba(255,255,255,0.72);font-size:clamp(16px,2vw,20px);font-weight:300;line-height:1.7;margin-bottom:56px;max-width:680px;margin-left:auto;margin-right:auto;">
             Fale com um consultor mb finance e acesse soluções mais inteligentes, competitivas e aderentes ao momento do seu negócio.
