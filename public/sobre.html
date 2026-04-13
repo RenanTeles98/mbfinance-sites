@@ -555,10 +555,10 @@
             /* Overflow global */
             body { overflow-x: hidden; }
 
-            /* Hero */
-            .sobre-hero-section { padding-top: 80px !important; padding-bottom: 60px !important; }
-            .sobre-hero-section h1 { font-size: clamp(2rem, 9vw, 2.8rem) !important; }
-            .sobre-hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+            /* Hero: reduz padding excessivo */
+            #hero-inner { padding-top: 100px !important; padding-bottom: 48px !important; }
+            .sobre-hero-section h1 { font-size: clamp(1.9rem, 9vw, 2.6rem) !important; }
+            .sobre-hero-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
 
             /* Stats: empilha label e valor em coluna */
             .sobre-stat-row {
@@ -783,7 +783,7 @@
      HERO
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <section class="relative min-h-screen flex items-center dot-bg sobre-hero-section" style="background:linear-gradient(135deg,#001e2e 0%,#003956 60%,#005080 100%);">
-    <div class="relative max-w-7xl mx-auto px-6 lg:px-16 py-40">
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-16 py-40" id="hero-inner">
         <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-6 fade-up">Sobre a mb finance</p>
         <h1 class="text-white text-4xl lg:text-6xl font-light leading-[1.02] mb-10 max-w-5xl fade-up" style="letter-spacing:-0.04em;transition-delay:0.1s;font-size:clamp(2.35rem,5vw,4.8rem);">
             <span style="display:block;">Conectamos empresas às</span>
@@ -1158,7 +1158,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('navbar');
     const logoImg = document.getElementById('logo-img');
-    // Navbar é absoluto na página sobre — sem scroll effect
+
+    // Scroll effect: troca logo e fundo da navbar igual à página principal
+    window.addEventListener('scroll', function() {
+        const isScrolled = window.scrollY > 40;
+        if (isScrolled) {
+            navbar.classList.add('scrolled');
+            if (logoImg) logoImg.src = 'logo-horizontal-logo.png.png';
+        } else {
+            navbar.classList.remove('scrolled');
+            if (logoImg) logoImg.src = 'logo-horizontal-logo.branca.png';
+        }
+    });
 
     // Mobile Menu
     const mobileMenu = document.getElementById('mobile-menu');
