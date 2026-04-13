@@ -1164,44 +1164,62 @@ function animateCounter(el) {
     var activeSince   = new Array(slides.length).fill(0);
 
     // Lerp state
-    var currentLen = 0;
-    var targetLen  = 0;
-    var rafId      = null;
+    var currentLen     = 0;
+    var targetLen      = 0;
+    var rafId          = null;
+    var checkpointLens = []; // path length at each slide's dot
 
     var pivotIndex = slides.findIndex(function(slide) { return slide.id === 'tl-2'; });
+
+    // Convert a Y position (relative to section top) to path length
+    function yToLen(y) {
+        if (!railMetrics || totalLen === 0) return 0;
+        var len = 0;
+        if (railMetrics.mode === 'zig') {
+            var bendLen = railMetrics.zigY
+                + railMetrics.topHookW
+                + (railMetrics.pivotY - railMetrics.zigY)
+                + railMetrics.crossLen;
+            if (y <= railMetrics.zigY) {
+                len = Math.max(0, y);
+            } else if (y <= railMetrics.pivotY) {
+                len = railMetrics.zigY + railMetrics.topHookW + (y - railMetrics.zigY);
+            } else {
+                len = bendLen + (y - railMetrics.pivotY);
+            }
+        } else if (railMetrics) {
+            len = railMetrics.hookW + y;
+        }
+        return Math.min(totalLen, Math.max(0, len));
+    }
+
+    // Pre-compute path length at each slide's dot center
+    function computeCheckpoints() {
+        var sectionTopAbs = section.getBoundingClientRect().top + window.scrollY;
+        checkpointLens = slides.map(function(slide) {
+            var slideTopAbs = slide.getBoundingClientRect().top + window.scrollY;
+            var dotY = slideTopAbs + slide.offsetHeight * 0.5 - sectionTopAbs;
+            return yToLen(dotY);
+        });
+    }
 
     function computeTargetLen() {
         if (!pathFg || totalLen === 0) return 0;
         var secTopAbs = section.getBoundingClientRect().top + window.scrollY;
         var scrollY   = window.scrollY - secTopAbs + window.innerHeight * 0.5;
-        var len = 0;
+        var len = yToLen(scrollY);
 
+        // Once past pivot slide, guarantee the bend is fully drawn
         if (railMetrics && railMetrics.mode === 'zig') {
             var bendLen = railMetrics.zigY
                 + railMetrics.topHookW
                 + (railMetrics.pivotY - railMetrics.zigY)
                 + railMetrics.crossLen;
-
-            if (scrollY <= railMetrics.zigY) {
-                len = Math.max(0, scrollY);
-            } else if (scrollY <= railMetrics.pivotY) {
-                len = railMetrics.zigY + railMetrics.topHookW + (scrollY - railMetrics.zigY);
-            } else {
-                len = bendLen + (scrollY - railMetrics.pivotY);
-            }
-
-            // Once past pivot slide, guarantee the bend is fully drawn
-            var currentIndex = -1;
+            var ci = -1;
             slides.forEach(function(slide, i) {
-                if (slide.getBoundingClientRect().top <= 2) currentIndex = i;
+                if (slide.getBoundingClientRect().top <= 2) ci = i;
             });
-            if (pivotIndex >= 0 && currentIndex >= pivotIndex) {
-                len = Math.max(len, bendLen);
-            }
-        } else if (railMetrics) {
-            var secTopAbs2 = section.getBoundingClientRect().top + window.scrollY;
-            var scrollY2   = window.scrollY - secTopAbs2 + window.innerHeight * 0.5;
-            len = railMetrics.hookW + scrollY2;
+            if (pivotIndex >= 0 && ci >= pivotIndex) len = Math.max(len, bendLen);
         }
 
         return Math.min(totalLen, Math.max(0, len));
@@ -1213,8 +1231,10 @@ function animateCounter(el) {
         var diff = Math.abs(targetLen - currentLen);
         if (diff < 0.4) currentLen = targetLen;
 
+        // Draw line
         pathFg.style.strokeDashoffset = totalLen - currentLen;
 
+        // Move dot circle
         if (dotEl) {
             if (currentLen > 2) {
                 var pt = pathFg.getPointAtLength(currentLen);
@@ -1226,20 +1246,12 @@ function animateCounter(el) {
             }
         }
 
-        if (diff > 0.4) {
-            rafId = requestAnimationFrame(renderLine);
-        } else {
-            rafId = null;
-        }
-    }
-
-    function update() {
-        var currentIndex = -1;
+        // Activate slides when dot reaches their checkpoint
         var now = Date.now();
-
+        var currentIndex = -1;
         slides.forEach(function(slide, i) {
-            var top = slide.getBoundingClientRect().top;
-            if (top <= 2) {
+            var reached = checkpointLens[i] !== undefined && currentLen >= checkpointLens[i];
+            if (reached) {
                 if (!slide.classList.contains('active')) activeSince[i] = now;
                 slide.classList.add('active');
                 currentIndex = i;
@@ -1258,17 +1270,25 @@ function animateCounter(el) {
             }
         });
 
+        if (diff > 0.4) {
+            rafId = requestAnimationFrame(renderLine);
+        } else {
+            rafId = null;
+        }
+    }
+
+    function update() {
         targetLen = computeTargetLen();
         if (!rafId) rafId = requestAnimationFrame(renderLine);
     }
 
     if (document.readyState === 'complete') {
-        buildPath(); update();
+        buildPath(); computeCheckpoints(); update();
     } else {
-        window.addEventListener('load', function() { buildPath(); update(); });
+        window.addEventListener('load', function() { buildPath(); computeCheckpoints(); update(); });
     }
     window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', function() { buildPath(); update(); });
+    window.addEventListener('resize', function() { buildPath(); computeCheckpoints(); update(); });
 })();
 </script>
 
