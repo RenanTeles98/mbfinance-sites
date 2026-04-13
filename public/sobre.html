@@ -363,6 +363,22 @@
         .tl-slide.active .tl-bg-icon svg .top-cube path {
             animation: none !important;
         }
+        /* Foguete 2020-2022: dot mais baixo para não sobrepor o ícone */
+        #tl-2 .tl-dot     { top: 70%; }
+        #tl-2 .tl-connector { top: 70%; }
+
+        /* Foguete: animação de voo contínuo após entrada */
+        .rocket-wrapper { display: block; }
+        #tl-2.active .rocket-wrapper {
+            animation: rocket-float 2.8s ease-in-out 1s infinite;
+        }
+        @keyframes rocket-float {
+            0%   { transform: translateY(0px)   rotate(0deg); }
+            30%  { transform: translateY(-14px) rotate(-3deg); }
+            60%  { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0px)   rotate(0deg); }
+        }
+
         @media (max-width: 768px) { .tl-bg-icon { display: none; } }
         @media (max-width: 768px) {
             .tl-bg-old-logo { display: none; }
@@ -733,12 +749,14 @@
         <div class="tl-connector"></div>
         <!-- Ícone: foguete (escala) -->
         <div class="tl-bg-icon">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M32 4C32 4 16 16 16 36c0 6 4 12 4 12l12-6 12 6s4-6 4-12C48 16 32 4 32 4z"/>
-                <circle cx="32" cy="28" r="5"/>
-                <path d="M20 48l-6 8M44 48l6 8"/>
-                <path d="M22 56l4-4M42 56l-4-4"/>
-            </svg>
+            <div class="rocket-wrapper">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M32 4C32 4 16 16 16 36c0 6 4 12 4 12l12-6 12 6s4-6 4-12C48 16 32 4 32 4z"/>
+                    <circle cx="32" cy="28" r="5"/>
+                    <path d="M20 48l-6 8M44 48l6 8"/>
+                    <path d="M22 56l4-4M42 56l-4-4"/>
+                </svg>
+            </div>
         </div>
         <div class="tl-content">
             <span class="tl-year">2020-2022</span>
@@ -1205,12 +1223,18 @@ function animateCounter(el) {
         return Math.min(totalLen, Math.max(0, len));
     }
 
-    // Pre-compute path length at each slide's dot center
+    // Pre-compute path length using the actual .tl-dot element position
     function computeCheckpoints() {
         var sectionTopAbs = section.getBoundingClientRect().top + window.scrollY;
         checkpointLens = slides.map(function(slide) {
-            var slideTopAbs = slide.getBoundingClientRect().top + window.scrollY;
-            var dotY = slideTopAbs + slide.offsetHeight * 0.5 - sectionTopAbs;
+            var dotDiv = slide.querySelector('.tl-dot');
+            var dotY;
+            if (dotDiv) {
+                var r = dotDiv.getBoundingClientRect();
+                dotY = r.top + window.scrollY + r.height * 0.5 - sectionTopAbs;
+            } else {
+                dotY = (slide.getBoundingClientRect().top + window.scrollY) + slide.offsetHeight * 0.5 - sectionTopAbs;
+            }
             return yToLen(dotY);
         });
     }
