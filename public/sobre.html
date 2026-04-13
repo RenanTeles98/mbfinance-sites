@@ -451,49 +451,37 @@
         #tl-3.active .tl-consolidation-side {
             opacity: 1;
             transform: translateY(-50%) translateX(0);
-            animation: consolidation-float 4.6s ease-in-out infinite;
-        }
-        @keyframes consolidation-float {
-            0%, 100% { transform: translateY(-50%) translateX(0); }
-            50% { transform: translateY(calc(-50% - 10px)) translateX(0); }
         }
 
-        /* Confete saindo do troféu */
+        /* Confete saindo do topo do troféu, mesma cor do ícone */
         .trophy-confetti { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
         .confetti-piece {
             position: absolute;
             width: 7px; height: 7px;
             border-radius: 2px;
             opacity: 0;
-            bottom: 42%; left: 50%;
+            top: 8%; left: 50%;
+            background: #d1d5db;
         }
         #tl-3.active .confetti-piece {
-            animation: confetti-burst 1.8s cubic-bezier(.2,.6,.4,1) infinite;
-        }
-        @keyframes confetti-burst {
-            0%   { transform: translate(-50%, 0) rotate(0deg);   opacity: 0; }
-            10%  { opacity: 1; }
-            100% { opacity: 0; }
-        }
-        /* Cada peça com direção, cor e delay diferentes */
-        .c1  { background:#0099dd; animation-delay:0s;    --tx:-55px; --ty:-130px; --r:200deg; }
-        .c2  { background:#f59e0b; animation-delay:0.12s; --tx: 60px; --ty:-150px; --r:-180deg; }
-        .c3  { background:#10b981; animation-delay:0.07s; --tx:-20px; --ty:-160px; --r:150deg; }
-        .c4  { background:#ef4444; animation-delay:0.2s;  --tx: 80px; --ty:-110px; --r:-220deg; }
-        .c5  { background:#8b5cf6; animation-delay:0.05s; --tx:-80px; --ty:-120px; --r:270deg; }
-        .c6  { background:#0099dd; animation-delay:0.17s; --tx: 30px; --ty:-170px; --r:-140deg; width:5px; height:10px; }
-        .c7  { background:#f59e0b; animation-delay:0.28s; --tx:-40px; --ty:-145px; --r:300deg; width:5px; height:10px; }
-        .c8  { background:#10b981; animation-delay:0.22s; --tx: 70px; --ty:-135px; --r:-260deg; }
-        .c9  { background:#ef4444; animation-delay:0.35s; --tx:-65px; --ty:-155px; --r:190deg; width:5px; height:10px; }
-        .c10 { background:#8b5cf6; animation-delay:0.14s; --tx: 50px; --ty:-165px; --r:-310deg; }
-        #tl-3.active .confetti-piece {
-            animation: confetti-burst 1.8s cubic-bezier(.2,.6,.4,1) infinite;
+            animation: confetti-burst 2s cubic-bezier(.2,.6,.4,1) infinite;
         }
         @keyframes confetti-burst {
             0%   { transform: translate(-50%, 0) rotate(0deg); opacity: 0; }
-            8%   { opacity: 1; }
+            8%   { opacity: 0.9; }
             100% { transform: translate(calc(-50% + var(--tx)), var(--ty)) rotate(var(--r)); opacity: 0; }
         }
+        /* Direções e delays — todas cinza */
+        .c1  { animation-delay:0s;    --tx:-55px; --ty:-120px; --r:200deg; }
+        .c2  { animation-delay:0.12s; --tx: 60px; --ty:-140px; --r:-180deg; }
+        .c3  { animation-delay:0.07s; --tx:-20px; --ty:-150px; --r:150deg; }
+        .c4  { animation-delay:0.2s;  --tx: 80px; --ty:-105px; --r:-220deg; }
+        .c5  { animation-delay:0.05s; --tx:-80px; --ty:-115px; --r:270deg; }
+        .c6  { animation-delay:0.17s; --tx: 30px; --ty:-160px; --r:-140deg; width:5px; height:10px; }
+        .c7  { animation-delay:0.28s; --tx:-40px; --ty:-135px; --r:300deg; width:5px; height:10px; }
+        .c8  { animation-delay:0.22s; --tx: 70px; --ty:-128px; --r:-260deg; }
+        .c9  { animation-delay:0.35s; --tx:-65px; --ty:-145px; --r:190deg; width:5px; height:10px; }
+        .c10 { animation-delay:0.14s; --tx: 50px; --ty:-155px; --r:-310deg; }
         .tl-consolidation-awards {
             margin-top: 34px;
             display: flex;
