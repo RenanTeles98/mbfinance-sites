@@ -1242,6 +1242,7 @@ function animateCounter(el) {
         targetY: 0,
         releaseAt: 0
     };
+    var scrollSettleTimer = null;
 
     function buildPath() {
         var svgW    = section.offsetWidth;
@@ -1486,6 +1487,22 @@ function animateCounter(el) {
         window.scrollTo({ top: scrollLock.targetY, behavior: 'smooth' });
     }
 
+    function scheduleScrollSnap() {
+        if (!isDesktopTimelineLockEnabled()) return;
+        if (scrollSettleTimer) clearTimeout(scrollSettleTimer);
+
+        scrollSettleTimer = setTimeout(function() {
+            releaseScrollLockIfReached();
+            if (scrollLock.active || !isInsideTimelineLockZone()) return;
+
+            var nearestIndex = getNearestSlideIndex();
+            var nearestTop = getSlideTop(nearestIndex);
+            if (Math.abs(window.scrollY - nearestTop) > 14) {
+                lockToSlide(nearestIndex);
+            }
+        }, 90);
+    }
+
     function handleTimelineWheel(event) {
         if (!isDesktopTimelineLockEnabled()) return;
 
@@ -1528,6 +1545,7 @@ function animateCounter(el) {
     }
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('scroll', releaseScrollLockIfReached, { passive: true });
+    window.addEventListener('scroll', scheduleScrollSnap, { passive: true });
     window.addEventListener('resize', function() { buildPath(); computeCheckpoints(); update(); });
     window.addEventListener('wheel', handleTimelineWheel, { passive: false });
 })();
