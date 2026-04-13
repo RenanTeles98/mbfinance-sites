@@ -318,6 +318,17 @@
             animation: icon-draw 1.6s cubic-bezier(.4,0,.2,1) forwards;
             animation-delay: 0.3s;
         }
+        /* Seta do gráfico: flutua para cima após ser desenhada */
+        @keyframes chart-rise {
+            0%   { transform: translateY(0px);  }
+            50%  { transform: translateY(-12px); }
+            100% { transform: translateY(0px);  }
+        }
+        #tl-1.active .tl-bg-icon svg {
+            animation: chart-rise 2.8s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
         /* Bloco de cima: cai após a base ser desenhada */
         @keyframes cube-drop {
             0%   { transform: translateY(-60px); opacity: 0; }
