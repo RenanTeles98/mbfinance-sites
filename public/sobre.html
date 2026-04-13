@@ -652,6 +652,7 @@
             </linearGradient>
         </defs>
         <path id="tl-zigzag-fg" fill="none" stroke="url(#tl-grad)" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
+        <circle id="tl-dot" r="9" fill="#0099dd" style="display:none; filter: drop-shadow(0 0 7px rgba(0,153,221,0.70));"/>
     </svg>
 
     <!-- Cabeçalho da seção -->
@@ -1090,6 +1091,7 @@ function animateCounter(el) {
     var section = document.getElementById('timeline-section');
     var slides  = Array.from(document.querySelectorAll('.tl-slide'));
     var pathFg  = document.getElementById('tl-zigzag-fg');
+    var dotEl   = document.getElementById('tl-dot');
 
     if (!section || !slides.length) return;
 
@@ -1215,6 +1217,17 @@ function animateCounter(el) {
 
             drawnLen = Math.min(totalLen, Math.max(0, drawnLen));
             pathFg.style.strokeDashoffset = totalLen - drawnLen;
+
+            if (dotEl) {
+                if (drawnLen > 2) {
+                    var pt = pathFg.getPointAtLength(drawnLen);
+                    dotEl.setAttribute('cx', pt.x);
+                    dotEl.setAttribute('cy', pt.y);
+                    dotEl.style.display = '';
+                } else {
+                    dotEl.style.display = 'none';
+                }
+            }
         }
 
         slides.forEach(function(slide) {
