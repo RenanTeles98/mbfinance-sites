@@ -204,9 +204,12 @@
         .tl-slide.active .tl-badge { opacity: 1; transform: translateY(0); transition-delay: 0.40s; }
 
         .tl-year {
-            font-size: 18px; font-weight: 800; color: #0099dd;
+            font-size: 22px; font-weight: 800; color: #0099dd;
             letter-spacing: 0.15em; text-transform: uppercase;
-            display: block; margin-bottom: 20px;
+            display: inline-block; margin-bottom: 20px;
+            border: 2px solid #0099dd;
+            border-radius: 8px;
+            padding: 4px 14px;
         }
         .tl-title {
             font-size: clamp(38px, 5.5vw, 68px);
@@ -799,7 +802,6 @@
 
     <!-- 2020-2022 -->
     <div class="tl-slide reverse" id="tl-2">
-        <div class="tl-connector"></div>
         <!-- Ícone: foguete (escala) -->
         <div class="tl-bg-icon">
             <div class="rocket-wrapper">
@@ -858,15 +860,24 @@
         <div class="tl-connector"></div>
         <!-- Ícone: expansão (setas se abrindo) -->
         <div class="tl-bg-icon">
+            <!-- Hub financeiro: nó central + 6 produtos conectados -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 3h6v6"/>
-                <path d="M9 21H3v-6"/>
-                <path d="M21 3l-7 7"/>
-                <path d="M3 21l7-7"/>
-                <path d="M3 9V3h6"/>
-                <path d="M21 15v6h-6"/>
-                <path d="M3 9l7 3"/>
-                <path d="M21 15l-7-3"/>
+                <!-- Linhas do hub para os nós -->
+                <line x1="12" y1="12" x2="12" y2="2"/>
+                <line x1="12" y1="12" x2="20.4" y2="7"/>
+                <line x1="12" y1="12" x2="20.4" y2="17"/>
+                <line x1="12" y1="12" x2="12" y2="22"/>
+                <line x1="12" y1="12" x2="3.6" y2="17"/>
+                <line x1="12" y1="12" x2="3.6" y2="7"/>
+                <!-- Nó central -->
+                <circle cx="12" cy="12" r="2.5"/>
+                <!-- Nós externos (produtos) -->
+                <circle cx="12" cy="2" r="1.5"/>
+                <circle cx="20.4" cy="7" r="1.5"/>
+                <circle cx="20.4" cy="17" r="1.5"/>
+                <circle cx="12" cy="22" r="1.5"/>
+                <circle cx="3.6" cy="17" r="1.5"/>
+                <circle cx="3.6" cy="7" r="1.5"/>
             </svg>
         </div>
         <div class="tl-content">
