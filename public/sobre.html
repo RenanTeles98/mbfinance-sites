@@ -96,10 +96,18 @@
             height: 100vh; background: #fff; z-index: 200;
             transition: right 0.35s cubic-bezier(.4,0,.2,1);
             overflow-y: auto; box-shadow: -8px 0 40px rgba(0,0,0,0.15);
+            box-sizing: border-box;
         }
         #mobile-menu.open { right: 0; }
         #mobile-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:190; }
         #mobile-overlay.open { display:block; }
+        @media (max-width: 768px) {
+            #mobile-menu {
+                width: 100%;
+                max-width: none;
+                right: -100%;
+            }
+        }
 
         .nav-link { position: relative; }
         .nav-link::after { content:''; position:absolute; left:0; bottom:-4px; width:0; height:2px; background:#0099dd; transition:width 0.3s ease; }
