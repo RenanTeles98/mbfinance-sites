@@ -550,35 +550,6 @@
             position: relative;
             z-index: 2;
         }
-        .tl-finish {
-            position: absolute;
-            right: 76px;
-            bottom: 0;
-            transform: translateY(50%);
-            z-index: 60;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            pointer-events: none;
-        }
-        .tl-finish-label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(0,30,46,0.48);
-            white-space: nowrap;
-            transform: translateY(-6px);
-        }
-        .tl-finish-dot {
-            width: 18px;
-            height: 18px;
-            border-radius: 999px;
-            background: #0099dd;
-            box-shadow: 0 0 0 7px rgba(0,153,221,0.18), 0 0 24px rgba(0,153,221,0.22);
-        }
-
         /* Mobile: ajusta posição da linha e conteúdo */
         @media (max-width: 768px) {
             .tl-dot { left: 20px; }
@@ -598,17 +569,6 @@
             .tl-consolidation-side { display: none; }
             .tl-consolidation-awards { margin-top: 26px; gap: 12px; }
             .tl-consolidation-award { width: calc(50% - 6px); max-width: 106px; }
-            .tl-finish {
-                right: auto;
-                left: 20px;
-                transform: translate(-50%, 50%);
-            }
-            .tl-finish-label {
-                transform: translateX(34px);
-                transform-origin: left center;
-                white-space: normal;
-                max-width: 140px;
-            }
         }
         @media (min-width: 1024px) {
             .cta-nowrap-desktop { white-space: nowrap; }
@@ -955,11 +915,6 @@
             <div class="tl-desc">Novas frentes: Seguros, Consórcios, Consultoria Tributária e Telemedicina.</div>
             <span class="tl-badge">Novas frentes</span>
         </div>
-    </div>
-
-    <div class="tl-finish" aria-hidden="true">
-        <div class="tl-finish-label">Seguimos expandindo</div>
-        <div class="tl-finish-dot"></div>
     </div>
 </section>
 
