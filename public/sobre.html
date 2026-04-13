@@ -363,9 +363,10 @@
         .tl-slide.active .tl-bg-icon svg .top-cube path {
             animation: none !important;
         }
-        /* Foguete 2020-2022: dot mais baixo para não sobrepor o ícone */
-        #tl-2 .tl-dot     { top: 70%; }
-        #tl-2 .tl-connector { top: 70%; }
+        /* Foguete 2020-2022: padding-top empurra conteúdo e ícone para baixo */
+        #tl-2 { padding-top: 130px; }
+        #tl-2 .tl-dot     { top: 72%; }
+        #tl-2 .tl-connector { top: 72%; }
 
         /* Foguete: animação de voo contínuo após entrada */
         .rocket-wrapper { display: block; }
