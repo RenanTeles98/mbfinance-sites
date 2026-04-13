@@ -552,6 +552,24 @@
         /* ── MOBILE ── */
         @media (max-width: 768px) {
 
+            /* Overflow global */
+            body { overflow-x: hidden; }
+
+            /* Hero */
+            .sobre-hero-section { padding-top: 80px !important; padding-bottom: 60px !important; }
+            .sobre-hero-section h1 { font-size: clamp(2rem, 9vw, 2.8rem) !important; }
+            .sobre-hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+            /* Stats: empilha label e valor em coluna */
+            .sobre-stat-row {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 4px;
+            }
+            .sobre-stat-row span:last-child {
+                text-align: left !important;
+            }
+
             /* Slides */
             .tl-slide {
                 padding: 48px 20px 48px 56px;
@@ -764,14 +782,14 @@
 <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      HERO
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<section class="relative min-h-screen flex items-center dot-bg" style="background:linear-gradient(135deg,#001e2e 0%,#003956 60%,#005080 100%);">
+<section class="relative min-h-screen flex items-center dot-bg sobre-hero-section" style="background:linear-gradient(135deg,#001e2e 0%,#003956 60%,#005080 100%);">
     <div class="relative max-w-7xl mx-auto px-6 lg:px-16 py-40">
         <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-6 fade-up">Sobre a mb finance</p>
         <h1 class="text-white text-4xl lg:text-6xl font-light leading-[1.02] mb-10 max-w-5xl fade-up" style="letter-spacing:-0.04em;transition-delay:0.1s;font-size:clamp(2.35rem,5vw,4.8rem);">
-            <span style="display:block;white-space:nowrap;">Conectamos empresas às</span>
-            <span style="display:block;color:#0099dd;font-weight:400;white-space:nowrap;">melhores soluções financeiras</span>
+            <span style="display:block;">Conectamos empresas às</span>
+            <span style="display:block;color:#0099dd;font-weight:400;">melhores soluções financeiras</span>
         </h1>
-        <div class="grid lg:grid-cols-2 gap-12 fade-up" style="transition-delay:0.2s;">
+        <div class="grid lg:grid-cols-2 gap-12 fade-up sobre-hero-grid" style="transition-delay:0.2s;">
             <div>
                 <p class="text-white/80 text-lg leading-relaxed mb-6">
                     A mb finance nasceu da vivência direta de seus fundadores no mercado bancário, incluindo passagens por grandes bancos de negócios e posições de liderança em áreas de estruturação financeira. Essa experiência revelou uma lacuna clara: empresas brasileiras não tinham acesso a soluções financeiras de qualidade fora do circuito das grandes instituições. A mb finance foi criada para resolver isso.
@@ -784,27 +802,27 @@
                 </p>
             </div>
             <div class="flex flex-col gap-4">
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 sobre-stat-row">
                     <span class="text-white/50 text-sm">Fundação</span>
                     <span class="text-white font-semibold text-sm">2013</span>
                 </div>
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 sobre-stat-row">
                     <span class="text-white/50 text-sm">Sede</span>
                     <span class="text-white font-semibold text-sm">Rio de Janeiro, RJ</span>
                 </div>
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 sobre-stat-row">
                     <span class="text-white/50 text-sm">Parceiro principal</span>
                     <span class="text-white font-semibold text-sm">+ 40 parceiros</span>
                 </div>
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 sobre-stat-row">
                     <span class="text-white/50 text-sm">Foco</span>
                     <span class="text-white font-semibold text-sm">Empresas de pequeno, médio e grande porte</span>
                 </div>
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 sobre-stat-row">
                     <span class="text-white/50 text-sm">Clientes ativos</span>
                     <span class="text-[#0099dd] font-bold text-sm">+200.000 PJs</span>
                 </div>
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 sobre-stat-row">
                     <span class="text-white/50 text-sm">Crédito transacionado</span>
                     <span class="text-[#0099dd] font-bold text-sm">R$ 500 milhões / dez de 2025</span>
                 </div>
