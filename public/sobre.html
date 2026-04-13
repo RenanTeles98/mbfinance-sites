@@ -188,6 +188,7 @@
             width: 100%;
             position: relative;
             z-index: 55;
+            margin-top: 80px;
         }
 
         /* Animação escalonada de cada elemento */
@@ -279,7 +280,7 @@
         .tl-bg-icon {
             position: absolute;
             right: 18%;
-            top: 50%;
+            top: 60%;
             transform: translateY(-50%) scale(0.85);
             z-index: 0;
             opacity: 0;
@@ -847,7 +848,7 @@
                 </svg>
             </div>
         </div>
-        <div class="tl-content" style="margin-top: 120px;">
+        <div class="tl-content">
             <span class="tl-year">2020-2022</span>
             <div class="tl-title">Escala</div>
             <div class="tl-desc">Lançamento do Fomenta+. R$ 120 milhões originados via agência de fomento. Recorde de abertura de contas PJ em um único mês.</div>
@@ -1253,13 +1254,22 @@ function animateCounter(el) {
                 hookW: hookW
             };
         } else {
-            var pivotSlide = document.getElementById('tl-2');
-            var pivotIndex = slides.findIndex(function(slide) { return slide.id === 'tl-2'; });
+            var pivotSlide = document.getElementById('tl-3');
+            var pivotIndex = slides.findIndex(function(slide) { return slide.id === 'tl-3'; });
+            var pivotYear = pivotSlide ? pivotSlide.querySelector('.tl-year') : null;
+            var sectionRect = section.getBoundingClientRect();
             var leftX = 73;
             var rightX = svgW - 73;
             var slideH = pivotSlide ? pivotSlide.offsetHeight : window.innerHeight;
             var pivotY = pivotIndex >= 0
-                ? Math.round(headerH + (pivotIndex * slideH) + (slideH * 0.26))
+                ? (
+                    pivotYear
+                        ? Math.max(
+                            zigY + 48,
+                            Math.round(pivotYear.getBoundingClientRect().top - sectionRect.top - 26)
+                        )
+                        : Math.round(headerH + (pivotIndex * slideH) + (slideH * 0.12))
+                  )
                 : Math.round(svgH * 0.4);
             var topHookW = Math.abs(startX - leftX);
             var crossLen = Math.abs(rightX - leftX);
