@@ -611,8 +611,19 @@
             #tl-2 .tl-dot      { top: 50%; left: 18px; }
             #tl-2 .tl-connector { top: 50%; left: 36px; }
 
-            /* No mobile, eleva o SVG acima do background dos slides */
-            .tl-rail-svg { z-index: 57; }
+            /* No mobile: esconde o SVG JS e usa linha CSS confiável */
+            .tl-rail-svg { display: none; }
+            #timeline-section::before {
+                content: '';
+                position: absolute;
+                left: 28px;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: linear-gradient(to bottom, #0099dd, #005580);
+                z-index: 57;
+                pointer-events: none;
+            }
 
             /* Conteúdo */
             .tl-content { margin-top: 0; max-width: 100%; }
