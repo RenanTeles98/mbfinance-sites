@@ -1227,6 +1227,11 @@ function animateCounter(el) {
 
     var totalLen = 0;
     var railMetrics = null;
+    var scrollLock = {
+        active: false,
+        targetY: 0,
+        releaseAt: 0
+    };
 
     function buildPath() {
         var svgW    = section.offsetWidth;
@@ -1420,6 +1425,87 @@ function animateCounter(el) {
         }
     }
 
+    function isDesktopTimelineLockEnabled() {
+        return window.innerWidth > 1024 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function getSectionTop() {
+        return window.scrollY + section.getBoundingClientRect().top;
+    }
+
+    function getSectionBottom() {
+        return getSectionTop() + section.offsetHeight;
+    }
+
+    function getSlideTop(index) {
+        return getSectionTop() + slides[index].offsetTop;
+    }
+
+    function getNearestSlideIndex() {
+        var anchor = window.scrollY + (window.innerHeight * 0.38);
+        var bestIndex = 0;
+        var bestDistance = Infinity;
+        slides.forEach(function(slide, index) {
+            var distance = Math.abs((getSectionTop() + slide.offsetTop) - anchor);
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                bestIndex = index;
+            }
+        });
+        return bestIndex;
+    }
+
+    function isInsideTimelineLockZone() {
+        var top = getSectionTop();
+        var bottom = getSectionBottom();
+        var y = window.scrollY;
+        return y >= (top - 80) && y <= (bottom - window.innerHeight + 80);
+    }
+
+    function releaseScrollLockIfReached() {
+        if (!scrollLock.active) return;
+        var closeEnough = Math.abs(window.scrollY - scrollLock.targetY) < 6;
+        var timedOut = Date.now() >= scrollLock.releaseAt;
+        if (closeEnough || timedOut) scrollLock.active = false;
+    }
+
+    function lockToSlide(targetIndex) {
+        scrollLock.active = true;
+        scrollLock.targetY = getSlideTop(targetIndex);
+        scrollLock.releaseAt = Date.now() + 950;
+        window.scrollTo({ top: scrollLock.targetY, behavior: 'smooth' });
+    }
+
+    function handleTimelineWheel(event) {
+        if (!isDesktopTimelineLockEnabled()) return;
+
+        releaseScrollLockIfReached();
+        if (scrollLock.active) {
+            event.preventDefault();
+            return;
+        }
+
+        if (!isInsideTimelineLockZone()) return;
+
+        var delta = event.deltaY;
+        if (Math.abs(delta) < 8) return;
+
+        var currentIndex = getNearestSlideIndex();
+        var currentTop = getSlideTop(currentIndex);
+        var direction = delta > 0 ? 1 : -1;
+        var isAligned = Math.abs(window.scrollY - currentTop) < 10;
+        var targetIndex = isAligned ? currentIndex + direction : (direction > 0 ? currentIndex : Math.max(0, currentIndex - 1));
+        targetIndex = Math.max(0, Math.min(slides.length - 1, targetIndex));
+
+        if ((currentIndex === 0 && direction < 0 && window.scrollY <= currentTop + 4) ||
+            (currentIndex === slides.length - 1 && direction > 0 && window.scrollY >= currentTop - 4)) {
+            return;
+        }
+
+        event.preventDefault();
+        lockToSlide(targetIndex);
+    }
+
     function update() {
         targetLen = computeTargetLen();
         if (!rafId) rafId = requestAnimationFrame(renderLine);
@@ -1431,7 +1517,9 @@ function animateCounter(el) {
         window.addEventListener('load', function() { buildPath(); computeCheckpoints(); update(); });
     }
     window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('scroll', releaseScrollLockIfReached, { passive: true });
     window.addEventListener('resize', function() { buildPath(); computeCheckpoints(); update(); });
+    window.addEventListener('wheel', handleTimelineWheel, { passive: false });
 })();
 </script>
 
