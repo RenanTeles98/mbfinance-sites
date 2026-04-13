@@ -651,7 +651,6 @@
                 <stop offset="100%" stop-color="#005580"/>
             </linearGradient>
         </defs>
-        <path id="tl-zigzag-bg" fill="none" stroke="rgba(0,153,221,0.10)" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
         <path id="tl-zigzag-fg" fill="none" stroke="url(#tl-grad)" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
     </svg>
 
@@ -1090,7 +1089,6 @@ function animateCounter(el) {
 (function() {
     var section = document.getElementById('timeline-section');
     var slides  = Array.from(document.querySelectorAll('.tl-slide'));
-    var pathBg  = document.getElementById('tl-zigzag-bg');
     var pathFg  = document.getElementById('tl-zigzag-fg');
 
     if (!section || !slides.length) return;
@@ -1152,7 +1150,6 @@ function animateCounter(el) {
             };
         }
 
-        if (pathBg) pathBg.setAttribute('d', d);
         if (pathFg) {
             pathFg.setAttribute('d', d);
             totalLen = pathFg.getTotalLength();
