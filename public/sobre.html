@@ -116,6 +116,19 @@
         /* â”€â”€ TIMELINE FULLSCREEN â”€â”€ */
         .tl-section { background: #ffffff; position: relative; }
 
+        /* Linha vertical animada para mobile */
+        #tl-mobile-line {
+            display: none; /* oculta no desktop */
+            position: absolute;
+            left: 28px;
+            top: 0;
+            width: 2px;
+            height: 0; /* controlado por JS */
+            background: linear-gradient(to bottom, #0099dd, #005580);
+            z-index: 57;
+            pointer-events: none;
+        }
+
         /* Linha zigzag SVG */
         .tl-rail-svg {
             position: absolute;
@@ -611,19 +624,9 @@
             #tl-2 .tl-dot      { top: 50%; left: 18px; }
             #tl-2 .tl-connector { top: 50%; left: 36px; }
 
-            /* No mobile: esconde o SVG JS e usa linha CSS confiável */
+            /* No mobile: esconde o SVG JS e usa div animada por JS */
             .tl-rail-svg { display: none; }
-            #timeline-section::before {
-                content: '';
-                position: absolute;
-                left: 28px;
-                top: 0;
-                bottom: 0;
-                width: 2px;
-                background: linear-gradient(to bottom, #0099dd, #005580);
-                z-index: 57;
-                pointer-events: none;
-            }
+            #tl-mobile-line { display: block; }
 
             /* Conteúdo */
             .tl-content { margin-top: 0; max-width: 100%; }
@@ -858,6 +861,9 @@
      TIMELINE FULLSCREEN (linha guia + slides 100vh)
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <section class="tl-section" id="timeline-section">
+
+    <!-- Linha vertical mobile (animada por JS) -->
+    <div id="tl-mobile-line"></div>
 
     <!-- Linha zigzag SVG -->
     <svg class="tl-rail-svg" id="tl-rail-svg" xmlns="http://www.w3.org/2000/svg">
@@ -1316,8 +1322,9 @@ function animateCounter(el) {
 (function() {
     var section = document.getElementById('timeline-section');
     var slides  = Array.from(document.querySelectorAll('.tl-slide'));
-    var pathFg  = document.getElementById('tl-zigzag-fg');
-    var dotEl   = document.getElementById('tl-dot');
+    var pathFg      = document.getElementById('tl-zigzag-fg');
+    var dotEl       = document.getElementById('tl-dot');
+    var mobileLineEl = document.getElementById('tl-mobile-line');
 
     if (!section || !slides.length) return;
 
@@ -1479,11 +1486,17 @@ function animateCounter(el) {
         var diff = Math.abs(targetLen - currentLen);
         if (diff < 0.4) currentLen = targetLen;
 
-        // Draw line
-        pathFg.style.strokeDashoffset = totalLen - currentLen;
+        // Draw line (desktop SVG)
+        if (pathFg) pathFg.style.strokeDashoffset = totalLen - currentLen;
 
-        // Move dot circle
-        if (dotEl) {
+        // Draw line (mobile div)
+        if (mobileLineEl && railMetrics) {
+            var headerH = railMetrics.zigY || 0;
+            mobileLineEl.style.height = (headerH + currentLen) + 'px';
+        }
+
+        // Move dot circle (desktop only)
+        if (dotEl && pathFg && window.innerWidth > 768) {
             if (currentLen > 2) {
                 var pt = pathFg.getPointAtLength(currentLen);
                 dotEl.setAttribute('cx', pt.x);
