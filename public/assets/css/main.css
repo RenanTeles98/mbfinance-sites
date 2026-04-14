@@ -613,6 +613,53 @@ html { scroll-behavior: auto; }
     }
 }
 
+/* ── Carousel Marquee — infinite CSS animation ─────────────────────────────── */
+@keyframes marquee-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+}
+
+#carousel-row1 {
+    animation: marquee-right 32s linear infinite;
+    will-change: transform;
+    width: max-content;
+}
+#carousel-row2 {
+    animation: marquee-left 40s linear infinite;
+    will-change: transform;
+    width: max-content;
+}
+
+/* Pause on hover — carousel and individual logo hover both work */
+.carousel-wrapper:hover #carousel-row1,
+.carousel-wrapper:hover #carousel-row2 {
+    animation-play-state: paused;
+}
+
+/* Fade edges */
+.carousel-wrapper::before,
+.carousel-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+}
+.carousel-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, #f8fafc, transparent);
+}
+.carousel-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, #f8fafc, transparent);
+}
+
 /* ── Cookie Consent Banner (LGPD) ──────────────────────────────────────────── */
 #cookie-banner {
     position: fixed;
