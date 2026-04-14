@@ -101,6 +101,15 @@
         #mobile-menu.open { right: 0; }
         #mobile-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:190; }
         #mobile-overlay.open { display:block; }
+        .mobile-menu-logo {
+            display: block;
+            width: 125px !important;
+            height: 36px !important;
+            max-width: none !important;
+            object-fit: contain;
+            object-position: left center;
+            flex-shrink: 0;
+        }
         @media (max-width: 768px) {
             #mobile-menu {
                 width: 100%;
@@ -574,7 +583,7 @@
         @media (max-width: 768px) {
 
             /* Overflow global */
-            body { overflow-x: hidden; }
+            html, body { overflow-x: hidden !important; max-width: 100% !important; }
 
             /* Hero: reduz padding excessivo */
             #hero-inner { padding-top: 100px !important; padding-bottom: 48px !important; }
@@ -739,7 +748,7 @@
     <div id="mobile-overlay" onclick="closeMobileMenu()"></div>
     <div id="mobile-menu">
         <div style="padding:24px 24px 16px;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;">
-            <img src="logo-horizontal-logo.png.png" alt="mb finance" style="height:36px;width:auto;display:block;">
+            <img src="logo-horizontal-logo.png.png" alt="mb finance" class="mobile-menu-logo">
             <button onclick="closeMobileMenu()" style="background:none;border:none;cursor:pointer;">
                 <svg class="w-6 h-6" fill="none" stroke="#94a3b8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
