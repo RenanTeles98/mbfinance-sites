@@ -95,14 +95,13 @@
         }
         /* Mobile Menu */
         #mobile-menu {
-            position: fixed; top: 0; right: 0; width: 85%; max-width: 360px;
+            position: fixed; top: 0; right: -100%; width: 85%; max-width: 360px;
             height: 100vh; background: #fff; z-index: 200;
-            transform: translateX(100%);
-            transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+            transition: right 0.35s cubic-bezier(.4,0,.2,1);
             overflow-y: auto; box-shadow: -8px 0 40px rgba(0,0,0,0.15);
             box-sizing: border-box;
         }
-        #mobile-menu.open { transform: translateX(0); }
+        #mobile-menu.open { right: 0; }
         #mobile-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:190; }
         #mobile-overlay.open { display:block; }
         .mobile-menu-logo {
@@ -1670,40 +1669,6 @@ function animateCounter(el) {
 })();
 </script>
 
-<!-- DIAGNOSTICO OVERFLOW - remover após identificar causa -->
-<script>
-window.addEventListener('load', function() {
-    var docW = document.documentElement.scrollWidth;
-    var vw = window.innerWidth;
-    if (docW <= vw) return;
-
-    var offenders = [];
-    document.querySelectorAll('*').forEach(function(el) {
-        var rect = el.getBoundingClientRect();
-        if (rect.right > vw + 2) {
-            offenders.push({
-                tag: el.tagName,
-                id: el.id || '',
-                cls: (el.className || '').toString().slice(0, 60),
-                right: Math.round(rect.right),
-                left: Math.round(rect.left),
-                width: Math.round(rect.width)
-            });
-        }
-    });
-
-    var box = document.createElement('div');
-    box.style.cssText = 'position:fixed;bottom:80px;left:10px;right:10px;background:rgba(0,0,0,0.92);color:#fff;font-size:11px;font-family:monospace;padding:12px;border-radius:10px;z-index:99999;max-height:50vh;overflow-y:auto;word-break:break-all;';
-    box.innerHTML = '<b style="color:#f87171">OVERFLOW ' + (docW - vw) + 'px extra</b><br><br>' +
-        offenders.slice(0, 8).map(function(o) {
-            return '<b style="color:#60a5fa">' + o.tag + (o.id ? '#'+o.id : '') + '</b><br>' +
-                   'cls: ' + o.cls + '<br>' +
-                   'left:' + o.left + ' right:' + o.right + ' w:' + o.width;
-        }).join('<hr style="border-color:#333;margin:6px 0">');
-    box.innerHTML += '<br><br><button onclick="this.parentNode.remove()" style="background:#f87171;border:none;color:white;padding:4px 12px;border-radius:6px;cursor:pointer;">Fechar</button>';
-    document.body.appendChild(box);
-});
-</script>
 
 </body>
 </html>
