@@ -1670,6 +1670,40 @@ function animateCounter(el) {
 })();
 </script>
 
+<!-- DIAGNOSTICO OVERFLOW - remover após identificar causa -->
+<script>
+window.addEventListener('load', function() {
+    var docW = document.documentElement.scrollWidth;
+    var vw = window.innerWidth;
+    if (docW <= vw) return;
+
+    var offenders = [];
+    document.querySelectorAll('*').forEach(function(el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.right > vw + 2) {
+            offenders.push({
+                tag: el.tagName,
+                id: el.id || '',
+                cls: (el.className || '').toString().slice(0, 60),
+                right: Math.round(rect.right),
+                left: Math.round(rect.left),
+                width: Math.round(rect.width)
+            });
+        }
+    });
+
+    var box = document.createElement('div');
+    box.style.cssText = 'position:fixed;bottom:80px;left:10px;right:10px;background:rgba(0,0,0,0.92);color:#fff;font-size:11px;font-family:monospace;padding:12px;border-radius:10px;z-index:99999;max-height:50vh;overflow-y:auto;word-break:break-all;';
+    box.innerHTML = '<b style="color:#f87171">OVERFLOW ' + (docW - vw) + 'px extra</b><br><br>' +
+        offenders.slice(0, 8).map(function(o) {
+            return '<b style="color:#60a5fa">' + o.tag + (o.id ? '#'+o.id : '') + '</b><br>' +
+                   'cls: ' + o.cls + '<br>' +
+                   'left:' + o.left + ' right:' + o.right + ' w:' + o.width;
+        }).join('<hr style="border-color:#333;margin:6px 0">');
+    box.innerHTML += '<br><br><button onclick="this.parentNode.remove()" style="background:#f87171;border:none;color:white;padding:4px 12px;border-radius:6px;cursor:pointer;">Fechar</button>';
+    document.body.appendChild(box);
+});
+</script>
 
 </body>
 </html>
