@@ -40,10 +40,14 @@
 
     <style>
         /* Bloqueia scroll horizontal em qualquer tamanho de tela */
-        html, body {
+        html {
+            overscroll-behavior-x: none;
+        }
+        body {
             overflow-x: hidden !important;
             max-width: 100% !important;
             width: 100% !important;
+            overscroll-behavior-x: none;
         }
         body { font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.5; color: #334155; letter-spacing: -0.01em; }
         h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.025em; }
@@ -585,7 +589,7 @@
         @media (max-width: 768px) {
 
             /* Overflow global */
-            html, body { overflow-x: hidden !important; max-width: 100% !important; }
+            body { overflow-x: hidden !important; max-width: 100% !important; }
 
             /* Hero: reduz padding excessivo */
             #hero-inner { padding-top: 100px !important; padding-bottom: 48px !important; }
