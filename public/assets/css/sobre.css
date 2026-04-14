@@ -635,6 +635,31 @@
 
             /* CTA */
             .cta-nowrap-desktop { white-space: normal; }
+
+            /* Seção CTA: reduz padding excessivo */
+            #cta-section { padding: 64px 0 !important; }
+
+            /* Botão CTA principal: full-width no mobile */
+            #cta-main-btn {
+                width: 100% !important;
+                padding: 16px 24px !important;
+                font-size: 15px !important;
+                border-radius: 14px !important;
+            }
+
+            /* Bullets de benefícios: empilha verticalmente */
+            #cta-section > div > div:last-child {
+                flex-direction: column;
+                align-items: center;
+                gap: 14px !important;
+            }
+
+            /* Footer: reduz padding excessivo */
+            #main-footer { padding: 72px 0 !important; }
+            #main-footer .grid { margin-bottom: 48px !important; }
+
+            /* WhatsApp float: mais próximo das bordas no mobile */
+            #wa-float { bottom: 16px !important; right: 16px !important; width: 50px !important; height: 50px !important; }
         }
         @media (min-width: 1024px) {
             .cta-nowrap-desktop { white-space: nowrap; }
