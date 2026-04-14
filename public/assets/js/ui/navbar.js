@@ -10,7 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.classList.toggle('scrolled', isScrolled);
             const logoImg = document.getElementById('logo-img');
             if (logoImg) {
-                logoImg.src = isScrolled ? 'images/logo-horizontal-logo.png.png' : 'images/logo-horizontal-logo.branca.png';
+                // Use data-attributes when available (allows pages/ to use ../images/)
+                const logoNormal   = logoImg.dataset.logoNormal   || 'images/logo-horizontal-logo.branca.png';
+                const logoScrolled = logoImg.dataset.logoScrolled || 'images/logo-horizontal-logo.png.png';
+                logoImg.src = isScrolled ? logoScrolled : logoNormal;
             }
         }
         window.addEventListener('scroll', updateNav, { passive: true });

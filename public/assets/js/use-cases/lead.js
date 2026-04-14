@@ -36,14 +36,11 @@ function openLeadModal(waUrl, produto) {
     document.getElementById('lead-progress-label').textContent = '0 de 2 etapas';
     document.getElementById('lead-progress-label').style.color = '#94a3b8';
     document.getElementById('lead-progress-label').style.fontWeight = '400';
-    // Produto: badge ou select
+    // Produto: badge ou select (elemento pode não existir em outras pages)
     const sel = document.getElementById('lead-produto-select');
-    if (_leadProduto) {
+    if (sel) {
         sel.style.display = 'none';
-        sel.value = _leadProduto;
-    } else {
-        sel.style.display = 'none';
-        sel.value = '';
+        sel.value = _leadProduto || '';
     }
 }
 
@@ -53,11 +50,12 @@ function closeLeadModal() {
         const nome = document.getElementById('lead-nome').value.trim();
         const telefone = document.getElementById('lead-telefone').value.trim();
         if (nome || telefone) {
+            const selEl = document.getElementById('lead-produto-select');
             enviarParaPlanilha({
                 data: new Date().toLocaleString('pt-BR'),
                 nome: nome,
                 telefone: telefone,
-                produto: _leadProduto || document.getElementById('lead-produto-select').value || '',
+                produto: _leadProduto || (selEl ? selEl.value : '') || '',
                 status: 'Parcial — não enviou'
             });
         }
@@ -71,8 +69,10 @@ function submitLead(e) {
     e.preventDefault();
     const nome = document.getElementById('lead-nome').value.trim();
     const telefone = document.getElementById('lead-telefone').value.trim();
-    const newsletter = document.getElementById('lead-newsletter').checked ? 'Sim' : 'Não';
-    const produtoSelecionado = _leadProduto || document.getElementById('lead-produto-select').value || '';
+    const newsletterEl = document.getElementById('lead-newsletter');
+    const newsletter = newsletterEl && newsletterEl.checked ? 'Sim' : 'Não';
+    const selEl = document.getElementById('lead-produto-select');
+    const produtoSelecionado = _leadProduto || (selEl ? selEl.value : '') || '';
 
     // Envia para a planilha Google Sheets
     enviarParaPlanilha({
@@ -111,6 +111,7 @@ function toggleNewsletter() {
     const cb = document.getElementById('lead-newsletter');
     const box = document.getElementById('newsletter-box');
     const icon = document.getElementById('newsletter-icon');
+    if (!cb || !box || !icon) return; // elements may not exist on all pages
     cb.checked = !cb.checked;
     if (cb.checked) {
         box.style.borderColor = '#0099dd';
