@@ -49,22 +49,26 @@ function normalizePost(post: BlogPost): BlogPost {
 export async function readBlogPosts(): Promise<BlogPost[]> {
   // Upstash Redis — banco persistente (quando configurado)
   if (hasKV) {
-    const redis = getRedis();
-    const posts = await redis.get<BlogPost[]>(KV_KEY);
-    const existing = posts || [];
-    // Mescla: adiciona artigos bundled que ainda nao estao no KV
     try {
-      const raw = await fs.readFile(postsPath, "utf8");
-      const bundled = JSON.parse(raw) as BlogPost[];
-      const existingIds = new Set(existing.map((p) => p.id));
-      const missing = bundled.filter((b) => !existingIds.has(b.id));
-      if (missing.length > 0) {
-        const merged = [...existing, ...missing];
-        await redis.set(KV_KEY, merged);
-        return merged.map(normalizePost);
-      }
-    } catch { /* ignora */ }
-    return existing.map(normalizePost);
+      const redis = getRedis();
+      const posts = await redis.get<BlogPost[]>(KV_KEY);
+      const existing = posts || [];
+      // Mescla: adiciona artigos bundled que ainda nao estao no KV
+      try {
+        const raw = await fs.readFile(postsPath, "utf8");
+        const bundled = JSON.parse(raw) as BlogPost[];
+        const existingIds = new Set(existing.map((p) => p.id));
+        const missing = bundled.filter((b) => !existingIds.has(b.id));
+        if (missing.length > 0) {
+          const merged = [...existing, ...missing];
+          await redis.set(KV_KEY, merged);
+          return merged.map(normalizePost);
+        }
+      } catch { /* ignora */ }
+      return existing.map(normalizePost);
+    } catch {
+      // Redis falhou — fallback para arquivo bundled
+    }
   }
 
   // Fallback: arquivo local (dev) ou /tmp (Vercel sem KV)
