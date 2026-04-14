@@ -47,9 +47,9 @@ export default async function BlogArticlePage({
       <nav style={{ background: "#003956", position: "sticky", top: 0, zIndex: 100 }}>
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href="/mb-finance-completo.html">
-            <img src="/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto", display: "block" }} />
+            <img src="/images/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto", display: "block" }} />
           </a>
-          <a href="/blog.html" className="flex items-center gap-2 text-sm font-semibold text-white/65 transition-colors hover:text-white">
+          <a href="/pages/blog.html" className="flex items-center gap-2 text-sm font-semibold text-white/65 transition-colors hover:text-white">
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 12H5M12 5l-7 7 7 7"/></svg>
             Voltar ao blog
           </a>
@@ -119,7 +119,7 @@ export default async function BlogArticlePage({
             {/* Col 1: Brand */}
             <div className="flex flex-col gap-7 lg:col-span-4">
               <a href="/mb-finance-completo.html" className="inline-block opacity-100 transition-opacity hover:opacity-80">
-                <img src="/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto" }} />
+                <img src="/images/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto" }} />
               </a>
               <p className="max-w-[280px] text-[15px] font-medium leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
                 Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado. Seu elo estratégico com as principais instituições bancárias do Brasil.
@@ -157,8 +157,8 @@ export default async function BlogArticlePage({
               <div>
                 <h4 className="mb-7 text-xs font-bold uppercase tracking-widest text-white">Legal</h4>
                 <ul className="flex flex-col gap-3.5 text-sm font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
-                  <li><a href="/politica-de-privacidade.html" className="transition-colors hover:text-brand-secondary">Política de Privacidade</a></li>
-                  <li><a href="/termos-de-uso.html" className="transition-colors hover:text-brand-secondary">Termos de Uso</a></li>
+                  <li><a href="/pages/politica-de-privacidade.html" className="transition-colors hover:text-brand-secondary">Política de Privacidade</a></li>
+                  <li><a href="/pages/termos-de-uso.html" className="transition-colors hover:text-brand-secondary">Termos de Uso</a></li>
                 </ul>
               </div>
             </div>

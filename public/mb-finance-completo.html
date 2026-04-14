@@ -46,587 +46,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <script>
-        function smoothScrollTo(id, duration) {
-            const target = document.getElementById(id);
-            if (!target) return;
-            const start = window.scrollY;
-            const end = target.getBoundingClientRect().top + start;
-            const startTime = performance.now();
-            function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
-            function step(now) {
-                const elapsed = now - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                window.scrollTo(0, start + (end - start) * ease(progress));
-                if (progress < 1) requestAnimationFrame(step);
-            }
-            requestAnimationFrame(step);
-        }
-
-        // Parallax
-        function updateParallax() {
-            const windowH = window.innerHeight;
-
-            // Hero background
-            const hero = document.getElementById('parallax-hero');
-            if (hero) {
-                const scrollY = window.scrollY;
-                hero.style.transform = `translateY(${scrollY * 0.22}px) scale(1.5)`;
-            }
-
-            // Cidade / Rio (Como Funciona)
-            const cidade = document.getElementById('parallax-cidade');
-            if (cidade) {
-                const rect = cidade.closest('section').getBoundingClientRect();
-                const centerOffset = (rect.top + rect.height / 2) - windowH / 2;
-                cidade.style.transform = `translateY(${centerOffset * 0.22}px) scale(1.5)`;
-            }
-        }
-        window.addEventListener('scroll', updateParallax, { passive: true });
-        updateParallax();
-
-        // Navbar scroll effect
-        document.addEventListener('DOMContentLoaded', function() {
-            const navbar = document.getElementById('navbar');
-            if (!navbar) return;
-            function updateNav() {
-                const isScrolled = window.scrollY > 80;
-                navbar.classList.toggle('scrolled', isScrolled);
-                const logoImg = document.getElementById('logo-img');
-                if (logoImg) {
-                    logoImg.src = isScrolled ? 'logo-horizontal-logo.png.png' : 'logo-horizontal-logo.branca.png';
-                }
-            }
-            window.addEventListener('scroll', updateNav, { passive: true });
-            updateNav();
-        });
-
-    </script>
-    <style>
-        body { font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.5; color: #334155; letter-spacing: -0.01em; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; letter-spacing: -0.02em; color: #0f172a; }
-        p, span, a, li { font-family: 'Inter', sans-serif; }
-        
-        /* Força Tarefa: Títulos Negritos */
-        .product-btn .text-\[13px\], 
-        .acc-title, 
-        .product-panel h3,
-        #mobile-menu .mobile-menu-product-link,
-        .nav-link {
-            font-weight: 800 !important;
-        }
-        .hero-highlight {
-            background: linear-gradient(90deg, #ff6b81 0%, #ffc06a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-        }
-        @keyframes text-shimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-        .hero-blue-gradient {
-            background: linear-gradient(90deg, #BAE6FD 0%, #0099dd 25%, #BAE6FD 50%, #0099dd 75%, #BAE6FD 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-            animation: text-shimmer 8s linear infinite;
-        }
-        html { scroll-behavior: auto; }
-        /* â”€â”€ Custom Animations â”€â”€ */
-        @keyframes aurora-drift {
-            0%   { transform: translate(0%,  0%)  scale(1);    }
-            25%  { transform: translate(4%, -3%)  scale(1.04); }
-            50%  { transform: translate(-3%, 5%)  scale(0.97); }
-            75%  { transform: translate(6%,  2%)  scale(1.06); }
-            100% { transform: translate(-5%,-4%)  scale(1.02); }
-        }
-        @keyframes aurora-drift-reverse {
-            0%   { transform: translate(0%,  0%)  scale(1.02); }
-            30%  { transform: translate(-5%, 4%)  scale(0.96); }
-            60%  { transform: translate(4%, -5%)  scale(1.05); }
-            100% { transform: translate(3%,  3%)  scale(0.99); }
-        }
-        @keyframes fade-in-up {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scroll-vertical {
-            from { transform: translateY(0); }
-            to { transform: translateY(-50%); }
-        }
-        @keyframes scroll-vertical-reverse {
-            from { transform: translateY(-50%); }
-            to { transform: translateY(0); }
-        }
-        @keyframes scroll-horizontal {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-        @keyframes scroll-horizontal-reverse {
-            from { transform: translateX(-50%); }
-            to { transform: translateX(0); }
-        }
-        
-        .animate-scroll-horizontal { animation: scroll-horizontal 30s linear infinite; }
-        .animate-scroll-horizontal-reverse { animation: scroll-horizontal-reverse 30s linear infinite; }
-        .animate-scroll-vertical { animation: scroll-vertical var(--duration, 30s) linear infinite; }
-        .animate-scroll-vertical-reverse { animation: scroll-vertical-reverse var(--duration, 30s) linear infinite; }
-        .aurora-layer-1 { animation: aurora-drift 14s ease-in-out infinite alternate; }
-        .aurora-layer-2 { animation: aurora-drift-reverse 18s ease-in-out infinite alternate; mix-blend-mode: screen; }
-        
-        .scroll-mask {
-            mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-        }
-
-        .avatar-sprite {
-            background-size: 200% 200%;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        /* Prevent scroll bar for custom elements */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .btn-glow:hover {
-            box-shadow: 0 0 0 1px rgba(0,153,221,0.7), 0 12px 40px rgba(0,153,221,0.45);
-        }
-
-        /* Hero title: break only on desktop */
-        .hero-br { display: none; }
-        @media (min-width: 640px) { .hero-br { display: block; } }
-
-        /* Logo: sem compressão no mobile */
-        #logo-img { max-width: none !important; width: auto !important; height: 32px !important; }
-        @media (min-width: 1024px) { #logo-img { height: 36px !important; } }
-
-        /* Navbar responsivo (corrige Tailwind purged) */
-        @media (max-width: 1023px) {
-            #desktop-nav { display: none !important; }
-            #desktop-cta { display: none !important; }
-            #mobile-menu-toggle { display: flex !important; }
-        }
-        @media (min-width: 1024px) {
-            #desktop-nav { display: flex !important; }
-            #desktop-cta { display: block !important; }
-            #mobile-menu-toggle { display: none !important; }
-        }
-
-        /* Navbar scrolled state */
-        #navbar.scrolled { background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-bottom: 1px solid #f1f5f9; }
-        #navbar.scrolled a { color: #003956 !important; }
-        #navbar.scrolled #nav-nav-produtos { color: #003956 !important; }
-        #navbar.scrolled > div svg { stroke: #003956 !important; }
-
-        /* â”€â”€ Produtos Dropdown (Itaú style) â”€â”€ */
-        #produtos-dropdown {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-6px);
-            transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
-            z-index: 99;
-        }
-        #produtos-dropdown.open {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-            transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s;
-        }
-        .dd-prod-link {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            padding: 8px 10px;
-            font-size: 15px;
-            color: #334155;
-            font-weight: 400;
-            border: none;
-            border-radius: 8px;
-            background: none;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            transition: color 0.15s, background 0.15s;
-        }
-        .dd-prod-link { color: #334155; }
-        .dd-prod-link:hover { color: #0099dd; background: #f0f7ff; }
-        .dd-prod-link:hover .dd-icon { background: rgba(0,153,221,0.15); }
-        .dd-icon {
-            width: 30px; height: 30px;
-            background: #f1f5f9;
-            border-radius: 7px;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s;
-        }
-        .eco-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 13px 14px;
-            border: none;
-            border-bottom: 1px solid #e8eaed;
-            background: none;
-            cursor: pointer;
-            text-align: left;
-            transition: background 0.18s;
-        }
-        .eco-card:last-child { border-bottom: none; }
-        .eco-card:hover { background: #003956; border-radius: 0; }
-        .eco-card:hover .eco-name { color: #fff; }
-        .eco-card:hover .eco-desc { color: rgba(255,255,255,0.55); }
-        .eco-card:hover svg { stroke: #fff; }
-        .eco-name { font-size: 14px; font-weight: 700; color: #003956; transition: color 0.18s; }
-        .eco-desc { font-size: 11px; color: #94a3b8; margin-top: 2px; font-weight: 400; transition: color 0.18s; }
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #0099dd;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* â”€â”€ Mobile Menu â”€â”€ */
-        #mobile-menu {
-            position: fixed; top: 0; right: -100%; width: 85%; max-width: 360px;
-            height: 100vh; background: #fff; z-index: 200;
-            transition: right 0.35s cubic-bezier(.4,0,.2,1);
-            overflow-y: auto; padding: 0;
-            box-shadow: -8px 0 40px rgba(0,0,0,0.15);
-        }
-        #mobile-menu.open { right: 0; }
-        #mobile-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.5); z-index: 190;
-        }
-        #mobile-overlay.open { display: block; }
-
-        #whatsapp-float.is-hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transform: scale(0.9);
-        }
-
-        @media (max-width: 380px) {
-            #navbar {
-                padding-top: 14px;
-                padding-bottom: 14px;
-            }
-
-            #navbar .max-w-7xl {
-                padding-left: 14px;
-                padding-right: 14px;
-            }
-
-            #navbar .w-1\/4 {
-                width: auto;
-                flex: 0 0 auto;
-            }
-
-            #logo-img {
-                height: 36px !important;
-            }
-
-            #mobile-menu {
-                padding: 16px 14px 28px;
-            }
-
-            #inicio {
-                min-height: 100svh;
-                padding-top: 104px !important;
-                padding-bottom: 48px !important;
-            }
-
-            #inicio .relative.z-10 {
-                padding-left: 18px;
-                padding-right: 18px;
-            }
-
-            #inicio h1 {
-                font-size: clamp(1.95rem, 10.8vw, 2.65rem) !important;
-                line-height: 1.02 !important;
-                letter-spacing: -0.025em;
-                margin: 0 auto 16px !important;
-                max-width: 11.5ch;
-            }
-
-            #inicio p {
-                margin-top: 0 !important;
-                font-size: 15px !important;
-                line-height: 1.6 !important;
-                max-width: 18rem;
-            }
-
-            #inicio .mt-14 {
-                margin-top: 28px !important;
-                gap: 16px 18px !important;
-            }
-
-            #inicio [data-counter] {
-                font-size: 1.45rem !important;
-            }
-
-            #produtos {
-                padding-top: 56px !important;
-                padding-bottom: 56px !important;
-            }
-
-            #produtos .max-w-4xl,
-            #como-funciona .max-w-7xl,
-            #parceiros .max-w-7xl,
-            footer .max-w-7xl,
-            section .max-w-5xl {
-                padding-left: 18px !important;
-                padding-right: 18px !important;
-            }
-
-            .acc-title {
-                font-size: 15px;
-                line-height: 1.3;
-            }
-
-            .acc-body {
-                padding: 0 0 24px 0;
-            }
-
-            .acc-body ul {
-                padding-left: 0;
-            }
-
-            .acc-link {
-                width: 100%;
-                justify-content: space-between;
-                line-height: 1.3;
-            }
-
-            #como-funciona {
-                padding: 72px 0 !important;
-            }
-
-            #como-funciona .mb-24 {
-                margin-bottom: 42px !important;
-            }
-
-            #como-funciona h2 {
-                font-size: clamp(2.7rem, 15vw, 3.5rem) !important;
-                line-height: 0.96 !important;
-                margin-bottom: 14px !important;
-            }
-
-            #como-funciona p.text-white\/40 {
-                font-size: 15px !important;
-                line-height: 1.55 !important;
-                max-width: 15rem;
-            }
-
-            #como-funciona .grid {
-                gap: 22px !important;
-            }
-
-            .cf-step {
-                padding-right: 8px;
-            }
-
-            .cf-step-title {
-                font-size: 14px !important;
-                line-height: 1.3 !important;
-                margin-bottom: 8px !important;
-            }
-
-            .cf-step-desc {
-                font-size: 12px !important;
-                line-height: 1.55 !important;
-            }
-
-            #parceiros {
-                padding-top: 64px !important;
-                padding-bottom: 64px !important;
-            }
-
-            #parceiros .mb-24 {
-                margin-bottom: 36px !important;
-            }
-
-            #parceiros h2 {
-                font-size: 2.4rem !important;
-                line-height: 1 !important;
-                margin-bottom: 18px !important;
-            }
-
-            #parceiros p {
-                font-size: 15px !important;
-                line-height: 1.6 !important;
-            }
-
-            #carousel-row1,
-            #carousel-row2 {
-                gap: 44px !important;
-                padding-top: 10px !important;
-                padding-bottom: 10px !important;
-            }
-
-            #carousel-row1 img,
-            #carousel-row2 img {
-                height: 38px !important;
-            }
-
-            #carousel-row1 img[alt="Mercado Pago"],
-            #carousel-row2 img[alt="Mercado Pago"] {
-                height: 24px !important;
-            }
-
-            section[style*="padding-top:64px; padding-bottom:160px;"] {
-                padding-top: 56px !important;
-                padding-bottom: 88px !important;
-            }
-
-            section[style*="padding-top:64px; padding-bottom:160px;"] h2 {
-                font-size: 2.25rem !important;
-                line-height: 1.02 !important;
-                margin-bottom: 18px !important;
-            }
-
-            section[style*="padding-top:64px; padding-bottom:160px;"] p {
-                font-size: 15px !important;
-                line-height: 1.6 !important;
-            }
-
-            section[style*="padding-top:64px; padding-bottom:160px;"] button {
-                width: 100%;
-                padding: 18px 20px !important;
-                font-size: 15px !important;
-            }
-
-            section[style*="padding-top:64px; padding-bottom:160px;"] .mt-16 {
-                margin-top: 28px !important;
-                gap: 12px 16px !important;
-                letter-spacing: 0.18em !important;
-            }
-
-            footer {
-                padding-top: 48px !important;
-                padding-bottom: 48px !important;
-            }
-
-            footer .grid {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 32px 24px !important;
-            }
-
-            footer .lg\:col-span-4 {
-                grid-column: 1 / -1 !important;
-            }
-
-            footer .mb-24 {
-                margin-bottom: 40px !important;
-            }
-
-            footer h4 {
-                margin-bottom: 14px !important;
-            }
-
-            footer .space-y-4 > li {
-                margin-bottom: 10px;
-            }
-
-            footer .space-y-8 {
-                gap: 16px !important;
-            }
-
-            footer .lg\:col-span-2 {
-                grid-column: 1 / -1 !important;
-                flex-direction: row !important;
-                gap: 24px !important;
-            }
-
-            footer .lg\:col-span-2 > div {
-                flex: 1;
-            }
-
-            footer .space-y-10 {
-                gap: 28px;
-            }
-
-            footer .space-y-16 {
-                gap: 34px !important;
-            }
-
-            footer .pt-16 {
-                padding-top: 32px !important;
-            }
-
-            footer .mb-12 {
-                margin-bottom: 36px !important;
-            }
-
-            footer .text-lg {
-                font-size: 1rem !important;
-            }
-
-            button.fixed.bottom-8.right-8 {
-                right: 14px !important;
-                bottom: 14px !important;
-                padding: 12px !important;
-            }
-
-            button.fixed.bottom-8.right-8 svg {
-                width: 24px !important;
-                height: 24px !important;
-            }
-
-            #lead-modal {
-                padding: 12px !important;
-            }
-
-            #lead-modal > div.relative.z-10 {
-                max-width: none !important;
-                border-radius: 20px !important;
-                padding: 28px 18px 20px !important;
-            }
-
-            #lead-modal h3 {
-                font-size: 18px !important;
-                line-height: 1.25 !important;
-                padding-right: 20px;
-            }
-
-            #lead-modal p,
-            #lead-modal input,
-            #lead-modal button,
-            #lead-modal select {
-                font-size: 14px !important;
-            }
-
-            #parceria-modal {
-                padding: 16px 10px !important;
-            }
-
-            #parceria-modal > div {
-                border-radius: 24px !important;
-            }
-        }
+    <link rel="stylesheet" href="assets/css/main.css">
     
-    </style>
 </head>
 <body class="bg-white text-brand-primary overflow-x-hidden font-sans">
 
@@ -637,7 +58,7 @@
                 <!-- Logo (Left) -->
                 <div class="w-1/4">
                     <a href="#inicio" onclick="event.preventDefault(); smoothScrollTo('inicio', 1400)" class="flex items-center group">
-                        <img id="logo-img" src="logo-horizontal-logo.branca.png" alt="mb finance" style="height:36px; width:auto; display:block;">
+                        <img id="logo-img" src="images/logo-horizontal-logo.branca.png" alt="mb finance" style="height:36px; width:auto; display:block;">
                     </a>
                 </div>
 
@@ -654,7 +75,7 @@
 
                         <!-- SOBRE -->
                         <div class="relative group">
-                            <a href="sobre.html" class="nav-link text-[13px] font-semibold tracking-wider text-white hover:text-brand-secondary transition-colors" id="nav-nav-sobre">SOBRE</a>
+                            <a href="pages/sobre.html" class="nav-link text-[13px] font-semibold tracking-wider text-white hover:text-brand-secondary transition-colors" id="nav-nav-sobre">SOBRE</a>
                         </div>
 
                         <!-- PARCEIROS -->
@@ -664,7 +85,7 @@
 
                         <!-- BLOG -->
                         <div class="relative group">
-                            <a href="blog.html" class="nav-link text-[13px] font-semibold tracking-wider text-white hover:text-brand-secondary transition-colors">BLOG</a>
+                            <a href="pages/blog.html" class="nav-link text-[13px] font-semibold tracking-wider text-white hover:text-brand-secondary transition-colors">BLOG</a>
                         </div>
                     </nav>
                 </div>
@@ -688,7 +109,7 @@
         <div id="mobile-overlay" onclick="closeMobileMenu()"></div>
         <div id="mobile-menu">
             <div style="padding:24px 24px 16px; border-bottom:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center;">
-                <img src="logo-horizontal-logo.png.png" alt="mb finance" style="height:36px;width:auto;display:block;">
+                <img src="images/logo-horizontal-logo.png.png" alt="mb finance" style="height:36px;width:auto;display:block;">
                 <button onclick="closeMobileMenu()" aria-label="Fechar menu">
                     <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
@@ -696,9 +117,9 @@
             <div style="padding:24px;">
                 <div style="margin-bottom:4px;"><a href="#inicio" onclick="event.preventDefault(); smoothScrollTo('inicio', 1400); closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">INÍCIO</a></div>
                 <div style="margin-bottom:4px;"><a href="#produtos" onclick="event.preventDefault(); smoothScrollTo('produtos', 1400); closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">PRODUTOS</a></div>
-                <div style="margin-bottom:4px;"><a href="sobre.html" onclick="closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">SOBRE</a></div>
+                <div style="margin-bottom:4px;"><a href="pages/sobre.html" onclick="closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">SOBRE</a></div>
                 <div style="margin-bottom:4px;"><a href="#parceiros" onclick="event.preventDefault(); smoothScrollTo('parceiros', 1400); closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">PARCEIROS</a></div>
-                <div style="margin-bottom:24px;"><a href="blog.html" onclick="closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">BLOG</a></div>
+                <div style="margin-bottom:24px;"><a href="pages/blog.html" onclick="closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">BLOG</a></div>
                 <button type="button" onclick="closeMobileMenu(); openLeadModal('https://wa.me/552139008295');" style="display:block; width:100%; background:#0099dd; color:#fff; font-size:1rem; font-weight:700; text-align:center; padding:16px; border-radius:16px; border:none; box-shadow:0 4px 20px rgba(0,153,221,0.3); cursor:pointer;">
                     Falar com Especialista
                 </button>
@@ -767,7 +188,7 @@
         <div class="absolute inset-0 z-0 bg-[#040f1a]">
             <!-- City Skyline Background (Rio de Janeiro Sunset) -->
             <div id="parallax-hero" class="absolute bg-cover bg-center bg-no-repeat pointer-events-none"
-                 style="inset:-30%;background-image: url('Gemini_Generated_Image_wjleyzwjleyzwjle.png');will-change:transform;opacity:0.18;"></div>
+                 style="inset:-30%;background-image: url('images/Gemini_Generated_Image_wjleyzwjleyzwjle.png');will-change:transform;opacity:0.18;"></div>
 
             <!-- Subtle Radial Deep Glows -->
             <div class="absolute inset-0 opacity-[0.4]" style="background: radial-gradient(circle at 20% 30%, rgba(0,102,255,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(0,80,180,0.1) 0%, transparent 50%);"></div>
@@ -864,13 +285,6 @@
                             Agilidade institucional: aprovação e resposta em até 2h
                         </li>
                     </ul>
-                    <style>
-                        .checklist-item { transition: all 0.25s ease; border-radius: 10px; padding: 10px 12px !important; margin-left: -12px; cursor: default; border-bottom: 1px solid #f1f5f9 !important; }
-                        .checklist-item:last-child { border-bottom: none !important; }
-                        .checklist-item:hover { background: rgba(0,153,221,0.07); transform: translateX(6px); color: #003956; border-bottom-color: transparent !important; }
-                        .checklist-item:hover .checklist-icon { transform: scale(1.3); transition: transform 0.25s ease; }
-                        .checklist-icon { transition: transform 0.25s ease; }
-                    </style>
                 </div>
 
             </div>
@@ -879,26 +293,6 @@
     <!-- â”€â”€ Produtos â”€â”€ -->
     <section id="produtos" class="py-16 sm:py-32 bg-slate-50 relative">
         <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, rgba(0,153,221,0.2), transparent)"></div>
-
-        <style>
-            .acc-item { border-bottom: 1px solid #e5e7eb; }
-            .acc-header { display: flex; align-items: center; gap: 16px; padding: 24px 0; cursor: pointer; width: 100%; text-align: left; background: none; border: none; }
-            .acc-header:hover .acc-title { transform: translateX(8px); }
-            .acc-chevron { margin-left: auto; flex-shrink: 0; color: #9ca3af; transition: transform 0.25s ease; }
-            .acc-item.open .acc-chevron { transform: rotate(180deg); color: #003956; }
-            .acc-body { display: none; padding: 0 0 28px 52px; }
-            .acc-item.open .acc-body { display: block; }
-            .acc-desc { color: #6b7280; font-size: 15px; line-height: 1.75; margin-bottom: 18px; }
-            .acc-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-            .acc-tag { font-size: 12px; font-weight: 700; color: #003956; background: rgba(0,57,86,0.07); padding: 5px 12px; border-radius: 999px; }
-            .acc-link { font-size: 14px; font-weight: 700; color: #0099dd; text-decoration: none; display: inline-flex; align-items: center; line-height: 1; gap: 6px; background: none; border: none; padding: 0; border-radius: 0; transition: all 0.2s; }
-            .acc-link svg { display: block; flex-shrink: 0; }
-            .acc-link:hover { color: #003956; gap: 10px; }
-            .acc-icon { width: 32px; height: 32px; flex-shrink: 0; color: #003956; transition: all 0.3s ease; }
-            .acc-item.open .acc-icon { color: #0099dd; transform: scale(1.1); }
-            .acc-title { font-family: 'Inter', sans-serif !important; font-size: 18px; font-weight: 600 !important; color: #003956 !important; line-height: 1.2; transition: all 0.2s ease; }
-            .acc-subtitle { font-family: 'Inter', sans-serif !important; font-size: 13px; color: #64748b; font-weight: 400; margin-top: 4px; letter-spacing: 0.01em; }
-        </style>
 
         <div class="max-w-4xl mx-auto px-6 sm:px-12 relative z-10">
             <div class="mb-14 text-center">
@@ -1099,90 +493,10 @@
         </div>
     </section>
 
-    <script>
-        function toggleAcc(btn) {
-            var item = btn.closest('.acc-item');
-            var isOpen = item.classList.contains('open');
-            // Close all
-            document.querySelectorAll('.acc-item.open').forEach(function(el){ el.classList.remove('open'); });
-            // Open clicked if it was closed
-            if (!isOpen) { item.classList.add('open'); }
-        }
-
-        function openProduct(accId) {
-            var section = document.getElementById('produtos');
-            var item = document.getElementById(accId);
-            if (!section || !item) return;
-            document.querySelectorAll('.acc-item.open').forEach(function(el){ el.classList.remove('open'); });
-            item.classList.add('open');
-            setTimeout(function(){
-                item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 50);
-        }
-    </script>
-
 <!-- â”€â”€ Como Funciona â”€â”€ -->
     <section id="como-funciona" class="relative overflow-hidden" style="background:#040f1a; padding:120px 0;">
         <div id="parallax-cidade" style="position:absolute;inset:0;background:url('https://i.ibb.co/CpkdgVWm/hero-bg.png') center/cover no-repeat;opacity:0.28;z-index:0;"></div>
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,15,26,0.55),rgba(4,15,26,0.45));z-index:1;"></div>
-
-        <style>
-            .cf-step { opacity:0; transform:translateY(28px); transition:opacity 0.95s ease, transform 0.95s ease; }
-            .cf-step.visible { opacity:1; transform:translateY(0); }
-            .cf-dot { opacity:0; transform:scale(0); transition:opacity 0.7s ease, transform 0.7s cubic-bezier(.34,1.56,.64,1); }
-            .cf-dot.visible { opacity:1; transform:scale(1); }
-            .cf-line { transform-origin:left; transform:scaleX(0); transition:transform 1.15s cubic-bezier(.4,0,.2,1); }
-            .cf-line.visible { transform:scaleX(1); }
-            .cf-step:hover .cf-step-title { color:#0099dd; }
-            .cf-step-title { transition:color 0.25s; }
-            .cf-step:hover .cf-dot { transform:scale(1.5) !important; box-shadow:0 0 0 6px rgba(0,153,221,0.3),0 0 16px rgba(0,153,221,0.4) !important; }
-            .cf-step-desc { transition:color 0.25s; }
-            .cf-step:hover .cf-step-desc { color:rgba(255,255,255,0.8) !important; }
-            /* Linha vertical + layout timeline no mobile */
-            @keyframes cf-line-v { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-            @media (max-width: 639px) {
-                #cf-steps-grid {
-                    display: flex !important;
-                    flex-direction: column;
-                    gap: 28px;
-                }
-                .cf-step {
-                    display: grid !important;
-                    grid-template-columns: 24px 1fr;
-                    grid-template-rows: auto auto;
-                    column-gap: 16px;
-                }
-                .cf-step > div:first-child {
-                    grid-column: 1;
-                    grid-row: 1 / 3;
-                    margin-bottom: 0 !important;
-                    display: flex;
-                    justify-content: center;
-                    padding-top: 2px;
-                    position: relative;
-                }
-                /* Linha entre passos — apenas nos que NÃO são o último */
-                .cf-step:not(:last-child) > div:first-child::after {
-                    content: '';
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    top: 12px;
-                    height: calc(100% - 12px + 28px);
-                    width: 1px;
-                    background: rgba(255,255,255,0.2);
-                    animation: cf-line-v 1.15s cubic-bezier(.4,0,.2,1) 0.3s both;
-                }
-                .cf-step-title {
-                    grid-column: 2;
-                    grid-row: 1;
-                }
-                .cf-step-desc {
-                    grid-column: 2;
-                    grid-row: 2;
-                }
-            }
-        </style>
 
         <div class="max-w-7xl mx-auto px-6 sm:px-12 relative" style="z-index:2;">
             <div class="mb-24 max-w-2xl">
@@ -1217,95 +531,6 @@
             </div>
         </div>
     </section>
-
-    <script>
-    (function(){
-        var line = document.querySelector('.cf-line');
-        var grid = document.querySelector('#como-funciona .grid');
-        var section = document.getElementById('como-funciona');
-        var currentStep = 0;
-        var stepAnchors = [0.5, 0.34, 0.18, 0.04];
-
-        function applySteps(n) {
-            currentStep = Math.max(0, Math.min(4, n));
-            if (line) line.classList.toggle('visible', currentStep > 0);
-            [1,2,3,4].forEach(function(i){
-                var step = document.getElementById('cf-step-' + i);
-                if (!step) return;
-                var on = i <= currentStep;
-                step.classList.toggle('visible', on);
-                var dot = step.querySelector('.cf-dot');
-                if (dot) dot.classList.toggle('visible', on);
-            });
-        }
-
-        function getStepFromScroll() {
-            var rect = section.getBoundingClientRect();
-            var windowH = window.innerHeight;
-            var step = 0;
-
-            stepAnchors.forEach(function(anchor, index){
-                if (rect.top <= windowH * anchor) step = index + 1;
-            });
-
-            return step;
-        }
-
-        // Scroll normal da página
-        function checkScroll() {
-            applySteps(getStepFromScroll());
-        }
-
-        // Scroll do mouse sobre a seção: página trava, etapas avançam/regridem
-        function onWheel(e) {
-            var now = Date.now();
-            var goingDown = e.deltaY > 0;
-            var goingUp   = e.deltaY < 0;
-
-            // Se chegou no fim e quer descer, ou no início e quer subir â†’ libera a página
-            if ((goingDown && currentStep >= 4) || (goingUp && currentStep <= 0)) {
-                isHovering = false;
-                window.removeEventListener('wheel', onWheel);
-                return; // não chama preventDefault â†’ página rola normalmente
-            }
-
-            e.preventDefault();
-            if (now - lastWheelStepAt < wheelStepCooldown) return;
-
-            if ((wheelDeltaAccumulator > 0 && goingUp) || (wheelDeltaAccumulator < 0 && goingDown)) {
-                wheelDeltaAccumulator = 0;
-            }
-
-            wheelDeltaAccumulator += e.deltaY;
-
-            if (Math.abs(wheelDeltaAccumulator) < wheelStepThreshold) return;
-
-            applySteps(currentStep + (wheelDeltaAccumulator > 0 ? 1 : -1));
-            lastWheelStepAt = now;
-            wheelDeltaAccumulator = 0;
-        }
-
-        // Só ativa o wheel interativo em desktop (sem touch)
-        if (false) {
-            section.addEventListener('mouseenter', function(){
-                isHovering = true;
-                currentStep = getStepFromScroll();
-                wheelDeltaAccumulator = 0;
-                lastWheelStepAt = 0;
-                window.addEventListener('wheel', onWheel, { passive: false });
-            });
-            section.addEventListener('mouseleave', function(){
-                isHovering = false;
-                wheelDeltaAccumulator = 0;
-                lastWheelStepAt = 0;
-                window.removeEventListener('wheel', onWheel);
-            });
-        }
-
-        window.addEventListener('scroll', checkScroll, { passive: true });
-        checkScroll();
-    })();
-    </script>
     <!-- â”€â”€ Boardroom Testimonials â”€â”€ -->
     <section id="depoimentos" class="py-32 bg-[#040f1a] relative overflow-hidden" style="display:none;">
         <div class="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
@@ -2136,7 +1361,7 @@
                 <div class="lg:col-span-4 space-y-8">
                     <div class="mb-8">
                         <a href="#" class="inline-block hover:opacity-80 transition-opacity">
-                            <img src="logo-horizontal-logo.branca.png" alt="mb finance" style="height: 36px; width: auto;">
+                            <img src="images/logo-horizontal-logo.branca.png" alt="mb finance" style="height: 36px; width: auto;">
                         </a>
                     </div>
                     <p class="font-medium text-[15px] leading-relaxed max-w-sm" style="color: rgba(255,255,255,0.45);">
@@ -2179,8 +1404,8 @@
                     <div>
                         <h4 class="font-bold text-sm uppercase tracking-widest mb-8" style="color: #ffffff !important;">Legal</h4>
                         <ul class="space-y-4 font-medium text-sm" style="color: rgba(255,255,255,0.4);">
-                            <li><a href="politica-de-privacidade.html" class="hover:text-brand-secondary transition-colors">Política de Privacidade</a></li>
-                            <li><a href="termos-de-uso.html" class="hover:text-brand-secondary transition-colors">Termos de Uso</a></li>
+                            <li><a href="pages/politica-de-privacidade.html" class="hover:text-brand-secondary transition-colors">Política de Privacidade</a></li>
+                            <li><a href="pages/termos-de-uso.html" class="hover:text-brand-secondary transition-colors">Termos de Uso</a></li>
                         </ul>
                     </div>
                 </div>
@@ -2218,114 +1443,8 @@
     <button id="whatsapp-float" onclick="openLeadModal('https://wa.me/552139008295')" class="fixed bottom-8 right-8 z-[999] bg-[#25D366] text-white p-4 rounded-full hover:scale-110 transition-all duration-300 cursor-pointer">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
     </button>
-
-    <script>
-        // Mobile Menu toggle
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileOverlay = document.getElementById('mobile-overlay');
-        const whatsappFloat = document.getElementById('whatsapp-float');
-
-        function openMobileMenu() {
-            mobileMenu.classList.add('open');
-            mobileOverlay.classList.add('open');
-            document.body.style.overflow = 'hidden';
-            if (whatsappFloat) whatsappFloat.classList.add('is-hidden');
-        }
-
-        function closeMobileMenu() {
-            mobileMenu.classList.remove('open');
-            mobileOverlay.classList.remove('open');
-            document.body.style.overflow = '';
-            if (whatsappFloat) whatsappFloat.classList.remove('is-hidden');
-        }
-
-        document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
-            if (mobileMenu.classList.contains('open')) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-        });
-
-        // â”€â”€ Simple Dropdown Menu â”€â”€
-        const dropdown        = document.getElementById('produtos-dropdown');
-        const megaMenuWrapper = document.getElementById('mega-menu-wrapper');
-        const megaChevron     = document.getElementById('mega-menu-chevron');
-        let ddHideTimer       = null;
-
-        function showDropdown() {
-            clearTimeout(ddHideTimer);
-            if (dropdown) dropdown.classList.add('open');
-            if (megaChevron) megaChevron.style.transform = 'rotate(180deg)';
-        }
-        function hideDropdown() {
-            ddHideTimer = setTimeout(() => {
-                if (dropdown) dropdown.classList.remove('open');
-                if (megaChevron) megaChevron.style.transform = '';
-            }, 120);
-        }
-        if (megaMenuWrapper) {
-            megaMenuWrapper.addEventListener('mouseenter', showDropdown);
-            megaMenuWrapper.addEventListener('mouseleave', hideDropdown);
-        }
-        if (dropdown) {
-            dropdown.addEventListener('mouseenter', showDropdown);
-            dropdown.addEventListener('mouseleave', hideDropdown);
-        }
-
-        // Fecha o dropdown via onclick (acessível globalmente)
-        window.closeProdDropdown = function() {
-            if (dropdown) dropdown.classList.remove('open');
-            if (megaChevron) megaChevron.style.transform = '';
-        };
-
-        // â”€â”€ FAQ Toggle System â”€â”€
-        function toggleFAQ(button) {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('.faq-icon');
-            
-            // Close other items
-            document.querySelectorAll('.faq-content').forEach(item => {
-                if (item !== content) {
-                    item.style.height = '0';
-                    item.previousElementSibling.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
-                }
-            });
-
-            // Toggle current item
-            if (content.style.height === '0px' || content.style.height === '') {
-                content.style.height = content.scrollHeight + 'px';
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.style.height = '0';
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-
-    </script>
     <!-- â”€â”€ Smooth Scroll (Lenis) â”€â”€ -->
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-    <script>
-        // Initialize Lenis
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          direction: 'vertical',
-          gestureDirection: 'vertical',
-          smooth: true,
-          smoothTouch: false,
-          touchMultiplier: 2,
-        })
-
-        // Use requestAnimationFrame to force out updates
-        function raf(time) {
-          lenis.raf(time)
-          requestAnimationFrame(raf)
-        }
-
-        requestAnimationFrame(raf)
-    </script>
+    
 
     <!-- â”€â”€ Modal Captura de Lead â”€â”€ -->
     <div id="lead-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4" style="display:none !important;">
@@ -2405,167 +1524,6 @@
         </div>
     </div>
 
-    <script>
-        let _leadWaUrl = 'https://wa.me/552139008295';
-        let _leadProduto = '';
-        let _leadConvertido = false;
-
-        function updateLeadProgress() {
-            const nome = document.getElementById('lead-nome').value.trim();
-            const tel = document.getElementById('lead-telefone').value.trim();
-            const nomeOk = nome.length >= 2;
-            const telOk = tel.length >= 14;
-            const steps = (nomeOk ? 1 : 0) + (telOk ? 1 : 0);
-            const pct = steps === 0 ? 0 : steps === 1 ? 50 : 100;
-            document.getElementById('lead-progress-bar').style.width = pct + '%';
-            const labels = ['0 de 2 etapas', 'Quase lá! Falta só o WhatsApp', 'Tudo certo! Clique para falar agora'];
-            document.getElementById('lead-progress-label').textContent = labels[steps];
-            if (steps === 2) {
-                document.getElementById('lead-progress-label').style.color = '#0099dd';
-                document.getElementById('lead-progress-label').style.fontWeight = '700';
-            } else {
-                document.getElementById('lead-progress-label').style.color = '#94a3b8';
-                document.getElementById('lead-progress-label').style.fontWeight = '400';
-            }
-        }
-
-        function openLeadModal(waUrl, produto) {
-            _leadWaUrl = waUrl || 'https://wa.me/552139008295';
-            _leadProduto = produto || '';
-            const modal = document.getElementById('lead-modal');
-            modal.style.removeProperty('display');
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            // Reset progresso
-            document.getElementById('lead-progress-bar').style.width = '0%';
-            document.getElementById('lead-progress-label').textContent = '0 de 2 etapas';
-            document.getElementById('lead-progress-label').style.color = '#94a3b8';
-            document.getElementById('lead-progress-label').style.fontWeight = '400';
-            // Produto: badge ou select
-            const sel = document.getElementById('lead-produto-select');
-            if (_leadProduto) {
-                sel.style.display = 'none';
-                sel.value = _leadProduto;
-            } else {
-                sel.style.display = 'none';
-                sel.value = '';
-            }
-        }
-
-        function closeLeadModal() {
-            const modal = document.getElementById('lead-modal');
-            if (!_leadConvertido) {
-                const nome = document.getElementById('lead-nome').value.trim();
-                const telefone = document.getElementById('lead-telefone').value.trim();
-                if (nome || telefone) {
-                    enviarParaPlanilha({
-                        data: new Date().toLocaleString('pt-BR'),
-                        nome: nome,
-                        telefone: telefone,
-                        produto: _leadProduto || document.getElementById('lead-produto-select').value || '',
-                        status: 'Parcial â€” não enviou'
-                    });
-                }
-            }
-            _leadConvertido = false;
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-
-        const _s = ['aHR0cHM6Ly9zY3JpcHQu','Z29vZ2xlLmNvbS9tYWNy','b3MvcC9BS2Z5Y2J4UXNo','TDVrUjc0eHV6bzZiVGEt','Mk00V3dXRW5hQXdEN3hz','bFlJMGlub29uZk1lZ0g5','WWNiSVVCRTVnbW1BMzRw','ODV0QS9leGVj'];
-        const SHEETS_URL = atob(_s.join(''));
-
-        function enviarParaPlanilha(payload) {
-            const params = new URLSearchParams(payload).toString();
-            fetch(SHEETS_URL + '?' + params, { method: 'GET', mode: 'no-cors' }).catch(() => {});
-        }
-
-        function submitLead(e) {
-            e.preventDefault();
-            const nome = document.getElementById('lead-nome').value.trim();
-            const telefone = document.getElementById('lead-telefone').value.trim();
-            const newsletter = document.getElementById('lead-newsletter').checked ? 'Sim' : 'Não';
-            const produtoSelecionado = _leadProduto || document.getElementById('lead-produto-select').value || '';
-
-            // Envia para a planilha Google Sheets
-            enviarParaPlanilha({
-                data: new Date().toLocaleString('pt-BR'),
-                nome: nome,
-                telefone: telefone,
-                produto: produtoSelecionado,
-                status: 'Convertido â€” foi pro WhatsApp'
-            });
-
-            // Salva localmente como backup
-            const leads = JSON.parse(localStorage.getItem('mb_leads') || '[]');
-            leads.push({ nome, telefone, newsletter, produto: produtoSelecionado, data: new Date().toISOString() });
-            localStorage.setItem('mb_leads', JSON.stringify(leads));
-
-            // Monta mensagem personalizada pro WhatsApp
-            const msgsPorProduto = {
-                'Conta Corrente Empresarial': `Olá! Gostaria de abrir uma Conta Corrente Empresarial para minha empresa pela mb finance. Podem me ajudar?`,
-                'Máquina de Cartão': `Olá! Tenho interesse nas soluções de maquininha e gateway de pagamento da mb finance. Podem me passar mais informações?`,
-                'Seguros e Consórcios': `Olá! Gostaria de conhecer as opções de Seguros e Consórcios da mb finance. Podem me ajudar?`,
-                'Crédito Rápido': `Olá! Preciso de crédito rápido para minha empresa. Gostaria de saber as condições disponíveis.`,
-                'Soluções Tributárias': `Olá! Tenho interesse nas Soluções Tributárias da mb finance. Podem me passar mais detalhes?`,
-                'Soluções Personalizadas': `Olá! Gostaria de uma proposta de Solução Personalizada para minha empresa. Podem me ajudar?`,
-                'Máquina de Cartão': `Olá! Quero conhecer as taxas e condições da Máquina de Cartão da mb finance.`,
-                'Telemedicina': `Olá! Gostaria de conhecer os planos de Telemedicina da mb finance. Podem me passar mais informações?`,
-            };
-            let msg = msgsPorProduto[produtoSelecionado] || `Olá! Gostaria de falar com um especialista da mb finance.`;
-
-            const baseUrl = _leadWaUrl.split('?')[0];
-            const waLink = `${baseUrl}?text=${encodeURIComponent(msg)}`;
-
-            _leadConvertido = true;
-            closeLeadModal();
-            document.getElementById('lead-form').reset();
-            window.open(waLink, '_blank');
-        }
-
-        function toggleNewsletter() {
-            const cb = document.getElementById('lead-newsletter');
-            const box = document.getElementById('newsletter-box');
-            const icon = document.getElementById('newsletter-icon');
-            cb.checked = !cb.checked;
-            if (cb.checked) {
-                box.style.borderColor = '#0099dd';
-                box.style.background = '#0099dd';
-                icon.style.display = 'block';
-            } else {
-                box.style.borderColor = '#d1d5db';
-                box.style.background = '#fff';
-                icon.style.display = 'none';
-            }
-        }
-        // Counter animation
-        (function() {
-            const counters = document.querySelectorAll('[data-counter]');
-            if (!counters.length) return;
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (!entry.isIntersecting) return;
-                    observer.unobserve(entry.target);
-                    const el = entry.target;
-                    const target = parseInt(el.getAttribute('data-counter'));
-                    const prefix = el.getAttribute('data-prefix') || '';
-                    const suffix = el.getAttribute('data-suffix') || '';
-                    const duration = 1400;
-                    const start = performance.now();
-                    function update(now) {
-                        const progress = Math.min((now - start) / duration, 1);
-                        const ease = 1 - Math.pow(1 - progress, 1.5);
-                        const value = progress >= 0.99 ? target : Math.floor(ease * target);
-                        el.textContent = prefix + value + suffix;
-                        if (progress < 1) requestAnimationFrame(update);
-                    }
-                    requestAnimationFrame(update);
-                });
-            }, { threshold: 0.5 });
-            counters.forEach(function(c) { observer.observe(c); });
-        })();
-    </script>
-
 <!-- â”€â”€ MODAL PARCERIA â”€â”€ -->
 <div id="parceria-modal" onclick="if(event.target===this)closeParceriaModal()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow-y:auto;padding:40px 16px;align-items:center;justify-content:center;">
     <div style="position:relative;width:100%;max-width:520px;margin:0 auto;background:linear-gradient(160deg,#0a1628 0%,#071020 100%);border:1px solid rgba(255,255,255,0.08);border-radius:24px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.6);">
@@ -2624,89 +1582,16 @@
     </div>
 </div>
 
-<script>
-function openParceriaModal() {
-    const m = document.getElementById('parceria-modal');
-    m.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-function closeParceriaModal() {
-    document.getElementById('parceria-modal').style.display = 'none';
-    document.body.style.overflow = '';
-}
-function enviarParceria() {
-    const nome     = document.getElementById('parc-nome').value.trim();
-    const tel      = document.getElementById('parc-tel').value.trim();
-    const segmento = document.getElementById('parc-segmento').value;
-    const msg      = document.getElementById('parc-msg').value.trim();
-    if (!nome) { alert('Por favor, informe seu nome.'); return; }
-    if (!tel)  { alert('Por favor, informe seu WhatsApp.'); return; }
-    const texto = `Olá! Meu nome é ${nome} e tenho interesse em me tornar parceiro da mb finance.` +
-        (segmento ? `\n\nSegmento: ${segmento}.` : '') +
-        (msg ? `\n\n${msg}` : '') +
-        `\n\nWhatsApp para contato: ${tel}`;
-    window.open('https://wa.me/552139008295?text=' + encodeURIComponent(texto), '_blank');
-    closeParceriaModal();
-}
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeParceriaModal(); });
-</script>
-
-<script>
-(function() {
-    function startMarquee(el, pixelsPerSecond, reverse, startProgress) {
-        var half = 0;
-        var offset = 0;
-        var last = null;
-        var running = false;
-
-        function init() {
-            half = el.scrollWidth / 2;
-            var progress = typeof startProgress === 'number' ? startProgress : (reverse ? 1 : 0);
-            offset = -half * progress;
-            if (!running) { running = true; requestAnimationFrame(tick); }
-        }
-
-        function tick(now) {
-            if (last !== null) {
-                var dt = Math.min((now - last) / 1000, 0.05);
-                var delta = pixelsPerSecond * dt;
-                if (reverse) {
-                    offset += delta;
-                    if (offset >= 0) offset -= half;
-                } else {
-                    offset -= delta;
-                    if (offset <= -half) offset += half;
-                }
-                el.style.transform = 'translateX(' + offset.toFixed(2) + 'px)';
-            }
-            last = now;
-            requestAnimationFrame(tick);
-        }
-
-        var imgs = el.querySelectorAll('img');
-        var total = imgs.length;
-        var loaded = 0;
-        function onLoad() {
-            loaded++;
-            if (loaded >= total) init();
-        }
-        imgs.forEach(function(img) {
-            if (img.complete && img.naturalWidth > 0) { onLoad(); }
-            else { img.addEventListener('load', onLoad); img.addEventListener('error', onLoad); }
-        });
-        if (total === 0) init();
-        // Fallback: start after 2s even if some images fail
-        setTimeout(function() { if (!running) init(); }, 2000);
-    }
-
-    window.addEventListener('load', function() {
-        var row1 = document.getElementById('carousel-row1');
-        var row2 = document.getElementById('carousel-row2');
-        if (row1) startMarquee(row1, 60, true, 0.92);   // move direita
-        if (row2) startMarquee(row2, 52, false, 0.38);  // move esquerda
-    });
-})();
-</script>
+    <!-- External scripts: load order matters -->
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="assets/js/infra/sheets.js"></script>
+    <script src="assets/js/infra/storage.js"></script>
+    <script src="assets/js/ui/scroll.js"></script>
+    <script src="assets/js/ui/navbar.js"></script>
+    <script src="assets/js/ui/accordion.js"></script>
+    <script src="assets/js/ui/animations.js"></script>
+    <script src="assets/js/use-cases/lead.js"></script>
+    <script src="assets/js/use-cases/partnership.js"></script>
 </body>
 </html>
 

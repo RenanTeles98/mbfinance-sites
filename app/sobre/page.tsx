@@ -48,7 +48,7 @@ const timeline = [
     description:
       "Foco intenso em consultoria financeira e consolidação da posição da MB Finance dentro do ecossistema Conexão C6, estruturando processos, governança e equipe para suportar o crescimento acelerado que viria a seguir.",
     badge: null,
-    trophy: { src: "/premios/premio-2021.png", label: "AgRio 2021 - 1º Lugar" },
+    trophy: { src: "/images/premios/premio-2021.png", label: "AgRio 2021 - 1º Lugar" },
   },
   {
     year: "2022",
@@ -56,7 +56,7 @@ const timeline = [
     description:
       "No final do ano, a MB Finance estava entre os TOP 3 do projeto Conexão C6, superando a marca de 600 contas abertas por mês. Neste mesmo ano, criamos o Fomenta Mais — ampliando nossa capacidade de atender e fomentar o ecossistema de negócios parceiros.",
     badge: "TOP 3 · Fomenta Mais",
-    trophy: { src: "/premios/premio-2022.png", label: "Destaque 2022 - Conexão C6" },
+    trophy: { src: "/images/premios/premio-2022.png", label: "Destaque 2022 - Conexão C6" },
   },
   {
     year: "2023",
@@ -64,7 +64,7 @@ const timeline = [
     description:
       "Primeiros a superar 1.500 contas/mês, chegando a 2.500 em julho. Investimos em governança e processos. Conquistamos o título de Melhor Parceiro do Conexão C6 — com lucro 3× maior que os demais parceiros do canal.",
     badge: "Melhor Parceiro",
-    trophy: { src: "/premios/premio-2023.png", label: "Awards 2023 - Melhor Escritório" },
+    trophy: { src: "/images/premios/premio-2023.png", label: "Awards 2023 - Melhor Escritório" },
   },
   {
     year: "2024",
@@ -72,7 +72,7 @@ const timeline = [
     description:
       "Estabelecemos o recorde nacional de abertura de contas PJ: 59.230 contas em um único ano. Premiados com o título de melhor escritório do Conexão C6, consolidando nossa liderança no projeto.",
     badge: "59.230 contas PJ",
-    trophy: { src: "/premios/premio-2024.png", label: "Awards 2024 - Melhor Escritório" },
+    trophy: { src: "/images/premios/premio-2024.png", label: "Awards 2024 - Melhor Escritório" },
   },
   {
     year: "2025",
