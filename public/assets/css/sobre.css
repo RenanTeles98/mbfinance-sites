@@ -18,7 +18,9 @@
         @media (max-width: 1023px) {
             #desktop-nav { display: none !important; }
             #desktop-cta { display: none !important; }
-            #mobile-menu-toggle { display: flex !important; }
+            #mobile-menu-toggle { display: none !important; }
+            #mobile-menu { display: none !important; }
+            #mobile-overlay { display: none !important; }
         }
         @media (min-width: 1024px) {
             #desktop-nav { display: flex !important; }
