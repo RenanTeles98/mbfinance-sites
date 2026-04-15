@@ -120,17 +120,15 @@
         #tl-mobile-tip {
             display: none;
             position: absolute;
-            left: 21px;
+            left: 23px;
             top: 0;
-            width: 10px;
-            height: 10px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: #0099dd;
             z-index: 55;
             pointer-events: none;
             transform: translateY(-50%);
-            box-shadow: 0 0 0 3px rgba(0,153,221,0.2);
-            transition: top 0.05s linear;
         }
 
         /* Linha zigzag SVG */
