@@ -86,17 +86,18 @@
     <!-- Mobile Menu -->
     <div id="mobile-overlay" onclick="closeMobileMenu()"></div>
     <div id="mobile-menu">
-        <div style="padding:24px 24px 16px;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;">
-            <img src="../images/logo-horizontal-logo.png.png" alt="mb finance" class="mobile-menu-logo">
-            <button onclick="closeMobileMenu()" style="background:none;border:none;cursor:pointer;">
-                <svg class="w-6 h-6" fill="none" stroke="#94a3b8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        <div style="padding:24px 24px 16px; border-bottom:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center;">
+            <img src="../images/logo-horizontal-logo.png.png" alt="mb finance" style="height:36px;width:auto;display:block;">
+            <button onclick="closeMobileMenu()" aria-label="Fechar menu">
+                <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
         <div style="padding:24px;">
-            <div style="margin-bottom:4px;"><a href="../mb-finance-completo.html#produtos" style="display:block;font-size:1.1rem;font-weight:600;color:#003956;padding:14px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;">PRODUTOS</a></div>
-            <div style="margin-bottom:4px;"><a href="sobre.html" style="display:block;font-size:1.1rem;font-weight:600;color:#0099dd;padding:14px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;">SOBRE</a></div>
-            <div style="margin-bottom:4px;"><a href="../mb-finance-completo.html#parceiros" style="display:block;font-size:1.1rem;font-weight:600;color:#003956;padding:14px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;">PARCEIROS</a></div>
-            <div style="margin-bottom:24px;"><a href="blog.html" style="display:block;font-size:1.1rem;font-weight:600;color:#003956;padding:14px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;">BLOG</a></div>
+            <div style="margin-bottom:4px;"><a href="../mb-finance-completo.html" onclick="closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">INÍCIO</a></div>
+            <div style="margin-bottom:4px;"><a href="../mb-finance-completo.html#produtos" onclick="closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">PRODUTOS</a></div>
+            <div style="margin-bottom:4px;"><a href="sobre.html" onclick="closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">SOBRE</a></div>
+            <div style="margin-bottom:4px;"><a href="../mb-finance-completo.html#parceiros" onclick="closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">PARCEIROS</a></div>
+            <div style="margin-bottom:24px;"><a href="blog.html" onclick="closeMobileMenu();" style="display:block; font-size:1.1rem; font-weight:600; color:#003956; padding:14px 0; border-bottom:1px solid #f1f5f9; text-decoration:none;">BLOG</a></div>
             <button type="button" onclick="closeMobileMenu(); openLeadModal('https://wa.me/552139008295');" style="display:block; width:100%; background:#0099dd; color:#fff; font-size:1rem; font-weight:700; text-align:center; padding:16px; border-radius:16px; border:none; box-shadow:0 4px 20px rgba(0,153,221,0.3); cursor:pointer;">
                 Falar com Especialista
             </button>
