@@ -561,7 +561,26 @@
         @media (max-width: 768px) {
 
             /* Overflow global */
-            body { overflow-x: hidden !important; max-width: 100% !important; }
+            html, body {
+                overflow-x: clip !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+            #navbar,
+            #navbar > div,
+            .sobre-hero-section,
+            #hero-inner,
+            .sobre-hero-grid,
+            .tl-section,
+            #cta-section,
+            #main-footer {
+                max-width: 100vw !important;
+                overflow-x: clip !important;
+            }
+            #mobile-menu {
+                width: min(85vw, 360px) !important;
+                max-width: min(85vw, 360px) !important;
+            }
 
             /* Hero: reduz padding excessivo */
             #hero-inner { padding-top: 100px !important; padding-bottom: 48px !important; }
