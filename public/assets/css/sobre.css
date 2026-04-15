@@ -14,6 +14,20 @@
         body { font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.5; color: #334155; letter-spacing: -0.01em; }
         h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.025em; }
 
+        /* Logo: mantém a mesma proporção da página principal */
+        #logo-img {
+            display: block;
+            max-width: none !important;
+            width: auto !important;
+            height: 32px !important;
+            object-fit: contain;
+        }
+        @media (min-width: 1024px) {
+            #logo-img {
+                height: 36px !important;
+            }
+        }
+
         /* Navbar responsive */
         @media (max-width: 1023px) {
             #desktop-nav { display: none !important; }
@@ -21,6 +35,13 @@
             #mobile-menu-toggle { display: none !important; }
             #mobile-menu { display: none !important; }
             #mobile-overlay { display: none !important; }
+            #navbar .w-1\/4 {
+                width: auto !important;
+                flex: 0 0 auto;
+            }
+            #navbar .w-1\/4.flex.justify-end {
+                display: none !important;
+            }
         }
         @media (min-width: 1024px) {
             #desktop-nav { display: flex !important; }
