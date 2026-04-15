@@ -32,16 +32,7 @@
         @media (max-width: 1023px) {
             #desktop-nav { display: none !important; }
             #desktop-cta { display: none !important; }
-            #mobile-menu-toggle { display: none !important; }
-            #mobile-menu { display: none !important; }
-            #mobile-overlay { display: none !important; }
-            #navbar .w-1\/4 {
-                width: auto !important;
-                flex: 0 0 auto;
-            }
-            #navbar .w-1\/4.flex.justify-end {
-                display: none !important;
-            }
+            #mobile-menu-toggle { display: flex !important; }
         }
         @media (min-width: 1024px) {
             #desktop-nav { display: flex !important; }
