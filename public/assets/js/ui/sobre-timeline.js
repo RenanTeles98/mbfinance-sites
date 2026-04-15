@@ -150,7 +150,8 @@
         var diff = Math.abs(targetLen - currentLen);
         if (diff < 0.4) currentLen = targetLen;
 
-        if (pathFg) pathFg.style.strokeDashoffset = totalLen - currentLen;
+        var lastCheckLen = checkpointLens.length > 0 ? checkpointLens[checkpointLens.length - 1] : totalLen;
+        if (pathFg) pathFg.style.strokeDashoffset = totalLen - Math.min(currentLen, lastCheckLen);
 
         if (mobileLineEl && railMetrics) {
             var headerH  = railMetrics.zigY || 0;
