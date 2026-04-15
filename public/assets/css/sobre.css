@@ -116,6 +116,23 @@
             pointer-events: none;
         }
 
+        /* Bolinha na ponta da linha mobile */
+        #tl-mobile-tip {
+            display: none;
+            position: absolute;
+            left: 21px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #0099dd;
+            z-index: 55;
+            pointer-events: none;
+            transform: translateY(-50%);
+            box-shadow: 0 0 0 3px rgba(0,153,221,0.2);
+            transition: top 0.05s linear;
+        }
+
         /* Linha zigzag SVG */
         .tl-rail-svg {
             position: absolute;
@@ -633,6 +650,7 @@
             /* No mobile: esconde o SVG JS e usa div animada por JS */
             .tl-rail-svg { display: none; }
             #tl-mobile-line { display: block; }
+            #tl-mobile-tip  { display: none; } /* JS controla via style.display */
 
             /* Conteúdo */
             .tl-content { margin-top: 0; max-width: 100%; }

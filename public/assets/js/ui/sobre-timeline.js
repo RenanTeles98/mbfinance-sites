@@ -6,6 +6,7 @@
     var pathFg      = document.getElementById('tl-zigzag-fg');
     var dotEl       = document.getElementById('tl-dot');
     var mobileLineEl = document.getElementById('tl-mobile-line');
+    var mobileTipEl  = document.getElementById('tl-mobile-tip');
 
     if (!section || !slides.length) return;
 
@@ -155,8 +156,15 @@
             var lastLen  = checkpointLens.length > 0
                 ? checkpointLens[checkpointLens.length - 1]
                 : totalLen;
+            var lineLen  = Math.min(currentLen, lastLen);
             mobileLineEl.style.top    = headerH + 'px';
-            mobileLineEl.style.height = Math.min(currentLen, lastLen) + 'px';
+            mobileLineEl.style.height = lineLen + 'px';
+
+            if (mobileTipEl) {
+                var tipY = headerH + lineLen;
+                mobileTipEl.style.top     = tipY + 'px';
+                mobileTipEl.style.display = lineLen > 0 ? 'block' : 'none';
+            }
         }
 
         if (dotEl && pathFg && window.innerWidth > 768) {
