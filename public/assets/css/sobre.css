@@ -699,6 +699,36 @@
             .cta-nowrap-desktop { white-space: nowrap; }
         }
 
+        /* ── NOTEBOOK (769px – 1440px) ── */
+        @media (min-width: 769px) and (max-width: 1440px) {
+            /* Header da timeline */
+            .tl-header { padding: 72px 60px 36px 100px; }
+
+            /* Slides */
+            .tl-slide         { padding: 36px 60px 36px 120px; min-height: 60vh; }
+            .tl-slide.reverse { padding: 36px 120px 36px 60px; }
+
+            /* Conteúdo */
+            .tl-content { margin-top: 32px; max-width: 480px; }
+
+            /* Título menor */
+            .tl-title { font-size: clamp(28px, 3.6vw, 50px); margin-bottom: 20px; }
+
+            /* Descrição */
+            .tl-desc { font-size: clamp(14px, 1.1vw, 17px); }
+
+            /* Ícone de fundo menor */
+            .tl-bg-icon { width: clamp(120px, 18vw, 240px); }
+
+            /* Prêmios menores */
+            .tl-consolidation-award { width: clamp(48px, 4.5vw, 66px); }
+
+            /* Slide 2026 */
+            #tl-4 { min-height: 68vh; padding-top: 56px; padding-bottom: 56px; }
+            #tl-4 .tl-title { margin-bottom: 28px; }
+            #tl-4 .tl-year  { margin-bottom: 20px; }
+        }
+
         /* Progress bar */
         #timeline-progress {
             position: absolute; bottom: 32px; left: 80px;
