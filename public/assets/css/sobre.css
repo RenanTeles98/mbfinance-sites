@@ -364,9 +364,9 @@
             opacity: 0;
             animation: none;
         }
-        #tl-4.active .tl-bg-icon svg .layer-bottom { animation: layer-draw 0.7s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 0.3s; }
-        #tl-4.active .tl-bg-icon svg .layer-mid    { animation: layer-draw 0.7s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 0.8s; }
-        #tl-4.active .tl-bg-icon svg .layer-top    { animation: layer-draw 0.9s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 1.3s; }
+        #tl-4.active .tl-bg-icon svg .layer-bottom { animation: layer-draw 0.3s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 0.1s; }
+        #tl-4.active .tl-bg-icon svg .layer-mid    { animation: layer-draw 0.3s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 0.3s; }
+        #tl-4.active .tl-bg-icon svg .layer-top    { animation: layer-draw 0.4s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 0.5s; }
         @keyframes layer-draw {
             to { stroke-dashoffset: 0; opacity: 1; }
         }
@@ -388,8 +388,8 @@
             opacity: 1;
             animation: chart-draw 1.2s cubic-bezier(.4,0,.2,1) forwards;
         }
-        #tl-1.active .tl-bg-icon svg .chart-line  { animation-delay: 0.3s; }
-        #tl-1.active .tl-bg-icon svg .chart-arrow { animation-delay: 1.2s; }
+        #tl-1.active .tl-bg-icon svg .chart-line  { animation-duration: 0.5s; animation-delay: 0.1s; }
+        #tl-1.active .tl-bg-icon svg .chart-arrow { animation-duration: 0.5s; animation-delay: 0.5s; }
         @keyframes chart-draw {
             to { stroke-dashoffset: 0; }
         }
@@ -406,6 +406,9 @@
             animation: cube-drop 0.65s cubic-bezier(.36,.07,.19,.97) forwards;
             animation-delay: 1.6s;
         }
+        /* 2013: ícone mais rápido */
+        #tl-0.active .tl-bg-icon svg path { animation-duration: 0.6s !important; animation-delay: 0.1s !important; }
+        #tl-0.active .tl-bg-icon .top-cube { animation-delay: 0.7s !important; }
         /* Paths do cubo de cima NÃO usam stroke-draw — aparecem de uma vez com o drop */
         .tl-bg-icon svg .top-cube path {
             stroke-dasharray: none !important;
