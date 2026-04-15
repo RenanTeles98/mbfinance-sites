@@ -1,7 +1,7 @@
 # CONTEXT.md — Estado Atual do Projeto
 
-> Última atualização: 2026-04-14
-> Atualizado por: IA - Claude Sonnet 4.6
+> Última atualização: 2026-04-15
+> Atualizado por: IA - Codex
 
 ---
 
@@ -26,6 +26,7 @@
 - [x] Menu mobile + dropdown de produtos
 - [x] Botão WhatsApp fixo
 - [x] Deploy no Vercel via push para master
+- [x] `public/pages/termos-de-uso.html` com texto auxiliar do hero ajustado para branco com 90% de opacidade
 
 ### O que está pendente / incompleto
 
@@ -44,17 +45,21 @@ _(nenhum bug conhecido em produção no momento)_
 
 ---
 
-## Onde o trabalho parou (última sessão — 2026-04-14)
+## Onde o trabalho parou (última sessão — 2026-04-15)
 
 Sessão focada em:
-1. Refatoração completa do `mb-finance-completo.html` (separação CSS/JS)
-2. Reorganização da pasta `public/` (imagens → `images/`, HTMLs → `pages/`)
-3. Atualização de todos os caminhos afetados
-4. Push para git e deploy no Vercel
-5. Documentação do padrão no `CLAUDE.md`
-6. Análise do Software Architect Vault e implementação das ferramentas úteis
+1. Ajuste visual pontual em `public/pages/termos-de-uso.html`
+2. Aumento da opacidade do texto auxiliar do hero para branco com 90%
+3. Correção do atributo `class` do parágrafo do hero para garantir aplicação do estilo
 
-Próximo passo recomendado: refatorar `public/pages/sobre.html` seguindo o mesmo padrão de `mb-finance-completo.html`.
+Arquivos modificados nesta sessão:
+- `public/pages/termos-de-uso.html`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `docs/sessions/2026-04-15.md`
+
+Próximo passo recomendado: refatorar `public/pages/termos-de-uso.html` e `public/pages/politica-de-privacidade.html` para remover CSS inline/local e seguir o padrão de `public/assets/`.
 
 ---
 

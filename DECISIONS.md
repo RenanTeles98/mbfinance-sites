@@ -56,7 +56,7 @@ O `mb-finance-completo.html` tinha 2712 linhas com 4 blocos `<style>` e 8 blocos
 
 Extrair todo CSS e JS do HTML, organizando em camadas por responsabilidade:
 
-```
+```text
 public/assets/
 ├── css/main.css
 └── js/
@@ -129,7 +129,7 @@ Usar Upstash Redis (Vercel KV) como storage dos posts em produção, com fallbac
 - **Por que foi escolhida:** perfeito para o caso de uso (key-value de posts)
 
 ### Variáveis de ambiente necessárias
-```
+```env
 KV_REST_API_URL=...
 KV_REST_API_TOKEN=...
 ```
@@ -179,3 +179,29 @@ Enviar leads para Google Sheets via Google Apps Script (webhook GET). URL do scr
 ### Consequências
 - localStorage usado como backup caso o fetch falhe
 - URL do script ofuscada (não é criptografia, apenas não fica em plain text)
+
+---
+
+## ADR-006: Ajustes visuais pontuais nas páginas legais permanecem locais até a refatoração
+
+**Data:** 2026-04-15
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+As páginas legais ainda usam CSS local no próprio HTML. Surgiu uma demanda pequena e imediata para aumentar a opacidade do texto auxiliar do hero em `public/pages/termos-de-uso.html`.
+
+### Decisão
+
+Aplicar o ajuste visual diretamente no CSS local existente da página legal, sem ampliar o escopo para a refatoração estrutural completa nesta sessão.
+
+### Alternativas Consideradas
+
+- **Extrair CSS agora para `public/assets/`:** mais alinhado ao padrão final, mas desproporcional para um ajuste pontual
+- **Ajuste local no arquivo atual (escolhida):** resolve imediatamente com risco baixo e sem mexer na arquitetura
+
+### Consequências
+
+- Mantém rapidez para correções visuais pequenas nas páginas legais legadas
+- A refatoração completa dessas páginas continua pendente
