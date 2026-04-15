@@ -661,8 +661,8 @@
 
             /* Consolidação */
             .tl-consolidation-side   { display: none; }
-            .tl-consolidation-awards { margin-top: 20px; gap: 10px; }
-            .tl-consolidation-award  { width: calc(50% - 5px); max-width: 100px; }
+            .tl-consolidation-awards { margin-top: 20px; gap: 8px; }
+            .tl-consolidation-award  { width: calc(33.333% - 6px); max-width: 70px; }
 
             /* CTA */
             .cta-nowrap-desktop { white-space: normal; }
