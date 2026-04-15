@@ -231,6 +231,24 @@ html { scroll-behavior: auto; }
     transform: scale(0.9);
 }
 
+/* ── Carousel: tamanho consistente em todos os celulares (381px–767px) ── */
+@media (min-width: 381px) and (max-width: 767px) {
+    #carousel-row1,
+    #carousel-row2 {
+        gap: 48px !important;
+    }
+
+    #carousel-row1 img,
+    #carousel-row2 img {
+        height: 40px !important;
+    }
+
+    #carousel-row1 img[alt="Mercado Pago"],
+    #carousel-row2 img[alt="Mercado Pago"] {
+        height: 26px !important;
+    }
+}
+
 @media (max-width: 380px) {
     #navbar {
         padding-top: 14px;
@@ -384,19 +402,19 @@ html { scroll-behavior: auto; }
 
     #carousel-row1,
     #carousel-row2 {
-        gap: 44px !important;
+        gap: 36px !important;
         padding-top: 10px !important;
         padding-bottom: 10px !important;
     }
 
     #carousel-row1 img,
     #carousel-row2 img {
-        height: 38px !important;
+        height: 32px !important;
     }
 
     #carousel-row1 img[alt="Mercado Pago"],
     #carousel-row2 img[alt="Mercado Pago"] {
-        height: 24px !important;
+        height: 20px !important;
     }
 
     section[style*="padding-top:64px; padding-bottom:160px;"] {
@@ -634,10 +652,12 @@ html { scroll-behavior: auto; }
     width: max-content;
 }
 
-/* Pause on hover — carousel and individual logo hover both work */
-.carousel-wrapper:hover #carousel-row1,
-.carousel-wrapper:hover #carousel-row2 {
-    animation-play-state: paused;
+/* Pause on hover — desktop only (touch devices não têm hover real) */
+@media (hover: hover) {
+    .carousel-wrapper:hover #carousel-row1,
+    .carousel-wrapper:hover #carousel-row2 {
+        animation-play-state: paused;
+    }
 }
 
 /* Fade edges */
@@ -658,6 +678,14 @@ html { scroll-behavior: auto; }
 .carousel-wrapper::after {
     right: 0;
     background: linear-gradient(to left, #f8fafc, transparent);
+}
+
+/* Mobile: reduz fade das bordas para não engolir logos */
+@media (max-width: 767px) {
+    .carousel-wrapper::before,
+    .carousel-wrapper::after {
+        width: 40px;
+    }
 }
 
 /* ── Cookie Consent Banner (LGPD) ──────────────────────────────────────────── */
