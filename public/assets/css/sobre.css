@@ -466,6 +466,7 @@
 
         @media (max-width: 768px) { .tl-bg-icon { display: none; } }
         @media (max-width: 768px) { .tl-bg-old-logo { display: none; } }
+        @media (min-width: 769px) { .tl-dot, .tl-connector { display: none !important; } }
 
         /* Número do ano em background — sutil watermark */
         .tl-bg-year {
