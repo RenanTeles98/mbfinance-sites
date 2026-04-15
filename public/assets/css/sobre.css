@@ -717,10 +717,8 @@
             /* Descrição */
             .tl-desc { font-size: clamp(14px, 1.1vw, 17px); }
 
-            /* Ícone de fundo menor */
-            .tl-bg-icon { width: clamp(140px, 20vw, 260px); }
-
-            /* Troféu Consolidação: reduz para não invadir o texto */
+            /* Todos os ícones no mesmo tamanho (igual ao troféu) */
+            .tl-bg-icon svg        { width: clamp(120px, 15vw, 220px); }
             .tl-consolidation-side { width: clamp(120px, 15vw, 220px); left: 10%; }
 
             /* Prêmios menores */
