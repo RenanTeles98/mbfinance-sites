@@ -717,9 +717,9 @@
             /* Descrição */
             .tl-desc { font-size: clamp(14px, 1.1vw, 17px); }
 
-            /* Todos os ícones no mesmo tamanho (igual ao troféu) */
-            .tl-bg-icon svg        { width: clamp(120px, 15vw, 220px); }
-            .tl-consolidation-side { width: clamp(120px, 15vw, 220px); left: 10%; }
+            /* Todos os ícones no mesmo tamanho proporcional para notebook */
+            .tl-bg-icon svg        { width: clamp(180px, 22vw, 300px); }
+            .tl-consolidation-side { width: clamp(180px, 22vw, 300px); left: 10%; }
 
             /* Prêmios menores */
             .tl-consolidation-award { width: clamp(48px, 4.5vw, 66px); }
