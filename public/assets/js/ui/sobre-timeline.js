@@ -125,8 +125,10 @@
 
     function computeTargetLen() {
         if (!pathFg || totalLen === 0) return 0;
+        var isMobile  = window.innerWidth <= 768;
+        var vpFactor  = isMobile ? 0.72 : 0.5; // mobile: ativa checkpoints mais cedo
         var secTopAbs = section.getBoundingClientRect().top + window.scrollY;
-        var scrollY   = window.scrollY - secTopAbs + window.innerHeight * 0.5;
+        var scrollY   = window.scrollY - secTopAbs + window.innerHeight * vpFactor;
         var len = yToLen(scrollY);
 
         if (railMetrics && railMetrics.mode === 'zig') {
