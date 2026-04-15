@@ -194,11 +194,11 @@ function HorizontalTimeline() {
 
 export default function SobrePage() {
   return (
-    <main className="bg-white overflow-x-hidden">
+    <main className="bg-white overflow-x-hidden max-w-full">
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section
-        className="relative min-h-screen flex items-center"
+        className="relative min-h-screen flex items-center overflow-hidden"
         style={{ background: "linear-gradient(135deg, #001e2e 0%, #003956 60%, #005080 100%)" }}
       >
         {/* Background pattern */}
@@ -209,7 +209,7 @@ export default function SobrePage() {
           }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-6 md:px-16 py-32">
+        <div className="relative w-full max-w-7xl mx-auto px-6 md:px-16 py-32 overflow-hidden">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
