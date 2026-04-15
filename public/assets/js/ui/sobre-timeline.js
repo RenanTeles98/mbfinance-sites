@@ -151,9 +151,12 @@
         if (pathFg) pathFg.style.strokeDashoffset = totalLen - currentLen;
 
         if (mobileLineEl && railMetrics) {
-            var headerH = railMetrics.zigY || 0;
+            var headerH  = railMetrics.zigY || 0;
+            var lastLen  = checkpointLens.length > 0
+                ? checkpointLens[checkpointLens.length - 1]
+                : totalLen;
             mobileLineEl.style.top    = headerH + 'px';
-            mobileLineEl.style.height = currentLen + 'px';
+            mobileLineEl.style.height = Math.min(currentLen, lastLen) + 'px';
         }
 
         if (dotEl && pathFg && window.innerWidth > 768) {
