@@ -27,6 +27,7 @@
 - [x] Botão WhatsApp fixo
 - [x] Deploy no Vercel via push para master
 - [x] `public/pages/termos-de-uso.html` com texto auxiliar do hero ajustado para branco com 90% de opacidade
+- [x] `public/pages/politica-de-privacidade.html` com texto auxiliar do hero ajustado para branco com 90% de opacidade
 
 ### O que está pendente / incompleto
 
@@ -49,10 +50,12 @@ _(nenhum bug conhecido em produção no momento)_
 
 Sessão focada em:
 1. Ajuste visual pontual em `public/pages/termos-de-uso.html`
-2. Aumento da opacidade do texto auxiliar do hero para branco com 90%
-3. Correção do atributo `class` do parágrafo do hero para garantir aplicação do estilo
+2. Ajuste visual pontual em `public/pages/politica-de-privacidade.html`
+3. Aumento da opacidade do texto auxiliar do hero para branco com 90%
+4. Correção do atributo `class` do parágrafo do hero para garantir aplicação do estilo
 
 Arquivos modificados nesta sessão:
+- `public/pages/politica-de-privacidade.html`
 - `public/pages/termos-de-uso.html`
 - `CONTEXT.md`
 - `DECISIONS.md`

@@ -190,7 +190,7 @@ Enviar leads para Google Sheets via Google Apps Script (webhook GET). URL do scr
 
 ### Contexto
 
-As páginas legais ainda usam CSS local no próprio HTML. Surgiu uma demanda pequena e imediata para aumentar a opacidade do texto auxiliar do hero em `public/pages/termos-de-uso.html`.
+As páginas legais ainda usam CSS local no próprio HTML. Surgiu uma demanda pequena e imediata para aumentar a opacidade do texto auxiliar do hero em `public/pages/termos-de-uso.html` e `public/pages/politica-de-privacidade.html`.
 
 ### Decisão
 

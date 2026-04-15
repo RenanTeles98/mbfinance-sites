@@ -35,7 +35,7 @@ Seguir o mesmo padrão do `mb-finance-completo.html` (ver `CLAUDE.md` seção "R
   - Mesmos passos acima
 
 - [ ] Refatorar `public/pages/politica-de-privacidade.html`
-  - Consolidar no CSS externo os ajustes visuais pontuais feitos nas páginas legais
+  - Hero-meta já ajustado para branco 90% em 2026-04-15; migrar para `public/assets/` no refactor
 
 - [ ] Refatorar `public/pages/termos-de-uso.html`
   - Hero-meta já ajustado para branco 90% em 2026-04-15; migrar para `public/assets/` no refactor
