@@ -28,6 +28,7 @@
 - [x] Deploy no Vercel via push para master
 - [x] `public/pages/termos-de-uso.html` com texto auxiliar do hero ajustado para branco com 90% de opacidade
 - [x] `public/pages/politica-de-privacidade.html` com texto auxiliar do hero ajustado para branco com 90% de opacidade
+- [x] Seção `Escala` da timeline em `public/pages/sobre.html` com texto e ícone invertidos e checkpoint alinhado ao eixo principal
 
 ### O que está pendente / incompleto
 
@@ -51,10 +52,14 @@ _(nenhum bug conhecido em produção no momento)_
 Sessão focada em:
 1. Ajuste visual pontual em `public/pages/termos-de-uso.html`
 2. Ajuste visual pontual em `public/pages/politica-de-privacidade.html`
-3. Aumento da opacidade do texto auxiliar do hero para branco com 90%
-4. Correção do atributo `class` do parágrafo do hero para garantir aplicação do estilo
+3. Ajuste da seção `Escala` em `public/pages/sobre.html`
+4. Aumento da opacidade do texto auxiliar do hero para branco com 90%
+5. Correção do atributo `class` do parágrafo do hero para garantir aplicação do estilo
+6. Inversão de texto/ícone no bloco `Escala` e realinhamento do checkpoint na linha da timeline
 
 Arquivos modificados nesta sessão:
+- `public/assets/css/sobre.css`
+- `public/pages/sobre.html`
 - `public/pages/politica-de-privacidade.html`
 - `public/pages/termos-de-uso.html`
 - `CONTEXT.md`
@@ -62,7 +67,7 @@ Arquivos modificados nesta sessão:
 - `TODO.md`
 - `docs/sessions/2026-04-15.md`
 
-Próximo passo recomendado: refatorar `public/pages/termos-de-uso.html` e `public/pages/politica-de-privacidade.html` para remover CSS inline/local e seguir o padrão de `public/assets/`.
+Próximo passo recomendado: revisar visualmente os demais marcos da timeline de `public/pages/sobre.html` e depois seguir com a refatoração estrutural das páginas legais para `public/assets/`.
 
 ---
 
@@ -82,5 +87,5 @@ Próximo passo recomendado: refatorar `public/pages/termos-de-uso.html` e `publi
 ## Branch e commits recentes
 
 - Branch principal: `master`
-- Último conjunto de commits: refatoração do `mb-finance-completo.html`, reorganização de `public/`
+- Último conjunto de commits: ajustes visuais nas páginas legais e na timeline do `sobre`
 - Rollback disponível via Vercel dashboard ou `git revert`

@@ -13,7 +13,7 @@
 
 ### Contexto
 
-O site nasceu como HTML puro. Migrar tudo de uma vez para Next.js seria arriscado (site em produção, sem testes, prazo indefinido) e desnecessário — a home não precisa de server-side rendering nem de componentes reativos complexos.
+O site nasceu como HTML puro. Migrar tudo de uma vez para Next.js seria arriscado e desnecessário para o estágio atual do projeto.
 
 ### Decisão
 
@@ -21,24 +21,13 @@ Manter a home em HTML estático (`public/mb-finance-completo.html`) e adotar a e
 
 ### Alternativas Consideradas
 
-#### Alternativa A: Migração total para Next.js de uma vez
-- **Pros:** código unificado, DX melhor, Framer Motion disponível
-- **Contras:** alto risco de quebrar o site em produção, grande esforço sem ROI imediato
-- **Motivo da rejeição:** risco desproporcional ao benefício
+- **Migração total para Next.js:** unificaria a base, mas com alto risco e esforço desproporcional
+- **Strangler Fig (escolhida):** permite evolução incremental com risco controlado
 
-#### Alternativa B: Strangler Fig (escolhida)
-- **Pros:** zero downtime, migração incremental, risco controlado
-- **Contras:** dois mundos coexistindo (HTML + Next.js) = complexidade temporária
-- **Por que foi escolhida:** pragmática para o estágio atual do projeto
+### Consequências
 
-### Consequências Positivas
-- Site continua no ar durante toda a evolução
-- Blog e `/sobre` já rodam em Next.js — padrão validado
-- Dá para migrar seção por seção quando fizer sentido
-
-### Consequências Negativas
-- Dois padrões coexistindo (HTML + React)
-- Paths de assets precisam de atenção especial (`public/` vs `/`)
+- O site continua no ar durante a evolução
+- Dois padrões coexistem temporariamente (HTML legado + Next.js)
 
 ---
 
@@ -50,135 +39,80 @@ Manter a home em HTML estático (`public/mb-finance-completo.html`) e adotar a e
 
 ### Contexto
 
-O `mb-finance-completo.html` tinha 2712 linhas com 4 blocos `<style>` e 8 blocos `<script>` inline. Impossível de manter, testar ou reutilizar.
+O `mb-finance-completo.html` tinha estilos e scripts inline demais, dificultando manutenção e reaproveitamento.
 
 ### Decisão
 
-Extrair todo CSS e JS do HTML, organizando em camadas por responsabilidade:
-
-```text
-public/assets/
-├── css/main.css
-└── js/
-    ├── infra/        ← chamadas externas (Sheets, localStorage)
-    ├── use-cases/    ← regras de negócio (lead, parceria)
-    └── ui/           ← interação com DOM (navbar, accordion, animações)
-```
+Extrair CSS e JS do HTML, organizando o JavaScript em `infra/`, `use-cases/` e `ui/` dentro de `public/assets/`.
 
 ### Alternativas Consideradas
 
-#### Alternativa A: Bundler (Webpack/Vite) com módulos ES
-- **Pros:** imports explícitos, tree-shaking, hot reload
-- **Contras:** adiciona build step ao HTML estático, overhead desnecessário
-- **Motivo da rejeição:** complexidade não justificada para o volume de JS atual
+- **Bundler com módulos ES:** mais robusto, mas com complexidade desnecessária para o estágio atual
+- **Arquivos separados por responsabilidade (escolhida):** simples, sem build step e suficiente para o volume atual
 
-#### Alternativa B: Arquivos separados por responsabilidade (escolhida)
-- **Pros:** zero build step, fácil de entender, funciona diretamente no browser
-- **Contras:** sem imports explícitos — dependências por convenção de ordem de carregamento
-- **Por que foi escolhida:** simples, funcional, suficiente
+### Consequências
 
-### Consequências Positivas
-- HTML ficou com 1597 linhas (redução de 41%)
-- CSS e JS são editáveis sem mexer no HTML
-- Padrão documentado e replicável para todas as outras pages
-
-### Ordem de carregamento obrigatória
-```html
-<script src="lenis.min.js"></script>
-<script src="assets/js/infra/sheets.js"></script>
-<script src="assets/js/infra/storage.js"></script>
-<script src="assets/js/ui/scroll.js"></script>
-<script src="assets/js/ui/navbar.js"></script>
-<script src="assets/js/ui/accordion.js"></script>
-<script src="assets/js/ui/animations.js"></script>
-<script src="assets/js/use-cases/lead.js"></script>
-<script src="assets/js/use-cases/partnership.js"></script>
-```
+- HTML mais limpo
+- CSS e JS editáveis sem voltar a colocar lógica inline
 
 ---
 
 ## ADR-003: Upstash Redis para armazenamento do blog
 
-**Data:** 2026-04-14 (registrado retrospectivamente)
+**Data:** 2026-04-14
 **Status:** Aceita
-**Decisores:** Dono do projeto + IA
 
 ### Contexto
 
-O blog precisa de um lugar para armazenar os posts. O projeto roda no Vercel, que não tem sistema de arquivos persistente. Banco de dados relacional seria overkill para o volume de posts.
+O blog precisava de persistência compatível com o ambiente serverless da Vercel.
 
 ### Decisão
 
-Usar Upstash Redis (Vercel KV) como storage dos posts em produção, com fallback para JSON local em desenvolvimento.
+Usar Upstash Redis (Vercel KV) em produção, com fallback para JSON local em desenvolvimento.
 
-### Alternativas Consideradas
+### Consequências
 
-#### Alternativa A: Banco relacional (PostgreSQL/Supabase)
-- **Pros:** queries flexíveis, relações, maduro
-- **Contras:** overkill para blog simples, custo maior, latência maior no Vercel
-- **Motivo da rejeição:** complexidade desnecessária para o volume
-
-#### Alternativa B: Sanity / Contentful (CMS headless)
-- **Pros:** interface admin pronta, bom DX
-- **Contras:** dependência externa, custo, curva de aprendizado para dono não-técnico
-- **Motivo da rejeição:** o admin customizado já resolve
-
-#### Alternativa C: Upstash Redis (escolhida)
-- **Pros:** serverless-native, integração nativa Vercel, gratuito na escala atual, simples
-- **Contras:** sem queries complexas, não é banco relacional
-- **Por que foi escolhida:** perfeito para o caso de uso (key-value de posts)
-
-### Variáveis de ambiente necessárias
-```env
-KV_REST_API_URL=...
-KV_REST_API_TOKEN=...
-```
+- Solução simples e suficiente para o volume atual de posts
 
 ---
 
 ## ADR-004: Vercel como plataforma de deploy
 
-**Data:** 2026-04-14 (registrado retrospectivamente)
+**Data:** 2026-04-14
 **Status:** Aceita
 
 ### Contexto
 
-Projeto Next.js precisa de hospedagem que suporte SSR e serverless functions.
+O projeto precisa de hospedagem compatível com Next.js, páginas estáticas e deploy contínuo simples.
 
 ### Decisão
 
 Deploy no Vercel com CI/CD automático via push para `master`.
 
 ### Consequências
-- Push para master = deploy automático (sem pipeline manual)
-- Rollback disponível via dashboard Vercel
-- Variáveis de ambiente gerenciadas no painel Vercel
-- Integração nativa com Upstash Redis (Vercel KV)
+
+- Push para `master` gera deploy automático
+- Rollback fica disponível no painel da Vercel
 
 ---
 
 ## ADR-005: Google Sheets como CRM de leads (via Apps Script)
 
-**Data:** 2026-04-14 (registrado retrospectivamente)
+**Data:** 2026-04-14
 **Status:** Aceita
 
 ### Contexto
 
-Leads capturados no modal precisam ser armazenados em algum lugar acessível ao dono (não-técnico).
+Os leads precisavam cair em uma ferramenta simples e acessível ao dono do projeto.
 
 ### Decisão
 
-Enviar leads para Google Sheets via Google Apps Script (webhook GET). URL do script ofuscada com `atob()` no `sheets.js`.
-
-### Alternativas Consideradas
-
-- **CRM dedicado (HubSpot, RD Station):** custo + curva de aprendizado
-- **Email (EmailJS):** sem visão consolidada
-- **Google Sheets (escolhida):** familiar ao dono, gratuito, zero infra
+Enviar leads para Google Sheets via Google Apps Script, com fallback local em `localStorage`.
 
 ### Consequências
-- localStorage usado como backup caso o fetch falhe
-- URL do script ofuscada (não é criptografia, apenas não fica em plain text)
+
+- Operação simples para o dono
+- Menos complexidade do que introduzir um CRM completo
 
 ---
 
@@ -194,7 +128,7 @@ As páginas legais ainda usam CSS local no próprio HTML. Surgiu uma demanda peq
 
 ### Decisão
 
-Aplicar o ajuste visual diretamente no CSS local existente da página legal, sem ampliar o escopo para a refatoração estrutural completa nesta sessão.
+Aplicar o ajuste visual diretamente no CSS local existente dessas páginas, sem ampliar o escopo para a refatoração estrutural completa nesta sessão.
 
 ### Alternativas Consideradas
 
@@ -205,3 +139,29 @@ Aplicar o ajuste visual diretamente no CSS local existente da página legal, sem
 
 - Mantém rapidez para correções visuais pequenas nas páginas legais legadas
 - A refatoração completa dessas páginas continua pendente
+
+---
+
+## ADR-007: O bloco "Escala" da timeline do Sobre volta ao eixo visual padrão
+
+**Data:** 2026-04-15
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+No bloco `Escala` (`2020-2022`) da timeline em `public/pages/sobre.html`, o texto estava no lado oposto do ícone e o checkpoint havia sido deslocado para baixo da linha horizontal, criando desalinhamento visual em relação aos demais marcos.
+
+### Decisão
+
+Recolocar o bloco `Escala` no fluxo padrão da timeline: conteúdo à esquerda, ícone à direita e checkpoint alinhado novamente ao eixo horizontal principal.
+
+### Alternativas Consideradas
+
+- **Manter o layout invertido e ajustar só o checkpoint:** corrigiria parcialmente o problema, mas preservaria um padrão inconsistente no bloco
+- **Voltar ao layout padrão (escolhida):** simplifica a composição e melhora a leitura visual da sequência
+
+### Consequências
+
+- O bloco `Escala` fica consistente com a linguagem visual dos outros marcos da timeline
+- O eixo da timeline volta a parecer contínuo e intencional

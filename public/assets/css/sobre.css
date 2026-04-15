@@ -419,10 +419,10 @@
         .tl-slide.active .tl-bg-icon svg .top-cube path {
             animation: none !important;
         }
-        /* Foguete 2020-2022: ícone e dot abaixo da linha horizontal */
-        #tl-2 .tl-bg-icon   { top: 64%; }
-        #tl-2 .tl-dot       { top: 64%; }
-        #tl-2 .tl-connector { top: 64%; }
+        /* Foguete 2020-2022: volta ao eixo principal da timeline */
+        #tl-2 .tl-bg-icon   { top: 50%; }
+        #tl-2 .tl-dot       { top: 50%; }
+        #tl-2 .tl-connector { top: 50%; }
 
         .rocket-wrapper { display: block; transform-origin: 50% 78%; }
         .rocket-vehicle { transform-origin: 50% 52%; }
