@@ -720,6 +720,9 @@
             /* Ícone de fundo menor */
             .tl-bg-icon { width: clamp(120px, 18vw, 240px); }
 
+            /* Troféu Consolidação: reduz para não invadir o texto */
+            .tl-consolidation-side { width: clamp(120px, 15vw, 220px); left: 10%; }
+
             /* Prêmios menores */
             .tl-consolidation-award { width: clamp(48px, 4.5vw, 66px); }
 
