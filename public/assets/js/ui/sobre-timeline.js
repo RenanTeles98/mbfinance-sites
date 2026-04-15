@@ -152,7 +152,8 @@
 
         if (mobileLineEl && railMetrics) {
             var headerH = railMetrics.zigY || 0;
-            mobileLineEl.style.height = (headerH + currentLen) + 'px';
+            mobileLineEl.style.top    = headerH + 'px';
+            mobileLineEl.style.height = currentLen + 'px';
         }
 
         if (dotEl && pathFg && window.innerWidth > 768) {

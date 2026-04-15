@@ -107,7 +107,7 @@
         #tl-mobile-line {
             display: none; /* oculta no desktop */
             position: absolute;
-            left: 28px;
+            left: 26px;
             top: 0;
             width: 2px;
             height: 0; /* controlado por JS */
