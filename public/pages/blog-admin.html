@@ -1358,6 +1358,8 @@ async function renderTrafficAnalytics() {
         }
 
         const summary = data.summary || {};
+        renderSidebar(false); // Atualiza a barra lateral com as views reais que acabaram de chegar
+
         const trend = Array.isArray(data.trend) ? data.trend : [];
         const topPages = Array.isArray(data.topPages) ? data.topPages : [];
         const topCountries = Array.isArray(data.topCountries) ? data.topCountries : [];
@@ -1502,7 +1504,8 @@ function renderAnalytics() {
     renderTrafficAnalytics();
 }
 
-function renderSidebar() {
+function renderSidebar(triggerAnalytics = true) {
+
     const list = document.getElementById('post-list');
     if (!posts.length) {
         list.innerHTML = '<div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para começar.</div>';
@@ -1543,7 +1546,7 @@ function renderSidebar() {
     
     // Se acabamos de carregar analytics e já tínhamos posts, renderSidebar não foi chamado com data.
     // Mas syncOfficialBlog chama renderSidebar, e renderTrafficAnalytics é chamado depois no login/init.
-    renderAnalytics();
+    if (triggerAnalytics) renderAnalytics();
 }
 
 function updateImgPreview(url) {
