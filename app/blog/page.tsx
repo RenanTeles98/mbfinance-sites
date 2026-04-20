@@ -30,7 +30,7 @@ export default async function BlogIndexPage() {
           <p className="mb-5 inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.28em] text-sky-300">
             Blog MB Finance
           </p>
-          <h1 className="max-w-4xl font-sans text-4xl font-black leading-tight md:text-6xl">
+          <h1 className="max-w-4xl font-sans text-4xl font-bold leading-tight md:text-6xl">
             Conteudo para empresas que querem decidir melhor.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-white/70">
@@ -60,7 +60,7 @@ export default async function BlogIndexPage() {
                 <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.28em] text-sky-600">
                   {featured.categoryLabel}
                 </p>
-                <h2 className="font-sans text-3xl font-black leading-tight text-[#003956]">
+                <h2 className="font-sans text-3xl font-bold leading-tight text-[#003956]">
                   {featured.title}
                 </h2>
                 <p className="mt-4 text-sm leading-7 text-slate-500">{featured.excerpt}</p>

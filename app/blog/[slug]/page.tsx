@@ -61,7 +61,7 @@ export default async function BlogArticlePage({
           <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.28em] text-sky-300">
             {post.categoryLabel}
           </p>
-          <h1 className="font-sans text-4xl font-black leading-tight md:text-5xl">
+          <h1 className="font-sans text-4xl font-bold leading-tight md:text-5xl">
             {post.title}
           </h1>
           <div className="mt-5 flex gap-4 text-sm font-semibold text-white/60">
