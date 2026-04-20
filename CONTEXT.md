@@ -1,7 +1,7 @@
 # CONTEXT.md — Estado Atual do Projeto
 
-> Última atualização: 2026-04-15
-> Atualizado por: IA - Codex
+> Última atualização: 2026-04-20
+> Atualizado por: IA - Antigravity
 
 ---
 
@@ -47,27 +47,22 @@ _(nenhum bug conhecido em produção no momento)_
 
 ---
 
-## Onde o trabalho parou (última sessão — 2026-04-15)
+## Onde o trabalho parou (última sessão — 2026-04-20)
 
 Sessão focada em:
-1. Ajuste visual pontual em `public/pages/termos-de-uso.html`
-2. Ajuste visual pontual em `public/pages/politica-de-privacidade.html`
-3. Ajuste da seção `Escala` em `public/pages/sobre.html`
-4. Aumento da opacidade do texto auxiliar do hero para branco com 90%
-5. Correção do atributo `class` do parágrafo do hero para garantir aplicação do estilo
-6. Inversão de texto/ícone no bloco `Escala` e realinhamento do checkpoint na linha da timeline
+1. Limpeza do menu do painel administrativo do blog (`public/pages/blog-admin.html`).
+2. Remoção do item "Podcast" (placeholder).
+3. Renomeação do item "Banners" para "Publicidade" para maior clareza semântica.
 
 Arquivos modificados nesta sessão:
-- `public/assets/css/sobre.css`
-- `public/pages/sobre.html`
-- `public/pages/politica-de-privacidade.html`
-- `public/pages/termos-de-uso.html`
+- `public/pages/blog-admin.html`
 - `CONTEXT.md`
 - `DECISIONS.md`
 - `TODO.md`
-- `docs/sessions/2026-04-15.md`
+- `docs/sessions/2026-04-20.md`
 
-Próximo passo recomendado: revisar visualmente os demais marcos da timeline de `public/pages/sobre.html` e depois seguir com a refatoração estrutural das páginas legais para `public/assets/`.
+Próximo passo recomendado: seguir com a refatoração das páginas legadas (`sobre.html`, `blog.html`) para extração de CSS/JS, mantendo a consistência visual.
+
 
 ---
 

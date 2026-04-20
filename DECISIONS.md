@@ -165,3 +165,25 @@ Recolocar o bloco `Escala` no fluxo padrão da timeline: conteúdo à esquerda, 
 
 - O bloco `Escala` fica consistente com a linguagem visual dos outros marcos da timeline
 - O eixo da timeline volta a parecer contínuo e intencional
+
+---
+
+## ADR-008: Simplificação do Menu Administrativo do Blog
+
+**Data:** 2026-04-20
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O menu administrativo do blog (`public/pages/blog-admin.html`) continha as seções "Podcast" e "Banners". "Podcast" ainda era um placeholder ("Em breve") e "Banners" causava certa confusão semântica.
+
+### Decisão
+
+Remover o item "Podcast" e renomear "Banners" para "Publicidade" para melhor alinhamento com a finalidade de gerenciar slots de anúncios.
+
+### Consequências
+
+- Menu mais limpo e focado no conteúdo atual.
+- Melhor clareza sobre a funcionalidade de gerenciamento de anúncios.
+

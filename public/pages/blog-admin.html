@@ -327,13 +327,9 @@
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
             Posts
         </button>
-        <button class="tab-btn" id="tabBtn-podcast" onclick="switchTab('podcast')" title="Em breve">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-            Podcast
-        </button>
         <button class="tab-btn" id="tabBtn-banners" onclick="switchTab('banners')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
-            Banners
+            Publicidade
         </button>
         <button class="tab-btn" id="tabBtn-analytics" onclick="switchTab('analytics')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
@@ -563,7 +559,7 @@
     <div id="tab-banners">
         <div class="banners-wrap">
             <div class="banners-page-header">
-                <h2>Banners de Publicidade</h2>
+                <h2>Publicidade</h2>
                 <p>Configure os slots de anúncio que aparecerão na lateral direita das páginas do blog exportadas. Cole o código do Google AdSense ou qualquer outra rede de anúncios.</p>
             </div>
 
@@ -2133,10 +2129,7 @@ function switchTab(tab) {
     if (tab === 'banners') loadBannersForm();
     if (tab === 'analytics') renderAnalytics();
     if (tab === 'newsletter') loadNewsletterTab();
-    if (tab === 'podcast') {
-        showToast('Em breve!');
-        switchTab('posts');
-    }
+
 }
 
 /* ── NEWSLETTER ── */
