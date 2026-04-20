@@ -15,7 +15,6 @@
         [data-block-content] { outline:none;min-height:24px; }
         .nl-add-btn { padding:5px 12px;font-size:12px;font-weight:700;border:1.5px solid #e2e8f0;border-radius:8px;background:#fff;color:#374151;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif; }
         .nl-add-btn:hover { border-color:#0099dd;color:#0099dd;background:#eff9ff; }
-        #nl-preview-frame { width:100%;height:calc(100vh - 260px);min-height:500px;border:none;border-radius:0 0 12px 12px;display:block; }
         #nl-preview-sticky { position:sticky;top:16px; }
         .nl-ctrl-btn { width:22px;height:22px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;cursor:pointer;font-size:11px;display:inline-flex;align-items:center;justify-content:center;padding:0; }
         .nl-ctrl-btn:hover:not(:disabled) { background:#f1f5f9; }
@@ -623,7 +622,7 @@
 
     <!-- NEWSLETTER TAB -->
     <div id="tab-newsletter" style="display:none;padding:24px;overflow-y:auto;flex:1;">
-        <div style="display:grid;grid-template-columns:320px 1fr;gap:20px;max-width:1100px;">
+        <div style="display:grid;grid-template-columns:280px 1fr 360px;gap:20px;">
 
             <!-- Sidebar: inscritos -->
             <div style="background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:20px;align-self:start;">
@@ -711,30 +710,18 @@
                             style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
                     </div>
                     <div style="margin-bottom:20px;">
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;">
-                            <!-- Editor de blocos -->
-                            <div>
-                                <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;">Conteúdo do email *</label>
-                                <div id="nl-blocks-list" style="margin-bottom:10px;"></div>
-                                <!-- Botões adicionar bloco -->
-                                <div style="padding:10px 12px;border:1.5px dashed #e2e8f0;border-radius:12px;background:#f8fafc;">
-                                    <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Adicionar bloco</p>
-                                    <div style="display:flex;flex-wrap:wrap;gap:6px;">
-                                        <button class="nl-add-btn" onclick="nlAddBlock('heading')">T Título</button>
-                                        <button class="nl-add-btn" onclick="nlAddBlock('subheading')">T Subtítulo</button>
-                                        <button class="nl-add-btn" onclick="nlAddBlock('text')">¶ Texto</button>
-                                        <button class="nl-add-btn" onclick="nlAddBlock('highlight')" style="color:#003956;border-color:#0099dd;">★ Destaque</button>
-                                        <button class="nl-add-btn" onclick="nlAddBlock('button')" style="color:#fff;background:#003956;border-color:#003956;">► Botão</button>
-                                        <button class="nl-add-btn" onclick="nlAddBlock('divider')">— Separador</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Preview ao vivo -->
-                            <div id="nl-preview-sticky">
-                                <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;">Preview do email</label>
-                                <div style="border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;background:#f1f5f9;">
-                                    <iframe id="nl-preview-frame" scrolling="yes"></iframe>
-                                </div>
+                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;">Conteúdo do email *</label>
+                        <div id="nl-blocks-list" style="margin-bottom:10px;"></div>
+                        <!-- Botões adicionar bloco -->
+                        <div style="padding:10px 12px;border:1.5px dashed #e2e8f0;border-radius:12px;background:#f8fafc;">
+                            <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Adicionar bloco</p>
+                            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                                <button class="nl-add-btn" onclick="nlAddBlock('heading')">T Título</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('subheading')">T Subtítulo</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('text')">¶ Texto</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('highlight')" style="color:#003956;border-color:#0099dd;">★ Destaque</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('button')" style="color:#fff;background:#003956;border-color:#003956;">► Botão</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('divider')">— Separador</button>
                             </div>
                         </div>
                     </div>
@@ -792,6 +779,15 @@
                 </div>
             </div>
         </div>
+
+        <!-- Coluna 3: Preview ao vivo -->
+        <div id="nl-preview-sticky" style="position:sticky;top:16px;">
+            <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#0099dd;margin:0 0 10px;">Preview do email</p>
+            <div style="border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden;background:#f1f5f9;height:calc(100vh - 100px);">
+                <iframe id="nl-preview-frame" scrolling="yes" style="width:100%;height:100%;border:none;display:block;"></iframe>
+            </div>
+        </div>
+
     </div>
 
     <!-- ANALYTICS TAB -->
