@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { readFeaturedPost, readPublishedBlogPosts } from "@/lib/blog-store";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 export const dynamic = "force-dynamic";
 
@@ -111,6 +112,8 @@ export default async function BlogIndexPage() {
           ))}
         </div>
       </section>
+
+      <NewsletterSignup />
     </main>
   );
 }
