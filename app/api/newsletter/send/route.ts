@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const { subject, previewText, body, targetTag, fromName, fromEmail, replyTo } = await request.json();
+  const { subject, previewText, body, targetTag, recipientId, fromName, fromEmail, replyTo } = await request.json();
 
   if (!subject?.trim() || !body?.trim()) {
     return NextResponse.json({ ok: false, error: "Assunto e conteúdo são obrigatórios" }, { status: 400 });
@@ -71,6 +71,7 @@ export async function POST(request: Request) {
   const subscribers = await readSubscribers();
   const active = subscribers.filter((s) => {
     if (!s.active) return false;
+    if (recipientId) return s.id === recipientId;
     if (!targetTag) return true;
     return (s.tags || []).includes(targetTag);
   });
@@ -100,11 +101,11 @@ export async function POST(request: Request) {
         ...(replyTo && { replyTo }),
       }));
 
-      const { error } = await resend.batch.send(emails);
+      const { data: batchData, error } = await resend.batch.send(emails);
       if (error) {
         failed += chunk.length;
-        errors.push(error.message);
-      } else {
+        errors.push(`[${error.name}] ${error.message}`);
+      } else if (batchData) {
         sent += chunk.length;
       }
     } catch (err: unknown) {
@@ -127,9 +128,9 @@ export async function POST(request: Request) {
   await writeCampaigns([campaign, ...campaigns]);
 
   return NextResponse.json({
-    ok: true,
+    ok: sent > 0 || failed === 0,
     sent,
     failed,
-    ...(errors.length > 0 && { errors }),
+    ...(errors.length > 0 && { errors, firstError: errors[0] }),
   });
 }
