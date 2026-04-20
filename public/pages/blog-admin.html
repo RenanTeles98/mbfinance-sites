@@ -2475,32 +2475,27 @@ function nlSwitchSubTab(tab) {
 function nlRenderStats() {
     const el = document.getElementById('nl-stats-list');
     if (!el) return;
-    const camps = (nlCampaigns || []).filter(c => c.stats);
+    const camps = nlCampaigns || [];
     if (!camps.length) {
-        el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:40px 0;">Nenhuma campanha com dados ainda. Configure o webhook do Resend para começar a rastrear.</p>';
+        el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:40px 0;">Nenhuma campanha enviada ainda.</p>';
         return;
     }
+    function bar(pct, color) {
+        return `<div style="height:6px;border-radius:4px;background:#e2e8f0;overflow:hidden;">
+            <div style="height:100%;width:${pct}%;background:${color};border-radius:4px;transition:width 0.4s;"></div>
+        </div>`;
+    }
     el.innerHTML = camps.map(c => {
-        const s = c.stats;
-        const total = c.recipientCount || 1;
-        const openRate  = total ? Math.round((s.opened   / total) * 100) : 0;
-        const clickRate = total ? Math.round((s.clicked  / total) * 100) : 0;
-        const bounceRate= total ? Math.round((s.bounced  / total) * 100) : 0;
-        const delivRate = total ? Math.round((s.delivered/ total) * 100) : 0;
         const date = new Date(c.sentAt).toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' });
-        function bar(pct, color) {
-            return `<div style="height:6px;border-radius:4px;background:#e2e8f0;overflow:hidden;">
-                <div style="height:100%;width:${pct}%;background:${color};border-radius:4px;transition:width 0.4s;"></div>
-            </div>`;
-        }
-        return `<div style="border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:14px;">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
-                <div>
-                    <p style="margin:0;font-size:14px;font-weight:700;color:#1e293b;">${esc(c.subject)}</p>
-                    <p style="margin:4px 0 0;font-size:12px;color:#94a3b8;">${date} · ${c.recipientCount} enviados${c.targetTag ? ' · lista: ' + esc(c.targetTag) : ''}</p>
-                </div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;">
+        const hasStats = !!c.stats;
+        const s = c.stats || { delivered: 0, opened: 0, clicked: 0, bounced: 0 };
+        const total = c.recipientCount || 1;
+        const openRate   = Math.round((s.opened    / total) * 100);
+        const clickRate  = Math.round((s.clicked   / total) * 100);
+        const bounceRate = Math.round((s.bounced   / total) * 100);
+        const delivRate  = Math.round((s.delivered / total) * 100);
+        const statsHtml = hasStats
+            ? `<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;">
                 <div>
                     <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
                         <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;">Entregues</span>
@@ -2533,7 +2528,17 @@ function nlRenderStats() {
                     ${bar(bounceRate, '#ef4444')}
                     <p style="margin:4px 0 0;font-size:11px;color:#94a3b8;">${s.bounced} emails</p>
                 </div>
+            </div>`
+            : `<p style="margin:0;font-size:12px;color:#94a3b8;font-style:italic;">Campanha enviada antes do rastreamento ser ativado — dados não disponíveis.</p>`;
+        return `<div style="border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:${hasStats ? '16px' : '8px'};">
+                <div>
+                    <p style="margin:0;font-size:14px;font-weight:700;color:#1e293b;">${esc(c.subject)}</p>
+                    <p style="margin:4px 0 0;font-size:12px;color:#94a3b8;">${date} · ${c.recipientCount} enviados${c.targetTag ? ' · lista: ' + esc(c.targetTag) : ''}</p>
+                </div>
+                ${hasStats ? '' : '<span style="font-size:11px;padding:3px 8px;background:#f1f5f9;border-radius:6px;color:#94a3b8;">Sem rastreamento</span>'}
             </div>
+            ${statsHtml}
         </div>`;
     }).join('');
 }
