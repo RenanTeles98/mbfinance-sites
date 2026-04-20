@@ -325,6 +325,10 @@
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
             Analytics
         </button>
+        <button class="tab-btn" id="tabBtn-newsletter" onclick="switchTab('newsletter')">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            Newsletter
+        </button>
     </div>
 
     <div id="admin-body">
@@ -598,6 +602,101 @@
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     Salvo! Exporte o blog para aplicar.
                 </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEWSLETTER TAB -->
+    <div id="tab-newsletter" style="display:none;padding:24px;overflow-y:auto;flex:1;">
+        <div style="display:grid;grid-template-columns:320px 1fr;gap:20px;max-width:1100px;">
+
+            <!-- Sidebar: inscritos -->
+            <div style="background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:20px;align-self:start;">
+                <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#0099dd;margin:0 0 12px;">Inscritos</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+                    <div style="background:#f8fafc;border-radius:12px;padding:14px;text-align:center;">
+                        <p id="nl-count-total" style="margin:0;font-size:24px;font-weight:900;color:#003956;">0</p>
+                        <p style="margin:4px 0 0;font-size:11px;color:#94a3b8;">Total</p>
+                    </div>
+                    <div style="background:#eff9ff;border-radius:12px;padding:14px;text-align:center;">
+                        <p id="nl-count-active" style="margin:0;font-size:24px;font-weight:900;color:#0099dd;">0</p>
+                        <p style="margin:4px 0 0;font-size:11px;color:#94a3b8;">Ativos</p>
+                    </div>
+                </div>
+
+                <div style="border-top:1px solid #f1f5f9;padding-top:16px;margin-bottom:16px;">
+                    <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#94a3b8;margin:0 0 10px;">Adicionar manualmente</p>
+                    <input id="nl-new-email" type="email" placeholder="email@empresa.com"
+                        style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;margin-bottom:8px;outline:none;">
+                    <input id="nl-new-name" type="text" placeholder="Nome (opcional)"
+                        style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;margin-bottom:8px;outline:none;">
+                    <button onclick="nlAddSubscriber()"
+                        style="width:100%;padding:10px;background:#003956;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:10px;cursor:pointer;">
+                        Adicionar
+                    </button>
+                    <p id="nl-add-msg" style="display:none;margin:8px 0 0;font-size:12px;font-weight:600;"></p>
+                </div>
+
+                <input id="nl-search" type="text" placeholder="Buscar inscrito..." oninput="nlFilterSubs(this.value)"
+                    style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;margin-bottom:10px;outline:none;">
+
+                <div id="nl-sub-list" style="max-height:340px;overflow-y:auto;">
+                    <p style="color:#94a3b8;font-size:13px;text-align:center;padding:20px 0;">Carregando...</p>
+                </div>
+            </div>
+
+            <!-- Main: compor + histórico -->
+            <div style="background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:24px;">
+                <div style="display:flex;gap:4px;background:#f1f5f9;border-radius:12px;padding:4px;width:fit-content;margin-bottom:24px;">
+                    <button id="nl-tab-send-btn" onclick="nlSwitchSubTab('send')"
+                        style="padding:8px 20px;font-size:13px;font-weight:700;border:none;border-radius:9px;cursor:pointer;background:#fff;color:#003956;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+                        Novo Disparo
+                    </button>
+                    <button id="nl-tab-hist-btn" onclick="nlSwitchSubTab('history')"
+                        style="padding:8px 20px;font-size:13px;font-weight:700;border:none;border-radius:9px;cursor:pointer;background:transparent;color:#64748b;">
+                        Histórico
+                    </button>
+                </div>
+
+                <!-- Compor -->
+                <div id="nl-panel-send">
+                    <div style="display:flex;align-items:center;gap:10px;background:#eff9ff;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
+                        <span id="nl-recipient-count" style="font-size:22px;font-weight:900;color:#0099dd;">0</span>
+                        <span style="font-size:13px;color:#475569;">inscrito(s) ativo(s) receberão este email</span>
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Assunto *</label>
+                        <input id="nl-subject" type="text" placeholder="Ex: 5 formas de conseguir crédito mais barato em 2026"
+                            style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Texto de prévia <span style="font-weight:400;color:#94a3b8;">(aparece na caixa de entrada antes de abrir)</span></label>
+                        <input id="nl-preview-text" type="text" placeholder="Uma dica rápida para sua empresa..."
+                            style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
+                    </div>
+                    <div style="margin-bottom:20px;">
+                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">
+                            Conteúdo do email (HTML) *
+                            <span style="font-weight:400;color:#94a3b8;margin-left:6px;">Use &lt;h2&gt;, &lt;p&gt;, &lt;strong&gt;, &lt;a href="..."&gt;</span>
+                        </label>
+                        <textarea id="nl-body" rows="12" placeholder="<h2>Olá!</h2>&#10;<p>Conteúdo do email aqui...</p>"
+                            style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;font-family:monospace;outline:none;resize:vertical;"></textarea>
+                    </div>
+                    <div id="nl-send-result" style="display:none;margin-bottom:16px;padding:14px 18px;border-radius:12px;font-size:14px;font-weight:600;"></div>
+                    <div style="display:flex;justify-content:flex-end;">
+                        <button onclick="nlSendCampaign()" id="nl-send-btn"
+                            style="padding:12px 28px;background:#003956;color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;">
+                            Disparar campanha
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Histórico -->
+                <div id="nl-panel-history" style="display:none;">
+                    <div id="nl-campaigns-list">
+                        <p style="color:#94a3b8;font-size:13px;text-align:center;padding:40px 0;">Nenhuma campanha enviada ainda.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1914,7 +2013,8 @@ function switchTab(tab) {
     const panels = {
         posts: document.getElementById('admin-body'),
         banners: document.getElementById('tab-banners'),
-        analytics: document.getElementById('tab-analytics')
+        analytics: document.getElementById('tab-analytics'),
+        newsletter: document.getElementById('tab-newsletter')
     };
     Object.entries(panels).forEach(([key, el]) => {
         if (!el) return;
@@ -1926,10 +2026,188 @@ function switchTab(tab) {
     if (btn) btn.classList.add('active');
     if (tab === 'banners') loadBannersForm();
     if (tab === 'analytics') renderAnalytics();
+    if (tab === 'newsletter') loadNewsletterTab();
     if (tab === 'podcast') {
         showToast('Em breve!');
         switchTab('posts');
     }
+}
+
+/* ── NEWSLETTER ── */
+let nlSubscribers = [];
+let nlCampaigns = [];
+
+function nlGetApiBase() { return localStorage.getItem(API_BASE_KEY) || 'https://mbfinance-sites.vercel.app'; }
+function nlGetToken() { return localStorage.getItem(API_TOKEN_KEY) || 'mbfinance2026'; }
+
+async function loadNewsletterTab() {
+    try {
+        const res = await fetch(nlGetApiBase() + '/api/newsletter/subscribers', {
+            headers: { 'x-blog-admin-token': nlGetToken() }
+        });
+        if (!res.ok) throw new Error('Unauthorized');
+        const data = await res.json();
+        nlSubscribers = data.subscribers || [];
+        nlCampaigns = data.campaigns || [];
+        nlRenderSubscribers(nlSubscribers);
+        nlRenderCampaigns(nlCampaigns);
+        nlUpdateCounts();
+    } catch(e) {
+        document.getElementById('nl-sub-list').innerHTML = '<p style="color:#ef4444;font-size:13px;text-align:center;padding:20px 0;">Erro ao carregar. Verifique a conexão com o blog oficial.</p>';
+    }
+}
+
+function nlUpdateCounts() {
+    const active = nlSubscribers.filter(s => s.active).length;
+    document.getElementById('nl-count-total').textContent = nlSubscribers.length;
+    document.getElementById('nl-count-active').textContent = active;
+    document.getElementById('nl-recipient-count').textContent = active;
+}
+
+function nlRenderSubscribers(list) {
+    const el = document.getElementById('nl-sub-list');
+    if (!list.length) {
+        el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:20px 0;">Nenhum inscrito ainda.</p>';
+        return;
+    }
+    el.innerHTML = list.map(s =>
+        `<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid #f1f5f9;margin-bottom:4px;background:#fff;${!s.active ? 'opacity:0.5;' : ''}">
+            <div style="flex:1;min-width:0;">
+                <p style="margin:0;font-size:13px;font-weight:600;color:#003956;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(s.email)}</p>
+                <p style="margin:2px 0 0;font-size:11px;color:#94a3b8;">${esc(s.name || 'Sem nome')} · ${s.active ? 'Ativo' : 'Cancelado'}</p>
+            </div>
+            <button onclick="nlDeleteSubscriber('${esc(s.id)}','${esc(s.email)}')" style="background:none;border:none;color:#cbd5e1;font-size:18px;cursor:pointer;padding:0 4px;line-height:1;" title="Remover">×</button>
+        </div>`
+    ).join('');
+}
+
+function nlFilterSubs(query) {
+    const q = query.toLowerCase();
+    const filtered = nlSubscribers.filter(s => s.email.includes(q) || (s.name || '').toLowerCase().includes(q));
+    nlRenderSubscribers(filtered);
+}
+
+function nlRenderCampaigns(list) {
+    const el = document.getElementById('nl-campaigns-list');
+    if (!list.length) {
+        el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:40px 0;">Nenhuma campanha enviada ainda.</p>';
+        return;
+    }
+    el.innerHTML = list.map(c =>
+        `<div style="border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;margin-bottom:10px;background:#f8fafc;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+                <div>
+                    <p style="margin:0;font-weight:700;color:#003956;">${esc(c.subject)}</p>
+                    ${c.previewText ? `<p style="margin:4px 0 0;font-size:13px;color:#64748b;">${esc(c.previewText)}</p>` : ''}
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                    <span style="display:inline-block;background:#eff9ff;color:#0099dd;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;">${c.recipientCount} enviados</span>
+                    <p style="margin:4px 0 0;font-size:11px;color:#94a3b8;">${new Date(c.sentAt).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'})}</p>
+                </div>
+            </div>
+        </div>`
+    ).join('');
+}
+
+async function nlAddSubscriber() {
+    const email = document.getElementById('nl-new-email').value.trim();
+    const name = document.getElementById('nl-new-name').value.trim();
+    if (!email) { nlShowAddMsg('Digite um email válido.', false); return; }
+    const btn = event.currentTarget;
+    btn.textContent = 'Adicionando...';
+    btn.disabled = true;
+    try {
+        const res = await fetch(nlGetApiBase() + '/api/newsletter/subscribers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-blog-admin-token': nlGetToken() },
+            body: JSON.stringify({ email, name })
+        });
+        const data = await res.json();
+        if (data.ok) {
+            document.getElementById('nl-new-email').value = '';
+            document.getElementById('nl-new-name').value = '';
+            nlShowAddMsg('Inscrito adicionado!', true);
+            await loadNewsletterTab();
+        } else {
+            nlShowAddMsg(data.error || 'Erro ao adicionar.', false);
+        }
+    } catch { nlShowAddMsg('Erro de conexão.', false); }
+    btn.textContent = 'Adicionar';
+    btn.disabled = false;
+}
+
+function nlShowAddMsg(text, ok) {
+    const el = document.getElementById('nl-add-msg');
+    el.textContent = text;
+    el.style.color = ok ? '#16a34a' : '#dc2626';
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 3000);
+}
+
+async function nlDeleteSubscriber(id, email) {
+    if (!confirm('Remover ' + email + '?')) return;
+    await fetch(nlGetApiBase() + '/api/newsletter/subscribers?id=' + id, {
+        method: 'DELETE',
+        headers: { 'x-blog-admin-token': nlGetToken() }
+    });
+    await loadNewsletterTab();
+}
+
+async function nlSendCampaign() {
+    const subject = document.getElementById('nl-subject').value.trim();
+    const previewText = document.getElementById('nl-preview-text').value.trim();
+    const body = document.getElementById('nl-body').value.trim();
+    const activeCount = nlSubscribers.filter(s => s.active).length;
+    if (!subject) { alert('Preencha o assunto.'); return; }
+    if (!body) { alert('Preencha o conteúdo do email.'); return; }
+    if (!confirm('Enviar campanha para ' + activeCount + ' inscrito(s)?')) return;
+    const btn = document.getElementById('nl-send-btn');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    nlShowSendResult(null, false);
+    try {
+        const res = await fetch(nlGetApiBase() + '/api/newsletter/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-blog-admin-token': nlGetToken() },
+            body: JSON.stringify({ subject, previewText, body })
+        });
+        const data = await res.json();
+        if (data.ok) {
+            document.getElementById('nl-subject').value = '';
+            document.getElementById('nl-preview-text').value = '';
+            document.getElementById('nl-body').value = '';
+            nlShowSendResult('✓ Enviado para ' + data.sent + ' inscrito(s)!' + (data.failed ? ' (' + data.failed + ' falha(s))' : ''), true);
+            await loadNewsletterTab();
+        } else {
+            nlShowSendResult('Erro: ' + (data.error || 'Falha no envio.'), false);
+        }
+    } catch { nlShowSendResult('Erro de conexão.', false); }
+    btn.textContent = 'Disparar campanha';
+    btn.disabled = false;
+}
+
+function nlShowSendResult(text, ok) {
+    const el = document.getElementById('nl-send-result');
+    if (!text) { el.style.display = 'none'; return; }
+    el.textContent = text;
+    el.style.background = ok ? '#f0fdf4' : '#fef2f2';
+    el.style.color = ok ? '#16a34a' : '#dc2626';
+    el.style.border = '1px solid ' + (ok ? '#bbf7d0' : '#fecaca');
+    el.style.display = 'block';
+}
+
+function nlSwitchSubTab(tab) {
+    const isSend = tab === 'send';
+    document.getElementById('nl-panel-send').style.display = isSend ? 'block' : 'none';
+    document.getElementById('nl-panel-history').style.display = isSend ? 'none' : 'block';
+    const sendBtn = document.getElementById('nl-tab-send-btn');
+    const histBtn = document.getElementById('nl-tab-hist-btn');
+    sendBtn.style.background = isSend ? '#fff' : 'transparent';
+    sendBtn.style.color = isSend ? '#003956' : '#64748b';
+    sendBtn.style.boxShadow = isSend ? '0 1px 3px rgba(0,0,0,0.1)' : 'none';
+    histBtn.style.background = isSend ? 'transparent' : '#fff';
+    histBtn.style.color = isSend ? '#64748b' : '#003956';
+    histBtn.style.boxShadow = isSend ? 'none' : '0 1px 3px rgba(0,0,0,0.1)';
 }
 
 /* â”€â”€ BANNERS â”€â”€ */
