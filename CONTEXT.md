@@ -53,6 +53,11 @@ Sessão focada em:
 1. Limpeza e renomeação do menu do painel administrativo do blog (`public/pages/blog-admin.html`).
 2. Remoção do item "Podcast" (placeholder).
 3. Renomeação de "Banners" para "Publicidade" e "Analytics" para "Métricas do site".
+4. Conversão do painel em **Ferramenta de Automação de Conteúdo**:
+    - Suporte a agendamento por **Data e Hora**.
+    - Novos status Visuais: **Agendado** (Azul), **Publicado** (Verde) e **Rascunho** (Laranja).
+    - Exibição de **acessos reais (Views)** diretamente na lista de posts (integrado ao GA4).
+
 
 
 Arquivos modificados nesta sessão:
