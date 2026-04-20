@@ -118,7 +118,7 @@ export async function GET(request: Request) {
         Não enviaremos mais emails para este endereço.<br><br>
         Se mudar de ideia, pode se inscrever novamente a qualquer momento pelo nosso site.
       </p>
-      <a href="https://mbfinance.com.br" class="btn">Voltar ao site</a>
+      <a href="https://mbfinance-sites.vercel.app/mb-finance-completo.html" class="btn">Voltar ao site</a>
     </div>
   </div>
   <div class="footer">

@@ -7,7 +7,7 @@ const ADMIN_TOKEN = process.env.BLOG_ADMIN_TOKEN || "mbfinance2026";
 
 function buildEmailHtml(subject: string, previewText: string, body: string, email: string): string {
   const token = Buffer.from(email).toString("base64url");
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mbfinance.com.br";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mbfinance-sites.vercel.app";
 
   return `<!DOCTYPE html>
 <html lang="pt-BR">
