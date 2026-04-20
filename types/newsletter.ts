@@ -4,6 +4,7 @@ export type Subscriber = {
   name: string;
   createdAt: string;
   active: boolean;
+  tags: string[];
 };
 
 export type Campaign = {
@@ -13,4 +14,5 @@ export type Campaign = {
   body: string;
   sentAt: string;
   recipientCount: number;
+  targetTag?: string;
 };

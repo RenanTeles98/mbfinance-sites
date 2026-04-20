@@ -62,14 +62,18 @@ export async function POST(request: Request) {
     );
   }
 
-  const { subject, previewText, body } = await request.json();
+  const { subject, previewText, body, targetTag } = await request.json();
 
   if (!subject?.trim() || !body?.trim()) {
     return NextResponse.json({ ok: false, error: "Assunto e conteúdo são obrigatórios" }, { status: 400 });
   }
 
   const subscribers = await readSubscribers();
-  const active = subscribers.filter((s) => s.active);
+  const active = subscribers.filter((s) => {
+    if (!s.active) return false;
+    if (!targetTag) return true;
+    return (s.tags || []).includes(targetTag);
+  });
 
   if (active.length === 0) {
     return NextResponse.json({ ok: false, error: "Nenhum inscrito ativo para enviar" }, { status: 400 });
@@ -116,6 +120,7 @@ export async function POST(request: Request) {
     body,
     sentAt: new Date().toISOString(),
     recipientCount: sent,
+    ...(targetTag && { targetTag }),
   };
   await writeCampaigns([campaign, ...campaigns]);
 

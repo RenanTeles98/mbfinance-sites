@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { email, name } = await request.json();
+  const { email, name, tags } = await request.json();
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, error: "Email inválido" }, { status: 400 });
@@ -41,10 +41,31 @@ export async function POST(request: Request) {
     name: name?.trim() || "",
     createdAt: new Date().toISOString(),
     active: true,
+    tags: Array.isArray(tags) ? tags.map((t: string) => t.trim()).filter(Boolean) : [],
   };
 
   await writeSubscribers([...subscribers, newSub]);
   return NextResponse.json({ ok: true, subscriber: newSub });
+}
+
+// PATCH: atualizar tags de um inscrito
+export async function PATCH(request: Request) {
+  if (!authorized(request)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id, tags } = await request.json();
+
+  if (!id) {
+    return NextResponse.json({ error: "ID obrigatório" }, { status: 400 });
+  }
+
+  const subscribers = await readSubscribers();
+  const updated = subscribers.map((s) =>
+    s.id === id ? { ...s, tags: Array.isArray(tags) ? tags : [] } : s
+  );
+  await writeSubscribers(updated);
+  return NextResponse.json({ ok: true });
 }
 
 // DELETE: remover inscrito por ID

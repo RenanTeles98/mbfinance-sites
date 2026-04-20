@@ -632,11 +632,21 @@
                     </div>
                 </div>
 
+                <!-- Listas criadas -->
+                <div style="margin-bottom:14px;">
+                    <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#94a3b8;margin:0 0 8px;">Listas</p>
+                    <div id="nl-tags-overview" style="display:flex;flex-wrap:wrap;gap:6px;">
+                        <span style="font-size:12px;color:#cbd5e1;">Nenhuma lista ainda.</span>
+                    </div>
+                </div>
+
                 <div style="border-top:1px solid #f1f5f9;padding-top:16px;margin-bottom:16px;">
                     <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#94a3b8;margin:0 0 10px;">Adicionar manualmente</p>
                     <input id="nl-new-email" type="email" placeholder="email@empresa.com"
                         style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;margin-bottom:8px;outline:none;">
                     <input id="nl-new-name" type="text" placeholder="Nome (opcional)"
+                        style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;margin-bottom:8px;outline:none;">
+                    <input id="nl-new-tags" type="text" placeholder="Listas: leads, clientes (separar por vírgula)"
                         style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;margin-bottom:8px;outline:none;">
                     <button onclick="nlAddSubscriber()"
                         style="width:100%;padding:10px;background:#003956;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:10px;cursor:pointer;">
@@ -668,9 +678,16 @@
 
                 <!-- Compor -->
                 <div id="nl-panel-send">
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Destinatários</label>
+                        <select id="nl-target-tag" onchange="nlUpdateRecipientCount()"
+                            style="width:100%;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;background:#fff;cursor:pointer;">
+                            <option value="">Todos os inscritos ativos</option>
+                        </select>
+                    </div>
                     <div style="display:flex;align-items:center;gap:10px;background:#eff9ff;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
                         <span id="nl-recipient-count" style="font-size:22px;font-weight:900;color:#0099dd;">0</span>
-                        <span style="font-size:13px;color:#475569;">inscrito(s) ativo(s) receberão este email</span>
+                        <span style="font-size:13px;color:#475569;">inscrito(s) receberão este email</span>
                     </div>
                     <div style="margin-bottom:16px;">
                         <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Assunto *</label>
@@ -2064,11 +2081,65 @@ async function loadNewsletterTab() {
     }
 }
 
+const NL_TAG_COLORS = [
+    { bg:'#dbeafe', text:'#1d4ed8' }, { bg:'#dcfce7', text:'#15803d' },
+    { bg:'#fef3c7', text:'#b45309' }, { bg:'#fce7f3', text:'#be185d' },
+    { bg:'#ede9fe', text:'#7c3aed' }, { bg:'#ffedd5', text:'#c2410c' },
+];
+function nlTagColor(tag) {
+    let h = 0; for (let i = 0; i < tag.length; i++) h = (h * 31 + tag.charCodeAt(i)) % NL_TAG_COLORS.length;
+    return NL_TAG_COLORS[h];
+}
+
 function nlUpdateCounts() {
     const active = nlSubscribers.filter(s => s.active).length;
     document.getElementById('nl-count-total').textContent = nlSubscribers.length;
     document.getElementById('nl-count-active').textContent = active;
-    document.getElementById('nl-recipient-count').textContent = active;
+    nlRenderTagsOverview();
+    nlPopulateTargetSelect();
+    nlUpdateRecipientCount();
+}
+
+function nlGetTagCounts() {
+    const counts = {};
+    nlSubscribers.forEach(s => {
+        if (!s.active) return;
+        (s.tags || []).forEach(t => { counts[t] = (counts[t] || 0) + 1; });
+    });
+    return counts;
+}
+
+function nlRenderTagsOverview() {
+    const el = document.getElementById('nl-tags-overview');
+    const counts = nlGetTagCounts();
+    const tags = Object.entries(counts);
+    if (!tags.length) {
+        el.innerHTML = '<span style="font-size:12px;color:#cbd5e1;">Nenhuma lista ainda.</span>';
+        return;
+    }
+    el.innerHTML = tags.map(([tag, count]) => {
+        const c = nlTagColor(tag);
+        return `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700;background:${c.bg};color:${c.text};">${esc(tag)} <span style="opacity:0.7;">(${count})</span></span>`;
+    }).join('');
+}
+
+function nlPopulateTargetSelect() {
+    const sel = document.getElementById('nl-target-tag');
+    const current = sel.value;
+    const counts = nlGetTagCounts();
+    const activeTotal = nlSubscribers.filter(s => s.active).length;
+    sel.innerHTML = `<option value="">Todos os inscritos ativos (${activeTotal})</option>` +
+        Object.entries(counts).map(([tag, count]) =>
+            `<option value="${esc(tag)}" ${current === tag ? 'selected' : ''}>${esc(tag)} (${count})</option>`
+        ).join('');
+}
+
+function nlUpdateRecipientCount() {
+    const targetTag = document.getElementById('nl-target-tag').value;
+    const count = targetTag
+        ? nlSubscribers.filter(s => s.active && (s.tags||[]).includes(targetTag)).length
+        : nlSubscribers.filter(s => s.active).length;
+    document.getElementById('nl-recipient-count').textContent = count;
 }
 
 function nlRenderSubscribers(list) {
@@ -2077,20 +2148,70 @@ function nlRenderSubscribers(list) {
         el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:20px 0;">Nenhum inscrito ainda.</p>';
         return;
     }
-    el.innerHTML = list.map(s =>
-        `<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid #f1f5f9;margin-bottom:4px;background:#fff;${!s.active ? 'opacity:0.5;' : ''}">
-            <div style="flex:1;min-width:0;">
-                <p style="margin:0;font-size:13px;font-weight:600;color:#003956;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(s.email)}</p>
-                <p style="margin:2px 0 0;font-size:11px;color:#94a3b8;">${esc(s.name || 'Sem nome')} · ${s.active ? 'Ativo' : 'Cancelado'}</p>
+    el.innerHTML = list.map(s => {
+        const tags = (s.tags || []);
+        const tagChips = tags.map(t => {
+            const c = nlTagColor(t);
+            return `<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;background:${c.bg};color:${c.text};">${esc(t)}<button onclick="nlRemoveTag('${esc(s.id)}','${esc(t)}')" style="background:none;border:none;color:${c.text};cursor:pointer;padding:0;font-size:13px;line-height:1;opacity:0.6;" title="Remover lista">×</button></span>`;
+        }).join('');
+        return `<div style="padding:8px 10px;border-radius:10px;border:1px solid #f1f5f9;margin-bottom:4px;background:#fff;${!s.active ? 'opacity:0.5;' : ''}">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;min-width:0;">
+                    <p style="margin:0;font-size:13px;font-weight:600;color:#003956;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(s.email)}</p>
+                    <p style="margin:2px 0 0;font-size:11px;color:#94a3b8;">${esc(s.name || 'Sem nome')} · ${s.active ? 'Ativo' : 'Cancelado'}</p>
+                </div>
+                <button onclick="nlDeleteSubscriber('${esc(s.id)}','${esc(s.email)}')" style="background:none;border:none;color:#cbd5e1;font-size:18px;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0;" title="Remover">×</button>
             </div>
-            <button onclick="nlDeleteSubscriber('${esc(s.id)}','${esc(s.email)}')" style="background:none;border:none;color:#cbd5e1;font-size:18px;cursor:pointer;padding:0 4px;line-height:1;" title="Remover">×</button>
-        </div>`
-    ).join('');
+            ${tags.length || true ? `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:6px;">${tagChips}<button onclick="nlShowTagInput('${esc(s.id)}')" style="padding:2px 8px;border:1px dashed #cbd5e1;border-radius:20px;font-size:11px;font-weight:600;color:#94a3b8;background:none;cursor:pointer;">+ lista</button></div>` : ''}
+            <div id="nl-tag-input-wrap-${esc(s.id)}" style="display:none;margin-top:6px;display:none;">
+                <div style="display:flex;gap:6px;">
+                    <input id="nl-tag-input-${esc(s.id)}" type="text" placeholder="Nome da lista"
+                        style="flex:1;padding:6px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:12px;outline:none;"
+                        onkeydown="if(event.key==='Enter')nlConfirmTag('${esc(s.id)}')">
+                    <button onclick="nlConfirmTag('${esc(s.id)}')" style="padding:6px 12px;background:#003956;color:#fff;font-size:12px;font-weight:700;border:none;border-radius:8px;cursor:pointer;">OK</button>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function nlShowTagInput(id) {
+    const wrap = document.getElementById('nl-tag-input-wrap-' + id);
+    if (wrap) { wrap.style.display = wrap.style.display === 'none' ? 'block' : 'none'; }
+    const inp = document.getElementById('nl-tag-input-' + id);
+    if (inp) inp.focus();
+}
+
+async function nlConfirmTag(id) {
+    const inp = document.getElementById('nl-tag-input-' + id);
+    const tag = inp ? inp.value.trim() : '';
+    if (!tag) return;
+    const sub = nlSubscribers.find(s => s.id === id);
+    if (!sub) return;
+    const newTags = [...new Set([...(sub.tags || []), tag])];
+    await fetch(nlGetApiBase() + '/api/newsletter/subscribers', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'x-blog-admin-token': nlGetToken() },
+        body: JSON.stringify({ id, tags: newTags })
+    });
+    await loadNewsletterTab();
+}
+
+async function nlRemoveTag(id, tag) {
+    const sub = nlSubscribers.find(s => s.id === id);
+    if (!sub) return;
+    const newTags = (sub.tags || []).filter(t => t !== tag);
+    await fetch(nlGetApiBase() + '/api/newsletter/subscribers', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'x-blog-admin-token': nlGetToken() },
+        body: JSON.stringify({ id, tags: newTags })
+    });
+    await loadNewsletterTab();
 }
 
 function nlFilterSubs(query) {
     const q = query.toLowerCase();
-    const filtered = nlSubscribers.filter(s => s.email.includes(q) || (s.name || '').toLowerCase().includes(q));
+    const filtered = nlSubscribers.filter(s => s.email.includes(q) || (s.name || '').toLowerCase().includes(q) || (s.tags||[]).some(t => t.toLowerCase().includes(q)));
     nlRenderSubscribers(filtered);
 }
 
@@ -2100,11 +2221,12 @@ function nlRenderCampaigns(list) {
         el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:40px 0;">Nenhuma campanha enviada ainda.</p>';
         return;
     }
-    el.innerHTML = list.map(c =>
-        `<div style="border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;margin-bottom:10px;background:#f8fafc;">
+    el.innerHTML = list.map(c => {
+        const tagBadge = c.targetTag ? `<span style="display:inline-block;background:#fef3c7;color:#b45309;font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;margin-left:8px;">${esc(c.targetTag)}</span>` : '';
+        return `<div style="border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;margin-bottom:10px;background:#f8fafc;">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
                 <div>
-                    <p style="margin:0;font-weight:700;color:#003956;">${esc(c.subject)}</p>
+                    <p style="margin:0;font-weight:700;color:#003956;">${esc(c.subject)}${tagBadge}</p>
                     ${c.previewText ? `<p style="margin:4px 0 0;font-size:13px;color:#64748b;">${esc(c.previewText)}</p>` : ''}
                 </div>
                 <div style="text-align:right;flex-shrink:0;">
@@ -2112,13 +2234,15 @@ function nlRenderCampaigns(list) {
                     <p style="margin:4px 0 0;font-size:11px;color:#94a3b8;">${new Date(c.sentAt).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'})}</p>
                 </div>
             </div>
-        </div>`
-    ).join('');
+        </div>`;
+    }).join('');
 }
 
 async function nlAddSubscriber() {
     const email = document.getElementById('nl-new-email').value.trim();
     const name = document.getElementById('nl-new-name').value.trim();
+    const tagsRaw = document.getElementById('nl-new-tags').value.trim();
+    const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
     if (!email) { nlShowAddMsg('Digite um email válido.', false); return; }
     const btn = event.currentTarget;
     btn.textContent = 'Adicionando...';
@@ -2127,12 +2251,13 @@ async function nlAddSubscriber() {
         const res = await fetch(nlGetApiBase() + '/api/newsletter/subscribers', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'x-blog-admin-token': nlGetToken() },
-            body: JSON.stringify({ email, name })
+            body: JSON.stringify({ email, name, tags })
         });
         const data = await res.json();
         if (data.ok) {
             document.getElementById('nl-new-email').value = '';
             document.getElementById('nl-new-name').value = '';
+            document.getElementById('nl-new-tags').value = '';
             nlShowAddMsg('Inscrito adicionado!', true);
             await loadNewsletterTab();
         } else {
@@ -2164,19 +2289,24 @@ async function nlSendCampaign() {
     const subject = document.getElementById('nl-subject').value.trim();
     const previewText = document.getElementById('nl-preview-text').value.trim();
     const body = nlEditor ? nlEditor.root.innerHTML.trim() : '';
-    const activeCount = nlSubscribers.filter(s => s.active).length;
+    const targetTag = document.getElementById('nl-target-tag').value;
+    const activeCount = targetTag
+        ? nlSubscribers.filter(s => s.active && (s.tags||[]).includes(targetTag)).length
+        : nlSubscribers.filter(s => s.active).length;
     if (!subject) { alert('Preencha o assunto.'); return; }
     if (!body) { alert('Preencha o conteúdo do email.'); return; }
-    if (!confirm('Enviar campanha para ' + activeCount + ' inscrito(s)?')) return;
+    const dest = targetTag ? 'lista "' + targetTag + '" (' + activeCount + ' pessoas)' : activeCount + ' inscrito(s)';
+    if (!confirm('Enviar campanha para ' + dest + '?')) return;
     const btn = document.getElementById('nl-send-btn');
     btn.textContent = 'Enviando...';
     btn.disabled = true;
     nlShowSendResult(null, false);
     try {
+        const targetTag = document.getElementById('nl-target-tag').value;
         const res = await fetch(nlGetApiBase() + '/api/newsletter/send', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'x-blog-admin-token': nlGetToken() },
-            body: JSON.stringify({ subject, previewText, body })
+            body: JSON.stringify({ subject, previewText, body, ...(targetTag && { targetTag }) })
         });
         const data = await res.json();
         if (data.ok) {

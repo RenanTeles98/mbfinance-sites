@@ -31,6 +31,7 @@ export async function POST(request: Request) {
       name: name?.trim() || "",
       createdAt: new Date().toISOString(),
       active: true,
+      tags: [],
     };
 
     await writeSubscribers([...subscribers, newSub]);
