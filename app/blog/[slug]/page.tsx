@@ -61,7 +61,7 @@ export default async function BlogArticlePage({
           <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.28em] text-sky-300">
             {post.categoryLabel}
           </p>
-          <h1 className="font-serif text-4xl font-black leading-tight md:text-5xl">
+          <h1 className="font-sans text-4xl font-black leading-tight md:text-5xl">
             {post.title}
           </h1>
           <div className="mt-5 flex gap-4 text-sm font-semibold text-white/60">
@@ -97,7 +97,7 @@ export default async function BlogArticlePage({
         />
 
         <div className="mt-10 rounded-[24px] bg-[#003956] px-8 py-10 text-white">
-          <h2 className="font-serif text-3xl font-black">Precisa falar com um especialista?</h2>
+          <h2 className="font-sans text-3xl font-black">Precisa falar com um especialista?</h2>
           <p className="mt-3 max-w-2xl text-white/70">
             A MB Finance ajuda sua empresa a comparar linhas, contas e solucoes com mais criterio.
           </p>
