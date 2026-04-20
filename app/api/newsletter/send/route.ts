@@ -84,6 +84,9 @@ export async function POST(request: Request) {
   const senderEmail = fromEmail || process.env.RESEND_FROM_EMAIL || "newsletter@mbfinance.com.br";
   const senderName  = fromName  || "MB Finance";
 
+  // Criar ID da campanha antes do envio para rastrear eventos
+  const campaignId = crypto.randomUUID();
+
   let sent = 0;
   let failed = 0;
   const errors: string[] = [];
@@ -99,6 +102,7 @@ export async function POST(request: Request) {
         subject,
         html: buildEmailHtml(subject, previewText || "", body, sub.email),
         ...(replyTo && { replyTo }),
+        tags: [{ name: "campaign_id", value: campaignId }],
       }));
 
       const { data: batchData, error } = await resend.batch.send(emails);
@@ -114,16 +118,17 @@ export async function POST(request: Request) {
     }
   }
 
-  // Salvar registro da campanha
+  // Salvar registro da campanha com stats zerados
   const campaigns = await readCampaigns();
   const campaign: Campaign = {
-    id: crypto.randomUUID(),
+    id: campaignId,
     subject,
     previewText: previewText || "",
     body,
     sentAt: new Date().toISOString(),
     recipientCount: sent,
     ...(targetTag && { targetTag }),
+    stats: { delivered: 0, opened: 0, clicked: 0, bounced: 0 },
   };
   await writeCampaigns([campaign, ...campaigns]);
 

@@ -684,6 +684,10 @@
                         style="padding:8px 20px;font-size:13px;font-weight:700;border:none;border-radius:9px;cursor:pointer;background:transparent;color:#64748b;">
                         Configurações
                     </button>
+                    <button id="nl-tab-stats-btn" onclick="nlSwitchSubTab('stats')"
+                        style="padding:8px 20px;font-size:13px;font-weight:700;border:none;border-radius:9px;cursor:pointer;background:transparent;color:#64748b;">
+                        Estatísticas
+                    </button>
                 </div>
 
                 <!-- Compor -->
@@ -775,6 +779,19 @@
                             style="padding:12px 28px;background:#003956;color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;">
                             Salvar configurações
                         </button>
+                    </div>
+                </div>
+
+                <!-- Estatísticas -->
+                <div id="nl-panel-stats" style="display:none;">
+                    <div style="background:#eff9ff;border:1px solid #bae6fd;border-radius:12px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:#0369a1;line-height:1.6;">
+                        <strong>Como ativar o rastreamento:</strong><br>
+                        No painel do Resend → <strong>Webhooks</strong> → <strong>Add Webhook</strong><br>
+                        URL: <code style="background:#fff;padding:2px 6px;border-radius:4px;font-size:12px;">https://mbfinance-sites.vercel.app/api/newsletter/webhook</code><br>
+                        Eventos: <strong>email.delivered · email.opened · email.clicked · email.bounced</strong>
+                    </div>
+                    <div id="nl-stats-list">
+                        <p style="color:#94a3b8;font-size:13px;text-align:center;padding:40px 0;">Nenhuma campanha com dados ainda.</p>
                     </div>
                 </div>
             </div>
@@ -2437,8 +2454,8 @@ function nlShowSendResult(text, ok) {
 }
 
 function nlSwitchSubTab(tab) {
-    const panels = { send: 'nl-panel-send', history: 'nl-panel-history', config: 'nl-panel-config' };
-    const btns   = { send: 'nl-tab-send-btn', history: 'nl-tab-hist-btn', config: 'nl-tab-config-btn' };
+    const panels = { send: 'nl-panel-send', history: 'nl-panel-history', config: 'nl-panel-config', stats: 'nl-panel-stats' };
+    const btns   = { send: 'nl-tab-send-btn', history: 'nl-tab-hist-btn', config: 'nl-tab-config-btn', stats: 'nl-tab-stats-btn' };
     Object.entries(panels).forEach(([key, id]) => {
         const el = document.getElementById(id);
         if (el) el.style.display = key === tab ? 'block' : 'none';
@@ -2452,6 +2469,73 @@ function nlSwitchSubTab(tab) {
         el.style.boxShadow = active ? '0 1px 3px rgba(0,0,0,0.1)' : 'none';
     });
     if (tab === 'config') nlLoadConfig();
+    if (tab === 'stats')  nlRenderStats();
+}
+
+function nlRenderStats() {
+    const el = document.getElementById('nl-stats-list');
+    if (!el) return;
+    const camps = (nlCampaigns || []).filter(c => c.stats);
+    if (!camps.length) {
+        el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:40px 0;">Nenhuma campanha com dados ainda. Configure o webhook do Resend para começar a rastrear.</p>';
+        return;
+    }
+    el.innerHTML = camps.map(c => {
+        const s = c.stats;
+        const total = c.recipientCount || 1;
+        const openRate  = total ? Math.round((s.opened   / total) * 100) : 0;
+        const clickRate = total ? Math.round((s.clicked  / total) * 100) : 0;
+        const bounceRate= total ? Math.round((s.bounced  / total) * 100) : 0;
+        const delivRate = total ? Math.round((s.delivered/ total) * 100) : 0;
+        const date = new Date(c.sentAt).toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' });
+        function bar(pct, color) {
+            return `<div style="height:6px;border-radius:4px;background:#e2e8f0;overflow:hidden;">
+                <div style="height:100%;width:${pct}%;background:${color};border-radius:4px;transition:width 0.4s;"></div>
+            </div>`;
+        }
+        return `<div style="border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+                <div>
+                    <p style="margin:0;font-size:14px;font-weight:700;color:#1e293b;">${esc(c.subject)}</p>
+                    <p style="margin:4px 0 0;font-size:12px;color:#94a3b8;">${date} · ${c.recipientCount} enviados${c.targetTag ? ' · lista: ' + esc(c.targetTag) : ''}</p>
+                </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;">
+                <div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                        <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;">Entregues</span>
+                        <span style="font-size:13px;font-weight:800;color:#003956;">${delivRate}%</span>
+                    </div>
+                    ${bar(delivRate, '#003956')}
+                    <p style="margin:4px 0 0;font-size:11px;color:#94a3b8;">${s.delivered} emails</p>
+                </div>
+                <div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                        <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;">Abertos</span>
+                        <span style="font-size:13px;font-weight:800;color:#0099dd;">${openRate}%</span>
+                    </div>
+                    ${bar(openRate, '#0099dd')}
+                    <p style="margin:4px 0 0;font-size:11px;color:#94a3b8;">${s.opened} pessoas</p>
+                </div>
+                <div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                        <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;">Cliques</span>
+                        <span style="font-size:13px;font-weight:800;color:#16a34a;">${clickRate}%</span>
+                    </div>
+                    ${bar(clickRate, '#16a34a')}
+                    <p style="margin:4px 0 0;font-size:11px;color:#94a3b8;">${s.clicked} cliques</p>
+                </div>
+                <div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                        <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;">Bounces</span>
+                        <span style="font-size:13px;font-weight:800;color:#ef4444;">${bounceRate}%</span>
+                    </div>
+                    ${bar(bounceRate, '#ef4444')}
+                    <p style="margin:4px 0 0;font-size:11px;color:#94a3b8;">${s.bounced} emails</p>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
 }
 
 /* ── CONFIGURAÇÕES DO REMETENTE ── */
