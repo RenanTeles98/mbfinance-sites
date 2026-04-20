@@ -74,11 +74,13 @@
         .post-item-cat { background: #f1f5f9; color: #64748b; padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 10px; }
         .post-item.active .post-item-cat { background: rgba(0,153,221,0.1); color: #0099dd; }
         .status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-        .status-dot.pub { background: #22c55e; }
-        .status-dot.draft { background: #f59e0b; }
-        .status-dot.scheduled { background: #0099dd; }
+        .status-dot.pub { background: #10b981; }
+        .status-dot.draft { background: #94a3b8; }
+        .status-dot.sched { background: #f59e0b; }
         .status-text { font-size: 11px; color: #94a3b8; font-weight: 600; }
-        .post-item-views { display: flex; align-items: center; font-size: 10px; font-weight: 800; color: #0099dd; background: rgba(0,153,221,0.08); padding: 2px 6px; border-radius: 4px; margin-left: auto; }
+        .status-text.sched { color: #d97706; font-weight: 700; }
+        .post-item-metrics { font-size: 10px; color: #0099dd; font-weight: 700; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+
         .empty-list { padding: 32px 12px; text-align: center; color: #94a3b8; font-size: 13px; line-height: 1.6; }
 
         /* EDITOR PANEL */
@@ -395,11 +397,11 @@
                             <option value="noticias">Notícias</option>
                         </select>
                     </div>
-                    <div style="flex:1">
-                        <label class="field-label" for="f-date">Data de publicação</label>
-                        <div style="display:flex; gap:8px;">
+                    <div>
+                        <label class="field-label" for="f-date">Agendamento (Data e Hora)</label>
+                        <div style="display:flex;gap:8px;">
                             <input type="date" id="f-date" class="field-input" style="flex:2">
-                            <input type="time" id="f-time" class="field-input" style="flex:1" title="Hora da publicação">
+                            <input type="time" id="f-time" class="field-input" style="flex:1" value="09:00">
                         </div>
                     </div>
                 </div>
@@ -952,8 +954,8 @@ const CAT_LABELS = {
 };
 
 let posts = [];
-let gaData = null; // Armazena dados do GA4 para vincular aos posts
 let currentId = null;
+let analyticsData = null;
 
 /* â”€â”€ INIT â”€â”€ */
 function init() {
@@ -1142,7 +1144,7 @@ async function savePost() {
         content,
         readTime,
         date:          document.getElementById('f-date').value || today(),
-        time:          document.getElementById('f-time').value || '00:00',
+        time:          document.getElementById('f-time').value || '09:00',
         featured:      document.getElementById('f-featured').checked,
         published:     document.getElementById('f-published').checked,
         seoTitle:      document.getElementById('f-seo-title').value.trim(),
@@ -1197,7 +1199,7 @@ function clearForm() {
     document.getElementById('f-title').value      = '';
     document.getElementById('f-category').value   = 'credito';
     document.getElementById('f-date').value        = today();
-    document.getElementById('f-time').value        = '';
+    document.getElementById('f-time').value        = '09:00';
     document.getElementById('f-excerpt').value     = '';
     document.getElementById('f-image').value       = '';
     document.getElementById('f-image-b64').value   = '';
@@ -1224,7 +1226,7 @@ function fillForm(p) {
     document.getElementById('f-title').value      = p.title      || '';
     document.getElementById('f-category').value   = p.category   || 'credito';
     document.getElementById('f-date').value        = p.date       || today();
-    document.getElementById('f-time').value        = p.time       || '00:00';
+    document.getElementById('f-time').value        = p.time       || '09:00';
     document.getElementById('f-excerpt').value     = p.excerpt    || '';
     const isB64 = (p.image || '').startsWith('data:');
     if (isB64) {
@@ -1340,7 +1342,7 @@ async function renderTrafficAnalytics() {
     try {
         const response = await fetch(getAnalyticsApiUrl(), { cache: 'no-store' });
         const data = await response.json();
-        gaData = data; // Salva globalmente para uso na lista de posts
+        analyticsData = data;
 
         if (!response.ok || !data || !data.configured || !data.summary) {
             const message = (data && data.error) ? data.error : 'GA4 nao configurado ou sem acesso liberado.';
@@ -1507,27 +1509,25 @@ function renderSidebar() {
         renderAnalytics();
         return;
     }
+    const now = new Date();
+    
     list.innerHTML = posts.map(p => {
-        // Busca métricas deste post no GA4 (via slug)
-        const stats = gaData && Array.isArray(gaData.topPages) 
-            ? gaData.topPages.find(page => page.pagePath.includes(p.slug))
-            : null;
-        
-        const views = stats ? Number(stats.screenPageViews || 0) : 0;
-        const now = new Date();
-        const postDate = new Date((p.date || today()) + 'T' + (p.time || '00:00') + ':00');
-        
-        let statusClass = 'draft';
-        let statusText = 'Rascunho';
+        let statusClass = p.published !== false ? 'pub' : 'draft';
+        let statusLabel = p.published !== false ? 'Publicado' : 'Rascunho';
         
         if (p.published !== false) {
-            if (postDate > now) {
-                statusClass = 'scheduled';
-                statusText = 'Agendado';
-            } else {
-                statusClass = 'pub';
-                statusText = 'Publicado';
+            const pubDate = new Date(`${p.date}T${p.time || '00:00'}:00`);
+            if (pubDate > now) {
+                statusClass = 'sched';
+                statusLabel = 'Agendado';
             }
+        }
+
+        // Busca métricas se existirem
+        let views = 0;
+        if (analyticsData && analyticsData.topPages) {
+            const page = analyticsData.topPages.find(item => item.pagePath === `/blog/${p.slug}` || item.pagePath === `/blog/${p.slug}.html`);
+            if (page) views = page.screenPageViews || 0;
         }
 
         return '<div class="post-item' + (p.id === currentId ? ' active' : '') + '" data-id="' + p.id + '" onclick="editPost(this.dataset.id)">' +
@@ -1535,11 +1535,14 @@ function renderSidebar() {
             '<div class="post-item-meta">' +
                 '<span class="post-item-cat">' + esc(p.categoryLabel || p.category) + '</span>' +
                 '<span class="status-dot ' + statusClass + '"></span>' +
-                '<span class="status-text">' + statusText + '</span>' +
-                (views > 0 ? '<span class="post-item-views"><svg width="10" height="10" style="margin-right:3px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>' + views + '</span>' : '') +
+                '<span class="status-text ' + statusClass + '">' + statusLabel + '</span>' +
             '</div>' +
+            (views > 0 ? '<div class="post-item-metrics"><svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> ' + views.toLocaleString('pt-BR') + ' views</div>' : '') +
         '</div>';
     }).join('');
+    
+    // Se acabamos de carregar analytics e já tínhamos posts, renderSidebar não foi chamado com data.
+    // Mas syncOfficialBlog chama renderSidebar, e renderTrafficAnalytics é chamado depois no login/init.
     renderAnalytics();
 }
 
