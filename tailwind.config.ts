@@ -19,6 +19,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
+        serif: ["Outfit", "sans-serif"],
       },
       backgroundImage: {
         "gradient-brand": "linear-gradient(135deg, #003956 0%, #005a8a 100%)",
