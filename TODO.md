@@ -6,6 +6,9 @@
 
 ## 🔴 Crítico (fazer antes do próximo push sério)
 
+- [ ] **Filtrar posts agendados no Blog (Next.js)** - Crítico para que o agendamento funcione (atualmente todos os posts são visíveis)
+  - Modificar o endpoint da API no Next.js para comparar data atual com 'date' e 'time' do post.
+
 - [ ] **Substituir número de WhatsApp fictício pelo número real**
   - Buscar em: `public/mb-finance-completo.html`, `public/assets/js/use-cases/lead.js`, `public/assets/js/use-cases/partnership.js`, todos os HTMLs em `public/pages/`, componentes Next.js
 

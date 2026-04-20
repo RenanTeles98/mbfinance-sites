@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(find C:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites:*)",
+      "Bash(find . -type f \\\\\\( -name \"*.tsx\" -o -name \"*.ts\" -o -name \"*.jsx\" -o -name \"*.js\" \\\\\\) ! -path \"*/node_modules/*\" ! -path \"*/.git/*\" ! -path \"*/.next/*\" -exec grep -l \"bank\\\\|tax\\\\|telemedicina\\\\|cartao\\\\|maquina\" {} \\\\;)",
+      "Bash(grep -E \"\\\\.\\(png|jpg|pdf\\)$\")",
+      "Bash(ls -1 public/*.png public/*.jpg)",
+      "Bash(rm bank.png tax.png telemedicina.jpg \"maquina-de-cartao.jpg\" \"POLÍTICA DE PRIVACIDADE - Mb finance.pdf\" \"Termos de uso - mb finance.pdf\" apply_navbar.py apply_legal_navbar.py fix_encoding.py sync_footers.py sync_footers.js)",
+      "Bash(rm -rf _tmp_icons)",
+      "Bash(grep:*)",
+      "Bash(python3 -c \"import json,sys; posts=json.load\\(sys.stdin\\); print\\(f'Total de posts: {len\\(posts\\)}'\\); [print\\(f'- {p[\\\\\"id\\\\\"]}: {p[\\\\\"title\\\\\"][:50]}'\\) for p in posts]\")",
+      "Bash(python3 -c ':*)",
+      "Bash(mkdir -p \"C:/Users/MB NEGOCIOS/Mb finance- Sites/public/assets/css\")",
+      "Bash(mkdir -p \"C:/Users/MB NEGOCIOS/Mb finance- Sites/public/assets/js/infra\")",
+      "Bash(mkdir -p \"C:/Users/MB NEGOCIOS/Mb finance- Sites/public/assets/js/use-cases\")",
+      "Bash(mkdir -p \"C:/Users/MB NEGOCIOS/Mb finance- Sites/public/assets/js/ui\")",
+      "Bash(python3 -)",
+      "Read(//c/Users/MB NEGOCIOS/Downloads/**)",
+      "Read(//c/Users/MB NEGOCIOS/**)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/Git/cmd:/c/Program Files/Git/bin\")",
+      "Bash(git push *)",
+      "Bash(git fetch *)",
+      "Bash(npx vercel *)",
+      "Bash(export PATH=\"/c/Program Files/Git/cmd:/c/Program Files/Git/bin:$PATH\")",
+      "Bash(powershell.exe -Command \"Copy-Item 'app/favicon.ico' 'public/favicon.ico'\")",
+      "Bash(export PATH=\"/c/Windows/System32:$PATH\")",
+      "Bash(powershell.exe -Command \"Copy-Item 'C:/Users/MB NEGOCIOS/Mb finance- Sites/app/favicon.ico' 'C:/Users/MB NEGOCIOS/Mb finance- Sites/public/favicon.ico'\")",
+      "Bash(export PATH=\"/c/Windows/System32/WindowsPowerShell/v1.0:$PATH\")",
+      "Bash(powershell -Command \"Copy-Item 'C:/Users/MB NEGOCIOS/Mb finance- Sites/app/favicon.ico' 'C:/Users/MB NEGOCIOS/Mb finance- Sites/public/favicon.ico'; Write-Output ok\")"
+    ]
+  }
+}

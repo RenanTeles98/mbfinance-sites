@@ -4,7 +4,13 @@
       "Read(//tmp/**)",
       "Bash(rm -f conta-pj.png credito-rapido.png logo-horizontal-logo.branca.png logo-horizontal-logo.png.png maquina-de-cartao.png seguro-e-consorcios.png solucoes-personalizadas.png solucoes-tributarias.png telemedicina.png)",
       "Bash(cp \"POLÍTICA DE PRIVACIDADE - Mb finance.pdf\" \"public/POLÍTICA DE PRIVACIDADE - Mb finance.pdf\")",
-      "Bash(cp \"Termos de uso - mb finance.pdf\" \"public/Termos de uso - mb finance.pdf\")"
+      "Bash(cp \"Termos de uso - mb finance.pdf\" \"public/Termos de uso - mb finance.pdf\")",
+      "Bash(npm run build)",
+      "Bash(npx skills find design)",
+      "Bash(npx skills find awesome design)",
+      "Bash(curl -s https://mbfinance-sites.vercel.app/api/blog/posts)",
+      "Bash(python3 -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(p[''id''],''->'',p.get\\(''categoryLabel'',''''\\),''->'',p.get\\(''excerpt'',''''\\)[:60]\\) for p in data[''posts'']]\")",
+      "Bash(npm install resend)"
     ]
   }
 }

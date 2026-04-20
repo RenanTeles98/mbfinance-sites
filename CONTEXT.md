@@ -29,9 +29,14 @@
 - [x] `public/pages/termos-de-uso.html` com texto auxiliar do hero ajustado para branco com 90% de opacidade
 - [x] `public/pages/politica-de-privacidade.html` com texto auxiliar do hero ajustado para branco com 90% de opacidade
 - [x] Seção `Escala` da timeline em `public/pages/sobre.html` com texto e ícone invertidos e checkpoint alinhado ao eixo principal
+- [x] Painel Administrativo do Blog (`public/pages/blog-admin.html`) totalmente funcional
+- [x] Calendário Editorial Visual para planejamento mensal de posts
+- [x] Sistema de Agendamento (campo de Hora + Status Inteligente: Publicado/Agendado/Rascunho)
+- [x] Métricas do Google Analytics 4 integradas por post no painel administrativo
 
 ### O que está pendente / incompleto
 
+- [ ] Filtrar posts agendados no Blog (Next.js) — atualmente todos aparecem independente da data futura
 - [ ] `public/pages/sobre.html` ainda com CSS/JS inline — precisa refatorar
 - [ ] `public/pages/blog.html` ainda com CSS/JS inline — precisa refatorar
 - [ ] `public/pages/politica-de-privacidade.html` e `termos-de-uso.html` — refatorar
@@ -49,11 +54,12 @@ _(nenhum bug conhecido em produção no momento)_
 
 ## Onde o trabalho parou (última sessão — 2026-04-20)
 
-Sessão focada em:
-1. Limpeza e renomeação do menu do painel administrativo do blog (`public/pages/blog-admin.html`).
-2. Remoção do item "Podcast" (placeholder).
-3. Renomeação de "Banners" para "Publicidade" e "Analytics" para "Métricas do site".
-
+Sessão focada na transformação do Painel Administrativo do Blog em uma CMS robusta:
+1. Limpeza e renomeação do menu: "Publicidade" e "Métricas do site".
+2. Implementação do **Calendário Editorial** (visão mensal).
+3. Adição de campo de **Hora** nos posts para agendamento preciso.
+4. Lógica de **Status** colorida: Publicado (verde), Agendado (laranja), Rascunho (cinza).
+5. Integração de métricas de visualização por post na listagem.
 
 Arquivos modificados nesta sessão:
 - `public/pages/blog-admin.html`
@@ -62,7 +68,7 @@ Arquivos modificados nesta sessão:
 - `TODO.md`
 - `docs/sessions/2026-04-20.md`
 
-Próximo passo recomendado: seguir com a refatoração das páginas legadas (`sobre.html`, `blog.html`) para extração de CSS/JS, mantendo a consistência visual.
+Próximo passo recomendado: Ajustar o endpoint do Blog no Next.js para respeitar a data/hora e não exibir posts agendados (futuros).
 
 
 ---

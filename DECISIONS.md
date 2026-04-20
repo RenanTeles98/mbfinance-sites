@@ -187,3 +187,23 @@ Remover o item "Podcast" e renomear "Banners" para "Publicidade" para melhor ali
 - Menu mais limpo e focado no conteÃºdo atual.
 - Melhor clareza sobre a funcionalidade de gerenciamento de anÃºncios.
 
+
+---
+
+## ADR-009: Implementação do Calendário Editorial e Status de Agendamento
+**Data:** 2026-04-20
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+O usuário precisava de uma forma visual de planejar o conteúdo mensal do blog e agendar posts para datas e horários futuros para automação.
+
+### Decisão
+Implementar uma aba de **Calendário Editorial** (visão de matriz mensal) no painel administrativo e expandir o schema de posts para incluir um campo 'time'. Implementar uma lógica de status baseada na data atual:
+- **Publicado:** Data no passado e 'published' true.
+- **Agendado:** Data no futuro e 'published' true.
+- **Rascunho:** 'published' false.
+
+### Consequências
+- Maior controle editorial sobre o fluxo de postagens.
+- Exigência de ajuste no frontend do blog (Next.js) para filtrar posts agendados e não exibi-los antes do tempo.
