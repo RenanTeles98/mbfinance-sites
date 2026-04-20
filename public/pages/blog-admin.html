@@ -310,6 +310,43 @@
         .spell-ok { text-align:center; padding:20px 0; }
         .spell-ok .spell-ok-icon { font-size:40px; margin-bottom:8px; }
         .spell-ok p { color:#16a34a; font-weight:700; font-size:15px; }
+
+        /* IA GENERATOR STYLES */
+        .generator-wrap { padding: 40px; max-width: 900px; margin: 0 auto; }
+        .gen-card { 
+            background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 24px; 
+            margin-bottom: 20px; transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden;
+        }
+        .gen-card:hover { border-color: #0099dd; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,153,221,0.1); }
+        .gen-card.premium { border-left: 5px solid #0099dd; }
+        .gen-badge { 
+            display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 10px; 
+            font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+        }
+        .badge-trend { background: #eff6ff; color: #1d4ed8; }
+        .badge-evergreen { background: #f0fdf4; color: #15803d; }
+        .badge-news { background: #fff7ed; color: #c2410c; }
+        
+        .gen-title { font-size: 18px; font-weight: 800; color: #003956; margin-bottom: 8px; line-height: 1.3; }
+        .gen-desc { font-size: 14px; color: #64748b; line-height: 1.6; margin-bottom: 16px; }
+        .gen-meta { display: flex; gap: 16px; font-size: 12px; color: #94a3b8; font-weight: 600; align-items: center; }
+        
+        .magic-btn {
+            background: linear-gradient(135deg, #003956 0%, #0099dd 100%);
+            color: #fff; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 700;
+            cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;
+        }
+        .magic-btn:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(0,153,221,0.3); }
+        .magic-btn svg { filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
+
+        .ai-loading {
+            display: none; text-align: center; padding: 40px;
+        }
+        .shimmer {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%; animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
     </style>
 </head>
 <body>
@@ -366,6 +403,10 @@
         <button class="tab-btn" id="tabBtn-calendar" onclick="switchTab('calendar')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             Calendário Editorial
+        </button>
+        <button class="tab-btn" id="tabBtn-generator" onclick="switchTab('generator')">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Gerador (IA)
         </button>
         <button class="tab-btn" id="tabBtn-newsletter" onclick="switchTab('newsletter')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -459,29 +500,6 @@
                             <span id="upload-label">Clique para selecionar ou arraste a imagem aqui</span>
                             <span id="upload-filename" class="upload-filename"></span>
                         </div>
-                        <div style="display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;">
-                            <div style="display:flex;align-items:flex-start;gap:7px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;flex:1;min-width:160px;">
-                                <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                                <div>
-                                    <div style="font-size:11px;font-weight:800;color:#003956;margin-bottom:2px;">Capa / Destaque</div>
-                                    <div style="font-size:11px;color:#64748b;line-height:1.5;">1200 Á— 630 px<br>Proporção 16:9 · JPG ou PNG</div>
-                                </div>
-                            </div>
-                            <div style="display:flex;align-items:flex-start;gap:7px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;flex:1;min-width:160px;">
-                                <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><rect x="3" y="3" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M3 9l4-4 4 4 4-4 4 4"/></svg>
-                                <div>
-                                    <div style="font-size:11px;font-weight:800;color:#003956;margin-bottom:2px;">Card do blog</div>
-                                    <div style="font-size:11px;color:#64748b;line-height:1.5;">800 Á— 450 px<br>Proporção 16:9 · máx. 500 KB</div>
-                                </div>
-                            </div>
-                            <div style="display:flex;align-items:flex-start;gap:7px;background:#fff8ed;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;flex:1;min-width:160px;">
-                                <svg width="16" height="16" fill="none" stroke="#d97706" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 8v4M12 16h.01"/></svg>
-                                <div>
-                                    <div style="font-size:11px;font-weight:800;color:#92400e;margin-bottom:2px;">Dica SEO</div>
-                                    <div style="font-size:11px;color:#78350f;line-height:1.5;">Essa imagem também aparece<br>quando o link é compartilhado<br>no WhatsApp e redes sociais</div>
-                                </div>
-                            </div>
-                        </div>
                         <input style="display:none" id="f-image-b64">
                     </div>
                     <img id="img-preview" class="img-preview" alt="Preview">
@@ -514,7 +532,13 @@
                 </div>
 
                 <div class="field-group">
-                    <label class="field-label">Conteúdo do Artigo</label>
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <label class="field-label" style="margin-bottom:0;">Conteúdo do Artigo</label>
+                        <button type="button" class="magic-btn" style="padding: 6px 12px; font-size: 11px; border-radius: 8px;" onclick="writeWithAI()">
+                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                            Escrever com IA
+                        </button>
+                    </div>
                     <div class="editor-wrap">
                         <div class="editor-toolbar">
                             <button class="tb-btn" onclick="cmd('bold')" title="Negrito"><b>N</b></button>
@@ -954,6 +978,52 @@
             </div>
         </div>
     </div>
+
+    <!-- GENERATOR PANEL -->
+    <div id="tab-generator">
+        <div class="generator-wrap">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 32px; color: #003956; margin-bottom: 12px;">Gerador de Conteúdo IA</h2>
+                <p style="color: #64748b; font-size: 16px;">Sugerimos tópicos e criamos rascunhos baseados no seu nicho de finanças empresariais.</p>
+                <div style="margin-top: 32px; display: flex; justify-content: center; gap: 12px;">
+                    <button class="magic-btn" onclick="generateIdeas()">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                        Gerar novas ideias de posts
+                    </button>
+                </div>
+            </div>
+
+            <div id="ai-loading-state" class="ai-loading">
+                <div style="margin: 0 auto; width: 60px; height: 60px; border: 4px solid #f1f5f9; border-top-color: #0099dd; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
+                <p style="font-weight: 700; color: #003956;">Analisando tendências do mercado financeiro...</p>
+            </div>
+
+            <div id="gen-results">
+                <!-- Ideias iniciais (mockup realista) -->
+                <div class="gen-card premium" onclick="applyIdea('A importância do Capital de Giro para a sobrevivência de pequenas empresas no Brasil', 'Um guia completo explicando o que é, como calcular e as melhores estratégias de manutenção.')">
+                    <span class="gen-badge badge-trend">Tendência</span>
+                    <h3 class="gen-title">A importância do Capital de Giro para a sobrevivência de pequenas empresas no Brasil</h3>
+                    <p class="gen-desc">Um guia completo explicando o que é, como calcular e as melhores estratégias de manutenção para garantir o fôlego da empresa.</p>
+                    <div class="gen-meta">
+                        <span>Pilar: Gestão</span>
+                        <span>Tempo: 6 min</span>
+                        <span style="color: #0099dd;">→ Criar Rascunho IA</span>
+                    </div>
+                </div>
+
+                <div class="gen-card premium" onclick="applyIdea('Antecipação de Recebíveis vs. Empréstimo Bancário: Qual a melhor opção?', 'Comparativo técnico entre as duas modalidades de crédito mais usadas no mercado B2B.')">
+                    <span class="gen-badge badge-evergreen">Conteúdo Base</span>
+                    <h3 class="gen-title">Antecipação de Recebíveis vs. Empréstimo Bancário: Qual a melhor opção?</h3>
+                    <p class="gen-desc">Comparativo técnico focado em taxas, velocidade de liberação e impacto no balanço patrimonial para o empresário.</p>
+                    <div class="gen-meta">
+                        <span>Pilar: Crédito</span>
+                        <span>Tempo: 8 min</span>
+                        <span style="color: #0099dd;">→ Criar Rascunho IA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="save-toast">âœ“ Post salvo!</div>
@@ -1300,7 +1370,107 @@ function fillForm(p) {
     updateImgPreview(p.image || '');
 }
 
+/* ── AI GENERATOR LOGIC ── */
+async function generateIdeas() {
+    const loader = document.getElementById('ai-loading-state');
+    const results = document.getElementById('gen-results');
+    loader.style.display = 'block';
+    results.innerHTML = '';
+    
+    // Simulação de pesquisa de nicho
+    await new Promise(r => setTimeout(r, 2000));
+    
+    const pool = [
+        { title: "Como o Open Finance está mudando as taxas de empréstimo para empresas", pillar: "Mercado", desc: "Uma análise profunda de como compartilhar seus dados financeiros pode reduzir o custo do crédito.", badge: "badge-trend", label: "Tendência" },
+        { title: "O guia do fluxo de caixa perfeito: Ferramentas e Hábitos", pillar: "Gestão", desc: "Checklist diário para o empresário que não quer perder o controle das contas a pagar e receber.", badge: "badge-evergreen", label: "Base" },
+        { title: "BNDES vs Fintechs: De onde virá o seu próximo aporte?", pillar: "Crédito", desc: "Comparamos a burocracia dos grandes bancos com a agilidade das novas plataformas de crédito.", badge: "badge-trend", label: "Tendência" },
+        { title: "5 Erros fatais na gestão da conta PJ que drenam o lucro", pillar: "Conta PJ", desc: "Identifique e corrija taxas ocultas e má gestão antes que o mês termine no vermelho.", badge: "badge-news", label: "Alerta" }
+    ];
+    
+    loader.style.display = 'none';
+    results.innerHTML = pool.map(i => `
+        <div class="gen-card premium" onclick="applyIdea('${i.title}', '${i.desc}')">
+            <span class="gen-badge ${i.badge}">${i.label}</span>
+            <h3 class="gen-title">${i.title}</h3>
+            <p class="gen-desc">${i.desc}</p>
+            <div class="gen-meta">
+                <span>Pilar: ${i.pillar}</span>
+                <span>Tempo: 5 min</span>
+                <span style="color: #0099dd;">→ Criar Rascunho IA</span>
+            </div>
+        </div>
+    `).join('');
+}
 
+function applyIdea(title, excerpt) {
+    newPost();
+    document.getElementById('f-title').value = title;
+    document.getElementById('f-excerpt').value = excerpt;
+    showToast("Ideia importada! Agora clique em 'Escrever com IA' no corpo do texto.");
+}
+
+async function writeWithAI() {
+    const title = document.getElementById('f-title').value;
+    const editor = document.getElementById('editor-content');
+    
+    if (!title) return alert("Por favor, preencha o título primeiro para que a IA saiba sobre o que escrever.");
+    
+    editor.innerHTML = "Gerando rascunho inteligente...";
+    editor.style.opacity = '0.5';
+    
+    // Simulação de escrita baseada no nicho
+    await new Promise(r => setTimeout(r, 3000));
+    
+    const article = `<h2>1. Introdução ao tema: ${title}</h2>
+<p>No atual cenário econômico brasileiro, empresários enfrentam desafios constantes para manter a saúde financeira de seus negócios. Compreender ${title.toLowerCase()} não é apenas um diferencial, mas uma necessidade de sobrevivência e crescimento.</p>
+
+<h2>2. O contexto do setor</h2>
+<p>A gestão eficiente dos recursos permite que a empresa aproveite oportunidades de mercado sem comprometer sua liquidez. É fundamental analisar como as tendências de crédito e tecnologia impactam diretamente o dia a dia da operação.</p>
+
+<h2>3. Passo a passo para implementação</h2>
+<ul>
+    <li>Análise de métricas internas;</li>
+    <li>Avaliação de parceiros financeiros estratégicos;</li>
+    <li>Revisão periódica de taxas e custos ocultos;</li>
+    <li>Foco em automação de processos.</li>
+</ul>
+
+<h2>4. Conclusão</h2>
+<p>Em resumo, focar em ${title.toLowerCase()} permite uma visão mais clara do futuro do negócio. Na MB Finance, acreditamos que a informação é a melhor ferramenta para o sucesso empresarial.</p>`;
+
+    editor.innerHTML = article;
+    editor.style.opacity = '1';
+    showToast("Rascunho gerado com sucesso!");
+}
+
+/* ── UTILS ── */
+function uid() { return Date.now().toString(36) + Math.random().toString(36).substr(2); }
+function today() { return new Date().toISOString().split('T')[0]; }
+function fmtDate(d) { return new Date(d + 'T12:00:00').toLocaleDateString('pt-BR'); }
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function slugify(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); }
+function calcReadTime(c) { const w = c.replace(/<[^>]+>/g, '').split(/\s+/).length; return Math.ceil(w / 200) + ' min'; }
+
+function getBannersConfig() {
+    return {
+        slot1: localStorage.getItem('mb_banner_slot1') || '',
+        slot2: localStorage.getItem('mb_banner_slot2') || ''
+    };
+}
+
+function saveBanners() {
+    localStorage.setItem('mb_banner_slot1', document.getElementById('banner-slot1').value);
+    localStorage.setItem('mb_banner_slot2', document.getElementById('banner-slot2').value);
+    const status = document.getElementById('banners-status');
+    status.style.display = 'inline-flex';
+    setTimeout(() => status.style.display = 'none', 3000);
+}
+
+function loadBannersForm() {
+    const b = getBannersConfig();
+    document.getElementById('banner-slot1').value = b.slot1;
+    document.getElementById('banner-slot2').value = b.slot2;
+}
 
 function formatAnalyticsDate(value) {
     if (!value) return 'Sem data';
@@ -1768,7 +1938,7 @@ function previewPost() {
             <h1 class="preview-h1">${esc(title)}</h1>
             <div class="preview-meta">
                 <span>ðŸ“… ${fmtDate(date)}</span>
-                <span>â± ${esc(rt)}</span>
+                <span>â ± ${esc(rt)}</span>
             </div>
             ${excerpt ? `<div class="preview-excerpt">${esc(excerpt)}</div>` : ''}
             <div class="preview-content">${content}</div>
@@ -1981,7 +2151,7 @@ ${artSidebarCSS}
     <h1>${esc(p.title)}</h1>
     <div class="art-meta">
       <span>ðŸ“… ${fmtDate(p.date)}</span>
-      <span>â± ${esc(p.readTime)}</span>
+      <span>â ± ${esc(p.readTime)}</span>
     </div>
   </div>
 </div>
@@ -2202,6 +2372,7 @@ function switchTab(tab) {
         banners: document.getElementById('tab-banners'),
         analytics: document.getElementById('tab-analytics'),
         calendar: document.getElementById('tab-calendar'),
+        generator: document.getElementById('tab-generator'),
         newsletter: document.getElementById('tab-newsletter')
     };
 
