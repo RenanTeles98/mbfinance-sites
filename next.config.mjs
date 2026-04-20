@@ -22,6 +22,11 @@ const nextConfig = {
         destination: "/blog/fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes",
         permanent: true,
       },
+      {
+        source: "/blog-admin.html",
+        destination: "/pages/blog-admin.html",
+        permanent: false,
+      },
     ];
   },
 };
