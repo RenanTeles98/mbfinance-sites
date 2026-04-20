@@ -248,6 +248,26 @@
         }
         .slot-preview { margin-top: 14px; padding: 12px 14px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
         .slot-preview-box { background: #e2e8f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.5px; }
+
+        /* VERIFICADOR ORTOGRÁFICO */
+        #spell-modal { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.55); align-items:center; justify-content:center; }
+        #spell-modal.open { display:flex; }
+        .spell-card { background:#fff; border-radius:20px; padding:36px 32px; max-width:560px; width:90%; max-height:80vh; overflow-y:auto; box-shadow:0 24px 80px rgba(0,0,0,0.25); }
+        .spell-card h3 { font-size:18px; font-weight:800; color:#003956; margin-bottom:6px; }
+        .spell-card .spell-sub { font-size:13px; color:#64748b; margin-bottom:20px; }
+        .spell-error-list { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
+        .spell-error-item { background:#fef3c7; border-left:4px solid #f59e0b; border-radius:0 10px 10px 0; padding:10px 14px; }
+        .spell-error-item .spell-word { font-weight:700; color:#92400e; font-size:13px; margin-bottom:2px; }
+        .spell-error-item .spell-msg { font-size:12px; color:#78350f; }
+        .spell-error-item .spell-suggest { font-size:12px; color:#003956; margin-top:4px; font-style:italic; }
+        .spell-actions { display:flex; gap:10px; justify-content:flex-end; }
+        .spell-btn-fix { background:#003956; color:#fff; border:none; border-radius:10px; padding:10px 20px; font-size:13px; font-weight:700; cursor:pointer; }
+        .spell-btn-fix:hover { background:#002840; }
+        .spell-btn-anyway { background:#f1f5f9; color:#64748b; border:none; border-radius:10px; padding:10px 20px; font-size:13px; font-weight:600; cursor:pointer; }
+        .spell-btn-anyway:hover { background:#e2e8f0; }
+        .spell-ok { text-align:center; padding:20px 0; }
+        .spell-ok .spell-ok-icon { font-size:40px; margin-bottom:8px; }
+        .spell-ok p { color:#16a34a; font-weight:700; font-size:15px; }
     </style>
 </head>
 <body>
@@ -696,6 +716,19 @@
     </div>
 </div>
 
+<!-- MODAL VERIFICADOR ORTOGRÁFICO -->
+<div id="spell-modal">
+    <div class="spell-card">
+        <h3 id="spell-modal-title">Verificando ortografia...</h3>
+        <p class="spell-sub" id="spell-modal-sub">Aguarde enquanto analisamos o texto.</p>
+        <div id="spell-modal-body"></div>
+        <div class="spell-actions" id="spell-modal-actions" style="display:none">
+            <button class="spell-btn-anyway" onclick="spellProceed()">Publicar mesmo assim</button>
+            <button class="spell-btn-fix" onclick="spellClose()">Corrigir texto</button>
+        </div>
+    </div>
+</div>
+
 <script>
 const STORAGE_KEY = 'mb_blog_posts';
 const SESSION_KEY = 'mb_admin_auth';
@@ -817,6 +850,72 @@ function editPost(id) {
     if (el) el.classList.add('active');
 }
 
+/* ── VERIFICADOR ORTOGRÁFICO ── */
+let _spellCallback = null;
+
+function spellClose() {
+    document.getElementById('spell-modal').classList.remove('open');
+    _spellCallback = null;
+}
+
+function spellProceed() {
+    document.getElementById('spell-modal').classList.remove('open');
+    if (_spellCallback) { _spellCallback(); _spellCallback = null; }
+}
+
+async function checkSpelling(text, onOk) {
+    const modal = document.getElementById('spell-modal');
+    const modalTitle = document.getElementById('spell-modal-title');
+    const modalSub = document.getElementById('spell-modal-sub');
+    const modalBody = document.getElementById('spell-modal-body');
+    const modalActions = document.getElementById('spell-modal-actions');
+
+    modalTitle.textContent = 'Verificando ortografia...';
+    modalSub.textContent = 'Aguarde enquanto analisamos o texto.';
+    modalBody.innerHTML = '';
+    modalActions.style.display = 'none';
+    modal.classList.add('open');
+
+    try {
+        const params = new URLSearchParams({ text, language: 'pt-BR', enabledOnly: 'false' });
+        const res = await fetch('https://api.languagetool.org/v2/check', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params.toString()
+        });
+        const data = await res.json();
+        const errors = (data.matches || []).filter(m => m.rule && m.rule.issueType !== 'style');
+
+        if (errors.length === 0) {
+            modalTitle.textContent = 'Tudo certo!';
+            modalSub.textContent = 'Nenhum erro ortográfico encontrado.';
+            modalBody.innerHTML = '<div class="spell-ok"><div class="spell-ok-icon">✅</div><p>Texto aprovado. Publicando...</p></div>';
+            modalActions.style.display = 'none';
+            setTimeout(() => { modal.classList.remove('open'); onOk(); }, 1200);
+        } else {
+            modalTitle.textContent = `${errors.length} problema(s) encontrado(s)`;
+            modalSub.textContent = 'Revise os erros abaixo antes de publicar.';
+            const list = document.createElement('div');
+            list.className = 'spell-error-list';
+            errors.slice(0, 15).forEach(m => {
+                const word = text.substring(m.offset, m.offset + m.length);
+                const suggestions = (m.replacements || []).slice(0, 3).map(r => r.value).join(', ');
+                list.innerHTML += `<div class="spell-error-item">
+                    <div class="spell-word">"${word}"</div>
+                    <div class="spell-msg">${m.message}</div>
+                    ${suggestions ? `<div class="spell-suggest">Sugestão: ${suggestions}</div>` : ''}
+                </div>`;
+            });
+            modalBody.appendChild(list);
+            modalActions.style.display = 'flex';
+            _spellCallback = onOk;
+        }
+    } catch(e) {
+        modal.classList.remove('open');
+        onOk();
+    }
+}
+
 async function savePost() {
     const title = document.getElementById('f-title').value.trim();
     if (!title) { alert('O título é obrigatório.'); document.getElementById('f-title').focus(); return; }
@@ -843,23 +942,31 @@ async function savePost() {
         keywords:      document.getElementById('f-keywords').value.trim(),
     };
 
-    if (currentId) {
-        const i = posts.findIndex(x => x.id === currentId);
-        if (i !== -1) posts[i] = post;
-    } else {
-        posts.unshift(post);
-        currentId = post.id;
-        document.getElementById('form-title').textContent = 'Editar Post';
-        document.getElementById('btn-delete').style.display = '';
+    async function doSave() {
+        if (currentId) {
+            const i = posts.findIndex(x => x.id === currentId);
+            if (i !== -1) posts[i] = post;
+        } else {
+            posts.unshift(post);
+            currentId = post.id;
+            document.getElementById('form-title').textContent = 'Editar Post';
+            document.getElementById('btn-delete').style.display = '';
+        }
+        persistLocal();
+        renderSidebar();
+        document.querySelectorAll('.post-item').forEach(el => el.classList.remove('active'));
+        const el = document.querySelector(`.post-item[data-id="${currentId}"]`);
+        if (el) el.classList.add('active');
+        await syncOfficialBlog(false);
+        showToast();
     }
 
-    persistLocal();
-    renderSidebar();
-    document.querySelectorAll('.post-item').forEach(el => el.classList.remove('active'));
-    const el = document.querySelector(`.post-item[data-id="${currentId}"]`);
-    if (el) el.classList.add('active');
-    await syncOfficialBlog(false);
-    showToast();
+    if (post.published) {
+        const textToCheck = [title, post.excerpt, post.content.replace(/<[^>]+>/g, ' ')].join(' ');
+        await checkSpelling(textToCheck, doSave);
+    } else {
+        await doSave();
+    }
 }
 
 async function deleteCurrentPost() {
