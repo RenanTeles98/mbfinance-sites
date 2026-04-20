@@ -228,3 +228,24 @@ Implementar uma aba "Gerador (IA)" que combina:
 - Aumento drástico na produtividade editorial.
 - Dependência de scripts externos (Google Trends) que podem ter políticas de CORS ou carregamento variável.
 - Necessidade de futura expansão da base de prompts/tópicos para manter a relevância das sugestões.
+
+---
+
+## ADR-011: Unificakuo do Canal de Recrutamento (Inhire portal)
+
+**Data:** 2026-04-20
+**Status:** Aceita
+
+### Contexto
+
+A MB Finance utiliza um portal externo de recrutamento (Inhire). Houve a necessidade de redirecionar todos os links legados de 'Trabalhe Conosco' que apontavam para uncoras internas (#vagas) ou caminhos relativos inexistentes.
+
+### Decisuo
+
+Substituir todas as referGncias ao link de recrutamento nos rodap?s (Next.js e HTML Legado) pela URL absoluta: https://mbfinance.inhire.app/vagas.
+
+### ConsequGncias
+
+- Fluxo de candidatos centralizado no portal oficial.
+- Eliminakuo de links quebrados em poginas secundorias.
+- Recuperakuo estrutural da pogina de Termos de Uso (que apresentava corrupkuo de markup no rodap?).

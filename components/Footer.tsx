@@ -42,6 +42,7 @@ const company = [
   { label: "Como Funciona", href: "#como-funciona" },
   { label: "Diferenciais", href: "#diferenciais" },
   { label: "Depoimentos", href: "#depoimentos" },
+  { label: "Trabalhe Conosco", href: "https://mbfinance.inhire.app/vagas" },
 ];
 
 export default function Footer() {
