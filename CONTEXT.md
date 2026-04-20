@@ -50,9 +50,10 @@ _(nenhum bug conhecido em produção no momento)_
 ## Onde o trabalho parou (última sessão — 2026-04-20)
 
 Sessão focada em:
-1. Limpeza do menu do painel administrativo do blog (`public/pages/blog-admin.html`).
+1. Limpeza e renomeação do menu do painel administrativo do blog (`public/pages/blog-admin.html`).
 2. Remoção do item "Podcast" (placeholder).
-3. Renomeação do item "Banners" para "Publicidade" para maior clareza semântica.
+3. Renomeação de "Banners" para "Publicidade" e "Analytics" para "Métricas do site".
+
 
 Arquivos modificados nesta sessão:
 - `public/pages/blog-admin.html`
