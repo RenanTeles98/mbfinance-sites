@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { readFeaturedPost, readPublishedBlogPosts } from "@/lib/blog-store";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Blog MB Finance",
   description:
