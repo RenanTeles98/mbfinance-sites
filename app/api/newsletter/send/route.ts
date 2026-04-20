@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const { subject, previewText, body, targetTag } = await request.json();
+  const { subject, previewText, body, targetTag, fromName, fromEmail, replyTo } = await request.json();
 
   if (!subject?.trim() || !body?.trim()) {
     return NextResponse.json({ ok: false, error: "Assunto e conteúdo são obrigatórios" }, { status: 400 });
@@ -80,7 +80,8 @@ export async function POST(request: Request) {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const fromEmail = process.env.RESEND_FROM_EMAIL || "newsletter@mbfinance.com.br";
+  const senderEmail = fromEmail || process.env.RESEND_FROM_EMAIL || "newsletter@mbfinance.com.br";
+  const senderName  = fromName  || "MB Finance";
 
   let sent = 0;
   let failed = 0;
@@ -92,10 +93,11 @@ export async function POST(request: Request) {
     const chunk = active.slice(i, i + BATCH);
     try {
       const emails = chunk.map((sub) => ({
-        from: `MB Finance <${fromEmail}>`,
+        from: `${senderName} <${senderEmail}>`,
         to: sub.email,
         subject,
         html: buildEmailHtml(subject, previewText || "", body, sub.email),
+        ...(replyTo && { replyTo }),
       }));
 
       const { error } = await resend.batch.send(emails);
