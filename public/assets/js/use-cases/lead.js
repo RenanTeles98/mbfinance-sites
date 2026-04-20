@@ -133,7 +133,8 @@ function toggleNewsletter() {
             if (!entry.isIntersecting) return;
             observer.unobserve(entry.target);
             const el = entry.target;
-            const target = parseInt(el.getAttribute('data-counter'));
+            const target = parseFloat(el.getAttribute('data-counter'));
+            const isDecimal = target % 1 !== 0;
             const prefix = el.getAttribute('data-prefix') || '';
             const suffix = el.getAttribute('data-suffix') || '';
             const duration = 1400;
@@ -141,7 +142,8 @@ function toggleNewsletter() {
             function update(now) {
                 const progress = Math.min((now - start) / duration, 1);
                 const ease = 1 - Math.pow(1 - progress, 1.5);
-                const value = progress >= 0.99 ? target : Math.floor(ease * target);
+                const raw = progress >= 0.99 ? target : ease * target;
+                const value = isDecimal ? raw.toFixed(1) : Math.floor(raw);
                 el.textContent = prefix + value + suffix;
                 if (progress < 1) requestAnimationFrame(update);
             }

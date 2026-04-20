@@ -257,7 +257,7 @@ export default function SobrePage() {
                 { label: "Parceiro principal", value: "+ 40 parceiros" },
                 { label: "Foco", value: "Empresas de pequeno, médio e grande porte" },
                 { label: "Clientes ativos", value: "+200.000 PJs", primary: true },
-                { label: "Crédito transacionado", value: "R$ 500 milhões / dez de 2025", primary: true },
+                { label: "Crédito transacionado", value: "R$ 1,5 bilhão", primary: true },
               ].map((item) => (
                 <div
                   key={item.label}
