@@ -28,8 +28,7 @@ function IconFacebook() {
   );
 }
 
-const WHATSAPP_NUMBER = "5511999999999";
-const WHATSAPP_MSG = encodeURIComponent("Olá! Vim pelo site da MB Finance.");
+import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 
 const products = [
   { label: "Conta PJ", href: "#produtos" },

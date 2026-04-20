@@ -33,6 +33,8 @@
 - [x] Calendário Editorial Visual para planejamento mensal de posts
 - [x] Sistema de Agendamento (campo de Hora + Status Inteligente: Publicado/Agendado/Rascunho)
 - [x] Métricas do Google Analytics 4 integradas por post no painel administrativo
+- [x] Gerador de Conteúdo IA integrado ao CMS para sugestão automática de pautas
+- [x] Radar Google Trends (Real-time) acoplado ao painel administrativo para análise de nicho
 
 ### O que está pendente / incompleto
 
@@ -54,12 +56,14 @@ _(nenhum bug conhecido em produção no momento)_
 
 ## Onde o trabalho parou (última sessão — 2026-04-20)
 
-Sessão focada na transformação do Painel Administrativo do Blog em uma CMS robusta:
+Sessão focada na transformação do Painel Administrativo do Blog em uma CMS Inteligente:
 1. Limpeza e renomeação do menu: "Publicidade" e "Métricas do site".
 2. Implementação do **Calendário Editorial** (visão mensal).
 3. Adição de campo de **Hora** nos posts para agendamento preciso.
 4. Lógica de **Status** colorida: Publicado (verde), Agendado (laranja), Rascunho (cinza).
 5. Integração de métricas de visualização por post na listagem.
+6. Implementação do **Gerador de Conteúdo IA** com cards interativos e criação automática de rascunhos.
+7. Integração do **Radar Google Trends** via widgets oficiais para monitoramento de volume de busca (Crédito/Mercado).
 
 Arquivos modificados nesta sessão:
 - `public/pages/blog-admin.html`
@@ -68,7 +72,7 @@ Arquivos modificados nesta sessão:
 - `TODO.md`
 - `docs/sessions/2026-04-20.md`
 
-Próximo passo recomendado: Ajustar o endpoint do Blog no Next.js para respeitar a data/hora e não exibir posts agendados (futuros).
+Próximo passo recomendado: Ajustar o endpoint do Blog no Next.js para respeitar a data/hora e não exibir posts agendados (futuros). Outro ponto fundamental é iniciar a modularização dos scripts do admin para um arquivo JS externo.
 
 
 ---

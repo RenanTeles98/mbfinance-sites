@@ -6,11 +6,9 @@
 
 ## 🔴 Crítico (fazer antes do próximo push sério)
 
-- [ ] **Filtrar posts agendados no Blog (Next.js)** - Crítico para que o agendamento funcione (atualmente todos os posts são visíveis)
-  - Modificar o endpoint da API no Next.js para comparar data atual com 'date' e 'time' do post.
+- [x] **Filtrar posts agendados no Blog (Next.js)** - Implementado no `lib/blog-store.ts` e API.
 
-- [ ] **Substituir número de WhatsApp fictício pelo número real**
-  - Buscar em: `public/mb-finance-completo.html`, `public/assets/js/use-cases/lead.js`, `public/assets/js/use-cases/partnership.js`, todos os HTMLs em `public/pages/`, componentes Next.js
+- [x] **Substituir número de WhatsApp fictício pelo número real** - Centralizado em `lib/constants.ts`.
 
 - [ ] **Banner de consentimento de cookies (LGPD)**
   - O site coleta dados via Google Analytics e localStorage — exige consentimento
@@ -24,6 +22,11 @@
 - [ ] Substituir depoimentos fictícios por depoimentos reais de clientes
 - [ ] Adicionar logos dos bancos parceiros na seção de parceiros (carrossel)
 - [ ] Atualizar links de redes sociais no rodapé (`public/mb-finance-completo.html` + `public/pages/`)
+
+### CMS Inteligente (Melhorias)
+- [ ] **Modularizar scripts do blog-admin.html** - O arquivo está ficando muito grande (3200+ linhas); extrair lógica JS para arquivos externos.
+- [ ] **Validar Radar Trends em Mobile** - Verificar se o iframe do Google Trends comporta-se adequadamente em telas menores.
+- [ ] **Aumentar base de tópicos da IA** - Criar um arquivo de configuração para expandir as ideias sugeridas pelo gerador.
 
 ### Refatoração dos HTMLs secundários
 

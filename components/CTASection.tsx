@@ -5,10 +5,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { MessageCircle, ArrowRight } from "lucide-react";
 
-const WHATSAPP_NUMBER = "5511999999999";
-const WHATSAPP_MSG = encodeURIComponent(
-  "Olá! Quero conhecer as melhores condições financeiras para minha empresa através da MB Finance."
-);
+import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 
 export default function CTASection() {
   const ref = useRef(null);

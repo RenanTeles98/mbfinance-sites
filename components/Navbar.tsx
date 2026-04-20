@@ -4,10 +4,7 @@ import { useState, useEffect } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const WHATSAPP_NUMBER = "5511999999999";
-const WHATSAPP_MSG = encodeURIComponent(
-  "Olá! Vim pelo site da MB Finance e gostaria de conhecer as melhores condições para minha empresa."
-);
+import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);

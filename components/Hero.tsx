@@ -4,10 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { BackgroundNodes } from "@/components/BackgroundNodes";
 
-const WHATSAPP_NUMBER = "5511999999999";
-const WHATSAPP_MSG = encodeURIComponent(
-  "Olá! Vim pelo site da MB Finance e quero conhecer as melhores condições financeiras para minha empresa."
-);
+import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 
 export default function Hero() {
   return (

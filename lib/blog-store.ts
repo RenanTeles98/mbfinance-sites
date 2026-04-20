@@ -43,6 +43,7 @@ function normalizePost(post: BlogPost): BlogPost {
     seoTitle: post.seoTitle || "",
     seoDesc: post.seoDesc || "",
     keywords: post.keywords || "",
+    time: post.time || "00:00",
   };
 }
 
@@ -110,7 +111,16 @@ export async function writeBlogPosts(posts: BlogPost[]): Promise<void> {
 
 export async function readPublishedBlogPosts(): Promise<BlogPost[]> {
   const posts = await readBlogPosts();
-  return posts.filter((post) => post.published !== false);
+  const now = new Date();
+  return posts.filter((post) => {
+    if (post.published === false) return false;
+    try {
+        const pubDate = new Date(`${post.date}T${post.time || "00:00"}:00`);
+        return pubDate <= now;
+    } catch {
+        return true;
+    }
+  });
 }
 
 export async function readFeaturedPost(): Promise<BlogPost | null> {

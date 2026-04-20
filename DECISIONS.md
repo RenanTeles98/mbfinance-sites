@@ -207,3 +207,24 @@ Implementar uma aba de **Calendário Editorial** (visão de matriz mensal) no pain
 ### Consequências
 - Maior controle editorial sobre o fluxo de postagens.
 - Exigência de ajuste no frontend do blog (Next.js) para filtrar posts agendados e não exibi-los antes do tempo.
+
+---
+
+## ADR-010: Integração de Gerador de Conteúdo IA e Radar Google Trends
+**Data:** 2026-04-20
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+O fluxo de criação de conteúdo era manual e dependia de pesquisas externas de tendências. O usuário desejava centralizar a inteligência de pauta dentro do CMS.
+
+### Decisão
+Implementar uma aba "Gerador (IA)" que combina:
+1. **Radar Google Trends:** Injeção de widgets oficiais do Google Trends via Iframe dinâmico para monitorar termos do nicho (Crédito, Mercado, etc).
+2. **Gerador de Ideias:** Sistema de sugestão de pautas baseado nos pilares da MB Finance.
+3. **Escrita Assistida:** Integração com o editor de posts para transformar ideias em rascunhos com um clique.
+
+### Consequências
+- Aumento drástico na produtividade editorial.
+- Dependência de scripts externos (Google Trends) que podem ter políticas de CORS ou carregamento variável.
+- Necessidade de futura expansão da base de prompts/tópicos para manter a relevância das sugestões.

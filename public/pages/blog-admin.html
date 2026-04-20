@@ -1022,6 +1022,24 @@
                     </div>
                 </div>
             </div>
+
+            <!-- GOOGLE TRENDS SECTION -->
+            <div style="margin-top: 60px; padding-top: 40px; border-top: 1px dashed #e2e8f0;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                    <div>
+                        <h3 style="font-size: 20px; color: #003956; margin-bottom: 4px;">Radar Google Trends</h3>
+                        <p style="color: #94a3b8; font-size: 13px;">Acompanhe o volume de buscas no Brasil sobre temas do seu nicho.</p>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="calendar-btn" style="width: auto; padding: 0 12px; font-size: 11px;" onclick="loadTrends('credito')">Crédito</button>
+                        <button class="calendar-btn" style="width: auto; padding: 0 12px; font-size: 11px;" onclick="loadTrends('mercado')">Mercado</button>
+                    </div>
+                </div>
+                
+                <div id="trends-container" style="background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; min-height: 400px; padding: 20px; overflow: hidden;">
+                    <p style="text-align: center; color: #94a3b8; padding: 100px 0;">Carregando dados do Google Trends...</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -2388,7 +2406,9 @@ function switchTab(tab) {
     if (tab === 'analytics') renderAnalytics();
     if (tab === 'calendar') renderCalendar();
     if (tab === 'newsletter') loadNewsletterTab();
-
+    if (tab === 'generator') {
+        setTimeout(initTrends, 500);
+    }
 }
 
 /* ── CALENDAR LOGIC ── */
@@ -3039,6 +3059,106 @@ function nlUpdatePreview() {
   </td></tr>
 </table>
 </body></html>`;
+}
+
+/* ── AI GENERATOR & GOOGLE TRENDS Logic ── */
+function initTrends() {
+    if (window.trendsInitialized) return;
+    const script = document.createElement('script');
+    script.src = "https://ssl.gstatic.com/trends_nrtr/3620_RC01/embed_loader.js";
+    script.onload = () => {
+        window.trendsInitialized = true;
+        loadTrends('credito');
+    };
+    document.head.appendChild(script);
+}
+
+function loadTrends(topic) {
+    const container = document.getElementById('trends-container');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    const keywords = {
+        'credito': ['Crédito Empresarial', 'Capital de Giro', 'BNDES', 'Antecipação'],
+        'mercado': ['Mercado Financeiro', 'Taxa Selic', 'Inflação', 'Investimento PJ']
+    };
+
+    const items = (keywords[topic] || keywords.credito).map(k => ({ keyword: k, geo: "BR", time: "today 12-m" }));
+
+    if (window.trends && window.trends.embed) {
+        window.trends.embed.renderExploreWidgetTo(container, "TIMESERIES", {
+            "comparisonItem": items,
+            "category": 0,
+            "property": ""
+        }, {
+            "exploreQuery": `q=${encodeURIComponent(items[0].keyword)}&geo=BR&date=today 12-m`,
+            "guestPath": "https://trends.google.com:443/trends/embed/"
+        });
+    }
+}
+
+async function generateIdeas() {
+    const loading = document.getElementById('ai-loading-state');
+    const results = document.getElementById('gen-results');
+    if (!loading || !results) return;
+
+    loading.style.display = 'block';
+    results.style.opacity = '0.3';
+
+    // Simula inteligência artificial com delay
+    await new Promise(r => setTimeout(r, 2000));
+
+    const topics = [
+        {
+            title: "Crédito Rural vs. Comercial: Como o agronegócio pode financiar a expansão urbana",
+            desc: "Análise sobre linhas de crédito híbridas para empresas que operam na transição agro-industrial.",
+            pilar: "Crédito",
+            time: "8 min",
+            type: "Trend"
+        },
+        {
+            title: "Planejamento Tributário para 2026: O que muda para o Simples Nacional",
+            desc: "Quais são as novas faixas e como preparar o caixa para as atualizações da reforma.",
+            pilar: "Gestão",
+            time: "10 min",
+            type: "Evergreen"
+        },
+        {
+            title: "O impacto da tecnologia na análise de risco de crédito para PMEs",
+            desc: "Como algoritmos e Open Finance estão democratizando o acesso a capital.",
+            pilar: "Mercado",
+            time: "6 min",
+            type: "Pillar"
+        }
+    ];
+
+    results.innerHTML = topics.map(t => `
+        <div class="gen-card premium" onclick="applyIdea('${t.title.replace(/'/g,"\\'")}', '${t.desc.replace(/'/g,"\\'")}')">
+            <span class="gen-badge ${t.type === 'Trend' ? 'badge-trend' : 'badge-evergreen'}">${t.type === 'Trend' ? 'Tendência' : 'Estratégico'}</span>
+            <h3 class="gen-title">${t.title}</h3>
+            <p class="gen-desc">${t.desc}</p>
+            <div class="gen-meta">
+                <span>Pilar: ${t.pilar}</span>
+                <span>Tempo: ${t.time}</span>
+                <span style="color: #0099dd;">→ Criar Rascunho IA</span>
+            </div>
+        </div>
+    `).join('');
+
+    loading.style.display = 'none';
+    results.style.opacity = '1';
+}
+
+function applyIdea(title, excerpt) {
+    if (typeof newPost === 'function') {
+        newPost();
+        document.getElementById('f-title').value = title;
+        document.getElementById('f-excerpt').value = excerpt;
+        if (typeof slugify === 'function') {
+            document.getElementById('f-slug').value = slugify(title);
+        }
+        document.querySelector('.admin-main').scrollTo({ top: 0, behavior: 'smooth' });
+    }
 }
 </script>
 </body>

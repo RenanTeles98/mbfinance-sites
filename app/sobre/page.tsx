@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 
 /* ─── DATA ─────────────────────────────────────────────────── */
 
@@ -310,7 +311,7 @@ export default function SobrePage() {
               inteligentes, competitivas e aderentes ao momento do seu negócio.
             </p>
             <Link
-              href="https://wa.me/5511999999999?text=Olá,%20vim%20do%20site%20e%20quero%20saber%20mais%20sobre%20a%20MB%20Finance!"
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex w-full sm:w-auto items-center justify-center gap-3 bg-[#0099dd] hover:bg-[#0077b6] text-white font-bold text-base px-12 py-5 rounded-2xl transition-all duration-500 hover:scale-105 shadow-[0_14px_40px_rgba(0,153,221,0.28)]"

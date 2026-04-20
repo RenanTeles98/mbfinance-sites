@@ -8,9 +8,25 @@ function isAuthorized(request: NextRequest) {
   return token === expected;
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const posts = await readBlogPosts();
-  return NextResponse.json({ posts });
+  
+  if (isAuthorized(request)) {
+    return NextResponse.json({ posts });
+  }
+
+  const now = new Date();
+  const publicPosts = posts.filter((p) => {
+    if (p.published === false) return false;
+    try {
+      const pubDate = new Date(`${p.date}T${p.time || "00:00"}:00`);
+      return pubDate <= now;
+    } catch {
+      return true;
+    }
+  });
+
+  return NextResponse.json({ posts: publicPosts });
 }
 
 export async function PUT(request: NextRequest) {
