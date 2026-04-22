@@ -69,6 +69,8 @@ Sessão focada na transformação do Painel Administrativo do Blog em uma CMS In
 
 Arquivos modificados nesta sessão:
 - `public/pages/blog-admin.html`
+- `public/pages/termos-de-uso.html`
+- `public/mb-finance-completo.html` (Vídeo de fundo atualizado para `cidade-sem-avioes.mp4`)
 - `CONTEXT.md`
 - `DECISIONS.md`
 - `TODO.md`
