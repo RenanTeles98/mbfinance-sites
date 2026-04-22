@@ -10,9 +10,9 @@
 
 - [x] **Substituir número de WhatsApp fictício pelo número real** - Centralizado em `lib/constants.ts`.
 
-- [ ] **Banner de consentimento de cookies (LGPD)**
-  - O site coleta dados via Google Analytics e localStorage — exige consentimento
-  - Mínimo: banner com aceitar/recusar e bloqueio do GA antes do aceite
+- [x] **Banner de consentimento de cookies (LGPD)**
+  - Implementado em todas as páginas do ecossistema (Next.js + Legado).
+  - Persistência em localStorage e bloqueio de GA4 antes do consentimento.
 
 ---
 

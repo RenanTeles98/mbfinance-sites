@@ -36,6 +36,7 @@
 - [x] Gerador de Conteúdo IA integrado ao CMS para sugestão automática de pautas
 - [x] Radar Google Trends (Real-time) acoplado ao painel administrativo para análise de nicho
 - [x] Portal de Recrutamento padronizado (`https://mbfinance.inhire.app/vagas`) em todo o ecossistema (Next.js + Legado)
+- [x] Conformidade LGPD concluída em todo o site (Banner de cookies + bloqueio de GA4)
 
 ### O que está pendente / incompleto
 
@@ -66,6 +67,7 @@ Sessão focada na transformação do Painel Administrativo do Blog em uma CMS In
 6. Implementação do **Gerador de Conteúdo IA** com cards interativos e criação automática de rascunhos.
 7. Integração do **Radar Google Trends** via widgets oficiais para monitoramento de volume de busca (Crédito/Mercado).
 8. **Padronização de Recrutamento:** Substituição total de links `#vagas` pela URL absoluta do portal Inhire e recuperação de rodapés corrompidos em páginas legais.
+9. **Conformidade LGPD:** Implementação sitewide do banner de consentimento de cookies, bloqueio do GA4 até o aceite e centralização de assets de privacidade.
 
 Arquivos modificados nesta sessão:
 - `public/pages/blog-admin.html`
