@@ -35,3 +35,4 @@ window.API_BASE_KEY = API_BASE_KEY;
 window.API_TOKEN_KEY = API_TOKEN_KEY;
 window.PASSWORD_HASH = PASSWORD_HASH;
 window.CAT_LABELS = CAT_LABELS;
+window.posts = posts;
