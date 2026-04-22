@@ -347,6 +347,9 @@
             background-size: 200% 100%; animation: shimmer 1.5s infinite;
         }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .admin-screen { display: none; width: 100%; height: 100%; overflow: auto; }
+        .admin-screen.active { display: block; }
+        #screen-posts.active { display: flex; }
     </style>
 </head>
 <body>
@@ -415,29 +418,31 @@
     </div>
 
     <div id="admin-body">
-        <!-- SIDEBAR -->
-        <div id="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-label">Posts</div>
-                <button class="btn-new" onclick="newPost()">
-                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                    Novo Post
-                </button>
-            </div>
-            <div class="post-list" id="post-list">
-                <div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para começar.</div>
-            </div>
-        </div>
-
-        <!-- EDITOR -->
-        <div id="editor-panel">
-            <div id="welcome-screen">
-                <div class="welcome-icon">
-                    <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+        <!-- BLOG -->
+        <div id="screen-posts" class="admin-screen">
+            <!-- SIDEBAR -->
+            <div id="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-label">Posts</div>
+                    <button class="btn-new" onclick="newPost()">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                        Novo Post
+                    </button>
                 </div>
-                <h2 class="welcome-h">Editor de Blog</h2>
-                <p class="welcome-p">Selecione um post na lista ou clique em "Novo Post" para começar a criar conteúdo.</p>
+                <div class="post-list" id="post-list">
+                    <div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para começar.</div>
+                </div>
             </div>
+
+            <!-- EDITOR -->
+            <div id="editor-panel">
+                <div id="welcome-screen">
+                    <div class="welcome-icon">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    </div>
+                    <h2 class="welcome-h">Editor de Blog</h2>
+                    <p class="welcome-p">Selecione um post na lista ou clique em "Novo Post" para começar a criar conteúdo.</p>
+                </div>
 
             <div id="post-form" style="display:none">
                 <div class="form-header">
@@ -609,13 +614,12 @@
                 <div style="display:flex;justify-content:flex-end;gap:8px;padding-top:4px">
                     <button class="btn-preview" onclick="previewPost()">Visualizar Artigo</button>
                     <button class="btn-save" onclick="savePost()" style="padding:11px 28px;font-size:14px">Salvar Post</button>
-                </div>
             </div>
         </div>
     </div>
 
     <!-- BANNERS TAB -->
-    <div id="tab-banners">
+    <div id="screen-banners" class="admin-screen">
         <div class="banners-wrap">
             <div class="banners-page-header">
                 <h2>Publicidade</h2>
@@ -676,7 +680,7 @@
     </div>
 
     <!-- NEWSLETTER TAB -->
-    <div id="tab-newsletter" style="display:none;padding:24px;overflow-y:auto;flex:1;">
+    <div id="screen-newsletter" class="admin-screen">
         <div style="display:grid;grid-template-columns:280px 1fr 360px;gap:20px;">
 
             <!-- Sidebar: inscritos -->
@@ -863,7 +867,7 @@
     </div>
 
     <!-- ANALYTICS TAB -->
-    <div id="tab-analytics">
+    <div id="screen-analytics" class="admin-screen active">
         <div class="analytics-wrap">
             <div class="analytics-page-header">
                 <div>
@@ -963,7 +967,7 @@
     </div>
 
     <!-- CALENDAR PANEL -->
-    <div id="tab-calendar">
+    <div id="screen-calendar" class="admin-screen">
         <div class="calendar-wrap">
             <div class="calendar-header">
                 <div class="calendar-nav">
@@ -980,7 +984,7 @@
     </div>
 
     <!-- GENERATOR PANEL -->
-    <div id="tab-generator">
+    <div id="screen-generator" class="admin-screen">
         <div class="generator-wrap">
             <div style="text-align: center; margin-bottom: 40px;">
                 <h2 style="font-size: 32px; color: #003956; margin-bottom: 12px;">Gerador de Conteúdo IA</h2>

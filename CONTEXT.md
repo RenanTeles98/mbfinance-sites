@@ -65,16 +65,12 @@ _(nenhum bug conhecido em produção no momento)_
 
 ## Onde o trabalho parou (última sessão — 2026-04-20)
 
-Sessão focada na transformação do Painel Administrativo do Blog em uma CMS Inteligente:
-1. Limpeza e renomeação do menu: "Publicidade" e "Métricas do site".
-2. Implementação do **Calendário Editorial** (visão mensal).
-3. Adição de campo de **Hora** nos posts para agendamento preciso.
-4. Lógica de **Status** colorida: Publicado (verde), Agendado (laranja), Rascunho (cinza).
-5. Integração de métricas de visualização por post na listagem.
-6. Implementação do **Gerador de Conteúdo IA** com cards interativos e criação automática de rascunhos.
-7. Integração do **Radar Google Trends** via widgets oficiais para monitoramento de volume de busca (Crédito/Mercado).
-8. **Padronização de Recrutamento:** Substituição total de links `#vagas` pela URL absoluta do portal Inhire e recuperação de rodapés corrompidos em páginas legais.
-9. **Conformidade LGPD:** Implementação sitewide do banner de consentimento de cookies, bloqueio do GA4 até o aceite e centralização de assets de privacidade.
+### Painel Administrativo (Blog CMS) - ESTABILIZADO
+- **Arquitetura:** Modularizada em 9 arquivos JS em `public/assets/js/admin/`.
+- **UI/UX:** Sistema de abas isolado via `.admin-screen` e `#admin-body`. Problemas de sobreposição resolvidos.
+- **Menu:** Ordem de prioridade definida (Métricas > Blog > Newsletter > Publicidade).
+- **Autenticação:** Ativa e persistente via `localStorage`.
+- **Funcionalidades:** Analytics (GA4), Blog (CRUD), Newsletter (Advanced UI), Calendário Editorial, Gerador IA (Trends).
 
 Arquivos modificados nesta sessão:
 - `public/pages/blog-admin.html`

@@ -35,7 +35,7 @@
 - [ ] Atualizar links de redes sociais no rodapé (`public/mb-finance-completo.html` + `public/pages/`)
 
 ### CMS Inteligente (Melhorias)
-- [x] **Modularizar scripts do blog-admin.html** - Lógica extraída para módulos específicos em `public/assets/js/admin/`.
+- [x] **Modularizar scripts do blog-admin.html** - Lógica extraída para módulos em `public/assets/js/admin/` e UI de abas estabilizada (ADR-013).
 - [ ] **Validar Radar Trends em Mobile** - Verificar se o iframe do Google Trends comporta-se adequadamente em telas menores.
 - [ ] **Aumentar base de tópicos da IA** - Criar um arquivo de configuração para expandir as ideias sugeridas pelo gerador.
 
