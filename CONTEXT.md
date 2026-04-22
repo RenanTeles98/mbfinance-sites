@@ -1,6 +1,6 @@
 # CONTEXT.md — Estado Atual do Projeto
 
-> Última atualização: 2026-04-20
+> Última atualização: 2026-04-22
 > Atualizado por: IA - Antigravity
 
 ---
@@ -85,7 +85,11 @@ Arquivos modificados nesta sessão:
 - `TODO.md`
 - `docs/sessions/2026-04-20.md`
 
-Próximo passo recomendado: Ajustar o endpoint do Blog no Next.js para respeitar a data/hora e não exibir posts agendados (futuros). Outro ponto fundamental é iniciar a modularização dos scripts do admin para um arquivo JS externo.
+- [x] Modularização completa do Painel Administrativo (`public/pages/blog-admin.html`)
+- [x] Separação da lógica em módulos: `state`, `utils`, `blog`, `newsletter`, `calendar`, `analytics`, `ai`, `banners` e `core`.
+- [x] Limpeza total de scripts legados e duplicados no dashboard.
+
+Próximo passo recomendado: Ajustar o endpoint do Blog no Next.js para respeitar a data/hora e não exibir posts agendados (futuros). Outro ponto fundamental é iniciar a refatoração das páginas de política de privacidade e termos de uso para o padrão modular.
 
 
 ---
