@@ -126,7 +126,7 @@
             </div>
         </div>
 
-        <!-- â”€â”€ Produtos Dropdown â”€â”€ -->
+        <!-- â"€â"€ Produtos Dropdown â"€â"€ -->
         <div id="produtos-dropdown">
             <div style="background:#ffffff;border-top:3px solid #0099dd;box-shadow:0 8px 32px rgba(0,0,0,0.13), 0 1px 4px rgba(0,0,0,0.06);">
                 <div style="max-width:1280px;margin:0 auto;padding:36px 32px 44px;display:flex;gap:0;align-items:flex-start;">
@@ -182,7 +182,7 @@
 
     </header>
 
-    <!-- â”€â”€ Hero â”€â”€ -->
+    <!-- â"€â"€ Hero â"€â"€ -->
     <section id="inicio" class="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#040f1a]" style="padding-top: 80px; padding-bottom: 80px;">
         <!-- Deep Executive Background with Precision Grid -->
         <div class="absolute inset-0 z-0 bg-[#040f1a]">
@@ -241,7 +241,7 @@
         </div>
     </section>
 
-    <!-- â”€â”€ Pain & Solution (The Strategy) â”€â”€ -->
+    <!-- â"€â"€ Pain & Solution (The Strategy) â"€â"€ -->
     <section class="bg-white relative overflow-hidden" style="padding: 120px 0;">
         <!-- Subtle background texture -->
         <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#0099dd 1.5px, transparent 1.5px); background-size: 40px 40px;"></div>
@@ -296,7 +296,7 @@
             </div>
         </div>
     </section>
-    <!-- â”€â”€ Produtos â”€â”€ -->
+    <!-- â"€â"€ Produtos â"€â"€ -->
     <section id="produtos" class="bg-slate-50 relative" style="padding: 120px 0;">
         <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, rgba(0,153,221,0.2), transparent)"></div>
 
@@ -311,195 +311,204 @@
                 </p>
             </div>
 
-            <div id="acc-list" class="grid sm:grid-cols-2 gap-x-12 gap-y-2">
+            <div id="acc-list" class="flex flex-col sm:flex-row gap-x-12">
 
-                <!-- 1. Conta PJ -->
-                <div class="acc-item" id="acc-conta-pj">
-                    <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 10v11"/><path d="M19 10v11"/><path d="M9 10v11"/><path d="M15 10v11"/><path d="m2 10 10-8 10 8"/><circle cx="12" cy="6.5" r="1"/></svg>
-                        <div>
-                            <div class="acc-title" style="font-weight: 600 !important;">Conta Corrente Empresarial</div>
-                            <div class="acc-subtitle">Abertura simplificada nos principais bancos</div>
-                        </div>
-                        <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="acc-body">
-                        <p class="acc-desc">Abrimos sua conta PJ nos principais bancos digitais e tradicionais, garantindo as melhores tarifas e benefícios exclusivos para o seu CNPJ. Conta digital sem tarifas, cartão de crédito sem anuidade, Pix gratuito ilimitado e crédito para ampliar seu negócio.</p>
-                        <div class="acc-tags">
-                            <span class="acc-tag">Sem tarifa de manutenção</span>
-                            <span class="acc-tag">Pix ilimitado</span>
-                            <span class="acc-tag">Cartão sem anuidade</span>
-                            <span class="acc-tag">Web banking completo</span>
-                        </div>
-                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Conta Corrente Empresarial')" class="acc-link cursor-pointer">
-                            Solicitar abertura
-                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <!-- Coluna esquerda: 1, 3, 5, 7 -->
+                <div class="flex-1">
+
+                    <!-- 1. Conta PJ -->
+                    <div class="acc-item" id="acc-conta-pj">
+                        <button class="acc-header" onclick="toggleAcc(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 10v11"/><path d="M19 10v11"/><path d="M9 10v11"/><path d="M15 10v11"/><path d="m2 10 10-8 10 8"/><circle cx="12" cy="6.5" r="1"/></svg>
+                            <div>
+                                <div class="acc-title" style="font-weight: 600 !important;">Conta Corrente Empresarial</div>
+                                <div class="acc-subtitle">Abertura simplificada nos principais bancos</div>
+                            </div>
+                            <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
+                        <div class="acc-body">
+                            <p class="acc-desc">Abrimos sua conta PJ nos principais bancos digitais e tradicionais, garantindo as melhores tarifas e benefícios exclusivos para o seu CNPJ. Conta digital sem tarifas, cartão de crédito sem anuidade, Pix gratuito ilimitado e crédito para ampliar seu negócio.</p>
+                            <div class="acc-tags">
+                                <span class="acc-tag">Sem tarifa de manutenção</span>
+                                <span class="acc-tag">Pix ilimitado</span>
+                                <span class="acc-tag">Cartão sem anuidade</span>
+                                <span class="acc-tag">Web banking completo</span>
+                            </div>
+                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Conta Corrente Empresarial')" class="acc-link cursor-pointer">
+                                Solicitar abertura
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
                     </div>
+
+                    <!-- 3. Seguros e Consórcios -->
+                    <div class="acc-item" id="acc-seguros">
+                        <button class="acc-header" onclick="toggleAcc(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                            <div>
+                                <div class="acc-title" style="font-weight: 600 !important;">Seguros e Consórcios</div>
+                                <div class="acc-subtitle">Proteção patrimonial e planejamento de aquisições</div>
+                            </div>
+                            <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="acc-body">
+                            <p class="acc-desc">Proteção completa para seu patrimônio, sócios e colaboradores: Seguro de Vida, Patrimonial, Responsabilidade Civil e Garantia. Consórcios estratégicos para aquisição de imóveis, frotas de veículos ou equipamentos pesados com parcelas que cabem no orçamento, sem juros abusivos.</p>
+                            <div class="acc-tags">
+                                <span class="acc-tag">Seguro de Vida</span>
+                                <span class="acc-tag">Patrimonial</span>
+                                <span class="acc-tag">Responsabilidade Civil</span>
+                                <span class="acc-tag">Consórcio Imobiliário</span>
+                                <span class="acc-tag">Consórcio Veicular</span>
+                            </div>
+                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Seguros e Consórcios')" class="acc-link cursor-pointer">
+                                Fazer cotação
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 5. Soluções Tributárias -->
+                    <div class="acc-item" id="acc-tributarias">
+                        <button class="acc-header" onclick="toggleAcc(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h18"/></svg>
+                            <div>
+                                <div class="acc-title" style="font-weight: 600 !important;">Soluções Tributárias</div>
+                                <div class="acc-subtitle">Diagnóstico, recuperação e planejamento fiscal</div>
+                            </div>
+                            <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="acc-body">
+                            <p class="acc-desc">Revisão de enquadramentos, planejamento fiscal, recuperação de tributos indevidos ou pagos a maior e adequação à Reforma Tributária.</p>
+                            <div class="acc-tags">
+                                <span class="acc-tag">Diagnóstico Tributário</span>
+                                <span class="acc-tag">Recuperação de Créditos</span>
+                                <span class="acc-tag">Planejamento Fiscal</span>
+                                <span class="acc-tag">Success Fee</span>
+                            </div>
+                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Soluções Tributárias')" class="acc-link cursor-pointer">
+                                Diagnóstico gratuito
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 7. Soluções Personalizadas -->
+                    <div class="acc-item" id="acc-personalizadas">
+                        <button class="acc-header" onclick="toggleAcc(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                            <div>
+                                <div class="acc-title" style="font-weight: 600 !important;">Soluções Personalizadas</div>
+                                <div class="acc-subtitle">Operações estruturadas para grandes empresas</div>
+                            </div>
+                            <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="acc-body">
+                            <p class="acc-desc">Para empresas que precisam de mais do que produtos de prateleira. Antecipação de recebíveis com liberação ágil, financiamento de equipamentos via Leasing, CDC e BNDES/FINAME, reestruturação e consolidação de passivos, assessoria em fusões e aquisições, reorganização societária e acesso ao mercado de capitais.</p>
+                            <div class="acc-tags">
+                                <span class="acc-tag">Antecipação</span>
+                                <span class="acc-tag">Equipamentos</span>
+                                <span class="acc-tag">Reestruturação</span>
+                                <span class="acc-tag">M&amp;A</span>
+                                <span class="acc-tag">Holding</span>
+                                <span class="acc-tag">CRI / CRA</span>
+                                <span class="acc-tag">Debêntures</span>
+                            </div>
+                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Soluções Personalizadas')" class="acc-link cursor-pointer">
+                                Falar com especialista
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!--2. Adquirência -->
-                <div class="acc-item" id="acc-adquirencia">
-                    <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M9 6h6"/><path d="M7 10h10v4H7V10z"/><path d="M7 17h2"/><path d="M11 17h2"/><path d="M15 17h2"/><path d="M7 20h2"/><path d="M11 20h2"/><path d="M15 20h2"/></svg>
-                        <div>
-                            <div class="acc-title" style="font-weight: 600 !important;">Máquina de Cartão</div>
-                            <div class="acc-subtitle">Maquininhas e gateway de pagamento</div>
-                        </div>
-                        <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="acc-body">
-                        <p class="acc-desc">Negociamos condições especiais para o seu volume de vendas, seja no físico ou no e-commerce. Receba suas vendas com agilidade, link de pagamento incluso e gestão simplificada dos seus recebíveis em um só lugar. Quanto mais você vende, maior a chance de crédito na conta.</p>
-                        <div class="acc-tags">
-                            <span class="acc-tag">Maquininha sem mensalidade</span>
-                            <span class="acc-tag">Link de pagamento</span>
-                            <span class="acc-tag">Taxas negociadas</span>
-                            <span class="acc-tag">E-commerce</span>
-                        </div>
-                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Máquina de Cartão')" class="acc-link cursor-pointer">
-                            Cotar taxas
-                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </button>
-                    </div>
-                </div>
+                <!-- Coluna direita: 2, 4, 6 -->
+                <div class="flex-1">
 
-                <!--3. Seguros e Consórcios -->
-                <div class="acc-item" id="acc-seguros">
-                    <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-                        <div>
-                            <div class="acc-title" style="font-weight: 600 !important;">Seguros e Consórcios</div>
-                            <div class="acc-subtitle">Proteção patrimonial e planejamento de aquisições</div>
-                        </div>
-                        <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="acc-body">
-                        <p class="acc-desc">Proteção completa para seu patrimônio, sócios e colaboradores: Seguro de Vida, Patrimonial, Responsabilidade Civil e Garantia. Consórcios estratégicos para aquisição de imóveis, frotas de veículos ou equipamentos pesados com parcelas que cabem no orçamento, sem juros abusivos.</p>
-                        <div class="acc-tags">
-                            <span class="acc-tag">Seguro de Vida</span>
-                            <span class="acc-tag">Patrimonial</span>
-                            <span class="acc-tag">Responsabilidade Civil</span>
-                            <span class="acc-tag">Consórcio Imobiliário</span>
-                            <span class="acc-tag">Consórcio Veicular</span>
-                        </div>
-                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Seguros e Consórcios')" class="acc-link cursor-pointer">
-                            Fazer cotação
-                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <!-- 2. Adquirência -->
+                    <div class="acc-item" id="acc-adquirencia">
+                        <button class="acc-header" onclick="toggleAcc(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M9 6h6"/><path d="M7 10h10v4H7V10z"/><path d="M7 17h2"/><path d="M11 17h2"/><path d="M15 17h2"/><path d="M7 20h2"/><path d="M11 20h2"/><path d="M15 20h2"/></svg>
+                            <div>
+                                <div class="acc-title" style="font-weight: 600 !important;">Máquina de Cartão</div>
+                                <div class="acc-subtitle">Maquininhas e gateway de pagamento</div>
+                            </div>
+                            <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
+                        <div class="acc-body">
+                            <p class="acc-desc">Negociamos condições especiais para o seu volume de vendas, seja no físico ou no e-commerce. Receba suas vendas com agilidade, link de pagamento incluso e gestão simplificada dos seus recebíveis em um só lugar. Quanto mais você vende, maior a chance de crédito na conta.</p>
+                            <div class="acc-tags">
+                                <span class="acc-tag">Maquininha sem mensalidade</span>
+                                <span class="acc-tag">Link de pagamento</span>
+                                <span class="acc-tag">Taxas negociadas</span>
+                                <span class="acc-tag">E-commerce</span>
+                            </div>
+                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Máquina de Cartão')" class="acc-link cursor-pointer">
+                                Cotar taxas
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <!--4. Capital de Giro -->
-                <div class="acc-item" id="acc-capital-giro">
-                    <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
-                        <div>
-                            <div class="acc-title" style="font-weight: 600 !important;">Crédito Rápido</div>
-                            <div class="acc-subtitle">Crédito empresarial, imobiliário e veicular</div>
-                        </div>
-                        <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="acc-body">
-                        <p class="acc-desc">Fôlego financeiro para crescer, comprar estoque ou equilibrar as contas. Buscamos as linhas de crédito com as melhores carências e prazos do mercado entre 40+ instituições parceiras. Inclui crédito imobiliário para aquisição, construção e reforma, e crédito com garantia veicular para alongar prazo e reduzir custo.</p>
-                        <div class="acc-tags">
-                            <span class="acc-tag">Giro tradicional</span>
-                            <span class="acc-tag">Home Equity</span>
-                            <span class="acc-tag">Crédito Imobiliário</span>
-                            <span class="acc-tag">Construção e Reforma</span>
-                            <span class="acc-tag">Garantia Veicular</span>
-                            <span class="acc-tag">FGI</span>
-                        </div>
-                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Crédito Rápido')" class="acc-link cursor-pointer">
-                            Solicitar crédito
-                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <!-- 4. Capital de Giro -->
+                    <div class="acc-item" id="acc-capital-giro">
+                        <button class="acc-header" onclick="toggleAcc(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                            <div>
+                                <div class="acc-title" style="font-weight: 600 !important;">Crédito Rápido</div>
+                                <div class="acc-subtitle">Crédito empresarial, imobiliário e veicular</div>
+                            </div>
+                            <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
+                        <div class="acc-body">
+                            <p class="acc-desc">Fôlego financeiro para crescer, comprar estoque ou equilibrar as contas. Buscamos as linhas de crédito com as melhores carências e prazos do mercado entre 40+ instituições parceiras. Inclui crédito imobiliário para aquisição, construção e reforma, e crédito com garantia veicular para alongar prazo e reduzir custo.</p>
+                            <div class="acc-tags">
+                                <span class="acc-tag">Giro tradicional</span>
+                                <span class="acc-tag">Home Equity</span>
+                                <span class="acc-tag">Crédito Imobiliário</span>
+                                <span class="acc-tag">Construção e Reforma</span>
+                                <span class="acc-tag">Garantia Veicular</span>
+                                <span class="acc-tag">FGI</span>
+                            </div>
+                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Crédito Rápido')" class="acc-link cursor-pointer">
+                                Solicitar crédito
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <!--5. Soluções Tributárias -->
-                <div class="acc-item" id="acc-tributarias">
-                    <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h18"/></svg>
-                        <div>
-                            <div class="acc-title" style="font-weight: 600 !important;">Soluções Tributárias</div>
-                            <div class="acc-subtitle">Diagnóstico, recuperação e planejamento fiscal</div>
-                        </div>
-                        <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="acc-body">
-                        <p class="acc-desc">Revisão de enquadramentos, planejamento fiscal, recuperação de tributos indevidos ou pagos a maior e adequação à Reforma Tributária.</p>
-                        <div class="acc-tags">
-                            <span class="acc-tag">Diagnóstico Tributário</span>
-                            <span class="acc-tag">Recuperação de Créditos</span>
-                            <span class="acc-tag">Planejamento Fiscal</span>
-                            <span class="acc-tag">Success Fee</span>
-                        </div>
-                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Soluções Tributárias')" class="acc-link cursor-pointer">
-                            Diagnóstico gratuito
-                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <!-- 6. Telemedicina -->
+                    <div class="acc-item" id="acc-telemedicina">
+                        <button class="acc-header" onclick="toggleAcc(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="M11 2a2 2 0 0 0-2 2v5H4a2 2 0 0 0-2 2v2c0 1.1.9 2 2 2h5v5c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-5h5c1.1 0 2-.9 2-2v-2a2 2 0 0 0-2-2h-5V4a2 2 0 0 0-2-2h-2z"/></svg>
+                            <div>
+                                <div class="acc-title" style="font-weight: 600 !important;">Telemedicina</div>
+                                <div class="acc-subtitle">Médico na tela para toda a sua família</div>
+                            </div>
+                            <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
+                        <div class="acc-body">
+                            <p class="acc-desc">Tenha acesso rápido, prático e seguro a atendimento médico sem sair de casa. Com poucos cliques, você cuida da saúde de quem mais importa, economizando tempo e evitando deslocamentos desnecessários. ✔ Atendimento ágil · ✔ Profissionais qualificados · ✔ Mais conforto e segurança para sua família. Cuide de quem você ama com a facilidade que a vida moderna pede.</p>
+                            <div class="acc-tags">
+                                <span class="acc-tag">Atendimento ágil</span>
+                                <span class="acc-tag">Profissionais qualificados</span>
+                                <span class="acc-tag">Sem deslocamento</span>
+                                <span class="acc-tag">Família protegida</span>
+                            </div>
+                            <button onclick="openLeadModal('https://wa.me/552139008295', 'Telemedicina')" class="acc-link cursor-pointer">
+                                Fale conosco e saiba mais
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <!--6. Telemedicina -->
-                <div class="acc-item" id="acc-telemedicina">
-                    <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="M11 2a2 2 0 0 0-2 2v5H4a2 2 0 0 0-2 2v2c0 1.1.9 2 2 2h5v5c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-5h5c1.1 0 2-.9 2-2v-2a2 2 0 0 0-2-2h-5V4a2 2 0 0 0-2-2h-2z"/></svg>
-                        <div>
-                            <div class="acc-title" style="font-weight: 600 !important;">Telemedicina</div>
-                            <div class="acc-subtitle">Médico na tela para toda a sua família</div>
-                        </div>
-                        <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="acc-body">
-                        <p class="acc-desc">Tenha acesso rápido, prático e seguro a atendimento médico sem sair de casa. Com poucos cliques, você cuida da saúde de quem mais importa, economizando tempo e evitando deslocamentos desnecessários. âœ” Atendimento ágil · âœ” Profissionais qualificados · âœ” Mais conforto e segurança para sua família. Cuide de quem você ama com a facilidade que a vida moderna pede.</p>
-                        <div class="acc-tags">
-                            <span class="acc-tag">Atendimento ágil</span>
-                            <span class="acc-tag">Profissionais qualificados</span>
-                            <span class="acc-tag">Sem deslocamento</span>
-                            <span class="acc-tag">Família protegida</span>
-                        </div>
-                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Telemedicina')" class="acc-link cursor-pointer">
-                            Fale conosco e saiba mais
-                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!--7. Soluções Personalizadas -->
-                <div class="acc-item" id="acc-personalizadas">
-                    <button class="acc-header" onclick="toggleAcc(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acc-icon"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                        <div>
-                            <div class="acc-title" style="font-weight: 600 !important;">Soluções Personalizadas</div>
-                            <div class="acc-subtitle">Operações estruturadas para grandes empresas</div>
-                        </div>
-                        <svg class="acc-chevron" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="acc-body">
-                        <p class="acc-desc">Para empresas que precisam de mais do que produtos de prateleira. Antecipação de recebíveis com liberação ágil, financiamento de equipamentos via Leasing, CDC e BNDES/FINAME, reestruturação e consolidação de passivos, assessoria em fusões e aquisições, reorganização societária e acesso ao mercado de capitais.</p>
-                        <div class="acc-tags">
-                            <span class="acc-tag">Antecipação</span>
-                            <span class="acc-tag">Equipamentos</span>
-                            <span class="acc-tag">Reestruturação</span>
-                            <span class="acc-tag">M&amp;A</span>
-                            <span class="acc-tag">Holding</span>
-                            <span class="acc-tag">CRI / CRA</span>
-                            <span class="acc-tag">Debêntures</span>
-                        </div>
-                        <button onclick="openLeadModal('https://wa.me/552139008295', 'Soluções Personalizadas')" class="acc-link cursor-pointer">
-                            Falar com especialista
-                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </button>
-                        </div>
-                    </div>
                 </div>
 
             </div>
         </div>
     </section>
 
-<!-- â”€â”€ Como Funciona â”€â”€ -->
+<!-- â"€â"€ Como Funciona â"€â"€ -->
     <section id="como-funciona" class="relative overflow-hidden" style="background:#040f1a; padding:120px 0;">
         <div id="parallax-cidade" style="position:absolute;inset:0;background:url('https://i.ibb.co/CpkdgVWm/hero-bg.png') center/cover no-repeat;opacity:0.28;z-index:0;"></div>
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,15,26,0.55),rgba(4,15,26,0.45));z-index:1;"></div>
@@ -537,11 +546,11 @@
             </div>
         </div>
     </section>
-    <!-- â”€â”€ Boardroom Testimonials â”€â”€ -->
+    <!-- â"€â"€ Boardroom Testimonials â"€â"€ -->
     <section id="depoimentos" class="py-32 bg-[#040f1a] relative overflow-hidden" style="display:none;">
         <div class="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
             <div class="text-center mb-24">
-                <span class="text-white font-light text-[11px] uppercase tracking-[4px] mb-4 block">Sobre Nós â€” Experiência Institucional</span>
+                <span class="text-white font-light text-[11px] uppercase tracking-[4px] mb-4 block">Sobre Nós â€" Experiência Institucional</span>
                 <h2 class="text-4xl sm:text-6xl font-sans font-light text-white leading-tight tracking-tight">
                     A voz de quem <span class="text-white">move o país</span>
                 </h2>
@@ -566,7 +575,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Marcos Vinícius</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€” Vinícius Transp.</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€" Vinícius Transp.</div>
             </div>
         </div>
     </div>
@@ -580,7 +589,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Juliana Prata</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócia â€” Prata Varejo</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócia â€" Prata Varejo</div>
             </div>
         </div>
     </div>
@@ -594,7 +603,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Leandro Campos</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CFO â€” AgroInd. Sul</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CFO â€" AgroInd. Sul</div>
             </div>
         </div>
     </div>
@@ -608,7 +617,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Beatriz Ferreira</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Fundadora â€” BF Cosméticos</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Fundadora â€" BF Cosméticos</div>
             </div>
         </div>
     </div>
@@ -622,7 +631,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Roberto Assis</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Proprietário â€” Rede SuperAção</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Proprietário â€" Rede SuperAção</div>
             </div>
         </div>
     </div>
@@ -636,7 +645,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Mariana Goulart</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Diretora â€” Goulart Engenharia</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Diretora â€" Goulart Engenharia</div>
             </div>
         </div>
     </div>
@@ -650,7 +659,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Tiago Ribeiro</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€” TechPrime Soft.</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€" TechPrime Soft.</div>
             </div>
         </div>
     </div>
@@ -667,7 +676,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Marcos Vinícius</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€” Vinícius Transp.</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€" Vinícius Transp.</div>
             </div>
         </div>
     </div>
@@ -681,7 +690,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Juliana Prata</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócia â€” Prata Varejo</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócia â€" Prata Varejo</div>
             </div>
         </div>
     </div>
@@ -695,7 +704,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Leandro Campos</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CFO â€” AgroInd. Sul</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CFO â€" AgroInd. Sul</div>
             </div>
         </div>
     </div>
@@ -709,7 +718,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Beatriz Ferreira</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Fundadora â€” BF Cosméticos</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Fundadora â€" BF Cosméticos</div>
             </div>
         </div>
     </div>
@@ -723,7 +732,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Roberto Assis</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Proprietário â€” Rede SuperAção</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Proprietário â€" Rede SuperAção</div>
             </div>
         </div>
     </div>
@@ -737,7 +746,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Mariana Goulart</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Diretora â€” Goulart Engenharia</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Diretora â€" Goulart Engenharia</div>
             </div>
         </div>
     </div>
@@ -751,7 +760,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Tiago Ribeiro</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€” TechPrime Soft.</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€" TechPrime Soft.</div>
             </div>
         </div>
     </div>
@@ -770,7 +779,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Sérgio Machado</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€” Fazenda Machado</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€" Fazenda Machado</div>
             </div>
         </div>
     </div>
@@ -784,7 +793,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Camila Borges</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Dir. Clínica â€” Sorrir Bem</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Dir. Clínica â€" Sorrir Bem</div>
             </div>
         </div>
     </div>
@@ -798,7 +807,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Fernando Souza</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€” Souza Construtora</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€" Souza Construtora</div>
             </div>
         </div>
     </div>
@@ -812,7 +821,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Luiza Mendes</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Fundadora â€” LM Distribuição</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Fundadora â€" LM Distribuição</div>
             </div>
         </div>
     </div>
@@ -826,7 +835,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Rafael Castro</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">C-Level â€” Castro Imóveis</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">C-Level â€" Castro Imóveis</div>
             </div>
         </div>
     </div>
@@ -840,7 +849,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Tatiana Freitas</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€” TF Logística</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€" TF Logística</div>
             </div>
         </div>
     </div>
@@ -857,7 +866,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Sérgio Machado</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€” Fazenda Machado</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€" Fazenda Machado</div>
             </div>
         </div>
     </div>
@@ -871,7 +880,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Camila Borges</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Dir. Clínica â€” Sorrir Bem</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Dir. Clínica â€" Sorrir Bem</div>
             </div>
         </div>
     </div>
@@ -885,7 +894,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Fernando Souza</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€” Souza Construtora</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€" Souza Construtora</div>
             </div>
         </div>
     </div>
@@ -899,7 +908,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Luiza Mendes</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Fundadora â€” LM Distribuição</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Fundadora â€" LM Distribuição</div>
             </div>
         </div>
     </div>
@@ -913,7 +922,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Rafael Castro</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">C-Level â€” Castro Imóveis</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">C-Level â€" Castro Imóveis</div>
             </div>
         </div>
     </div>
@@ -927,7 +936,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Tatiana Freitas</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€” TF Logística</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€" TF Logística</div>
             </div>
         </div>
     </div>
@@ -946,7 +955,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Alexandre Neves</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€” Neves Supermc.</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€" Neves Supermc.</div>
             </div>
         </div>
     </div>
@@ -960,7 +969,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Paula Resende</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócia â€” R&R Arquitetura</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócia â€" R&R Arquitetura</div>
             </div>
         </div>
     </div>
@@ -974,7 +983,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Gabriel Moraes</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Dir. Op. â€” GM Indústria</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Dir. Op. â€" GM Indústria</div>
             </div>
         </div>
     </div>
@@ -988,7 +997,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Silvia Duarte</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CFO â€” Duarte Alimentos</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CFO â€" Duarte Alimentos</div>
             </div>
         </div>
     </div>
@@ -1002,7 +1011,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Carlos Bastos</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Diretor TI â€” CodaTech</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Diretor TI â€" CodaTech</div>
             </div>
         </div>
     </div>
@@ -1016,7 +1025,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Fernanda Lins</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€” Estética Vida</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€" Estética Vida</div>
             </div>
         </div>
     </div>
@@ -1030,7 +1039,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Henrique Tavares</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€” Dist. Tavares</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€" Dist. Tavares</div>
             </div>
         </div>
     </div>
@@ -1047,7 +1056,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Alexandre Neves</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€” Neves Supermc.</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€" Neves Supermc.</div>
             </div>
         </div>
     </div>
@@ -1061,7 +1070,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Paula Resende</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócia â€” R&R Arquitetura</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócia â€" R&R Arquitetura</div>
             </div>
         </div>
     </div>
@@ -1075,7 +1084,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Gabriel Moraes</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Dir. Op. â€” GM Indústria</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Dir. Op. â€" GM Indústria</div>
             </div>
         </div>
     </div>
@@ -1089,7 +1098,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Silvia Duarte</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CFO â€” Duarte Alimentos</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CFO â€" Duarte Alimentos</div>
             </div>
         </div>
     </div>
@@ -1103,7 +1112,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Carlos Bastos</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Diretor TI â€” CodaTech</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Diretor TI â€" CodaTech</div>
             </div>
         </div>
     </div>
@@ -1117,7 +1126,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Fernanda Lins</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€” Estética Vida</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">CEO â€" Estética Vida</div>
             </div>
         </div>
     </div>
@@ -1131,7 +1140,7 @@
             </div>
             <div>
                 <div class="text-white font-light text-sm">Henrique Tavares</div>
-                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€” Dist. Tavares</div>
+                <div class="text-slate-400 text-[10px] font-light tracking-widest">Sócio â€" Dist. Tavares</div>
             </div>
         </div>
     </div>
@@ -1141,7 +1150,7 @@
         </div>
     </section>
 
-    <!-- â”€â”€ Parceiros Estratégicos â”€â”€ -->
+    <!-- â"€â"€ Parceiros Estratégicos â"€â"€ -->
     <section id="parceiros" class="py-32 bg-slate-50 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 sm:px-12 relative z-10 text-center mb-24">
             <span class="text-brand-secondary font-bold text-[11px] uppercase tracking-[4px] mb-4 block">Parceiros</span>
@@ -1193,7 +1202,7 @@
         </div>
     </section>
 
-    <!-- â”€â”€ Stats (Sobre) â”€â”€ -->
+    <!-- â"€â"€ Stats (Sobre) â"€â"€ -->
     <section id="sobre" class="py-24 bg-[#040f1a] overflow-hidden" style="display:none;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -1261,7 +1270,7 @@
         </div>
     </section>
 
-    <!-- â”€â”€ Central de Inteligência (FAQ) â”€â”€ -->
+    <!-- â"€â"€ Central de Inteligência (FAQ) â"€â"€ -->
     <section id="faq" class="py-32 bg-[#040f1a] relative" style="display:none;">
         <div class="max-w-4xl mx-auto px-6 sm:px-12 relative z-10">
             <div class="text-center mb-24">
@@ -1333,7 +1342,7 @@
         </div>
     </section>
 
-    <!-- â”€â”€ Convite Final (CTA) â”€â”€ -->
+    <!-- â"€â"€ Convite Final (CTA) â"€â"€ -->
     <section class="relative overflow-hidden" style="background:#003956; padding-top:64px; padding-bottom:160px;">
         <div class="absolute top-0 right-0 w-[800px] h-[800px] blur-[150px]" style="background:rgba(0,153,221,0.08);"></div>
 
@@ -1358,7 +1367,7 @@
         </div>
     </section>
 
-    <!-- â”€â”€ Footer â”€â”€ -->
+    <!-- â"€â"€ Footer â"€â"€ -->
     <footer class="text-white" style="background:#040f1a; padding: 120px 0;">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-24">
@@ -1449,10 +1458,10 @@
     <button id="whatsapp-float" onclick="openLeadModal('https://wa.me/552139008295')" class="fixed bottom-8 right-8 z-[999] bg-[#25D366] text-white p-4 rounded-full hover:scale-110 transition-all duration-300 cursor-pointer">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
     </button>
-    <!-- â”€â”€ Smooth Scroll (Lenis) â”€â”€ -->
+    <!-- â"€â"€ Smooth Scroll (Lenis) â"€â"€ -->
     
 
-    <!-- â”€â”€ Modal Captura de Lead â”€â”€ -->
+    <!-- â"€â"€ Modal Captura de Lead â"€â"€ -->
     <div id="lead-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4" style="display:none !important;">
         <!-- Overlay -->
         <div onclick="closeLeadModal()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
@@ -1530,7 +1539,7 @@
         </div>
     </div>
 
-<!-- â”€â”€ MODAL PARCERIA â”€â”€ -->
+<!-- â"€â"€ MODAL PARCERIA â"€â"€ -->
 <div id="parceria-modal" onclick="if(event.target===this)closeParceriaModal()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow-y:auto;padding:40px 16px;align-items:center;justify-content:center;">
     <div style="position:relative;width:100%;max-width:520px;margin:0 auto;background:linear-gradient(160deg,#0a1628 0%,#071020 100%);border:1px solid rgba(255,255,255,0.08);border-radius:24px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.6);">
 
