@@ -22,8 +22,9 @@
   - Título principal alterado para Inter Bold (700) para maior autoridade visual.
 
 - [x] **Layout de Produtos**
-  - Seção convertida para grid de 2 colunas com **cards independentes** (fundo branco, sombra).
-  - Lógica de accordion alterada para permitir múltiplos itens abertos simultaneamente.
+  - Seção convertida para grid de 2 colunas.
+  - Itens transformados em **cards independentes vazados** (background transparente, bordas em destaque).
+  - Lógica alterada para permitir múltiplos abertos simultaneamente.
 
 ---
 
