@@ -556,8 +556,8 @@ html { scroll-behavior: auto; }
 .checklist-icon { transition: transform 0.25s ease; }
 
 /* ── Block 3: Accordion ──────────────────────────────────────────────────── */
-.acc-item { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); margin-bottom: 24px; }
-.acc-item.open { border-color: #0099dd; box-shadow: 0 12px 40px rgba(0,57,86,0.08); }
+.acc-item { background: #fff; border-radius: 20px; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); margin-bottom: 24px; }
+.acc-item.open { box-shadow: 0 12px 40px rgba(0,57,86,0.08); }
 .acc-header { display: flex; align-items: center; gap: 16px; padding: 24px 28px; cursor: pointer; width: 100%; text-align: left; background: none; border: none; border-radius: 20px; }
 .acc-header:hover .acc-title { transform: translateX(8px); }
 .acc-chevron { margin-left: auto; flex-shrink: 0; color: #9ca3af; transition: transform 0.25s ease; }
