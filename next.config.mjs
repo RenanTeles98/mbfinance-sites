@@ -27,6 +27,16 @@ const nextConfig = {
         destination: "/pages/blog-admin.html",
         permanent: false,
       },
+      {
+        source: "/parceiros",
+        destination: "/mb-finance-completo.html#parceiros",
+        permanent: true,
+      },
+      {
+        source: "/parceiros.html",
+        destination: "/mb-finance-completo.html#parceiros",
+        permanent: true,
+      },
     ];
   },
 };
