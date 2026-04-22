@@ -42,6 +42,8 @@
   - Título principal alterado para Inter Bold (700) para maior autoridade visual.
 - [x] **Layout de Produtos**
   - [x] Seção "Nossos Produtos" convertida para grid de duas colunas com cards independentes sólidos (fundo branco)
+- [x] Atualização de marca: mb negócios e mb tributos (casing minúsculo) em todo o site.
+- [x] Deploy para GitHub e Vercel concluído.
 
 ### O que está pendente / incompleto
 
