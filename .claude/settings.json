@@ -10,7 +10,9 @@
       "Bash(npx skills find awesome design)",
       "Bash(curl -s https://mbfinance-sites.vercel.app/api/blog/posts)",
       "Bash(python3 -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(p[''id''],''->'',p.get\\(''categoryLabel'',''''\\),''->'',p.get\\(''excerpt'',''''\\)[:60]\\) for p in data[''posts'']]\")",
-      "Bash(npm install resend)"
+      "Bash(npm install resend)",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 fix_tailwind_layer.py)"
     ]
   }
 }

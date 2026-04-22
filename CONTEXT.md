@@ -41,7 +41,7 @@
 - [x] **Tipografia do Hero**
   - Título principal alterado para Inter Bold (700) para maior autoridade visual.
 - [x] **Layout de Produtos**
-  - [x] Seção "Nossos Produtos" convertida para grid de duas colunas com cards independentes e estilo "vazado" (outline)
+  - [x] Seção "Nossos Produtos" convertida para grid de duas colunas com cards independentes sólidos (fundo branco)
 
 ### O que está pendente / incompleto
 
