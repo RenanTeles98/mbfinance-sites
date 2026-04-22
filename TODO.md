@@ -14,6 +14,10 @@
   - Implementado em todas as páginas do ecossistema (Next.js + Legado).
   - Persistência em localStorage e bloqueio de GA4 antes do consentimento.
 
+- [x] **Refinamento Visual do Navbar**
+  - Implementado fundo branco e troca de logo ao passar o mouse (hover).
+  - Garante legibilidade do menu de produtos em qualquer posição de scroll.
+
 ---
 
 ## 🟡 Importante (próximas sessões)

@@ -5,17 +5,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // ── Navbar scroll effect (logo change + scrolled class) ──────────────
     const navbar = document.getElementById('navbar');
     if (navbar) {
+        let isHovered = false;
+
         function updateNav() {
             const isScrolled = window.scrollY > 80;
-            navbar.classList.toggle('scrolled', isScrolled);
+            const shouldBeScrolled = isScrolled || isHovered;
+
+            navbar.classList.toggle('scrolled', shouldBeScrolled);
+            
             const logoImg = document.getElementById('logo-img');
             if (logoImg) {
-                // Use data-attributes when available (allows pages/ to use ../images/)
                 const logoNormal   = logoImg.dataset.logoNormal   || 'images/logo-horizontal-logo.branca.png';
                 const logoScrolled = logoImg.dataset.logoScrolled || 'images/logo-horizontal-logo.png.png';
-                logoImg.src = isScrolled ? logoScrolled : logoNormal;
+                logoImg.src = shouldBeScrolled ? logoScrolled : logoNormal;
             }
         }
+
+        navbar.addEventListener('mouseenter', () => {
+            isHovered = true;
+            updateNav();
+        });
+
+        navbar.addEventListener('mouseleave', () => {
+            isHovered = false;
+            updateNav();
+        });
+
         window.addEventListener('scroll', updateNav, { passive: true });
         updateNav();
     }

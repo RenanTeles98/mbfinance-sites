@@ -37,6 +37,7 @@
 - [x] Radar Google Trends (Real-time) acoplado ao painel administrativo para análise de nicho
 - [x] Portal de Recrutamento padronizado (`https://mbfinance.inhire.app/vagas`) em todo o ecossistema (Next.js + Legado)
 - [x] Conformidade LGPD concluída em todo o site (Banner de cookies + bloqueio de GA4)
+- [x] Refinamento do Navbar (Fundo branco no hover e logo dinâmico)
 
 ### O que está pendente / incompleto
 
@@ -48,7 +49,7 @@
 - [ ] Logos dos bancos parceiros — adicionar na seção de parceiros
 - [ ] Links de redes sociais no rodapé — apontar para perfis reais
 - [ ] Depoimentos fictícios — substituir por depoimentos reais
-- [ ] Banner de consentimento de cookies (LGPD)
+- [ ] Depoimentos fictícios — substituir por depoimentos reais
 
 ### O que está quebrado / com bug
 
