@@ -38,7 +38,10 @@
 - [x] Portal de Recrutamento padronizado (`https://mbfinance.inhire.app/vagas`) em todo o ecossistema (Next.js + Legado)
 - [x] Conformidade LGPD concluída em todo o site (Banner de cookies + bloqueio de GA4)
 - [x] Refinamento do Navbar (Fundo branco no hover e logo dinâmico)
-- [x] Título do Hero ajustado para Inter Bold (font-weight: 700)
+- [x] **Tipografia do Hero**
+  - Título principal alterado para Inter Bold (700) para maior autoridade visual.
+- [x] **Layout de Produtos**
+  - Seção convertida de lista vertical para grid responsivo de 2 colunas.
 
 ### O que está pendente / incompleto
 

@@ -2,11 +2,7 @@
 
 function toggleAcc(btn) {
     var item = btn.closest('.acc-item');
-    var isOpen = item.classList.contains('open');
-    // Close all
-    document.querySelectorAll('.acc-item.open').forEach(function(el){ el.classList.remove('open'); });
-    // Open clicked if it was closed
-    if (!isOpen) { item.classList.add('open'); }
+    item.classList.toggle('open');
 }
 
 function openProduct(accId) {
