@@ -28,7 +28,7 @@ updateParallax();
     var grid = document.querySelector('#como-funciona .grid');
     var section = document.getElementById('como-funciona');
     var currentStep = 0;
-    var stepAnchors = [0.5, 0.34, 0.18, 0.04];
+    var stepAnchors = [0.85, 0.72, 0.60, 0.48];
 
     function applySteps(n) {
         currentStep = Math.max(0, Math.min(4, n));
