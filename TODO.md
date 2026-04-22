@@ -18,6 +18,9 @@
   - Implementado fundo branco e troca de logo ao passar o mouse (hover).
   - Garante legibilidade do menu de produtos em qualquer posição de scroll.
 
+- [x] **Tipografia do Hero**
+  - Título principal alterado para Inter Bold (700) para maior autoridade visual.
+
 ---
 
 ## 🟡 Importante (próximas sessões)
