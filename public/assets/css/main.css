@@ -566,7 +566,7 @@ html { scroll-behavior: auto; }
 .acc-item.open .acc-body { display: block; }
 .acc-desc { color: #6b7280; font-size: 15px; line-height: 1.75; margin-bottom: 18px; }
 .acc-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-.acc-tag { font-size: 12px; font-weight: 700; color: #003956; background: rgba(0,57,86,0.07); padding: 5px 12px; border-radius: 999px; }
+.acc-tag { font-size: 11px; font-weight: 700; color: #003956; background: rgba(0,57,86,0.07); padding: 4px 10px; border-radius: 999px; }
 .acc-link { font-size: 14px; font-weight: 700; color: #0099dd; text-decoration: none; display: inline-flex; align-items: center; line-height: 1; gap: 6px; background: none; border: none; padding: 0; border-radius: 0; transition: all 0.2s; }
 .acc-link svg { display: block; flex-shrink: 0; }
 .acc-link:hover { color: #003956; gap: 10px; }
