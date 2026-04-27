@@ -257,3 +257,28 @@ Estado atual: raiz publica preparada para carregar as tags antes do redirecionam
 Validacao: `npm run build` executado com sucesso.
 
 Proximo passo recomendado: apos deploy, validar `https://mbfinance-sites.vercel.app/` no Tag Assistant e aguardar a cobertura atualizar.
+
+---
+
+## Atualizacao de sessao - 2026-04-27 - Google Tag Manager
+
+- Instalado o Google Tag Manager `GTM-MDST4NTK`.
+- Nos HTMLs publicos, o script foi inserido no topo do `<head>` e o `noscript` logo apos a abertura do `<body>`.
+- No Next.js, o GTM foi adicionado ao `app/layout.tsx`, cobrindo as rotas renderizadas pelo App Router.
+- `public/pages/blog-admin.html` permaneceu sem GTM para evitar rastreamento do painel administrativo legado.
+
+Arquivos modificados nesta etapa:
+- `app/layout.tsx`
+- `public/mb-finance-completo.html`
+- `public/pages/*.html` publicos, exceto `blog-admin.html`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-04-27.md`
+
+Estado atual: GTM instalado no site publico com container `GTM-MDST4NTK`.
+
+Validacao: 13 HTMLs publicos contem `GTM-MDST4NTK`; `public/pages/blog-admin.html` nao contem GTM; `npm run build` executado com sucesso.
+
+Proximo passo recomendado: apos deploy, validar no Tag Assistant se o container `GTM-MDST4NTK` aparece na home, no blog e em uma pagina secundaria.

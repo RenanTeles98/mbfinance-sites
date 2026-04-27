@@ -100,3 +100,8 @@ Principais marcos conhecidos:
 
 ### Corrigido
 - Rota raiz (`/`) agora carrega Meta Pixel e Google Ads tag antes de redirecionar para `/mb-finance-completo.html`.
+
+## 2026-04-27 - Google Tag Manager
+
+### Adicionado
+- Google Tag Manager `GTM-MDST4NTK` no site publico, incluindo script no `<head>` e `noscript` apos abertura do `<body>`.

@@ -108,6 +108,11 @@
 - [ ] Validar a tag apos deploy no Tag Assistant do Google.
 - [ ] Configurar eventos de conversao para cliques de WhatsApp quando a conta do Google Ads estiver pronta.
 
+### Google Tag Manager
+- [x] Instalar o container `GTM-MDST4NTK` no site publico.
+- [x] Inserir o bloco `<noscript>` logo apos a abertura do `<body>` nos HTMLs publicos.
+- [ ] Validar o container `GTM-MDST4NTK` no Tag Assistant apos deploy.
+
 ### CSP Google Ads
 - [x] Ajustar CSP no `vercel.json` para permitir dominios da Google tag e Google Ads.
 - [ ] Validar novamente no Tag Assistant apos deploy do Vercel.

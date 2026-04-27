@@ -456,3 +456,27 @@ Substituir o redirect server-side por uma pagina ponte em `app/page.tsx`, carreg
 ### Consequencias
 - A raiz `/` passa a ter tags detectaveis antes de enviar o visitante para a home.
 - O visitante pode ver uma tela rapida de "Redirecionando para o site..." por menos de um segundo.
+
+---
+
+## ADR-022: Google Tag Manager instalado no site publico
+
+**Data:** 2026-04-27
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+O dono do projeto solicitou a instalacao do Google Tag Manager com container `GTM-MDST4NTK`, incluindo o script no topo do `<head>` e o bloco `noscript` imediatamente apos a abertura do `<body>`.
+
+### Decisao
+Instalar o GTM nos HTMLs publicos e no layout raiz do Next.js. Nos HTMLs estaticos, o snippet foi aplicado diretamente em cada arquivo publico. No Next.js, o snippet foi colocado em `app/layout.tsx` para cobrir as rotas do App Router.
+
+### Alternativas Consideradas
+- **Instalar apenas na home:** deixaria blog, artigos e paginas secundarias sem container.
+- **Criar arquivo JS central:** nao atenderia a orientacao do Google de colar o snippet diretamente no `<head>` e o `noscript` no `<body>`.
+- **Instalar em todas as paginas publicas (escolhida):** garante cobertura de campanhas e validacao pelo Tag Assistant.
+
+### Consequencias
+- O container `GTM-MDST4NTK` passa a carregar no site publico.
+- `public/pages/blog-admin.html` permanece sem GTM para evitar metricas administrativas no HTML legado.
+- O container deve ser validado pelo Tag Assistant apos deploy.
