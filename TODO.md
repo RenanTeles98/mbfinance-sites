@@ -104,6 +104,7 @@
 ### Google Ads tag
 - [x] Instalar Google tag `AW-18112641661` nas paginas publicas relevantes.
 - [x] Manter o painel administrativo fora do rastreamento de campanhas.
+- [x] Corrigir a rota raiz (`/`) para carregar tags antes de redirecionar para a home HTML.
 - [ ] Validar a tag apos deploy no Tag Assistant do Google.
 - [ ] Configurar eventos de conversao para cliques de WhatsApp quando a conta do Google Ads estiver pronta.
 

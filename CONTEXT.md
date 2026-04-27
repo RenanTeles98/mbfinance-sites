@@ -235,3 +235,25 @@ Estado atual: blog legado com snippet oficial inline e sem duplicidade de `fbq('
 Validacao: `public/pages/blog.html` possui exatamente um `fbq('init', '1303767088303655')`; `npm run build` executado com sucesso.
 
 Proximo passo recomendado: apos deploy, recarregar `https://mbfinance-sites.vercel.app/pages/blog.html` com Ctrl+Shift+R e validar no Meta Pixel Helper.
+
+---
+
+## Atualizacao de sessao - 2026-04-27 - Tags na raiz do site
+
+- A rota raiz (`/`) deixou de usar `redirect()` server-side puro para `/mb-finance-completo.html`.
+- Criada uma pagina ponte em `app/page.tsx` que carrega `GoogleAdsTag` e `MetaPixel` antes de redirecionar o visitante para a home HTML.
+- Motivo: o resumo de cobertura do Google Tag mostrava `mbfinance-sites.vercel.app/` como "Sem tag", mesmo com `/mb-finance-completo.html` marcado como "Com tag".
+
+Arquivos modificados nesta etapa:
+- `app/page.tsx`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-04-27.md`
+
+Estado atual: raiz publica preparada para carregar as tags antes do redirecionamento automatico.
+
+Validacao: `npm run build` executado com sucesso.
+
+Proximo passo recomendado: apos deploy, validar `https://mbfinance-sites.vercel.app/` no Tag Assistant e aguardar a cobertura atualizar.

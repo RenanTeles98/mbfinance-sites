@@ -433,3 +433,26 @@ Substituir o carregamento externo do Meta Pixel em `public/pages/blog.html` pelo
 ### Consequencias
 - O blog legado passa a seguir o mesmo padrao de compatibilidade adotado na home.
 - Continua existindo alguma duplicacao do snippet oficial, aceita temporariamente para garantir rastreamento nas paginas criticas.
+
+---
+
+## ADR-021: Raiz do site carrega tags antes do redirecionamento
+
+**Data:** 2026-04-27
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+O resumo de cobertura do Google Tag mostrava `mbfinance-sites.vercel.app/` como "Sem tag", embora `/mb-finance-completo.html` estivesse com tag. A causa era a rota raiz do Next.js usar `redirect()` server-side puro, que nao entregava HTML com scripts de mensuracao.
+
+### Decisao
+Substituir o redirect server-side por uma pagina ponte em `app/page.tsx`, carregando `GoogleAdsTag` e `MetaPixel` e redirecionando automaticamente para `/mb-finance-completo.html` apos um curto intervalo.
+
+### Alternativas Consideradas
+- **Manter o redirect server-side:** rapido para o usuario, mas mantinha `/` sem tag na cobertura.
+- **Migrar a home HTML para Next.js agora:** resolveria estruturalmente, mas seria escopo maior e mais arriscado.
+- **Pagina ponte com tags (escolhida):** corrige a cobertura da raiz com alteracao pequena.
+
+### Consequencias
+- A raiz `/` passa a ter tags detectaveis antes de enviar o visitante para a home.
+- O visitante pode ver uma tela rapida de "Redirecionando para o site..." por menos de um segundo.

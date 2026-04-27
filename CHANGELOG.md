@@ -95,3 +95,8 @@ Principais marcos conhecidos:
 
 ### Corrigido
 - `public/pages/blog.html` voltou a usar o snippet oficial inline do Meta Pixel para melhorar a deteccao pelo Meta Pixel Helper.
+
+## 2026-04-27 - Tags na raiz do site
+
+### Corrigido
+- Rota raiz (`/`) agora carrega Meta Pixel e Google Ads tag antes de redirecionar para `/mb-finance-completo.html`.
