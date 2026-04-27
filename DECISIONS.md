@@ -387,3 +387,26 @@ Adicionar `https://connect.facebook.net` em `script-src` e `connect-src`, alem d
 ### Consequencias
 - O Meta Pixel pode carregar o `fbevents.js` e enviar eventos novamente.
 - A CSP continua controlada por lista de dominios autorizados.
+
+---
+
+## ADR-019: Home usa snippet oficial inline do Meta Pixel
+
+**Data:** 2026-04-27
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+Mesmo com o arquivo central do Meta Pixel publicado e a CSP corrigida, o Meta Pixel Helper do navegador do dono continuou sem detectar o pixel na home.
+
+### Decisao
+Restaurar o snippet oficial inline do Meta Pixel diretamente no `<head>` da home (`public/mb-finance-completo.html`), mantendo o arquivo central para as demais paginas publicas.
+
+### Alternativas Consideradas
+- **Manter apenas o arquivo central:** tecnicamente correto, mas nao resolveu a validacao pratica do Pixel Helper na home.
+- **Aplicar inline em todas as paginas:** aumentaria duplicacao desnecessaria.
+- **Inline apenas na home (escolhida):** preserva compatibilidade na pagina mais critica e mantem manutencao centralizada nas demais.
+
+### Consequencias
+- A home volta ao formato oficial reconhecido anteriormente pelo Meta Pixel Helper.
+- As demais paginas continuam usando o arquivo central `meta-pixel.js`.

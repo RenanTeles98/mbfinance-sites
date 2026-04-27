@@ -85,3 +85,8 @@ Principais marcos conhecidos:
 
 ### Corrigido
 - `vercel.json` atualizado para permitir os dominios necessarios do Meta Pixel na Content Security Policy.
+
+## 2026-04-27 - Meta Pixel inline na home
+
+### Corrigido
+- Home voltou a usar o snippet oficial inline do Meta Pixel para melhorar a deteccao pelo Meta Pixel Helper.

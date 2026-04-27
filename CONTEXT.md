@@ -199,3 +199,17 @@ Estado atual: CSP contempla Google Ads/Tag Assistant e Meta Pixel.
 Validacao: `vercel.json` validado como JSON e `npm run build` executado com sucesso.
 
 Proximo passo recomendado: apos deploy, recarregar a home com Ctrl+Shift+R e validar no Meta Pixel Helper.
+
+---
+
+## Atualizacao de sessao - 2026-04-27 - Meta Pixel inline na home
+
+- A home (`public/mb-finance-completo.html`) voltou a usar o snippet oficial inline do Meta Pixel no `<head>`.
+- O arquivo central `public/assets/js/infra/meta-pixel.js` permanece para as demais paginas publicas HTML.
+- Motivo: o Meta Pixel Helper continuou sem detectar o pixel na home no navegador do dono, mesmo com CSP corrigida e arquivo central publicado.
+
+Estado atual: home com snippet oficial inline e sem duplicidade de `fbq('init')`.
+
+Validacao: contagem de `fbq('init', '1303767088303655')` na home = 1; `npm run build` executado com sucesso.
+
+Proximo passo recomendado: apos deploy, recarregar com Ctrl+Shift+R e validar novamente no Meta Pixel Helper.

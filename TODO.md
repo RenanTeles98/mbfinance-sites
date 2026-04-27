@@ -114,3 +114,7 @@
 ### CSP Meta Pixel
 - [x] Ajustar CSP no `vercel.json` para permitir dominios do Meta Pixel.
 - [ ] Validar novamente no Meta Pixel Helper apos deploy do Vercel.
+
+### Meta Pixel home
+- [x] Restaurar snippet oficial inline do Meta Pixel na home para compatibilidade com Pixel Helper.
+- [ ] Validar novamente a home no Meta Pixel Helper apos deploy.
