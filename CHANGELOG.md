@@ -90,3 +90,8 @@ Principais marcos conhecidos:
 
 ### Corrigido
 - Home voltou a usar o snippet oficial inline do Meta Pixel para melhorar a deteccao pelo Meta Pixel Helper.
+
+## 2026-04-27 - Meta Pixel inline no blog legado
+
+### Corrigido
+- `public/pages/blog.html` voltou a usar o snippet oficial inline do Meta Pixel para melhorar a deteccao pelo Meta Pixel Helper.

@@ -410,3 +410,26 @@ Restaurar o snippet oficial inline do Meta Pixel diretamente no `<head>` da home
 ### Consequencias
 - A home volta ao formato oficial reconhecido anteriormente pelo Meta Pixel Helper.
 - As demais paginas continuam usando o arquivo central `meta-pixel.js`.
+
+---
+
+## ADR-020: Blog legado usa snippet oficial inline do Meta Pixel
+
+**Data:** 2026-04-27
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+O Meta Pixel Helper nao detectou o Pixel na pagina legada do blog (`public/pages/blog.html`), que ainda usava o arquivo central `public/assets/js/infra/meta-pixel.js`. Essa pagina e a que aparece no navegador do dono com o hero "Inteligencia financeira para o seu negocio crescer".
+
+### Decisao
+Substituir o carregamento externo do Meta Pixel em `public/pages/blog.html` pelo snippet oficial inline diretamente no `<head>`, mantendo a Google Ads tag externa.
+
+### Alternativas Consideradas
+- **Manter apenas o arquivo central:** tecnicamente reutilizavel, mas nao resolveu a validacao pratica no Pixel Helper.
+- **Migrar o blog legado para Next.js agora:** escopo maior do que a correcao necessaria.
+- **Inline apenas no blog legado (escolhida):** corrige a pagina validada pelo dono com alteracao pequena e controlada.
+
+### Consequencias
+- O blog legado passa a seguir o mesmo padrao de compatibilidade adotado na home.
+- Continua existindo alguma duplicacao do snippet oficial, aceita temporariamente para garantir rastreamento nas paginas criticas.

@@ -213,3 +213,25 @@ Estado atual: home com snippet oficial inline e sem duplicidade de `fbq('init')`
 Validacao: contagem de `fbq('init', '1303767088303655')` na home = 1; `npm run build` executado com sucesso.
 
 Proximo passo recomendado: apos deploy, recarregar com Ctrl+Shift+R e validar novamente no Meta Pixel Helper.
+
+---
+
+## Atualizacao de sessao - 2026-04-27 - Meta Pixel inline no blog legado
+
+- A pagina legada do blog (`public/pages/blog.html`) voltou a usar o snippet oficial inline do Meta Pixel no `<head>`.
+- Motivo: o Meta Pixel Helper nao detectou o Pixel nessa pagina quando ela usava o arquivo central `public/assets/js/infra/meta-pixel.js`.
+- A pagina continua com a Google Ads tag externa `../assets/js/infra/google-ads-tag.js`.
+
+Arquivos modificados nesta etapa:
+- `public/pages/blog.html`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-04-27.md`
+
+Estado atual: blog legado com snippet oficial inline e sem duplicidade de `fbq('init')`.
+
+Validacao: `public/pages/blog.html` possui exatamente um `fbq('init', '1303767088303655')`; `npm run build` executado com sucesso.
+
+Proximo passo recomendado: apos deploy, recarregar `https://mbfinance-sites.vercel.app/pages/blog.html` com Ctrl+Shift+R e validar no Meta Pixel Helper.

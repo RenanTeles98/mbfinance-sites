@@ -118,3 +118,7 @@
 ### Meta Pixel home
 - [x] Restaurar snippet oficial inline do Meta Pixel na home para compatibilidade com Pixel Helper.
 - [ ] Validar novamente a home no Meta Pixel Helper apos deploy.
+
+### Meta Pixel blog legado
+- [x] Restaurar snippet oficial inline do Meta Pixel em `public/pages/blog.html` para compatibilidade com Pixel Helper.
+- [ ] Validar novamente `https://mbfinance-sites.vercel.app/pages/blog.html` no Meta Pixel Helper apos deploy.
