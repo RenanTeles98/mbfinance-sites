@@ -80,3 +80,8 @@ Principais marcos conhecidos:
 
 ### Modificado
 - `vercel.json` atualizado para permitir os dominios necessarios da Google tag, Google Ads, Google Analytics e DoubleClick na Content Security Policy.
+
+## 2026-04-27 - CSP Meta Pixel
+
+### Corrigido
+- `vercel.json` atualizado para permitir os dominios necessarios do Meta Pixel na Content Security Policy.

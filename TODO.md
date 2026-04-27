@@ -110,3 +110,7 @@
 ### CSP Google Ads
 - [x] Ajustar CSP no `vercel.json` para permitir dominios da Google tag e Google Ads.
 - [ ] Validar novamente no Tag Assistant apos deploy do Vercel.
+
+### CSP Meta Pixel
+- [x] Ajustar CSP no `vercel.json` para permitir dominios do Meta Pixel.
+- [ ] Validar novamente no Meta Pixel Helper apos deploy do Vercel.

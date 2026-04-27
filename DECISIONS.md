@@ -364,3 +364,26 @@ Atualizar a CSP em `vercel.json` para permitir scripts, conexoes e frames necess
 ### Consequencias
 - Tag Assistant e Google Ads passam a ter permissao de carregar scripts/conexoes necessarios.
 - A politica continua restritiva para fontes nao listadas.
+
+---
+
+## ADR-018: CSP permite dominios necessarios do Meta Pixel
+
+**Data:** 2026-04-27
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+A CSP foi ampliada para Google Ads, mas ainda nao permitia explicitamente `connect.facebook.net`, dominio que carrega o `fbevents.js` do Meta Pixel. Isso fez o Meta Pixel Helper deixar de encontrar o pixel.
+
+### Decisao
+Adicionar `https://connect.facebook.net` em `script-src` e `connect-src`, alem de `https://www.facebook.com` em `connect-src`, mantendo a CSP restritiva para origens nao listadas.
+
+### Alternativas Consideradas
+- **Remover a CSP:** resolveria o bloqueio, mas reduziria a seguranca do site.
+- **Liberar todos os scripts externos com `https:`:** desnecessariamente amplo.
+- **Liberar dominios especificos do Meta (escolhida):** corrige o Pixel mantendo a politica controlada.
+
+### Consequencias
+- O Meta Pixel pode carregar o `fbevents.js` e enviar eventos novamente.
+- A CSP continua controlada por lista de dominios autorizados.

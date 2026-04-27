@@ -185,3 +185,17 @@ Estado atual: CSP pronta para permitir carregamento, conexoes e frames necessari
 Validacao: `vercel.json` validado como JSON e `npm run build` executado com sucesso.
 
 Proximo passo recomendado: apos deploy, recarregar o site com Ctrl+Shift+R e validar novamente no Tag Assistant.
+
+---
+
+## Atualizacao de sessao - 2026-04-27 - CSP Meta Pixel
+
+- Corrigida a `Content-Security-Policy` em `vercel.json` para permitir o Meta Pixel apos o ajuste da CSP do Google Ads.
+- Dominios liberados: `connect.facebook.net` em `script-src` e `connect-src`, e `www.facebook.com` em `connect-src`.
+- Motivo: o Meta Pixel Helper deixou de encontrar o pixel porque o navegador passou a bloquear o carregamento de `https://connect.facebook.net/en_US/fbevents.js`.
+
+Estado atual: CSP contempla Google Ads/Tag Assistant e Meta Pixel.
+
+Validacao: `vercel.json` validado como JSON e `npm run build` executado com sucesso.
+
+Proximo passo recomendado: apos deploy, recarregar a home com Ctrl+Shift+R e validar no Meta Pixel Helper.
