@@ -94,3 +94,9 @@
 - [x] Instalar Meta Pixel na home principal (`public/mb-finance-completo.html`) com ID `1303767088303655`.
 - [ ] Validar disparo do evento `PageView` apos deploy no Meta Pixel Helper / Gerenciador de Eventos.
 - [ ] Avaliar eventos de conversao futuros para CTAs de WhatsApp.
+
+### Marketing e mensuracao - atualizacao global
+- [x] Expandir o Meta Pixel para paginas publicas relevantes do site.
+- [x] Manter o painel administrativo fora do rastreamento de campanhas.
+- [ ] Validar o Pixel Helper apos deploy em `/mb-finance-completo.html`, `/pages/sobre.html`, `/blog` e um artigo.
+- [ ] Implementar eventos futuros para cliques de WhatsApp (`Contact` ou `Lead`).

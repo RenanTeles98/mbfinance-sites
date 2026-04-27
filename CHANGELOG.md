@@ -55,3 +55,13 @@ Principais marcos conhecidos:
 - Overflow horizontal mobile corrigido
 - Smooth scroll com Lenis adicionado
 
+
+## 2026-04-27 - Meta Pixel global
+
+### Adicionado
+- `public/assets/js/infra/meta-pixel.js` para carregar o Meta Pixel nos HTMLs estaticos.
+- `components/MetaPixel.tsx` para carregar o Pixel nas paginas publicas do Next.js.
+
+### Modificado
+- Meta Pixel expandido para home, paginas secundarias publicas, artigos legados, blog e pagina sobre.
+- `blog-admin.html` mantido fora do rastreamento.

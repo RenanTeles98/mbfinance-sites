@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import MetaPixel from "@/components/MetaPixel";
 import { readFeaturedPost, readPublishedBlogPosts } from "@/lib/blog-store";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
@@ -25,7 +26,9 @@ export default async function BlogIndexPage() {
   const gridPosts = posts.filter((post) => post.slug !== featured?.slug);
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <>
+      <MetaPixel />
+      <main className="min-h-screen bg-slate-50">
       <section className="bg-[#003956] px-6 py-16 text-white">
         <div className="mx-auto max-w-6xl">
           <p className="mb-5 inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.28em] text-sky-300">
@@ -113,7 +116,8 @@ export default async function BlogIndexPage() {
         </div>
       </section>
 
-      <NewsletterSignup />
-    </main>
+        <NewsletterSignup />
+      </main>
+    </>
   );
 }

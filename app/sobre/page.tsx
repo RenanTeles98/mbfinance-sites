@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import MetaPixel from "@/components/MetaPixel";
 import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 
 /* ─── DATA ─────────────────────────────────────────────────── */
@@ -195,7 +196,9 @@ function HorizontalTimeline() {
 
 export default function SobrePage() {
   return (
-    <main className="bg-white overflow-x-hidden max-w-full">
+    <>
+      <MetaPixel />
+      <main className="bg-white overflow-x-hidden max-w-full">
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section
@@ -338,7 +341,7 @@ export default function SobrePage() {
           </motion.div>
         </div>
       </section>
-
-    </main>
+      </main>
+    </>
   );
 }

@@ -131,3 +131,28 @@ Estado atual: home principal com Meta Pixel instalado e pronta para deploy.
 Onde o trabalho parou: aguardando validacao em producao apos deploy.
 
 Proximo passo recomendado: validar o disparo do `PageView` no Meta Pixel Helper ou no Gerenciador de Eventos da Meta.
+
+---
+
+## Atualizacao de sessao - 2026-04-27 - Pixel global
+
+### Meta Pixel em paginas publicas
+- Criado `public/assets/js/infra/meta-pixel.js` para centralizar o Pixel em HTMLs estaticos.
+- Criado `components/MetaPixel.tsx` para reutilizar o Pixel nas rotas Next.js publicas.
+- Aplicado o Pixel na home, paginas secundarias publicas, artigos legados, blog e pagina sobre.
+- `public/pages/blog-admin.html` ficou fora do rastreamento para evitar dados administrativos em campanhas.
+
+Arquivos principais modificados nesta etapa:
+- `public/assets/js/infra/meta-pixel.js`
+- `components/MetaPixel.tsx`
+- `public/mb-finance-completo.html`
+- `public/pages/*.html` publicos, exceto `blog-admin.html`
+- `app/blog/page.tsx`
+- `app/blog/[slug]/page.tsx`
+- `app/sobre/page.tsx`
+
+Estado atual: Pixel unico `1303767088303655` instalado nas paginas publicas relevantes.
+
+Validacao: `npm run build` executado com sucesso; restaram apenas avisos preexistentes de lint/performance.
+
+Proximo passo recomendado: apos deploy, conferir uma pagina HTML secundaria e uma rota Next.js (`/blog` ou `/sobre`) no Meta Pixel Helper.

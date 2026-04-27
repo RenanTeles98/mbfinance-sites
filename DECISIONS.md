@@ -295,3 +295,26 @@ Inserir o snippet oficial do Meta Pixel diretamente no `<head>` de `public/mb-fi
 ### Consequencias
 - O evento `PageView` passa a ser enviado para o pixel `1303767088303655`.
 - A validacao final depende do deploy e da checagem no Meta Pixel Helper ou Gerenciador de Eventos.
+
+---
+
+## ADR-015: Meta Pixel unico distribuido nas paginas publicas
+
+**Data:** 2026-04-27
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+A instalacao inicial do Meta Pixel cobria apenas a home. Para mensuracao correta de trafego, remarketing e jornadas que entram direto em blog, paginas secundarias ou artigos, o mesmo Pixel precisa estar nas paginas publicas relevantes.
+
+### Decisao
+Usar um unico Pixel (`1303767088303655`) em todo o site publico. Nos HTMLs estaticos, o carregamento foi centralizado em `public/assets/js/infra/meta-pixel.js`. Nas rotas Next.js publicas, foi criado o componente `components/MetaPixel.tsx` e aplicado em `/blog`, `/blog/[slug]` e `/sobre`.
+
+### Alternativas Consideradas
+- **Criar um Pixel por pagina:** descartado porque fragmentaria os dados e dificultaria otimizacao de campanhas.
+- **Colocar o Pixel no layout global do Next.js:** mais simples, mas tambem rastrearia `/admin`, o que poderia poluir dados com acessos administrativos.
+
+### Consequencias
+- O mesmo Pixel coleta `PageView` nas paginas publicas relevantes.
+- O painel administrativo legado (`blog-admin.html`) ficou fora do rastreamento por decisao intencional.
+- Eventos de conversao em CTAs de WhatsApp continuam como proxima melhoria.
