@@ -156,3 +156,18 @@ Estado atual: Pixel unico `1303767088303655` instalado nas paginas publicas rele
 Validacao: `npm run build` executado com sucesso; restaram apenas avisos preexistentes de lint/performance.
 
 Proximo passo recomendado: apos deploy, conferir uma pagina HTML secundaria e uma rota Next.js (`/blog` ou `/sobre`) no Meta Pixel Helper.
+
+---
+
+## Atualizacao de sessao - 2026-04-27 - Google Ads tag
+
+- Criado `public/assets/js/infra/google-ads-tag.js` para centralizar a Google tag nos HTMLs estaticos.
+- Criado `components/GoogleAdsTag.tsx` para reutilizar a tag nas rotas Next.js publicas.
+- Aplicada a Google tag `AW-18112641661` na home, paginas secundarias publicas, artigos legados, blog e pagina sobre.
+- `public/pages/blog-admin.html` ficou fora do rastreamento para evitar dados administrativos em campanhas.
+
+Estado atual: Google Ads tag `AW-18112641661` instalada nas paginas publicas relevantes.
+
+Validacao: `npm run build` executado com sucesso; restaram apenas avisos preexistentes de lint/performance.
+
+Proximo passo recomendado: apos deploy, validar a tag pelo Tag Assistant do Google em uma pagina HTML secundaria e uma rota Next.js (`/blog` ou `/sobre`).

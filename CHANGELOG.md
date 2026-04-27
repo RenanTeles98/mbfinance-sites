@@ -65,3 +65,13 @@ Principais marcos conhecidos:
 ### Modificado
 - Meta Pixel expandido para home, paginas secundarias publicas, artigos legados, blog e pagina sobre.
 - `blog-admin.html` mantido fora do rastreamento.
+
+## 2026-04-27 - Google Ads tag
+
+### Adicionado
+- `public/assets/js/infra/google-ads-tag.js` para carregar a Google tag nos HTMLs estaticos.
+- `components/GoogleAdsTag.tsx` para carregar a tag nas paginas publicas do Next.js.
+
+### Modificado
+- Google tag `AW-18112641661` aplicada na home, paginas secundarias publicas, artigos legados, blog e pagina sobre.
+- `blog-admin.html` mantido fora do rastreamento.

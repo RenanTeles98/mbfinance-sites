@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import GoogleAdsTag from "@/components/GoogleAdsTag";
 import MetaPixel from "@/components/MetaPixel";
 import { readBlogPostBySlug, readPublishedBlogPosts } from "@/lib/blog-store";
 
@@ -45,6 +46,7 @@ export default async function BlogArticlePage({
 
   return (
     <>
+      <GoogleAdsTag />
       <MetaPixel />
       <main className="min-h-screen bg-slate-50">
       <nav style={{ background: "#003956", position: "sticky", top: 0, zIndex: 100 }}>

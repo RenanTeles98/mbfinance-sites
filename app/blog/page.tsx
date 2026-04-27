@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import GoogleAdsTag from "@/components/GoogleAdsTag";
 import MetaPixel from "@/components/MetaPixel";
 import { readFeaturedPost, readPublishedBlogPosts } from "@/lib/blog-store";
 import NewsletterSignup from "@/components/NewsletterSignup";
@@ -27,6 +28,7 @@ export default async function BlogIndexPage() {
 
   return (
     <>
+      <GoogleAdsTag />
       <MetaPixel />
       <main className="min-h-screen bg-slate-50">
       <section className="bg-[#003956] px-6 py-16 text-white">

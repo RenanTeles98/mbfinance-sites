@@ -318,3 +318,26 @@ Usar um unico Pixel (`1303767088303655`) em todo o site publico. Nos HTMLs estat
 - O mesmo Pixel coleta `PageView` nas paginas publicas relevantes.
 - O painel administrativo legado (`blog-admin.html`) ficou fora do rastreamento por decisao intencional.
 - Eventos de conversao em CTAs de WhatsApp continuam como proxima melhoria.
+
+---
+
+## ADR-016: Google Ads tag distribuida nas paginas publicas
+
+**Data:** 2026-04-27
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+O dono do projeto solicitou a instalacao da Google tag `AW-18112641661` para mensuracao de campanhas do Google Ads.
+
+### Decisao
+Aplicar a Google tag nas paginas publicas relevantes usando um arquivo central para HTMLs estaticos (`public/assets/js/infra/google-ads-tag.js`) e um componente React para rotas Next.js publicas (`components/GoogleAdsTag.tsx`).
+
+### Alternativas Consideradas
+- **Inserir o snippet inline em cada pagina:** mais direto, mas criaria duplicacao e dificultaria manutencao.
+- **Colocar no layout global do Next.js:** mais simples para rotas Next, mas rastrearia `/admin`, o que poderia contaminar metricas de campanha.
+
+### Consequencias
+- A tag `AW-18112641661` passa a carregar nas paginas publicas relevantes.
+- O painel administrativo continua fora do rastreamento.
+- Eventos de conversao de WhatsApp ficam como proxima melhoria.
