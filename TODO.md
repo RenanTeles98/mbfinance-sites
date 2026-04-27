@@ -106,3 +106,7 @@
 - [x] Manter o painel administrativo fora do rastreamento de campanhas.
 - [ ] Validar a tag apos deploy no Tag Assistant do Google.
 - [ ] Configurar eventos de conversao para cliques de WhatsApp quando a conta do Google Ads estiver pronta.
+
+### CSP Google Ads
+- [x] Ajustar CSP no `vercel.json` para permitir dominios da Google tag e Google Ads.
+- [ ] Validar novamente no Tag Assistant apos deploy do Vercel.

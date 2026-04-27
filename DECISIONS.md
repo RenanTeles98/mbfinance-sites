@@ -341,3 +341,26 @@ Aplicar a Google tag nas paginas publicas relevantes usando um arquivo central p
 - A tag `AW-18112641661` passa a carregar nas paginas publicas relevantes.
 - O painel administrativo continua fora do rastreamento.
 - Eventos de conversao de WhatsApp ficam como proxima melhoria.
+
+---
+
+## ADR-017: CSP permite dominios necessarios da Google tag e Google Ads
+
+**Data:** 2026-04-27
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+A Google tag `AW-18112641661` foi instalada, mas o Tag Assistant exibiu alerta de Content Security Policy bloqueando scripts/conexoes do Google.
+
+### Decisao
+Atualizar a CSP em `vercel.json` para permitir scripts, conexoes e frames necessarios de Google Tag, Google Analytics, Google Ads e DoubleClick, mantendo `object-src 'none'` e escopo restrito aos dominios necessarios.
+
+### Alternativas Consideradas
+- **Remover a CSP:** resolveria o alerta, mas reduziria a seguranca do site.
+- **Liberar `https:` genericamente em scripts/conexoes:** mais permissivo do que necessario.
+- **Liberar dominios especificos (escolhida):** mantem protecao e permite funcionamento das tags.
+
+### Consequencias
+- Tag Assistant e Google Ads passam a ter permissao de carregar scripts/conexoes necessarios.
+- A politica continua restritiva para fontes nao listadas.

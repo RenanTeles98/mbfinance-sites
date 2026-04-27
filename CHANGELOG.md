@@ -75,3 +75,8 @@ Principais marcos conhecidos:
 ### Modificado
 - Google tag `AW-18112641661` aplicada na home, paginas secundarias publicas, artigos legados, blog e pagina sobre.
 - `blog-admin.html` mantido fora do rastreamento.
+
+## 2026-04-27 - CSP Google Ads
+
+### Modificado
+- `vercel.json` atualizado para permitir os dominios necessarios da Google tag, Google Ads, Google Analytics e DoubleClick na Content Security Policy.

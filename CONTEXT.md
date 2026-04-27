@@ -171,3 +171,17 @@ Estado atual: Google Ads tag `AW-18112641661` instalada nas paginas publicas rel
 Validacao: `npm run build` executado com sucesso; restaram apenas avisos preexistentes de lint/performance.
 
 Proximo passo recomendado: apos deploy, validar a tag pelo Tag Assistant do Google em uma pagina HTML secundaria e uma rota Next.js (`/blog` ou `/sobre`).
+
+---
+
+## Atualizacao de sessao - 2026-04-27 - CSP Google Ads
+
+- Ajustada a `Content-Security-Policy` em `vercel.json` para permitir os dominios necessarios da Google tag e Google Ads.
+- Dominios liberados incluem `googletagmanager.com`, `google-analytics.com`, `googleadservices.com`, `doubleclick.net`, `google.com` e `google.com.br` nas diretivas adequadas.
+- Motivo: o Tag Assistant indicou bloqueio de CSP, apesar de encontrar a tag `AW-18112641661`.
+
+Estado atual: CSP pronta para permitir carregamento, conexoes e frames necessarios do Google Ads/Tag Assistant.
+
+Validacao: `vercel.json` validado como JSON e `npm run build` executado com sucesso.
+
+Proximo passo recomendado: apos deploy, recarregar o site com Ctrl+Shift+R e validar novamente no Tag Assistant.
