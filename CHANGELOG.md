@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-04-27 - Meta Pixel
+
+### Adicionado
+- Meta Pixel no `<head>` de `public/mb-finance-completo.html` com ID `1303767088303655` e evento `PageView`.
+
+---
+
 ## 2026-04-14 — Refatoração estrutural + organização
 
 ### Adicionado
@@ -47,3 +54,4 @@ Principais marcos conhecidos:
 - Home mantida em HTML estático (estratégia Strangler Fig)
 - Overflow horizontal mobile corrigido
 - Smooth scroll com Lenis adicionado
+

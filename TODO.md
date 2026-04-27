@@ -85,3 +85,12 @@
 ### Infraestrutura
 - [ ] Configurar `robots.txt` para bloquear `/admin`
 - [ ] Adicionar error pages customizadas (404, 500) no Next.js
+
+---
+
+## Atualizacao 2026-04-27
+
+### Marketing e mensuracao
+- [x] Instalar Meta Pixel na home principal (`public/mb-finance-completo.html`) com ID `1303767088303655`.
+- [ ] Validar disparo do evento `PageView` apos deploy no Meta Pixel Helper / Gerenciador de Eventos.
+- [ ] Avaliar eventos de conversao futuros para CTAs de WhatsApp.

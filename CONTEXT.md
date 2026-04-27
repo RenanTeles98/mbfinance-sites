@@ -1,7 +1,7 @@
 # CONTEXT.md — Estado Atual do Projeto
 
-> Última atualização: 2026-04-22
-> Atualizado por: IA - Antigravity
+> Última atualização: 2026-04-27
+> Atualizado por: IA - Codex
 
 ---
 
@@ -108,3 +108,26 @@ Próximo passo recomendado: Ajustar o endpoint do Blog no Next.js para respeitar
 - Branch principal: `master`
 - Último conjunto de commits: ajustes visuais nas páginas legais e na timeline do `sobre`
 - Rollback disponível via Vercel dashboard ou `git revert`
+
+---
+
+## Atualizacao de sessao - 2026-04-27
+
+### Meta Pixel na home principal
+- Inserido o snippet oficial do Meta Pixel no `<head>` de `public/mb-finance-completo.html`.
+- Pixel configurado com `fbq('init', '1303767088303655')` e evento `PageView`.
+- Nao houve alteracao de layout, CSS ou fluxos de CTA.
+
+Arquivos modificados nesta sessao:
+- `public/mb-finance-completo.html`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-04-27.md`
+
+Estado atual: home principal com Meta Pixel instalado e pronta para deploy.
+
+Onde o trabalho parou: aguardando validacao em producao apos deploy.
+
+Proximo passo recomendado: validar o disparo do `PageView` no Meta Pixel Helper ou no Gerenciador de Eventos da Meta.

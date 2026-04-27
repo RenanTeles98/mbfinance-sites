@@ -273,3 +273,25 @@ Implementar um padrão de **Single Page Application (SPA)** simplificado usando 
 ### Consequências
 - **Positivas:** Isolamento total entre funcionalidades; navegação limpa e previsível; facilidade para adicionar novas telas.
 - **Negativas:** Requer cuidado extra com o balanço de tags `div` durante refatorações.
+
+---
+
+## ADR-014: Meta Pixel carregado no head da home principal
+
+**Data:** 2026-04-27
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+O dono do projeto solicitou a instalacao do Pixel do Facebook/Meta para mensuracao de trafego e campanhas na home principal do site.
+
+### Decisao
+Inserir o snippet oficial do Meta Pixel diretamente no `<head>` de `public/mb-finance-completo.html`, junto dos scripts de mensuracao ja existentes.
+
+### Alternativas Consideradas
+- **Criar arquivo JS externo em `public/assets/`:** manteria o padrao modular, mas o snippet de pixel e normalmente fornecido para carregamento no head e precisava ser instalado de forma direta.
+- **Usar Tag Manager:** mais flexivel para marketing, mas adicionaria uma dependencia que nao foi solicitada nesta tarefa.
+
+### Consequencias
+- O evento `PageView` passa a ser enviado para o pixel `1303767088303655`.
+- A validacao final depende do deploy e da checagem no Meta Pixel Helper ou Gerenciador de Eventos.
