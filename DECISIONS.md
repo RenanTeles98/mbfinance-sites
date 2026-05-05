@@ -1,11 +1,11 @@
-# DECISIONS.md â€” Registro de DecisÃµes TÃ©cnicas
+﻿# DECISIONS.md Ã¢â‚¬â€ Registro de DecisÃƒÂµes TÃƒÂ©cnicas
 
-> Cada decisÃ£o importante fica registrada aqui com contexto e alternativas.
+> Cada decisÃƒÂ£o importante fica registrada aqui com contexto e alternativas.
 > Formato: ADR (Architecture Decision Record)
 
 ---
 
-## ADR-001: HTML estÃ¡tico como pÃ¡gina principal em vez de migrar tudo para Next.js
+## ADR-001: HTML estÃƒÂ¡tico como pÃƒÂ¡gina principal em vez de migrar tudo para Next.js
 
 **Data:** 2026-04-14
 **Status:** Aceita
@@ -13,21 +13,21 @@
 
 ### Contexto
 
-O site nasceu como HTML puro. Migrar tudo de uma vez para Next.js seria arriscado e desnecessÃ¡rio para o estÃ¡gio atual do projeto.
+O site nasceu como HTML puro. Migrar tudo de uma vez para Next.js seria arriscado e desnecessÃƒÂ¡rio para o estÃƒÂ¡gio atual do projeto.
 
-### DecisÃ£o
+### DecisÃƒÂ£o
 
-Manter a home em HTML estÃ¡tico (`public/mb-finance-completo.html`) e adotar a estratÃ©gia **Strangler Fig**: migrar gradualmente para Next.js conforme a necessidade surgir.
+Manter a home em HTML estÃƒÂ¡tico (`public/mb-finance-completo.html`) e adotar a estratÃƒÂ©gia **Strangler Fig**: migrar gradualmente para Next.js conforme a necessidade surgir.
 
 ### Alternativas Consideradas
 
-- **MigraÃ§Ã£o total para Next.js:** unificaria a base, mas com alto risco e esforÃ§o desproporcional
-- **Strangler Fig (escolhida):** permite evoluÃ§Ã£o incremental com risco controlado
+- **MigraÃƒÂ§ÃƒÂ£o total para Next.js:** unificaria a base, mas com alto risco e esforÃƒÂ§o desproporcional
+- **Strangler Fig (escolhida):** permite evoluÃƒÂ§ÃƒÂ£o incremental com risco controlado
 
-### ConsequÃªncias
+### ConsequÃƒÂªncias
 
-- O site continua no ar durante a evoluÃ§Ã£o
-- Dois padrÃµes coexistem temporariamente (HTML legado + Next.js)
+- O site continua no ar durante a evoluÃƒÂ§ÃƒÂ£o
+- Dois padrÃƒÂµes coexistem temporariamente (HTML legado + Next.js)
 
 ---
 
@@ -39,21 +39,21 @@ Manter a home em HTML estÃ¡tico (`public/mb-finance-completo.html`) e adotar a
 
 ### Contexto
 
-O `mb-finance-completo.html` tinha estilos e scripts inline demais, dificultando manutenÃ§Ã£o e reaproveitamento.
+O `mb-finance-completo.html` tinha estilos e scripts inline demais, dificultando manutenÃƒÂ§ÃƒÂ£o e reaproveitamento.
 
-### DecisÃ£o
+### DecisÃƒÂ£o
 
 Extrair CSS e JS do HTML, organizando o JavaScript em `infra/`, `use-cases/` e `ui/` dentro de `public/assets/`.
 
 ### Alternativas Consideradas
 
-- **Bundler com mÃ³dulos ES:** mais robusto, mas com complexidade desnecessÃ¡ria para o estÃ¡gio atual
+- **Bundler com mÃƒÂ³dulos ES:** mais robusto, mas com complexidade desnecessÃƒÂ¡ria para o estÃƒÂ¡gio atual
 - **Arquivos separados por responsabilidade (escolhida):** simples, sem build step e suficiente para o volume atual
 
-### ConsequÃªncias
+### ConsequÃƒÂªncias
 
 - HTML mais limpo
-- CSS e JS editÃ¡veis sem voltar a colocar lÃ³gica inline
+- CSS e JS editÃƒÂ¡veis sem voltar a colocar lÃƒÂ³gica inline
 
 ---
 
@@ -64,15 +64,15 @@ Extrair CSS e JS do HTML, organizando o JavaScript em `infra/`, `use-cases/` e `
 
 ### Contexto
 
-O blog precisava de persistÃªncia compatÃ­vel com o ambiente serverless da Vercel.
+O blog precisava de persistÃƒÂªncia compatÃƒÂ­vel com o ambiente serverless da Vercel.
 
-### DecisÃ£o
+### DecisÃƒÂ£o
 
-Usar Upstash Redis (Vercel KV) em produÃ§Ã£o, com fallback para JSON local em desenvolvimento.
+Usar Upstash Redis (Vercel KV) em produÃƒÂ§ÃƒÂ£o, com fallback para JSON local em desenvolvimento.
 
-### ConsequÃªncias
+### ConsequÃƒÂªncias
 
-- SoluÃ§Ã£o simples e suficiente para o volume atual de posts
+- SoluÃƒÂ§ÃƒÂ£o simples e suficiente para o volume atual de posts
 
 ---
 
@@ -83,16 +83,16 @@ Usar Upstash Redis (Vercel KV) em produÃ§Ã£o, com fallback para JSON local e
 
 ### Contexto
 
-O projeto precisa de hospedagem compatÃ­vel com Next.js, pÃ¡ginas estÃ¡ticas e deploy contÃ­nuo simples.
+O projeto precisa de hospedagem compatÃƒÂ­vel com Next.js, pÃƒÂ¡ginas estÃƒÂ¡ticas e deploy contÃƒÂ­nuo simples.
 
-### DecisÃ£o
+### DecisÃƒÂ£o
 
-Deploy no Vercel com CI/CD automÃ¡tico via push para `master`.
+Deploy no Vercel com CI/CD automÃƒÂ¡tico via push para `master`.
 
-### ConsequÃªncias
+### ConsequÃƒÂªncias
 
-- Push para `master` gera deploy automÃ¡tico
-- Rollback fica disponÃ­vel no painel da Vercel
+- Push para `master` gera deploy automÃƒÂ¡tico
+- Rollback fica disponÃƒÂ­vel no painel da Vercel
 
 ---
 
@@ -103,20 +103,20 @@ Deploy no Vercel com CI/CD automÃ¡tico via push para `master`.
 
 ### Contexto
 
-Os leads precisavam cair em uma ferramenta simples e acessÃ­vel ao dono do projeto.
+Os leads precisavam cair em uma ferramenta simples e acessÃƒÂ­vel ao dono do projeto.
 
-### DecisÃ£o
+### DecisÃƒÂ£o
 
 Enviar leads para Google Sheets via Google Apps Script, com fallback local em `localStorage`.
 
-### ConsequÃªncias
+### ConsequÃƒÂªncias
 
-- OperaÃ§Ã£o simples para o dono
+- OperaÃƒÂ§ÃƒÂ£o simples para o dono
 - Menos complexidade do que introduzir um CRM completo
 
 ---
 
-## ADR-006: Ajustes visuais pontuais nas pÃ¡ginas legais permanecem locais atÃ© a refatoraÃ§Ã£o
+## ADR-006: Ajustes visuais pontuais nas pÃƒÂ¡ginas legais permanecem locais atÃƒÂ© a refatoraÃƒÂ§ÃƒÂ£o
 
 **Data:** 2026-04-15
 **Status:** Aceita
@@ -124,25 +124,25 @@ Enviar leads para Google Sheets via Google Apps Script, com fallback local em `l
 
 ### Contexto
 
-As pÃ¡ginas legais ainda usam CSS local no prÃ³prio HTML. Surgiu uma demanda pequena e imediata para aumentar a opacidade do texto auxiliar do hero em `public/pages/termos-de-uso.html` e `public/pages/politica-de-privacidade.html`.
+As pÃƒÂ¡ginas legais ainda usam CSS local no prÃƒÂ³prio HTML. Surgiu uma demanda pequena e imediata para aumentar a opacidade do texto auxiliar do hero em `public/pages/termos-de-uso.html` e `public/pages/politica-de-privacidade.html`.
 
-### DecisÃ£o
+### DecisÃƒÂ£o
 
-Aplicar o ajuste visual diretamente no CSS local existente dessas pÃ¡ginas, sem ampliar o escopo para a refatoraÃ§Ã£o estrutural completa nesta sessÃ£o.
+Aplicar o ajuste visual diretamente no CSS local existente dessas pÃƒÂ¡ginas, sem ampliar o escopo para a refatoraÃƒÂ§ÃƒÂ£o estrutural completa nesta sessÃƒÂ£o.
 
 ### Alternativas Consideradas
 
-- **Extrair CSS agora para `public/assets/`:** mais alinhado ao padrÃ£o final, mas desproporcional para um ajuste pontual
+- **Extrair CSS agora para `public/assets/`:** mais alinhado ao padrÃƒÂ£o final, mas desproporcional para um ajuste pontual
 - **Ajuste local no arquivo atual (escolhida):** resolve imediatamente com risco baixo e sem mexer na arquitetura
 
-### ConsequÃªncias
+### ConsequÃƒÂªncias
 
-- MantÃ©m rapidez para correÃ§Ãµes visuais pequenas nas pÃ¡ginas legais legadas
-- A refatoraÃ§Ã£o completa dessas pÃ¡ginas continua pendente
+- MantÃƒÂ©m rapidez para correÃƒÂ§ÃƒÂµes visuais pequenas nas pÃƒÂ¡ginas legais legadas
+- A refatoraÃƒÂ§ÃƒÂ£o completa dessas pÃƒÂ¡ginas continua pendente
 
 ---
 
-## ADR-007: O bloco "Escala" da timeline do Sobre volta ao eixo visual padrÃ£o
+## ADR-007: O bloco "Escala" da timeline do Sobre volta ao eixo visual padrÃƒÂ£o
 
 **Data:** 2026-04-15
 **Status:** Aceita
@@ -150,25 +150,25 @@ Aplicar o ajuste visual diretamente no CSS local existente dessas pÃ¡ginas, se
 
 ### Contexto
 
-No bloco `Escala` (`2020-2022`) da timeline em `public/pages/sobre.html`, o texto estava no lado oposto do Ã­cone e o checkpoint havia sido deslocado para baixo da linha horizontal, criando desalinhamento visual em relaÃ§Ã£o aos demais marcos.
+No bloco `Escala` (`2020-2022`) da timeline em `public/pages/sobre.html`, o texto estava no lado oposto do ÃƒÂ­cone e o checkpoint havia sido deslocado para baixo da linha horizontal, criando desalinhamento visual em relaÃƒÂ§ÃƒÂ£o aos demais marcos.
 
-### DecisÃ£o
+### DecisÃƒÂ£o
 
-Recolocar o bloco `Escala` no fluxo padrÃ£o da timeline: conteÃºdo Ã  esquerda, Ã­cone Ã  direita e checkpoint alinhado novamente ao eixo horizontal principal.
+Recolocar o bloco `Escala` no fluxo padrÃƒÂ£o da timeline: conteÃƒÂºdo ÃƒÂ  esquerda, ÃƒÂ­cone ÃƒÂ  direita e checkpoint alinhado novamente ao eixo horizontal principal.
 
 ### Alternativas Consideradas
 
-- **Manter o layout invertido e ajustar sÃ³ o checkpoint:** corrigiria parcialmente o problema, mas preservaria um padrÃ£o inconsistente no bloco
-- **Voltar ao layout padrÃ£o (escolhida):** simplifica a composiÃ§Ã£o e melhora a leitura visual da sequÃªncia
+- **Manter o layout invertido e ajustar sÃƒÂ³ o checkpoint:** corrigiria parcialmente o problema, mas preservaria um padrÃƒÂ£o inconsistente no bloco
+- **Voltar ao layout padrÃƒÂ£o (escolhida):** simplifica a composiÃƒÂ§ÃƒÂ£o e melhora a leitura visual da sequÃƒÂªncia
 
-### ConsequÃªncias
+### ConsequÃƒÂªncias
 
 - O bloco `Escala` fica consistente com a linguagem visual dos outros marcos da timeline
-- O eixo da timeline volta a parecer contÃ­nuo e intencional
+- O eixo da timeline volta a parecer contÃƒÂ­nuo e intencional
 
 ---
 
-## ADR-008: SimplificaÃ§Ã£o do Menu Administrativo do Blog
+## ADR-008: SimplificaÃƒÂ§ÃƒÂ£o do Menu Administrativo do Blog
 
 **Data:** 2026-04-20
 **Status:** Aceita
@@ -176,58 +176,58 @@ Recolocar o bloco `Escala` no fluxo padrÃ£o da timeline: conteÃºdo Ã  esqu
 
 ### Contexto
 
-O menu administrativo do blog (`public/pages/blog-admin.html`) continha as seÃ§Ãµes "Podcast" e "Banners". "Podcast" ainda era um placeholder ("Em breve") e "Banners" causava certa confusÃ£o semÃ¢ntica.
+O menu administrativo do blog (`public/pages/blog-admin.html`) continha as seÃƒÂ§ÃƒÂµes "Podcast" e "Banners". "Podcast" ainda era um placeholder ("Em breve") e "Banners" causava certa confusÃƒÂ£o semÃƒÂ¢ntica.
+
+### DecisÃƒÂ£o
+
+Remover o item "Podcast" e renomear "Banners" para "Publicidade" para melhor alinhamento com a finalidade de gerenciar slots de anÃƒÂºncios.
+
+### ConsequÃƒÂªncias
+
+- Menu mais limpo e focado no conteÃƒÂºdo atual.
+- Melhor clareza sobre a funcionalidade de gerenciamento de anÃƒÂºncios.
+
+
+---
+
+## ADR-009: ImplementaÃ§Ã£o do CalendÃ¡rio Editorial e Status de Agendamento
+**Data:** 2026-04-20
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+O usuÃ¡rio precisava de uma forma visual de planejar o conteÃºdo mensal do blog e agendar posts para datas e horÃ¡rios futuros para automaÃ§Ã£o.
 
 ### DecisÃ£o
-
-Remover o item "Podcast" e renomear "Banners" para "Publicidade" para melhor alinhamento com a finalidade de gerenciar slots de anÃºncios.
-
-### ConsequÃªncias
-
-- Menu mais limpo e focado no conteÃºdo atual.
-- Melhor clareza sobre a funcionalidade de gerenciamento de anÃºncios.
-
-
----
-
-## ADR-009: Implementação do Calendário Editorial e Status de Agendamento
-**Data:** 2026-04-20
-**Status:** Aceita
-**Decisores:** Dono do projeto + IA
-
-### Contexto
-O usuário precisava de uma forma visual de planejar o conteúdo mensal do blog e agendar posts para datas e horários futuros para automação.
-
-### Decisão
-Implementar uma aba de **Calendário Editorial** (visão de matriz mensal) no painel administrativo e expandir o schema de posts para incluir um campo 'time'. Implementar uma lógica de status baseada na data atual:
+Implementar uma aba de **CalendÃ¡rio Editorial** (visÃ£o de matriz mensal) no painel administrativo e expandir o schema de posts para incluir um campo 'time'. Implementar uma lÃ³gica de status baseada na data atual:
 - **Publicado:** Data no passado e 'published' true.
 - **Agendado:** Data no futuro e 'published' true.
 - **Rascunho:** 'published' false.
 
-### Consequências
+### ConsequÃªncias
 - Maior controle editorial sobre o fluxo de postagens.
-- Exigência de ajuste no frontend do blog (Next.js) para filtrar posts agendados e não exibi-los antes do tempo.
+- ExigÃªncia de ajuste no frontend do blog (Next.js) para filtrar posts agendados e nÃ£o exibi-los antes do tempo.
 
 ---
 
-## ADR-010: Integração de Gerador de Conteúdo IA e Radar Google Trends
+## ADR-010: IntegraÃ§Ã£o de Gerador de ConteÃºdo IA e Radar Google Trends
 **Data:** 2026-04-20
 **Status:** Aceita
 **Decisores:** Dono do projeto + IA
 
 ### Contexto
-O fluxo de criação de conteúdo era manual e dependia de pesquisas externas de tendências. O usuário desejava centralizar a inteligência de pauta dentro do CMS.
+O fluxo de criaÃ§Ã£o de conteÃºdo era manual e dependia de pesquisas externas de tendÃªncias. O usuÃ¡rio desejava centralizar a inteligÃªncia de pauta dentro do CMS.
 
-### Decisão
+### DecisÃ£o
 Implementar uma aba "Gerador (IA)" que combina:
-1. **Radar Google Trends:** Injeção de widgets oficiais do Google Trends via Iframe dinâmico para monitorar termos do nicho (Crédito, Mercado, etc).
-2. **Gerador de Ideias:** Sistema de sugestão de pautas baseado nos pilares da MB Finance.
-3. **Escrita Assistida:** Integração com o editor de posts para transformar ideias em rascunhos com um clique.
+1. **Radar Google Trends:** InjeÃ§Ã£o de widgets oficiais do Google Trends via Iframe dinÃ¢mico para monitorar termos do nicho (CrÃ©dito, Mercado, etc).
+2. **Gerador de Ideias:** Sistema de sugestÃ£o de pautas baseado nos pilares da MB Finance.
+3. **Escrita Assistida:** IntegraÃ§Ã£o com o editor de posts para transformar ideias em rascunhos com um clique.
 
-### Consequências
-- Aumento drástico na produtividade editorial.
-- Dependência de scripts externos (Google Trends) que podem ter políticas de CORS ou carregamento variável.
-- Necessidade de futura expansão da base de prompts/tópicos para manter a relevância das sugestões.
+### ConsequÃªncias
+- Aumento drÃ¡stico na produtividade editorial.
+- DependÃªncia de scripts externos (Google Trends) que podem ter polÃ­ticas de CORS ou carregamento variÃ¡vel.
+- Necessidade de futura expansÃ£o da base de prompts/tÃ³picos para manter a relevÃ¢ncia das sugestÃµes.
 
 ---
 
@@ -237,21 +237,21 @@ Implementar uma aba "Gerador (IA)" que combina:
 **Status:** Aceita
 
 ### Contexto
-## ADR-012: Padronização de Links de Recrutamento (Inhire)
+## ADR-012: PadronizaÃ§Ã£o de Links de Recrutamento (Inhire)
 
 **Data:** 2026-04-18
 **Status:** Implementado
 
 ### Contexto
-A MB Finance utiliza um portal externo de recrutamento (Inhire). Houve a necessidade de redirecionar todos os links legados de 'Trabalhe Conosco' que apontavam para âncoras internas (#vagas) ou caminhos relativos inexistentes.
+A MB Finance utiliza um portal externo de recrutamento (Inhire). Houve a necessidade de redirecionar todos os links legados de 'Trabalhe Conosco' que apontavam para Ã¢ncoras internas (#vagas) ou caminhos relativos inexistentes.
 
-### Decisão
-Substituir todas as referências ao link de recrutamento nos rodapés (Next.js e HTML Legado) pela URL absoluta: `https://mbfinance.inhire.app/vagas`.
+### DecisÃ£o
+Substituir todas as referÃªncias ao link de recrutamento nos rodapÃ©s (Next.js e HTML Legado) pela URL absoluta: `https://mbfinance.inhire.app/vagas`.
 
-### Consequências
+### ConsequÃªncias
 - Fluxo de candidatos centralizado no portal oficial.
-- Eliminação de links quebrados em páginas secundárias.
-- Recuperação estrutural da página de Termos de Uso (que apresentava corrupção de markup no rodapé).
+- EliminaÃ§Ã£o de links quebrados em pÃ¡ginas secundÃ¡rias.
+- RecuperaÃ§Ã£o estrutural da pÃ¡gina de Termos de Uso (que apresentava corrupÃ§Ã£o de markup no rodapÃ©).
 
 ## ADR-013: Arquitetura de Isolamento de Abas (Admin Dashboard)
 
@@ -259,20 +259,20 @@ Substituir todas as referências ao link de recrutamento nos rodapés (Next.js e
 **Status:** Implementado
 
 ### Contexto
-Após a modularização do `blog-admin.html`, as seções administrativas (Métricas, Blog, Newsletter, etc.) estavam sendo renderizadas simultaneamente ou sobrepostas, causando confusão visual e falhas na interação ("tudo misturado").
+ApÃ³s a modularizaÃ§Ã£o do `blog-admin.html`, as seÃ§Ãµes administrativas (MÃ©tricas, Blog, Newsletter, etc.) estavam sendo renderizadas simultaneamente ou sobrepostas, causando confusÃ£o visual e falhas na interaÃ§Ã£o ("tudo misturado").
 
-### Decisão
-Implementar um padrão de **Single Page Application (SPA)** simplificado usando CSS e JS:
+### DecisÃ£o
+Implementar um padrÃ£o de **Single Page Application (SPA)** simplificado usando CSS e JS:
 1. **Container Mestre:** Criar um `#admin-body` que envolve todas as telas.
-2. **Abas Isoladas:** Cada seção administrativa deve ser um filho direto de `#admin-body` com a classe `.admin-screen`.
-3. **Lógica Visual:**
+2. **Abas Isoladas:** Cada seÃ§Ã£o administrativa deve ser um filho direto de `#admin-body` com a classe `.admin-screen`.
+3. **LÃ³gica Visual:**
    - `.admin-screen { display: none; }`
    - `.admin-screen.active { display: block; }` (ou `flex` para posts).
-4. **Orquestração:** O `admin-core.js` gerencia a alternância de classes `active` tanto nos containers de tela quanto nos botões de navegação.
+4. **OrquestraÃ§Ã£o:** O `admin-core.js` gerencia a alternÃ¢ncia de classes `active` tanto nos containers de tela quanto nos botÃµes de navegaÃ§Ã£o.
 
-### Consequências
-- **Positivas:** Isolamento total entre funcionalidades; navegação limpa e previsível; facilidade para adicionar novas telas.
-- **Negativas:** Requer cuidado extra com o balanço de tags `div` durante refatorações.
+### ConsequÃªncias
+- **Positivas:** Isolamento total entre funcionalidades; navegaÃ§Ã£o limpa e previsÃ­vel; facilidade para adicionar novas telas.
+- **Negativas:** Requer cuidado extra com o balanÃ§o de tags `div` durante refatoraÃ§Ãµes.
 
 ---
 
@@ -480,3 +480,85 @@ Instalar o GTM nos HTMLs publicos e no layout raiz do Next.js. Nos HTMLs estatic
 - O container `GTM-MDST4NTK` passa a carregar no site publico.
 - `public/pages/blog-admin.html` permanece sem GTM para evitar metricas administrativas no HTML legado.
 - O container deve ser validado pelo Tag Assistant apos deploy.
+---
+
+## ADR-016: Blog separado em subdominio Vercel
+
+**Data:** 2026-05-05
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O site institucional foi publicado via Cpanel como arquivos estaticos. O blog, porem, depende de APIs, painel administrativo e persistencia para atualizacao frequente de conteudo, o que torna o Cpanel inadequado para a operacao diaria.
+
+### Decisao
+
+Criar um projeto separado em `blog-pages/` para hospedar o blog na Vercel, usando o subdominio oficial `https://blog.mbfinance.com.br`. O site estatico no Cpanel passa a apontar seus links de BLOG para esse subdominio, e a antiga URL `public/pages/blog.html` vira uma pagina de redirecionamento com `noindex, follow`.
+
+### Alternativas Consideradas
+
+- **Manter blog estatico no Cpanel:** exigiria exportacao manual a cada publicacao e aumentaria o risco operacional.
+- **Migrar o site inteiro para Vercel agora:** unificaria a plataforma, mas ampliaria o escopo e nao era necessario para resolver o problema imediato.
+- **Blog em subdominio na Vercel (escolhida):** preserva o site no Cpanel e deixa o blog/admin no ambiente adequado para API e atualizacao diaria.
+
+### Consequencias
+
+- O blog passa a ter sitemap proprio em `https://blog.mbfinance.com.br/sitemap.xml`.
+- O Google deve tratar o blog como subdominio; sera necessario cadastrar o subdominio no Search Console.
+- Links internos do site institucional precisam apontar para `https://blog.mbfinance.com.br/blog`.
+- A versao `mbfinance-sites.vercel.app` nao deve ser promovida como URL publica/canonica.
+
+---
+
+## ADR-023: Persistencia do blog usa camada unica com Supabase prioritario
+
+**Data:** 2026-05-05
+**Status:** Implementado
+
+### Contexto
+
+O projeto separado do blog precisa publicar posts em producao pela API do Next.js. A rota de sincronizacao ainda dependia diretamente do Upstash Redis, enquanto `lib/blog-store.ts` ja tinha suporte a Supabase.
+
+### Decisao
+
+Centralizar leitura e escrita em `blog-pages/lib/blog-store.ts`. A rota `blog-pages/app/api/blog/sync/route.ts` passa a usar `readBlogPosts` e `writeBlogPosts`, permitindo que o mesmo fluxo grave em Supabase, Redis ou JSON conforme o ambiente.
+
+### Alternativas Consideradas
+
+- **Manter Redis direto no endpoint:** preservaria o comportamento antigo, mas ignoraria a nova persistencia em Supabase.
+- **Criar uma segunda implementacao exclusiva para Supabase:** funcionaria, mas duplicaria regras de merge e fallback.
+- **Usar a camada unica existente (escolhida):** reduz duplicacao e deixa o endpoint alinhado ao storage oficial do blog.
+
+### Consequencias
+
+- Supabase vira a persistencia prioritaria quando configurado.
+- Redis e JSON continuam como fallback.
+- A escrita administrativa em Supabase depende de `SUPABASE_SERVICE_ROLE_KEY` configurada no ambiente server-side.
+
+---
+
+## ADR-024: Pasta do projeto do blog sem espaco para deploy na Vercel
+
+**Data:** 2026-05-05
+**Status:** Implementado
+
+### Contexto
+
+O deploy do blog na Vercel falhou com `A Serverless Function has an invalid name: "Blog pages/___next_launcher.cjs"`. O espaco no caminho `Blog pages` entrou no nome interno da serverless function.
+
+### Decisao
+
+Usar `blog-pages/` como pasta do projeto do blog para deploy na Vercel.
+
+### Alternativas Consideradas
+
+- **Manter `Blog pages/`:** continuaria sujeito ao erro de nome invalido.
+- **Alterar build commands com caminho escapado:** poderia compilar, mas ainda manteria o caminho com espaco no output interno.
+- **Pasta sem espaco (escolhida):** remove a causa do erro e simplifica a configuracao da Vercel.
+
+### Consequencias
+
+- O Root Directory da Vercel deve ser `blog-pages`.
+- Referencias de documentacao passam a usar `blog-pages/`.
+

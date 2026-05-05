@@ -1,113 +1,113 @@
-# CONTEXT.md — Estado Atual do Projeto
+﻿# CONTEXT.md â€” Estado Atual do Projeto
 
-> Última atualização: 2026-04-27
+> Ãšltima atualizaÃ§Ã£o: 2026-04-27
 > Atualizado por: IA - Codex
 
 ---
 
 ## Estado Atual
 
-### O que está funcionando
+### O que estÃ¡ funcionando
 
-- [x] Home principal (`public/mb-finance-completo.html`) — refatorada com separação total de CSS/JS
-- [x] CSS extraído para `public/assets/css/main.css`
+- [x] Home principal (`public/mb-finance-completo.html`) â€” refatorada com separaÃ§Ã£o total de CSS/JS
+- [x] CSS extraÃ­do para `public/assets/css/main.css`
 - [x] JS modularizado em `public/assets/js/` (infra / use-cases / ui)
 - [x] Imagens organizadas em `public/images/` (incluindo subpastas `premios/` e `icones-premios/`)
-- [x] HTMLs secundários organizados em `public/pages/`
-- [x] Caminhos atualizados em todos os arquivos após reorganização
-- [x] Blog (`/blog`) rodando em Next.js com Upstash Redis em produção
-- [x] Página `/sobre` rodando em Next.js
+- [x] HTMLs secundÃ¡rios organizados em `public/pages/`
+- [x] Caminhos atualizados em todos os arquivos apÃ³s reorganizaÃ§Ã£o
+- [x] Blog (`/blog`) rodando em Next.js com Upstash Redis em produÃ§Ã£o
+- [x] PÃ¡gina `/sobre` rodando em Next.js
 - [x] Smooth scroll com Lenis
-- [x] Parallax no hero e na seção "Como Funciona"
+- [x] Parallax no hero e na seÃ§Ã£o "Como Funciona"
 - [x] Carrossel de parceiros (marquee animado)
 - [x] Accordion de produtos e FAQ
 - [x] Modal de lead com roteamento para WhatsApp
 - [x] Modal de parceria
 - [x] Menu mobile + dropdown de produtos
-- [x] Botão WhatsApp fixo
+- [x] BotÃ£o WhatsApp fixo
 - [x] Deploy no Vercel via push para master
 - [x] `public/pages/termos-de-uso.html` com texto auxiliar do hero ajustado para branco com 90% de opacidade
 - [x] `public/pages/politica-de-privacidade.html` com texto auxiliar do hero ajustado para branco com 90% de opacidade
-- [x] Seção `Escala` da timeline em `public/pages/sobre.html` com texto e ícone invertidos e checkpoint alinhado ao eixo principal
+- [x] SeÃ§Ã£o `Escala` da timeline em `public/pages/sobre.html` com texto e Ã­cone invertidos e checkpoint alinhado ao eixo principal
 - [x] Painel Administrativo do Blog (`public/pages/blog-admin.html`) totalmente funcional
-- [x] Calendário Editorial Visual para planejamento mensal de posts
+- [x] CalendÃ¡rio Editorial Visual para planejamento mensal de posts
 - [x] Sistema de Agendamento (campo de Hora + Status Inteligente: Publicado/Agendado/Rascunho)
-- [x] Métricas do Google Analytics 4 integradas por post no painel administrativo
-- [x] Gerador de Conteúdo IA integrado ao CMS para sugestão automática de pautas
-- [x] Radar Google Trends (Real-time) acoplado ao painel administrativo para análise de nicho
+- [x] MÃ©tricas do Google Analytics 4 integradas por post no painel administrativo
+- [x] Gerador de ConteÃºdo IA integrado ao CMS para sugestÃ£o automÃ¡tica de pautas
+- [x] Radar Google Trends (Real-time) acoplado ao painel administrativo para anÃ¡lise de nicho
 - [x] Portal de Recrutamento padronizado (`https://mbfinance.inhire.app/vagas`) em todo o ecossistema (Next.js + Legado)
-- [x] Conformidade LGPD concluída em todo o site (Banner de cookies + bloqueio de GA4)
-- [x] Refinamento do Navbar (Fundo branco no hover e logo dinâmico)
+- [x] Conformidade LGPD concluÃ­da em todo o site (Banner de cookies + bloqueio de GA4)
+- [x] Refinamento do Navbar (Fundo branco no hover e logo dinÃ¢mico)
 - [x] **Tipografia do Hero**
-  - Título principal alterado para Inter Bold (700) para maior autoridade visual.
+  - TÃ­tulo principal alterado para Inter Bold (700) para maior autoridade visual.
 - [x] **Layout de Produtos**
-  - [x] Seção "Nossos Produtos" convertida para grid de duas colunas com cards independentes sólidos (fundo branco)
-- [x] Atualização de marca: mb negócios e mb tributos (casing minúsculo) em todo o site.
-- [x] Deploy para GitHub e Vercel concluído.
+  - [x] SeÃ§Ã£o "Nossos Produtos" convertida para grid de duas colunas com cards independentes sÃ³lidos (fundo branco)
+- [x] AtualizaÃ§Ã£o de marca: mb negÃ³cios e mb tributos (casing minÃºsculo) em todo o site.
+- [x] Deploy para GitHub e Vercel concluÃ­do.
 
-### O que está pendente / incompleto
+### O que estÃ¡ pendente / incompleto
 
-- [ ] Filtrar posts agendados no Blog (Next.js) — atualmente todos aparecem independente da data futura
-- [ ] `public/pages/sobre.html` ainda com CSS/JS inline — precisa refatorar
-- [ ] `public/pages/blog.html` ainda com CSS/JS inline — precisa refatorar
-- [ ] `public/pages/politica-de-privacidade.html` e `termos-de-uso.html` — refatorar
-- [ ] Número de WhatsApp ainda fictício — substituir pelo número real
-- [ ] Logos dos bancos parceiros — adicionar na seção de parceiros
-- [ ] Links de redes sociais no rodapé — apontar para perfis reais
-- [ ] Depoimentos fictícios — substituir por depoimentos reais
-- [ ] Depoimentos fictícios — substituir por depoimentos reais
+- [ ] Filtrar posts agendados no Blog (Next.js) â€” atualmente todos aparecem independente da data futura
+- [ ] `public/pages/sobre.html` ainda com CSS/JS inline â€” precisa refatorar
+- [ ] `public/pages/blog.html` ainda com CSS/JS inline â€” precisa refatorar
+- [ ] `public/pages/politica-de-privacidade.html` e `termos-de-uso.html` â€” refatorar
+- [ ] NÃºmero de WhatsApp ainda fictÃ­cio â€” substituir pelo nÃºmero real
+- [ ] Logos dos bancos parceiros â€” adicionar na seÃ§Ã£o de parceiros
+- [ ] Links de redes sociais no rodapÃ© â€” apontar para perfis reais
+- [ ] Depoimentos fictÃ­cios â€” substituir por depoimentos reais
+- [ ] Depoimentos fictÃ­cios â€” substituir por depoimentos reais
 
-### O que está quebrado / com bug
+### O que estÃ¡ quebrado / com bug
 
-_(nenhum bug conhecido em produção no momento)_
+_(nenhum bug conhecido em produÃ§Ã£o no momento)_
 
 ---
 
-## Onde o trabalho parou (última sessão — 2026-04-20)
+## Onde o trabalho parou (Ãºltima sessÃ£o â€” 2026-04-20)
 
 ### Painel Administrativo (Blog CMS) - ESTABILIZADO
 - **Arquitetura:** Modularizada em 9 arquivos JS em `public/assets/js/admin/`.
-- **UI/UX:** Sistema de abas isolado via `.admin-screen` e `#admin-body`. Problemas de sobreposição resolvidos.
-- **Menu:** Ordem de prioridade definida (Métricas > Blog > Newsletter > Publicidade).
-- **Autenticação:** Ativa e persistente via `localStorage`.
-- **Funcionalidades:** Analytics (GA4), Blog (CRUD), Newsletter (Advanced UI), Calendário Editorial, Gerador IA (Trends).
+- **UI/UX:** Sistema de abas isolado via `.admin-screen` e `#admin-body`. Problemas de sobreposiÃ§Ã£o resolvidos.
+- **Menu:** Ordem de prioridade definida (MÃ©tricas > Blog > Newsletter > Publicidade).
+- **AutenticaÃ§Ã£o:** Ativa e persistente via `localStorage`.
+- **Funcionalidades:** Analytics (GA4), Blog (CRUD), Newsletter (Advanced UI), CalendÃ¡rio Editorial, Gerador IA (Trends).
 
-Arquivos modificados nesta sessão:
+Arquivos modificados nesta sessÃ£o:
 - `public/pages/blog-admin.html`
 - `public/pages/termos-de-uso.html`
-- `public/mb-finance-completo.html` (Vídeo de fundo atualizado para `cidade-sem-avioes.mp4`)
+- `public/mb-finance-completo.html` (VÃ­deo de fundo atualizado para `cidade-sem-avioes.mp4`)
 - `CONTEXT.md`
 - `DECISIONS.md`
 - `TODO.md`
 - `docs/sessions/2026-04-20.md`
 
-- [x] Modularização completa do Painel Administrativo (`public/pages/blog-admin.html`)
-- [x] Separação da lógica em módulos: `state`, `utils`, `blog`, `newsletter`, `calendar`, `analytics`, `ai`, `banners` e `core`.
+- [x] ModularizaÃ§Ã£o completa do Painel Administrativo (`public/pages/blog-admin.html`)
+- [x] SeparaÃ§Ã£o da lÃ³gica em mÃ³dulos: `state`, `utils`, `blog`, `newsletter`, `calendar`, `analytics`, `ai`, `banners` e `core`.
 - [x] Limpeza total de scripts legados e duplicados no dashboard.
 
-Próximo passo recomendado: Ajustar o endpoint do Blog no Next.js para respeitar a data/hora e não exibir posts agendados (futuros). Outro ponto fundamental é iniciar a refatoração das páginas de política de privacidade e termos de uso para o padrão modular.
+PrÃ³ximo passo recomendado: Ajustar o endpoint do Blog no Next.js para respeitar a data/hora e nÃ£o exibir posts agendados (futuros). Outro ponto fundamental Ã© iniciar a refatoraÃ§Ã£o das pÃ¡ginas de polÃ­tica de privacidade e termos de uso para o padrÃ£o modular.
 
 
 ---
 
 ## Arquitetura resumida
 
-- **Frontend principal:** HTML estático (`public/mb-finance-completo.html`) com CSS/JS externos em `public/assets/`
-- **Framework:** Next.js 14 (App Router) — usado para blog e página sobre
+- **Frontend principal:** HTML estÃ¡tico (`public/mb-finance-completo.html`) com CSS/JS externos em `public/assets/`
+- **Framework:** Next.js 14 (App Router) â€” usado para blog e pÃ¡gina sobre
 - **Estilo:** Tailwind CSS + custom tokens + `main.css`
-- **Animações:** Lenis (smooth scroll), CSS @keyframes, IntersectionObserver
-- **Blog:** Next.js + Upstash Redis (produção) / JSON local (dev)
+- **AnimaÃ§Ãµes:** Lenis (smooth scroll), CSS @keyframes, IntersectionObserver
+- **Blog:** Next.js + Upstash Redis (produÃ§Ã£o) / JSON local (dev)
 - **Analytics:** Google Analytics 4
-- **Deploy:** Vercel (push para master = deploy automático)
-- **Captação de leads:** Modal → WhatsApp (principal) + Google Sheets (backup)
+- **Deploy:** Vercel (push para master = deploy automÃ¡tico)
+- **CaptaÃ§Ã£o de leads:** Modal â†’ WhatsApp (principal) + Google Sheets (backup)
 
 ---
 
 ## Branch e commits recentes
 
 - Branch principal: `master`
-- Último conjunto de commits: ajustes visuais nas páginas legais e na timeline do `sobre`
-- Rollback disponível via Vercel dashboard ou `git revert`
+- Ãšltimo conjunto de commits: ajustes visuais nas pÃ¡ginas legais e na timeline do `sobre`
+- Rollback disponÃ­vel via Vercel dashboard ou `git revert`
 
 ---
 
@@ -282,3 +282,85 @@ Estado atual: GTM instalado no site publico com container `GTM-MDST4NTK`.
 Validacao: 13 HTMLs publicos contem `GTM-MDST4NTK`; `public/pages/blog-admin.html` nao contem GTM; `npm run build` executado com sucesso.
 
 Proximo passo recomendado: apos deploy, validar no Tag Assistant se o container `GTM-MDST4NTK` aparece na home, no blog e em uma pagina secundaria.
+---
+
+## Atualizacao de sessao - 2026-05-05 - Blog em subdominio Vercel
+
+- Criada a pasta `blog-pages/` como projeto Next.js independente para deploy do blog na Vercel.
+- A nova base do blog inclui rotas `/blog`, `/blog/[slug]`, `/admin`, APIs do blog/newsletter/analytics, `content/blog-posts.json`, componentes necessarios, sitemap e robots proprios.
+- Configurado o dominio canonico do blog como `https://blog.mbfinance.com.br` via `blog-pages/lib/site.ts`.
+- A raiz do projeto do blog (`/`) redireciona para `/blog`.
+- Adicionados redirects na Vercel do blog para URLs legadas como `/blog.html`, `/pages/blog.html`, `/blog-admin.html` e artigos antigos.
+- O `public/pages/blog.html` do site estatico virou uma pagina leve de redirecionamento para `https://blog.mbfinance.com.br/blog`, com `noindex, follow`.
+- Links de BLOG na home e paginas estaticas principais foram atualizados para `https://blog.mbfinance.com.br/blog`.
+- O sitemap principal removeu a URL antiga `/blog`; o blog separado agora gera seu proprio `https://blog.mbfinance.com.br/sitemap.xml`.
+- A rota `/admin` do projeto separado agora redireciona para `public/pages/blog-admin.html`, usando a versao atual do painel administrativo HTML modular.
+- Copiados para `blog-pages/public/` os arquivos `pages/blog-admin.html`, `tailwind.min.css` e `assets/js/admin/*.js`.
+
+Arquivos/pastas principais criados ou modificados:
+- `blog-pages/`
+- `public/pages/blog.html`
+- `public/mb-finance-completo.html`
+- `public/pages/sobre.html`
+- `public/pages/capital-de-giro.html`
+- `public/pages/blog-admin.html`
+- `public/assets/js/admin/admin-blog.js`
+- `public/sitemap.xml`
+- `blog-pages/public/pages/blog-admin.html`
+- `blog-pages/public/assets/js/admin/*.js`
+- `blog-pages/public/tailwind.min.css`
+- `blog-pages/next.config.mjs`
+
+Estado atual: pasta `blog-pages/` pronta para ser conectada na Vercel como projeto separado do blog.
+
+Validacao: `next build` executado dentro de `blog-pages/` com sucesso usando as dependencias locais; restaram apenas avisos preexistentes de uso de `<img>`.
+
+Onde o trabalho parou: falta configurar na Vercel o projeto apontando para `blog-pages/`, adicionar as variaveis de ambiente e conectar o dominio `blog.mbfinance.com.br`.
+
+Proximo passo recomendado: na Vercel, criar/importar o projeto usando a pasta `blog-pages/`, configurar `blog.mbfinance.com.br`, apontar o DNS do subdominio e cadastrar `https://blog.mbfinance.com.br/sitemap.xml` no Google Search Console.
+
+### Ajuste complementar - pagina publica do blog
+
+- Substituida a listagem antiga em React do `/blog` por `blog-pages/components/BlogIndexClient.tsx`, reproduzindo a versao visual atual do blog: hero grande, busca, filtros por categoria, banner de contagem, destaque, cards recentes, newsletter e rodape completo.
+- `blog-pages/app/blog/page.tsx` agora busca posts publicados e entrega a renderizacao para o componente client, mantendo filtros e busca funcionando no navegador.
+- Validacao: `next build` em `blog-pages/` executado com sucesso; restaram apenas avisos nao bloqueantes de uso de `<img>`.
+
+### Ajuste complementar - encoding do admin
+
+- Corrigido mojibake no painel administrativo atual (`blog-admin.html`) em `blog-pages/public/pages/` e no arquivo fonte em `public/pages/`.
+- Textos como "MÃ©tricas do site", "CalendÃ¡rio Editorial", "TrÃ¡fego diÃ¡rio", "PÃ¡ginas mais acessadas", "PaÃ­ses", "GÃªnero", "Faixa etÃ¡ria" e "DistribuiÃ§Ã£o por categoria" voltaram a aparecer com acentuaÃ§Ã£o correta.
+- Validacao: busca por padrÃµes `Ãƒ`, `Ã‚`, `ï¿½`, `vocÂª` e `Å“` nao encontrou residuos no HTML do admin; `next build` em `blog-pages/` executado com sucesso.
+
+### Ajuste complementar - Supabase
+
+- `blog-pages/lib/blog-store.ts` passou a usar Supabase Postgres quando `SUPABASE_URL` e `SUPABASE_ANON_KEY` estiverem configuradas.
+- Escritas administrativas usam `SUPABASE_SERVICE_ROLE_KEY` quando configurada, mantendo a anon key sem permissao de escrita via RLS.
+- Criados `blog-pages/supabase-blog.sql` e `blog-pages/SUPABASE.md` com tabela `blog_posts`, indices, trigger de `updated_at`, RLS e instrucoes de variaveis na Vercel.
+- `blog-pages/.env.example` foi atualizado com `SUPABASE_URL`, `SUPABASE_ANON_KEY` e `SUPABASE_SERVICE_ROLE_KEY`.
+- Validacao: `next build` em `blog-pages/` executado com sucesso.
+
+### Ajuste complementar - conexao Supabase local
+
+- `blog-pages/lib/blog-store.ts` agora considera o Supabase configurado quando existe `SUPABASE_URL` e pelo menos uma chave (`SUPABASE_SERVICE_ROLE_KEY` ou `SUPABASE_ANON_KEY`).
+- `blog-pages/app/api/blog/sync/route.ts` deixou de depender diretamente do Upstash Redis e passou a usar `readBlogPosts`/`writeBlogPosts`, gravando no Supabase quando as variaveis estiverem configuradas.
+- Verificado que `blog-pages/.env.local` carrega `SUPABASE_URL`, `SUPABASE_ANON_KEY` e `SUPABASE_SERVICE_ROLE_KEY`.
+- O SQL `blog-pages/supabase-blog.sql` foi executado no Supabase e a tabela `public.blog_posts` passou a responder via REST com status `200`.
+- Os 5 posts iniciais de `blog-pages/content/blog-posts.json` foram enviados para `public.blog_posts`.
+- Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>`.
+
+Estado atual: codigo conectado ao Supabase via REST server-side, tabela criada e posts iniciais gravados no banco.
+
+Onde o trabalho parou: falta cadastrar as mesmas variaveis no projeto da Vercel quando o deploy do blog for criado/importado.
+
+Proximo passo recomendado: configurar as variaveis de ambiente na Vercel e validar publicacao pelo painel `/admin`.
+
+### Ajuste complementar - pasta sem espaco para Vercel
+
+- Criada a pasta `blog-pages/` como copia do projeto do blog para evitar erro de build da Vercel com nomes de serverless functions contendo espaco.
+- Motivo: a Vercel falhou com `A Serverless Function has an invalid name: "Blog pages/___next_launcher.cjs"` porque o caminho `Blog pages` continha espaco.
+- Validacao: `npm run build` executado em `blog-pages/` com sucesso.
+
+Estado atual: a Vercel deve apontar o Root Directory para `blog-pages`.
+
+Proximo passo recomendado: publicar a pasta `blog-pages/` no GitHub, ajustar o Root Directory do projeto na Vercel para `blog-pages` e fazer novo redeploy.
+

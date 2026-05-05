@@ -1,49 +1,49 @@
-# TODO.md — Tarefas Pendentes
+﻿# TODO.md â€” Tarefas Pendentes
 
-> Prioridade: 🔴 Crítico | 🟡 Importante | 🟢 Backlog
+> Prioridade: ðŸ”´ CrÃ­tico | ðŸŸ¡ Importante | ðŸŸ¢ Backlog
 
 ---
 
-## 🔴 Crítico (fazer antes do próximo push sério)
+## ðŸ”´ CrÃ­tico (fazer antes do prÃ³ximo push sÃ©rio)
 
 - [x] **Filtrar posts agendados no Blog (Next.js)** - Implementado no `lib/blog-store.ts` e API.
 
-- [x] **Substituir número de WhatsApp fictício pelo número real** - Centralizado em `lib/constants.ts`.
+- [x] **Substituir nÃºmero de WhatsApp fictÃ­cio pelo nÃºmero real** - Centralizado em `lib/constants.ts`.
 
 - [x] **Banner de consentimento de cookies (LGPD)**
-  - Implementado em todas as páginas do ecossistema (Next.js + Legado).
-  - Persistência em localStorage e bloqueio de GA4 antes do consentimento.
+  - Implementado em todas as pÃ¡ginas do ecossistema (Next.js + Legado).
+  - PersistÃªncia em localStorage e bloqueio de GA4 antes do consentimento.
 
 - [x] **Refinamento Visual do Navbar**
   - Implementado fundo branco e troca de logo ao passar o mouse (hover).
-  - Garante legibilidade do menu de produtos em qualquer posição de scroll.
+  - Garante legibilidade do menu de produtos em qualquer posiÃ§Ã£o de scroll.
 
 - [x] **Tipografia do Hero**
-  - Título principal alterado para Inter Bold (700) para maior autoridade visual.
+  - TÃ­tulo principal alterado para Inter Bold (700) para maior autoridade visual.
 
 - [x] **Layout de Produtos**
-  - Seção convertida para grid de 2 colunas com **cards independentes sólidos** (fundo branco, sombra).
-  - Lógica de accordion alterada para permitir múltiplos itens abertos simultaneamente.
+  - SeÃ§Ã£o convertida para grid de 2 colunas com **cards independentes sÃ³lidos** (fundo branco, sombra).
+  - LÃ³gica de accordion alterada para permitir mÃºltiplos itens abertos simultaneamente.
 
 ---
 
-## 🟡 Importante (próximas sessões)
+## ðŸŸ¡ Importante (prÃ³ximas sessÃµes)
 
-### Conteúdo real
-- [ ] Substituir depoimentos fictícios por depoimentos reais de clientes
-- [ ] Adicionar logos dos bancos parceiros na seção de parceiros (carrossel)
-- [ ] Atualizar links de redes sociais no rodapé (`public/mb-finance-completo.html` + `public/pages/`)
+### ConteÃºdo real
+- [ ] Substituir depoimentos fictÃ­cios por depoimentos reais de clientes
+- [ ] Adicionar logos dos bancos parceiros na seÃ§Ã£o de parceiros (carrossel)
+- [ ] Atualizar links de redes sociais no rodapÃ© (`public/mb-finance-completo.html` + `public/pages/`)
 
 ### CMS Inteligente (Melhorias)
-- [x] **Modularizar scripts do blog-admin.html** - Lógica extraída para módulos em `public/assets/js/admin/` e UI de abas estabilizada (ADR-013).
+- [x] **Modularizar scripts do blog-admin.html** - LÃ³gica extraÃ­da para mÃ³dulos em `public/assets/js/admin/` e UI de abas estabilizada (ADR-013).
 - [ ] **Validar Radar Trends em Mobile** - Verificar se o iframe do Google Trends comporta-se adequadamente em telas menores.
-- [ ] **Aumentar base de tópicos da IA** - Criar um arquivo de configuração para expandir as ideias sugeridas pelo gerador.
+- [ ] **Aumentar base de tÃ³picos da IA** - Criar um arquivo de configuraÃ§Ã£o para expandir as ideias sugeridas pelo gerador.
 
-### Refatoração dos HTMLs secundários
+### RefatoraÃ§Ã£o dos HTMLs secundÃ¡rios
 
 - [ ] Refatorar `public/pages/sobre.html`
-  - Extrair CSS → `public/assets/css/sobre.css` (ou adicionar em `main.css` se compartilhado)
-  - Extrair JS → camadas `ui/`, `use-cases/`, `infra/`
+  - Extrair CSS â†’ `public/assets/css/sobre.css` (ou adicionar em `main.css` se compartilhado)
+  - Extrair JS â†’ camadas `ui/`, `use-cases/`, `infra/`
   - Atualizar paths para `../assets/` e `../images/`
   - Preservar o ajuste visual do bloco `Escala` na timeline durante o refactor
 
@@ -51,16 +51,16 @@
   - Mesmos passos acima
 
 - [ ] Refatorar `public/pages/politica-de-privacidade.html`
-  - Hero-meta já ajustado para branco 90% em 2026-04-15; migrar para `public/assets/` no refactor
+  - Hero-meta jÃ¡ ajustado para branco 90% em 2026-04-15; migrar para `public/assets/` no refactor
 
 - [ ] Refatorar `public/pages/termos-de-uso.html`
-  - Hero-meta já ajustado para branco 90% em 2026-04-15; migrar para `public/assets/` no refactor
+  - Hero-meta jÃ¡ ajustado para branco 90% em 2026-04-15; migrar para `public/assets/` no refactor
 
 ### SEO
 - [ ] Adicionar `sitemap.xml` apontando para todas as pages
 - [ ] Verificar e corrigir `robots.txt`
 - [ ] Open Graph tags em todas as pages (`og:image`, `og:description`)
-- [ ] Meta descriptions únicas em cada page HTML
+- [ ] Meta descriptions Ãºnicas em cada page HTML
 
 ### Performance
 - [ ] Converter imagens PNG/JPG para WebP
@@ -69,18 +69,18 @@
 
 ---
 
-## 🟢 Backlog (futuro)
+## ðŸŸ¢ Backlog (futuro)
 
-### Migração Next.js (Strangler Fig)
-- [ ] Migrar seção Hero para componente React
-- [ ] Migrar seção Produtos para componente React
-- [ ] Migrar seção Depoimentos para componente React
+### MigraÃ§Ã£o Next.js (Strangler Fig)
+- [ ] Migrar seÃ§Ã£o Hero para componente React
+- [ ] Migrar seÃ§Ã£o Produtos para componente React
+- [ ] Migrar seÃ§Ã£o Depoimentos para componente React
 - [ ] Eventualmente eliminar `mb-finance-completo.html` totalmente
 
 ### Funcionalidades
-- [ ] Página de agradecimento após captura de lead
+- [ ] PÃ¡gina de agradecimento apÃ³s captura de lead
 - [ ] Tracking de eventos GA4
-- [ ] Integração com ferramenta de email marketing
+- [ ] IntegraÃ§Ã£o com ferramenta de email marketing
 
 ### Infraestrutura
 - [ ] Configurar `robots.txt` para bloquear `/admin`
@@ -128,3 +128,22 @@
 ### Meta Pixel blog legado
 - [x] Restaurar snippet oficial inline do Meta Pixel em `public/pages/blog.html` para compatibilidade com Pixel Helper.
 - [ ] Validar novamente `https://mbfinance-sites.vercel.app/pages/blog.html` no Meta Pixel Helper apos deploy.
+---
+
+## Atualizacao 2026-05-05 - Blog em subdominio
+
+- [x] Criar projeto separado do blog em `blog-pages/` para deploy na Vercel.
+- [x] Configurar canonicals, sitemap e robots do blog para `https://blog.mbfinance.com.br`.
+- [x] Redirecionar `public/pages/blog.html` do Cpanel para o blog oficial na Vercel.
+- [x] Preparar persistencia do blog em Supabase Postgres.
+- [x] Executar `blog-pages/supabase-blog.sql` no SQL Editor do Supabase.
+- [x] Revalidar conexao Supabase apos executar o SQL; `public.blog_posts` respondeu com status `200`.
+- [x] Popular `public.blog_posts` com os 5 posts iniciais de `blog-pages/content/blog-posts.json`.
+- [x] Preencher `SUPABASE_SERVICE_ROLE_KEY` no `.env.local` do projeto do blog para permitir escrita administrativa local pelo painel.
+- [x] Criar pasta `blog-pages/` sem espaco para compatibilidade com serverless functions da Vercel.
+- [ ] Preencher `SUPABASE_SERVICE_ROLE_KEY` tambem na Vercel quando o projeto do blog for criado/importado.
+- [ ] Ajustar Root Directory na Vercel para `blog-pages`.
+- [ ] Configurar DNS do subdominio `blog.mbfinance.com.br`.
+- [ ] Adicionar variaveis de ambiente na Vercel (`SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `BLOG_ADMIN_TOKEN`, URLs publicas e credenciais opcionais de GA4/Resend).
+- [ ] Enviar `https://blog.mbfinance.com.br/sitemap.xml` no Google Search Console.
+
