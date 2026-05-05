@@ -30,7 +30,7 @@ async function renderTrafficAnalytics() {
         window.analyticsData = data; // Global for renderSidebar to use
 
         if (!response.ok || !data || !data.configured || !data.summary) {
-            const message = (data && data.error) ? data.error : 'GA4 nao configurado ou sem acesso liberado.';
+            const message = (data && data.error) ? data.error : 'GA4 não configurado ou sem acesso liberado.';
             document.getElementById('analytics-last-update').textContent = 'GA4 indisponivel';
             document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">' + esc(message) + '</div>';
             document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de trafego por enquanto.</div>';
@@ -60,7 +60,7 @@ async function renderTrafficAnalytics() {
         document.getElementById('analytics-last-update').textContent = data.rangeLabel ? 'Dados reais: ' + data.rangeLabel : 'Dados reais do GA4';
 
         if (!trend.length) {
-            document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Ainda nao ha volume suficiente para montar a tendencia diaria.</div>';
+            document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Ainda não há volume suficiente para montar a tendência diária.</div>';
         } else {
             const trendRows = trend.slice(-10).map(point =>
                 '<div class="analytics-highlight-item">'
@@ -93,10 +93,10 @@ async function renderTrafficAnalytics() {
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Property GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'N/A') + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Status</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
 
-        renderGeoTable('ga-top-countries', topCountries, 'Ainda nao ha paises suficientes registrados no periodo.', false);
-        renderGeoTable('ga-top-regions', topRegions, 'Ainda nao ha estados ou regioes suficientes registrados no periodo.', true);
-        renderDemographicList('ga-gender-breakdown', genderBreakdown, 'O GA4 ainda nao disponibilizou genero para este periodo ou propriedade.');
-        renderDemographicList('ga-age-breakdown', ageBreakdown, 'O GA4 ainda nao disponibilizou faixa etaria para este periodo ou propriedade.');
+        renderGeoTable('ga-top-countries', topCountries, 'Ainda não há países suficientes registrados no período.', false);
+        renderGeoTable('ga-top-regions', topRegions, 'Ainda não há estados ou regiões suficientes registrados no período.', true);
+        renderDemographicList('ga-gender-breakdown', genderBreakdown, 'O GA4 ainda não disponibilizou gênero para este período ou propriedade.');
+        renderDemographicList('ga-age-breakdown', ageBreakdown, 'O GA4 ainda não disponibilizou faixa etária para este período ou propriedade.');
 
     } catch (error) {
         document.getElementById('analytics-last-update').textContent = 'Falha no GA4';
@@ -152,7 +152,7 @@ function renderEditorialAnalytics() {
     const recentPosts = [...posts].sort((a, b) => String(b.date || '').localeCompare(String(a.date || ''))).slice(0, 8);
     recentEl.innerHTML = '<table class="analytics-table"><thead><tr><th>Post</th><th>Categoria</th><th>Data</th><th>Status</th></tr></thead><tbody>'
         + recentPosts.map(post => '<tr>'
-            + '<td><div class="analytics-post-title">' + esc(post.title || 'Sem titulo') + '</div><div class="analytics-post-meta">' + esc(post.readTime || 'Tempo nao informado') + '</div></td>'
+            + '<td><div class="analytics-post-title">' + esc(post.title || 'Sem título') + '</div><div class="analytics-post-meta">' + esc(post.readTime || 'Tempo não informado') + '</div></td>'
             + '<td>' + esc(post.categoryLabel || CAT_LABELS[post.category] || post.category || 'Sem categoria') + '</td>'
             + '<td>' + formatAnalyticsDate(post.date) + '</td>'
             + '<td><span class="analytics-status-badge ' + (post.published !== false ? 'pub' : 'draft') + '">' + (post.published !== false ? 'Publicado' : 'Rascunho') + '</span></td>'
@@ -175,7 +175,7 @@ function renderGeoTable(targetId, rows, emptyMessage, secondaryLabel) {
 
     target.innerHTML = '<table class="analytics-table"><thead><tr><th>' + esc(secondaryLabel ? 'Local' : 'Pais') + '</th><th>Usuarios</th><th>Sessoes</th></tr></thead><tbody>'
         + rows.map(row => '<tr>'
-            + '<td><div class="analytics-post-title">' + esc(row.label || 'Nao informado') + '</div>'
+            + '<td><div class="analytics-post-title">' + esc(row.label || 'Não informado') + '</div>'
             + (secondaryLabel && row.secondaryLabel ? '<div class="analytics-post-meta">' + esc(row.secondaryLabel) + '</div>' : '')
             + '</td>'
             + '<td>' + formatInteger(row.activeUsers) + '</td>'
@@ -194,7 +194,7 @@ function renderDemographicList(targetId, rows, emptyMessage) {
 
     target.innerHTML = '<div class="analytics-highlight-list">'
         + rows.map(row => '<div class="analytics-highlight-item">'
-            + '<div class="analytics-highlight-label">' + esc(row.label || 'Nao informado') + '</div>'
+            + '<div class="analytics-highlight-label">' + esc(row.label || 'Não informado') + '</div>'
             + '<div class="analytics-highlight-value">' + formatInteger(row.activeUsers) + ' usuarios</div>'
             + '</div>').join('')
         + '</div>';

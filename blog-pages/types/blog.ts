@@ -4,6 +4,7 @@ export type BlogCategory =
   | "conta-pj"
   | "mercado"
   | "antecipacao"
+  | "gestao-tributaria"
   | "noticias";
 
 export interface BlogPost {

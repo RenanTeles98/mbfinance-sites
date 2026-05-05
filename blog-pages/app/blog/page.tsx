@@ -10,14 +10,14 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Blog MB Finance",
   description:
-    "Conteudos sobre credito empresarial, conta PJ, antecipacao de recebiveis e gestao financeira.",
+    "Conteúdos sobre crédito empresarial, conta PJ, antecipação de recebíveis e gestão financeira.",
   alternates: {
     canonical: blogUrl("/blog"),
   },
   openGraph: {
     title: "Blog MB Finance",
     description:
-      "Conteudos sobre credito empresarial, conta PJ, antecipacao de recebiveis e gestao financeira.",
+      "Conteúdos sobre crédito empresarial, conta PJ, antecipação de recebíveis e gestão financeira.",
     url: blogUrl("/blog"),
     type: "website",
   },

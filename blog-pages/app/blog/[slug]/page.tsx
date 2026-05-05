@@ -5,6 +5,7 @@ import GoogleAdsTag from "@/components/GoogleAdsTag";
 import MetaPixel from "@/components/MetaPixel";
 import { readBlogPostBySlug, readPublishedBlogPosts } from "@/lib/blog-store";
 import { blogUrl, mainSiteUrl } from "@/lib/site";
+import type { BlogPost } from "@/types/blog";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +15,182 @@ function formatDate(date: string) {
     month: "long",
     year: "numeric",
   });
+}
+
+const AUTHOR_NAME = "Equipe MB Finance";
+
+const displayTitles: Record<string, string> = {
+  "reforma-tributaria-o-que-muda-para-sua-empresa":
+    "Reforma Tributária: o que muda para a sua empresa a partir de 2026",
+};
+
+const ctas: Record<string, { title: string; description: string; button: string; message: string }> = {
+  "como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado": {
+    title: "Precisa estruturar capital de giro?",
+    description:
+      "A MB Finance ajuda sua empresa a organizar os dados, comparar propostas e encontrar linhas com melhor aderência ao caixa.",
+    button: "Simular capital de giro",
+    message: "Olá! Li o artigo sobre capital de giro e quero simular uma linha para minha empresa.",
+  },
+  "conta-pj-o-que-sua-empresa-precisa-saber-antes-de-escolher": {
+    title: "Quer comparar contas PJ com critério?",
+    description:
+      "A MB Finance avalia custo total, integração, atendimento e recursos bancários para indicar soluções alinhadas à rotina da sua empresa.",
+    button: "Comparar contas PJ",
+    message: "Olá! Li o artigo sobre conta PJ e quero comparar opções para minha empresa.",
+  },
+  "antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio": {
+    title: "Quer antecipar recebíveis com controle?",
+    description:
+      "A MB Finance compara taxas, prazos e custo efetivo para sua empresa usar antecipação sem pressionar o caixa futuro.",
+    button: "Calcular antecipação",
+    message: "Olá! Li o artigo sobre antecipação de recebíveis e quero calcular opções para minha empresa.",
+  },
+  "reforma-tributaria-o-que-muda-para-sua-empresa": {
+    title: "Quer preparar sua empresa para a Reforma Tributária?",
+    description:
+      "A MB Finance ajuda a mapear impactos financeiros, contratos, precificação e rotina tributária antes da transição ganhar força.",
+    button: "Avaliar impactos tributários",
+    message: "Olá! Li o artigo sobre Reforma Tributária e quero avaliar os impactos na minha empresa.",
+  },
+  "fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes": {
+    title: "Quer organizar o fluxo de caixa?",
+    description:
+      "A MB Finance ajuda sua empresa a conectar conta PJ, crédito e antecipação em uma rotina financeira mais previsível.",
+    button: "Organizar meu caixa",
+    message: "Olá! Li o artigo sobre fluxo de caixa e quero organizar melhor o caixa da minha empresa.",
+  },
+};
+
+const relatedBySlug: Record<string, string[]> = {
+  "como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado": [
+    "fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes",
+    "antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio",
+  ],
+  "conta-pj-o-que-sua-empresa-precisa-saber-antes-de-escolher": [
+    "antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio",
+    "fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes",
+  ],
+  "antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio": [
+    "como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado",
+    "fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes",
+  ],
+  "reforma-tributaria-o-que-muda-para-sua-empresa": [
+    "fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes",
+    "conta-pj-o-que-sua-empresa-precisa-saber-antes-de-escolher",
+  ],
+  "fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes": [
+    "antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio",
+    "como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado",
+  ],
+};
+
+function getDisplayTitle(post: BlogPost) {
+  return displayTitles[post.slug] || post.title;
+}
+
+function replaceOnce(content: string, search: string, replacement: string) {
+  return content.includes(search) ? content.replace(search, replacement) : content;
+}
+
+function enhanceArticleContent(post: BlogPost) {
+  let content = post.content;
+
+  if (post.slug === "como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado") {
+    content = replaceOnce(
+      content,
+      "<ul><li>Prazo da operação e risco total percebido.</li><li>Garantia oferecida e qualidade dos recebíveis.</li><li>Destino do recurso e previsão de retorno.</li><li>Qualidade cadastral, fiscal e societária.</li><li>Histórico de relacionamento com o mercado.</li></ul>",
+      "<ul><li>Prazo da operação e risco total percebido: quanto maior a incerteza sobre pagamento e ciclo de caixa, maior tende a ser o custo.</li><li>Garantia oferecida e qualidade dos recebíveis: garantias sólidas e recebíveis previsíveis reduzem risco para a instituição.</li><li>Destino do recurso e previsão de retorno: crédito para estoque, contrato fechado ou expansão comprovável costuma ser melhor interpretado.</li><li>Qualidade cadastral, fiscal e societária: pendências, alterações recentes e inconsistências documentais atrasam análise e encarecem a proposta.</li><li>Histórico de relacionamento com o mercado: comportamento bancário, pontualidade e recorrência de faturamento ajudam a sustentar a negociação.</li></ul>"
+    );
+    content = replaceOnce(
+      content,
+      "entende seu ciclo financeiro",
+      'entende seu <a href="/blog/fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes">ciclo financeiro e fluxo de caixa</a>'
+    );
+  }
+
+  if (post.slug === "conta-pj-o-que-sua-empresa-precisa-saber-antes-de-escolher") {
+    if (!content.includes("entenda quando vale antecipar")) {
+      content = replaceOnce(
+        content,
+        "antecipação de recebíveis vinculada",
+        'antecipação de recebíveis vinculada'
+          + ' (<a href="/blog/antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio">entenda quando vale antecipar</a>)'
+      );
+    }
+    if (!content.includes(">taxas de maquininha</a>")) {
+      content = replaceOnce(
+        content,
+        "taxas de maquininha",
+        `<a href="${mainSiteUrl("/#produtos")}">taxas de maquininha</a>`
+      );
+    }
+    content = replaceOnce(content, "Uma conta pensada para MEI", "Uma conta pensada para MEI (Microempreendedor Individual)");
+  }
+
+  if (post.slug === "antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio") {
+    if (!content.includes(">capital de giro</a>")) {
+      content = replaceOnce(
+        content,
+        "como capital de giro",
+        'como <a href="/blog/como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado">capital de giro</a>'
+      );
+    }
+    if (!content.includes("Exemplo simples: se a empresa antecipa R$ 100 mil")) {
+      content = replaceOnce(
+        content,
+        "<p>O empresário precisa olhar para o valor líquido recebido agora, para a data original do recebimento e para todas as tarifas envolvidas. Isso mostra o custo efetivo do adiantamento e permite comparar com outras alternativas, como <a href=\"/blog/como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado\">capital de giro</a> ou renegociação com fornecedor.</p>",
+        "<p>O empresário precisa olhar para o valor líquido recebido agora, para a data original do recebimento e para todas as tarifas envolvidas. Isso mostra o custo efetivo do adiantamento e permite comparar com outras alternativas, como <a href=\"/blog/como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado\">capital de giro</a> ou renegociação com fornecedor.</p><p>Exemplo simples: se a empresa antecipa R$ 100 mil que venceriam em 30 dias e recebe R$ 98 mil líquidos hoje, o custo financeiro é de R$ 2 mil no mês, ou 2% sobre o valor antecipado. Esse número precisa ser comparado com o ganho gerado pelo uso do dinheiro e com outras linhas disponíveis.</p>"
+      );
+    }
+  }
+
+  if (post.slug === "reforma-tributaria-o-que-muda-para-sua-empresa") {
+    content = replaceOnce(
+      content,
+      "<li>Fim do ICMS e ISS: substituídos pelo IBS a partir de 2029.</li>",
+      "<li>Substituição gradual de ICMS e ISS pelo IBS entre 2029 e 2032, com extinção completa prevista para 2033.</li>"
+    );
+    if (!content.includes("split payment")) {
+      content = replaceOnce(
+        content,
+        "<p>Também é importante revisar contratos com clientes e fornecedores que têm cláusulas atreladas a alíquotas vigentes. Mudança de regime sem revisão contratual gera exposição jurídica e financeira.</p>",
+        "<p>Também é importante revisar contratos com clientes e fornecedores que têm cláusulas atreladas a alíquotas vigentes. Mudança de regime sem revisão contratual gera exposição jurídica e financeira.</p><p>Outro ponto operacional é o split payment, mecanismo em que parte do imposto pode ser separada no momento da liquidação financeira. Para empresas com margens apertadas, isso exige atenção ao fluxo de caixa, conciliação e prazo real de disponibilidade dos recursos.</p><p>Para aprofundar o tema, consulte a <a href=\"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm\" target=\"_blank\" rel=\"noopener noreferrer\">Lei Complementar 214/2025</a> e os materiais oficiais da <a href=\"https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2025/janeiro/reforma-tributaria-sancionada-a-lei-complementar-214-2025\" target=\"_blank\" rel=\"noopener noreferrer\">Receita Federal</a>.</p>"
+      );
+    }
+    if (!content.includes("Perguntas frequentes")) {
+      content += "<h2>Perguntas frequentes</h2><h3>A Reforma Tributária muda tudo em 2026?</h3><p>Não. Em 2026 começa uma fase parcial e de teste, com transição gradual nos anos seguintes. O impacto completo aparece ao longo do cronograma até 2033.</p><h3>Empresa do Simples Nacional precisa se preocupar?</h3><p>Sim. Mesmo com regras próprias, clientes, fornecedores, créditos fiscais e formação de preço podem mudar durante a transição.</p><h3>O que revisar primeiro?</h3><p>Mapeie tributos atuais, contratos, precificação, sistemas de emissão fiscal e impacto no caixa projetado.</p>";
+    }
+  }
+
+  if (post.slug === "fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes") {
+    if (!content.includes("<blockquote>Saldo é fotografia. Fluxo é filme.</blockquote>")) {
+      content = replaceOnce(
+        content,
+        "<p>O empresário normalmente descobre que o caixa está apertado tarde demais. Isso acontece porque muita empresa acompanha apenas saldo em conta, e não fluxo de caixa. Saldo é fotografia. Fluxo é filme. Quem olha só para a fotografia perde o movimento das próximas semanas.</p>",
+        "<p>O empresário normalmente descobre que o caixa está apertado tarde demais. Isso acontece porque muita empresa acompanha apenas saldo em conta, e não fluxo de caixa. Saldo é fotografia. Fluxo é filme. Quem olha só para a fotografia perde o movimento das próximas semanas.</p><blockquote>Saldo é fotografia. Fluxo é filme.</blockquote>"
+      );
+    }
+    content = replaceOnce(
+      content,
+      "Ter de 15 a 30 dias de despesas fixas projetadas já muda a qualidade das decisões.",
+      "Ter de 15 a 30 dias de despesas fixas projetadas já muda a qualidade das decisões como ponto de partida; a meta saudável, quando possível, é caminhar para três ou mais meses de despesas essenciais."
+    );
+    content = replaceOnce(
+      content,
+      "antecipar uma linha previamente aprovada",
+      'usar <a href="/blog/antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio">antecipação de recebíveis</a> ou uma linha previamente aprovada'
+    );
+  }
+
+  return content;
+}
+
+function getRelatedPosts(post: BlogPost, posts: BlogPost[]) {
+  const slugs = relatedBySlug[post.slug] || [];
+  return slugs
+    .map((slug) => posts.find((item) => item.slug === slug))
+    .filter((item): item is BlogPost => Boolean(item));
 }
 
 export async function generateStaticParams() {
@@ -28,17 +205,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = await readBlogPostBySlug(params.slug);
   if (!post) {
-    return { title: "Artigo nao encontrado | MB Finance" };
+    return { title: "Artigo não encontrado | MB Finance" };
   }
+  const title = getDisplayTitle(post);
 
   return {
-    title: post.seoTitle || `${post.title} | MB Finance`,
+    title: post.seoTitle || `${title} | MB Finance`,
     description: post.seoDesc || post.excerpt,
     alternates: {
       canonical: blogUrl(`/blog/${post.slug}`),
     },
     openGraph: {
-      title: post.seoTitle || post.title,
+      title: post.seoTitle || title,
       description: post.seoDesc || post.excerpt,
       url: blogUrl(`/blog/${post.slug}`),
       type: "article",
@@ -54,11 +232,49 @@ export default async function BlogArticlePage({
 }) {
   const post = await readBlogPostBySlug(params.slug);
   if (!post) notFound();
+  const posts = await readPublishedBlogPosts();
+  const title = getDisplayTitle(post);
+  const content = enhanceArticleContent(post);
+  const cta = ctas[post.slug] || {
+    title: "Precisa falar com um especialista?",
+    description:
+      "A MB Finance ajuda sua empresa a comparar linhas, contas e soluções com mais critério.",
+    button: "Falar com um especialista",
+    message: `Olá! Li o artigo "${title}" e quero falar com um especialista.`,
+  };
+  const relatedPosts = getRelatedPosts(post, posts);
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description: post.seoDesc || post.excerpt,
+    image: post.image ? [post.image] : undefined,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Organization",
+      name: AUTHOR_NAME,
+      url: mainSiteUrl("/"),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "MB Finance",
+      logo: {
+        "@type": "ImageObject",
+        url: blogUrl("/images/logo-horizontal-logo.png.png"),
+      },
+    },
+    mainEntityOfPage: blogUrl(`/blog/${post.slug}`),
+  };
 
   return (
     <>
       <GoogleAdsTag />
       <MetaPixel />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <main className="min-h-screen bg-slate-50">
       <nav style={{ background: "#003956", position: "sticky", top: 0, zIndex: 100 }}>
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -78,9 +294,10 @@ export default async function BlogArticlePage({
             {post.categoryLabel}
           </p>
           <h1 className="font-sans text-4xl font-bold leading-tight md:text-5xl">
-            {post.title}
+            {title}
           </h1>
-          <div className="mt-5 flex gap-4 text-sm font-semibold text-white/60">
+          <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold text-white/60">
+            <span>Por {AUTHOR_NAME}</span>
             <span>{formatDate(post.date)}</span>
             <span>{post.readTime}</span>
           </div>
@@ -109,21 +326,44 @@ export default async function BlogArticlePage({
 
         <div
           className="blog-article-content mt-8"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: content }}
         />
 
+        {relatedPosts.length > 0 ? (
+          <section className="mt-10 border-t border-slate-200 pt-8">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-sky-600">Leitura relacionada</p>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              {relatedPosts.map((relatedPost) => (
+                <Link
+                  key={relatedPost.id}
+                  href={`/blog/${relatedPost.slug}`}
+                  className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-700 transition hover:-translate-y-0.5 hover:border-sky-400 hover:shadow-lg"
+                >
+                  <span className="text-[11px] font-black uppercase tracking-[0.2em] text-sky-600">
+                    {relatedPost.categoryLabel}
+                  </span>
+                  <h2 className="mt-2 text-lg font-black leading-snug text-[#003956]">
+                    {getDisplayTitle(relatedPost)}
+                  </h2>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">{relatedPost.excerpt}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <div className="mt-10 rounded-[24px] bg-[#003956] px-8 py-10 text-white">
-          <h2 className="font-sans text-3xl font-black">Precisa falar com um especialista?</h2>
+          <h2 className="font-sans text-3xl font-black">{cta.title}</h2>
           <p className="mt-3 max-w-2xl text-white/70">
-            A MB Finance ajuda sua empresa a comparar linhas, contas e solucoes com mais criterio.
+            {cta.description}
           </p>
           <a
             href={`https://wa.me/552139008295?text=${encodeURIComponent(
-              `Ola! Li o artigo "${post.title}" e quero falar com um especialista.`
+              cta.message
             )}`}
             className="mt-6 inline-flex rounded-xl bg-sky-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-sky-400"
           >
-            Falar com um especialista
+            {cta.button}
           </a>
         </div>
       </article>

@@ -6,11 +6,11 @@ import { mainSiteUrl } from "@/lib/site";
 
 const filters = [
   { label: "Todos", value: "todos" },
-  { label: "Credito Empresarial", value: "credito" },
-  { label: "Gestao Financeira", value: "gestao" },
+  { label: "Crédito Empresarial", value: "credito" },
+  { label: "Gestão Financeira", value: "gestao" },
   { label: "Conta PJ", value: "conta-pj" },
-  { label: "Antecipacao", value: "antecipacao" },
-  { label: "Gestao Tributaria", value: "gestao-tributaria" },
+  { label: "Antecipação", value: "antecipacao" },
+  { label: "Gestão Tributária", value: "gestao-tributaria" },
 ];
 
 function formatDate(date: string) {
@@ -101,14 +101,14 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
 
       <section className="blog-hero">
         <div className="blog-shell">
-          <div className="hero-tag">Conteudo exclusivo</div>
+          <div className="hero-tag">Conteúdo exclusivo</div>
           <h1 className="hero-title">
-            Inteligencia financeira para
+            Inteligência financeira para
             <br />
-            <span>o seu negocio crescer</span>
+            <span>o seu negócio crescer</span>
           </h1>
           <p className="hero-sub">
-            Guias praticos sobre credito, liquidez, conta PJ e gestao para ajudar empresarios a tomar decisoes melhores todos os meses.
+            Guias práticos sobre crédito, liquidez, conta PJ e gestão para ajudar empresários a tomar decisões melhores todos os meses.
           </p>
           <div className="search-box">
             <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -144,7 +144,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         <div className="intro-banner">
           <div>
             <h3>{posts.length} artigos publicados no blog</h3>
-            <p>Conteudo sobre credito empresarial, gestao financeira e solucoes para fazer o seu negocio crescer.</p>
+            <p>Conteúdo sobre crédito empresarial, gestão financeira e soluções para fazer o seu negócio crescer.</p>
           </div>
           <span>Ao vivo</span>
         </div>
@@ -194,8 +194,8 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         </div>
 
         <section className="newsletter-box">
-          <h2>Receba os melhores conteudos</h2>
-          <p>Analises e guias sobre financas empresariais direto no seu e-mail.</p>
+          <h2>Receba os melhores conteúdos</h2>
+          <p>Análises e guias sobre finanças empresariais direto no seu e-mail.</p>
           <form onSubmit={handleNewsletterSubmit} className="newsletter-form">
             <input
               value={email}
@@ -317,7 +317,7 @@ function BlogFooter() {
               <img src="/images/logo-horizontal-logo.branca.png" alt="mb finance" />
             </a>
             <p className="footer-bio">
-              Ha mais de 10 anos conectando empresas as melhores solucoes financeiras do mercado. Seu elo estrategico com as principais instituicoes bancarias do Brasil.
+              Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado. Seu elo estratégico com as principais instituições bancárias do Brasil.
             </p>
             <div className="footer-social">
               <a href="https://www.linkedin.com/company/mbfassessoria/?viewAsMember=true" target="_blank" rel="noopener noreferrer">in</a>
@@ -326,15 +326,15 @@ function BlogFooter() {
           </div>
 
           <div className="footer-col">
-            <h4>Solucoes</h4>
+            <h4>Soluções</h4>
             <ul>
               <li><a href={mainSiteUrl("/#produtos")}>Conta Corrente Empresarial</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Maquina de Cartao</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Seguros e Consorcios</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Credito Rapido</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Solucoes Tributarias</a></li>
+              <li><a href={mainSiteUrl("/#produtos")}>Máquina de Cartão</a></li>
+              <li><a href={mainSiteUrl("/#produtos")}>Seguros e Consórcios</a></li>
+              <li><a href={mainSiteUrl("/#produtos")}>Crédito Rápido</a></li>
+              <li><a href={mainSiteUrl("/#produtos")}>Soluções Tributárias</a></li>
               <li><a href={mainSiteUrl("/#produtos")}>Telemedicina</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Solucoes Personalizadas</a></li>
+              <li><a href={mainSiteUrl("/#produtos")}>Soluções Personalizadas</a></li>
             </ul>
           </div>
 
@@ -347,7 +347,7 @@ function BlogFooter() {
             </ul>
             <h4 style={{ marginTop: 44 }}>Legal</h4>
             <ul>
-              <li><a href={mainSiteUrl("/pages/politica-de-privacidade.html")}>Politica de Privacidade</a></li>
+              <li><a href={mainSiteUrl("/pages/politica-de-privacidade.html")}>Política de Privacidade</a></li>
               <li><a href={mainSiteUrl("/pages/termos-de-uso.html")}>Termos de Uso</a></li>
             </ul>
           </div>
@@ -355,17 +355,17 @@ function BlogFooter() {
           <div className="footer-col">
             <h4>Contato</h4>
             <span className="footer-phone">(21) 3900-8295</span>
-            <span className="footer-hours">Seg - Sex: 9h as 18h</span>
+            <span className="footer-hours">Seg - Sex: 9h às 18h</span>
             <p><a href="mailto:atendimento@mbfinance.com.br">atendimento@mbfinance.com.br</a></p>
             <p>
-              Av. Rio Branco, 110 - 30 andar<br />
+              Av. Rio Branco, 110 - 30º andar<br />
               Centro, Rio de Janeiro - RJ<br />
               CEP: 20040-006
             </p>
           </div>
         </div>
         <div className="footer-bottom">
-          © 2026 MB Assessoria e Estruturacao de Negocios LTDA. CNPJ: 26.388.817/0001-72. Todos os direitos reservados.
+          © 2026 MB Assessoria e Estruturação de Negócios LTDA. CNPJ: 26.388.817/0001-72. Todos os direitos reservados.
         </div>
       </div>
     </footer>

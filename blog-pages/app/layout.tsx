@@ -10,16 +10,16 @@ export const metadata: Metadata = {
     template: "%s | Blog MB Finance",
   },
   description:
-    "Conteudos sobre credito empresarial, conta PJ, antecipacao de recebiveis e gestao financeira para empresas.",
+    "Conteúdos sobre crédito empresarial, conta PJ, antecipação de recebíveis e gestão financeira para empresas.",
   keywords:
-    "capital de giro, antecipacao de recebiveis, conta PJ, credito empresarial, gestao financeira, MB Finance",
+    "capital de giro, antecipação de recebíveis, conta PJ, crédito empresarial, gestão financeira, MB Finance",
   alternates: {
     canonical: BLOG_BASE_URL,
   },
   openGraph: {
     title: "Blog MB Finance",
     description:
-      "Artigos sobre credito empresarial, liquidez, conta PJ e gestao financeira para empresas.",
+      "Artigos sobre crédito empresarial, liquidez, conta PJ e gestão financeira para empresas.",
     url: BLOG_BASE_URL,
     siteName: "Blog MB Finance",
     type: "website",

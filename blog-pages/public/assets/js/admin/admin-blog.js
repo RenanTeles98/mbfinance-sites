@@ -115,14 +115,14 @@ async function syncOfficialBlog(showSuccess = true) {
 
         setSyncStatus('Publicado no blog oficial', 'online');
         if (showSuccess) {
-            alert('✅ Conteudo publicado no blog oficial.\n\nO blog oficial conectado ao app Next.js ja esta lendo esses posts automaticamente.');
+            alert('Conteúdo publicado no blog oficial.\n\nO blog oficial conectado ao app Next.js já está lendo esses posts automaticamente.');
         }
         return true;
     } catch (error) {
         console.error(error);
         setSyncStatus('Falha na publicacao automatica', 'warn');
         if (showSuccess) {
-            alert('Nao foi possivel publicar automaticamente.\nVerifique a URL da API, o token e se o app Next.js esta em execucao.');
+            alert('Não foi possível publicar automaticamente.\nVerifique a URL da API, o token e se o app Next.js está em execução.');
         }
         return false;
     }
