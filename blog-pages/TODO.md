@@ -3,6 +3,7 @@
 ## Prioridade atual
 
 - Sincronizar o conteúdo corrigido de `content/blog-posts.json` com o storage ativo de produção, se o deploy estiver usando Supabase ou KV.
+- Renovar autenticação da Vercel local (`vercel login` ou token) para permitir deploy manual.
 - Verificar visualmente `/blog` e os 5 artigos publicados após o deploy.
 
 ## Backlog técnico relevante

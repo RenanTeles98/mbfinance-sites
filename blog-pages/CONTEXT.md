@@ -19,10 +19,13 @@ Estado atual:
 - O build de produção passa com sucesso.
 - Restam apenas avisos já existentes do Next sobre uso de `<img>` em vez de `next/image`.
 - Os arquivos obrigatórios de contexto não existiam no checkout e foram criados nesta sessão.
+- Commit `819a534` (`Apply blog audit fixes`) enviado para `origin/master`.
+- Deploy manual na Vercel ficou bloqueado porque a CLI local não possui credenciais válidas e não há projeto `.vercel` linkado nesta pasta.
 
 Onde o trabalho parou:
 - Correções do relatório foram aplicadas no código e no conteúdo versionado.
 - Não foi feita sincronização manual com Supabase/KV.
 
 Próximo passo recomendado:
+- Refazer `vercel login` ou fornecer um token válido para executar `vercel --prod --yes`.
 - Se o ambiente de produção estiver lendo Supabase/KV, executar o fluxo de sincronização/publicação usado pelo projeto para enviar `content/blog-posts.json` atualizado ao storage ativo.
