@@ -46,7 +46,14 @@ function persistLocal() {
 }
 
 function getApiBase() {
-    return (localStorage.getItem(API_BASE_KEY) || '').trim().replace(/\/$/, '');
+    const configuredBase = (localStorage.getItem(API_BASE_KEY) || '').trim().replace(/\/$/, '');
+    if (configuredBase) return configuredBase;
+
+    if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        return window.location.origin.replace(/\/$/, '');
+    }
+
+    return '';
 }
 
 function getApiToken() {

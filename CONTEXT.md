@@ -364,3 +364,11 @@ Estado atual: a Vercel deve apontar o Root Directory para `blog-pages`.
 
 Proximo passo recomendado: publicar a pasta `blog-pages/` no GitHub, ajustar o Root Directory do projeto na Vercel para `blog-pages` e fazer novo redeploy.
 
+### Ajuste complementar - admin usa API do proprio dominio
+
+- Corrigido `blog-pages/public/assets/js/admin/admin-blog.js` para usar `window.location.origin` como base padrao da API quando nenhuma URL foi configurada no localStorage.
+- Motivo: em producao o painel abria como "Somente local" e nao carregava os posts do Supabase ate o usuario clicar em "Configurar API".
+- Validacao: `npm run build` em `blog-pages/` executado com sucesso.
+
+Estado atual: ao abrir `https://blog.mbfinance.com.br/admin`, o painel deve buscar automaticamente `https://blog.mbfinance.com.br/api/blog/posts`.
+

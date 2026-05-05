@@ -141,6 +141,7 @@
 - [x] Popular `public.blog_posts` com os 5 posts iniciais de `blog-pages/content/blog-posts.json`.
 - [x] Preencher `SUPABASE_SERVICE_ROLE_KEY` no `.env.local` do projeto do blog para permitir escrita administrativa local pelo painel.
 - [x] Criar pasta `blog-pages/` sem espaco para compatibilidade com serverless functions da Vercel.
+- [x] Corrigir admin para usar automaticamente a API do proprio dominio em producao.
 - [ ] Preencher `SUPABASE_SERVICE_ROLE_KEY` tambem na Vercel quando o projeto do blog for criado/importado.
 - [ ] Ajustar Root Directory na Vercel para `blog-pages`.
 - [ ] Configurar DNS do subdominio `blog.mbfinance.com.br`.

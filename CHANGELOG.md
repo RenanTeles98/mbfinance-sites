@@ -120,6 +120,7 @@ Principais marcos conhecidos:
 - A sincronizacao do blog em `blog-pages/app/api/blog/sync/route.ts` agora usa a camada oficial de storage, permitindo gravar no Supabase quando configurado.
 - Tabela `public.blog_posts` criada no Supabase e populada com os 5 posts iniciais do blog.
 - Criada a pasta `blog-pages/` sem espaco para evitar erro de serverless function invalid name na Vercel.
+- Admin do blog agora usa automaticamente a API do proprio dominio quando nenhuma API foi configurada no navegador.
 
 ---
 
