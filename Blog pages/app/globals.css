@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+::-webkit-scrollbar-thumb {
+  background: #0099dd;
+  border-radius: 3px;
+}
+
+.blog-article-content {
+  color: #334155;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.blog-article-content h2,
+.blog-article-content h3 {
+  color: #003956;
+  font-family: "Inter", sans-serif;
+  line-height: 1.25;
+}
+
+.blog-article-content h2 {
+  margin: 2rem 0 0.9rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.blog-article-content h3 {
+  margin: 1.6rem 0 0.7rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.blog-article-content p {
+  margin-bottom: 1rem;
+}
+
+.blog-article-content ul,
+.blog-article-content ol {
+  margin: 0.8rem 0 1.2rem 1.4rem;
+}
+
+.blog-article-content li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-article-content blockquote {
+  margin: 1.5rem 0;
+  border-left: 4px solid #0099dd;
+  background: #f0f9ff;
+  padding: 1rem 1.25rem;
+  color: #003956;
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+}
+
+.blog-article-content a {
+  color: #0284c7;
+}
