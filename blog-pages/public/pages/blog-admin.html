@@ -248,6 +248,9 @@
         .analytics-page-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid #e2e8f0; }
         .analytics-page-header h2 { font-size: 22px; font-weight: 900; color: #1e293b; margin-bottom: 6px; }
         .analytics-page-header p { font-size: 14px; color: #64748b; line-height: 1.6; max-width: 700px; }
+        .analytics-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+        .analytics-site-select { min-width: 210px; background: #fff; border: 1.5px solid #dbe6ef; color: #1e293b; font-size: 13px; font-weight: 700; padding: 9px 12px; border-radius: 10px; outline: none; cursor: pointer; }
+        .analytics-site-select:focus { border-color: #0099dd; box-shadow: 0 0 0 3px rgba(0,153,221,0.12); }
         .analytics-stamp { background: #eff9ff; color: #0099dd; border: 1px solid rgba(0,153,221,0.18); font-size: 12px; font-weight: 800; padding: 8px 12px; border-radius: 999px; white-space: nowrap; }
         .analytics-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
         .analytics-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 8px 30px rgba(15,23,42,0.04); }
@@ -284,6 +287,8 @@
         }
         @media (max-width: 720px) {
             .analytics-page-header { flex-direction: column; align-items: flex-start; }
+            .analytics-controls { width: 100%; justify-content: flex-start; }
+            .analytics-site-select { width: 100%; }
             .analytics-grid { grid-template-columns: 1fr; }
             .category-row { grid-template-columns: 1fr; }
             .category-count { text-align: left; }
@@ -875,7 +880,14 @@
                     <h2>Métricas do site</h2>
                     <p>Acompanhe visitas, usuários, sessões, visualizações e as páginas mais acessadas do site. Abaixo, você continua vendo o resumo editorial do blog.</p>
                 </div>
-                <div class="analytics-stamp" id="analytics-last-update">Atualizado agora</div>
+                <div class="analytics-controls">
+                    <select id="analytics-site-select" class="analytics-site-select" onchange="setSelectedAnalyticsSite(this.value)" aria-label="Selecionar site">
+                        <option value="mb-finance">MB Finance</option>
+                        <option value="mb-negocios">MB Negócios</option>
+                        <option value="fomenta">Fomenta</option>
+                    </select>
+                    <div class="analytics-stamp" id="analytics-last-update">Atualizado agora</div>
+                </div>
             </div>
 
             <div class="analytics-grid">

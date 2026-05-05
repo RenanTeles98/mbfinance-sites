@@ -3,9 +3,47 @@
  */
 
 function getAnalyticsApiUrl() {
-    const base = (localStorage.getItem('mb_site_domain') || '').replace(/\/$/, '');
-    if (base) return base + '/api/analytics/overview';
-    return '/api/analytics/overview';
+    const base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
+    const path = '/api/analytics/overview?site=' + encodeURIComponent(getSelectedAnalyticsSite());
+    return base ? base + path : path;
+}
+
+function getSelectedAnalyticsSite() {
+    return (localStorage.getItem(ANALYTICS_SITE_KEY) || 'mb-finance').trim() || 'mb-finance';
+}
+
+function setSelectedAnalyticsSite(siteKey) {
+    localStorage.setItem(ANALYTICS_SITE_KEY, siteKey || 'mb-finance');
+    renderTrafficAnalytics();
+}
+
+function renderAnalyticsSiteSelector(sites, selectedKey) {
+    const select = document.getElementById('analytics-site-select');
+    if (!select) return;
+
+    const fallbackSites = [
+        { key: 'mb-finance', name: 'MB Finance', configured: true },
+        { key: 'mb-negocios', name: 'MB Negocios', configured: false },
+        { key: 'fomenta', name: 'Fomenta', configured: false }
+    ];
+    const options = Array.isArray(sites) && sites.length ? sites : fallbackSites;
+    analyticsSites = options;
+
+    select.innerHTML = options.map(site => {
+        const suffix = site.configured ? '' : ' (configurar GA4)';
+        return '<option value="' + esc(site.key) + '">' + esc(site.name + suffix) + '</option>';
+    }).join('');
+    select.value = selectedKey || getSelectedAnalyticsSite();
+}
+
+function resetTrafficPanels(message) {
+    document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">' + esc(message) + '</div>';
+    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de trafego por enquanto.</div>';
+    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Configure as variaveis do GA4 no Vercel e confirme o acesso da service account na propriedade.</div>';
+    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Sem dados geograficos disponiveis ainda.</div>';
+    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Sem dados regionais disponiveis ainda.</div>';
+    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de genero disponiveis ainda.</div>';
+    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de idade disponiveis ainda.</div>';
 }
 
 async function renderTrafficAnalytics() {
@@ -25,20 +63,18 @@ async function renderTrafficAnalytics() {
     document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Carregando faixa etaria...</div>';
 
     try {
+        const selectedSite = getSelectedAnalyticsSite();
         const response = await fetch(getAnalyticsApiUrl(), { cache: 'no-store' });
         const data = await response.json();
+        analyticsData = data;
         window.analyticsData = data; // Global for renderSidebar to use
+        renderAnalyticsSiteSelector(data.sites, data.siteKey || selectedSite);
 
         if (!response.ok || !data || !data.configured || !data.summary) {
-            const message = (data && data.error) ? data.error : 'GA4 não configurado ou sem acesso liberado.';
+            const siteName = data && data.siteName ? data.siteName : 'este site';
+            const message = (data && data.error) ? data.error : 'GA4 nao configurado ou sem acesso liberado para ' + siteName + '.';
             document.getElementById('analytics-last-update').textContent = 'GA4 indisponivel';
-            document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">' + esc(message) + '</div>';
-            document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de trafego por enquanto.</div>';
-            document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Configure as variaveis do GA4 no Vercel e confirme o acesso da service account na propriedade.</div>';
-            document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Sem dados geograficos disponiveis ainda.</div>';
-            document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Sem dados regionais disponiveis ainda.</div>';
-            document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de genero disponiveis ainda.</div>';
-            document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de idade disponiveis ainda.</div>';
+            resetTrafficPanels(message);
             return;
         }
 
@@ -57,7 +93,8 @@ async function renderTrafficAnalytics() {
         document.getElementById('ga-active-users').textContent = formatInteger(summary.activeUsers);
         document.getElementById('ga-sessions').textContent = formatInteger(summary.sessions);
         document.getElementById('ga-pageviews').textContent = formatInteger(summary.screenPageViews);
-        document.getElementById('analytics-last-update').textContent = data.rangeLabel ? 'Dados reais: ' + data.rangeLabel : 'Dados reais do GA4';
+        const siteLabel = data.siteName ? data.siteName + ' - ' : '';
+        document.getElementById('analytics-last-update').textContent = data.rangeLabel ? siteLabel + 'Dados reais: ' + data.rangeLabel : siteLabel + 'Dados reais do GA4';
 
         if (!trend.length) {
             document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Ainda não há volume suficiente para montar a tendência diária.</div>';
@@ -99,6 +136,7 @@ async function renderTrafficAnalytics() {
         renderDemographicList('ga-age-breakdown', ageBreakdown, 'O GA4 ainda não disponibilizou faixa etária para este período ou propriedade.');
 
     } catch (error) {
+        renderAnalyticsSiteSelector(analyticsSites, getSelectedAnalyticsSite());
         document.getElementById('analytics-last-update').textContent = 'Falha no GA4';
         document.querySelectorAll('.analytics-empty').forEach(el => el.textContent = 'Erro ao carregar dados.');
     }
@@ -204,3 +242,4 @@ function renderDemographicList(targetId, rows, emptyMessage) {
 window.renderAnalytics = renderAnalytics;
 window.renderTrafficAnalytics = renderTrafficAnalytics;
 window.renderEditorialAnalytics = renderEditorialAnalytics;
+window.setSelectedAnalyticsSite = setSelectedAnalyticsSite;

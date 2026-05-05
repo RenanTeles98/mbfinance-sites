@@ -1,5 +1,11 @@
 # TODO
 
+## Prioridade atual - Analytics multisite
+
+- Configurar na Vercel as propriedades GA4 dos outros bracos da empresa.
+- Confirmar acesso de leitura da service account em cada propriedade GA4.
+- Validar no painel admin o seletor `MB Finance`, `MB Negocios` e `Fomenta` apos deploy.
+
 ## Prioridade atual
 
 - Sincronizar o conteúdo corrigido de `content/blog-posts.json` com o storage ativo de produção, se o deploy estiver usando Supabase ou KV.

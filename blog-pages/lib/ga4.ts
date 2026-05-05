@@ -41,6 +41,8 @@ export type GaDemographicRow = {
 
 export type GaOverviewResponse = {
   configured: boolean;
+  siteKey?: string;
+  siteName?: string;
   propertyId?: string;
   rangeLabel?: string;
   summary?: GaOverviewMetric;
@@ -50,6 +52,20 @@ export type GaOverviewResponse = {
   topRegions?: GaGeoRow[];
   genderBreakdown?: GaDemographicRow[];
   ageBreakdown?: GaDemographicRow[];
+};
+
+export type GaSiteConfig = {
+  key: string;
+  name: string;
+  propertyId: string;
+  clientEmail: string;
+  privateKey: string;
+};
+
+export type GaSiteOption = {
+  key: string;
+  name: string;
+  configured: boolean;
 };
 
 type RunReportRequest = {
@@ -72,6 +88,104 @@ function getEnv(name: string) {
   return process.env[name]?.trim() || "";
 }
 
+const DEFAULT_SITE_KEY = "mb-finance";
+
+const GA_SITE_NAMES: Record<string, string> = {
+  "mb-finance": "MB Finance",
+  "mb-negocios": "MB Negocios",
+  fomenta: "Fomenta",
+};
+
+function normalizeSiteKey(value?: string) {
+  const normalized = (value || DEFAULT_SITE_KEY)
+    .trim()
+    .toLowerCase()
+    .replace(/_/g, "-");
+
+  return normalized || DEFAULT_SITE_KEY;
+}
+
+function toEnvPrefix(siteKey: string) {
+  return siteKey.toUpperCase().replace(/[^A-Z0-9]+/g, "_");
+}
+
+function readJsonSiteConfigs() {
+  const raw = getEnv("GA4_SITES");
+  if (!raw) return [] as GaSiteConfig[];
+
+  try {
+    const parsed = JSON.parse(raw) as Array<Partial<GaSiteConfig>>;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed
+      .map((site) => ({
+        key: normalizeSiteKey(site.key),
+        name: site.name || GA_SITE_NAMES[normalizeSiteKey(site.key)] || site.key || "Site",
+        propertyId: String(site.propertyId || "").trim(),
+        clientEmail: String(site.clientEmail || "").trim(),
+        privateKey: String(site.privateKey || "").trim(),
+      }))
+      .filter((site) => site.key);
+  } catch {
+    return [];
+  }
+}
+
+function readEnvSiteConfig(siteKey: string): GaSiteConfig {
+  const key = normalizeSiteKey(siteKey);
+  const prefix = toEnvPrefix(key);
+  const isDefault = key === DEFAULT_SITE_KEY;
+
+  return {
+    key,
+    name: getEnv(`GA4_${prefix}_SITE_NAME`) || GA_SITE_NAMES[key] || key,
+    propertyId:
+      getEnv(`GA4_${prefix}_PROPERTY_ID`) ||
+      (isDefault ? getEnv("GA4_PROPERTY_ID") : ""),
+    clientEmail:
+      getEnv(`GA4_${prefix}_CLIENT_EMAIL`) ||
+      (isDefault ? getEnv("GA4_CLIENT_EMAIL") : getEnv("GA4_CLIENT_EMAIL")),
+    privateKey:
+      getEnv(`GA4_${prefix}_PRIVATE_KEY`) ||
+      (isDefault ? getEnv("GA4_PRIVATE_KEY") : getEnv("GA4_PRIVATE_KEY")),
+  };
+}
+
+function isConfigured(site: GaSiteConfig) {
+  return Boolean(site.propertyId && site.clientEmail && site.privateKey);
+}
+
+export function getGa4SiteConfig(siteKey = DEFAULT_SITE_KEY) {
+  const key = normalizeSiteKey(siteKey);
+  const jsonSite = readJsonSiteConfigs().find((site) => site.key === key);
+  return jsonSite || readEnvSiteConfig(key);
+}
+
+export function getGa4SiteOptions(): GaSiteOption[] {
+  const configuredKeys = new Set<string>();
+  const jsonSites = readJsonSiteConfigs();
+  const options: GaSiteOption[] = jsonSites.map((site) => {
+    configuredKeys.add(site.key);
+    return {
+      key: site.key,
+      name: site.name,
+      configured: isConfigured(site),
+    };
+  });
+
+  Object.keys(GA_SITE_NAMES).forEach((key) => {
+    if (configuredKeys.has(key)) return;
+    const site = readEnvSiteConfig(key);
+    options.push({
+      key,
+      name: site.name,
+      configured: isConfigured(site),
+    });
+  });
+
+  return options;
+}
+
 function normalizePrivateKey(value: string) {
   return value
     .trim()
@@ -84,11 +198,7 @@ function normalizePrivateKey(value: string) {
 }
 
 export function hasGa4Config() {
-  return Boolean(
-    getEnv("GA4_PROPERTY_ID") &&
-      getEnv("GA4_CLIENT_EMAIL") &&
-      getEnv("GA4_PRIVATE_KEY")
-  );
+  return isConfigured(getGa4SiteConfig(DEFAULT_SITE_KEY));
 }
 
 function base64UrlEncode(input: string) {
@@ -99,9 +209,9 @@ function base64UrlEncode(input: string) {
     .replace(/=+$/g, "");
 }
 
-async function getAccessToken() {
-  const clientEmail = getEnv("GA4_CLIENT_EMAIL");
-  const privateKey = normalizePrivateKey(getEnv("GA4_PRIVATE_KEY"));
+async function getAccessToken(site: GaSiteConfig) {
+  const clientEmail = site.clientEmail;
+  const privateKey = normalizePrivateKey(site.privateKey);
 
   const now = Math.floor(Date.now() / 1000);
   const header = base64UrlEncode(JSON.stringify({ alg: "RS256", typ: "JWT" }));
@@ -185,13 +295,19 @@ function cleanDimensionValue(value?: string, fallback = "Nao informado") {
   return normalized;
 }
 
-export async function getGa4Overview(): Promise<GaOverviewResponse> {
-  if (!hasGa4Config()) {
-    return { configured: false };
+export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOverviewResponse> {
+  const site = getGa4SiteConfig(siteKey);
+
+  if (!isConfigured(site)) {
+    return {
+      configured: false,
+      siteKey: site.key,
+      siteName: site.name,
+    };
   }
 
-  const propertyId = getEnv("GA4_PROPERTY_ID");
-  const accessToken = await getAccessToken();
+  const propertyId = site.propertyId;
+  const accessToken = await getAccessToken(site);
 
   const [
     summaryReport,
@@ -328,6 +444,8 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
 
   return {
     configured: true,
+    siteKey: site.key,
+    siteName: site.name,
     propertyId,
     rangeLabel: "Ultimos 30 dias",
     summary,
