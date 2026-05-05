@@ -372,3 +372,12 @@ Proximo passo recomendado: publicar a pasta `blog-pages/` no GitHub, ajustar o R
 
 Estado atual: ao abrir `https://blog.mbfinance.com.br/admin`, o painel deve buscar automaticamente `https://blog.mbfinance.com.br/api/blog/posts`.
 
+### Ajuste complementar - publicacao pelo admin
+
+- Corrigido `blog-pages/public/assets/js/admin/admin-blog.js` para carregar posts usando o token admin no GET e para nao mostrar sucesso quando a sincronizacao com a API falhar.
+- `syncOfficialBlog` agora le a resposta de erro da API quando o PUT falha e mantem o status visual em alerta.
+- `blog-pages/app/api/blog/posts/route.ts` agora retorna erro JSON quando a escrita no storage falha.
+- Validacao: `npm run build` em `blog-pages/` executado com sucesso.
+
+Estado atual: ao salvar um post no painel, a publicacao oficial precisa retornar sucesso antes de mostrar "Post salvo e publicado".
+

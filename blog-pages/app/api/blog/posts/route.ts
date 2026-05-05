@@ -65,7 +65,12 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
-  const sanitized = body.posts.map(sanitizePost);
-  await writeBlogPosts(sanitized);
-  return NextResponse.json({ ok: true, count: body.posts.length });
+  try {
+    const sanitized = body.posts.map(sanitizePost);
+    await writeBlogPosts(sanitized);
+    return NextResponse.json({ ok: true, count: body.posts.length });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to write posts";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }

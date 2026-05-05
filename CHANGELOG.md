@@ -121,6 +121,7 @@ Principais marcos conhecidos:
 - Tabela `public.blog_posts` criada no Supabase e populada com os 5 posts iniciais do blog.
 - Criada a pasta `blog-pages/` sem espaco para evitar erro de serverless function invalid name na Vercel.
 - Admin do blog agora usa automaticamente a API do proprio dominio quando nenhuma API foi configurada no navegador.
+- Fluxo de publicacao do admin agora exige sucesso da API antes de informar que o post foi publicado e retorna erros JSON no endpoint de posts.
 
 ---
 

@@ -11,7 +11,12 @@ function loadPosts() {
         return;
     }
 
-    fetch(apiUrl)
+    fetch(apiUrl, {
+        headers: {
+            'x-blog-admin-token': getApiToken(),
+        },
+        cache: 'no-store',
+    })
         .then(r => r.ok ? r.json() : Promise.reject(new Error('Falha ao carregar API')))
         .then(data => {
             const remotePosts = Array.isArray(data.posts) ? data.posts : [];
@@ -118,9 +123,13 @@ async function syncOfficialBlog(showSuccess = true) {
             body: JSON.stringify({ posts }),
         });
 
-        if (!response.ok) throw new Error('Falha ao publicar');
+        if (!response.ok) {
+            const details = await response.text().catch(() => '');
+            throw new Error(details || `Falha ao publicar (${response.status})`);
+        }
 
         setSyncStatus('Publicado no blog oficial', 'online');
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
         if (showSuccess) {
             alert('Conteúdo publicado no blog oficial.\n\nO blog oficial conectado ao app Next.js já está lendo esses posts automaticamente.');
         }
@@ -249,8 +258,13 @@ async function savePost() {
         document.querySelectorAll('.post-item').forEach(el => el.classList.remove('active'));
         const el = document.querySelector(`.post-item[data-id="${currentId}"]`);
         if (el) el.classList.add('active');
-        await syncOfficialBlog(false);
-        showToast();
+        const synced = await syncOfficialBlog(false);
+        if (synced) {
+            showToast('Post salvo e publicado!');
+        } else {
+            showToast('Post salvo apenas neste navegador.');
+            alert('O post foi salvo localmente, mas nao foi publicado no blog oficial. Clique em "Publicar Oficial" para tentar novamente e ver o erro.');
+        }
     }
 
     if (post.published) {
