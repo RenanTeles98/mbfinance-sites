@@ -16,13 +16,24 @@ const order = [
     'infra/google-ads-tag.js',
 ];
 
-let bundle = '/* mb finance — bundle.js */\n';
+function minifyJS(src) {
+    return src
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/\/\/[^\n]*/g, '')
+        .replace(/\n\s*\n/g, '\n')
+        .replace(/^\s+/gm, '')
+        .replace(/\n/g, ' ')
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+}
+
+let bundle = '';
 for (const file of order) {
     const src = fs.readFileSync(path.join(base, file), 'utf8');
-    bundle += `\n/* ── ${file} ── */\n${src}\n`;
+    bundle += minifyJS(src) + '\n';
     console.log(`+ ${file} (${Math.round(fs.statSync(path.join(base, file)).size / 1024 * 10) / 10}KB)`);
 }
 
-fs.writeFileSync('./public/assets/js/bundle.js', bundle, 'utf8');
+fs.writeFileSync('./public/assets/js/bundle.js', bundle.trim(), 'utf8');
 const total = Math.round(fs.statSync('./public/assets/js/bundle.js').size / 1024 * 10) / 10;
 console.log(`\nBundle: ${total}KB → public/assets/js/bundle.js`);

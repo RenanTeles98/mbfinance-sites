@@ -16,7 +16,7 @@
     ['mousemove','keydown','touchstart','scroll'].forEach(function(e){
         window.addEventListener(e, loadGTM, {once:true, passive:true});
     });
-    setTimeout(loadGTM, 4000);
+    setTimeout(loadGTM, 8000);
     </script>
     <!-- End Google Tag Manager -->
     <!-- Google Analytics 4 — carregado apenas após consentimento de cookies (cookie-banner.js) -->
@@ -58,20 +58,23 @@
     <meta name="twitter:description" content="Conectamos sua empresa às melhores soluções financeiras do mercado. +40 bancos parceiros, crédito, conta PJ, adquirência e muito mais.">
     <meta name="twitter:image" content="https://www.mbfinance.com.br/images/hero-bg.jpg">
 
-    <!-- Tailwind CSS (purged, ~54KB vs 3MB do CDN) -->
-    <link rel="stylesheet" href="tailwind.min.css">
+    <!-- CSS crítico inline: navbar, hero, mobile — sem bloquear render -->
+    <style>*,::after,::before{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}body{margin:0;font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:300;line-height:1.5;color:#334155;background:#fff;overflow-x:hidden}h1,h2,h3,h4,h5,h6{font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:0;color:#0f172a;margin:0}img,video,svg{max-width:100%;height:auto}#inicio{min-height:100vh;min-height:100svh;background-color:#040f1a;position:relative;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}#navbar{position:fixed;top:0;left:0;right:0;z-index:100;padding-top:1.5rem;padding-bottom:1.5rem;transition:all .3s}#navbar>div{max-width:80rem;margin:0 auto;padding:0 1rem}#navbar>div>div{display:flex;align-items:center;justify-content:space-between}@media(max-width:1023px){#desktop-nav{display:none!important}#desktop-cta{display:none!important}#mobile-menu-toggle{display:flex!important}}@media(min-width:1024px){#desktop-nav{display:flex!important}#desktop-cta{display:block!important}#mobile-menu-toggle{display:none!important}}#logo-img{max-width:none!important;width:130px!important;height:32px!important;object-fit:contain}@media(min-width:1024px){#logo-img{width:146px!important;height:36px!important}}#mobile-menu{position:fixed;top:0;right:-100%;width:85%;max-width:360px;height:100vh;background:#fff;z-index:200;overflow-y:auto}#mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:190}.hero-blue-gradient{background:linear-gradient(90deg,#BAE6FD 0%,#0099dd 25%,#BAE6FD 50%,#0099dd 75%,#BAE6FD 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:600;animation:text-shimmer 8s linear infinite}@keyframes text-shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}.hero-highlight{background:linear-gradient(90deg,#ff6b81 0%,#ffc06a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block}</style>
+    <!-- Tailwind + main.css: async (não bloqueiam render) -->
+    <link rel="preload" href="tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="tailwind.min.css"></noscript>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Preload hero background (crítico para LCP) -->
+    <!-- Preload hero poster (crítico para LCP) -->
     <link rel="preload" as="image" href="/images/hero-bg.webp" fetchpriority="high">
-    <!-- Preconnect para fotos dos depoimentos -->
-
-    <!-- Google Fonts carregado sem bloquear render -->
+    <!-- Google Fonts sem bloquear render -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet"></noscript>
-    <link rel="stylesheet" href="assets/css/main.css">
-    <script>window.addEventListener("DOMContentLoaded",function(){var l=document.createElement("link");l.rel="stylesheet";l.href="assets/css/cookie-banner.css";document.head.appendChild(l);});</script>
+    <link rel="preload" href="assets/css/main.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/css/main.min.css"></noscript>
+    <link rel="preload" href="assets/css/cookie-banner.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/css/cookie-banner.css"></noscript>
     
 </head>
 <body class="bg-white text-brand-primary overflow-x-hidden font-sans">
@@ -87,7 +90,7 @@
                 <!-- Logo (Left) -->
                 <div class="w-1/4">
                     <a href="#inicio" onclick="event.preventDefault(); smoothScrollTo('inicio', 1400)" class="flex items-center group">
-                        <img id="logo-img" src="/images/logo-branca.webp" alt="mb finance" style="height:36px; width:auto; display:block;">
+                        <img id="logo-img" src="/images/logo-branca.webp" alt="mb finance" width="146" height="36" style="height:36px; width:146px; display:block;">
                     </a>
                 </div>
 
@@ -138,7 +141,7 @@
         <div id="mobile-overlay" onclick="closeMobileMenu()"></div>
         <div id="mobile-menu">
             <div style="padding:24px 24px 16px; border-bottom:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center;">
-                <img src="/images/logo.webp" alt="mb finance" style="height:36px;width:auto;display:block;">
+                <img src="/images/logo.webp" alt="mb finance" width="146" height="36" style="height:36px;width:146px;display:block;">
                 <button onclick="closeMobileMenu()" aria-label="Fechar menu">
                     <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
@@ -216,11 +219,11 @@
         <!-- Deep Executive Background with Precision Grid -->
         <div class="absolute inset-0 z-0 bg-[#040f1a]">
             <!-- Hero Video Background (seamless crossfade loop) -->
-            <video id="hero-video-a" autoplay muted playsinline
+            <video id="hero-video-a" autoplay muted playsinline poster="/images/hero-bg.webp"
                 style="position:absolute;top:50%;left:50%;width:110%;height:110%;object-fit:cover;opacity:0.47;pointer-events:none;z-index:0;transition:opacity 1.2s ease;transform:translate(-50%, -50%) scale(1.2);">
                 <source src="videos/cidade-sem-avioes.mp4" type="video/mp4">
             </video>
-            <video id="hero-video-b" muted playsinline
+            <video id="hero-video-b" muted playsinline preload="none"
                 style="position:absolute;top:50%;left:50%;width:110%;height:110%;object-fit:cover;opacity:0;pointer-events:none;z-index:0;transition:opacity 1.2s ease;transform:translate(-50%, -50%) scale(1.2);">
                 <source src="videos/cidade-sem-avioes.mp4" type="video/mp4">
             </video>
@@ -280,7 +283,7 @@
 
                 <!-- Imagem esquerda -->
                 <div class="rounded-[32px] overflow-hidden shadow-2xl" style="position:relative; aspect-ratio:3/4;">
-                    <img id="parallax-consultor" src="/images/vantagens-exclusivas-40.webp" alt="Especialista mb finance" class="w-full block" fetchpriority="high" decoding="async" style="will-change:transform; display:block; width:100%; height:100%; object-fit:cover; object-position:60% 75%;" />
+                    <img id="parallax-consultor" src="/images/vantagens-exclusivas-40.webp" alt="Especialista mb finance" width="900" height="1200" class="w-full block" loading="lazy" decoding="async" style="will-change:transform; display:block; width:100%; height:100%; object-fit:cover; object-position:60% 75%;" />
                     <!-- Badge parceiros removido -->
                 </div>
 
@@ -1260,7 +1263,7 @@
                 <div class="lg:w-1/2 relative group">
                     <div class="absolute -top-10 -right-10 w-64 h-64 bg-brand-secondary/5 rounded-full blur-3xl group-hover:bg-brand-secondary/10 transition-all duration-700"></div>
                     <div class="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-white group-hover:scale-[1.01] transition-all duration-500">
-                        <img src="/images/equipe-mb-finance.webp" alt="Equipe mb finance" class="w-full h-auto object-cover" loading="lazy">
+                        <img src="/images/equipe-mb-finance.webp" alt="Equipe mb finance" width="1200" height="800" class="w-full h-auto object-cover" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -1401,7 +1404,7 @@
                 <div class="lg:col-span-4 space-y-8">
                     <div class="mb-8">
                         <a href="#" class="inline-block hover:opacity-80 transition-opacity">
-                            <img src="/images/logo-branca.webp" alt="mb finance" style="height: 36px; width: auto;">
+                            <img src="/images/logo-branca.webp" alt="mb finance" width="146" height="36" style="height: 36px; width: 146px;">
                         </a>
                     </div>
                     <p class="font-medium text-[15px] leading-relaxed max-w-sm" style="color: rgba(255,255,255,0.75);">
@@ -1635,18 +1638,28 @@
     <!-- External scripts: load order matters -->
 
     <script src="assets/js/bundle.js" defer></script>
-    <!-- Meta Pixel — carregado após render para não bloquear LCP/TBT -->
+    <!-- Meta Pixel — lazy: só carrega após interação ou 8s -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window,document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init','1303767088303655');
-    fbq('track','PageView');
+    (function(){
+        var loaded=false;
+        function loadPixel(){
+            if(loaded)return;loaded=true;
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window,document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init','1303767088303655');
+            fbq('track','PageView');
+        }
+        ['mousemove','keydown','touchstart','scroll'].forEach(function(e){
+            window.addEventListener(e,loadPixel,{once:true,passive:true});
+        });
+        setTimeout(loadPixel,8000);
+    })();
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1303767088303655&ev=PageView&noscript=1"/></noscript>
 </body>
