@@ -127,6 +127,7 @@ Principais marcos conhecidos:
 
 ### Corrigido
 - Links de Blog na pagina `public/pages/credito-rapido.html` agora apontam para `https://blog.mbfinance.com.br/blog`.
+- Botao BLOG do menu principal e item BLOG da navbar React apontam explicitamente para `https://blog.mbfinance.com.br/blog`.
 
 ---
 

@@ -39,6 +39,10 @@ export default function Navbar() {
       dropdownType: 'simple',
       items: ["Seja um Parceiro", "Portal do Parceiro"]
     },
+    {
+      label: "BLOG",
+      href: "https://blog.mbfinance.com.br/blog",
+    },
   ];
 
   return (

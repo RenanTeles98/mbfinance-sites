@@ -154,5 +154,6 @@
 ## Atualizacao 2026-05-06 - Links do Blog
 
 - [x] Corrigir links de Blog em `public/pages/credito-rapido.html` para `https://blog.mbfinance.com.br/blog`.
+- [x] Garantir que o BLOG do menu principal da home e da navbar React aponte para `https://blog.mbfinance.com.br/blog`.
 - [ ] Validar em producao o clique no menu desktop e mobile da pagina de Credito Rapido apos deploy.
 

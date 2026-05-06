@@ -588,3 +588,8 @@ Padronizar os links visiveis de Blog no site estatico para `https://blog.mbfinan
 - Menos ambiguidade entre blog legado, blog Next.js antigo e blog oficial em subdominio.
 - Menus publicos passam a levar diretamente ao ambiente oficial do blog.
 
+### Atualizacao 2026-05-06
+
+- O link BLOG da home HTML recebeu identificador `nav-nav-blog` e permanece com URL absoluta.
+- A navbar React (`components/Navbar.tsx`) tambem passou a incluir BLOG com URL absoluta para cobrir rotas que usem esse componente.
+

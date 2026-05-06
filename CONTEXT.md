@@ -402,3 +402,12 @@ Onde o trabalho parou: alteracao pronta para deploy.
 
 Proximo passo recomendado: apos deploy, testar o clique no Blog na pagina de Credito Rapido em desktop e mobile.
 
+### Ajuste complementar - BLOG do menu principal
+
+- Adicionado `id="nav-nav-blog"` ao link BLOG da home principal em `public/mb-finance-completo.html` para identificar o botao mostrado no menu desktop.
+- Adicionado o item `BLOG` em `components/Navbar.tsx` apontando diretamente para `https://blog.mbfinance.com.br/blog`, cobrindo tambem a navbar React caso ela seja usada em alguma rota publica.
+
+Estado atual: o botao BLOG do menu principal e a navbar React apontam explicitamente para `https://blog.mbfinance.com.br/blog`.
+
+Proximo passo recomendado: apos novo deploy, testar o botao BLOG da home com cache limpo.
+
