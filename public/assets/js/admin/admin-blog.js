@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Admin Dashboard - Blog Management (CRUD, Editor & Export)
  */
 
@@ -59,10 +59,10 @@ function getPostsApiUrl() {
 }
 
 function updateOfficialBlogUi() {
-    const base = getApiBase() || 'https://mbfinance-sites.vercel.app';
+    const base = getApiBase() || 'https://blog.mbfinance.com.br';
     const link = document.getElementById('official-blog-link');
     if (!link) return;
-    link.href = `${base}/blog.html`;
+    link.href = `${base}/blog`;
     link.textContent = 'Ver Blog Oficial';
 }
 
@@ -74,7 +74,7 @@ function setSyncStatus(text, tone) {
 }
 
 function configureOfficialBlog() {
-    const currentBase = getApiBase() || 'https://mbfinance-sites.vercel.app';
+    const currentBase = getApiBase() || 'https://blog.mbfinance.com.br';
     const base = prompt('URL do site oficial MB Finance:', currentBase);
     if (base === null) return;
     const normalizedBase = base.trim().replace(/\/$/, '');
@@ -670,7 +670,7 @@ ${p.image ? `<meta property="og:image" content="${p.image.startsWith('data:') ? 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"${esc(p.title).replace(/"/g,'\\"')}","description":"${esc(seoDesc).replace(/"/g,'\\"')}","datePublished":"${dateISO}","publisher":{"@type":"Organization","name":"MB Finance","url":"${domain}"},"mainEntityOfPage":{"@type":"WebPage","@id":"${canonical}"}}
 <\/script>
-<link rel="icon" type="image/png" href="https://i.ibb.co/MDGzVRmC/logo-mb-finance.png">
+<link rel="icon" type="image/png" href="../images/logo-horizontal-logo.png.png">
 <link rel="stylesheet" href="../tailwind.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 <style>
@@ -786,7 +786,7 @@ function buildBlogHTML(featured, gridPosts, allPosts, domain) {
 <meta property="og:title" content="Blog MB Finance | Crédito e Finanças Empresariais">
 <meta property="og:description" content="Artigos sobre crédito empresarial, gestão financeira e oportunidades para empresas.">
 <meta property="og:url" content="${canonical}">
-<link rel="icon" type="image/png" href="https://i.ibb.co/MDGzVRmC/logo-mb-finance.png">
+<link rel="icon" type="image/png" href="../images/logo-horizontal-logo.png.png">
 <link rel="stylesheet" href="../tailwind.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
