@@ -39,7 +39,7 @@ p, span, a, li { font-family: 'Inter', sans-serif; }
     font-weight: 600;
     animation: text-shimmer 8s linear infinite;
 }
-html { scroll-behavior: auto; }
+html { scroll-behavior: smooth; }
 /* ── Custom Animations ── */
 @keyframes aurora-drift {
     0%   { transform: translate(0%,  0%)  scale(1);    }
