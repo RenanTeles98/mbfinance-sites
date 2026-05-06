@@ -7,8 +7,9 @@ import { BlogPost } from "@/types/blog";
 const KV_KEY = "mb_blog_posts";
 
 function isAuthorized(request: NextRequest) {
+  const expected = process.env.BLOG_ADMIN_TOKEN;
+  if (!expected) return false;
   const token = request.headers.get("x-blog-admin-token");
-  const expected = process.env.BLOG_ADMIN_TOKEN || "mbfinance2026";
   return token === expected;
 }
 

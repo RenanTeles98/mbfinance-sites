@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { readSubscribers, writeSubscribers, readCampaigns } from "@/lib/newsletter-store";
 import type { Subscriber } from "@/types/newsletter";
 
-const ADMIN_TOKEN = process.env.BLOG_ADMIN_TOKEN || "mbfinance2026";
-
 function authorized(request: Request): boolean {
-  return request.headers.get("x-blog-admin-token") === ADMIN_TOKEN;
+  const expected = process.env.BLOG_ADMIN_TOKEN;
+  if (!expected) return false;
+  return request.headers.get("x-blog-admin-token") === expected;
 }
 
 // GET: lista inscritos + campanhas

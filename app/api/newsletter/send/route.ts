@@ -1,23 +1,41 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { createHmac } from "crypto";
+import sanitizeHtml from "sanitize-html";
 import { readSubscribers, readCampaigns, writeCampaigns } from "@/lib/newsletter-store";
 import type { Campaign } from "@/types/newsletter";
 
-const ADMIN_TOKEN = process.env.BLOG_ADMIN_TOKEN || "mbfinance2026";
+function makeUnsubToken(email: string): string {
+  const secret = process.env.UNSUB_SECRET || process.env.BLOG_ADMIN_TOKEN || "";
+  const sig = createHmac("sha256", secret).update(email).digest("base64url");
+  const payload = Buffer.from(email).toString("base64url");
+  return `${payload}.${sig}`;
+}
+
+const ALLOWED_EMAIL_TAGS = ["p", "br", "strong", "em", "b", "i", "u", "ul", "ol", "li", "h2", "h3", "h4", "a", "blockquote", "span", "div"];
 
 function buildEmailHtml(subject: string, previewText: string, body: string, email: string): string {
-  const token = Buffer.from(email).toString("base64url");
+  const token = makeUnsubToken(email);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mbfinance-sites.vercel.app";
+
+  const safeSubject = subject.replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c] ?? c));
+  const safeBody = sanitizeHtml(body, {
+    allowedTags: ALLOWED_EMAIL_TAGS,
+    allowedAttributes: { a: ["href"], span: ["style"], div: ["style"], p: ["style"] },
+    allowedSchemes: ["https", "mailto"],
+    disallowedTagsMode: "discard",
+  });
+  const safePreview = previewText.replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c] ?? c));
 
   return `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>${subject}</title>
+<title>${safeSubject}</title>
 </head>
 <body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
-  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">${previewText}&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">${safePreview}&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
   <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
       <td align="center" style="padding:40px 20px;">
@@ -31,7 +49,7 @@ function buildEmailHtml(subject: string, previewText: string, body: string, emai
           </tr>
           <tr>
             <td style="padding:40px;color:#1e293b;font-size:16px;line-height:1.75;">
-              ${body}
+              ${safeBody}
             </td>
           </tr>
           <tr>
@@ -51,7 +69,8 @@ function buildEmailHtml(subject: string, previewText: string, body: string, emai
 }
 
 export async function POST(request: Request) {
-  if (request.headers.get("x-blog-admin-token") !== ADMIN_TOKEN) {
+  const adminToken = process.env.BLOG_ADMIN_TOKEN;
+  if (!adminToken || request.headers.get("x-blog-admin-token") !== adminToken) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

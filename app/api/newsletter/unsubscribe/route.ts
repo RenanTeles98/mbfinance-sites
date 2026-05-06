@@ -1,4 +1,23 @@
+import { createHmac, timingSafeEqual } from "crypto";
 import { readSubscribers, writeSubscribers } from "@/lib/newsletter-store";
+
+function verifyUnsubToken(token: string): string | null {
+  const parts = token.split(".");
+  if (parts.length !== 2) return null;
+  const [payload, sig] = parts;
+  try {
+    const email = Buffer.from(payload, "base64url").toString("utf8");
+    const secret = process.env.UNSUB_SECRET || process.env.BLOG_ADMIN_TOKEN || "";
+    const expected = createHmac("sha256", secret).update(email).digest("base64url");
+    const sigBuf = Buffer.from(sig);
+    const expectedBuf = Buffer.from(expected);
+    if (sigBuf.length !== expectedBuf.length) return null;
+    if (!timingSafeEqual(sigBuf, expectedBuf)) return null;
+    return email;
+  } catch {
+    return null;
+  }
+}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -9,7 +28,10 @@ export async function GET(request: Request) {
   }
 
   try {
-    const email = Buffer.from(token, "base64url").toString("utf8");
+    const email = verifyUnsubToken(token);
+    if (!email) {
+      return new Response("Token inválido.", { status: 400 });
+    }
     const subscribers = await readSubscribers();
     const updated = subscribers.map((s) =>
       s.email === email ? { ...s, active: false } : s
