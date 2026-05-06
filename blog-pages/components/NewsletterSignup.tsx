@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { pushAnalyticsEvent } from "@/components/AnalyticsTracker";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
@@ -21,6 +22,14 @@ export default function NewsletterSignup() {
       const data = await res.json();
 
       if (data.ok) {
+        pushAnalyticsEvent("newsletter_submit", {
+          form_name: "blog_article_newsletter",
+          source_area: "blog_article",
+        });
+        pushAnalyticsEvent("sign_up", {
+          method: "newsletter",
+          source_area: "blog_article",
+        });
         setStatus("success");
         setMessage("Inscrito com sucesso! Em breve você receberá nossos conteúdos.");
         setEmail("");

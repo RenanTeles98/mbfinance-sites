@@ -1,4 +1,4 @@
-import { createSign } from "crypto";
+﻿import { createSign } from "crypto";
 
 const GA_SCOPE = "https://www.googleapis.com/auth/analytics.readonly";
 const GA_TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -295,6 +295,97 @@ function cleanDimensionValue(value?: string, fallback = "Nao informado") {
   return normalized;
 }
 
+function normalizePagePath(value?: string) {
+  let path = (value || "/").trim();
+
+  try {
+    if (/^https?:\/\//i.test(path)) {
+      path = new URL(path).pathname;
+    }
+  } catch {
+    path = value || "/";
+  }
+
+  path = path.split("?")[0]?.split("#")[0] || "/";
+
+  try {
+    path = decodeURIComponent(path);
+  } catch {
+    // Keep the original value when GA4 returns a partially encoded path.
+  }
+
+  path = path.toLowerCase().replace(/\/{2,}/g, "/");
+  if (!path.startsWith("/")) path = `/${path}`;
+  if (path.length > 1) path = path.replace(/\/$/, "");
+
+  if (
+    path === "/index" ||
+    path === "/index.html" ||
+    path === "/mb-finance-completo" ||
+    path === "/index.html"
+  ) {
+    return "/";
+  }
+
+  return path.replace(/\.html$/, "");
+}
+
+function normalizePageTitle(value?: string) {
+  return cleanDimensionValue(value, "Sem titulo")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function groupTopPages(rows: RunReportResponse["rows"]): GaTopPage[] {
+  const pageMap = new Map<
+    string,
+    GaTopPage & { displayScore: number }
+  >();
+
+  rows?.forEach((row) => {
+    const rawPath = row.dimensionValues?.[0]?.value || "/";
+    const rawTitle = row.dimensionValues?.[1]?.value || "Sem titulo";
+    const pagePath = normalizePagePath(rawPath);
+    const pageTitle = normalizePageTitle(rawTitle);
+    const screenPageViews = toNumber(row.metricValues?.[0]?.value);
+    const activeUsers = toNumber(row.metricValues?.[1]?.value);
+    const sessions = toNumber(row.metricValues?.[2]?.value);
+    const existing = pageMap.get(pagePath);
+
+    if (!existing) {
+      pageMap.set(pagePath, {
+        pagePath,
+        pageTitle,
+        screenPageViews,
+        activeUsers,
+        sessions,
+        displayScore: screenPageViews,
+      });
+      return;
+    }
+
+    existing.screenPageViews += screenPageViews;
+    existing.activeUsers += activeUsers;
+    existing.sessions += sessions;
+
+    if (screenPageViews > existing.displayScore && pageTitle !== "Sem titulo") {
+      existing.pageTitle = pageTitle;
+      existing.displayScore = screenPageViews;
+    }
+  });
+
+  return Array.from(pageMap.values())
+    .map((page) => ({
+      pagePath: page.pagePath,
+      pageTitle: page.pageTitle,
+      screenPageViews: page.screenPageViews,
+      activeUsers: page.activeUsers,
+      sessions: page.sessions,
+    }))
+    .sort((a, b) => b.screenPageViews - a.screenPageViews)
+    .slice(0, 10);
+}
+
 export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOverviewResponse> {
   const site = getGa4SiteConfig(siteKey);
 
@@ -348,7 +439,7 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOver
         { name: "sessions" },
       ],
       orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
-      limit: "10",
+      limit: "50",
     }),
     runReport(accessToken, propertyId, {
       dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
@@ -397,14 +488,7 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOver
       screenPageViews: toNumber(row.metricValues?.[2]?.value),
     })) || [];
 
-  const topPages: GaTopPage[] =
-    topPagesReport.rows?.map((row) => ({
-      pagePath: row.dimensionValues?.[0]?.value || "/",
-      pageTitle: row.dimensionValues?.[1]?.value || "Sem titulo",
-      screenPageViews: toNumber(row.metricValues?.[0]?.value),
-      activeUsers: toNumber(row.metricValues?.[1]?.value),
-      sessions: toNumber(row.metricValues?.[2]?.value),
-    })) || [];
+  const topPages = groupTopPages(topPagesReport.rows);
 
   const topCountries: GaGeoRow[] =
     topCountriesReport.rows?.map((row) => ({

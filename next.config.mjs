@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
   async redirects() {
     return [
@@ -29,12 +29,12 @@ const nextConfig = {
       },
       {
         source: "/parceiros",
-        destination: "/mb-finance-completo.html#parceiros",
+        destination: "/index.html#parceiros",
         permanent: true,
       },
       {
         source: "/parceiros.html",
-        destination: "/mb-finance-completo.html#parceiros",
+        destination: "/index.html#parceiros",
         permanent: true,
       },
     ];

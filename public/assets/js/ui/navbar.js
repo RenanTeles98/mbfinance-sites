@@ -17,7 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (logoImg) {
                 const logoNormal   = logoImg.dataset.logoNormal   || '/images/logo-branca.webp';
                 const logoScrolled = logoImg.dataset.logoScrolled || '/images/logo.webp';
-                logoImg.src = shouldBeScrolled ? logoScrolled : logoNormal;
+                const nextLogo = shouldBeScrolled ? logoScrolled : logoNormal;
+                if (logoImg.getAttribute('src') !== nextLogo) {
+                    logoImg.src = nextLogo;
+                }
             }
         }
 

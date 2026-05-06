@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-05-06
+
+- Adicionados eventos `dataLayer` para GTM no blog e na pagina principal.
+- Instrumentados cliques em WhatsApp, CTAs, newsletter, busca do blog, cliques em posts, scroll e conversoes de lead.
+- Agrupadas paginas equivalentes no relatorio GA4 de paginas mais acessadas.
+- Normalizados caminhos com `.html`, query string, hash e aliases da home antes da exibicao no painel.
+- Estabilizado o hero do blog para reduzir CLS apontado pelo PageSpeed.
+- Reservada largura para metadados de leitura do blog, como "8 min".
+- Adicionados fallbacks de fonte mais estaveis para reduzir deslocamento durante carregamento.
+- Adicionadas reservas de layout na home para reduzir CLS no PageSpeed.
+- Definidas dimensoes explicitas para logos e imagens principais da pagina inicial.
+- Estabilizada a largura dos contadores animados do hero.
+- CSS do banner de cookies passou a carregar como stylesheet normal.
+
 ## 2026-05-05 - Analytics multisite
 
 - Corrigida a chamada do painel de metricas para consultar a API do app Next em vez do dominio publico do site.

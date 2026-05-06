@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { BLOG_BASE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -52,6 +53,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+        <AnalyticsTracker />
         {children}
       </body>
     </html>

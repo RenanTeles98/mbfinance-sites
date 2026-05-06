@@ -30,3 +30,50 @@
 - Decisao: suportar variaveis por site e tambem `GA4_SITES` em JSON.
   - Motivo: permite comecar simples com variaveis individuais e migrar para lista configuravel quando novos bracos entrarem.
   - Alternativas consideradas: hardcode de propriedades no codigo, descartado por expor configuracao sensivel e dificultar manutencao.
+## 2026-05-06 - CLS da home
+
+- Decisao: corrigir primeiro causas estruturais de CLS na home estatica em vez de redesenhar secoes.
+  - Motivo: PageSpeed apontou troca de layout, e as principais causas locais eram dimensoes ausentes, contadores animados e estilos carregados tardiamente.
+  - Alternativas consideradas: substituir a estrutura da home por componentes Next, descartado por ser mudanca maior e fora do escopo imediato.
+
+- Decisao: reservar largura para os contadores animados em CSS.
+  - Motivo: trocar `0+` por `200k+` ou `R$ 1.5 Bi` durante a animacao pode deslocar os itens vizinhos.
+  - Alternativas consideradas: remover animacao dos contadores, descartado por preservar a experiencia atual.
+
+- Decisao: manter troca de logo no navbar, mas impedir atribuicao repetida do mesmo `src`.
+  - Motivo: reduz trabalho visual desnecessario no scroll/hover sem alterar comportamento.
+  - Alternativas consideradas: remover troca de logo, descartado por impacto visual maior no header.
+
+## 2026-05-06 - CLS do blog
+
+- Decisao: estabilizar o hero do blog com altura minima e reserva para o conteudo interno, preservando o layout atual.
+  - Motivo: PageSpeed apontou o `blog-hero` como principal causa de troca de layout, e reservar espaco ataca o problema sem redesenhar a pagina.
+  - Alternativas consideradas: refazer a estrutura visual do hero, descartado por ser uma mudanca maior que o necessario para a melhoria de CLS.
+
+- Decisao: reservar largura para metadados curtos como tempo de leitura.
+  - Motivo: o elemento "8 min" apareceu no relatorio e pode se deslocar durante troca de fonte.
+  - Alternativas consideradas: remover o tempo de leitura, descartado por reduzir informacao util do card/artigo.
+
+- Decisao: manter a fonte atual e melhorar fallbacks em vez de trocar tipografia.
+  - Motivo: reduz shift durante carregamento de fontes sem alterar a identidade visual do blog.
+  - Alternativas consideradas: usar apenas fonte do sistema, descartado por mudar mais o visual.
+
+## 2026-05-06 - Agrupamento de paginas no GA4
+
+- Decisao: normalizar e agrupar paginas equivalentes no backend antes de enviar os dados ao painel.
+  - Motivo: o GA4 pode retornar a mesma pagina separada por variacoes de caminho, como `/`, `/index.html`, `.html`, query string ou hash, criando duplicidade no ranking.
+  - Alternativas consideradas: corrigir apenas a exibicao no JavaScript do admin, descartado porque outros consumidores da API continuariam recebendo dados duplicados.
+
+- Decisao: buscar ate 50 linhas no GA4 e somente depois cortar o top 10 agrupado.
+  - Motivo: agrupar depois de buscar apenas 10 linhas poderia esconder paginas relevantes quando varias entradas duplicadas ocupassem o topo.
+  - Alternativas consideradas: manter limite 10 por simplicidade, descartado por reduzir qualidade do ranking final.
+
+## 2026-05-06 - Eventos GTM e conversoes
+
+- Decisao: instrumentar eventos no `dataLayer` em vez de depender apenas de seletores de clique no GTM.
+  - Motivo: nomes de eventos ficam estaveis entre blog e pagina principal, e o GTM passa a receber contexto como area, texto do clique, produto e caminho.
+  - Alternativas consideradas: configurar apenas Click Triggers no GTM, descartado porque seria mais fragil a mudancas de classe/texto e menos preciso para conversoes de lead.
+
+- Decisao: usar `generate_lead` como evento principal de conversao.
+  - Motivo: e o evento recomendado para medir lead concluido e acontece quando o formulario de lead envia o usuario para WhatsApp.
+  - Alternativas consideradas: marcar todo clique em WhatsApp como conversao, descartado porque cliques iniciais podem abrir modal sem gerar lead completo.

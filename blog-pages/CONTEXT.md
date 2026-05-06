@@ -55,3 +55,94 @@ Onde o trabalho parou:
 
 Proximo passo recomendado:
 - Configurar as variaveis de ambiente dos outros sites na Vercel e confirmar que a service account tem acesso de leitura em cada propriedade GA4.
+## Sessao de 2026-05-06 - Ajustes de CLS da home
+
+Foram aplicados ajustes estruturais na home principal para reduzir causas de Cumulative Layout Shift apontadas pelo PageSpeed.
+
+Arquivos modificados:
+- `../public/mb-finance-completo.html`: adicionadas dimensoes explicitas em logos/imagens principais e carregamento direto do CSS do banner de cookies.
+- `../public/assets/css/main.css`: adicionadas reservas de layout para hero, logo e contadores animados; ajustado fallback de fontes para reduzir shift na troca de fonte.
+- `../public/assets/js/bundle.js`: evitada troca repetida do `src` do logo quando o navbar atualiza no scroll/hover.
+- `../public/assets/js/ui/navbar.js`: mantida a mesma correcao no arquivo fonte do navbar.
+
+Estado atual:
+- Hero tem altura estavel com `100svh`.
+- Contadores do topo reservam largura antes da animacao numerica.
+- Logos possuem largura/altura fixas para evitar deslocamento horizontal enquanto carregam ou trocam de variante.
+- Imagens principais abaixo da dobra possuem `width`/`height` declarados.
+- `npm run build` na raiz do projeto principal passou com sucesso.
+
+Onde o trabalho parou:
+- Ajustes de CLS foram aplicados no codigo local.
+- Ainda falta publicar e rodar o PageSpeed novamente para medir o efeito real em producao.
+
+Proximo passo recomendado:
+- Fazer deploy e rodar PageSpeed novamente na URL publica para verificar se o CLS caiu abaixo de 0,1.
+
+## Sessao de 2026-05-06 - Ajustes de CLS do blog
+
+Foram aplicados ajustes estruturais no indice do blog para reduzir o Cumulative Layout Shift apontado pelo PageSpeed.
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: adicionadas reservas de altura no hero do blog, dimensoes estaveis para logo e largura minima para metadados como tempo de leitura.
+- `app/globals.css`: ajustado fallback global de fontes e controle de ajuste automatico de texto.
+
+Estado atual:
+- O hero do blog reserva altura antes do carregamento completo de fontes/conteudo.
+- O texto "8 min" e demais metadados usam largura minima e numerais tabulares para reduzir deslocamento durante troca de fonte.
+- A logo do blog declara largura/altura e tem espaco reservado no header.
+- `npm run build` passou com sucesso.
+- Permanecem avisos ja existentes do Next sobre uso de `<img>` em vez de `next/image`.
+
+Onde o trabalho parou:
+- Correcoes de CLS do blog foram aplicadas no codigo local.
+- Ainda falta publicar e rodar PageSpeed novamente na URL publica para confirmar a reducao real do CLS.
+
+Proximo passo recomendado:
+- Publicar as alteracoes do blog e executar novo PageSpeed na pagina analisada.
+
+## Sessao de 2026-05-06 - Agrupamento de paginas no GA4
+
+Foi ajustado o tratamento das paginas mais acessadas do painel para reduzir duplicidades vindas do GA4.
+
+Arquivos modificados:
+- `lib/ga4.ts`: adicionada normalizacao de caminhos de pagina, agrupamento de URLs equivalentes e soma das metricas antes de retornar o top 10.
+
+Estado atual:
+- Caminhos como `/`, `/index.html` e `/mb-finance-completo.html` passam a ser tratados como a mesma pagina inicial.
+- Sufixo `.html`, query string e hash sao removidos para evitar duplicidade visual no painel.
+- A consulta do GA4 busca ate 50 linhas antes do agrupamento, preservando volume suficiente para montar o top 10 final.
+- `npm run build` passou com sucesso.
+- Permanecem avisos ja existentes do Next sobre uso de `<img>` em vez de `next/image`.
+
+Onde o trabalho parou:
+- A correcao esta aplicada localmente e pronta para commit/deploy no repositorio do blog.
+
+Proximo passo recomendado:
+- Publicar a alteracao e conferir no painel se as paginas duplicadas foram consolidadas.
+
+## Sessao de 2026-05-06 - Eventos GTM e conversoes
+
+Foram adicionados eventos padronizados no `dataLayer` para o Google Tag Manager medir interacoes do blog e da pagina principal.
+
+Arquivos modificados:
+- `components/AnalyticsTracker.tsx`: novo rastreador global do blog para cliques, scroll e eventos do `dataLayer`.
+- `app/layout.tsx`: inclusao do rastreador global no layout do blog.
+- `components/BlogIndexClient.tsx`: eventos para busca no blog, newsletter e cliques em posts.
+- `components/NewsletterSignup.tsx`: evento de inscricao na newsletter em artigos.
+- `app/blog/[slug]/page.tsx`: marcacao de CTA de artigo.
+- `../public/assets/js/analytics-events.js`: rastreador equivalente para a pagina principal estatica.
+- `../public/mb-finance-completo.html`: carregamento do rastreador de eventos da pagina principal.
+
+Estado atual:
+- O blog envia eventos `whatsapp_click`, `cta_click`, `newsletter_submit`, `blog_search`, `blog_post_click`, `scroll_depth` e `sign_up`.
+- A pagina principal envia `cta_click`, `lead_modal_open`, `generate_lead`, `whatsapp_click`, `newsletter_submit`, `blog_post_click` e `scroll_depth`.
+- `npm run build` em `blog-pages` passou com sucesso.
+- `node --check public/assets/js/analytics-events.js` passou com sucesso na raiz.
+
+Onde o trabalho parou:
+- Codigo local pronto para commit/deploy no repositorio do blog.
+- Ainda falta criar no GTM as tags GA4 baseadas nesses eventos personalizados e marcar `generate_lead` como conversao/key event no GA4.
+
+Proximo passo recomendado:
+- Publicar o codigo e configurar as tags GA4 Event no GTM para cada evento do `dataLayer`.

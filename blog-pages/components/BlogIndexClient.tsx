@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
+import { pushAnalyticsEvent } from "@/components/AnalyticsTracker";
 import type { BlogPost } from "@/types/blog";
 import { mainSiteUrl } from "@/lib/site";
 
@@ -76,11 +77,32 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
       if (!response.ok || !data.ok) {
         throw new Error(data.error || "Erro ao inscrever");
       }
+      pushAnalyticsEvent("newsletter_submit", {
+        form_name: "blog_index_newsletter",
+        source_area: "blog_index",
+      });
+      pushAnalyticsEvent("sign_up", {
+        method: "newsletter",
+        source_area: "blog_index",
+      });
       setEmail("");
       setNewsletterStatus("success");
     } catch {
       setNewsletterStatus("error");
     }
+  }
+
+  function trackSearch() {
+    const searchTerm = query.trim();
+    if (!searchTerm) return;
+
+    pushAnalyticsEvent("blog_search", {
+      search_term: searchTerm,
+      results_count: Number(visibleFeatured ? 1 : 0) + visibleGridPosts.length,
+    });
+    pushAnalyticsEvent("search", {
+      search_term: searchTerm,
+    });
   }
 
   const hasResults = Boolean(visibleFeatured) || visibleGridPosts.length > 0;
@@ -90,7 +112,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
       <nav className="blog-nav">
         <div className="blog-nav-inner">
           <a href={mainSiteUrl("/")} className="blog-logo-link">
-            <img src="/images/logo-horizontal-logo.branca.png" alt="mb finance" />
+            <img src="/images/logo-horizontal-logo.branca.png" alt="mb finance" width="146" height="36" />
           </a>
           <a href={mainSiteUrl("/")} className="blog-back">
             <span aria-hidden="true">←</span>
@@ -117,10 +139,13 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") trackSearch();
+              }}
               type="text"
               placeholder="Buscar artigos, temas ou palavras-chave..."
             />
-            <button type="button">Buscar</button>
+            <button type="button" onClick={trackSearch}>Buscar</button>
           </div>
         </div>
       </section>
@@ -152,7 +177,13 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         {visibleFeatured ? (
           <>
             <p className="section-title">Destaque</p>
-            <a className="featured-card" href={`/blog/${visibleFeatured.slug}`} data-cat={visibleFeatured.category}>
+            <a
+              className="featured-card"
+              href={`/blog/${visibleFeatured.slug}`}
+              data-cat={visibleFeatured.category}
+              data-analytics-label={visibleFeatured.title}
+              data-analytics-area="featured_post"
+            >
               <div className="featured-image" style={imageStyle(visibleFeatured.image)}>
                 <div className="featured-image-overlay" />
                 <span>Artigo em destaque</span>
@@ -177,7 +208,14 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         <p className="section-title">Artigos recentes</p>
         <div className="posts-grid">
           {visibleGridPosts.map((post) => (
-            <a key={post.id} className="post-card" href={`/blog/${post.slug}`} data-cat={post.category}>
+            <a
+              key={post.id}
+              className="post-card"
+              href={`/blog/${post.slug}`}
+              data-cat={post.category}
+              data-analytics-label={post.title}
+              data-analytics-area="recent_posts"
+            >
               <div className="card-thumb" style={imageStyle(post.image)} />
               <div className="card-body">
                 <p className="card-category">{post.categoryLabel}</p>
@@ -216,18 +254,20 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
       <BlogFooter />
 
       <style jsx global>{`
-        .blog-page { min-height: 100vh; background: #f4f8fc; color: #1a2332; font-family: Inter, sans-serif; }
+        .blog-page { min-height: 100vh; background: #f4f8fc; color: #1a2332; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; text-size-adjust: 100%; }
         .blog-shell { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .blog-nav { background: #003956; }
         .blog-nav-inner { max-width: 1200px; height: 64px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
-        .blog-logo-link img { height: 36px; width: auto; display: block; }
+        .blog-logo-link { display: inline-flex; width: 146px; height: 36px; flex: 0 0 auto; }
+        .blog-logo-link img { height: 36px; width: 146px; display: block; object-fit: contain; }
         .blog-back { color: rgba(255,255,255,.7); font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
-        .blog-hero { background: #003956; padding: 56px 0 80px; color: #fff; }
+        .blog-hero { background: #003956; padding: 56px 0 80px; color: #fff; min-height: 406px; contain: layout paint; }
+        .blog-hero .blog-shell { min-height: 270px; display: flex; flex-direction: column; justify-content: center; }
         .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,153,221,.15); color: #0099dd; font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(0,153,221,.25); margin-bottom: 24px; }
         .hero-tag:before { content: ""; width: 6px; height: 6px; background: #0099dd; border-radius: 999px; }
-        .hero-title { font-size: clamp(36px, 5vw, 60px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; margin: 0 0 20px; }
+        .hero-title { font-size: clamp(36px, 5vw, 60px); line-height: 1.1; letter-spacing: 0; font-weight: 800; margin: 0 0 20px; text-wrap: balance; }
         .hero-title span { color: #0099dd; }
-        .hero-sub { max-width: 640px; color: rgba(255,255,255,.68); font-size: 17px; line-height: 1.7; margin: 0; }
+        .hero-sub { max-width: 640px; min-height: 58px; color: rgba(255,255,255,.68); font-size: 17px; line-height: 1.7; margin: 0; }
         .search-box { max-width: 640px; margin-top: 32px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); border-radius: 14px; padding: 10px 16px; }
         .search-box svg { color: rgba(255,255,255,.45); flex: 0 0 auto; }
         .search-box input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: #fff; font-size: 15px; }
@@ -254,7 +294,8 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         .article-category, .card-category { color: #0099dd; font-size: 11px; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase; margin: 0 0 14px; }
         .featured-content h2 { color: #003956; font-size: 28px; line-height: 1.3; font-weight: 800; margin: 0 0 16px; }
         .featured-excerpt { color: #64748b; font-size: 15px; line-height: 1.7; margin: 0 0 28px; }
-        .article-meta { display: flex; gap: 16px; color: #94a3b8; font-size: 12px; font-weight: 700; }
+        .article-meta { display: flex; gap: 16px; color: #94a3b8; font-size: 12px; font-weight: 700; min-height: 18px; font-variant-numeric: tabular-nums; }
+        .article-meta span { display: inline-block; min-width: 5ch; line-height: 1.5; }
         .read-btn { margin-top: 28px; width: fit-content; display: inline-flex; gap: 8px; align-items: center; background: #003956; color: #fff; border-radius: 10px; padding: 12px 24px; font-size: 13px; }
         .posts-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-bottom: 56px; }
         .post-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e8edf2; text-decoration: none; transition: transform .2s, box-shadow .2s, border-color .2s; }
@@ -264,7 +305,8 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         .card-category { font-size: 10px; letter-spacing: 2px; margin-bottom: 10px; }
         .card-body h3 { color: #003956; font-size: 16px; line-height: 1.4; font-weight: 900; margin: 0 0 10px; }
         .card-body p { color: #64748b; font-size: 13px; line-height: 1.6; margin: 0 0 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .card-footer { display: flex; justify-content: space-between; padding-top: 16px; border-top: 1px solid #f1f5f9; color: #94a3b8; font-size: 11px; font-weight: 800; }
+        .card-footer { display: flex; justify-content: space-between; min-height: 31px; padding-top: 16px; border-top: 1px solid #f1f5f9; color: #94a3b8; font-size: 11px; font-weight: 800; font-variant-numeric: tabular-nums; }
+        .card-footer span { display: inline-block; min-width: 5ch; line-height: 1.35; }
         .card-footer strong { color: #0099dd; }
         .no-results { grid-column: 1 / -1; text-align: center; padding: 48px 24px; color: #94a3b8; }
         .newsletter-box { background: #003956; border-radius: 20px; padding: 56px 48px; text-align: center; color: #fff; }
@@ -296,7 +338,11 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         }
         @media (max-width: 640px) {
           .blog-shell, .blog-nav-inner, .filter-inner { padding-left: 16px; padding-right: 16px; }
-          .blog-hero { padding-top: 42px; padding-bottom: 58px; }
+          .blog-logo-link { width: 130px; }
+          .blog-logo-link img { width: 130px; }
+          .blog-hero { min-height: 426px; padding-top: 42px; padding-bottom: 58px; }
+          .blog-hero .blog-shell { min-height: 326px; }
+          .hero-sub { min-height: 87px; }
           .search-box { align-items: stretch; }
           .search-box button { padding-left: 14px; padding-right: 14px; }
           .intro-banner, .newsletter-box { padding: 28px 22px; }

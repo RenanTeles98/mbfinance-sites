@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import GoogleAdsTag from "@/components/GoogleAdsTag";
@@ -51,7 +51,7 @@ export default async function BlogArticlePage({
       <main className="min-h-screen bg-slate-50">
       <nav style={{ background: "#003956", position: "sticky", top: 0, zIndex: 100 }}>
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <a href="/mb-finance-completo.html">
+          <a href="/index.html">
             <img src="/images/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto", display: "block" }} />
           </a>
           <a href="/pages/blog.html" className="flex items-center gap-2 text-sm font-semibold text-white/65 transition-colors hover:text-white">
@@ -123,7 +123,7 @@ export default async function BlogArticlePage({
 
             {/* Col 1: Brand */}
             <div className="flex flex-col gap-7 lg:col-span-4">
-              <a href="/mb-finance-completo.html" className="inline-block opacity-100 transition-opacity hover:opacity-80">
+              <a href="/index.html" className="inline-block opacity-100 transition-opacity hover:opacity-80">
                 <img src="/images/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto" }} />
               </a>
               <p className="max-w-[280px] text-[15px] font-medium leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
@@ -144,7 +144,7 @@ export default async function BlogArticlePage({
               <h4 className="mb-8 text-xs font-bold uppercase tracking-widest text-white">Soluções</h4>
               <ul className="flex flex-col gap-3.5 text-sm font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
                 {["Conta Corrente Empresarial","Máquina de Cartão","Seguros e Consórcios","Crédito Rápido","Soluções Tributárias","Telemedicina","Soluções Personalizadas"].map((item) => (
-                  <li key={item}><a href="/mb-finance-completo.html#produtos" className="transition-colors hover:text-brand-secondary">{item}</a></li>
+                  <li key={item}><a href="/index.html#produtos" className="transition-colors hover:text-brand-secondary">{item}</a></li>
                 ))}
               </ul>
             </div>
@@ -154,9 +154,9 @@ export default async function BlogArticlePage({
               <div>
                 <h4 className="mb-8 text-xs font-bold uppercase tracking-widest text-white">Empresa</h4>
                 <ul className="flex flex-col gap-3.5 text-sm font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
-                  <li><a href="/mb-finance-completo.html#como-funciona" className="transition-colors hover:text-brand-secondary">Como Funciona</a></li>
-                  <li><a href="/mb-finance-completo.html#vagas" className="transition-colors hover:text-brand-secondary">Trabalhe Conosco</a></li>
-                  <li><a href="/mb-finance-completo.html" className="transition-colors hover:text-brand-secondary">Seja um Parceiro</a></li>
+                  <li><a href="/index.html#como-funciona" className="transition-colors hover:text-brand-secondary">Como Funciona</a></li>
+                  <li><a href="/index.html#vagas" className="transition-colors hover:text-brand-secondary">Trabalhe Conosco</a></li>
+                  <li><a href="/index.html" className="transition-colors hover:text-brand-secondary">Seja um Parceiro</a></li>
                 </ul>
               </div>
               <div>

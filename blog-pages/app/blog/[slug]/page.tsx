@@ -362,6 +362,9 @@ export default async function BlogArticlePage({
               cta.message
             )}`}
             className="mt-6 inline-flex rounded-xl bg-sky-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-sky-400"
+            data-analytics-event="cta_click"
+            data-analytics-label={cta.button}
+            data-analytics-area="article_cta"
           >
             {cta.button}
           </a>

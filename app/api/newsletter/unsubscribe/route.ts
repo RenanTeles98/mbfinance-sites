@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from "crypto";
+﻿import { createHmac, timingSafeEqual } from "crypto";
 import { readSubscribers, writeSubscribers } from "@/lib/newsletter-store";
 
 function verifyUnsubToken(token: string): string | null {
@@ -140,7 +140,7 @@ export async function GET(request: Request) {
         Não enviaremos mais emails para este endereço.<br><br>
         Se mudar de ideia, pode se inscrever novamente a qualquer momento pelo nosso site.
       </p>
-      <a href="https://mbfinance-sites.vercel.app/mb-finance-completo.html" class="btn">Voltar ao site</a>
+      <a href="https://mbfinance-sites.vercel.app/index.html" class="btn">Voltar ao site</a>
     </div>
   </div>
   <div class="footer">

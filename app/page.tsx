@@ -1,4 +1,4 @@
-import Script from "next/script";
+﻿import Script from "next/script";
 import GoogleAdsTag from "@/components/GoogleAdsTag";
 import MetaPixel from "@/components/MetaPixel";
 
@@ -13,7 +13,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{
           __html: `
 window.setTimeout(function () {
-  window.location.replace('/mb-finance-completo.html');
+  window.location.replace('/index.html');
 }, 800);
           `,
         }}
