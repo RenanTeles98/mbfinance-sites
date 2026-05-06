@@ -562,3 +562,29 @@ Usar `blog-pages/` como pasta do projeto do blog para deploy na Vercel.
 - O Root Directory da Vercel deve ser `blog-pages`.
 - Referencias de documentacao passam a usar `blog-pages/`.
 
+---
+
+## ADR-025: Links de Blog apontam para o subdominio oficial
+
+**Data:** 2026-05-06
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O blog passou a operar em `https://blog.mbfinance.com.br/blog`. Algumas paginas estaticas ainda podiam manter links antigos para `/blog`, criando risco de levar o usuario para a rota interna anterior.
+
+### Decisao
+
+Padronizar os links visiveis de Blog no site estatico para `https://blog.mbfinance.com.br/blog`.
+
+### Alternativas Consideradas
+
+- **Manter `/blog`:** dependeria de redirecionamentos internos e poderia apontar para uma rota antiga.
+- **Usar URL absoluta do subdominio (escolhida):** garante acesso direto ao blog oficial.
+
+### Consequencias
+
+- Menos ambiguidade entre blog legado, blog Next.js antigo e blog oficial em subdominio.
+- Menus publicos passam a levar diretamente ao ambiente oficial do blog.
+

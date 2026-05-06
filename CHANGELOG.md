@@ -123,5 +123,10 @@ Principais marcos conhecidos:
 - Admin do blog agora usa automaticamente a API do proprio dominio quando nenhuma API foi configurada no navegador.
 - Fluxo de publicacao do admin agora exige sucesso da API antes de informar que o post foi publicado e retorna erros JSON no endpoint de posts.
 
+## 2026-05-06 - Link do Blog no menu
+
+### Corrigido
+- Links de Blog na pagina `public/pages/credito-rapido.html` agora apontam para `https://blog.mbfinance.com.br/blog`.
+
 ---
 

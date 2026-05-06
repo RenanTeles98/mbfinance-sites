@@ -381,3 +381,24 @@ Estado atual: ao abrir `https://blog.mbfinance.com.br/admin`, o painel deve busc
 
 Estado atual: ao salvar um post no painel, a publicacao oficial precisa retornar sucesso antes de mostrar "Post salvo e publicado".
 
+---
+
+## Atualizacao de sessao - 2026-05-06 - Link do Blog no menu
+
+- Atualizado `public/pages/credito-rapido.html` para apontar os links de Blog do menu desktop, menu mobile e rodape para `https://blog.mbfinance.com.br/blog`.
+- A home principal (`public/mb-finance-completo.html`) ja estava com o link correto no menu desktop e mobile.
+
+Arquivos modificados nesta sessao:
+- `public/pages/credito-rapido.html`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-06.md`
+
+Estado atual: links publicos de Blog no site estatico validado apontam para o subdominio oficial.
+
+Onde o trabalho parou: alteracao pronta para deploy.
+
+Proximo passo recomendado: apos deploy, testar o clique no Blog na pagina de Credito Rapido em desktop e mobile.
+

@@ -149,3 +149,10 @@
 - [ ] Adicionar variaveis de ambiente na Vercel (`SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `BLOG_ADMIN_TOKEN`, URLs publicas e credenciais opcionais de GA4/Resend).
 - [ ] Enviar `https://blog.mbfinance.com.br/sitemap.xml` no Google Search Console.
 
+---
+
+## Atualizacao 2026-05-06 - Links do Blog
+
+- [x] Corrigir links de Blog em `public/pages/credito-rapido.html` para `https://blog.mbfinance.com.br/blog`.
+- [ ] Validar em producao o clique no menu desktop e mobile da pagina de Credito Rapido apos deploy.
+
