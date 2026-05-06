@@ -17,13 +17,12 @@ const order = [
 ];
 
 function minifyJS(src) {
+    // Remove only block comments /* */ — safe, never inside strings
+    // Do NOT remove line comments // — they break https:// URLs in strings
     return src
         .replace(/\/\*[\s\S]*?\*\//g, '')
-        .replace(/\/\/[^\n]*/g, '')
         .replace(/\n\s*\n/g, '\n')
         .replace(/^\s+/gm, '')
-        .replace(/\n/g, ' ')
-        .replace(/\s{2,}/g, ' ')
         .trim();
 }
 
