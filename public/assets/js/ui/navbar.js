@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const shouldBeScrolled = isScrolled || isHovered;
 
             navbar.classList.toggle('scrolled', shouldBeScrolled);
-            
+
             const logoImg = document.getElementById('logo-img');
             if (logoImg) {
-                const logoNormal   = logoImg.dataset.logoNormal   || 'images/logo-horizontal-logo.branca.png';
-                const logoScrolled = logoImg.dataset.logoScrolled || 'images/logo-horizontal-logo.png.png';
+                const logoNormal   = logoImg.dataset.logoNormal   || '/images/logo-branca.webp';
+                const logoScrolled = logoImg.dataset.logoScrolled || '/images/logo.webp';
                 logoImg.src = shouldBeScrolled ? logoScrolled : logoNormal;
             }
         }

@@ -125,7 +125,10 @@ function toggleNewsletter() {
 }
 
 // Counter animation (IntersectionObserver for data-counter elements)
+// Deferred to idle time — not needed for initial render
 (function() {
+    var idle = window.requestIdleCallback || function(cb) { setTimeout(cb, 200); };
+    idle(function() {
     const counters = document.querySelectorAll('[data-counter]');
     if (!counters.length) return;
     const observer = new IntersectionObserver(function(entries) {
@@ -151,4 +154,5 @@ function toggleNewsletter() {
         });
     }, { threshold: 0.5 });
     counters.forEach(function(c) { observer.observe(c); });
+    }); // end idle
 })();

@@ -1,4 +1,6 @@
 // UI: Visual animations - parallax, scroll-triggered steps, marquee carousel
+// Deferred to idle time so it doesn't block initial render
+(window.requestIdleCallback || function(cb) { setTimeout(cb, 300); })(function() {
 
 // ── Parallax ────────────────────────────────────────────────────────────────
 function updateParallax() {
@@ -112,3 +114,5 @@ updateParallax();
 
 // ── Marquee carousel — handled entirely by CSS @keyframes (see main.css) ──────
 // JS not needed: animation runs on browser compositor thread (smoother, no rAF).
+
+}); // end requestIdleCallback
