@@ -121,7 +121,7 @@
 
                 <!-- Mobile & Action Area (Right) -->
                 <div class="w-1/4 flex justify-end">
-                    <button id="mobile-menu-toggle" aria-label="Abrir menu de navegação" aria-expanded="false" class="lg:hidden text-white hover:text-brand-secondary p-1 transition-colors">
+                    <button id="mobile-menu-toggle" aria-label="Abrir menu de navegação" aria-expanded="false" class="lg:hidden text-white hover:text-brand-secondary p-3 transition-colors">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                     </button>
                     <!-- CTA Button visible on Desktop -->
@@ -212,7 +212,7 @@
     </header>
 
     <!-- â"€â"€ Hero â"€â"€ -->
-    <section id="inicio" class="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#040f1a]" style="padding-top: 80px; padding-bottom: 80px;">
+    <section id="inicio" class="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#040f1a]" style="padding-top: clamp(48px, 8vw, 80px); padding-bottom: clamp(48px, 8vw, 80px);">
         <!-- Deep Executive Background with Precision Grid -->
         <div class="absolute inset-0 z-0 bg-[#040f1a]">
             <!-- Hero Video Background (seamless crossfade loop) -->
@@ -271,7 +271,7 @@
     </section>
 
     <!-- â"€â"€ Pain & Solution (The Strategy) â"€â"€ -->
-    <section class="bg-white relative overflow-hidden" style="padding: 120px 0;">
+    <section class="bg-white relative overflow-hidden" style="padding: clamp(56px, 10vw, 120px) 0;">
         <!-- Subtle background texture -->
         <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#0099dd 1.5px, transparent 1.5px); background-size: 40px 40px;"></div>
 
@@ -322,10 +322,10 @@
         </div>
     </section>
     <!-- â"€â"€ Produtos â"€â"€ -->
-    <section id="produtos" class="bg-slate-50 relative" style="padding: 120px 0;">
+    <section id="produtos" class="bg-slate-50 relative" style="padding: clamp(56px, 10vw, 120px) 0;">
         <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, rgba(0,153,221,0.2), transparent)"></div>
 
-        <div class="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
             <div class="mb-14 text-center">
                 <span class="text-brand-secondary font-bold text-[11px] uppercase tracking-[4px] mb-4 block">Nossos Produtos</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-sans font-bold leading-tight tracking-tight mb-5" style="color: #003956 !important;">
@@ -534,18 +534,18 @@
     </section>
 
 <!-- â"€â"€ Como Funciona â"€â"€ -->
-    <section id="como-funciona" class="relative overflow-hidden" style="background:#040f1a; padding:120px 0;">
+    <section id="como-funciona" class="relative overflow-hidden" style="background:#040f1a; padding:clamp(56px, 10vw, 120px) 0;">
         <div id="parallax-cidade" style="position:absolute;inset:0;background:url('/images/hero-bg.jpg') center/cover no-repeat;opacity:0.28;z-index:0;"></div>
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,15,26,0.60),rgba(4,15,26,0.60));z-index:1;"></div>
 
-        <div class="max-w-7xl mx-auto px-6 sm:px-12 relative" style="z-index:2;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative" style="z-index:2;">
             <div class="mb-24 max-w-2xl">
                 <span class="text-brand-secondary font-bold text-[11px] uppercase tracking-[4px] mb-5 block">Como Funciona</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-7xl font-sans font-bold text-white leading-[1.05] tracking-tight mb-6" style="color: #FFFFFF !important;">Processo simples e rápido</h2>
                 <p class="text-white/90 text-lg font-light leading-relaxed">Da análise à aprovação, cuidamos de tudo para você.</p>
             </div>
 
-            <div id="cf-steps-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 relative">
+            <div id="cf-steps-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 relative">
                 <div class="cf-line hidden lg:block" style="position:absolute;top:5px;left:0;right:calc(25% - 2rem);height:1px;background:rgba(255,255,255,0.2);"></div>
 
                 <div class="cf-step" id="cf-step-1">
@@ -573,7 +573,7 @@
     </section>
     <!-- â"€â"€ Boardroom Testimonials â"€â"€ -->
     <section id="depoimentos" class="py-32 bg-[#040f1a] relative overflow-hidden" style="display:none;">
-        <div class="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
             <div class="text-center mb-24">
                 <span class="text-white font-light text-[11px] uppercase tracking-[4px] mb-4 block">Sobre Nós â€" Experiência Institucional</span>
                 <h2 class="text-4xl sm:text-6xl font-sans font-light text-white leading-tight tracking-tight">
@@ -1191,7 +1191,7 @@
             
             <!-- Row 1: Moving RIGHT -->
             <div class="relative overflow-hidden carousel-wrapper">
-                <div id="carousel-row1" class="flex gap-20 lg:gap-32 items-center py-6" aria-hidden="false">
+                <div id="carousel-row1" class="flex gap-8 sm:gap-16 lg:gap-32 items-center py-6" aria-hidden="false">
                     <!-- Set 1 -->
                     <img src="/images/parceiros/bv.webp" alt="BV" loading="lazy" width="96" height="96" class="h-16 lg:h-24 w-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer flex-shrink-0">
                     <img src="/images/parceiros/inter.webp" alt="Inter" loading="lazy" width="96" height="96" class="h-16 lg:h-24 w-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer flex-shrink-0">
@@ -1209,7 +1209,7 @@
 
             <!-- Row 2: Moving LEFT -->
             <div class="relative overflow-hidden carousel-wrapper">
-                <div id="carousel-row2" class="flex gap-20 lg:gap-32 items-center py-6" aria-hidden="false">
+                <div id="carousel-row2" class="flex gap-8 sm:gap-16 lg:gap-32 items-center py-6" aria-hidden="false">
                     <!-- Set 1 -->
                     <img src="/images/parceiros/c6bank.webp" alt="C6 Bank" loading="lazy" width="96" height="96" class="h-16 lg:h-24 w-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer flex-shrink-0">
                     <img src="/images/parceiros/creditas.webp" alt="Creditas" loading="lazy" width="96" height="96" class="h-16 lg:h-24 w-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer flex-shrink-0">
@@ -1501,9 +1501,9 @@
         <!-- Overlay -->
         <div onclick="closeLeadModal()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
         <!-- Card -->
-        <div class="relative z-10 w-full max-w-sm" style="background:#fff; border-radius:24px; padding:36px 32px 28px; box-shadow:0 24px 60px rgba(0,0,0,0.18);">
+        <div class="relative z-10 w-full max-w-sm" style="background:#fff; border-radius:24px; padding:clamp(20px,5vw,36px) clamp(16px,5vw,32px) clamp(16px,4vw,28px); box-shadow:0 24px 60px rgba(0,0,0,0.18);">
             <!-- Fechar -->
-            <button aria-label="Fechar" onclick="closeLeadModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:#bbb;line-height:1;" onmouseover="this.style.color='#888'" onmouseout="this.style.color='#bbb'">
+            <button aria-label="Fechar" onclick="closeLeadModal()" style="position:absolute;top:12px;right:12px;background:none;border:none;cursor:pointer;color:#bbb;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:8px;" onmouseover="this.style.color='#888'" onmouseout="this.style.color='#bbb'">
                 <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
             <!-- Header -->
@@ -1532,16 +1532,16 @@
                     </div>
                 </div>
                 <input type="text" id="lead-nome" placeholder="Seu nome" required
-                    style="width:100%; border:1.5px solid #e2e8f0; border-radius:12px; padding:13px 16px; font-size:14px; color:#1e293b; outline:none; transition:border-color .2s; font-family:inherit; box-sizing:border-box;"
+                    style="width:100%; border:1.5px solid #e2e8f0; border-radius:12px; padding:13px 16px; font-size:16px; color:#1e293b; outline:none; transition:border-color .2s; font-family:inherit; box-sizing:border-box;"
                     onfocus="this.style.borderColor='#0099dd'" onblur="this.style.borderColor='#e2e8f0'"
                     oninput="updateLeadProgress()">
                 <input type="tel" id="lead-telefone" placeholder="WhatsApp (00) 00000-0000" required
                     inputmode="numeric" maxlength="15"
                     oninput="this.value=this.value.replace(/\D/g,'').replace(/^(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d)/,'$1-$2').substring(0,15); updateLeadProgress();"
-                    style="width:100%; border:1.5px solid #e2e8f0; border-radius:12px; padding:13px 16px; font-size:14px; color:#1e293b; outline:none; transition:border-color .2s; font-family:inherit; box-sizing:border-box;"
+                    style="width:100%; border:1.5px solid #e2e8f0; border-radius:12px; padding:13px 16px; font-size:16px; color:#1e293b; outline:none; transition:border-color .2s; font-family:inherit; box-sizing:border-box;"
                     onfocus="this.style.borderColor='#0099dd'" onblur="this.style.borderColor='#e2e8f0'">
                 <!-- Dropdown de produto (quando não vem de produto específico) -->
-                <select id="lead-produto-select" style="display:none; width:100%; border:1.5px solid #e2e8f0; border-radius:12px; padding:13px 16px; font-size:14px; color:#64748b; outline:none; font-family:inherit; box-sizing:border-box; background:#fff; cursor:pointer; appearance:none; -webkit-appearance:none;"
+                <select id="lead-produto-select" style="display:none; width:100%; border:1.5px solid #e2e8f0; border-radius:12px; padding:13px 16px; font-size:16px; color:#64748b; outline:none; font-family:inherit; box-sizing:border-box; background:#fff; cursor:pointer; appearance:none; -webkit-appearance:none;"
                     onfocus="this.style.borderColor='#0099dd'" onblur="this.style.borderColor='#e2e8f0'">
                     <option value="">Produto de interesse (opcional)</option>
                     <option value="Conta Corrente Empresarial">Conta Corrente Empresarial</option>
@@ -1562,7 +1562,7 @@
                     <span style="font-size:12px; color:#64748b; line-height:1.4;">Quero receber a newsletter da mb finance</span>
                 </label>
                 <!-- Botão -->
-                <button type="submit" style="width:100%; background:#0099dd; color:#fff; font-weight:600; font-size:14px; padding:11px; border-radius:12px; border:none; cursor:pointer; transition:opacity .2s; margin-top:4px; font-family:inherit;"
+                <button type="submit" style="width:100%; background:#0099dd; color:#fff; font-weight:600; font-size:16px; padding:14px; border-radius:12px; border:none; cursor:pointer; transition:opacity .2s; margin-top:4px; font-family:inherit; min-height:48px;"
                     onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
                     Falar com Especialista &rarr;
                 </button>
@@ -1575,7 +1575,7 @@
     </div>
 
 <!-- â"€â"€ MODAL PARCERIA â"€â"€ -->
-<div id="parceria-modal" onclick="if(event.target===this)closeParceriaModal()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow-y:auto;padding:40px 16px;align-items:center;justify-content:center;">
+<div id="parceria-modal" onclick="if(event.target===this)closeParceriaModal()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow-y:auto;padding:16px;align-items:center;justify-content:center;">
     <div style="position:relative;width:100%;max-width:520px;margin:0 auto;background:linear-gradient(160deg,#0a1628 0%,#071020 100%);border:1px solid rgba(255,255,255,0.08);border-radius:24px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.6);">
 
         <!-- Brilho de fundo decorativo -->
@@ -1583,8 +1583,8 @@
         <div style="position:absolute;bottom:-80px;left:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(0,153,221,0.07) 0%,transparent 70%);pointer-events:none;"></div>
 
         <!-- Header -->
-        <div style="padding:36px 36px 0;position:relative;">
-            <button onclick="closeParceriaModal()" aria-label="Fechar formulário de parceria" style="position:absolute;top:20px;right:20px;width:32px;height:32px;background:rgba(255,255,255,0.06);border:none;border-radius:8px;cursor:pointer;color:rgba(255,255,255,0.72);font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">&times;</button>
+        <div style="padding:clamp(20px,5vw,36px) clamp(16px,4vw,36px) 0;position:relative;">
+            <button onclick="closeParceriaModal()" aria-label="Fechar formulário de parceria" style="position:absolute;top:16px;right:16px;width:40px;height:40px;background:rgba(255,255,255,0.06);border:none;border-radius:8px;cursor:pointer;color:rgba(255,255,255,0.72);font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">&times;</button>
             <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(0,153,221,0.12);border:1px solid rgba(0,153,221,0.25);border-radius:999px;padding:5px 14px;margin-bottom:20px;">
                 <div style="width:6px;height:6px;border-radius:50%;background:#0099dd;"></div>
                 <span style="font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#0099dd;">Seja um Parceiro</span>
@@ -1594,18 +1594,18 @@
         </div>
 
         <!-- Formulário -->
-        <div style="padding:0 36px 36px;position:relative;">
+        <div style="padding:0 clamp(16px,4vw,36px) clamp(20px,4vw,36px);position:relative;">
             <div style="margin-bottom:16px;">
                 <label style="display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;">Seu nome</label>
-                <input id="parc-nome" type="text" placeholder="Ex: João Silva" style="width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,153,221,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+                <input id="parc-nome" type="text" placeholder="Ex: João Silva" style="width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:16px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,153,221,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
             </div>
             <div style="margin-bottom:16px;">
                 <label style="display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;">WhatsApp</label>
-                <input id="parc-tel" type="tel" placeholder="(21) 99999-9999" style="width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,153,221,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+                <input id="parc-tel" type="tel" placeholder="(21) 99999-9999" style="width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:16px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,153,221,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
             </div>
             <div style="margin-bottom:16px;">
                 <label style="display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;">Segmento de atuação</label>
-                <select id="parc-segmento" style="width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:rgba(255,255,255,0.7);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;cursor:pointer;" onfocus="this.style.borderColor='rgba(0,153,221,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+                <select id="parc-segmento" style="width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:rgba(255,255,255,0.7);font-size:16px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;cursor:pointer;" onfocus="this.style.borderColor='rgba(0,153,221,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
                     <option value="" style="background:#0a1628;">Selecione...</option>
                     <option value="Contabilidade" style="background:#0a1628;">Contabilidade</option>
                     <option value="Instituição Financeira" style="background:#0a1628;">Instituição Financeira</option>
@@ -1619,10 +1619,10 @@
             </div>
             <div style="margin-bottom:28px;">
                 <label style="display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;">Mensagem <span style="font-weight:400;text-transform:none;letter-spacing:0;">(opcional)</span></label>
-                <textarea id="parc-msg" rows="3" placeholder="Conte um pouco sobre sua empresa e como podemos colaborar..." style="width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;resize:none;transition:border-color .2s;line-height:1.6;" onfocus="this.style.borderColor='rgba(0,153,221,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"></textarea>
+                <textarea id="parc-msg" rows="3" placeholder="Conte um pouco sobre sua empresa e como podemos colaborar..." style="width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:16px;font-family:'Inter',sans-serif;outline:none;resize:none;transition:border-color .2s;line-height:1.6;" onfocus="this.style.borderColor='rgba(0,153,221,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"></textarea>
             </div>
 
-            <button onclick="enviarParceria()" style="width:100%;padding:15px;background:linear-gradient(135deg,#0099dd,#0077bb);color:#fff;font-size:14px;font-weight:800;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:0.3px;transition:opacity .2s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+            <button onclick="enviarParceria()" style="width:100%;padding:15px;background:linear-gradient(135deg,#0099dd,#0077bb);color:#fff;font-size:16px;font-weight:800;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:0.3px;transition:opacity .2s;min-height:52px;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 Falar com o time de parcerias
             </button>

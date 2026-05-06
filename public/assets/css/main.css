@@ -463,7 +463,7 @@ html { scroll-behavior: auto; }
         margin-bottom: 40px !important;
     }
 
-    footer h4 {
+    footer h3 {
         margin-bottom: 14px !important;
     }
 
@@ -532,15 +532,29 @@ html { scroll-behavior: auto; }
         padding-right: 20px;
     }
 
-    #lead-modal p,
-    #lead-modal input,
-    #lead-modal button,
-    #lead-modal select {
+    #lead-modal p {
         font-size: 14px !important;
+    }
+
+    #lead-modal input,
+    #lead-modal select {
+        font-size: 16px !important; /* evita zoom automático no iOS */
+    }
+
+    #lead-modal button[type="submit"] {
+        font-size: 16px !important;
+        min-height: 48px !important;
+        padding: 14px !important;
     }
 
     #parceria-modal {
         padding: 16px 10px !important;
+    }
+
+    #parceria-modal input,
+    #parceria-modal select,
+    #parceria-modal textarea {
+        font-size: 16px !important; /* evita zoom automático no iOS */
     }
 
     #parceria-modal > div {
@@ -686,6 +700,50 @@ html { scroll-behavior: auto; }
     .carousel-wrapper::before,
     .carousel-wrapper::after {
         width: 40px;
+    }
+}
+
+/* ── Accordion mobile ──────────────────────────────────────────────────────── */
+@media (max-width: 639px) {
+    .acc-header {
+        padding: 16px 18px;
+        gap: 12px;
+    }
+    .acc-icon {
+        width: 26px;
+        height: 26px;
+        flex-shrink: 0;
+    }
+    .acc-body {
+        padding: 0 18px 20px 56px;
+    }
+    .acc-desc {
+        font-size: 14px;
+        line-height: 1.65;
+    }
+    .acc-tag {
+        font-size: 10px;
+        padding: 3px 9px;
+    }
+    .acc-item {
+        margin-bottom: 14px;
+        border-radius: 16px;
+    }
+}
+
+/* ── Pain & Solution mobile ────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+    section[style*="padding: 120px 0"] {
+        padding: 56px 0 !important;
+    }
+}
+
+/* ── Seção de depoimentos — evitar overflow de texto ──────────────────────── */
+@media (max-width: 639px) {
+    .testimonial-card p {
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 }
 
