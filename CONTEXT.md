@@ -411,3 +411,57 @@ Estado atual: o botao BLOG do menu principal e a navbar React apontam explicitam
 
 Proximo passo recomendado: apos novo deploy, testar o botao BLOG da home com cache limpo.
 
+---
+
+## Atualizacao de sessao - 2026-05-07 - Google Analytics do dominio real
+
+- Atualizado o Measurement ID do Google Analytics 4 de `G-16ZB759EFL` para `G-3C1G7JNB9L`, vinculado ao dominio real `mbfinance.com.br`.
+- A troca foi aplicada nas paginas publicas HTML que tinham snippet direto de GA4, nas paginas que definem `window._ga4_id` e nos carregadores de consentimento LGPD.
+- O carregamento via `public/assets/js/ui/cookie-banner.js` e `public/assets/js/bundle.js` continua respeitando o consentimento de cookies antes de injetar o `gtag`.
+- Google Ads `AW-18112641661` e GTM `GTM-MDST4NTK` nao foram alterados.
+
+Arquivos principais modificados nesta sessao:
+- `public/index.html`
+- `public/assets/js/ui/cookie-banner.js`
+- `public/assets/js/bundle.js`
+- `public/pages/*.html` com GA4
+- `public/pages/artigos do blog/*.html`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-07.md`
+
+Estado atual: nao ha mais ocorrencias de `G-16ZB759EFL` nos arquivos publicos de execucao; o novo ID `G-3C1G7JNB9L` esta presente nos pontos publicos de GA4.
+
+Onde o trabalho parou: alteracao pronta para validacao em producao apos deploy/publicacao.
+
+Proximo passo recomendado: apos publicar, aceitar cookies em uma aba anonima e validar no Tag Assistant ou DebugView do GA4 se `G-3C1G7JNB9L` dispara em `mbfinance.com.br`.
+
+
+---
+
+## Atualizacao de sessao - 2026-05-12 - Tags centralizadas no Google Tag Manager
+
+- Removidos os snippets diretos de Meta Pixel, Google Analytics 4 e Google Ads dos HTMLs publicos, rotas Next.js e projeto separado do blog.
+- Mantido o Google Tag Manager `GTM-MDST4NTK` como unico codigo de marketing carregado diretamente no site.
+- Removidos os componentes `GoogleAdsTag` e `MetaPixel` da raiz e de `blog-pages/`, alem dos arquivos legados `public/assets/js/infra/google-ads-tag.js` e `public/assets/js/infra/meta-pixel.js`.
+- `public/assets/js/ui/cookie-banner.js` e o bloco equivalente em `public/assets/js/bundle.js` deixaram de carregar GA4 diretamente e agora apenas registram consentimento e enviam `cookie_consent_update` para o `dataLayer`.
+- Os eventos customizados em `public/assets/js/analytics-events.js` continuam enviando dados para `dataLayer`, para serem consumidos pelo GTM.
+
+Arquivos principais modificados nesta sessao:
+- `public/index.html`
+- `public/pages/*.html` publicos e artigos legados
+- `public/assets/js/ui/cookie-banner.js`
+- `public/assets/js/bundle.js`
+- `app/page.tsx`, `app/blog/*`, `app/sobre/page.tsx`
+- `blog-pages/app/blog/*`
+- Removidos: `components/GoogleAdsTag.tsx`, `components/MetaPixel.tsx`, `blog-pages/components/GoogleAdsTag.tsx`, `blog-pages/components/MetaPixel.tsx`, `public/assets/js/infra/google-ads-tag.js`, `public/assets/js/infra/meta-pixel.js`
+
+Estado atual: codigo fonte publico carrega apenas o GTM como tag de marketing direta; GA4, Ads e Meta Pixel devem ser configurados dentro do container.
+
+Validacao: `npm run build` na raiz e em `blog-pages/` executaram com sucesso; permaneceram apenas avisos preexistentes de `<img>`/hook.
+
+Onde o trabalho parou: mudanca pronta para deploy e configuracao das tags dentro do Google Tag Manager.
+
+Proximo passo recomendado: criar/publicar no GTM as tags GA4, Google Ads e Meta Pixel, usando os eventos de `dataLayer` ja enviados pelo site.

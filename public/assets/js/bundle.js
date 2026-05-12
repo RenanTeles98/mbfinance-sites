@@ -279,34 +279,22 @@ va.addEventListener('timeupdate', checkTime);
 vb.addEventListener('timeupdate', checkTime);
 })();
 // UI: LGPD cookie consent banner
-// Blocks GA4 until user gives consent. Consent persisted in localStorage.
+// Consent persisted in localStorage. Marketing tags are managed in Google Tag Manager.
 (function () {
 var CONSENT_KEY = 'mb_cookie_consent';
-var GA4_ID = window._ga4_id || 'G-16ZB759EFL';
-// ── GA4 initialization (called only after consent) ───────────────────────
-function initGA4() {
-var s = document.createElement('script');
-s.async = true;
-s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
-document.head.appendChild(s);
-s.onload = function () {
+function pushConsent(status) {
 window.dataLayer = window.dataLayer || [];
-function gtag() { dataLayer.push(arguments); }
-window.gtag = gtag;
-gtag('js', new Date());
-gtag('config', GA4_ID);
-};
+window.dataLayer.push({ event: 'cookie_consent_update', cookie_consent: status });
 }
-// ── Check existing consent ───────────────────────────────────────────────
 var existing = localStorage.getItem(CONSENT_KEY);
 if (existing === 'accepted') {
-initGA4();
-return; // no banner needed
+pushConsent('accepted');
+return;
 }
 if (existing === 'rejected') {
-return; // user already rejected — don't show banner again
+pushConsent('rejected');
+return;
 }
-// ── Build banner DOM ─────────────────────────────────────────────────────
 function buildBanner() {
 var banner = document.createElement('div');
 banner.id = 'cookie-banner';
@@ -325,15 +313,15 @@ banner.innerHTML = [
 '</div>',
 ].join('');
 document.body.appendChild(banner);
-// Animate in after a tiny delay so CSS transition fires
 setTimeout(function () { banner.classList.add('cookie-visible'); }, 80);
 document.getElementById('cookie-accept').addEventListener('click', function () {
 localStorage.setItem(CONSENT_KEY, 'accepted');
+pushConsent('accepted');
 hideBanner(banner);
-initGA4();
 });
 document.getElementById('cookie-reject').addEventListener('click', function () {
 localStorage.setItem(CONSENT_KEY, 'rejected');
+pushConsent('rejected');
 hideBanner(banner);
 });
 }
@@ -343,35 +331,9 @@ setTimeout(function () {
 if (banner.parentNode) banner.parentNode.removeChild(banner);
 }, 350);
 }
-// Show banner after page is interactive
 if (document.readyState === 'loading') {
 document.addEventListener('DOMContentLoaded', buildBanner);
 } else {
-setTimeout(buildBanner, 600); // small delay so it doesn't flash on first paint
+setTimeout(buildBanner, 600);
 }
-})();
-// Infrastructure: Google Ads tag — already loaded in <head>, this is a no-op guard
-(function () {
-if (window._adsTagLoaded) return;
-// Fallback: carrega se o tag do <head> não estiver presente (ex: outras páginas)
-var GOOGLE_ADS_ID = 'AW-18112641661';
-var loaded = false;
-function loadAds() {
-if (loaded || window._adsTagLoaded) return;
-loaded = true;
-window.dataLayer = window.dataLayer || [];
-window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-var script = document.createElement('script');
-script.async = true;
-script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ADS_ID;
-document.head.appendChild(script);
-script.onload = function () {
-window.gtag('js', new Date());
-window.gtag('config', GOOGLE_ADS_ID);
-};
-}
-['mousemove', 'keydown', 'touchstart', 'scroll'].forEach(function (e) {
-window.addEventListener(e, loadAds, { once: true, passive: true });
-});
-setTimeout(loadAds, 6000);
 })();

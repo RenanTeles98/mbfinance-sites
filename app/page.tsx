@@ -1,12 +1,8 @@
-﻿import Script from "next/script";
-import GoogleAdsTag from "@/components/GoogleAdsTag";
-import MetaPixel from "@/components/MetaPixel";
+import Script from "next/script";
 
 export default function Home() {
   return (
     <>
-      <GoogleAdsTag />
-      <MetaPixel />
       <Script
         id="home-redirect"
         strategy="afterInteractive"

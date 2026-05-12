@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import BlogIndexClient from "@/components/BlogIndexClient";
-import GoogleAdsTag from "@/components/GoogleAdsTag";
-import MetaPixel from "@/components/MetaPixel";
 import { readPublishedBlogPosts } from "@/lib/blog-store";
 import { blogUrl } from "@/lib/site";
 
@@ -28,8 +26,6 @@ export default async function BlogIndexPage() {
 
   return (
     <>
-      <GoogleAdsTag />
-      <MetaPixel />
       <BlogIndexClient posts={posts} />
     </>
   );

@@ -3,8 +3,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import GoogleAdsTag from "@/components/GoogleAdsTag";
-import MetaPixel from "@/components/MetaPixel";
 import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 
 /* ─── DATA ─────────────────────────────────────────────────── */
@@ -198,8 +196,6 @@ function HorizontalTimeline() {
 export default function SobrePage() {
   return (
     <>
-      <GoogleAdsTag />
-      <MetaPixel />
       <main className="bg-white overflow-x-hidden max-w-full">
 
       {/* ── HERO ─────────────────────────────────────────────── */}

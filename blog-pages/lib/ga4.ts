@@ -54,6 +54,13 @@ export type GaOverviewResponse = {
   ageBreakdown?: GaDemographicRow[];
 };
 
+export type GaDateRange = {
+  startDate: string;
+  endDate: string;
+  label: string;
+  trendLimit: string;
+};
+
 export type GaSiteConfig = {
   key: string;
   name: string;
@@ -295,6 +302,46 @@ function cleanDimensionValue(value?: string, fallback = "Nao informado") {
   return normalized;
 }
 
+function isIsoDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && value === date.toISOString().slice(0, 10);
+}
+
+function formatDisplayDate(value: string) {
+  if (!isIsoDate(value)) return value;
+  return `${value.slice(8, 10)}/${value.slice(5, 7)}/${value.slice(0, 4)}`;
+}
+
+function daysBetween(startDate: string, endDate: string) {
+  if (!isIsoDate(startDate) || !isIsoDate(endDate)) return 30;
+  const start = new Date(`${startDate}T00:00:00Z`).getTime();
+  const end = new Date(`${endDate}T00:00:00Z`).getTime();
+  return Math.max(1, Math.round((end - start) / 86400000) + 1);
+}
+
+export function resolveGaDateRange(startDate?: string | null, endDate?: string | null): GaDateRange {
+  const start = (startDate || "").trim();
+  const end = (endDate || "").trim();
+
+  if (isIsoDate(start) && isIsoDate(end) && start <= end) {
+    const totalDays = daysBetween(start, end);
+    return {
+      startDate: start,
+      endDate: end,
+      label: `${formatDisplayDate(start)} a ${formatDisplayDate(end)}`,
+      trendLimit: String(Math.min(totalDays, 366)),
+    };
+  }
+
+  return {
+    startDate: "30daysAgo",
+    endDate: "today",
+    label: "Ultimos 30 dias",
+    trendLimit: "30",
+  };
+}
+
 function normalizePagePath(value?: string) {
   let path = (value || "/").trim();
 
@@ -322,7 +369,7 @@ function normalizePagePath(value?: string) {
     path === "/index" ||
     path === "/index.html" ||
     path === "/mb-finance-completo" ||
-    path === "/index.html"
+    path === "/mb-finance-completo.html"
   ) {
     return "/";
   }
@@ -386,7 +433,7 @@ function groupTopPages(rows: RunReportResponse["rows"]): GaTopPage[] {
     .slice(0, 10);
 }
 
-export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOverviewResponse> {
+export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = resolveGaDateRange()): Promise<GaOverviewResponse> {
   const site = getGa4SiteConfig(siteKey);
 
   if (!isConfigured(site)) {
@@ -410,7 +457,7 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOver
     ageReport,
   ] = await Promise.all([
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
       metrics: [
         { name: "totalUsers" },
         { name: "activeUsers" },
@@ -420,7 +467,7 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOver
       ],
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
       dimensions: [{ name: "date" }],
       metrics: [
         { name: "activeUsers" },
@@ -428,10 +475,10 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOver
         { name: "screenPageViews" },
       ],
       orderBys: [{ dimension: { dimensionName: "date" } }],
-      limit: "30",
+      limit: dateRange.trendLimit,
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
       dimensions: [{ name: "pagePath" }, { name: "pageTitle" }],
       metrics: [
         { name: "screenPageViews" },
@@ -442,28 +489,28 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOver
       limit: "50",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
       dimensions: [{ name: "country" }],
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
       limit: "10",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
       dimensions: [{ name: "region" }, { name: "country" }],
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
       limit: "10",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
       dimensions: [{ name: "userGender" }],
       metrics: [{ name: "activeUsers" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
       limit: "10",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
       dimensions: [{ name: "userAgeBracket" }],
       metrics: [{ name: "activeUsers" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
@@ -531,7 +578,7 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY): Promise<GaOver
     siteKey: site.key,
     siteName: site.name,
     propertyId,
-    rangeLabel: "Ultimos 30 dias",
+    rangeLabel: dateRange.label,
     summary,
     trend,
     topPages,

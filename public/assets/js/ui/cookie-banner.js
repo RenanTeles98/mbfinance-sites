@@ -1,36 +1,27 @@
 // UI: LGPD cookie consent banner
-// Blocks GA4 until user gives consent. Consent persisted in localStorage.
+// Consent persisted in localStorage. Marketing tags are managed in Google Tag Manager.
 
 (function () {
     var CONSENT_KEY = 'mb_cookie_consent';
-    var GA4_ID = window._ga4_id || 'G-16ZB759EFL';
 
-    // ── GA4 initialization (called only after consent) ───────────────────────
-    function initGA4() {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
-        document.head.appendChild(s);
-        s.onload = function () {
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', GA4_ID);
-        };
+    function pushConsent(status) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'cookie_consent_update',
+            cookie_consent: status
+        });
     }
 
-    // ── Check existing consent ───────────────────────────────────────────────
     var existing = localStorage.getItem(CONSENT_KEY);
     if (existing === 'accepted') {
-        initGA4();
-        return; // no banner needed
+        pushConsent('accepted');
+        return;
     }
     if (existing === 'rejected') {
-        return; // user already rejected — don't show banner again
+        pushConsent('rejected');
+        return;
     }
 
-    // ── Build banner DOM ─────────────────────────────────────────────────────
     function buildBanner() {
         var banner = document.createElement('div');
         banner.id = 'cookie-banner';
@@ -50,18 +41,17 @@
         ].join('');
 
         document.body.appendChild(banner);
-
-        // Animate in after a tiny delay so CSS transition fires
         setTimeout(function () { banner.classList.add('cookie-visible'); }, 80);
 
         document.getElementById('cookie-accept').addEventListener('click', function () {
             localStorage.setItem(CONSENT_KEY, 'accepted');
+            pushConsent('accepted');
             hideBanner(banner);
-            initGA4();
         });
 
         document.getElementById('cookie-reject').addEventListener('click', function () {
             localStorage.setItem(CONSENT_KEY, 'rejected');
+            pushConsent('rejected');
             hideBanner(banner);
         });
     }
@@ -73,10 +63,9 @@
         }, 350);
     }
 
-    // Show banner after page is interactive
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', buildBanner);
     } else {
-        setTimeout(buildBanner, 600); // small delay so it doesn't flash on first paint
+        setTimeout(buildBanner, 600);
     }
 })();

@@ -593,3 +593,59 @@ Padronizar os links visiveis de Blog no site estatico para `https://blog.mbfinan
 - O link BLOG da home HTML recebeu identificador `nav-nav-blog` e permanece com URL absoluta.
 - A navbar React (`components/Navbar.tsx`) tambem passou a incluir BLOG com URL absoluta para cobrir rotas que usem esse componente.
 
+---
+
+## ADR-026: GA4 usa Measurement ID do dominio mbfinance.com.br
+
+**Data:** 2026-05-07
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O Measurement ID antigo do Google Analytics estava vinculado ao site de Vercel. O dominio oficial da MB Finance e `mbfinance.com.br`, e o dono do projeto forneceu o novo snippet GA4 com ID `G-3C1G7JNB9L`.
+
+### Decisao
+
+Substituir o ID antigo `G-16ZB759EFL` por `G-3C1G7JNB9L` nos pontos publicos de GA4. Nas paginas que usam o banner LGPD, manter o carregamento condicional via `cookie-banner.js`/`bundle.js`, apenas trocando o ID carregado.
+
+### Alternativas Consideradas
+
+- **Colar o snippet direto em todas as paginas:** simples, mas quebraria o bloqueio de analytics antes do consentimento em paginas que usam LGPD.
+- **Trocar somente os snippets diretos:** deixaria paginas com `window._ga4_id` e carregador central ainda apontando para o ID antigo.
+- **Trocar o ID em todos os pontos de GA4 mantendo a arquitetura atual (escolhida):** preserva LGPD e atualiza a propriedade correta.
+
+### Consequencias
+
+- Eventos de GA4 passam a ser enviados para `G-3C1G7JNB9L` apos aceite de cookies.
+- Google Ads e GTM continuam com seus IDs atuais.
+
+
+---
+
+## ADR-027: Tags de marketing centralizadas no Google Tag Manager
+
+**Data:** 2026-05-12
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O site tinha Meta Pixel, Google Analytics 4, Google Ads e Google Tag Manager instalados diretamente em diferentes pontos do codigo. Isso dificultava manutencao, remocao e inclusao de novas tags.
+
+### Decisao
+
+Manter apenas o Google Tag Manager `GTM-MDST4NTK` como codigo de marketing carregado diretamente no site. GA4, Google Ads e Meta Pixel devem ser criados e gerenciados dentro do container do GTM.
+
+### Alternativas Consideradas
+
+- **Manter tags diretas no codigo:** funcionava, mas continuava gerando duplicacao e manutencao manual.
+- **Usar apenas arquivos JS centrais:** reduziria duplicacao, mas ainda exigiria deploy para qualquer mudanca de marketing.
+- **Centralizar no GTM (escolhida):** permite adicionar, pausar e alterar tags sem editar o codigo fonte do site.
+
+### Consequencias
+
+- O codigo fonte fica mais simples e com menor risco de tags duplicadas.
+- Mudancas de marketing passam a depender da publicacao do container no GTM.
+- A CSP deve continuar permitindo os dominios das tags que o GTM dispara.
+- O banner LGPD passa a enviar o status de consentimento para `dataLayer`, para uso nas regras do GTM.

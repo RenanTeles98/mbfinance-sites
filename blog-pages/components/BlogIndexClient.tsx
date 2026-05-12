@@ -263,7 +263,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         .blog-back { color: rgba(255,255,255,.7); font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
         .blog-hero { background: #003956; padding: 56px 0 80px; color: #fff; min-height: 406px; contain: layout paint; }
         .blog-hero .blog-shell { min-height: 270px; display: flex; flex-direction: column; justify-content: center; }
-        .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,153,221,.15); color: #0099dd; font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(0,153,221,.25); margin-bottom: 24px; }
+        .hero-tag { display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; background: rgba(0,153,221,.15); color: #0099dd; font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(0,153,221,.25); margin-bottom: 24px; }
         .hero-tag:before { content: ""; width: 6px; height: 6px; background: #0099dd; border-radius: 999px; }
         .hero-title { font-size: clamp(36px, 5vw, 60px); line-height: 1.1; letter-spacing: 0; font-weight: 800; margin: 0 0 20px; text-wrap: balance; }
         .hero-title span { color: #0099dd; }

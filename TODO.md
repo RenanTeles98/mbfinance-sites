@@ -157,3 +157,25 @@
 - [x] Garantir que o BLOG do menu principal da home e da navbar React aponte para `https://blog.mbfinance.com.br/blog`.
 - [ ] Validar em producao o clique no menu desktop e mobile da pagina de Credito Rapido apos deploy.
 
+---
+
+## Atualizacao 2026-05-07 - Google Analytics
+
+- [x] Substituir o Measurement ID antigo `G-16ZB759EFL` pelo novo `G-3C1G7JNB9L` nas paginas publicas.
+- [x] Manter o bloqueio LGPD: GA4 continua carregando apenas apos aceite de cookies nas paginas que usam `cookie-banner.js` ou `bundle.js`.
+- [ ] Validar em producao no Tag Assistant / DebugView se o GA4 `G-3C1G7JNB9L` dispara em `mbfinance.com.br`.
+
+
+---
+
+## Atualizacao 2026-05-12 - Tags via Google Tag Manager
+
+- [x] Remover Meta Pixel direto do codigo fonte publico.
+- [x] Remover Google Ads direto do codigo fonte publico.
+- [x] Remover GA4 direto dos HTMLs, componentes e loaders JS.
+- [x] Manter apenas o GTM `GTM-MDST4NTK` como tag de marketing instalada diretamente.
+- [x] Enviar aceite/recusa do banner LGPD para `dataLayer` via evento `cookie_consent_update`.
+- [ ] Configurar no GTM a tag GA4 com o Measurement ID oficial.
+- [ ] Configurar no GTM a tag Google Ads com o Conversion ID oficial.
+- [ ] Configurar no GTM o Meta Pixel com o Pixel ID oficial.
+- [ ] Publicar o container no GTM e validar em producao no Tag Assistant / Meta Pixel Helper.

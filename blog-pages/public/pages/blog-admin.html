@@ -251,6 +251,12 @@
         .analytics-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
         .analytics-site-select { min-width: 210px; background: #fff; border: 1.5px solid #dbe6ef; color: #1e293b; font-size: 13px; font-weight: 700; padding: 9px 12px; border-radius: 10px; outline: none; cursor: pointer; }
         .analytics-site-select:focus { border-color: #0099dd; box-shadow: 0 0 0 3px rgba(0,153,221,0.12); }
+        .analytics-period-select,
+        .analytics-date-input { background: #fff; border: 1.5px solid #dbe6ef; color: #1e293b; font-size: 13px; font-weight: 700; padding: 9px 12px; border-radius: 10px; outline: none; cursor: pointer; }
+        .analytics-date-input { min-width: 136px; }
+        .analytics-custom-range { display: none; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .analytics-custom-range.active { display: flex; }
+        .analytics-apply-btn { border: 0; border-radius: 10px; background: #0099dd; color: #fff; font-size: 13px; font-weight: 800; padding: 10px 14px; cursor: pointer; }
         .analytics-stamp { background: #eff9ff; color: #0099dd; border: 1px solid rgba(0,153,221,0.18); font-size: 12px; font-weight: 800; padding: 8px 12px; border-radius: 999px; white-space: nowrap; }
         .analytics-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
         .analytics-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 8px 30px rgba(15,23,42,0.04); }
@@ -288,7 +294,11 @@
         @media (max-width: 720px) {
             .analytics-page-header { flex-direction: column; align-items: flex-start; }
             .analytics-controls { width: 100%; justify-content: flex-start; }
-            .analytics-site-select { width: 100%; }
+            .analytics-site-select,
+            .analytics-period-select,
+            .analytics-date-input,
+            .analytics-apply-btn { width: 100%; }
+            .analytics-custom-range { width: 100%; }
             .analytics-grid { grid-template-columns: 1fr; }
             .category-row { grid-template-columns: 1fr; }
             .category-count { text-align: left; }
@@ -886,6 +896,19 @@
                         <option value="mb-negocios">MB Negócios</option>
                         <option value="fomenta">Fomenta</option>
                     </select>
+                    <select id="analytics-period-select" class="analytics-period-select" onchange="setSelectedAnalyticsPeriod(this.value)" aria-label="Selecionar período">
+                        <option value="7">Últimos 7 dias</option>
+                        <option value="30" selected>Últimos 30 dias</option>
+                        <option value="90">Últimos 90 dias</option>
+                        <option value="180">Últimos 180 dias</option>
+                        <option value="365">Últimos 12 meses</option>
+                        <option value="custom">Personalizado</option>
+                    </select>
+                    <div id="analytics-custom-range" class="analytics-custom-range">
+                        <input id="analytics-start-date" class="analytics-date-input" type="date" aria-label="Data inicial">
+                        <input id="analytics-end-date" class="analytics-date-input" type="date" aria-label="Data final">
+                        <button type="button" class="analytics-apply-btn" onclick="applyCustomAnalyticsPeriod()">Aplicar</button>
+                    </div>
                     <div class="analytics-stamp" id="analytics-last-update">Atualizado agora</div>
                 </div>
             </div>

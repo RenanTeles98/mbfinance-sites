@@ -129,5 +129,21 @@ Principais marcos conhecidos:
 - Links de Blog na pagina `public/pages/credito-rapido.html` agora apontam para `https://blog.mbfinance.com.br/blog`.
 - Botao BLOG do menu principal e item BLOG da navbar React apontam explicitamente para `https://blog.mbfinance.com.br/blog`.
 
+## 2026-05-07 - Google Analytics do dominio real
+
+### Modificado
+- Measurement ID do GA4 atualizado de `G-16ZB759EFL` para `G-3C1G7JNB9L` nas paginas publicas e carregadores LGPD.
+- Google Ads `AW-18112641661` e GTM `GTM-MDST4NTK` preservados.
+
 ---
 
+
+## 2026-05-12 - Tags centralizadas no Google Tag Manager
+
+### Modificado
+- Google Tag Manager `GTM-MDST4NTK` mantido como unico codigo de marketing direto no site publico.
+- Banner de cookies agora envia aceite/recusa para `dataLayer` pelo evento `cookie_consent_update`.
+
+### Removido
+- Snippets diretos de Meta Pixel, Google Analytics 4 e Google Ads dos HTMLs publicos e rotas Next.js.
+- Componentes e loaders legados de Meta Pixel e Google Ads.

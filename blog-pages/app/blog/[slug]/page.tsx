@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import GoogleAdsTag from "@/components/GoogleAdsTag";
-import MetaPixel from "@/components/MetaPixel";
 import { readBlogPostBySlug, readPublishedBlogPosts } from "@/lib/blog-store";
 import { blogUrl, mainSiteUrl } from "@/lib/site";
 import type { BlogPost } from "@/types/blog";
@@ -269,8 +267,6 @@ export default async function BlogArticlePage({
 
   return (
     <>
-      <GoogleAdsTag />
-      <MetaPixel />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}

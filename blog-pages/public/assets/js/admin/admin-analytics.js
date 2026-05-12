@@ -4,7 +4,13 @@
 
 function getAnalyticsApiUrl() {
     const base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
-    const path = '/api/analytics/overview?site=' + encodeURIComponent(getSelectedAnalyticsSite());
+    const params = new URLSearchParams({ site: getSelectedAnalyticsSite() });
+    const range = getSelectedAnalyticsRange();
+    if (range.startDate && range.endDate) {
+        params.set('startDate', range.startDate);
+        params.set('endDate', range.endDate);
+    }
+    const path = '/api/analytics/overview?' + params.toString();
     return base ? base + path : path;
 }
 
@@ -14,6 +20,77 @@ function getSelectedAnalyticsSite() {
 
 function setSelectedAnalyticsSite(siteKey) {
     localStorage.setItem(ANALYTICS_SITE_KEY, siteKey || 'mb-finance');
+    renderTrafficAnalytics();
+}
+
+function formatDateInput(date) {
+    return date.toISOString().slice(0, 10);
+}
+
+function getDateDaysAgo(days) {
+    const date = new Date();
+    date.setDate(date.getDate() - Math.max(0, Number(days || 1) - 1));
+    return formatDateInput(date);
+}
+
+function getSelectedAnalyticsPeriod() {
+    return localStorage.getItem('mb_analytics_period') || '30';
+}
+
+function getSelectedAnalyticsRange() {
+    const period = getSelectedAnalyticsPeriod();
+    if (period === 'custom') {
+        return {
+            startDate: localStorage.getItem('mb_analytics_start_date') || '',
+            endDate: localStorage.getItem('mb_analytics_end_date') || ''
+        };
+    }
+
+    return {
+        startDate: getDateDaysAgo(Number(period || 30)),
+        endDate: formatDateInput(new Date())
+    };
+}
+
+function syncAnalyticsPeriodControls() {
+    const select = document.getElementById('analytics-period-select');
+    const rangeBox = document.getElementById('analytics-custom-range');
+    const startInput = document.getElementById('analytics-start-date');
+    const endInput = document.getElementById('analytics-end-date');
+    if (!select || !rangeBox || !startInput || !endInput) return;
+
+    const period = getSelectedAnalyticsPeriod();
+    select.value = period;
+    rangeBox.classList.toggle('active', period === 'custom');
+
+    const range = getSelectedAnalyticsRange();
+    startInput.value = range.startDate || getDateDaysAgo(30);
+    endInput.value = range.endDate || formatDateInput(new Date());
+}
+
+function setSelectedAnalyticsPeriod(period) {
+    localStorage.setItem('mb_analytics_period', period || '30');
+    syncAnalyticsPeriodControls();
+    if (period !== 'custom') renderTrafficAnalytics();
+}
+
+function applyCustomAnalyticsPeriod() {
+    const startInput = document.getElementById('analytics-start-date');
+    const endInput = document.getElementById('analytics-end-date');
+    if (!startInput || !endInput) return;
+    if (!startInput.value || !endInput.value) {
+        alert('Selecione a data inicial e final.');
+        return;
+    }
+    if (startInput.value > endInput.value) {
+        alert('A data inicial precisa ser anterior ou igual a data final.');
+        return;
+    }
+
+    localStorage.setItem('mb_analytics_period', 'custom');
+    localStorage.setItem('mb_analytics_start_date', startInput.value);
+    localStorage.setItem('mb_analytics_end_date', endInput.value);
+    syncAnalyticsPeriodControls();
     renderTrafficAnalytics();
 }
 
@@ -51,6 +128,7 @@ async function renderTrafficAnalytics() {
     if (!totalUsersEl) return;
 
     totalUsersEl.textContent = '--';
+    syncAnalyticsPeriodControls();
     document.getElementById('ga-active-users').textContent = '--';
     document.getElementById('ga-sessions').textContent = '--';
     document.getElementById('ga-pageviews').textContent = '--';
@@ -243,3 +321,5 @@ window.renderAnalytics = renderAnalytics;
 window.renderTrafficAnalytics = renderTrafficAnalytics;
 window.renderEditorialAnalytics = renderEditorialAnalytics;
 window.setSelectedAnalyticsSite = setSelectedAnalyticsSite;
+window.setSelectedAnalyticsPeriod = setSelectedAnalyticsPeriod;
+window.applyCustomAnalyticsPeriod = applyCustomAnalyticsPeriod;
