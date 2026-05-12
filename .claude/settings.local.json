@@ -69,7 +69,11 @@
       "Bash(dir /b /a)",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites\\\\public\" -Force)",
       "Bash(Select-Object Name, Attributes)",
-      "Bash(Format-Table -AutoSize)"
+      "Bash(Format-Table -AutoSize)",
+      "Bash(Copy-Item \"c:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites\\\\public\\\\images\\\\favicon.png\" -Destination \"c:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites\\\\public\\\\favicon.ico\" -Force)",
+      "Bash(Copy-Item \"c:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites\\\\public\\\\images\\\\favicon.png\" -Destination \"c:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites\\\\app\\\\favicon.ico\" -Force)",
+      "PowerShell(Copy-Item \"c:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites\\\\public\\\\images\\\\favicon.png\" -Destination \"c:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites\\\\public\\\\favicon.ico\" -Force)",
+      "PowerShell(Copy-Item \"c:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites\\\\public\\\\images\\\\favicon.png\" -Destination \"c:\\\\Users\\\\MB NEGOCIOS\\\\Mb finance- Sites\\\\app\\\\favicon.ico\" -Force)"
     ]
   }
 }
