@@ -13,6 +13,7 @@ async function renderTrafficAnalytics() {
     if (!totalUsersEl) return;
 
     totalUsersEl.textContent = '--';
+    document.getElementById('ga-pj-leads').textContent = '--';
     document.getElementById('ga-active-users').textContent = '--';
     document.getElementById('ga-sessions').textContent = '--';
     document.getElementById('ga-pageviews').textContent = '--';
@@ -53,6 +54,7 @@ async function renderTrafficAnalytics() {
         const ageBreakdown = Array.isArray(data.ageBreakdown) ? data.ageBreakdown : [];
         const avgViewsPerSession = summary.sessions ? (summary.screenPageViews / summary.sessions).toFixed(2) : '0.00';
 
+        document.getElementById('ga-pj-leads').textContent = formatInteger(summary.pjLeadClicks);
         totalUsersEl.textContent = formatInteger(summary.totalUsers);
         document.getElementById('ga-active-users').textContent = formatInteger(summary.activeUsers);
         document.getElementById('ga-sessions').textContent = formatInteger(summary.sessions);
@@ -88,6 +90,7 @@ async function renderTrafficAnalytics() {
         }
 
         document.getElementById('ga-highlights').innerHTML = ''
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads gerados</div><div class="analytics-highlight-value">' + formatInteger(summary.pjLeadClicks) + ' cliques para Conta PJ</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Duracao media da sessao</div><div class="analytics-highlight-value">' + formatDuration(summary.averageSessionDuration) + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Views por sessao</div><div class="analytics-highlight-value">' + esc(avgViewsPerSession) + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Property GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'N/A') + '</div></div>'

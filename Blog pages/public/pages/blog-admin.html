@@ -249,7 +249,7 @@
         .analytics-page-header h2 { font-size: 22px; font-weight: 900; color: #1e293b; margin-bottom: 6px; }
         .analytics-page-header p { font-size: 14px; color: #64748b; line-height: 1.6; max-width: 700px; }
         .analytics-stamp { background: #eff9ff; color: #0099dd; border: 1px solid rgba(0,153,221,0.18); font-size: 12px; font-weight: 800; padding: 8px 12px; border-radius: 999px; white-space: nowrap; }
-        .analytics-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .analytics-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
         .analytics-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 8px 30px rgba(15,23,42,0.04); }
         .analytics-card-label { font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: #94a3b8; margin-bottom: 10px; }
         .analytics-card-value { font-size: 30px; line-height: 1; font-weight: 900; color: #003956; margin-bottom: 8px; }
@@ -879,6 +879,11 @@
             </div>
 
             <div class="analytics-grid">
+                <div class="analytics-card">
+                    <div class="analytics-card-label">Leads Gerados</div>
+                    <div class="analytics-card-value" id="ga-pj-leads">--</div>
+                    <div class="analytics-card-note">Cliques para abrir a Conta PJ no site.</div>
+                </div>
                 <div class="analytics-card">
                     <div class="analytics-card-label">Usuários Totais</div>
                     <div class="analytics-card-value" id="ga-total-users">--</div>
