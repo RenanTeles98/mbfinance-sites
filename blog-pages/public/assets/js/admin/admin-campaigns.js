@@ -235,14 +235,7 @@ async function loadCampaignPerformance() {
 }
 
 function initCampaigns() {
-    var select = document.getElementById('camp-channel');
-    if (select && !select.dataset.populated) {
-        select.innerHTML = CHANNEL_PRESETS.map(function(p) {
-            return '<option value="' + p.value + '">' + cesc(p.label) + '</option>';
-        }).join('');
-        select.dataset.populated = '1';
-        onChannelChange();
-    }
+    onChannelChange();
     renderSavedLinks();
     loadCampaignPerformance();
 }
