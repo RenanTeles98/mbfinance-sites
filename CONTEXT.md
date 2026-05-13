@@ -517,3 +517,18 @@ Estado atual: metrica pronta para deploy no projeto correto do blog (`blog-mbfin
 Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>`.
 
 Proximo passo recomendado: apos deploy, validar o card em `https://blog.mbfinance.com.br/admin` e confirmar no GTM/GA4 se o evento especifico `conta_pj_lead_click` esta publicado.
+
+---
+
+## Atualizacao de sessao - 2026-05-13 - Demografia GA4 no blog admin
+
+- Ajustada a busca de genero e faixa etaria no painel administrativo do blog.
+- `blog-pages/lib/ga4.ts` agora tenta o periodo selecionado e, se nao houver linhas, tenta automaticamente janelas de 90 e 365 dias para dados demograficos.
+- A consulta demografica ficou isolada para nao derrubar o restante do painel caso o GA4 oculte esses dados por privacidade ou configuracao.
+- `blog-pages/public/assets/js/admin/admin-analytics.js` agora exibe uma mensagem mais clara quando o GA4 ainda nao libera dados demograficos.
+
+Estado atual: o painel tenta maximizar a chance de trazer genero/faixa etaria; se continuar vazio, a causa fica do lado de configuracao/limite de privacidade do GA4.
+
+Validacao: `npm run build` em `blog-pages/` executado com sucesso.
+
+Proximo passo recomendado: verificar no GA4 se "Dados fornecidos pelo Google"/Google Signals e coleta de dados demograficos estao ativados para a propriedade do site.

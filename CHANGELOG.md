@@ -9,6 +9,11 @@
 - Adicionada a metrica "Leads Gerados" ao painel administrativo do blog publicado em `blog-pages/`.
 - A API de analytics do blog passou a contar eventos GA4 de abertura/clique de lead para Conta PJ.
 
+## 2026-05-13 - Demografia GA4 no admin
+
+- Ajustada a consulta de genero e faixa etaria para tentar periodos maiores automaticamente quando o GA4 nao retornar dados no periodo selecionado.
+- Melhorada a mensagem de indisponibilidade demografica no painel.
+
 ## 2026-04-27 - Meta Pixel
 
 ### Adicionado

@@ -704,3 +704,24 @@ Adicionar o card "Leads Gerados" no painel do blog e consultar o GA4 por `eventC
 
 - O painel passa a mostrar leads junto dos demais KPIs.
 - A precisao por produto depende da publicacao do evento especifico `conta_pj_lead_click` no GTM/site principal.
+
+---
+
+## ADR-030: Demografia GA4 usa fallback de periodo maior
+
+**Data:** 2026-05-13
+**Status:** Implementado
+
+### Contexto
+
+O painel do blog mostrava genero e faixa etaria vazios. As dimensoes `userGender` e `userAgeBracket` estao corretas, mas o GA4 pode ocultar dados demograficos quando nao ha volume suficiente, consentimento, Google Signals/dados fornecidos pelo Google ou por limiares de privacidade.
+
+### Decisao
+
+Manter as dimensoes oficiais do GA4 e adicionar fallback automatico de periodo: primeiro o intervalo selecionado no painel, depois 90 dias e depois 365 dias.
+
+### Alternativas Consideradas
+
+- **Criar dados estimados no proprio site:** descartado por ser impreciso e sensivel.
+- **Mostrar somente vazio:** tecnicamente correto, mas pouco acionavel para o usuario.
+- **Fallback de periodo maior (escolhida):** aumenta a chance de retorno sem inventar dados.

@@ -389,16 +389,25 @@ function renderGeoTable(targetId, rows, emptyMessage, secondaryLabel) {
         + '</tbody></table>';
 }
 
+function formatDemographicLabel(label) {
+    const value = String(label || '').toLowerCase();
+    if (value === 'male') return 'Masculino';
+    if (value === 'female') return 'Feminino';
+    if (value === 'unknown' || value === 'not set' || value === '(not set)') return 'Nao identificado';
+    return label || 'Nao informado';
+}
+
 function renderDemographicList(targetId, rows, emptyMessage) {
     const target = document.getElementById(targetId);
     if (!target) return;
     if (!Array.isArray(rows) || !rows.length) {
-        target.innerHTML = '<div class="analytics-empty">' + esc(emptyMessage) + '</div>';
+        target.innerHTML = '<div class="analytics-empty">' + esc('O GA4 ainda nao liberou dados demograficos para esta propriedade. Ative os dados fornecidos pelo Google/Google Signals no GA4 e aguarde volume suficiente de usuarios.') + '</div>';
         return;
     }
 
+    const normalizedRows = rows.map(row => Object.assign({}, row, { label: formatDemographicLabel(row.label) }));
     target.innerHTML = '<div class="analytics-highlight-list">'
-        + rows.map(row => '<div class="analytics-highlight-item">'
+        + normalizedRows.map(row => '<div class="analytics-highlight-item">'
             + '<div class="analytics-highlight-label">' + esc(row.label || 'Não informado') + '</div>'
             + '<div class="analytics-highlight-value">' + formatInteger(row.activeUsers) + ' usuarios</div>'
             + '</div>').join('')

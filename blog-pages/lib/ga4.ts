@@ -58,6 +58,7 @@ export type GaOverviewResponse = {
   siteName?: string;
   propertyId?: string;
   rangeLabel?: string;
+  demographicRangeLabel?: string;
   summary?: GaOverviewMetric;
   trend?: GaTrendPoint[];
   topPages?: GaTopPage[];
@@ -450,6 +451,58 @@ function groupTopPages(rows: RunReportResponse["rows"]): GaTopPage[] {
     .slice(0, 10);
 }
 
+async function getDemographicBreakdown(
+  accessToken: string,
+  propertyId: string,
+  dimensionName: "userGender" | "userAgeBracket",
+  dateRange: GaDateRange
+) {
+  const ranges = [
+    dateRange,
+    {
+      startDate: "90daysAgo",
+      endDate: "today",
+      label: "Ultimos 90 dias",
+      trendLimit: "90",
+    },
+    {
+      startDate: "365daysAgo",
+      endDate: "today",
+      label: "Ultimos 365 dias",
+      trendLimit: "365",
+    },
+  ];
+
+  for (const range of ranges) {
+    let report: RunReportResponse;
+    try {
+      report = await runReport(accessToken, propertyId, {
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dimensions: [{ name: dimensionName }],
+        metrics: [{ name: "activeUsers" }],
+        orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
+        limit: "10",
+      });
+    } catch {
+      return { rows: [] as GaDemographicRow[], rangeLabel: dateRange.label };
+    }
+
+    const rows =
+      report.rows
+        ?.map((row) => ({
+          label: cleanDimensionValue(row.dimensionValues?.[0]?.value),
+          activeUsers: toNumber(row.metricValues?.[0]?.value),
+        }))
+        .filter((row) => row.activeUsers > 0) || [];
+
+    if (rows.length) {
+      return { rows, rangeLabel: range.label };
+    }
+  }
+
+  return { rows: [] as GaDemographicRow[], rangeLabel: dateRange.label };
+}
+
 export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = resolveGaDateRange()): Promise<GaOverviewResponse> {
   const site = getGa4SiteConfig(siteKey);
 
@@ -471,8 +524,6 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
     topPagesReport,
     topCountriesReport,
     topRegionsReport,
-    genderReport,
-    ageReport,
   ] = await Promise.all([
     runReport(accessToken, propertyId, {
       dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
@@ -530,20 +581,6 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
       dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
       dimensions: [{ name: "region" }, { name: "country" }],
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
-      orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
-      limit: "10",
-    }),
-    runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
-      dimensions: [{ name: "userGender" }],
-      metrics: [{ name: "activeUsers" }],
-      orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
-      limit: "10",
-    }),
-    runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
-      dimensions: [{ name: "userAgeBracket" }],
-      metrics: [{ name: "activeUsers" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
       limit: "10",
     }),
@@ -662,17 +699,17 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
       sessions: toNumber(row.metricValues?.[1]?.value),
     })) || [];
 
-  const genderBreakdown: GaDemographicRow[] =
-    genderReport.rows?.map((row) => ({
-      label: cleanDimensionValue(row.dimensionValues?.[0]?.value),
-      activeUsers: toNumber(row.metricValues?.[0]?.value),
-    })) || [];
+  const [genderBreakdownResult, ageBreakdownResult] = await Promise.all([
+    getDemographicBreakdown(accessToken, propertyId, "userGender", dateRange),
+    getDemographicBreakdown(accessToken, propertyId, "userAgeBracket", dateRange),
+  ]);
 
-  const ageBreakdown: GaDemographicRow[] =
-    ageReport.rows?.map((row) => ({
-      label: cleanDimensionValue(row.dimensionValues?.[0]?.value),
-      activeUsers: toNumber(row.metricValues?.[0]?.value),
-    })) || [];
+  const demographicRangeLabel =
+    genderBreakdownResult.rows.length || ageBreakdownResult.rows.length
+      ? genderBreakdownResult.rows.length
+        ? genderBreakdownResult.rangeLabel
+        : ageBreakdownResult.rangeLabel
+      : dateRange.label;
 
   return {
     configured: true,
@@ -680,13 +717,14 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
     siteName: site.name,
     propertyId,
     rangeLabel: dateRange.label,
+    demographicRangeLabel,
     summary,
     trend,
     topPages,
     topCountries,
     topRegions,
-    genderBreakdown,
-    ageBreakdown,
+    genderBreakdown: genderBreakdownResult.rows,
+    ageBreakdown: ageBreakdownResult.rows,
     whatsappClicks,
     generateLeadTotal,
     trafficSources,

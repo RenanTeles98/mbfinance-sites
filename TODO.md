@@ -190,3 +190,12 @@
 - [x] Consultar GA4 por eventos de lead dentro do intervalo selecionado no painel.
 - [ ] Validar em producao se o card carrega em `https://blog.mbfinance.com.br/admin`.
 - [ ] Confirmar/publicar no GTM o evento especifico `conta_pj_lead_click` para separar Conta PJ de outros produtos.
+
+---
+
+## Atualizacao 2026-05-13 - Demografia GA4
+
+- [x] Adicionar fallback de 90/365 dias para genero e faixa etaria no painel.
+- [x] Impedir que falha/ocultacao de dados demograficos derrube o restante das metricas.
+- [ ] Validar em producao se o GA4 retorna dados apos o fallback.
+- [ ] Conferir no GA4 se dados demograficos/Google Signals estao ativados.
