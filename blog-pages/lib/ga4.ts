@@ -5,6 +5,7 @@ const GA_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GA_API_BASE = "https://analyticsdata.googleapis.com/v1beta";
 
 export type GaOverviewMetric = {
+  pjLeadClicks: number;
   totalUsers: number;
   activeUsers: number;
   sessions: number;
@@ -449,6 +450,7 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
 
   const [
     summaryReport,
+    pjLeadClicksReport,
     trendReport,
     topPagesReport,
     topCountriesReport,
@@ -465,6 +467,18 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
         { name: "screenPageViews" },
         { name: "averageSessionDuration" },
       ],
+    }),
+    runReport(accessToken, propertyId, {
+      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+      metrics: [{ name: "eventCount" }],
+      dimensionFilter: {
+        filter: {
+          fieldName: "eventName",
+          inListFilter: {
+            values: ["conta_pj_lead_click", "lead_modal_open"],
+          },
+        },
+      },
     }),
     runReport(accessToken, propertyId, {
       dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
@@ -519,7 +533,9 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
   ]);
 
   const summaryRow = summaryReport.rows?.[0];
+  const pjLeadClicksRow = pjLeadClicksReport.rows?.[0];
   const summary: GaOverviewMetric = {
+    pjLeadClicks: toNumber(pjLeadClicksRow?.metricValues?.[0]?.value),
     totalUsers: toNumber(summaryRow?.metricValues?.[0]?.value),
     activeUsers: toNumber(summaryRow?.metricValues?.[1]?.value),
     sessions: toNumber(summaryRow?.metricValues?.[2]?.value),

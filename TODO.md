@@ -179,3 +179,12 @@
 - [ ] Configurar no GTM a tag Google Ads com o Conversion ID oficial.
 - [ ] Configurar no GTM o Meta Pixel com o Pixel ID oficial.
 - [ ] Publicar o container no GTM e validar em producao no Tag Assistant / Meta Pixel Helper.
+
+---
+
+## Atualizacao 2026-05-13 - Leads Conta PJ no admin
+
+- [x] Adicionar card "Leads Gerados" no painel publicado do blog (`blog-pages/`).
+- [x] Consultar GA4 por eventos de lead dentro do intervalo selecionado no painel.
+- [ ] Validar em producao se o card carrega em `https://blog.mbfinance.com.br/admin`.
+- [ ] Confirmar/publicar no GTM o evento especifico `conta_pj_lead_click` para separar Conta PJ de outros produtos.

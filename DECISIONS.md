@@ -649,3 +649,24 @@ Manter apenas o Google Tag Manager `GTM-MDST4NTK` como codigo de marketing carre
 - Mudancas de marketing passam a depender da publicacao do container no GTM.
 - A CSP deve continuar permitindo os dominios das tags que o GTM dispara.
 - O banner LGPD passa a enviar o status de consentimento para `dataLayer`, para uso nas regras do GTM.
+
+---
+
+## ADR-029: Leads de Conta PJ aparecem no painel do blog via GA4
+
+**Data:** 2026-05-13
+**Status:** Implementado
+
+### Contexto
+
+O dono do projeto pediu que o painel administrativo exibisse a metrica de leads gerados por pessoas que clicaram para abrir a Conta PJ no site. O projeto Vercel correto do blog usa `blog-pages/` como Root Directory.
+
+### Decisao
+
+Adicionar o card "Leads Gerados" no painel do blog e consultar o GA4 por `eventCount` filtrando `conta_pj_lead_click` e `lead_modal_open`, usando o mesmo site e intervalo selecionados no painel.
+
+### Alternativas Consideradas
+
+- **Contar somente `generate_lead`:** mede envio de formulario, mas nao o clique para abrir a Conta PJ.
+- **Contar somente `lead_modal_open`:** funciona com o evento existente, mas pode misturar outros produtos.
+- **Aceitar `conta_pj_lead_click` e `lead_modal_open` (escolhida):** preserva compatibilidade atual e permite separar Conta PJ quando o GTM/site enviar o evento especifico.

@@ -465,3 +465,18 @@ Validacao: `npm run build` na raiz e em `blog-pages/` executaram com sucesso; pe
 Onde o trabalho parou: mudanca pronta para deploy e configuracao das tags dentro do Google Tag Manager.
 
 Proximo passo recomendado: criar/publicar no GTM as tags GA4, Google Ads e Meta Pixel, usando os eventos de `dataLayer` ja enviados pelo site.
+
+---
+
+## Atualizacao de sessao - 2026-05-13 - Leads Conta PJ no blog admin
+
+- Confirmado que o projeto Vercel `blog-mbfinace` usa `blog-pages/` como Root Directory.
+- Adicionada a metrica "Leads Gerados" no painel administrativo publicado em `blog-pages/public/pages/blog-admin.html`.
+- `blog-pages/lib/ga4.ts` passou a consultar `eventCount` para os eventos `conta_pj_lead_click` e `lead_modal_open`, respeitando o site e o intervalo selecionados no painel.
+- `blog-pages/public/assets/js/admin/admin-analytics.js` agora preenche o novo card e inclui o indicador em "Indicadores de trafego".
+
+Estado atual: metrica pronta para deploy no projeto correto do blog (`blog-mbfinace`).
+
+Validacao: `npm run build` em `blog-pages/` executado com sucesso.
+
+Proximo passo recomendado: apos deploy, validar o card em `https://blog.mbfinance.com.br/admin` e confirmar no GTM/GA4 se o evento especifico `conta_pj_lead_click` esta publicado.

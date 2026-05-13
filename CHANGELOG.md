@@ -4,6 +4,11 @@
 
 ---
 
+## 2026-05-13 - Leads Conta PJ no admin
+
+- Adicionada a metrica "Leads Gerados" ao painel administrativo do blog publicado em `blog-pages/`.
+- A API de analytics do blog passou a contar eventos GA4 de abertura/clique de lead para Conta PJ.
+
 ## 2026-04-27 - Meta Pixel
 
 ### Adicionado
