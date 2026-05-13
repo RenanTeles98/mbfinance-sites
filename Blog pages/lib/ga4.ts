@@ -332,10 +332,10 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
       }),
       runReport(accessToken, propertyId, {
         dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
-        dimensions: [{ name: "customEvent:product" }],
+        dimensions: [{ name: "eventName" }],
         metrics: [{ name: "eventCount" }],
         dimensionFilter: {
-          filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "cta_click" } },
+          filter: { fieldName: "eventName", stringFilter: { matchType: "BEGINS_WITH", value: "product_click_" } },
         },
         orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
         limit: "10",
@@ -361,17 +361,30 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
         })) ?? [])
       : [];
 
+  const PRODUCT_NAMES: Record<string, string> = {
+    "product_click_conta_corrente": "Conta Corrente Empresarial",
+    "product_click_maquina_cartao": "Máquina de Cartão",
+    "product_click_seguros": "Seguros e Consórcios",
+    "product_click_credito_rapido": "Crédito Rápido",
+    "product_click_tributarias": "Soluções Tributárias",
+    "product_click_personalizadas": "Soluções Personalizadas",
+    "product_click_telemedicina": "Telemedicina",
+  };
+
   const productClicks: GaProductClick[] =
     productClicksResult.status === "fulfilled"
       ? (productClicksResult.value.rows
           ?.filter((row) => {
-            const val = cleanDimensionValue(row.dimensionValues?.[0]?.value, "");
-            return val && val !== "Nao informado";
+            const val = (row.dimensionValues?.[0]?.value || "").trim();
+            return val && val.startsWith("product_click_");
           })
-          .map((row) => ({
-            product: cleanDimensionValue(row.dimensionValues?.[0]?.value, "Produto nao identificado"),
-            clicks: toNumber(row.metricValues?.[0]?.value),
-          })) ?? [])
+          .map((row) => {
+            const eventName = row.dimensionValues?.[0]?.value || "";
+            return {
+              product: PRODUCT_NAMES[eventName] || eventName.replace("product_click_", "").replace(/_/g, " "),
+              clicks: toNumber(row.metricValues?.[0]?.value),
+            };
+          }) ?? [])
       : [];
 
   const trend: GaTrendPoint[] =
