@@ -36,7 +36,7 @@ function loadPosts() {
         })
         .catch(() => {
             loadLocalPosts();
-            setSyncStatus('API indisponivel, usando rascunho local', 'warn');
+            setSyncStatus('API indisponível, usando rascunho local', 'warn');
         });
 }
 
@@ -75,7 +75,7 @@ function updateOfficialBlogUi() {
     const link = document.getElementById('official-blog-link');
     if (!link) return;
     link.href = `${base}/blog`;
-    link.textContent = 'Ver Blog Oficial';
+    link.textContent = 'Ver blog oficial';
 }
 
 function setSyncStatus(text, tone) {
@@ -136,7 +136,7 @@ async function syncOfficialBlog(showSuccess = true) {
         return true;
     } catch (error) {
         console.error(error);
-        setSyncStatus('Falha na publicacao automatica', 'warn');
+        setSyncStatus('Falha na publicação automática', 'warn');
         if (showSuccess) {
             alert('Não foi possível publicar automaticamente.\nVerifique a URL da API, o token e se o app Next.js está em execução.');
         }
@@ -149,7 +149,7 @@ function renderSidebar(triggerAnalytics = true) {
     const list = document.getElementById('post-list');
     if (!list) return;
     if (!posts.length) {
-        list.innerHTML = '<div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para começar.</div>';
+        list.innerHTML = '<div class="empty-list">Nenhuma publicação ainda.<br>Clique em "Nova publicação" para começar.</div>';
         if (typeof renderAnalytics === 'function' && triggerAnalytics) renderAnalytics();
         return;
     }
@@ -181,7 +181,7 @@ function renderSidebar(triggerAnalytics = true) {
                 '<span class="status-dot ' + statusClass + '"></span>' +
                 '<span class="status-text ' + statusClass + '">' + statusLabel + '</span>' +
             '</div>' +
-            (views > 0 ? '<div class="post-item-metrics"><svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> ' + views.toLocaleString('pt-BR') + ' views</div>' : '') +
+            (views > 0 ? '<div class="post-item-metrics"><svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> ' + views.toLocaleString('pt-BR') + ' visualizações</div>' : '') +
         '</div>';
     }).join('');
     
@@ -196,7 +196,7 @@ function getBannersConfig() {
 }
 function newPost() {
     currentId = null;
-    document.getElementById('form-title').textContent = 'Novo Post';
+    document.getElementById('form-title').textContent = 'Nova publicação';
     document.getElementById('btn-delete').style.display = 'none';
     clearForm();
     showForm();
@@ -207,7 +207,7 @@ function editPost(id) {
     const p = posts.find(x => x.id === id);
     if (!p) return;
     currentId = id;
-    document.getElementById('form-title').textContent = 'Editar Post';
+    document.getElementById('form-title').textContent = 'Editar publicação';
     document.getElementById('btn-delete').style.display = '';
     fillForm(p);
     showForm();
@@ -250,7 +250,7 @@ async function savePost() {
         } else {
             posts.unshift(post);
             currentId = post.id;
-            document.getElementById('form-title').textContent = 'Editar Post';
+            document.getElementById('form-title').textContent = 'Editar publicação';
             document.getElementById('btn-delete').style.display = '';
         }
         persistLocal();
@@ -260,10 +260,10 @@ async function savePost() {
         if (el) el.classList.add('active');
         const synced = await syncOfficialBlog(false);
         if (synced) {
-            showToast('Post salvo e publicado!');
+            showToast('Publicação salva e publicada!');
         } else {
-            showToast('Post salvo apenas neste navegador.');
-            alert('O post foi salvo localmente, mas nao foi publicado no blog oficial. Clique em "Publicar Oficial" para tentar novamente e ver o erro.');
+            showToast('Publicação salva apenas neste navegador.');
+            alert('A publicação foi salva localmente, mas não foi publicada no blog oficial. Clique em "Publicar no site" para tentar novamente e ver o erro.');
         }
     }
 
@@ -353,7 +353,7 @@ function fillForm(p) {
 function showToast(msg) {
     const t = document.getElementById('save-toast');
     if (!t) return;
-    t.textContent = '✓ ' + (msg || 'Post salvo!');
+    t.textContent = '✓ ' + (msg || 'Publicação salva!');
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2500);
 }
@@ -568,7 +568,7 @@ function updateSeoPreview() {
 /* ── EXPORT ── */
 async function exportBlog() {
     const pub = posts.filter(p => p.published !== false);
-    if (!pub.length) { alert('Nenhum post publicado para exportar.\nCrie posts e marque como "Publicado" antes de exportar.'); return; }
+    if (!pub.length) { alert('Nenhuma publicação publicada para exportar.\nCrie publicações e marque como "Publicado" antes de exportar.'); return; }
 
     let domain = localStorage.getItem('mb_site_domain') || '';
     if (!domain) {

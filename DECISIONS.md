@@ -725,3 +725,30 @@ Manter as dimensoes oficiais do GA4 e adicionar fallback automatico de periodo: 
 - **Criar dados estimados no proprio site:** descartado por ser impreciso e sensivel.
 - **Mostrar somente vazio:** tecnicamente correto, mas pouco acionavel para o usuario.
 - **Fallback de periodo maior (escolhida):** aumenta a chance de retorno sem inventar dados.
+
+---
+
+## ADR-031: Textos visiveis do admin ficam em pt-BR
+
+**Data:** 2026-05-13
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O painel administrativo do blog misturava portugues com termos em ingles e algumas mensagens sem acentuacao. Isso deixava a ferramenta menos clara para uso operacional.
+
+### Decisao
+
+Normalizar os textos visiveis do admin para portugues brasileiro, corrigindo acentos e trocando termos como "Preview", "Views", "Property", "Status", "Post" e "Newsletter" por equivalentes em pt-BR.
+
+### Alternativas Consideradas
+
+- **Criar camada de i18n completa:** mais robusta, mas desnecessaria para uma ferramenta interna de idioma unico.
+- **Trocar apenas o HTML:** deixaria mensagens dinamicas em JS ainda inconsistentes.
+- **Trocar HTML e strings dinamicas de JS (escolhida):** resolve a experiencia real do painel mantendo a mudanca pequena.
+
+### Consequencias
+
+- A interface fica mais consistente para usuarios em pt-BR.
+- Identificadores tecnicos, classes, IDs e nomes de eventos permanecem em ingles para preservar funcionamento e padrao do codigo.

@@ -532,3 +532,29 @@ Estado atual: o painel tenta maximizar a chance de trazer genero/faixa etaria; s
 Validacao: `npm run build` em `blog-pages/` executado com sucesso.
 
 Proximo passo recomendado: verificar no GA4 se "Dados fornecidos pelo Google"/Google Signals e coleta de dados demograficos estao ativados para a propriedade do site.
+
+---
+
+## Atualizacao de sessao - 2026-05-13 - Textos do painel administrativo em pt-BR
+
+- Revisados os textos visiveis da ferramenta administrativa do blog em `blog-pages/`.
+- Termos em ingles no painel foram substituidos por pt-BR: "Preview", "Views", "Property", "Status", "Post", "Newsletter" e rotulos de anuncios.
+- Corrigida acentuacao em mensagens de analytics, demografia, trafego, publicacao e interface de blog.
+- Mantidos nomes tecnicos de codigo, IDs, classes e eventos externos quando sao necessarios para funcionamento.
+
+Arquivos modificados nesta etapa:
+- `blog-pages/public/pages/blog-admin.html`
+- `blog-pages/public/assets/js/admin/admin-analytics.js`
+- `blog-pages/public/assets/js/admin/admin-blog.js`
+- `blog-pages/public/assets/js/admin/admin-ai.js`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-13-traducao-painel-admin.md`
+
+Estado atual: painel administrativo com textos principais normalizados em portugues brasileiro.
+
+Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
+
+Proximo passo recomendado: validar visualmente `https://blog.mbfinance.com.br/admin` apos publicacao para encontrar qualquer texto residual carregado por dados externos.

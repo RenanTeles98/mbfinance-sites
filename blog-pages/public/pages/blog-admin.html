@@ -386,20 +386,20 @@
     <div id="topbar">
         <div style="display:flex;align-items:center;gap:10px">
             <div class="topbar-logo"><span>mb</span><span>finance.</span></div>
-            <span class="topbar-badge">Blog Admin</span>
+            <span class="topbar-badge">Administração do blog</span>
         </div>
         <div class="topbar-actions">
             <span id="sync-status" class="sync-indicator offline">Somente local</span>
             <button class="btn-ghost" onclick="configureOfficialBlog()">Configurar API</button>
             <button class="btn-export" onclick="syncOfficialBlog()">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 16V4m0 12l-4-4m4 4l4-4M4 20h16"/></svg>
-                Publicar Oficial
+                Publicar no site
             </button>
             <button class="btn-export" onclick="exportBlog()">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                Exportar Blog
+                Exportar blog
             </button>
-            <a href="https://blog.mbfinance.com.br/blog" target="_blank" class="btn-ghost" id="official-blog-link">Ver Blog</a>
+            <a href="https://blog.mbfinance.com.br/blog" target="_blank" class="btn-ghost" id="official-blog-link">Ver blog</a>
             <button class="btn-ghost" onclick="logout()">Sair</button>
         </div>
     </div>
@@ -416,7 +416,7 @@
         </button>
         <button class="tab-btn" id="tabBtn-newsletter" onclick="switchTab('newsletter')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            Newsletter
+            E-mails
         </button>
         <button class="tab-btn" id="tabBtn-banners" onclick="switchTab('banners')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
@@ -438,14 +438,14 @@
             <!-- SIDEBAR -->
             <div id="sidebar">
                 <div class="sidebar-header">
-                    <div class="sidebar-label">Posts</div>
+                    <div class="sidebar-label">Publicações</div>
                     <button class="btn-new" onclick="newPost()">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                        Novo Post
+                        Nova publicação
                     </button>
                 </div>
                 <div class="post-list" id="post-list">
-                    <div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para começar.</div>
+                    <div class="empty-list">Nenhuma publicação ainda.<br>Clique em "Nova publicação" para começar.</div>
                 </div>
             </div>
 
@@ -455,13 +455,13 @@
                     <div class="welcome-icon">
                         <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     </div>
-                    <h2 class="welcome-h">Editor de Blog</h2>
-                    <p class="welcome-p">Selecione um post na lista ou clique em "Novo Post" para começar a criar conteúdo.</p>
+                    <h2 class="welcome-h">Editor do blog</h2>
+                    <p class="welcome-p">Selecione uma publicação na lista ou clique em "Nova publicação" para começar a criar conteúdo.</p>
                 </div>
 
             <div id="post-form" style="display:none">
                 <div class="form-header">
-                    <h2 id="form-title">Novo Post</h2>
+                    <h2 id="form-title">Nova publicação</h2>
                     <div class="form-actions">
                         <button class="btn-preview" onclick="previewPost()">Visualizar</button>
                         <button class="btn-delete" id="btn-delete" onclick="deleteCurrentPost()" style="display:none">Excluir</button>
@@ -503,7 +503,7 @@
                 <div class="field-group">
                     <label class="field-label">Imagem de capa</label>
                     <div class="img-tabs">
-                        <button class="img-tab active" id="tab-url" onclick="switchImgTab('url')">Link URL</button>
+                        <button class="img-tab active" id="tab-url" onclick="switchImgTab('url')">URL da imagem</button>
                         <button class="img-tab" id="tab-upload" onclick="switchImgTab('upload')">Arquivo do PC</button>
                     </div>
                     <div id="img-url-panel">
@@ -522,7 +522,7 @@
                         </div>
                         <input style="display:none" id="f-image-b64">
                     </div>
-                    <img id="img-preview" class="img-preview" alt="Preview">
+                    <img id="img-preview" class="img-preview" alt="Pré-visualização">
                 </div>
 
                 <div class="field-row">
@@ -533,7 +533,7 @@
                     <div style="display:flex;flex-direction:column;justify-content:flex-end">
                         <div class="toggle-row">
                             <div>
-                                <div class="toggle-label">Post em destaque</div>
+                                <div class="toggle-label">Publicação em destaque</div>
                                 <div class="toggle-desc">Exibe no topo do blog</div>
                             </div>
                             <label class="toggle"><input type="checkbox" id="f-featured"><span class="toggle-slider"></span></label>
@@ -545,7 +545,7 @@
                     <div class="toggle-row">
                         <div>
                             <div class="toggle-label">Publicado</div>
-                            <div class="toggle-desc">Posts publicados aparecem no blog exportado</div>
+                            <div class="toggle-desc">Publicações publicadas aparecem no blog exportado</div>
                         </div>
                         <label class="toggle"><input type="checkbox" id="f-published" checked><span class="toggle-slider"></span></label>
                     </div>
@@ -553,7 +553,7 @@
 
                 <div class="field-group">
                     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                        <label class="field-label" style="margin-bottom:0;">Conteúdo do Artigo</label>
+                        <label class="field-label" style="margin-bottom:0;">Conteúdo do artigo</label>
                         <button type="button" class="magic-btn" style="padding: 6px 12px; font-size: 11px; border-radius: 8px;" onclick="writeWithAI()">
                             <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
                             Escrever com IA
@@ -617,7 +617,7 @@
 
                     <!-- Google preview -->
                     <div class="field-group">
-                        <div class="field-label" style="margin-bottom:8px">Preview no Google</div>
+                        <div class="field-label" style="margin-bottom:8px">Prévia no Google</div>
                         <div class="seo-preview">
                             <div class="seo-preview-site" id="seo-prev-site">mbfinance.com.br › blog › artigo-slug</div>
                             <div class="seo-preview-title" id="seo-prev-title">Título SEO aparecerá aqui</div>
@@ -627,8 +627,8 @@
                 </div>
 
                 <div style="display:flex;justify-content:flex-end;gap:8px;padding-top:4px">
-                    <button class="btn-preview" onclick="previewPost()">Visualizar Artigo</button>
-                    <button class="btn-save" onclick="savePost()" style="padding:11px 28px;font-size:14px">Salvar Post</button>
+                    <button class="btn-preview" onclick="previewPost()">Visualizar artigo</button>
+                    <button class="btn-save" onclick="savePost()" style="padding:11px 28px;font-size:14px">Salvar publicação</button>
             </div>
         </div>
     </div>
@@ -654,15 +654,15 @@
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
                     </div>
                     <div>
-                        <div class="slot-info-title">Slot 1 — Medium Rectangle</div>
+                        <div class="slot-info-title">Espaço 1 — Retângulo médio</div>
                         <div class="slot-info-sub">Posição: topo da lateral · Mais clicado do mercado</div>
                     </div>
                 </div>
-                <span class="slot-size-pill">300 Á— 250 px</span>
-                <p class="slot-tip">Cole aqui o código do seu banner (Google AdSense, Taboola, etc.). Deixe em branco se não quiser usar este slot.</p>
+                <span class="slot-size-pill">300 x 250 px</span>
+                <p class="slot-tip">Cole aqui o código do seu banner (Google AdSense, Taboola, etc.). Deixe em branco se não quiser usar este espaço.</p>
                 <textarea id="banner-slot1" class="slot-textarea" placeholder="<!-- Cole aqui o código do banner 300x250 -->&#10;&#10;Ex: código do Google AdSense, script de rede de anúncios, etc."></textarea>
                 <div class="slot-preview">
-                    <div class="slot-preview-box" style="width:150px;height:75px;">300 Á— 250</div>
+                    <div class="slot-preview-box" style="width:150px;height:75px;">300 x 250</div>
                 </div>
             </div>
 
@@ -673,20 +673,20 @@
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
                     </div>
                     <div>
-                        <div class="slot-info-title">Slot 2 — Half Page / Skyscraper</div>
-                        <div class="slot-info-sub">Posição: abaixo do slot 1 · Alta visibilidade</div>
+                        <div class="slot-info-title">Espaço 2 — Meia página / arranha-céu</div>
+                        <div class="slot-info-sub">Posição: abaixo do espaço 1 · Alta visibilidade</div>
                     </div>
                 </div>
-                <span class="slot-size-pill">300 Á— 600 px</span>
+                <span class="slot-size-pill">300 x 600 px</span>
                 <p class="slot-tip">Banner grande que acompanha a rolagem da página. Excelente para CPM alto.</p>
                 <textarea id="banner-slot2" class="slot-textarea" placeholder="<!-- Cole aqui o código do banner 300x600 -->&#10;&#10;Ex: código do Google AdSense, script de rede de anúncios, etc."></textarea>
                 <div class="slot-preview">
-                    <div class="slot-preview-box" style="width:100px;height:200px;">300 Á— 600</div>
+                    <div class="slot-preview-box" style="width:100px;height:200px;">300 x 600</div>
                 </div>
             </div>
 
             <div style="display:flex;align-items:center;padding-top:8px;">
-                <button class="btn-save-banners" onclick="saveBanners()">Salvar Banners</button>
+                <button class="btn-save-banners" onclick="saveBanners()">Salvar anúncios</button>
                 <span id="banners-status" class="banners-status">
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     Salvo! Exporte o blog para aplicar.
@@ -749,7 +749,7 @@
                 <div style="display:flex;gap:4px;background:#f1f5f9;border-radius:12px;padding:4px;width:fit-content;margin-bottom:24px;">
                     <button id="nl-tab-send-btn" onclick="nlSwitchSubTab('send')"
                         style="padding:8px 20px;font-size:13px;font-weight:700;border:none;border-radius:9px;cursor:pointer;background:#fff;color:#003956;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
-                        Novo Disparo
+                        Novo disparo
                     </button>
                     <button id="nl-tab-hist-btn" onclick="nlSwitchSubTab('history')"
                         style="padding:8px 20px;font-size:13px;font-weight:700;border:none;border-radius:9px;cursor:pointer;background:transparent;color:#64748b;">
@@ -776,7 +776,7 @@
                     </div>
                     <div style="display:flex;align-items:center;gap:10px;background:#eff9ff;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
                         <span id="nl-recipient-count" style="font-size:22px;font-weight:900;color:#0099dd;">0</span>
-                        <span style="font-size:13px;color:#475569;">inscrito(s) receberão este email</span>
+                        <span style="font-size:13px;color:#475569;">inscrito(s) receberão este e-mail</span>
                     </div>
                     <div style="margin-bottom:16px;">
                         <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Assunto *</label>
@@ -789,7 +789,7 @@
                             style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
                     </div>
                     <div style="margin-bottom:20px;">
-                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;">Conteúdo do email *</label>
+                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;">Conteúdo do e-mail *</label>
                         <div id="nl-blocks-list" style="margin-bottom:10px;"></div>
                         <!-- Botões adicionar bloco -->
                         <div style="padding:10px 12px;border:1.5px dashed #e2e8f0;border-radius:12px;background:#f8fafc;">
@@ -823,7 +823,7 @@
                 <!-- Configurações -->
                 <div id="nl-panel-config" style="display:none;">
                     <div style="max-width:560px;">
-                        <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#0099dd;margin:0 0 20px;">Remetente dos emails</p>
+                        <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#0099dd;margin:0 0 20px;">Remetente dos e-mails</p>
 
                         <div style="margin-bottom:16px;">
                             <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Nome do remetente</label>
@@ -833,7 +833,7 @@
                         </div>
 
                         <div style="margin-bottom:16px;">
-                            <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Email do remetente</label>
+                            <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">E-mail do remetente</label>
                             <input id="nl-cfg-from-email" type="email" placeholder="newsletter@mbfinance.com.br"
                                 style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
                             <p style="margin:5px 0 0;font-size:12px;color:#94a3b8;">O domínio precisa estar verificado no Resend. Configure também a variável <strong>RESEND_FROM_EMAIL</strong> na Vercel.</p>
@@ -843,7 +843,7 @@
                             <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Responder para (Reply-To) <span style="font-weight:400;color:#94a3b8;">— opcional</span></label>
                             <input id="nl-cfg-reply-to" type="email" placeholder="contato@mbfinance.com.br"
                                 style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
-                            <p style="margin:5px 0 0;font-size:12px;color:#94a3b8;">Se o destinatário clicar em "Responder", o email vai para este endereço.</p>
+                            <p style="margin:5px 0 0;font-size:12px;color:#94a3b8;">Se o destinatário clicar em "Responder", o e-mail vai para este endereço.</p>
                         </div>
 
                         <div id="nl-cfg-save-msg" style="display:none;margin-bottom:12px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;">
@@ -861,7 +861,7 @@
                 <div id="nl-panel-stats" style="display:none;">
                     <div style="background:#eff9ff;border:1px solid #bae6fd;border-radius:12px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:#0369a1;line-height:1.6;">
                         <strong>Como ativar o rastreamento:</strong><br>
-                        No painel do Resend → <strong>Webhooks</strong> → <strong>Add Webhook</strong><br>
+                        No painel do Resend, acesse <strong>Webhooks</strong> e clique em <strong>Adicionar webhook</strong>.<br>
                         URL: <code style="background:#fff;padding:2px 6px;border-radius:4px;font-size:12px;">https://blog.mbfinance.com.br/api/newsletter/webhook</code><br>
                         Eventos: <strong>email.delivered · email.opened · email.clicked · email.bounced</strong>
                     </div>
@@ -872,9 +872,9 @@
             </div>
         </div>
 
-        <!-- Preview ao vivo — coluna direita -->
+        <!-- Prévia ao vivo — coluna direita -->
         <div style="position:sticky;top:16px;">
-            <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#0099dd;margin:0 0 10px;">Preview do email</p>
+            <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#0099dd;margin:0 0 10px;">Prévia do e-mail</p>
             <div style="border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden;background:#f1f5f9;">
                 <iframe id="nl-preview-frame" scrolling="yes" style="width:100%;height:calc(100vh - 110px);min-height:500px;border:none;display:block;"></iframe>
             </div>
@@ -915,17 +915,17 @@
 
             <div class="analytics-grid">
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Leads Gerados</div>
+                    <div class="analytics-card-label">Leads gerados</div>
                     <div class="analytics-card-value" id="ga-pj-leads">--</div>
                     <div class="analytics-card-note">Cliques para abrir a Conta PJ no site.</div>
                 </div>
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Usuários Totais</div>
+                    <div class="analytics-card-label">Usuários totais</div>
                     <div class="analytics-card-value" id="ga-total-users">--</div>
                     <div class="analytics-card-note">Usuários totais registrados no período consultado.</div>
                 </div>
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Usuários Ativos</div>
+                    <div class="analytics-card-label">Usuários ativos</div>
                     <div class="analytics-card-value" id="ga-active-users">--</div>
                     <div class="analytics-card-note">Pessoas que navegaram ativamente pelo site.</div>
                 </div>
@@ -1013,7 +1013,7 @@
             </div>
 
             <div class="analytics-panel">
-                <h3>Posts mais recentes</h3>
+                <h3>Publicações mais recentes</h3>
                 <div class="analytics-panel-sub">Últimos conteúdos salvos no painel, com categoria, data e status.</div>
                 <div id="analytics-recent-posts"></div>
             </div>
@@ -1029,7 +1029,7 @@
                     <div id="calendar-month-label" class="calendar-month-label">Janeiro de 2024</div>
                     <button class="calendar-btn" onclick="nextMonth()"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
                 </div>
-                <button class="btn-new" style="width: auto; padding: 10px 20px;" onclick="newPost()">Agendar Novo Post</button>
+                <button class="btn-new" style="width: auto; padding: 10px 20px;" onclick="newPost()">Agendar nova publicação</button>
             </div>
             <div id="calendar-grid" class="calendar-grid">
                 <!-- Populado dinamicamente -->
@@ -1046,7 +1046,7 @@
                 <div style="margin-top: 32px; display: flex; justify-content: center; gap: 12px;">
                     <button class="magic-btn" onclick="generateIdeas()">
                         <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
-                        Gerar novas ideias de posts
+                        Gerar novas ideias de publicações
                     </button>
                 </div>
             </div>
@@ -1065,7 +1065,7 @@
                     <div class="gen-meta">
                         <span>Pilar: Gestão</span>
                         <span>Tempo: 6 min</span>
-                        <span style="color: #0099dd;">→ Criar Rascunho IA</span>
+                        <span style="color: #0099dd;">→ Criar rascunho com IA</span>
                     </div>
                 </div>
 
@@ -1076,7 +1076,7 @@
                     <div class="gen-meta">
                         <span>Pilar: Crédito</span>
                         <span>Tempo: 8 min</span>
-                        <span style="color: #0099dd;">→ Criar Rascunho IA</span>
+                        <span style="color: #0099dd;">→ Criar rascunho com IA</span>
                     </div>
                 </div>
             </div>
@@ -1102,7 +1102,7 @@
     </div>
 </div>
 
-<div id="save-toast">✓ Post salvo!</div>
+<div id="save-toast">✓ Publicação salva!</div>
 
 <!-- PREVIEW MODAL -->
 <div id="preview-modal" onclick="if(event.target===this)closePreview()">

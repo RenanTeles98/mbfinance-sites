@@ -45,7 +45,7 @@ async function generateIdeas() {
             <div class="gen-meta">
                 <span>Pilar: ${t.pilar}</span>
                 <span>Tempo: ${t.time}</span>
-                <span style="color: #0099dd;">→ Criar Rascunho IA</span>
+                <span style="color: #0099dd;">→ Criar rascunho com IA</span>
             </div>
         </div>
     `).join('');

@@ -199,3 +199,12 @@
 - [x] Impedir que falha/ocultacao de dados demograficos derrube o restante das metricas.
 - [ ] Validar em producao se o GA4 retorna dados apos o fallback.
 - [ ] Conferir no GA4 se dados demograficos/Google Signals estao ativados.
+
+---
+
+## Atualizacao 2026-05-13 - Textos do painel administrativo
+
+- [x] Traduzir termos visiveis em ingles no admin do blog para pt-BR.
+- [x] Corrigir acentuacao de mensagens de analytics, blog, anuncios e e-mails.
+- [x] Validar build do projeto `blog-pages/` apos a troca de textos.
+- [ ] Revisar visualmente o admin publicado para localizar textos residuais vindos de dados externos ou cache do navegador.

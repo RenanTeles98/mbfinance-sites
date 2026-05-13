@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-05-13 - Textos do painel administrativo
+
+- Traduzidos termos visiveis do admin do blog para pt-BR.
+- Corrigida acentuacao de mensagens em metricas, blog, anuncios e e-mails.
+- Normalizados rotulos como "Preview", "Views", "Property", "Status", "Post" e "Newsletter".
+
 ## 2026-05-13 - Leads Conta PJ no admin
 
 - Adicionada a metrica "Leads Gerados" ao painel administrativo do blog publicado em `blog-pages/`.

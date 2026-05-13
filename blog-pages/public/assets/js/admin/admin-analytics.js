@@ -115,12 +115,12 @@ function renderAnalyticsSiteSelector(sites, selectedKey) {
 
 function resetTrafficPanels(message) {
     document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">' + esc(message) + '</div>';
-    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de trafego por enquanto.</div>';
-    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Configure as variaveis do GA4 no Vercel e confirme o acesso da service account na propriedade.</div>';
-    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Sem dados geograficos disponiveis ainda.</div>';
-    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Sem dados regionais disponiveis ainda.</div>';
-    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de genero disponiveis ainda.</div>';
-    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de idade disponiveis ainda.</div>';
+    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de tráfego por enquanto.</div>';
+    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Configure as variáveis do GA4 no Vercel e confirme o acesso da conta de serviço na propriedade.</div>';
+    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Sem dados geográficos disponíveis ainda.</div>';
+    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Sem dados regionais disponíveis ainda.</div>';
+    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de gênero disponíveis ainda.</div>';
+    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de idade disponíveis ainda.</div>';
 }
 
 async function renderTrafficAnalytics() {
@@ -134,12 +134,12 @@ async function renderTrafficAnalytics() {
     document.getElementById('ga-sessions').textContent = '--';
     document.getElementById('ga-pageviews').textContent = '--';
     document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Carregando dados do Google Analytics...</div>';
-    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Carregando paginas mais acessadas...</div>';
-    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Carregando indicadores de trafego...</div>';
-    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Carregando paises com mais acessos...</div>';
-    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Carregando estados e regioes...</div>';
-    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Carregando genero...</div>';
-    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Carregando faixa etaria...</div>';
+    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Carregando páginas mais acessadas...</div>';
+    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Carregando indicadores de tráfego...</div>';
+    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Carregando países com mais acessos...</div>';
+    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Carregando estados e regiões...</div>';
+    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Carregando gênero...</div>';
+    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Carregando faixa etária...</div>';
 
     try {
         const selectedSite = getSelectedAnalyticsSite();
@@ -151,8 +151,8 @@ async function renderTrafficAnalytics() {
 
         if (!response.ok || !data || !data.configured || !data.summary) {
             const siteName = data && data.siteName ? data.siteName : 'este site';
-            const message = (data && data.error) ? data.error : 'GA4 nao configurado ou sem acesso liberado para ' + siteName + '.';
-            document.getElementById('analytics-last-update').textContent = 'GA4 indisponivel';
+            const message = (data && data.error) ? data.error : 'GA4 não configurado ou sem acesso liberado para ' + siteName + '.';
+            document.getElementById('analytics-last-update').textContent = 'GA4 indisponível';
             resetTrafficPanels(message);
             return;
         }
@@ -183,8 +183,8 @@ async function renderTrafficAnalytics() {
                 '<div class="analytics-highlight-item">'
                 + '<div class="analytics-highlight-label">' + esc(point.date) + '</div>'
                 + '<div class="analytics-highlight-value">'
-                + formatInteger(point.screenPageViews) + ' views<br>'
-                + formatInteger(point.sessions) + ' sessoes · '
+                + formatInteger(point.screenPageViews) + ' visualizações<br>'
+                + formatInteger(point.sessions) + ' sessões · '
                 + formatInteger(point.activeUsers) + ' ativos'
                 + '</div></div>'
             ).join('');
@@ -192,11 +192,11 @@ async function renderTrafficAnalytics() {
         }
 
         if (!topPages.length) {
-            document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Nenhuma pagina acessada registrada ainda.</div>';
+            document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Nenhuma página acessada registrada ainda.</div>';
         } else {
-            document.getElementById('ga-top-pages').innerHTML = '<table class="analytics-table"><thead><tr><th>Pagina</th><th>Views</th><th>Usuarios</th><th>Sessoes</th></tr></thead><tbody>'
+            document.getElementById('ga-top-pages').innerHTML = '<table class="analytics-table"><thead><tr><th>Página</th><th>Visualizações</th><th>Usuários</th><th>Sessões</th></tr></thead><tbody>'
                 + topPages.map(page => '<tr>'
-                    + '<td><div class="analytics-post-title">' + esc(page.pageTitle || 'Sem titulo') + '</div><div class="analytics-post-meta">' + esc(page.pagePath || '/') + '</div></td>'
+                    + '<td><div class="analytics-post-title">' + esc(page.pageTitle || 'Sem título') + '</div><div class="analytics-post-meta">' + esc(page.pagePath || '/') + '</div></td>'
                     + '<td>' + formatInteger(page.screenPageViews) + '</td>'
                     + '<td>' + formatInteger(page.activeUsers) + '</td>'
                     + '<td>' + formatInteger(page.sessions) + '</td>'
@@ -204,19 +204,19 @@ async function renderTrafficAnalytics() {
                 + '</tbody></table>';
         }
 
-        const engagementPct = summary.engagementRate ? (summary.engagementRate * 100).toFixed(1) + '%' : 'N/A';
+        const engagementPct = summary.engagementRate ? (summary.engagementRate * 100).toFixed(1) + '%' : 'Não disponível';
         const whatsappClicks = typeof data.whatsappClicks === 'number' ? data.whatsappClicks : null;
         const generateLeadTotal = typeof data.generateLeadTotal === 'number' ? data.generateLeadTotal : null;
 
         document.getElementById('ga-highlights').innerHTML = ''
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads gerados</div><div class="analytics-highlight-value">' + formatInteger(summary.pjLeadClicks) + ' cliques para Conta PJ</div></div>'
             + (whatsappClicks !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Cliques no WhatsApp</div><div class="analytics-highlight-value">' + formatInteger(whatsappClicks) + ' eventos</div></div>' : '')
-            + (generateLeadTotal !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads convertidos</div><div class="analytics-highlight-value">' + formatInteger(generateLeadTotal) + ' formularios enviados</div></div>' : '')
+            + (generateLeadTotal !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads convertidos</div><div class="analytics-highlight-value">' + formatInteger(generateLeadTotal) + ' formulários enviados</div></div>' : '')
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de engajamento</div><div class="analytics-highlight-value">' + engagementPct + '</div></div>'
-            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Duracao media da sessao</div><div class="analytics-highlight-value">' + formatDuration(summary.averageSessionDuration) + '</div></div>'
-            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Views por sessao</div><div class="analytics-highlight-value">' + esc(avgViewsPerSession) + '</div></div>'
-            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Property GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'N/A') + '</div></div>'
-            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Status</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Duração média da sessão</div><div class="analytics-highlight-value">' + formatDuration(summary.averageSessionDuration) + '</div></div>'
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Visualizações por sessão</div><div class="analytics-highlight-value">' + esc(avgViewsPerSession) + '</div></div>'
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Propriedade GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'Não disponível') + '</div></div>'
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Situação</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
 
         renderTrafficSources('ga-traffic-sources', Array.isArray(data.trafficSources) ? data.trafficSources : []);
         renderProductClicks('ga-product-clicks', Array.isArray(data.productClicks) ? data.productClicks : []);
@@ -253,7 +253,7 @@ function renderEditorialAnalytics() {
     const topCategory = categories[0] || ['Sem categoria', 0];
 
     if (!total) {
-        root.innerHTML = '<div class="analytics-empty">Nenhum post cadastrado ainda.</div>';
+        root.innerHTML = '<div class="analytics-empty">Nenhuma publicação cadastrada ainda.</div>';
     } else {
         const max = Math.max(...categories.map(([, count]) => count));
         root.innerHTML = '<div class="category-list">' + categories.map(([name, count]) => {
@@ -261,25 +261,25 @@ function renderEditorialAnalytics() {
             return '<div class="category-row">'
                 + '<div class="category-name">' + esc(name) + '</div>'
                 + '<div class="category-bar"><div class="category-fill" style="width:' + width + '%"></div></div>'
-                + '<div class="category-count">' + count + ' post' + (count > 1 ? 's' : '') + '</div>'
+                + '<div class="category-count">' + count + ' publicação' + (count > 1 ? 's' : '') + '</div>'
                 + '</div>';
         }).join('') + '</div>';
     }
 
     document.getElementById('analytics-highlights').innerHTML = ''
-        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Categoria lider</div><div class="analytics-highlight-value">' + esc(topCategory[0]) + '<br>' + topCategory[1] + ' post' + (topCategory[1] === 1 ? '' : 's') + '</div></div>'
-        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Tempo medio de leitura</div><div class="analytics-highlight-value">' + (avgRead ? avgRead + ' min' : 'N/A') + '</div></div>'
-        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de publicacao</div><div class="analytics-highlight-value">' + (total ? Math.round((published / total) * 100) : 0) + '%</div></div>'
-        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Ultima atualizacao</div><div class="analytics-highlight-value">' + (latestDate ? formatAnalyticsDate(latestDate) : 'Sem data') + '</div></div>';
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Categoria líder</div><div class="analytics-highlight-value">' + esc(topCategory[0]) + '<br>' + topCategory[1] + ' publicação' + (topCategory[1] === 1 ? '' : 's') + '</div></div>'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Tempo médio de leitura</div><div class="analytics-highlight-value">' + (avgRead ? avgRead + ' min' : 'Não disponível') + '</div></div>'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de publicação</div><div class="analytics-highlight-value">' + (total ? Math.round((published / total) * 100) : 0) + '%</div></div>'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Última atualização</div><div class="analytics-highlight-value">' + (latestDate ? formatAnalyticsDate(latestDate) : 'Sem data') + '</div></div>';
 
     const recentEl = document.getElementById('analytics-recent-posts');
     if (!total) {
-        recentEl.innerHTML = '<div class="analytics-empty">Nenhum post para exibir.</div>';
+        recentEl.innerHTML = '<div class="analytics-empty">Nenhuma publicação para exibir.</div>';
         return;
     }
 
     const recentPosts = [...posts].sort((a, b) => String(b.date || '').localeCompare(String(a.date || ''))).slice(0, 8);
-    recentEl.innerHTML = '<table class="analytics-table"><thead><tr><th>Post</th><th>Categoria</th><th>Data</th><th>Status</th></tr></thead><tbody>'
+    recentEl.innerHTML = '<table class="analytics-table"><thead><tr><th>Publicação</th><th>Categoria</th><th>Data</th><th>Situação</th></tr></thead><tbody>'
         + recentPosts.map(post => '<tr>'
             + '<td><div class="analytics-post-title">' + esc(post.title || 'Sem título') + '</div><div class="analytics-post-meta">' + esc(post.readTime || 'Tempo não informado') + '</div></td>'
             + '<td>' + esc(post.categoryLabel || CAT_LABELS[post.category] || post.category || 'Sem categoria') + '</td>'
@@ -393,15 +393,15 @@ function formatDemographicLabel(label) {
     const value = String(label || '').toLowerCase();
     if (value === 'male') return 'Masculino';
     if (value === 'female') return 'Feminino';
-    if (value === 'unknown' || value === 'not set' || value === '(not set)') return 'Nao identificado';
-    return label || 'Nao informado';
+    if (value === 'unknown' || value === 'not set' || value === '(not set)') return 'Não identificado';
+    return label || 'Não informado';
 }
 
 function renderDemographicList(targetId, rows, emptyMessage) {
     const target = document.getElementById(targetId);
     if (!target) return;
     if (!Array.isArray(rows) || !rows.length) {
-        target.innerHTML = '<div class="analytics-empty">' + esc('O GA4 ainda nao liberou dados demograficos para esta propriedade. Ative os dados fornecidos pelo Google/Google Signals no GA4 e aguarde volume suficiente de usuarios.') + '</div>';
+        target.innerHTML = '<div class="analytics-empty">' + esc('O GA4 ainda não liberou dados demográficos para esta propriedade. Ative os dados fornecidos pelo Google/Google Signals no GA4 e aguarde volume suficiente de usuários.') + '</div>';
         return;
     }
 
@@ -409,7 +409,7 @@ function renderDemographicList(targetId, rows, emptyMessage) {
     target.innerHTML = '<div class="analytics-highlight-list">'
         + normalizedRows.map(row => '<div class="analytics-highlight-item">'
             + '<div class="analytics-highlight-label">' + esc(row.label || 'Não informado') + '</div>'
-            + '<div class="analytics-highlight-value">' + formatInteger(row.activeUsers) + ' usuarios</div>'
+            + '<div class="analytics-highlight-value">' + formatInteger(row.activeUsers) + ' usuários</div>'
             + '</div>').join('')
         + '</div>';
 }
@@ -428,7 +428,7 @@ function renderTrafficSources(targetId, rows) {
             return '<div class="category-row">'
                 + '<div class="category-name">' + esc(row.channel || 'Desconhecido') + '</div>'
                 + '<div class="category-bar"><div class="category-fill" style="width:' + width + '%"></div></div>'
-                + '<div class="category-count">' + formatInteger(row.activeUsers) + ' usuarios</div>'
+                + '<div class="category-count">' + formatInteger(row.activeUsers) + ' usuários</div>'
                 + '</div>';
         }).join('')
         + '</div>';
