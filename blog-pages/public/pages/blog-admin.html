@@ -1125,11 +1125,11 @@
                 <div class="camp-form-grid">
                     <div class="camp-form-group full">
                         <label class="camp-label" for="camp-url">URL do site <span>(página de destino)</span></label>
-                        <input id="camp-url" class="camp-input" type="url" placeholder="https://mbfinance.com.br" oninput="buildUtmUrl()">
+                        <input id="camp-url" class="camp-input" type="text" placeholder="https://mbfinance.com.br" oninput="buildUtmUrl()" onchange="buildUtmUrl()">
                     </div>
                     <div class="camp-form-group">
                         <label class="camp-label" for="camp-name">Nome da campanha</label>
-                        <input id="camp-name" class="camp-input" type="text" placeholder="Ex: Black Friday, Parceria Banco X" oninput="buildUtmUrl()">
+                        <input id="camp-name" class="camp-input" type="text" placeholder="Ex: Black Friday, Parceria Banco X" oninput="buildUtmUrl()" onchange="buildUtmUrl()">
                     </div>
                     <div class="camp-form-group">
                         <label class="camp-label" for="camp-channel">Canal</label>
@@ -1160,9 +1160,13 @@
                     </div>
                 </div>
 
+                <div style="margin-bottom:8px;">
+                    <button type="button" class="camp-btn camp-btn-secondary" onclick="buildUtmUrl()" style="width:100%;justify-content:center;background:#003956;color:#fff;border-color:#003956;">⚡ Gerar link</button>
+                </div>
+
                 <div style="margin-bottom:16px;">
                     <div class="camp-label" style="margin-bottom:8px;">URL gerada</div>
-                    <textarea id="camp-url-preview" class="camp-url-input" rows="2" readonly placeholder="Preencha os campos acima para gerar o link..."></textarea>
+                    <textarea id="camp-url-preview" class="camp-url-input" rows="2" readonly placeholder="Preencha os campos acima e clique em Gerar link..."></textarea>
                 </div>
 
                 <div class="camp-actions">
