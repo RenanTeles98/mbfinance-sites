@@ -30,10 +30,23 @@ function trackGA4(eventName, params) {
     }
 }
 
+var _productSlugs = {
+    'Conta Corrente Empresarial': 'conta_corrente',
+    'Máquina de Cartão': 'maquina_cartao',
+    'Seguros e Consórcios': 'seguros',
+    'Crédito Rápido': 'credito_rapido',
+    'Soluções Tributárias': 'tributarias',
+    'Soluções Personalizadas': 'personalizadas',
+    'Telemedicina': 'telemedicina',
+};
+
 function openLeadModal(waUrl, produto) {
     _leadWaUrl = waUrl || 'https://wa.me/552139008295';
     _leadProduto = produto || '';
     trackGA4('lead_modal_open', { source_area: produto || 'main_site', product: produto || '' });
+    if (produto && _productSlugs[produto]) {
+        trackGA4('product_click_' + _productSlugs[produto], { source_area: 'main_site' });
+    }
     const modal = document.getElementById('lead-modal');
     modal.style.removeProperty('display');
     modal.style.display = 'flex';
