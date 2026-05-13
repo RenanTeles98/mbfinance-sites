@@ -178,6 +178,35 @@ function renderAnalytics() {
     renderTrafficAnalytics();
 }
 
+var GEO_PT = {
+    'State of Acre': 'Acre', 'State of Alagoas': 'Alagoas', 'State of Amapa': 'Amapá',
+    'State of Amazonas': 'Amazonas', 'State of Bahia': 'Bahia', 'State of Ceara': 'Ceará',
+    'State of Distrito Federal': 'Distrito Federal', 'State of Espirito Santo': 'Espírito Santo',
+    'State of Goias': 'Goiás', 'State of Maranhao': 'Maranhão', 'State of Mato Grosso': 'Mato Grosso',
+    'State of Mato Grosso do Sul': 'Mato Grosso do Sul', 'State of Minas Gerais': 'Minas Gerais',
+    'State of Para': 'Pará', 'State of Paraiba': 'Paraíba', 'State of Parana': 'Paraná',
+    'State of Pernambuco': 'Pernambuco', 'State of Piaui': 'Piauí', 'State of Rio de Janeiro': 'Rio de Janeiro',
+    'State of Rio Grande do Norte': 'Rio Grande do Norte', 'State of Rio Grande do Sul': 'Rio Grande do Sul',
+    'State of Rondonia': 'Rondônia', 'State of Roraima': 'Roraima', 'State of Santa Catarina': 'Santa Catarina',
+    'State of Sao Paulo': 'São Paulo', 'State of Sergipe': 'Sergipe', 'State of Tocantins': 'Tocantins',
+    'Brazil': 'Brasil', 'United States': 'Estados Unidos', 'Portugal': 'Portugal',
+    'Argentina': 'Argentina', 'Colombia': 'Colômbia', 'Mexico': 'México',
+    'Germany': 'Alemanha', 'France': 'França', 'United Kingdom': 'Reino Unido',
+    'Italy': 'Itália', 'Spain': 'Espanha', 'Japan': 'Japão', 'China': 'China',
+    'Canada': 'Canadá', 'Australia': 'Austrália', 'Netherlands': 'Países Baixos',
+    'Switzerland': 'Suíça', 'Belgium': 'Bélgica', 'Sweden': 'Suécia',
+    'Poland': 'Polônia', 'Russia': 'Rússia', 'India': 'Índia',
+    'South Korea': 'Coreia do Sul', 'South Africa': 'África do Sul',
+    'Chile': 'Chile', 'Peru': 'Peru', 'Venezuela': 'Venezuela',
+    'Ecuador': 'Equador', 'Bolivia': 'Bolívia', 'Paraguay': 'Paraguai', 'Uruguay': 'Uruguai',
+    'Angola': 'Angola', 'Mozambique': 'Moçambique', 'Cape Verde': 'Cabo Verde',
+};
+
+function translateGeo(label) {
+    if (!label) return label;
+    return GEO_PT[label] || label;
+}
+
 function renderGeoTable(targetId, rows, emptyMessage, secondaryLabel) {
     const target = document.getElementById(targetId);
     if (!target) return;
@@ -186,10 +215,10 @@ function renderGeoTable(targetId, rows, emptyMessage, secondaryLabel) {
         return;
     }
 
-    target.innerHTML = '<table class="analytics-table"><thead><tr><th>' + esc(secondaryLabel ? 'Local' : 'Pais') + '</th><th>Usuarios</th><th>Sessoes</th></tr></thead><tbody>'
+    target.innerHTML = '<table class="analytics-table"><thead><tr><th>' + esc(secondaryLabel ? 'Local' : 'País') + '</th><th>Usuários</th><th>Sessões</th></tr></thead><tbody>'
         + rows.map(row => '<tr>'
-            + '<td><div class="analytics-post-title">' + esc(row.label || 'Nao informado') + '</div>'
-            + (secondaryLabel && row.secondaryLabel ? '<div class="analytics-post-meta">' + esc(row.secondaryLabel) + '</div>' : '')
+            + '<td><div class="analytics-post-title">' + esc(translateGeo(row.label) || 'Não informado') + '</div>'
+            + (secondaryLabel && row.secondaryLabel ? '<div class="analytics-post-meta">' + esc(translateGeo(row.secondaryLabel)) + '</div>' : '')
             + '</td>'
             + '<td>' + formatInteger(row.activeUsers) + '</td>'
             + '<td>' + formatInteger(row.sessions) + '</td>'
