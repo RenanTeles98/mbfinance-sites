@@ -45,7 +45,16 @@ function getSelectedAnalyticsRange() {
             endDate: localStorage.getItem('mb_analytics_end_date') || ''
         };
     }
-
+    if (period === 'today') {
+        const today = formatDateInput(new Date());
+        return { startDate: today, endDate: today };
+    }
+    if (period === 'yesterday') {
+        const yest = new Date();
+        yest.setDate(yest.getDate() - 1);
+        const y = formatDateInput(yest);
+        return { startDate: y, endDate: y };
+    }
     return {
         startDate: getDateDaysAgo(Number(period || 30)),
         endDate: formatDateInput(new Date())
