@@ -65,6 +65,7 @@ function switchTab(id) {
     if (id === 'analytics' && typeof renderAnalytics === 'function') renderAnalytics();
     if (id === 'newsletter' && typeof updateNewsletterList === 'function') updateNewsletterList();
     if (id === 'banners' && typeof loadBanners === 'function') loadBanners();
+    if (id === 'campaigns' && typeof initCampaigns === 'function') initCampaigns();
 }
 
 function logout() {

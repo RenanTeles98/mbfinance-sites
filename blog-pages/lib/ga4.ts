@@ -61,6 +61,14 @@ export type GaProductClick = {
   clicks: number;
 };
 
+export type GaCampaignRow = {
+  source: string;
+  medium: string;
+  campaign: string;
+  sessions: number;
+  activeUsers: number;
+};
+
 export type GaOverviewResponse = {
   configured: boolean;
   propertyId?: string;
@@ -490,4 +498,49 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
     productClicks,
     previousPeriod,
   };
+}
+
+export async function getCampaignData(
+  startDate = "30daysAgo",
+  endDate = "today"
+): Promise<GaCampaignRow[]> {
+  if (!hasGa4Config()) return [];
+
+  const propertyId = getEnv("GA4_PROPERTY_ID");
+  const accessToken = await getAccessToken();
+
+  try {
+    const report = await runReport(accessToken, propertyId, {
+      dateRanges: [{ startDate, endDate }],
+      dimensions: [
+        { name: "sessionSource" },
+        { name: "sessionMedium" },
+        { name: "sessionCampaignName" },
+      ],
+      metrics: [
+        { name: "sessions" },
+        { name: "activeUsers" },
+      ],
+      dimensionFilter: {
+        notExpression: {
+          filter: {
+            fieldName: "sessionCampaignName",
+            stringFilter: { matchType: "EXACT", value: "(not set)" },
+          },
+        },
+      },
+      orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+      limit: "50",
+    });
+
+    return (report.rows || []).map((row) => ({
+      source: cleanDimensionValue(row.dimensionValues?.[0]?.value, "desconhecido"),
+      medium: cleanDimensionValue(row.dimensionValues?.[1]?.value, "desconhecido"),
+      campaign: cleanDimensionValue(row.dimensionValues?.[2]?.value, "desconhecido"),
+      sessions: toNumber(row.metricValues?.[0]?.value),
+      activeUsers: toNumber(row.metricValues?.[1]?.value),
+    }));
+  } catch {
+    return [];
+  }
 }
