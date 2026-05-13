@@ -30,9 +30,6 @@ function cesc(s) {
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function slugify(text) {
-    return String(text || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-}
 
 function buildUtmUrl() {
     var urlEl     = document.getElementById('camp-url');
