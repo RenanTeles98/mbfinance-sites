@@ -492,7 +492,7 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
         filter: {
           fieldName: "eventName",
           inListFilter: {
-            values: ["conta_pj_lead_click", "lead_modal_open"],
+            values: ["conta_pj_lead_click", "lead_modal_open", "generate_lead"],
           },
         },
       },
