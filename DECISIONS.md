@@ -774,6 +774,10 @@ Traduzir os nomes dos canais na camada de apresentacao do admin, antes de render
 - **Alterar a resposta da API:** funcionaria, mas misturaria dado bruto com texto de interface.
 - **Traduzir no frontend (escolhida):** mantem a API fiel ao GA4 e localiza apenas a exibicao.
 
+### Atualizacao
+
+- 2026-05-13: o icone de informacao foi movido do titulo do componente para cada canal individual, com explicacao especifica por origem de trafego.
+
 ### Consequencias
 
 - A interface fica em pt-BR sem perder o valor original enviado pelo GA4.

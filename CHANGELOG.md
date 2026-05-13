@@ -10,6 +10,7 @@
 - Corrigida acentuacao de mensagens em metricas, blog, anuncios e e-mails.
 - Normalizados rotulos como "Preview", "Views", "Property", "Status", "Post" e "Newsletter".
 - Traduzidos canais de origem de trafego retornados pelo GA4 e adicionado icone de informacao ao componente.
+- Movido o icone de informacao para cada canal de origem de trafego, com explicacao individual por canal.
 
 ## 2026-05-13 - Leads Conta PJ no admin
 

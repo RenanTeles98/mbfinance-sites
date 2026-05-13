@@ -208,6 +208,7 @@
 - [x] Corrigir acentuacao de mensagens de analytics, blog, anuncios e e-mails.
 - [x] Validar build do projeto `blog-pages/` apos a troca de textos.
 - [x] Traduzir canais de origem do trafego retornados pelo GA4.
-- [x] Adicionar icone de informacao no componente "Origem do trafego".
+- [x] Adicionar icone de informacao ao lado de cada canal no componente "Origem do trafego".
+- [x] Criar explicacoes especificas para cada canal principal do GA4.
 - [ ] Revisar visualmente o admin publicado para localizar textos residuais vindos de dados externos ou cache do navegador.
 - [ ] Ampliar o mapa de traducao se o GA4 retornar novos canais nao previstos.

@@ -581,3 +581,24 @@ Estado atual: o card de origem do trafego mostra rotulos em pt-BR e possui ajuda
 Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
 
 Proximo passo recomendado: validar visualmente no admin publicado se todos os canais retornados pelo GA4 estao cobertos pelo mapa de traducao.
+
+---
+
+## Atualizacao de sessao - 2026-05-13 - Ajuda por canal de trafego
+
+- Ajustado o icone "i" do componente "Origem do trafego" para aparecer ao lado de cada canal, e nao mais no titulo geral.
+- Cada canal agora possui uma explicacao propria: Direto, Referencia, Social organico, Busca organica, Nao classificado, Rede cruzada, Busca paga, Social pago, Display e E-mail.
+- Mantida a traducao dos nomes retornados pelo GA4 na camada de apresentacao.
+
+Arquivos modificados nesta etapa:
+- `blog-pages/public/pages/blog-admin.html`
+- `blog-pages/public/assets/js/admin/admin-analytics.js`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-13-ajuda-canais-trafego.md`
+
+Estado atual: cada origem de trafego renderizada no painel tem seu proprio icone de informacao contextual.
+
+Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
