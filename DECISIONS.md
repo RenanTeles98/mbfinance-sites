@@ -652,10 +652,39 @@ Manter apenas o Google Tag Manager `GTM-MDST4NTK` como codigo de marketing carre
 
 ---
 
+## ADR-028: GTM da home carrega imediatamente
+
+**Data:** 2026-05-13
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O Tag Assistant nao estava exibindo a tag do Google Tag Manager na validacao visual do dono do projeto. A pagina Sobre ja continha o snippet oficial do GTM no codigo fonte local e no HTML publicado, mas a home ainda carregava o GTM apenas apos interacao do usuario ou timeout.
+
+### Decisao
+
+Substituir o lazy load do GTM em `public/index.html` pelo snippet oficial imediato no `<head>`, mantendo o `noscript` apos a abertura do `<body>`.
+
+### Alternativas Consideradas
+
+- **Manter lazy load:** favorece performance, mas pode atrasar ou dificultar a deteccao por ferramentas de validacao.
+- **Reinstalar Pixel/GA4/Ads diretos no codigo:** descartado para preservar a centralizacao definida no GTM.
+- **Carregamento imediato do GTM (escolhida):** melhora a compatibilidade com Tag Assistant e mantem a arquitetura centralizada.
+
+### Consequencias
+
+- O GTM fica disponivel desde o inicio do carregamento da home.
+- A pagina Sobre permanece sem duplicidade, pois ja estava no padrao oficial.
+- Pixel, GA4 e Google Ads continuam dependendo da configuracao e publicacao dentro do container GTM.
+
+---
+
 ## ADR-029: Leads de Conta PJ aparecem no painel do blog via GA4
 
 **Data:** 2026-05-13
 **Status:** Implementado
+**Decisores:** Dono do projeto + IA
 
 ### Contexto
 
@@ -670,3 +699,8 @@ Adicionar o card "Leads Gerados" no painel do blog e consultar o GA4 por `eventC
 - **Contar somente `generate_lead`:** mede envio de formulario, mas nao o clique para abrir a Conta PJ.
 - **Contar somente `lead_modal_open`:** funciona com o evento existente, mas pode misturar outros produtos.
 - **Aceitar `conta_pj_lead_click` e `lead_modal_open` (escolhida):** preserva compatibilidade atual e permite separar Conta PJ quando o GTM/site enviar o evento especifico.
+
+### Consequencias
+
+- O painel passa a mostrar leads junto dos demais KPIs.
+- A precisao por produto depende da publicacao do evento especifico `conta_pj_lead_click` no GTM/site principal.

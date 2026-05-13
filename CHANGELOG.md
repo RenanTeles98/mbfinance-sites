@@ -152,3 +152,16 @@ Principais marcos conhecidos:
 ### Removido
 - Snippets diretos de Meta Pixel, Google Analytics 4 e Google Ads dos HTMLs publicos e rotas Next.js.
 - Componentes e loaders legados de Meta Pixel e Google Ads.
+
+---
+
+## 2026-05-13 - GTM imediato na home
+
+### Corrigido
+- Home (`public/index.html`) agora carrega o Google Tag Manager `GTM-MDST4NTK` imediatamente no `<head>`, sem lazy load, para melhorar a deteccao no Tag Assistant.
+- Pacote de upload Cpanel atualizado com a mesma correcao da home.
+- Confirmado que `public/pages/sobre.html` ja possui o GTM instalado no fonte e no HTML publicado.
+# 2026-05-13
+
+- Adicionada a metrica "Leads Gerados" ao painel administrativo do blog publicado em `blog-pages/`.
+- A API de analytics do blog passou a contar eventos GA4 de abertura/clique de lead para Conta PJ.

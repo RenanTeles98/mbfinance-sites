@@ -468,6 +468,33 @@ Proximo passo recomendado: criar/publicar no GTM as tags GA4, Google Ads e Meta 
 
 ---
 
+## Atualizacao de sessao - 2026-05-13 - GTM imediato na home
+
+- Verificado que `public/pages/sobre.html` e o HTML publicado em `https://mbfinance.com.br/pages/sobre.html` ja possuem o Google Tag Manager `GTM-MDST4NTK` no `<head>` e o `noscript` logo apos a abertura do `<body>`.
+- Identificado que a home (`public/index.html`) carregava o GTM com lazy load apos interacao do usuario ou timeout de 8 segundos, o que podia atrapalhar a deteccao no Tag Assistant.
+- Alterado `public/index.html` para usar o snippet oficial imediato do GTM, alinhado ao padrao usado em `public/pages/sobre.html`.
+- Mantida a decisao de nao recolocar Meta Pixel, GA4 ou Google Ads diretamente no codigo fonte; essas tags devem continuar dentro do container GTM.
+
+Arquivos modificados nesta sessao:
+- `public/index.html`
+- `cpanel-upload/public_html/index.html`
+- `cpanel-upload/mbfinance-cpanel-public_html.zip`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-13.md`
+
+Estado atual: Sobre ja estava com GTM no fonte e em producao; home agora tambem carrega o GTM imediatamente no fonte e na copia de upload do Cpanel.
+
+Validacao: `npm run build` executado com sucesso; restaram apenas avisos preexistentes de `<img>` e dependencia de hook.
+
+Onde o trabalho parou: alteracao pronta para publicacao no Cpanel/GitHub conforme fluxo atual; o ZIP do Cpanel foi regenerado.
+
+Proximo passo recomendado: apos publicar `public/index.html`, recarregar com Ctrl+Shift+R e validar no Tag Assistant em `https://mbfinance.com.br/index.html` e `https://mbfinance.com.br/pages/sobre.html`.
+
+---
+
 ## Atualizacao de sessao - 2026-05-13 - Leads Conta PJ no blog admin
 
 - Confirmado que o projeto Vercel `blog-mbfinace` usa `blog-pages/` como Root Directory.
@@ -475,8 +502,18 @@ Proximo passo recomendado: criar/publicar no GTM as tags GA4, Google Ads e Meta 
 - `blog-pages/lib/ga4.ts` passou a consultar `eventCount` para os eventos `conta_pj_lead_click` e `lead_modal_open`, respeitando o site e o intervalo selecionados no painel.
 - `blog-pages/public/assets/js/admin/admin-analytics.js` agora preenche o novo card e inclui o indicador em "Indicadores de trafego".
 
+Arquivos modificados nesta etapa:
+- `blog-pages/lib/ga4.ts`
+- `blog-pages/public/assets/js/admin/admin-analytics.js`
+- `blog-pages/public/pages/blog-admin.html`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-13-leads-conta-pj.md`
+
 Estado atual: metrica pronta para deploy no projeto correto do blog (`blog-mbfinace`).
 
-Validacao: `npm run build` em `blog-pages/` executado com sucesso.
+Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>`.
 
 Proximo passo recomendado: apos deploy, validar o card em `https://blog.mbfinance.com.br/admin` e confirmar no GTM/GA4 se o evento especifico `conta_pj_lead_click` esta publicado.

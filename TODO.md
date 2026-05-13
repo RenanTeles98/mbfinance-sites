@@ -175,6 +175,8 @@
 - [x] Remover GA4 direto dos HTMLs, componentes e loaders JS.
 - [x] Manter apenas o GTM `GTM-MDST4NTK` como tag de marketing instalada diretamente.
 - [x] Enviar aceite/recusa do banner LGPD para `dataLayer` via evento `cookie_consent_update`.
+- [x] Trocar o GTM com lazy load da home por carregamento imediato para facilitar deteccao no Tag Assistant.
+- [x] Conferir que `public/pages/sobre.html` ja possui o GTM no codigo fonte e no HTML publicado.
 - [ ] Configurar no GTM a tag GA4 com o Measurement ID oficial.
 - [ ] Configurar no GTM a tag Google Ads com o Conversion ID oficial.
 - [ ] Configurar no GTM o Meta Pixel com o Pixel ID oficial.

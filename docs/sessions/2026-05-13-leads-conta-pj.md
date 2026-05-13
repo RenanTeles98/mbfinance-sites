@@ -12,6 +12,9 @@
 - Contar `eventCount` dos eventos `conta_pj_lead_click` e `lead_modal_open`.
 - Exibir o KPI antes de usuarios, sessoes e visualizacoes.
 
+## Validacao
+- `npm run build` executado em `blog-pages/` com sucesso.
+
 ## Proximos passos
 - Fazer deploy no Vercel.
 - Validar o card em producao e confirmar a configuracao do evento especifico no GTM.
