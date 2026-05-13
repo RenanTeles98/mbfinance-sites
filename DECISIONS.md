@@ -752,3 +752,29 @@ Normalizar os textos visiveis do admin para portugues brasileiro, corrigindo ace
 
 - A interface fica mais consistente para usuarios em pt-BR.
 - Identificadores tecnicos, classes, IDs e nomes de eventos permanecem em ingles para preservar funcionamento e padrao do codigo.
+
+---
+
+## ADR-032: Canais do GA4 sao traduzidos na camada de apresentacao
+
+**Data:** 2026-05-13
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O GA4 retorna canais de origem de trafego em ingles, como Direct, Referral, Organic Social, Organic Search, Unassigned, Cross-network e Paid Search. Esses valores apareciam crus no painel, mesmo apos a normalizacao geral de textos.
+
+### Decisao
+
+Traduzir os nomes dos canais na camada de apresentacao do admin, antes de renderizar o card "Origem do trafego". Adicionar tambem um icone de informacao no componente para explicar o significado do bloco.
+
+### Alternativas Consideradas
+
+- **Alterar a resposta da API:** funcionaria, mas misturaria dado bruto com texto de interface.
+- **Traduzir no frontend (escolhida):** mantem a API fiel ao GA4 e localiza apenas a exibicao.
+
+### Consequencias
+
+- A interface fica em pt-BR sem perder o valor original enviado pelo GA4.
+- Novos canais desconhecidos continuam aparecendo com o texto original ate serem adicionados ao mapa de traducao.

@@ -558,3 +558,26 @@ Estado atual: painel administrativo com textos principais normalizados em portug
 Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
 
 Proximo passo recomendado: validar visualmente `https://blog.mbfinance.com.br/admin` apos publicacao para encontrar qualquer texto residual carregado por dados externos.
+
+---
+
+## Atualizacao de sessao - 2026-05-13 - Origem do trafego em pt-BR
+
+- Corrigidos os nomes dos canais de origem do trafego que vinham do GA4 em ingles.
+- `blog-pages/public/assets/js/admin/admin-analytics.js` agora traduz canais como Direct, Referral, Organic Social, Organic Search, Unassigned, Cross-network e Paid Search.
+- Adicionado icone "i" ao componente "Origem do trafego" em `blog-pages/public/pages/blog-admin.html`, com explicacao acessivel via `aria-label` e `title`.
+
+Arquivos modificados nesta etapa:
+- `blog-pages/public/pages/blog-admin.html`
+- `blog-pages/public/assets/js/admin/admin-analytics.js`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-13-origem-trafego-admin.md`
+
+Estado atual: o card de origem do trafego mostra rotulos em pt-BR e possui ajuda contextual.
+
+Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
+
+Proximo passo recomendado: validar visualmente no admin publicado se todos os canais retornados pelo GA4 estao cobertos pelo mapa de traducao.

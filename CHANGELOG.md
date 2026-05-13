@@ -9,6 +9,7 @@
 - Traduzidos termos visiveis do admin do blog para pt-BR.
 - Corrigida acentuacao de mensagens em metricas, blog, anuncios e e-mails.
 - Normalizados rotulos como "Preview", "Views", "Property", "Status", "Post" e "Newsletter".
+- Traduzidos canais de origem de trafego retornados pelo GA4 e adicionado icone de informacao ao componente.
 
 ## 2026-05-13 - Leads Conta PJ no admin
 

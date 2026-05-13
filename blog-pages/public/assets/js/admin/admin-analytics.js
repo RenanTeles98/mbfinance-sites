@@ -414,6 +414,31 @@ function renderDemographicList(targetId, rows, emptyMessage) {
         + '</div>';
 }
 
+function translateTrafficChannel(channel) {
+    const normalized = String(channel || '').trim().toLowerCase();
+    const labels = {
+        'direct': 'Direto',
+        'referral': 'Referência',
+        'organic social': 'Social orgânico',
+        'organic search': 'Busca orgânica',
+        'unassigned': 'Não classificado',
+        'cross-network': 'Rede cruzada',
+        'paid search': 'Busca paga',
+        'paid social': 'Social pago',
+        'paid shopping': 'Shopping pago',
+        'paid video': 'Vídeo pago',
+        'organic video': 'Vídeo orgânico',
+        'organic shopping': 'Shopping orgânico',
+        'display': 'Display',
+        'email': 'E-mail',
+        'sms': 'SMS',
+        'mobile push notifications': 'Notificações push',
+        'affiliates': 'Afiliados',
+        'audio': 'Áudio'
+    };
+    return labels[normalized] || channel || 'Desconhecido';
+}
+
 function renderTrafficSources(targetId, rows) {
     const target = document.getElementById(targetId);
     if (!target) return;
@@ -426,7 +451,7 @@ function renderTrafficSources(targetId, rows) {
         + rows.map(function(row) {
             const width = Math.max(8, Math.round(((row.activeUsers || 0) / max) * 100));
             return '<div class="category-row">'
-                + '<div class="category-name">' + esc(row.channel || 'Desconhecido') + '</div>'
+                + '<div class="category-name">' + esc(translateTrafficChannel(row.channel)) + '</div>'
                 + '<div class="category-bar"><div class="category-fill" style="width:' + width + '%"></div></div>'
                 + '<div class="category-count">' + formatInteger(row.activeUsers) + ' usuários</div>'
                 + '</div>';
