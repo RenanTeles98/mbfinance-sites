@@ -1,4 +1,4 @@
-﻿import { createSign } from "crypto";
+import { createSign } from "crypto";
 
 const GA_SCOPE = "https://www.googleapis.com/auth/analytics.readonly";
 const GA_TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -12,6 +12,15 @@ export type GaOverviewMetric = {
   screenPageViews: number;
   averageSessionDuration: number;
   engagementRate: number;
+  bounceRate: number;
+};
+
+export type GaPeriodComparison = {
+  totalUsers: number;
+  activeUsers: number;
+  sessions: number;
+  screenPageViews: number;
+  bounceRate: number;
 };
 
 export type GaTrendPoint = {
@@ -54,11 +63,8 @@ export type GaProductClick = {
 
 export type GaOverviewResponse = {
   configured: boolean;
-  siteKey?: string;
-  siteName?: string;
   propertyId?: string;
   rangeLabel?: string;
-  demographicRangeLabel?: string;
   summary?: GaOverviewMetric;
   trend?: GaTrendPoint[];
   topPages?: GaTopPage[];
@@ -70,27 +76,7 @@ export type GaOverviewResponse = {
   generateLeadTotal?: number;
   trafficSources?: GaTrafficSource[];
   productClicks?: GaProductClick[];
-};
-
-export type GaDateRange = {
-  startDate: string;
-  endDate: string;
-  label: string;
-  trendLimit: string;
-};
-
-export type GaSiteConfig = {
-  key: string;
-  name: string;
-  propertyId: string;
-  clientEmail: string;
-  privateKey: string;
-};
-
-export type GaSiteOption = {
-  key: string;
-  name: string;
-  configured: boolean;
+  previousPeriod?: GaPeriodComparison;
 };
 
 type RunReportRequest = {
@@ -113,104 +99,6 @@ function getEnv(name: string) {
   return process.env[name]?.trim() || "";
 }
 
-const DEFAULT_SITE_KEY = "mb-finance";
-
-const GA_SITE_NAMES: Record<string, string> = {
-  "mb-finance": "MB Finance",
-  "mb-negocios": "MB Negocios",
-  fomenta: "Fomenta",
-};
-
-function normalizeSiteKey(value?: string) {
-  const normalized = (value || DEFAULT_SITE_KEY)
-    .trim()
-    .toLowerCase()
-    .replace(/_/g, "-");
-
-  return normalized || DEFAULT_SITE_KEY;
-}
-
-function toEnvPrefix(siteKey: string) {
-  return siteKey.toUpperCase().replace(/[^A-Z0-9]+/g, "_");
-}
-
-function readJsonSiteConfigs() {
-  const raw = getEnv("GA4_SITES");
-  if (!raw) return [] as GaSiteConfig[];
-
-  try {
-    const parsed = JSON.parse(raw) as Array<Partial<GaSiteConfig>>;
-    if (!Array.isArray(parsed)) return [];
-
-    return parsed
-      .map((site) => ({
-        key: normalizeSiteKey(site.key),
-        name: site.name || GA_SITE_NAMES[normalizeSiteKey(site.key)] || site.key || "Site",
-        propertyId: String(site.propertyId || "").trim(),
-        clientEmail: String(site.clientEmail || "").trim(),
-        privateKey: String(site.privateKey || "").trim(),
-      }))
-      .filter((site) => site.key);
-  } catch {
-    return [];
-  }
-}
-
-function readEnvSiteConfig(siteKey: string): GaSiteConfig {
-  const key = normalizeSiteKey(siteKey);
-  const prefix = toEnvPrefix(key);
-  const isDefault = key === DEFAULT_SITE_KEY;
-
-  return {
-    key,
-    name: getEnv(`GA4_${prefix}_SITE_NAME`) || GA_SITE_NAMES[key] || key,
-    propertyId:
-      getEnv(`GA4_${prefix}_PROPERTY_ID`) ||
-      (isDefault ? getEnv("GA4_PROPERTY_ID") : ""),
-    clientEmail:
-      getEnv(`GA4_${prefix}_CLIENT_EMAIL`) ||
-      (isDefault ? getEnv("GA4_CLIENT_EMAIL") : getEnv("GA4_CLIENT_EMAIL")),
-    privateKey:
-      getEnv(`GA4_${prefix}_PRIVATE_KEY`) ||
-      (isDefault ? getEnv("GA4_PRIVATE_KEY") : getEnv("GA4_PRIVATE_KEY")),
-  };
-}
-
-function isConfigured(site: GaSiteConfig) {
-  return Boolean(site.propertyId && site.clientEmail && site.privateKey);
-}
-
-export function getGa4SiteConfig(siteKey = DEFAULT_SITE_KEY) {
-  const key = normalizeSiteKey(siteKey);
-  const jsonSite = readJsonSiteConfigs().find((site) => site.key === key);
-  return jsonSite || readEnvSiteConfig(key);
-}
-
-export function getGa4SiteOptions(): GaSiteOption[] {
-  const configuredKeys = new Set<string>();
-  const jsonSites = readJsonSiteConfigs();
-  const options: GaSiteOption[] = jsonSites.map((site) => {
-    configuredKeys.add(site.key);
-    return {
-      key: site.key,
-      name: site.name,
-      configured: isConfigured(site),
-    };
-  });
-
-  Object.keys(GA_SITE_NAMES).forEach((key) => {
-    if (configuredKeys.has(key)) return;
-    const site = readEnvSiteConfig(key);
-    options.push({
-      key,
-      name: site.name,
-      configured: isConfigured(site),
-    });
-  });
-
-  return options;
-}
-
 function normalizePrivateKey(value: string) {
   return value
     .trim()
@@ -223,7 +111,11 @@ function normalizePrivateKey(value: string) {
 }
 
 export function hasGa4Config() {
-  return isConfigured(getGa4SiteConfig(DEFAULT_SITE_KEY));
+  return Boolean(
+    getEnv("GA4_PROPERTY_ID") &&
+      getEnv("GA4_CLIENT_EMAIL") &&
+      getEnv("GA4_PRIVATE_KEY")
+  );
 }
 
 function base64UrlEncode(input: string) {
@@ -234,9 +126,9 @@ function base64UrlEncode(input: string) {
     .replace(/=+$/g, "");
 }
 
-async function getAccessToken(site: GaSiteConfig) {
-  const clientEmail = site.clientEmail;
-  const privateKey = normalizePrivateKey(site.privateKey);
+async function getAccessToken() {
+  const clientEmail = getEnv("GA4_CLIENT_EMAIL");
+  const privateKey = normalizePrivateKey(getEnv("GA4_PRIVATE_KEY"));
 
   const now = Math.floor(Date.now() / 1000);
   const header = base64UrlEncode(JSON.stringify({ alg: "RS256", typ: "JWT" }));
@@ -320,202 +212,13 @@ function cleanDimensionValue(value?: string, fallback = "Nao informado") {
   return normalized;
 }
 
-function isIsoDate(value: string) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.getTime()) && value === date.toISOString().slice(0, 10);
-}
-
-function formatDisplayDate(value: string) {
-  if (!isIsoDate(value)) return value;
-  return `${value.slice(8, 10)}/${value.slice(5, 7)}/${value.slice(0, 4)}`;
-}
-
-function daysBetween(startDate: string, endDate: string) {
-  if (!isIsoDate(startDate) || !isIsoDate(endDate)) return 30;
-  const start = new Date(`${startDate}T00:00:00Z`).getTime();
-  const end = new Date(`${endDate}T00:00:00Z`).getTime();
-  return Math.max(1, Math.round((end - start) / 86400000) + 1);
-}
-
-export function resolveGaDateRange(startDate?: string | null, endDate?: string | null): GaDateRange {
-  const start = (startDate || "").trim();
-  const end = (endDate || "").trim();
-
-  if (isIsoDate(start) && isIsoDate(end) && start <= end) {
-    const totalDays = daysBetween(start, end);
-    return {
-      startDate: start,
-      endDate: end,
-      label: `${formatDisplayDate(start)} a ${formatDisplayDate(end)}`,
-      trendLimit: String(Math.min(totalDays, 366)),
-    };
+export async function getGa4Overview(): Promise<GaOverviewResponse> {
+  if (!hasGa4Config()) {
+    return { configured: false };
   }
 
-  return {
-    startDate: "30daysAgo",
-    endDate: "today",
-    label: "Ultimos 30 dias",
-    trendLimit: "30",
-  };
-}
-
-function normalizePagePath(value?: string) {
-  let path = (value || "/").trim();
-
-  try {
-    if (/^https?:\/\//i.test(path)) {
-      path = new URL(path).pathname;
-    }
-  } catch {
-    path = value || "/";
-  }
-
-  path = path.split("?")[0]?.split("#")[0] || "/";
-
-  try {
-    path = decodeURIComponent(path);
-  } catch {
-    // Keep the original value when GA4 returns a partially encoded path.
-  }
-
-  path = path.toLowerCase().replace(/\/{2,}/g, "/");
-  if (!path.startsWith("/")) path = `/${path}`;
-  if (path.length > 1) path = path.replace(/\/$/, "");
-
-  if (
-    path === "/index" ||
-    path === "/index.html" ||
-    path === "/mb-finance-completo" ||
-    path === "/mb-finance-completo.html"
-  ) {
-    return "/";
-  }
-
-  return path.replace(/\.html$/, "");
-}
-
-function normalizePageTitle(value?: string) {
-  return cleanDimensionValue(value, "Sem titulo")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function groupTopPages(rows: RunReportResponse["rows"]): GaTopPage[] {
-  const pageMap = new Map<
-    string,
-    GaTopPage & { displayScore: number }
-  >();
-
-  rows?.forEach((row) => {
-    const rawPath = row.dimensionValues?.[0]?.value || "/";
-    const rawTitle = row.dimensionValues?.[1]?.value || "Sem titulo";
-    const pagePath = normalizePagePath(rawPath);
-    const pageTitle = normalizePageTitle(rawTitle);
-    const screenPageViews = toNumber(row.metricValues?.[0]?.value);
-    const activeUsers = toNumber(row.metricValues?.[1]?.value);
-    const sessions = toNumber(row.metricValues?.[2]?.value);
-    const existing = pageMap.get(pagePath);
-
-    if (!existing) {
-      pageMap.set(pagePath, {
-        pagePath,
-        pageTitle,
-        screenPageViews,
-        activeUsers,
-        sessions,
-        displayScore: screenPageViews,
-      });
-      return;
-    }
-
-    existing.screenPageViews += screenPageViews;
-    existing.activeUsers += activeUsers;
-    existing.sessions += sessions;
-
-    if (screenPageViews > existing.displayScore && pageTitle !== "Sem titulo") {
-      existing.pageTitle = pageTitle;
-      existing.displayScore = screenPageViews;
-    }
-  });
-
-  return Array.from(pageMap.values())
-    .map((page) => ({
-      pagePath: page.pagePath,
-      pageTitle: page.pageTitle,
-      screenPageViews: page.screenPageViews,
-      activeUsers: page.activeUsers,
-      sessions: page.sessions,
-    }))
-    .sort((a, b) => b.screenPageViews - a.screenPageViews)
-    .slice(0, 10);
-}
-
-async function getDemographicBreakdown(
-  accessToken: string,
-  propertyId: string,
-  dimensionName: "userGender" | "userAgeBracket",
-  dateRange: GaDateRange
-) {
-  const ranges = [
-    dateRange,
-    {
-      startDate: "90daysAgo",
-      endDate: "today",
-      label: "Ultimos 90 dias",
-      trendLimit: "90",
-    },
-    {
-      startDate: "365daysAgo",
-      endDate: "today",
-      label: "Ultimos 365 dias",
-      trendLimit: "365",
-    },
-  ];
-
-  for (const range of ranges) {
-    let report: RunReportResponse;
-    try {
-      report = await runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
-        dimensions: [{ name: dimensionName }],
-        metrics: [{ name: "activeUsers" }],
-        orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
-        limit: "10",
-      });
-    } catch {
-      return { rows: [] as GaDemographicRow[], rangeLabel: dateRange.label };
-    }
-
-    const rows =
-      report.rows
-        ?.map((row) => ({
-          label: cleanDimensionValue(row.dimensionValues?.[0]?.value),
-          activeUsers: toNumber(row.metricValues?.[0]?.value),
-        }))
-        .filter((row) => row.activeUsers > 0) || [];
-
-    if (rows.length) {
-      return { rows, rangeLabel: range.label };
-    }
-  }
-
-  return { rows: [] as GaDemographicRow[], rangeLabel: dateRange.label };
-}
-
-export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = resolveGaDateRange()): Promise<GaOverviewResponse> {
-  const site = getGa4SiteConfig(siteKey);
-
-  if (!isConfigured(site)) {
-    return {
-      configured: false,
-      siteKey: site.key,
-      siteName: site.name,
-    };
-  }
-
-  const propertyId = site.propertyId;
-  const accessToken = await getAccessToken(site);
+  const propertyId = getEnv("GA4_PROPERTY_ID");
+  const accessToken = await getAccessToken();
 
   const [
     summaryReport,
@@ -524,9 +227,11 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
     topPagesReport,
     topCountriesReport,
     topRegionsReport,
+    genderReport,
+    ageReport,
   ] = await Promise.all([
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
       metrics: [
         { name: "totalUsers" },
         { name: "activeUsers" },
@@ -534,22 +239,23 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
         { name: "screenPageViews" },
         { name: "averageSessionDuration" },
         { name: "engagementRate" },
+        { name: "bounceRate" },
       ],
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
       metrics: [{ name: "eventCount" }],
       dimensionFilter: {
         filter: {
           fieldName: "eventName",
           inListFilter: {
-            values: ["conta_pj_lead_click", "lead_modal_open", "generate_lead"],
+            values: ["conta_pj_lead_click", "lead_modal_open"],
           },
         },
       },
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
       dimensions: [{ name: "date" }],
       metrics: [
         { name: "activeUsers" },
@@ -557,10 +263,10 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
         { name: "screenPageViews" },
       ],
       orderBys: [{ dimension: { dimensionName: "date" } }],
-      limit: dateRange.trendLimit,
+      limit: "30",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
       dimensions: [{ name: "pagePath" }, { name: "pageTitle" }],
       metrics: [
         { name: "screenPageViews" },
@@ -568,19 +274,33 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
         { name: "sessions" },
       ],
       orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
-      limit: "50",
+      limit: "10",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
       dimensions: [{ name: "country" }],
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
       limit: "10",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
       dimensions: [{ name: "region" }, { name: "country" }],
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
+      orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
+      limit: "10",
+    }),
+    runReport(accessToken, propertyId, {
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dimensions: [{ name: "userGender" }],
+      metrics: [{ name: "activeUsers" }],
+      orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
+      limit: "10",
+    }),
+    runReport(accessToken, propertyId, {
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dimensions: [{ name: "userAgeBracket" }],
+      metrics: [{ name: "activeUsers" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
       limit: "10",
     }),
@@ -596,40 +316,51 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
     screenPageViews: toNumber(summaryRow?.metricValues?.[3]?.value),
     averageSessionDuration: toNumber(summaryRow?.metricValues?.[4]?.value),
     engagementRate: toNumber(summaryRow?.metricValues?.[5]?.value),
+    bounceRate: toNumber(summaryRow?.metricValues?.[6]?.value),
   };
 
-  const [whatsappResult, generateLeadResult, trafficSourcesResult, productClicksResult] =
+  const [whatsappResult, generateLeadResult, trafficSourcesResult, productClicksResult, prevPeriodResult] =
     await Promise.allSettled([
       runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
         metrics: [{ name: "eventCount" }],
         dimensionFilter: {
           filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "whatsapp_click" } },
         },
       }),
       runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
         metrics: [{ name: "eventCount" }],
         dimensionFilter: {
           filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "generate_lead" } },
         },
       }),
       runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
+        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
         dimensions: [{ name: "sessionDefaultChannelGroup" }],
         metrics: [{ name: "activeUsers" }, { name: "sessions" }],
         orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
         limit: "8",
       }),
       runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: dateRange.startDate, endDate: dateRange.endDate }],
-        dimensions: [{ name: "customEvent:product" }],
+        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+        dimensions: [{ name: "eventName" }],
         metrics: [{ name: "eventCount" }],
         dimensionFilter: {
-          filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "cta_click" } },
+          filter: { fieldName: "eventName", stringFilter: { matchType: "BEGINS_WITH", value: "product_click_" } },
         },
         orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
         limit: "10",
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [{ startDate: "60daysAgo", endDate: "31daysAgo" }],
+        metrics: [
+          { name: "totalUsers" },
+          { name: "activeUsers" },
+          { name: "sessions" },
+          { name: "screenPageViews" },
+          { name: "bounceRate" },
+        ],
       }),
     ]);
 
@@ -652,18 +383,42 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
         })) ?? [])
       : [];
 
+  const PRODUCT_NAMES: Record<string, string> = {
+    "product_click_conta_corrente": "Conta Corrente Empresarial",
+    "product_click_maquina_cartao": "Máquina de Cartão",
+    "product_click_seguros": "Seguros e Consórcios",
+    "product_click_credito_rapido": "Crédito Rápido",
+    "product_click_tributarias": "Soluções Tributárias",
+    "product_click_personalizadas": "Soluções Personalizadas",
+    "product_click_telemedicina": "Telemedicina",
+  };
+
   const productClicks: GaProductClick[] =
     productClicksResult.status === "fulfilled"
       ? (productClicksResult.value.rows
           ?.filter((row) => {
-            const val = cleanDimensionValue(row.dimensionValues?.[0]?.value, "");
-            return val && val !== "Nao informado";
+            const val = (row.dimensionValues?.[0]?.value || "").trim();
+            return val && val.startsWith("product_click_");
           })
-          .map((row) => ({
-            product: cleanDimensionValue(row.dimensionValues?.[0]?.value, "Produto nao identificado"),
-            clicks: toNumber(row.metricValues?.[0]?.value),
-          })) ?? [])
+          .map((row) => {
+            const eventName = row.dimensionValues?.[0]?.value || "";
+            return {
+              product: PRODUCT_NAMES[eventName] || eventName.replace("product_click_", "").replace(/_/g, " "),
+              clicks: toNumber(row.metricValues?.[0]?.value),
+            };
+          }) ?? [])
       : [];
+
+  const previousPeriod: GaPeriodComparison | undefined =
+    prevPeriodResult.status === "fulfilled" && prevPeriodResult.value.rows?.[0]
+      ? {
+          totalUsers: toNumber(prevPeriodResult.value.rows[0].metricValues?.[0]?.value),
+          activeUsers: toNumber(prevPeriodResult.value.rows[0].metricValues?.[1]?.value),
+          sessions: toNumber(prevPeriodResult.value.rows[0].metricValues?.[2]?.value),
+          screenPageViews: toNumber(prevPeriodResult.value.rows[0].metricValues?.[3]?.value),
+          bounceRate: toNumber(prevPeriodResult.value.rows[0].metricValues?.[4]?.value),
+        }
+      : undefined;
 
   const trend: GaTrendPoint[] =
     trendReport.rows?.map((row) => ({
@@ -673,7 +428,14 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
       screenPageViews: toNumber(row.metricValues?.[2]?.value),
     })) || [];
 
-  const topPages = groupTopPages(topPagesReport.rows);
+  const topPages: GaTopPage[] =
+    topPagesReport.rows?.map((row) => ({
+      pagePath: row.dimensionValues?.[0]?.value || "/",
+      pageTitle: row.dimensionValues?.[1]?.value || "Sem titulo",
+      screenPageViews: toNumber(row.metricValues?.[0]?.value),
+      activeUsers: toNumber(row.metricValues?.[1]?.value),
+      sessions: toNumber(row.metricValues?.[2]?.value),
+    })) || [];
 
   const topCountries: GaGeoRow[] =
     topCountriesReport.rows?.map((row) => ({
@@ -699,35 +461,33 @@ export async function getGa4Overview(siteKey = DEFAULT_SITE_KEY, dateRange = res
       sessions: toNumber(row.metricValues?.[1]?.value),
     })) || [];
 
-  const [genderBreakdownResult, ageBreakdownResult] = await Promise.all([
-    getDemographicBreakdown(accessToken, propertyId, "userGender", dateRange),
-    getDemographicBreakdown(accessToken, propertyId, "userAgeBracket", dateRange),
-  ]);
+  const genderBreakdown: GaDemographicRow[] =
+    genderReport.rows?.map((row) => ({
+      label: cleanDimensionValue(row.dimensionValues?.[0]?.value),
+      activeUsers: toNumber(row.metricValues?.[0]?.value),
+    })) || [];
 
-  const demographicRangeLabel =
-    genderBreakdownResult.rows.length || ageBreakdownResult.rows.length
-      ? genderBreakdownResult.rows.length
-        ? genderBreakdownResult.rangeLabel
-        : ageBreakdownResult.rangeLabel
-      : dateRange.label;
+  const ageBreakdown: GaDemographicRow[] =
+    ageReport.rows?.map((row) => ({
+      label: cleanDimensionValue(row.dimensionValues?.[0]?.value),
+      activeUsers: toNumber(row.metricValues?.[0]?.value),
+    })) || [];
 
   return {
     configured: true,
-    siteKey: site.key,
-    siteName: site.name,
     propertyId,
-    rangeLabel: dateRange.label,
-    demographicRangeLabel,
+    rangeLabel: "Ultimos 30 dias",
     summary,
     trend,
     topPages,
     topCountries,
     topRegions,
-    genderBreakdown: genderBreakdownResult.rows,
-    ageBreakdown: ageBreakdownResult.rows,
+    genderBreakdown,
+    ageBreakdown,
     whatsappClicks,
     generateLeadTotal,
     trafficSources,
     productClicks,
+    previousPeriod,
   };
 }
