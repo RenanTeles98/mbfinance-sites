@@ -99,9 +99,15 @@ document.getElementById('lead-progress-label').style.color = '#94a3b8';
 document.getElementById('lead-progress-label').style.fontWeight = '400';
 }
 }
+function trackGA4(eventName, params) {
+if (typeof gtag === 'function') {
+gtag('event', eventName, Object.assign({ send_to: 'G-XS7HTFJKD6' }, params || {}));
+}
+}
 function openLeadModal(waUrl, produto) {
 _leadWaUrl = waUrl || 'https://wa.me/552139008295';
 _leadProduto = produto || '';
+trackGA4('lead_modal_open', { source_area: produto || 'main_site', product: produto || '' });
 const modal = document.getElementById('lead-modal');
 modal.style.removeProperty('display');
 modal.style.display = 'flex';
@@ -169,6 +175,8 @@ const msgsPorProduto = {
 let msg = msgsPorProduto[produtoSelecionado] || `Olá! Gostaria de falar com um especialista da mb finance.`;
 const baseUrl = _leadWaUrl.split('?')[0];
 const waLink = `${baseUrl}?text=${encodeURIComponent(msg)}`;
+trackGA4('generate_lead', { product: produtoSelecionado, source_area: 'lead_modal', form_name: 'main_site_lead_form' });
+trackGA4('conta_pj_lead_click', { product: produtoSelecionado, source_area: 'lead_modal' });
 _leadConvertido = true;
 closeLeadModal();
 document.getElementById('lead-form').reset();
