@@ -11,6 +11,7 @@ export type GaOverviewMetric = {
   sessions: number;
   screenPageViews: number;
   averageSessionDuration: number;
+  engagementRate: number;
 };
 
 export type GaTrendPoint = {
@@ -40,6 +41,17 @@ export type GaDemographicRow = {
   activeUsers: number;
 };
 
+export type GaTrafficSource = {
+  channel: string;
+  activeUsers: number;
+  sessions: number;
+};
+
+export type GaProductClick = {
+  product: string;
+  clicks: number;
+};
+
 export type GaOverviewResponse = {
   configured: boolean;
   propertyId?: string;
@@ -51,6 +63,10 @@ export type GaOverviewResponse = {
   topRegions?: GaGeoRow[];
   genderBreakdown?: GaDemographicRow[];
   ageBreakdown?: GaDemographicRow[];
+  whatsappClicks?: number;
+  generateLeadTotal?: number;
+  trafficSources?: GaTrafficSource[];
+  productClicks?: GaProductClick[];
 };
 
 type RunReportRequest = {
@@ -212,6 +228,7 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
         { name: "sessions" },
         { name: "screenPageViews" },
         { name: "averageSessionDuration" },
+        { name: "engagementRate" },
       ],
     }),
     runReport(accessToken, propertyId, {
@@ -287,7 +304,75 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
     sessions: toNumber(summaryRow?.metricValues?.[2]?.value),
     screenPageViews: toNumber(summaryRow?.metricValues?.[3]?.value),
     averageSessionDuration: toNumber(summaryRow?.metricValues?.[4]?.value),
+    engagementRate: toNumber(summaryRow?.metricValues?.[5]?.value),
   };
+
+  const [whatsappResult, generateLeadResult, trafficSourcesResult, productClicksResult] =
+    await Promise.allSettled([
+      runReport(accessToken, propertyId, {
+        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "whatsapp_click" } },
+        },
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "generate_lead" } },
+        },
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+        dimensions: [{ name: "sessionDefaultChannelGroup" }],
+        metrics: [{ name: "activeUsers" }, { name: "sessions" }],
+        orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
+        limit: "8",
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+        dimensions: [{ name: "customEvent:product" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "cta_click" } },
+        },
+        orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+        limit: "10",
+      }),
+    ]);
+
+  const whatsappClicks =
+    whatsappResult.status === "fulfilled"
+      ? toNumber(whatsappResult.value.rows?.[0]?.metricValues?.[0]?.value)
+      : 0;
+
+  const generateLeadTotal =
+    generateLeadResult.status === "fulfilled"
+      ? toNumber(generateLeadResult.value.rows?.[0]?.metricValues?.[0]?.value)
+      : 0;
+
+  const trafficSources: GaTrafficSource[] =
+    trafficSourcesResult.status === "fulfilled"
+      ? (trafficSourcesResult.value.rows?.map((row) => ({
+          channel: cleanDimensionValue(row.dimensionValues?.[0]?.value, "Direto"),
+          activeUsers: toNumber(row.metricValues?.[0]?.value),
+          sessions: toNumber(row.metricValues?.[1]?.value),
+        })) ?? [])
+      : [];
+
+  const productClicks: GaProductClick[] =
+    productClicksResult.status === "fulfilled"
+      ? (productClicksResult.value.rows
+          ?.filter((row) => {
+            const val = cleanDimensionValue(row.dimensionValues?.[0]?.value, "");
+            return val && val !== "Nao informado";
+          })
+          .map((row) => ({
+            product: cleanDimensionValue(row.dimensionValues?.[0]?.value, "Produto nao identificado"),
+            clicks: toNumber(row.metricValues?.[0]?.value),
+          })) ?? [])
+      : [];
 
   const trend: GaTrendPoint[] =
     trendReport.rows?.map((row) => ({
@@ -353,5 +438,9 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
     topRegions,
     genderBreakdown,
     ageBreakdown,
+    whatsappClicks,
+    generateLeadTotal,
+    trafficSources,
+    productClicks,
   };
 }

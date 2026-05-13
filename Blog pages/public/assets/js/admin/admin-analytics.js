@@ -89,12 +89,22 @@ async function renderTrafficAnalytics() {
                 + '</tbody></table>';
         }
 
+            const engagementPct = summary.engagementRate ? (summary.engagementRate * 100).toFixed(1) + '%' : 'N/A';
+        const whatsappClicks = typeof data.whatsappClicks === 'number' ? data.whatsappClicks : null;
+        const generateLeadTotal = typeof data.generateLeadTotal === 'number' ? data.generateLeadTotal : null;
+
         document.getElementById('ga-highlights').innerHTML = ''
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads gerados</div><div class="analytics-highlight-value">' + formatInteger(summary.pjLeadClicks) + ' cliques para Conta PJ</div></div>'
+            + (whatsappClicks !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Cliques no WhatsApp</div><div class="analytics-highlight-value">' + formatInteger(whatsappClicks) + ' eventos</div></div>' : '')
+            + (generateLeadTotal !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads convertidos</div><div class="analytics-highlight-value">' + formatInteger(generateLeadTotal) + ' formularios enviados</div></div>' : '')
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de engajamento</div><div class="analytics-highlight-value">' + engagementPct + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Duracao media da sessao</div><div class="analytics-highlight-value">' + formatDuration(summary.averageSessionDuration) + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Views por sessao</div><div class="analytics-highlight-value">' + esc(avgViewsPerSession) + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Property GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'N/A') + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Status</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
+
+        renderTrafficSources('ga-traffic-sources', Array.isArray(data.trafficSources) ? data.trafficSources : []);
+        renderProductClicks('ga-product-clicks', Array.isArray(data.productClicks) ? data.productClicks : []);
 
         renderGeoTable('ga-top-countries', topCountries, 'Ainda nao ha paises suficientes registrados no periodo.', false);
         renderGeoTable('ga-top-regions', topRegions, 'Ainda nao ha estados ou regioes suficientes registrados no periodo.', true);
@@ -200,6 +210,46 @@ function renderDemographicList(targetId, rows, emptyMessage) {
             + '<div class="analytics-highlight-label">' + esc(row.label || 'Nao informado') + '</div>'
             + '<div class="analytics-highlight-value">' + formatInteger(row.activeUsers) + ' usuarios</div>'
             + '</div>').join('')
+        + '</div>';
+}
+
+function renderTrafficSources(targetId, rows) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    if (!Array.isArray(rows) || !rows.length) {
+        target.innerHTML = '<div class="analytics-empty">Dados de origem de trafego indisponiveis ainda. O GA4 precisa acumular sessoes suficientes no periodo.</div>';
+        return;
+    }
+    const max = Math.max(...rows.map(r => r.activeUsers || 0), 1);
+    target.innerHTML = '<div class="category-list">'
+        + rows.map(function(row) {
+            const width = Math.max(8, Math.round(((row.activeUsers || 0) / max) * 100));
+            return '<div class="category-row">'
+                + '<div class="category-name">' + esc(row.channel || 'Desconhecido') + '</div>'
+                + '<div class="category-bar"><div class="category-fill" style="width:' + width + '%"></div></div>'
+                + '<div class="category-count">' + formatInteger(row.activeUsers) + ' usuarios</div>'
+                + '</div>';
+        }).join('')
+        + '</div>';
+}
+
+function renderProductClicks(targetId, rows) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    if (!Array.isArray(rows) || !rows.length) {
+        target.innerHTML = '<div class="analytics-empty">Nenhum clique por produto registrado ainda. Os eventos serao exibidos aqui assim que houver volume suficiente no GA4.</div>';
+        return;
+    }
+    const max = Math.max(...rows.map(r => r.clicks || 0), 1);
+    target.innerHTML = '<div class="category-list">'
+        + rows.map(function(row) {
+            const width = Math.max(8, Math.round(((row.clicks || 0) / max) * 100));
+            return '<div class="category-row">'
+                + '<div class="category-name">' + esc(row.product || 'Produto desconhecido') + '</div>'
+                + '<div class="category-bar"><div class="category-fill" style="width:' + width + '%"></div></div>'
+                + '<div class="category-count">' + formatInteger(row.clicks) + ' clique' + (row.clicks !== 1 ? 's' : '') + '</div>'
+                + '</div>';
+        }).join('')
         + '</div>';
 }
 
