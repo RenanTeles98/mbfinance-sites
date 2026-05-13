@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getGa4Overview } from "@/lib/ga4";
 
+export const revalidate = 1800;
+
 export async function GET() {
   try {
     const data = await getGa4Overview();

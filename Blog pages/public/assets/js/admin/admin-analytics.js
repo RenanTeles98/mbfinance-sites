@@ -8,6 +8,86 @@ function getAnalyticsApiUrl() {
     return '/api/analytics/overview';
 }
 
+function pctChange(current, previous) {
+    if (!previous || previous === 0) return null;
+    return ((current - previous) / previous) * 100;
+}
+
+function renderTrendBadge(targetId, current, previous, invertGood) {
+    var el = document.getElementById(targetId);
+    if (!el || current === undefined || !previous) return;
+    var pct = pctChange(current, previous);
+    if (pct === null) return;
+    var abs = Math.abs(pct).toFixed(1);
+    var isPositive = pct > 0;
+    var isGood = invertGood ? !isPositive : isPositive;
+    var cls = Math.abs(pct) < 2 ? 'ga-trend-neutral' : (isGood ? 'ga-trend-up' : 'ga-trend-down');
+    var arrow = pct > 1.9 ? '↑' : pct < -1.9 ? '↓' : '→';
+    el.innerHTML = '<span class="ga-trend-badge ' + cls + '">' + arrow + ' ' + abs + '% vs mês ant.</span>';
+}
+
+function renderAlerts(data) {
+    var el = document.getElementById('ga-alerts');
+    if (!el) return;
+    var alerts = [];
+    var s = data.summary || {};
+    var prev = data.previousPeriod || {};
+
+    if (typeof data.generateLeadTotal === 'number' && data.generateLeadTotal === 0 && s.sessions > 20) {
+        alerts.push({ type: 'warn', icon: '⚠️', msg: 'Nenhum lead registrado nos últimos 30 dias. Verifique se os botões do site estão funcionando corretamente.' });
+    }
+    if (s.bounceRate && s.bounceRate > 0.70) {
+        alerts.push({ type: 'danger', icon: '🔴', msg: 'Taxa de rejeição em ' + (s.bounceRate * 100).toFixed(0) + '% — acima do limite saudável de 70%. Avalie o conteúdo e velocidade da homepage.' });
+    }
+    if (prev.activeUsers && s.activeUsers) {
+        var drop = (s.activeUsers - prev.activeUsers) / prev.activeUsers;
+        if (drop < -0.20) {
+            alerts.push({ type: 'danger', icon: '📉', msg: 'Tráfego caiu ' + Math.abs(Math.round(drop * 100)) + '% em relação ao mês anterior (' + formatInteger(prev.activeUsers) + ' → ' + formatInteger(s.activeUsers) + ' usuários ativos).' });
+        }
+    }
+
+    el.innerHTML = alerts.map(function(a) {
+        return '<div class="ga-alert ga-alert-' + a.type + '">'
+            + '<span class="ga-alert-icon">' + a.icon + '</span>'
+            + '<span>' + esc(a.msg) + '</span>'
+            + '</div>';
+    }).join('');
+}
+
+function renderFunnel(data) {
+    var el = document.getElementById('ga-funnel');
+    if (!el) return;
+    var s = data.summary || {};
+    var sessions = s.sessions || 0;
+    var modalOpens = s.pjLeadClicks || 0;
+    var leadsSent = typeof data.generateLeadTotal === 'number' ? data.generateLeadTotal : 0;
+
+    if (!sessions) {
+        el.innerHTML = '<div class="analytics-empty">Sem dados suficientes para o funil ainda. O GA4 precisa acumular sessões no período.</div>';
+        return;
+    }
+
+    var steps = [
+        { label: 'Visitantes', count: sessions, pct: 100 },
+        { label: 'Modal aberto', count: modalOpens, pct: sessions ? ((modalOpens / sessions) * 100) : 0 },
+        { label: 'Lead enviado', count: leadsSent, pct: sessions ? ((leadsSent / sessions) * 100) : 0 },
+    ];
+    var maxCount = steps[0].count || 1;
+
+    el.innerHTML = '<div style="display:flex;flex-direction:column;gap:18px;padding-top:4px;">'
+        + steps.map(function(step) {
+            var barW = Math.max(3, Math.round((step.count / maxCount) * 100));
+            var pctLabel = step.pct === 100 ? '100%' : (step.pct > 0 ? step.pct.toFixed(1) + '%' : '0%');
+            return '<div class="ga-funnel-row">'
+                + '<div class="ga-funnel-label">' + esc(step.label) + '</div>'
+                + '<div class="ga-funnel-bar-wrap"><div class="ga-funnel-bar" style="width:' + barW + '%"></div></div>'
+                + '<div class="ga-funnel-count">' + formatInteger(step.count) + '</div>'
+                + '<div class="ga-funnel-pct">' + pctLabel + '</div>'
+                + '</div>';
+        }).join('')
+        + '</div>';
+}
+
 async function renderTrafficAnalytics() {
     const totalUsersEl = document.getElementById('ga-total-users');
     if (!totalUsersEl) return;
@@ -17,6 +97,7 @@ async function renderTrafficAnalytics() {
     document.getElementById('ga-active-users').textContent = '--';
     document.getElementById('ga-sessions').textContent = '--';
     document.getElementById('ga-pageviews').textContent = '--';
+    document.getElementById('ga-bounce-rate').textContent = '--';
     document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Carregando dados do Google Analytics...</div>';
     document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Carregando paginas mais acessadas...</div>';
     document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Carregando indicadores de trafego...</div>';
@@ -59,7 +140,21 @@ async function renderTrafficAnalytics() {
         document.getElementById('ga-active-users').textContent = formatInteger(summary.activeUsers);
         document.getElementById('ga-sessions').textContent = formatInteger(summary.sessions);
         document.getElementById('ga-pageviews').textContent = formatInteger(summary.screenPageViews);
+        document.getElementById('ga-bounce-rate').textContent = summary.bounceRate ? (summary.bounceRate * 100).toFixed(1) + '%' : '--';
         document.getElementById('analytics-last-update').textContent = data.rangeLabel ? 'Dados reais: ' + data.rangeLabel : 'Dados reais do GA4';
+
+        var prev = data.previousPeriod || null;
+        if (prev) {
+            renderTrendBadge('ga-pj-leads-trend', summary.pjLeadClicks, prev.activeUsers, false);
+            renderTrendBadge('ga-total-users-trend', summary.totalUsers, prev.totalUsers, false);
+            renderTrendBadge('ga-active-users-trend', summary.activeUsers, prev.activeUsers, false);
+            renderTrendBadge('ga-sessions-trend', summary.sessions, prev.sessions, false);
+            renderTrendBadge('ga-pageviews-trend', summary.screenPageViews, prev.screenPageViews, false);
+            renderTrendBadge('ga-bounce-rate-trend', summary.bounceRate, prev.bounceRate, true);
+        }
+
+        renderAlerts(data);
+        renderFunnel(data);
 
         if (!trend.length) {
             document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Ainda nao ha volume suficiente para montar a tendencia diaria.</div>';

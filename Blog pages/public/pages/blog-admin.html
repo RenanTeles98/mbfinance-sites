@@ -249,7 +249,7 @@
         .analytics-page-header h2 { font-size: 22px; font-weight: 900; color: #1e293b; margin-bottom: 6px; }
         .analytics-page-header p { font-size: 14px; color: #64748b; line-height: 1.6; max-width: 700px; }
         .analytics-stamp { background: #eff9ff; color: #0099dd; border: 1px solid rgba(0,153,221,0.18); font-size: 12px; font-weight: 800; padding: 8px 12px; border-radius: 999px; white-space: nowrap; }
-        .analytics-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .analytics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
         .analytics-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 8px 30px rgba(15,23,42,0.04); }
         .analytics-card-label { font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: #94a3b8; margin-bottom: 10px; }
         .analytics-card-value { font-size: 30px; line-height: 1; font-weight: 900; color: #003956; margin-bottom: 8px; }
@@ -279,7 +279,7 @@
         .analytics-highlight-label { font-size: 13px; font-weight: 700; color: #334155; }
         .analytics-highlight-value { font-size: 13px; font-weight: 800; color: #003956; text-align: right; }
         @media (max-width: 1100px) {
-            .analytics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .analytics-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
             .analytics-panels { grid-template-columns: 1fr; }
         }
         @media (max-width: 720px) {
@@ -288,6 +288,20 @@
             .category-row { grid-template-columns: 1fr; }
             .category-count { text-align: left; }
         }
+        .ga-trend-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 800; padding: 3px 9px; border-radius: 999px; margin-top: 8px; }
+        .ga-trend-up { background: #dcfce7; color: #166534; }
+        .ga-trend-down { background: #fee2e2; color: #991b1b; }
+        .ga-trend-neutral { background: #f1f5f9; color: #64748b; }
+        .ga-alert { display: flex; align-items: flex-start; gap: 12px; padding: 14px 18px; border-radius: 12px; margin-bottom: 10px; font-size: 13px; font-weight: 600; line-height: 1.5; }
+        .ga-alert-warn { background: #fef3c7; border: 1.5px solid #fcd34d; color: #92400e; }
+        .ga-alert-danger { background: #fee2e2; border: 1.5px solid #fca5a5; color: #991b1b; }
+        .ga-alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+        .ga-funnel-row { display: grid; grid-template-columns: 140px 1fr 70px 56px; gap: 12px; align-items: center; }
+        .ga-funnel-label { font-size: 13px; font-weight: 700; color: #334155; }
+        .ga-funnel-bar-wrap { height: 14px; border-radius: 999px; background: #e2e8f0; overflow: hidden; }
+        .ga-funnel-bar { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #003956, #0099dd); transition: width 0.6s ease; }
+        .ga-funnel-count { font-size: 13px; font-weight: 800; color: #003956; text-align: right; }
+        .ga-funnel-pct { font-size: 12px; font-weight: 700; color: #0099dd; text-align: right; }
         .slot-preview { margin-top: 14px; padding: 12px 14px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
         .slot-preview-box { background: #e2e8f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.5px; }
 
@@ -878,31 +892,44 @@
                 <div class="analytics-stamp" id="analytics-last-update">Atualizado agora</div>
             </div>
 
+            <div id="ga-alerts" style="margin-bottom:4px;"></div>
+
             <div class="analytics-grid">
                 <div class="analytics-card">
                     <div class="analytics-card-label">Leads Gerados</div>
                     <div class="analytics-card-value" id="ga-pj-leads">--</div>
+                    <div id="ga-pj-leads-trend"></div>
                     <div class="analytics-card-note">Cliques para abrir a Conta PJ no site.</div>
                 </div>
                 <div class="analytics-card">
                     <div class="analytics-card-label">Usuários Totais</div>
                     <div class="analytics-card-value" id="ga-total-users">--</div>
+                    <div id="ga-total-users-trend"></div>
                     <div class="analytics-card-note">Usuários totais registrados no período consultado.</div>
                 </div>
                 <div class="analytics-card">
                     <div class="analytics-card-label">Usuários Ativos</div>
                     <div class="analytics-card-value" id="ga-active-users">--</div>
+                    <div id="ga-active-users-trend"></div>
                     <div class="analytics-card-note">Pessoas que navegaram ativamente pelo site.</div>
                 </div>
                 <div class="analytics-card">
                     <div class="analytics-card-label">Sessões</div>
                     <div class="analytics-card-value" id="ga-sessions">--</div>
+                    <div id="ga-sessions-trend"></div>
                     <div class="analytics-card-note">Quantidade de sessões abertas no site.</div>
                 </div>
                 <div class="analytics-card">
                     <div class="analytics-card-label">Visualizações</div>
                     <div class="analytics-card-value" id="ga-pageviews">--</div>
+                    <div id="ga-pageviews-trend"></div>
                     <div class="analytics-card-note">Total de visualizações de páginas no período.</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="analytics-card-label">Taxa de Rejeição</div>
+                    <div class="analytics-card-value" id="ga-bounce-rate">--</div>
+                    <div id="ga-bounce-rate-trend"></div>
+                    <div class="analytics-card-note">Sessões sem interação — quanto menor, melhor.</div>
                 </div>
             </div>
 
@@ -923,6 +950,12 @@
                 <h3>Indicadores de tráfego</h3>
                 <div class="analytics-panel-sub">Leitura rápida do comportamento do site com base no GA4.</div>
                 <div class="analytics-highlight-list" id="ga-highlights"></div>
+            </div>
+
+            <div class="analytics-panel" style="margin-bottom:18px;">
+                <h3>Funil de conversão</h3>
+                <div class="analytics-panel-sub">De visitante a lead: cada etapa do caminho de conversão nos últimos 30 dias.</div>
+                <div id="ga-funnel"><div class="analytics-empty">Carregando funil...</div></div>
             </div>
 
             <div class="analytics-panels" style="margin-bottom:18px;">

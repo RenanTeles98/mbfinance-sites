@@ -12,6 +12,15 @@ export type GaOverviewMetric = {
   screenPageViews: number;
   averageSessionDuration: number;
   engagementRate: number;
+  bounceRate: number;
+};
+
+export type GaPeriodComparison = {
+  totalUsers: number;
+  activeUsers: number;
+  sessions: number;
+  screenPageViews: number;
+  bounceRate: number;
 };
 
 export type GaTrendPoint = {
@@ -67,6 +76,7 @@ export type GaOverviewResponse = {
   generateLeadTotal?: number;
   trafficSources?: GaTrafficSource[];
   productClicks?: GaProductClick[];
+  previousPeriod?: GaPeriodComparison;
 };
 
 type RunReportRequest = {
@@ -229,6 +239,7 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
         { name: "screenPageViews" },
         { name: "averageSessionDuration" },
         { name: "engagementRate" },
+        { name: "bounceRate" },
       ],
     }),
     runReport(accessToken, propertyId, {
@@ -305,9 +316,10 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
     screenPageViews: toNumber(summaryRow?.metricValues?.[3]?.value),
     averageSessionDuration: toNumber(summaryRow?.metricValues?.[4]?.value),
     engagementRate: toNumber(summaryRow?.metricValues?.[5]?.value),
+    bounceRate: toNumber(summaryRow?.metricValues?.[6]?.value),
   };
 
-  const [whatsappResult, generateLeadResult, trafficSourcesResult, productClicksResult] =
+  const [whatsappResult, generateLeadResult, trafficSourcesResult, productClicksResult, prevPeriodResult] =
     await Promise.allSettled([
       runReport(accessToken, propertyId, {
         dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
@@ -339,6 +351,16 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
         },
         orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
         limit: "10",
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [{ startDate: "60daysAgo", endDate: "31daysAgo" }],
+        metrics: [
+          { name: "totalUsers" },
+          { name: "activeUsers" },
+          { name: "sessions" },
+          { name: "screenPageViews" },
+          { name: "bounceRate" },
+        ],
       }),
     ]);
 
@@ -386,6 +408,17 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
             };
           }) ?? [])
       : [];
+
+  const previousPeriod: GaPeriodComparison | undefined =
+    prevPeriodResult.status === "fulfilled" && prevPeriodResult.value.rows?.[0]
+      ? {
+          totalUsers: toNumber(prevPeriodResult.value.rows[0].metricValues?.[0]?.value),
+          activeUsers: toNumber(prevPeriodResult.value.rows[0].metricValues?.[1]?.value),
+          sessions: toNumber(prevPeriodResult.value.rows[0].metricValues?.[2]?.value),
+          screenPageViews: toNumber(prevPeriodResult.value.rows[0].metricValues?.[3]?.value),
+          bounceRate: toNumber(prevPeriodResult.value.rows[0].metricValues?.[4]?.value),
+        }
+      : undefined;
 
   const trend: GaTrendPoint[] =
     trendReport.rows?.map((row) => ({
@@ -455,5 +488,6 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
     generateLeadTotal,
     trafficSources,
     productClicks,
+    previousPeriod,
   };
 }
