@@ -81,7 +81,8 @@ function shortenUrl(url) {
 
     clearTimeout(_shortenTimer);
     _shortenTimer = setTimeout(function() {
-        fetch('https://www.mbnegocios.com.br/api/shorten.php', {
+        var base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
+        fetch(base + '/api/shorten', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ url: url }),
