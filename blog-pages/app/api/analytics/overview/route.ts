@@ -7,7 +7,9 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const site = searchParams.get("site") || "mb-finance";
-    const data = await getGa4Overview(site);
+    const startDate = searchParams.get("startDate") || "30daysAgo";
+    const endDate = searchParams.get("endDate") || "today";
+    const data = await getGa4Overview(site, startDate, endDate);
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     const message =

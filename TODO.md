@@ -6,6 +6,11 @@
 
 ## ðŸ”´ CrÃ­tico (fazer antes do prÃ³ximo push sÃ©rio)
 
+- [x] **Corrigir periodo das metricas GA4 no painel**
+  - API de analytics passa a respeitar `startDate` e `endDate`.
+  - Consultas GA4 deixam de usar periodo fixo de 30 dias.
+  - Validar deploy em producao apos push.
+
 - [x] **Filtrar posts agendados no Blog (Next.js)** - Implementado no `lib/blog-store.ts` e API.
 
 - [x] **Substituir nÃºmero de WhatsApp fictÃ­cio pelo nÃºmero real** - Centralizado em `lib/constants.ts`.

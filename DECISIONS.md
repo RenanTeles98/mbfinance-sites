@@ -5,6 +5,32 @@
 
 ---
 
+## ADR-034: Periodo selecionado no painel deve ser aplicado no backend GA4
+
+**Data:** 2026-05-14
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O painel administrativo enviava `startDate` e `endDate` ao endpoint de analytics, mas a rota e a camada GA4 consultavam sempre `30daysAgo` ate `today`. Por isso, mudar entre "Ontem", "Ultimos 7 dias" e "Ultimos 30 dias" mantinha os mesmos numeros.
+
+### Decisao
+
+Repassar `startDate` e `endDate` da rota para `getGa4Overview` e usar esse intervalo em todas as consultas GA4 relacionadas ao resumo do painel. O intervalo anterior usado para comparacao passa a ser calculado com a mesma duracao do periodo selecionado.
+
+### Alternativas Consideradas
+
+- Corrigir apenas o texto do selo: descartado porque mascararia o problema sem alterar os dados.
+- Aplicar o periodo somente nos cards principais: descartado porque graficos, paginas, canais e eventos continuariam inconsistentes.
+
+### Consequencias
+
+- Os cards e componentes do painel respondem ao filtro de data selecionado.
+- O backend continua com fallback de 30 dias quando a tela nao enviar periodo.
+
+---
+
 ## ADR-001: HTML estÃƒÂ¡tico como pÃƒÂ¡gina principal em vez de migrar tudo para Next.js
 
 **Data:** 2026-04-14

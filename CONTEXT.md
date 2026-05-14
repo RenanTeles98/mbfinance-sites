@@ -7,6 +7,16 @@
 
 ## Estado Atual
 
+### Sessao 2026-05-14 - Periodos das metricas GA4
+
+- [x] Corrigida a API `blog-pages/app/api/analytics/overview/route.ts` para repassar `startDate` e `endDate` enviados pelo painel.
+- [x] Corrigido `blog-pages/lib/ga4.ts` para aplicar o periodo selecionado em todas as consultas GA4 do resumo, leads, tendencias, paginas, regioes, demografia, canais e eventos.
+- [x] O selo do painel passa a receber `rangeLabel` calculado pelo backend, como `Hoje`, `Ontem`, `Ultimos 7 dias` ou `Ultimos 30 dias`.
+- [x] Periodo anterior de comparacao agora e calculado a partir do periodo selecionado, em vez de ficar fixo em 60-31 dias atras.
+- [x] Build local do `blog-pages` validado com `npm run build`.
+
+Proximo passo recomendado: validar em producao que os endpoints com `startDate`/`endDate` diferentes retornam `rangeLabel` e metricas diferentes para MB Negocios.
+
 ### O que estÃ¡ funcionando
 
 - [x] Home principal (`public/mb-finance-completo.html`) â€” refatorada com separaÃ§Ã£o total de CSS/JS

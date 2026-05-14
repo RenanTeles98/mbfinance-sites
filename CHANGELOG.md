@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-05-14 - Periodo das metricas GA4
+
+- Corrigido o endpoint de analytics para respeitar o periodo selecionado no painel.
+- Todas as consultas GA4 do resumo passam a usar `startDate` e `endDate` recebidos pela API.
+- O selo de dados reais agora reflete o periodo consultado, como "Ontem" ou "Ultimos 7 dias".
+
 ## 2026-05-13 - Textos do painel administrativo
 
 - Traduzidos termos visiveis do admin do blog para pt-BR.

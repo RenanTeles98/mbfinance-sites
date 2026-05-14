@@ -297,6 +297,66 @@ function formatDateLabel(raw: string) {
   return `${raw.slice(6, 8)}/${raw.slice(4, 6)}`;
 }
 
+function parseIsoDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+  const date = new Date(`${value}T00:00:00.000Z`);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function formatIsoDate(date: Date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function getPreviousDateRange(startDate: string, endDate: string) {
+  const start = parseIsoDate(startDate);
+  const end = parseIsoDate(endDate);
+  if (!start || !end || start > end) {
+    return { startDate: "60daysAgo", endDate: "31daysAgo" };
+  }
+
+  const days = Math.max(
+    1,
+    Math.round((end.getTime() - start.getTime()) / 86400000) + 1
+  );
+  const previousEnd = new Date(start);
+  previousEnd.setUTCDate(previousEnd.getUTCDate() - 1);
+  const previousStart = new Date(previousEnd);
+  previousStart.setUTCDate(previousStart.getUTCDate() - days + 1);
+
+  return {
+    startDate: formatIsoDate(previousStart),
+    endDate: formatIsoDate(previousEnd),
+  };
+}
+
+function formatRangeLabel(startDate: string, endDate: string) {
+  const today = formatIsoDate(new Date());
+  const yesterdayDate = new Date();
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yesterday = formatIsoDate(yesterdayDate);
+
+  if (startDate === today && endDate === today) return "Hoje";
+  if (startDate === yesterday && endDate === yesterday) return "Ontem";
+
+  const start = parseIsoDate(startDate);
+  const end = parseIsoDate(endDate);
+  if (!start || !end || start > end) return "Últimos 30 dias";
+
+  const days = Math.max(
+    1,
+    Math.round((end.getTime() - start.getTime()) / 86400000) + 1
+  );
+  if (endDate === today) {
+    if (days === 7) return "Últimos 7 dias";
+    if (days === 30) return "Últimos 30 dias";
+    if (days === 90) return "Últimos 90 dias";
+    if (days === 180) return "Últimos 180 dias";
+    if (days >= 365 && days <= 366) return "Últimos 12 meses";
+  }
+
+  return `${startDate} até ${endDate}`;
+}
+
 function cleanDimensionValue(value?: string, fallback = "Nao informado") {
   const normalized = (value || "").trim();
   if (!normalized || normalized === "(not set)" || normalized === "unknown") {
@@ -305,8 +365,14 @@ function cleanDimensionValue(value?: string, fallback = "Nao informado") {
   return normalized;
 }
 
-export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverviewResponse> {
+export async function getGa4Overview(
+  siteKey = "mb-finance",
+  startDate = "30daysAgo",
+  endDate = "today"
+): Promise<GaOverviewResponse> {
   const { selected, sites } = getSiteConfig(siteKey);
+  const dateRange = { startDate, endDate };
+  const previousDateRange = getPreviousDateRange(startDate, endDate);
   const siteStatuses = sites.map(({ key, name, configured }) => ({
     key,
     name,
@@ -336,7 +402,7 @@ export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverview
     ageReport,
   ] = await Promise.all([
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [dateRange],
       metrics: [
         { name: "totalUsers" },
         { name: "activeUsers" },
@@ -348,7 +414,7 @@ export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverview
       ],
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [dateRange],
       metrics: [{ name: "eventCount" }],
       dimensionFilter: {
         filter: {
@@ -360,7 +426,7 @@ export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverview
       },
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [dateRange],
       dimensions: [{ name: "date" }],
       metrics: [
         { name: "activeUsers" },
@@ -371,7 +437,7 @@ export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverview
       limit: "30",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [dateRange],
       dimensions: [{ name: "pagePath" }, { name: "pageTitle" }],
       metrics: [
         { name: "screenPageViews" },
@@ -382,28 +448,28 @@ export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverview
       limit: "10",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [dateRange],
       dimensions: [{ name: "country" }],
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
       limit: "10",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [dateRange],
       dimensions: [{ name: "region" }, { name: "country" }],
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
       limit: "10",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [dateRange],
       dimensions: [{ name: "userGender" }],
       metrics: [{ name: "activeUsers" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
       limit: "10",
     }),
     runReport(accessToken, propertyId, {
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [dateRange],
       dimensions: [{ name: "userAgeBracket" }],
       metrics: [{ name: "activeUsers" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
@@ -427,28 +493,28 @@ export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverview
   const [whatsappResult, generateLeadResult, trafficSourcesResult, productClicksResult, prevPeriodResult] =
     await Promise.allSettled([
       runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+        dateRanges: [dateRange],
         metrics: [{ name: "eventCount" }],
         dimensionFilter: {
           filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "whatsapp_click" } },
         },
       }),
       runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+        dateRanges: [dateRange],
         metrics: [{ name: "eventCount" }],
         dimensionFilter: {
           filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "generate_lead" } },
         },
       }),
       runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+        dateRanges: [dateRange],
         dimensions: [{ name: "sessionDefaultChannelGroup" }],
         metrics: [{ name: "activeUsers" }, { name: "sessions" }],
         orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
         limit: "8",
       }),
       runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+        dateRanges: [dateRange],
         dimensions: [{ name: "eventName" }],
         metrics: [{ name: "eventCount" }],
         dimensionFilter: {
@@ -458,7 +524,7 @@ export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverview
         limit: "10",
       }),
       runReport(accessToken, propertyId, {
-        dateRanges: [{ startDate: "60daysAgo", endDate: "31daysAgo" }],
+        dateRanges: [previousDateRange],
         metrics: [
           { name: "totalUsers" },
           { name: "activeUsers" },
@@ -584,7 +650,7 @@ export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverview
     siteName: selected.name,
     sites: siteStatuses,
     propertyId,
-    rangeLabel: "Ultimos 30 dias",
+    rangeLabel: formatRangeLabel(startDate, endDate),
     summary,
     trend,
     topPages,
