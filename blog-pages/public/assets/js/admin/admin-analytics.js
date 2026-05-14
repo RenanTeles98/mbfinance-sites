@@ -285,6 +285,34 @@ async function renderTrafficAnalytics() {
         document.getElementById('ga-pageviews').textContent = formatInteger(eventCount);
         var bounceRateEl = document.getElementById('ga-bounce-rate');
         if (bounceRateEl) bounceRateEl.textContent = summary.bounceRate ? (summary.bounceRate * 100).toFixed(1) + '%' : '--';
+
+        // Taxa de conversão
+        var convRateEl = document.getElementById('ga-conversion-rate');
+        if (convRateEl) {
+            var convRate = summary.sessions ? ((summary.pjLeadClicks / summary.sessions) * 100) : 0;
+            convRateEl.textContent = convRate > 0 ? convRate.toFixed(1) + '%' : '--';
+        }
+
+        // Novos vs Recorrentes
+        var userTypes = Array.isArray(data.userTypes) ? data.userTypes : [];
+        var newRow = userTypes.find(function(r) { return String(r.label || '').toLowerCase().indexOf('nov') >= 0; });
+        var retRow = userTypes.find(function(r) { return String(r.label || '').toLowerCase().indexOf('recorr') >= 0; });
+        if (newRow || retRow) {
+            var newUsers = newRow ? (newRow.users || 0) : 0;
+            var retUsers = retRow ? (retRow.users || 0) : 0;
+            var newPct   = newRow ? (newRow.share || 0) : 0;
+            var retPct   = retRow ? (retRow.share || 0) : 0;
+            var newValEl = document.getElementById('ga-new-users-val');
+            var retValEl = document.getElementById('ga-ret-users-val');
+            var newPctEl = document.getElementById('ga-new-users-pct');
+            var retPctEl = document.getElementById('ga-ret-users-pct');
+            var barEl    = document.getElementById('ga-new-users-bar');
+            if (newValEl) newValEl.textContent = formatInteger(newUsers);
+            if (retValEl) retValEl.textContent = formatInteger(retUsers);
+            if (newPctEl) newPctEl.textContent = (newPct * 100).toFixed(1) + '%';
+            if (retPctEl) retPctEl.textContent = (retPct * 100).toFixed(1) + '%';
+            if (barEl)    barEl.style.width = Math.round(newPct * 100) + '%';
+        }
         const siteLabel = data.siteName ? data.siteName + ' - ' : '';
         document.getElementById('analytics-last-update').textContent = data.rangeLabel ? siteLabel + 'Dados reais: ' + data.rangeLabel : siteLabel + 'Dados reais do GA4';
 
@@ -345,7 +373,6 @@ async function renderTrafficAnalytics() {
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Situação</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
 
         renderProductClicks('ga-product-clicks', Array.isArray(data.productClicks) ? data.productClicks : []);
-        renderStrategicQuality(data);
         renderConversionTable('ga-channel-conversions', Array.isArray(data.channelConversions) ? data.channelConversions : [], 'channel');
         renderConversionTable('ga-campaign-conversions', Array.isArray(data.campaignConversions) ? data.campaignConversions : [], 'campaign');
         renderConversionTable('ga-device-breakdown', Array.isArray(data.deviceBreakdown) ? data.deviceBreakdown : [], 'device');
@@ -358,7 +385,7 @@ async function renderTrafficAnalytics() {
 
         ['ga-traffic-trend','ga-top-pages','ga-highlights','ga-top-countries','ga-top-regions',
          'ga-gender-breakdown','ga-age-breakdown',
-         'ga-strategic-quality','ga-channel-conversions','ga-campaign-conversions',
+         'ga-channel-conversions','ga-campaign-conversions',
          'ga-device-breakdown','ga-landing-pages'].forEach(function(id) { applyCollapse(id); });
 
     } catch (error) {

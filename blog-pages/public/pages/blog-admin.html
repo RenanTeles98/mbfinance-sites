@@ -1053,6 +1053,36 @@
                     <div id="ga-bounce-rate-trend"></div>
                     <div class="analytics-card-note">Quanto menor, melhor — significa que o tráfego é qualificado.</div>
                 </div>
+                <!-- Taxa de conversão -->
+                <div class="analytics-card">
+                    <div class="analytics-card-label">Taxa de conversão <span style="font-size:10px;color:#0099dd;font-weight:700;background:#eff9ff;padding:2px 7px;border-radius:99px;margin-left:4px;">Eficiência</span></div>
+                    <div class="analytics-card-value" id="ga-conversion-rate">--</div>
+                    <div id="ga-conversion-rate-trend"></div>
+                    <div class="analytics-card-note">Percentual de visitantes que viraram leads — quanto maior, melhor o site está convertendo.</div>
+                </div>
+                <!-- Novos vs Recorrentes -->
+                <div class="analytics-card">
+                    <div class="analytics-card-label">Novos vs Recorrentes</div>
+                    <div id="ga-user-types-card" style="margin-top:8px;">
+                        <div style="display:flex;gap:16px;align-items:flex-end;margin-bottom:14px;">
+                            <div>
+                                <div style="font-size:36px;font-weight:900;color:#003956;line-height:1;" id="ga-new-users-val">--</div>
+                                <div style="font-size:11px;font-weight:700;color:#0099dd;margin-top:4px;" id="ga-new-users-pct"></div>
+                                <div style="font-size:12px;color:#64748b;margin-top:2px;">Novos</div>
+                            </div>
+                            <div style="width:1px;height:48px;background:#e2e8f0;flex-shrink:0;margin-bottom:4px;"></div>
+                            <div>
+                                <div style="font-size:36px;font-weight:900;color:#475569;line-height:1;" id="ga-ret-users-val">--</div>
+                                <div style="font-size:11px;font-weight:700;color:#94a3b8;margin-top:4px;" id="ga-ret-users-pct"></div>
+                                <div style="font-size:12px;color:#64748b;margin-top:2px;">Recorrentes</div>
+                            </div>
+                        </div>
+                        <div style="height:8px;border-radius:999px;background:#e2e8f0;overflow:hidden;">
+                            <div id="ga-new-users-bar" style="height:100%;border-radius:999px;background:linear-gradient(90deg,#003956,#0099dd);width:0%;transition:width 0.6s ease;"></div>
+                        </div>
+                    </div>
+                    <div class="analytics-card-note">Alto % de novos = site está atraindo audiência. Recorrentes = fidelização.</div>
+                </div>
             </div>
 
             <div class="analytics-panels" style="margin-bottom:18px;">
@@ -1079,12 +1109,6 @@
                 <h3>Cliques por produto</h3>
                 <div class="analytics-panel-sub">Quais produtos geram mais interesse — baseado nos CTAs clicados no site.</div>
                 <div id="ga-product-clicks"></div>
-            </div>
-
-            <div class="analytics-panel" style="margin-bottom:18px;">
-                <h3>Qualidade do tráfego</h3>
-                <div class="analytics-panel-sub">Páginas por sessão, novos usuários, recorrentes e taxa de conversão do funil.</div>
-                <div class="analytics-highlight-list" id="ga-strategic-quality"></div>
             </div>
 
             <div class="analytics-panels" style="margin-bottom:18px;">
@@ -1337,7 +1361,7 @@
 <script src="../assets/js/admin/admin-blog.js"></script>
 <script src="../assets/js/admin/admin-newsletter.js"></script>
 <script src="../assets/js/admin/admin-calendar.js"></script>
-<script src="../assets/js/admin/admin-analytics.js?v=9"></script>
+<script src="../assets/js/admin/admin-analytics.js?v=10"></script>
 <script src="../assets/js/admin/admin-campaigns.js?v=2"></script>
 <script src="../assets/js/admin/admin-ai.js"></script>
 <script src="../assets/js/admin/admin-banners.js"></script>
