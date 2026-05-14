@@ -87,23 +87,27 @@ function shortenUrl(url) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ url: url }),
         })
-            .then(function(r) { return r.json(); })
             .then(function(r) {
-                return r.json().then(function(data) {
-                    if (loading) loading.style.display = 'none';
-                    if (data.short) {
-                        if (input) input.value = data.short;
-                        if (wrap)  wrap.style.display = 'flex';
-                    } else {
-                        var msg = data.error || 'Não foi possível encurtar o link.';
-                        if (msg.indexOf('Redis') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta função.';
-                        if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
-                    }
-                });
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
             })
-            .catch(function() {
+            .then(function(data) {
                 if (loading) loading.style.display = 'none';
-                if (errEl) { errEl.textContent = 'Erro ao encurtar o link. Verifique se o site está no ar.'; errEl.style.display = 'block'; }
+                if (data.short) {
+                    if (input) input.value = data.short;
+                    if (wrap)  wrap.style.display = 'flex';
+                } else {
+                    var msg = data.error || 'Não foi possível encurtar o link.';
+                    if (msg.indexOf('Redis') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta função.';
+                    if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+                }
+            })
+            .catch(function(err) {
+                if (loading) loading.style.display = 'none';
+                var msg = 'Não foi possível encurtar o link.';
+                if (err && err.message && err.message.indexOf('404') !== -1) msg = 'API não encontrada — o site precisa estar no ar via Vercel.';
+                if (err && err.message && err.message.indexOf('503') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta função.';
+                if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
             });
     }, 600);
 }
