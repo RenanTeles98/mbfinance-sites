@@ -31,13 +31,12 @@ function trackGA4(eventName, params) {
 }
 
 var _productSlugs = {
-    'Conta Corrente Empresarial': 'conta_corrente',
-    'Máquina de Cartão': 'maquina_cartao',
-    'Seguros e Consórcios': 'seguros',
-    'Crédito Rápido': 'credito_rapido',
-    'Soluções Tributárias': 'tributarias',
-    'Soluções Personalizadas': 'personalizadas',
-    'Telemedicina': 'telemedicina',
+    'Conta PJ Digital':  'conta_pj_digital',
+    'C6 Pay':            'c6_pay',
+    'C6 Business':       'c6_business',
+    'Crédito PJ':        'credito_pj',
+    'C6 Conta Global':   'c6_conta_global',
+    'C6 Tag':            'c6_tag',
 };
 
 function openLeadModal(waUrl, produto) {
@@ -108,15 +107,14 @@ function submitLead(e) {
 
     // Monta mensagem personalizada pro WhatsApp
     const msgsPorProduto = {
-        'Conta Corrente Empresarial': `Olá! Gostaria de abrir uma Conta Corrente Empresarial para minha empresa pela mb finance. Podem me ajudar?`,
-        'Máquina de Cartão': `Olá! Tenho interesse nas soluções de maquininha e gateway de pagamento da mb finance. Podem me passar mais informações?`,
-        'Seguros e Consórcios': `Olá! Gostaria de conhecer as opções de Seguros e Consórcios da mb finance. Podem me ajudar?`,
-        'Crédito Rápido': `Olá! Preciso de crédito rápido para minha empresa. Gostaria de saber as condições disponíveis.`,
-        'Soluções Tributárias': `Olá! Tenho interesse nas Soluções Tributárias da mb finance. Podem me passar mais detalhes?`,
-        'Soluções Personalizadas': `Olá! Gostaria de uma proposta de Solução Personalizada para minha empresa. Podem me ajudar?`,
-        'Telemedicina': `Olá! Gostaria de conhecer os planos de Telemedicina da mb finance. Podem me passar mais informações?`,
+        'Conta PJ Digital':  'Olá! Gostaria de abrir uma Conta PJ Digital pelo MB Negócios. Podem me ajudar?',
+        'C6 Pay':            'Olá! Tenho interesse na maquininha C6 Pay pelo MB Negócios. Podem me passar mais informações?',
+        'C6 Business':       'Olá! Gostaria de conhecer o cartão C6 Business pelo MB Negócios. Podem me ajudar?',
+        'Crédito PJ':        'Olá! Preciso de crédito para minha empresa. Gostaria de saber as condições disponíveis pelo MB Negócios.',
+        'C6 Conta Global':   'Olá! Tenho interesse na C6 Conta Global pelo MB Negócios. Podem me passar mais detalhes?',
+        'C6 Tag':            'Olá! Gostaria de conhecer o C6 Tag pelo MB Negócios. Podem me ajudar?',
     };
-    let msg = msgsPorProduto[produtoSelecionado] || `Olá! Gostaria de falar com um especialista da mb finance.`;
+    let msg = msgsPorProduto[produtoSelecionado] || 'Olá! Gostaria de falar com um especialista do MB Negócios.';
 
     const baseUrl = _leadWaUrl.split('?')[0];
     const waLink = `${baseUrl}?text=${encodeURIComponent(msg)}`;
