@@ -38,8 +38,9 @@ function init() {
     document.getElementById('auth-screen').style.display = 'none';
     document.getElementById('admin-app').style.display = 'flex';
 
-    // Carregar posts (do admin-blog.js)
+    // Carregar posts e métricas do blog
     if (typeof loadPosts === 'function') loadPosts();
+    if (typeof renderEditorialAnalytics === 'function') renderEditorialAnalytics();
     
     // Atualizar UI do link oficial
     if (typeof updateOfficialBlogUi === 'function') updateOfficialBlogUi();
@@ -63,6 +64,7 @@ function switchTab(id) {
     // Inicialização específica de cada aba
     if (id === 'calendar' && typeof renderCalendar === 'function') renderCalendar();
     if (id === 'analytics' && typeof renderAnalytics === 'function') renderAnalytics();
+    if (id === 'posts' && typeof renderEditorialAnalytics === 'function') renderEditorialAnalytics();
     if (id === 'newsletter' && typeof updateNewsletterList === 'function') updateNewsletterList();
     if (id === 'banners' && typeof loadBanners === 'function') loadBanners();
     if (id === 'campaigns' && typeof initCampaigns === 'function') initCampaigns();
