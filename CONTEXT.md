@@ -17,6 +17,15 @@
 
 Proximo passo recomendado: validar em producao que os endpoints com `startDate`/`endDate` diferentes retornam `rangeLabel` e metricas diferentes para MB Negocios.
 
+### Sessao 2026-05-14 - Contagem de eventos GA4
+
+- [x] Adicionada a metrica `eventCount` ao resumo GA4 em `blog-pages/lib/ga4.ts`.
+- [x] O card antes chamado "Visualizacoes" passou a exibir "Contagem de eventos", alinhado com a tela padrao do GA4.
+- [x] Visualizacoes de pagina continuam disponiveis nos indicadores de trafego e no ranking de paginas.
+- [x] Build local do `blog-pages` validado com `npm run build`.
+
+Proximo passo recomendado: validar em producao o periodo personalizado 2026-05-11 ate 2026-05-11 para confirmar `Usuarios ativos = 38` e `Contagem de eventos = 254`.
+
 ### O que estÃ¡ funcionando
 
 - [x] Home principal (`public/mb-finance-completo.html`) â€” refatorada com separaÃ§Ã£o total de CSS/JS

@@ -10,6 +10,12 @@
 - Todas as consultas GA4 do resumo passam a usar `startDate` e `endDate` recebidos pela API.
 - O selo de dados reais agora reflete o periodo consultado, como "Ontem" ou "Ultimos 7 dias".
 
+## 2026-05-14 - Contagem de eventos GA4
+
+- Adicionada a metrica `eventCount` ao resumo de analytics.
+- O card "Visualizacoes" do painel foi substituido por "Contagem de eventos" para bater com a tela padrao do GA4.
+- Visualizacoes de pagina seguem exibidas como indicador complementar e no ranking de paginas.
+
 ## 2026-05-13 - Textos do painel administrativo
 
 - Traduzidos termos visiveis do admin do blog para pt-BR.

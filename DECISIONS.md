@@ -5,6 +5,32 @@
 
 ---
 
+## ADR-035: Card principal do GA4 deve usar Contagem de eventos
+
+**Data:** 2026-05-14
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+A tela padrao do GA4 usada como referencia pelo dono do projeto exibia "Usuarios ativos" e "Contagem de eventos". O painel interno exibia "Usuarios ativos" corretamente, mas comparava o segundo numero com "Visualizacoes", que e uma metrica diferente (`screenPageViews`).
+
+### Decisao
+
+Adicionar `eventCount` ao resumo da API e trocar o card principal de "Visualizacoes" para "Contagem de eventos". As visualizacoes de pagina continuam aparecendo nos indicadores e no ranking de paginas.
+
+### Alternativas Consideradas
+
+- Manter "Visualizacoes" como card principal: descartado porque gera comparacao incorreta com o GA4.
+- Remover visualizacoes totalmente: descartado porque ainda e util para analisar paginas acessadas.
+
+### Consequencias
+
+- O painel fica alinhado com a tela de resumo do GA4.
+- Os numeros de eventos e usuarios ativos passam a ser comparaveis diretamente com o GA4 para o mesmo periodo.
+
+---
+
 ## ADR-034: Periodo selecionado no painel deve ser aplicado no backend GA4
 
 **Data:** 2026-05-14

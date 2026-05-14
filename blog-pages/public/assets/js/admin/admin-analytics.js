@@ -258,12 +258,13 @@ async function renderTrafficAnalytics() {
         const genderBreakdown = Array.isArray(data.genderBreakdown) ? data.genderBreakdown : [];
         const ageBreakdown = Array.isArray(data.ageBreakdown) ? data.ageBreakdown : [];
         const avgViewsPerSession = summary.sessions ? (summary.screenPageViews / summary.sessions).toFixed(2) : '0.00';
+        const eventCount = typeof summary.eventCount === 'number' ? summary.eventCount : summary.screenPageViews;
 
         document.getElementById('ga-pj-leads').textContent = formatInteger(summary.pjLeadClicks);
         totalUsersEl.textContent = formatInteger(summary.totalUsers);
         document.getElementById('ga-active-users').textContent = formatInteger(summary.activeUsers);
         document.getElementById('ga-sessions').textContent = formatInteger(summary.sessions);
-        document.getElementById('ga-pageviews').textContent = formatInteger(summary.screenPageViews);
+        document.getElementById('ga-pageviews').textContent = formatInteger(eventCount);
         var bounceRateEl = document.getElementById('ga-bounce-rate');
         if (bounceRateEl) bounceRateEl.textContent = summary.bounceRate ? (summary.bounceRate * 100).toFixed(1) + '%' : '--';
         const siteLabel = data.siteName ? data.siteName + ' - ' : '';
@@ -275,7 +276,7 @@ async function renderTrafficAnalytics() {
             renderTrendBadge('ga-total-users-trend', summary.totalUsers, prev.totalUsers, false);
             renderTrendBadge('ga-active-users-trend', summary.activeUsers, prev.activeUsers, false);
             renderTrendBadge('ga-sessions-trend', summary.sessions, prev.sessions, false);
-            renderTrendBadge('ga-pageviews-trend', summary.screenPageViews, prev.screenPageViews, false);
+            renderTrendBadge('ga-pageviews-trend', eventCount, prev.eventCount || prev.screenPageViews, false);
             renderTrendBadge('ga-bounce-rate-trend', summary.bounceRate, prev.bounceRate, true);
         }
 
@@ -289,7 +290,7 @@ async function renderTrafficAnalytics() {
                 '<div class="analytics-highlight-item">'
                 + '<div class="analytics-highlight-label">' + esc(point.date) + '</div>'
                 + '<div class="analytics-highlight-value">'
-                + formatInteger(point.screenPageViews) + ' visualizações<br>'
+                + formatInteger(point.eventCount || point.screenPageViews) + ' eventos<br>'
                 + formatInteger(point.sessions) + ' sessões · '
                 + formatInteger(point.activeUsers) + ' ativos'
                 + '</div></div>'
@@ -318,6 +319,7 @@ async function renderTrafficAnalytics() {
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads gerados</div><div class="analytics-highlight-value">' + formatInteger(summary.pjLeadClicks) + ' cliques para Conta PJ</div></div>'
             + (whatsappClicks !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Cliques no WhatsApp</div><div class="analytics-highlight-value">' + formatInteger(whatsappClicks) + ' eventos</div></div>' : '')
             + (generateLeadTotal !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads convertidos</div><div class="analytics-highlight-value">' + formatInteger(generateLeadTotal) + ' formulários enviados</div></div>' : '')
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Visualizações de página</div><div class="analytics-highlight-value">' + formatInteger(summary.screenPageViews) + ' visualizações</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de engajamento</div><div class="analytics-highlight-value">' + engagementPct + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Duração média da sessão</div><div class="analytics-highlight-value">' + formatDuration(summary.averageSessionDuration) + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Visualizações por sessão</div><div class="analytics-highlight-value">' + esc(avgViewsPerSession) + '</div></div>'

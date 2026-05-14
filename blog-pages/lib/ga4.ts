@@ -10,6 +10,7 @@ export type GaOverviewMetric = {
   activeUsers: number;
   sessions: number;
   screenPageViews: number;
+  eventCount: number;
   averageSessionDuration: number;
   engagementRate: number;
   bounceRate: number;
@@ -20,6 +21,7 @@ export type GaPeriodComparison = {
   activeUsers: number;
   sessions: number;
   screenPageViews: number;
+  eventCount: number;
   bounceRate: number;
 };
 
@@ -28,6 +30,7 @@ export type GaTrendPoint = {
   activeUsers: number;
   sessions: number;
   screenPageViews: number;
+  eventCount: number;
 };
 
 export type GaTopPage = {
@@ -411,6 +414,7 @@ export async function getGa4Overview(
         { name: "averageSessionDuration" },
         { name: "engagementRate" },
         { name: "bounceRate" },
+        { name: "eventCount" },
       ],
     }),
     runReport(accessToken, propertyId, {
@@ -432,6 +436,7 @@ export async function getGa4Overview(
         { name: "activeUsers" },
         { name: "sessions" },
         { name: "screenPageViews" },
+        { name: "eventCount" },
       ],
       orderBys: [{ dimension: { dimensionName: "date" } }],
       limit: "30",
@@ -488,6 +493,7 @@ export async function getGa4Overview(
     averageSessionDuration: toNumber(summaryRow?.metricValues?.[4]?.value),
     engagementRate: toNumber(summaryRow?.metricValues?.[5]?.value),
     bounceRate: toNumber(summaryRow?.metricValues?.[6]?.value),
+    eventCount: toNumber(summaryRow?.metricValues?.[7]?.value),
   };
 
   const [whatsappResult, generateLeadResult, trafficSourcesResult, productClicksResult, prevPeriodResult] =
@@ -531,6 +537,7 @@ export async function getGa4Overview(
           { name: "sessions" },
           { name: "screenPageViews" },
           { name: "bounceRate" },
+          { name: "eventCount" },
         ],
       }),
     ]);
@@ -588,6 +595,7 @@ export async function getGa4Overview(
           sessions: toNumber(prevPeriodResult.value.rows[0].metricValues?.[2]?.value),
           screenPageViews: toNumber(prevPeriodResult.value.rows[0].metricValues?.[3]?.value),
           bounceRate: toNumber(prevPeriodResult.value.rows[0].metricValues?.[4]?.value),
+          eventCount: toNumber(prevPeriodResult.value.rows[0].metricValues?.[5]?.value),
         }
       : undefined;
 
@@ -597,6 +605,7 @@ export async function getGa4Overview(
       activeUsers: toNumber(row.metricValues?.[0]?.value),
       sessions: toNumber(row.metricValues?.[1]?.value),
       screenPageViews: toNumber(row.metricValues?.[2]?.value),
+      eventCount: toNumber(row.metricValues?.[3]?.value),
     })) || [];
 
   const topPages: GaTopPage[] =

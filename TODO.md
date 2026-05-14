@@ -11,6 +11,11 @@
   - Consultas GA4 deixam de usar periodo fixo de 30 dias.
   - Validar deploy em producao apos push.
 
+- [x] **Alinhar metricas do painel com a tela do GA4**
+  - Card de visualizacoes substituido por "Contagem de eventos".
+  - Backend passa a retornar `eventCount` no resumo e na serie diaria.
+  - Visualizacoes de pagina permanecem como indicador complementar.
+
 - [x] **Filtrar posts agendados no Blog (Next.js)** - Implementado no `lib/blog-store.ts` e API.
 
 - [x] **Substituir nÃºmero de WhatsApp fictÃ­cio pelo nÃºmero real** - Centralizado em `lib/constants.ts`.
