@@ -8,9 +8,12 @@ export type GaOverviewMetric = {
   pjLeadClicks: number;
   totalUsers: number;
   activeUsers: number;
+  newUsers: number;
   sessions: number;
   screenPageViews: number;
   eventCount: number;
+  pagesPerSession: number;
+  funnelConversionRate: number;
   averageSessionDuration: number;
   engagementRate: number;
   bounceRate: number;
@@ -68,6 +71,46 @@ export type GaProductClick = {
   clicks: number;
 };
 
+export type GaChannelConversion = {
+  channel: string;
+  activeUsers: number;
+  sessions: number;
+  leads: number;
+  conversionRate: number;
+};
+
+export type GaCampaignConversion = {
+  source: string;
+  medium: string;
+  campaign: string;
+  activeUsers: number;
+  sessions: number;
+  leads: number;
+  conversionRate: number;
+};
+
+export type GaDeviceRow = {
+  device: string;
+  activeUsers: number;
+  sessions: number;
+  leads: number;
+  conversionRate: number;
+};
+
+export type GaLandingPageRow = {
+  landingPage: string;
+  activeUsers: number;
+  sessions: number;
+  leads: number;
+  conversionRate: number;
+};
+
+export type GaUserTypeRow = {
+  label: string;
+  users: number;
+  share: number;
+};
+
 export type GaCampaignRow = {
   source: string;
   medium: string;
@@ -94,6 +137,11 @@ export type GaOverviewResponse = {
   generateLeadTotal?: number;
   trafficSources?: GaTrafficSource[];
   productClicks?: GaProductClick[];
+  channelConversions?: GaChannelConversion[];
+  campaignConversions?: GaCampaignConversion[];
+  deviceBreakdown?: GaDeviceRow[];
+  landingPages?: GaLandingPageRow[];
+  userTypes?: GaUserTypeRow[];
   previousPeriod?: GaPeriodComparison;
 };
 
@@ -372,6 +420,17 @@ function cleanDimensionValue(value?: string, fallback = "Nao informado") {
   return normalized;
 }
 
+function getLeadEventFilter() {
+  return {
+    filter: {
+      fieldName: "eventName",
+      inListFilter: {
+        values: ["generate_lead", "conta_pj_lead_click"],
+      },
+    },
+  };
+}
+
 export async function getGa4Overview(
   siteKey = "mb-finance",
   startDate = "30daysAgo",
@@ -419,19 +478,13 @@ export async function getGa4Overview(
         { name: "engagementRate" },
         { name: "bounceRate" },
         { name: "eventCount" },
+        { name: "newUsers" },
       ],
     }),
     runReport(accessToken, propertyId, {
       dateRanges: [dateRange],
       metrics: [{ name: "eventCount" }],
-      dimensionFilter: {
-        filter: {
-          fieldName: "eventName",
-          inListFilter: {
-            values: ["conta_pj_lead_click", "lead_modal_open"],
-          },
-        },
-      },
+      dimensionFilter: getLeadEventFilter(),
     }),
     runReport(accessToken, propertyId, {
       dateRanges: [dateRange],
@@ -498,9 +551,31 @@ export async function getGa4Overview(
     engagementRate: toNumber(summaryRow?.metricValues?.[5]?.value),
     bounceRate: toNumber(summaryRow?.metricValues?.[6]?.value),
     eventCount: toNumber(summaryRow?.metricValues?.[7]?.value),
+    newUsers: toNumber(summaryRow?.metricValues?.[8]?.value),
+    pagesPerSession: 0,
+    funnelConversionRate: 0,
   };
+  summary.pagesPerSession = summary.sessions
+    ? summary.screenPageViews / summary.sessions
+    : 0;
+  summary.funnelConversionRate = summary.activeUsers
+    ? summary.pjLeadClicks / summary.activeUsers
+    : 0;
 
-  const [whatsappResult, generateLeadResult, trafficSourcesResult, productClicksResult, prevPeriodResult] =
+  const [
+    whatsappResult,
+    generateLeadResult,
+    trafficSourcesResult,
+    productClicksResult,
+    prevPeriodResult,
+    channelTrafficResult,
+    channelLeadResult,
+    campaignLeadResult,
+    deviceTrafficResult,
+    deviceLeadResult,
+    landingTrafficResult,
+    landingLeadResult,
+  ] =
     await Promise.allSettled([
       runReport(accessToken, propertyId, {
         dateRanges: [dateRange],
@@ -553,6 +628,63 @@ export async function getGa4Overview(
           { name: "eventCount" },
         ],
       }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [dateRange],
+        dimensions: [{ name: "sessionDefaultChannelGroup" }],
+        metrics: [{ name: "activeUsers" }, { name: "sessions" }],
+        orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+        limit: "12",
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [dateRange],
+        dimensions: [{ name: "sessionDefaultChannelGroup" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: getLeadEventFilter(),
+        orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+        limit: "12",
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [dateRange],
+        dimensions: [
+          { name: "sessionSource" },
+          { name: "sessionMedium" },
+          { name: "sessionCampaignName" },
+        ],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: getLeadEventFilter(),
+        orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+        limit: "20",
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [dateRange],
+        dimensions: [{ name: "deviceCategory" }],
+        metrics: [{ name: "activeUsers" }, { name: "sessions" }],
+        orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
+        limit: "8",
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [dateRange],
+        dimensions: [{ name: "deviceCategory" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: getLeadEventFilter(),
+        orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+        limit: "8",
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [dateRange],
+        dimensions: [{ name: "landingPagePlusQueryString" }],
+        metrics: [{ name: "activeUsers" }, { name: "sessions" }],
+        orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+        limit: "12",
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [dateRange],
+        dimensions: [{ name: "landingPagePlusQueryString" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: getLeadEventFilter(),
+        orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+        limit: "12",
+      }),
     ]);
 
   const whatsappClicks =
@@ -577,6 +709,134 @@ export async function getGa4Overview(
           eventCount: toNumber(row.metricValues?.[2]?.value),
         })) ?? [])
       : [];
+
+  const channelLeadMap = new Map<string, number>();
+  if (channelLeadResult.status === "fulfilled") {
+    channelLeadResult.value.rows?.forEach((row) => {
+      const channel = cleanDimensionValue(row.dimensionValues?.[0]?.value, "Direto");
+      channelLeadMap.set(channel, toNumber(row.metricValues?.[0]?.value));
+    });
+  }
+
+  const channelConversions: GaChannelConversion[] =
+    channelTrafficResult.status === "fulfilled"
+      ? (channelTrafficResult.value.rows?.map((row) => {
+          const channel = cleanDimensionValue(row.dimensionValues?.[0]?.value, "Direto");
+          const activeUsers = toNumber(row.metricValues?.[0]?.value);
+          const sessions = toNumber(row.metricValues?.[1]?.value);
+          const leads = channelLeadMap.get(channel) || 0;
+          return {
+            channel,
+            activeUsers,
+            sessions,
+            leads,
+            conversionRate: activeUsers ? leads / activeUsers : 0,
+          };
+        }) ?? []).sort((a, b) => b.leads - a.leads || b.conversionRate - a.conversionRate || b.sessions - a.sessions)
+      : [];
+
+  const campaignMap = new Map<string, GaCampaignConversion>();
+  trafficSources.forEach((row) => {
+    const key = `${row.source}|||${row.medium}|||${row.campaign}`;
+    campaignMap.set(key, {
+      source: row.source,
+      medium: row.medium,
+      campaign: row.campaign,
+      activeUsers: row.activeUsers,
+      sessions: row.sessions,
+      leads: 0,
+      conversionRate: 0,
+    });
+  });
+  if (campaignLeadResult.status === "fulfilled") {
+    campaignLeadResult.value.rows?.forEach((row) => {
+      const source = cleanDimensionValue(row.dimensionValues?.[0]?.value, "direto");
+      const medium = cleanDimensionValue(row.dimensionValues?.[1]?.value, "nenhuma");
+      const campaign = cleanDimensionValue(row.dimensionValues?.[2]?.value, "Sem campanha");
+      const key = `${source}|||${medium}|||${campaign}`;
+      const current = campaignMap.get(key) || {
+        source,
+        medium,
+        campaign,
+        activeUsers: 0,
+        sessions: 0,
+        leads: 0,
+        conversionRate: 0,
+      };
+      current.leads = toNumber(row.metricValues?.[0]?.value);
+      current.conversionRate = current.activeUsers ? current.leads / current.activeUsers : 0;
+      campaignMap.set(key, current);
+    });
+  }
+  const campaignConversions = Array.from(campaignMap.values())
+    .map((row) => ({
+      ...row,
+      conversionRate: row.activeUsers ? row.leads / row.activeUsers : 0,
+    }))
+    .sort((a, b) => b.leads - a.leads || b.conversionRate - a.conversionRate || b.sessions - a.sessions)
+    .slice(0, 12);
+
+  const deviceLeadMap = new Map<string, number>();
+  if (deviceLeadResult.status === "fulfilled") {
+    deviceLeadResult.value.rows?.forEach((row) => {
+      const device = cleanDimensionValue(row.dimensionValues?.[0]?.value, "Nao informado");
+      deviceLeadMap.set(device, toNumber(row.metricValues?.[0]?.value));
+    });
+  }
+  const deviceBreakdown: GaDeviceRow[] =
+    deviceTrafficResult.status === "fulfilled"
+      ? (deviceTrafficResult.value.rows?.map((row) => {
+          const device = cleanDimensionValue(row.dimensionValues?.[0]?.value, "Nao informado");
+          const activeUsers = toNumber(row.metricValues?.[0]?.value);
+          const sessions = toNumber(row.metricValues?.[1]?.value);
+          const leads = deviceLeadMap.get(device) || 0;
+          return {
+            device,
+            activeUsers,
+            sessions,
+            leads,
+            conversionRate: activeUsers ? leads / activeUsers : 0,
+          };
+        }) ?? [])
+      : [];
+
+  const landingLeadMap = new Map<string, number>();
+  if (landingLeadResult.status === "fulfilled") {
+    landingLeadResult.value.rows?.forEach((row) => {
+      const landingPage = cleanDimensionValue(row.dimensionValues?.[0]?.value, "/");
+      landingLeadMap.set(landingPage, toNumber(row.metricValues?.[0]?.value));
+    });
+  }
+  const landingPages: GaLandingPageRow[] =
+    landingTrafficResult.status === "fulfilled"
+      ? (landingTrafficResult.value.rows?.map((row) => {
+          const landingPage = cleanDimensionValue(row.dimensionValues?.[0]?.value, "/");
+          const activeUsers = toNumber(row.metricValues?.[0]?.value);
+          const sessions = toNumber(row.metricValues?.[1]?.value);
+          const leads = landingLeadMap.get(landingPage) || 0;
+          return {
+            landingPage,
+            activeUsers,
+            sessions,
+            leads,
+            conversionRate: activeUsers ? leads / activeUsers : 0,
+          };
+        }) ?? []).sort((a, b) => b.leads - a.leads || b.sessions - a.sessions)
+      : [];
+
+  const returningUsers = Math.max(0, summary.totalUsers - summary.newUsers);
+  const userTypes: GaUserTypeRow[] = [
+    {
+      label: "Novos usuarios",
+      users: summary.newUsers,
+      share: summary.totalUsers ? summary.newUsers / summary.totalUsers : 0,
+    },
+    {
+      label: "Recorrentes",
+      users: returningUsers,
+      share: summary.totalUsers ? returningUsers / summary.totalUsers : 0,
+    },
+  ];
 
   const PRODUCT_NAMES: Record<string, string> = {
     "product_click_conta_corrente": "Conta Corrente Empresarial",
@@ -688,6 +948,11 @@ export async function getGa4Overview(
     generateLeadTotal,
     trafficSources,
     productClicks,
+    channelConversions,
+    campaignConversions,
+    deviceBreakdown,
+    landingPages,
+    userTypes,
     previousPeriod,
   };
 }
