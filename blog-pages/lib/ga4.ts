@@ -690,14 +690,14 @@ export async function getGa4Overview(
       }),
       runReport(accessToken, propertyId, {
         dateRanges: [dateRange],
-        dimensions: [{ name: "landingPagePlusQueryString" }],
+        dimensions: [{ name: "landingPage" }],
         metrics: [{ name: "activeUsers" }, { name: "sessions" }],
         orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
         limit: "12",
       }),
       runReport(accessToken, propertyId, {
         dateRanges: [dateRange],
-        dimensions: [{ name: "landingPagePlusQueryString" }],
+        dimensions: [{ name: "landingPage" }],
         metrics: [{ name: "eventCount" }],
         dimensionFilter: getLeadEventFilter(),
         orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],

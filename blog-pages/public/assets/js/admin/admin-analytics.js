@@ -713,10 +713,31 @@ function renderConversionTable(targetId, rows, type) {
     }
 
     var max = Math.max(...rows.map(function(row) { return row.leads || row.sessions || row.activeUsers || 0; }), 1);
+    var LANDING_NAMES = {
+        '/':                        'Página inicial',
+        '/index.html':              'Página inicial',
+        '/mb-finance-completo.html':'Página inicial',
+        '/pages/sobre.html':        'Sobre nós',
+        '/pages/blog.html':         'Blog',
+        '/pages/blog-admin.html':   'Admin do blog',
+        '/pages/mb-tributos.html':  'MB Tributos',
+        '/pages/credito-rapido.html':'Crédito Rápido',
+        '/pages/capital-de-giro.html':'Capital de Giro',
+        '/pages/conta-pj-c6.html':  'Conta PJ — C6 Bank',
+        '/pages/politica-de-privacidade.html': 'Política de Privacidade',
+        '/pages/termos-de-uso.html':'Termos de Uso',
+    };
+    var friendlyLanding = function(path) {
+        if (!path) return 'Página inicial';
+        var clean = path.split('?')[0].split('#')[0];
+        if (LANDING_NAMES[clean]) return LANDING_NAMES[clean];
+        if (clean.startsWith('/blog/')) return 'Blog: ' + clean.replace('/blog/', '').replace(/-/g, ' ');
+        return clean;
+    };
     var titleFor = function(row) {
         if (type === 'campaign') return formatTrafficSourceValue(row.source, 'Direto') + ' / ' + formatTrafficSourceValue(row.medium, 'Nenhuma');
         if (type === 'device') return translateDevice(row.device);
-        if (type === 'landing') return row.landingPage || '/';
+        if (type === 'landing') return friendlyLanding(row.landingPage);
         return getTrafficChannelDetails(row.channel).label;
     };
     var metaFor = function(row) {
