@@ -889,13 +889,12 @@ export async function getGa4Overview(
   ];
 
   const PRODUCT_NAMES: Record<string, string> = {
-    "product_click_conta_corrente": "Conta Corrente Empresarial",
-    "product_click_maquina_cartao": "Máquina de Cartão",
-    "product_click_seguros": "Seguros e Consórcios",
-    "product_click_credito_rapido": "Crédito Rápido",
-    "product_click_tributarias": "Soluções Tributárias",
-    "product_click_personalizadas": "Soluções Personalizadas",
-    "product_click_telemedicina": "Telemedicina",
+    "product_click_conta_pj_digital": "Conta PJ Digital",
+    "product_click_c6_pay":           "C6 Pay",
+    "product_click_c6_business":      "C6 Business",
+    "product_click_credito_pj":       "Crédito PJ",
+    "product_click_c6_conta_global":  "C6 Conta Global",
+    "product_click_c6_tag":           "C6 Tag",
   };
 
   const productClicks: GaProductClick[] =

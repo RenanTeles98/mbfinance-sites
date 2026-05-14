@@ -762,13 +762,12 @@ function renderConversionTable(targetId, rows, type) {
 }
 
 var ALL_PRODUCTS = [
-    'Conta Corrente Empresarial',
-    'Máquina de Cartão',
-    'Seguros e Consórcios',
-    'Crédito Rápido',
-    'Soluções Tributárias',
-    'Soluções Personalizadas',
-    'Telemedicina',
+    'Conta PJ Digital',
+    'C6 Pay',
+    'C6 Business',
+    'Crédito PJ',
+    'C6 Conta Global',
+    'C6 Tag',
 ];
 
 function renderProductClicks(targetId, rows) {
