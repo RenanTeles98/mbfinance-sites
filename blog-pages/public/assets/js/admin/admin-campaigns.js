@@ -82,7 +82,11 @@ function shortenUrl(url) {
     clearTimeout(_shortenTimer);
     _shortenTimer = setTimeout(function() {
         var base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
-        fetch(base + '/api/shorten?url=' + encodeURIComponent(url))
+        fetch(base + '/api/shorten', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: url }),
+        })
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (loading) loading.style.display = 'none';
