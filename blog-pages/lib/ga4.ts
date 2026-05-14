@@ -807,22 +807,44 @@ export async function getGa4Overview(
       landingLeadMap.set(landingPage, toNumber(row.metricValues?.[0]?.value));
     });
   }
-  const landingPages: GaLandingPageRow[] =
-    landingTrafficResult.status === "fulfilled"
-      ? (landingTrafficResult.value.rows?.map((row) => {
-          const landingPage = cleanDimensionValue(row.dimensionValues?.[0]?.value, "/");
-          const activeUsers = toNumber(row.metricValues?.[0]?.value);
-          const sessions = toNumber(row.metricValues?.[1]?.value);
-          const leads = landingLeadMap.get(landingPage) || 0;
-          return {
-            landingPage,
-            activeUsers,
-            sessions,
-            leads,
-            conversionRate: activeUsers ? leads / activeUsers : 0,
-          };
-        }) ?? []).sort((a, b) => b.leads - a.leads || b.sessions - a.sessions)
-      : [];
+  const landingMap = new Map<string, GaLandingPageRow>();
+  if (landingTrafficResult.status === "fulfilled") {
+    landingTrafficResult.value.rows?.forEach((row) => {
+      const landingPage = cleanDimensionValue(row.dimensionValues?.[0]?.value, "/");
+      const current =
+        landingMap.get(landingPage) ||
+        {
+          landingPage,
+          activeUsers: 0,
+          sessions: 0,
+          leads: 0,
+          conversionRate: 0,
+        };
+      current.activeUsers += toNumber(row.metricValues?.[0]?.value);
+      current.sessions += toNumber(row.metricValues?.[1]?.value);
+      landingMap.set(landingPage, current);
+    });
+  }
+  landingLeadMap.forEach((leads, landingPage) => {
+    const current =
+      landingMap.get(landingPage) ||
+      {
+        landingPage,
+        activeUsers: 0,
+        sessions: 0,
+        leads: 0,
+        conversionRate: 0,
+      };
+    current.leads = leads;
+    landingMap.set(landingPage, current);
+  });
+  const landingPages: GaLandingPageRow[] = Array.from(landingMap.values())
+    .map((row) => ({
+      ...row,
+      conversionRate: row.activeUsers ? row.leads / row.activeUsers : 0,
+    }))
+    .sort((a, b) => b.leads - a.leads || b.sessions - a.sessions)
+    .slice(0, 12);
 
   const returningUsers = Math.max(0, summary.totalUsers - summary.newUsers);
   const userTypes: GaUserTypeRow[] = [
