@@ -44,6 +44,16 @@ Proximo passo recomendado: publicar e conferir o painel em desktop para validar 
 
 Proximo passo recomendado: validar em producao que o card lista Google, direto, parceiros, WhatsApp, SMS e UTMs quando houver dados no GA4.
 
+### Sessao 2026-05-14 - Metricas estrategicas GA4
+
+- [x] Adicionados relatórios GA4 para canal com mais leads, taxa de conversao por canal, conversao por campanha UTM, qualidade do trafego, dispositivos e landing pages.
+- [x] `blog-pages/lib/ga4.ts` passou a retornar `channelConversions`, `campaignConversions`, `deviceBreakdown`, `landingPages`, `userTypes`, `pagesPerSession` e `funnelConversionRate`.
+- [x] `blog-pages/public/assets/js/admin/admin-analytics.js` ganhou renderizadores para tabelas estrategicas e qualidade do trafego.
+- [x] `blog-pages/public/pages/blog-admin.html` recebeu novos paineis na pagina de metricas do site.
+- [x] Build local do `blog-pages` validado com `npm run build`.
+
+Proximo passo recomendado: publicar e validar em producao a resposta da API com os novos arrays estrategicos.
+
 ### O que estÃ¡ funcionando
 
 - [x] Home principal (`public/mb-finance-completo.html`) â€” refatorada com separaÃ§Ã£o total de CSS/JS

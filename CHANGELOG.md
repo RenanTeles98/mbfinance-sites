@@ -27,6 +27,12 @@
 - A API de analytics passa a retornar `sessionSource`, `sessionMedium`, `sessionCampaignName` e canal GA4.
 - O painel exibe sessoes, usuarios e eventos por origem/campanha, incluindo Google e trafego direto.
 
+## 2026-05-14 - Metricas estrategicas GA4
+
+- Adicionados paineis de canal com mais leads, taxa de conversao por canal e conversao por campanha UTM.
+- Incluidas metricas de qualidade do trafego: paginas por sessao, taxa do funil e novos vs recorrentes.
+- Incluidas leituras por dispositivo e landing pages de entrada com taxa de conversao.
+
 ## 2026-05-13 - Textos do painel administrativo
 
 - Traduzidos termos visiveis do admin do blog para pt-BR.

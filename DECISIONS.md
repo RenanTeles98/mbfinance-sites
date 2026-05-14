@@ -5,6 +5,27 @@
 
 ---
 
+## ADR-038: Metricas estrategicas devem cruzar trafego com evento de lead
+
+**Data:** 2026-05-14
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O painel precisava ir alem de visitas e usuarios para responder perguntas comerciais: qual canal trouxe lead, qual campanha converteu melhor, se mobile converte, se usuarios novos ou recorrentes dominam e quais landing pages iniciam sessoes qualificadas.
+
+### Decisao
+
+Adicionar relatorios GA4 especificos que cruzam dimensoes de aquisicao, campanha, dispositivo e landing page com os eventos de lead (`conta_pj_lead_click` e `lead_modal_open`). A taxa de conversao e calculada como leads divididos por usuarios ativos da respectiva dimensao.
+
+### Consequencias
+
+- O painel passa a mostrar performance por canal/campanha, nao apenas volume de trafego.
+- A leitura de qualidade do trafego fica disponivel sem depender de calculo manual fora da ferramenta.
+
+---
+
 ## ADR-037: Origem de aquisicao deve combinar source, medium e campaign
 
 **Data:** 2026-05-14

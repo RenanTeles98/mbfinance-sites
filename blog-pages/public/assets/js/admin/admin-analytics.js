@@ -122,6 +122,11 @@ function renderAnalyticsSiteSelector(sites, selectedKey) {
     select.value = selectedKey || getSelectedAnalyticsSite();
 }
 
+function setAnalyticsPanelHtml(targetId, html) {
+    var target = document.getElementById(targetId);
+    if (target) target.innerHTML = html;
+}
+
 function resetTrafficPanels(message) {
     document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">' + esc(message) + '</div>';
     document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de tráfego por enquanto.</div>';
@@ -130,6 +135,11 @@ function resetTrafficPanels(message) {
     document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Sem dados regionais disponíveis ainda.</div>';
     document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de gênero disponíveis ainda.</div>';
     document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de idade disponíveis ainda.</div>';
+    setAnalyticsPanelHtml('ga-strategic-quality', '<div class="analytics-empty">Sem dados estrategicos disponiveis ainda.</div>');
+    setAnalyticsPanelHtml('ga-channel-conversions', '<div class="analytics-empty">Sem dados de conversao por canal ainda.</div>');
+    setAnalyticsPanelHtml('ga-campaign-conversions', '<div class="analytics-empty">Sem dados de conversao por campanha ainda.</div>');
+    setAnalyticsPanelHtml('ga-device-breakdown', '<div class="analytics-empty">Sem dados por dispositivo ainda.</div>');
+    setAnalyticsPanelHtml('ga-landing-pages', '<div class="analytics-empty">Sem landing pages registradas ainda.</div>');
 }
 
 function pctChange(current, previous) {
@@ -232,6 +242,12 @@ async function renderTrafficAnalytics() {
     document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Carregando gênero...</div>';
     document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Carregando faixa etária...</div>';
 
+    setAnalyticsPanelHtml('ga-strategic-quality', '<div class="analytics-empty">Carregando leitura estrategica...</div>');
+    setAnalyticsPanelHtml('ga-channel-conversions', '<div class="analytics-empty">Carregando conversoes por canal...</div>');
+    setAnalyticsPanelHtml('ga-campaign-conversions', '<div class="analytics-empty">Carregando conversoes por campanha...</div>');
+    setAnalyticsPanelHtml('ga-device-breakdown', '<div class="analytics-empty">Carregando dispositivos...</div>');
+    setAnalyticsPanelHtml('ga-landing-pages', '<div class="analytics-empty">Carregando paginas de entrada...</div>');
+
     try {
         const selectedSite = getSelectedAnalyticsSite();
         const response = await fetch(getAnalyticsApiUrl(), { cache: 'no-store' });
@@ -328,6 +344,11 @@ async function renderTrafficAnalytics() {
 
         renderTrafficSourceCampaigns('ga-traffic-sources', Array.isArray(data.trafficSources) ? data.trafficSources : []);
         renderProductClicks('ga-product-clicks', Array.isArray(data.productClicks) ? data.productClicks : []);
+        renderStrategicQuality(data);
+        renderConversionTable('ga-channel-conversions', Array.isArray(data.channelConversions) ? data.channelConversions : [], 'channel');
+        renderConversionTable('ga-campaign-conversions', Array.isArray(data.campaignConversions) ? data.campaignConversions : [], 'campaign');
+        renderConversionTable('ga-device-breakdown', Array.isArray(data.deviceBreakdown) ? data.deviceBreakdown : [], 'device');
+        renderConversionTable('ga-landing-pages', Array.isArray(data.landingPages) ? data.landingPages : [], 'landing');
 
         renderGeoTable('ga-top-countries', topCountries, 'Ainda não há países suficientes registrados no período.', false);
         renderGeoTable('ga-top-regions', topRegions, 'Ainda não há estados ou regiões suficientes registrados no período.', true);
@@ -612,6 +633,74 @@ function renderTrafficSourceCampaigns(targetId, rows) {
                 + '<td>' + formatInteger(row.sessions) + '</td>'
                 + '<td>' + formatInteger(row.activeUsers) + '</td>'
                 + '<td>' + formatInteger(row.eventCount) + '</td>'
+                + '</tr>';
+        }).join('')
+        + '</tbody></table>';
+}
+
+function formatPercent(value) {
+    var number = Number(value || 0);
+    if (!Number.isFinite(number)) number = 0;
+    return (number * 100).toFixed(1) + '%';
+}
+
+function translateDevice(device) {
+    var normalized = String(device || '').toLowerCase();
+    if (normalized === 'mobile') return 'Mobile';
+    if (normalized === 'desktop') return 'Desktop';
+    if (normalized === 'tablet') return 'Tablet';
+    if (normalized === 'smart tv') return 'Smart TV';
+    return device || 'Nao informado';
+}
+
+function renderStrategicQuality(data) {
+    var summary = data.summary || {};
+    var userTypes = Array.isArray(data.userTypes) ? data.userTypes : [];
+    var newUsers = userTypes.find(function(row) { return String(row.label || '').toLowerCase().indexOf('novos') >= 0; });
+    var returning = userTypes.find(function(row) { return String(row.label || '').toLowerCase().indexOf('recorr') >= 0; });
+    var funnelRate = summary.funnelConversionRate || 0;
+    var pagesPerSession = summary.pagesPerSession || (summary.sessions ? summary.screenPageViews / summary.sessions : 0);
+
+    setAnalyticsPanelHtml('ga-strategic-quality', ''
+        + '<div class="analytics-highlight-list">'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Paginas por sessao</div><div class="analytics-highlight-value">' + pagesPerSession.toFixed(2) + '</div></div>'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de conversao do funil</div><div class="analytics-highlight-value">' + formatPercent(funnelRate) + '</div></div>'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Novos usuarios</div><div class="analytics-highlight-value">' + formatInteger(newUsers ? newUsers.users : summary.newUsers) + ' (' + formatPercent(newUsers ? newUsers.share : 0) + ')</div></div>'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Recorrentes</div><div class="analytics-highlight-value">' + formatInteger(returning ? returning.users : 0) + ' (' + formatPercent(returning ? returning.share : 0) + ')</div></div>'
+        + '</div>');
+}
+
+function renderConversionTable(targetId, rows, type) {
+    var target = document.getElementById(targetId);
+    if (!target) return;
+    if (!Array.isArray(rows) || !rows.length) {
+        target.innerHTML = '<div class="analytics-empty">Sem dados suficientes para esta leitura no periodo.</div>';
+        return;
+    }
+
+    var max = Math.max(...rows.map(function(row) { return row.leads || row.sessions || row.activeUsers || 0; }), 1);
+    var titleFor = function(row) {
+        if (type === 'campaign') return formatTrafficSourceValue(row.source, 'Direto') + ' / ' + formatTrafficSourceValue(row.medium, 'Nenhuma');
+        if (type === 'device') return translateDevice(row.device);
+        if (type === 'landing') return row.landingPage || '/';
+        return getTrafficChannelDetails(row.channel).label;
+    };
+    var metaFor = function(row) {
+        if (type === 'campaign') return formatTrafficSourceValue(row.campaign, 'Sem campanha');
+        if (type === 'device') return 'Experiencia por dispositivo';
+        if (type === 'landing') return 'Primeira pagina da sessao';
+        return 'Canal de aquisicao';
+    };
+
+    target.innerHTML = '<table class="analytics-table"><thead><tr><th>Dimensao</th><th>Leads</th><th>Taxa</th><th>Usuarios</th><th>Sessoes</th></tr></thead><tbody>'
+        + rows.map(function(row) {
+            var width = Math.max(8, Math.round(((row.leads || row.sessions || row.activeUsers || 0) / max) * 100));
+            return '<tr>'
+                + '<td><div class="analytics-post-title">' + esc(titleFor(row)) + '</div><div class="analytics-post-meta">' + esc(metaFor(row)) + '</div><div class="category-bar" style="margin-top:8px;"><div class="category-fill" style="width:' + width + '%"></div></div></td>'
+                + '<td>' + formatInteger(row.leads) + '</td>'
+                + '<td>' + formatPercent(row.conversionRate) + '</td>'
+                + '<td>' + formatInteger(row.activeUsers) + '</td>'
+                + '<td>' + formatInteger(row.sessions) + '</td>'
                 + '</tr>';
         }).join('')
         + '</tbody></table>';
