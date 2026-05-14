@@ -344,7 +344,6 @@ async function renderTrafficAnalytics() {
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Propriedade GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'Não disponível') + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Situação</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
 
-        renderTrafficSourceCampaigns('ga-traffic-sources', Array.isArray(data.trafficSources) ? data.trafficSources : []);
         renderProductClicks('ga-product-clicks', Array.isArray(data.productClicks) ? data.productClicks : []);
         renderStrategicQuality(data);
         renderConversionTable('ga-channel-conversions', Array.isArray(data.channelConversions) ? data.channelConversions : [], 'channel');
@@ -358,7 +357,7 @@ async function renderTrafficAnalytics() {
         renderDemographicList('ga-age-breakdown', ageBreakdown, 'O GA4 ainda não disponibilizou faixa etária para este período ou propriedade.');
 
         ['ga-traffic-trend','ga-top-pages','ga-highlights','ga-top-countries','ga-top-regions',
-         'ga-gender-breakdown','ga-age-breakdown','ga-traffic-sources',
+         'ga-gender-breakdown','ga-age-breakdown',
          'ga-strategic-quality','ga-channel-conversions','ga-campaign-conversions',
          'ga-device-breakdown','ga-landing-pages'].forEach(function(id) { applyCollapse(id); });
 
