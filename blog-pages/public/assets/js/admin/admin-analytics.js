@@ -713,21 +713,41 @@ function renderConversionTable(targetId, rows, type) {
         + '</tbody></table>';
 }
 
+var ALL_PRODUCTS = [
+    'Conta Corrente Empresarial',
+    'Máquina de Cartão',
+    'Seguros e Consórcios',
+    'Crédito Rápido',
+    'Soluções Tributárias',
+    'Soluções Personalizadas',
+    'Telemedicina',
+];
+
 function renderProductClicks(targetId, rows) {
     const target = document.getElementById(targetId);
     if (!target) return;
-    if (!Array.isArray(rows) || !rows.length) {
-        target.innerHTML = '<div class="analytics-empty">Nenhum clique por produto registrado ainda. Os eventos serão exibidos aqui assim que houver volume suficiente no GA4.</div>';
-        return;
+
+    // Merge GA4 data with full product list (products with no clicks default to 0)
+    const gaMap = {};
+    if (Array.isArray(rows)) {
+        rows.forEach(function(r) { if (r.product) gaMap[r.product] = r.clicks || 0; });
     }
-    const max = Math.max(...rows.map(r => r.clicks || 0), 1);
+    const merged = ALL_PRODUCTS.map(function(name) {
+        return { product: name, clicks: gaMap[name] || 0 };
+    }).sort(function(a, b) { return b.clicks - a.clicks; });
+
+    const hasAnyData = merged.some(function(r) { return r.clicks > 0; });
+    const max = Math.max(...merged.map(function(r) { return r.clicks; }), 1);
+
     target.innerHTML = '<div class="category-list">'
-        + rows.map(function(row) {
-            const width = Math.max(8, Math.round(((row.clicks || 0) / max) * 100));
+        + (hasAnyData ? '' : '<div style="font-size:12px;color:#94a3b8;margin-bottom:14px;padding:10px 14px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px;text-align:center;">Aguardando dados do GA4 — os cliques aparecerão aqui assim que o desenvolvedor subir o site atualizado.</div>')
+        + merged.map(function(row) {
+            const width = hasAnyData ? Math.max(4, Math.round((row.clicks / max) * 100)) : 0;
+            const countLabel = hasAnyData ? (formatInteger(row.clicks) + ' clique' + (row.clicks !== 1 ? 's' : '')) : '— aguardando';
             return '<div class="category-row">'
-                + '<div class="category-name">' + esc(row.product || 'Produto desconhecido') + '</div>'
+                + '<div class="category-name">' + esc(row.product) + '</div>'
                 + '<div class="category-bar"><div class="category-fill" style="width:' + width + '%"></div></div>'
-                + '<div class="category-count">' + formatInteger(row.clicks) + ' clique' + (row.clicks !== 1 ? 's' : '') + '</div>'
+                + '<div class="category-count" style="' + (row.clicks === 0 && hasAnyData ? 'color:#cbd5e1' : '') + '">' + countLabel + '</div>'
                 + '</div>';
         }).join('')
         + '</div>';
