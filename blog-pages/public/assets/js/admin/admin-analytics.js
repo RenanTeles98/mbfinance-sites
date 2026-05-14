@@ -326,7 +326,7 @@ async function renderTrafficAnalytics() {
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Propriedade GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'Não disponível') + '</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Situação</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
 
-        renderTrafficSources('ga-traffic-sources', Array.isArray(data.trafficSources) ? data.trafficSources : []);
+        renderTrafficSourceCampaigns('ga-traffic-sources', Array.isArray(data.trafficSources) ? data.trafficSources : []);
         renderProductClicks('ga-product-clicks', Array.isArray(data.productClicks) ? data.productClicks : []);
 
         renderGeoTable('ga-top-countries', topCountries, 'Ainda não há países suficientes registrados no período.', false);
@@ -550,6 +550,21 @@ function getTrafficChannelDetails(channel) {
     };
 }
 
+function formatTrafficSourceValue(value, fallback) {
+    const raw = String(value || '').trim();
+    const normalized = raw.toLowerCase();
+    if (!raw || normalized === '(not set)' || normalized === 'not set' || normalized === 'unknown') return fallback;
+    if (normalized === '(direct)' || normalized === 'direct') return 'Direto';
+    if (normalized === '(none)' || normalized === 'none') return 'Nenhuma';
+    if (normalized === 'organic') return 'Orgânico';
+    if (normalized === 'cpc' || normalized === 'ppc' || normalized === 'paid') return 'Pago';
+    if (normalized === 'referral') return 'Referência';
+    if (normalized === 'google') return 'Google';
+    if (normalized === 'whatsapp') return 'WhatsApp';
+    if (normalized === 'sms') return 'SMS';
+    return raw;
+}
+
 function renderTrafficSources(targetId, rows) {
     const target = document.getElementById(targetId);
     if (!target) return;
@@ -569,6 +584,37 @@ function renderTrafficSources(targetId, rows) {
                 + '</div>';
         }).join('')
         + '</div>';
+}
+
+function renderTrafficSourceCampaigns(targetId, rows) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    if (!Array.isArray(rows) || !rows.length) {
+        target.innerHTML = '<div class="analytics-empty">Dados de origem, mídia e campanha indisponíveis ainda. O GA4 precisa acumular sessões suficientes no período.</div>';
+        return;
+    }
+
+    const max = Math.max(...rows.map(r => r.sessions || r.activeUsers || 0), 1);
+    target.innerHTML = '<table class="analytics-table"><thead><tr><th>Origem / mídia / campanha</th><th>Sessões</th><th>Usuários</th><th>Eventos</th></tr></thead><tbody>'
+        + rows.map(function(row) {
+            const width = Math.max(8, Math.round(((row.sessions || row.activeUsers || 0) / max) * 100));
+            const channel = getTrafficChannelDetails(row.channel);
+            const source = formatTrafficSourceValue(row.source, 'Direto');
+            const medium = formatTrafficSourceValue(row.medium, 'Nenhuma');
+            const campaign = formatTrafficSourceValue(row.campaign, 'Sem campanha');
+
+            return '<tr>'
+                + '<td>'
+                + '<div class="analytics-post-title">' + esc(source) + ' / ' + esc(medium) + '</div>'
+                + '<div class="analytics-post-meta">' + esc(campaign) + ' - ' + esc(channel.label) + ' <button class="analytics-info-icon" type="button" aria-label="Explicação sobre ' + esc(channel.label) + '" title="' + esc(channel.help) + '">i</button></div>'
+                + '<div class="category-bar" style="margin-top:8px;"><div class="category-fill" style="width:' + width + '%"></div></div>'
+                + '</td>'
+                + '<td>' + formatInteger(row.sessions) + '</td>'
+                + '<td>' + formatInteger(row.activeUsers) + '</td>'
+                + '<td>' + formatInteger(row.eventCount) + '</td>'
+                + '</tr>';
+        }).join('')
+        + '</tbody></table>';
 }
 
 function renderProductClicks(targetId, rows) {

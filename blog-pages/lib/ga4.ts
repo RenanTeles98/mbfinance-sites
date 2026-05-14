@@ -55,8 +55,12 @@ export type GaDemographicRow = {
 
 export type GaTrafficSource = {
   channel: string;
+  source: string;
+  medium: string;
+  campaign: string;
   activeUsers: number;
   sessions: number;
+  eventCount: number;
 };
 
 export type GaProductClick = {
@@ -514,10 +518,19 @@ export async function getGa4Overview(
       }),
       runReport(accessToken, propertyId, {
         dateRanges: [dateRange],
-        dimensions: [{ name: "sessionDefaultChannelGroup" }],
-        metrics: [{ name: "activeUsers" }, { name: "sessions" }],
-        orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
-        limit: "8",
+        dimensions: [
+          { name: "sessionSource" },
+          { name: "sessionMedium" },
+          { name: "sessionCampaignName" },
+          { name: "sessionDefaultChannelGroup" },
+        ],
+        metrics: [
+          { name: "activeUsers" },
+          { name: "sessions" },
+          { name: "eventCount" },
+        ],
+        orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+        limit: "12",
       }),
       runReport(accessToken, propertyId, {
         dateRanges: [dateRange],
@@ -555,9 +568,13 @@ export async function getGa4Overview(
   const trafficSources: GaTrafficSource[] =
     trafficSourcesResult.status === "fulfilled"
       ? (trafficSourcesResult.value.rows?.map((row) => ({
-          channel: cleanDimensionValue(row.dimensionValues?.[0]?.value, "Direto"),
+          source: cleanDimensionValue(row.dimensionValues?.[0]?.value, "direto"),
+          medium: cleanDimensionValue(row.dimensionValues?.[1]?.value, "nenhuma"),
+          campaign: cleanDimensionValue(row.dimensionValues?.[2]?.value, "Sem campanha"),
+          channel: cleanDimensionValue(row.dimensionValues?.[3]?.value, "Direto"),
           activeUsers: toNumber(row.metricValues?.[0]?.value),
           sessions: toNumber(row.metricValues?.[1]?.value),
+          eventCount: toNumber(row.metricValues?.[2]?.value),
         })) ?? [])
       : [];
 

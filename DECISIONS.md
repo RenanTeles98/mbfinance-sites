@@ -5,6 +5,27 @@
 
 ---
 
+## ADR-037: Origem de aquisicao deve combinar source, medium e campaign
+
+**Data:** 2026-05-14
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O painel exibia apenas o grupo de canal padrao do GA4, como direto, referencia, busca organica e social. Para analise comercial, o dono precisa saber origem, midia e campanha UTM, incluindo SMS, trafego pago, parceiros, WhatsApp, Google e acessos diretos.
+
+### Decisao
+
+Substituir o card "Origem do trafego" por "Origem / midia / campanha UTM". A API passa a consultar `sessionSource`, `sessionMedium`, `sessionCampaignName` e `sessionDefaultChannelGroup`, mantendo sessoes, usuarios e eventos como metricas de leitura.
+
+### Consequencias
+
+- A leitura deixa de ser apenas por canal agregado e passa a mostrar a origem rastreada da campanha.
+- Campanhas sem UTM continuam aparecendo como "Sem campanha", permitindo enxergar Google e trafego direto.
+
+---
+
 ## ADR-036: Cards do funil GA4 devem priorizar leitura rapida
 
 **Data:** 2026-05-14

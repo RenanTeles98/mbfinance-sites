@@ -21,6 +21,12 @@
 - Aumentado o tamanho dos cards do funil de conversao no painel.
 - Ajustados largura minima, espacamento, padding, tamanho dos numeros e texto de apoio.
 
+## 2026-05-14 - Origem / midia / campanha UTM
+
+- Substituido o card "Origem do trafego" por "Origem / midia / campanha UTM".
+- A API de analytics passa a retornar `sessionSource`, `sessionMedium`, `sessionCampaignName` e canal GA4.
+- O painel exibe sessoes, usuarios e eventos por origem/campanha, incluindo Google e trafego direto.
+
 ## 2026-05-13 - Textos do painel administrativo
 
 - Traduzidos termos visiveis do admin do blog para pt-BR.

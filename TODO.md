@@ -20,6 +20,10 @@
   - Cards do painel ficaram com largura minima, padding e numeros maiores.
   - Layout continua responsivo em duas colunas no mobile/tablet.
 
+- [x] **Trocar Origem do trafego por Origem / midia / campanha UTM**
+  - API GA4 passa a retornar origem, midia, campanha e canal.
+  - Card mostra Google, direto e UTMs no mesmo bloco.
+
 - [x] **Filtrar posts agendados no Blog (Next.js)** - Implementado no `lib/blog-store.ts` e API.
 
 - [x] **Substituir nÃºmero de WhatsApp fictÃ­cio pelo nÃºmero real** - Centralizado em `lib/constants.ts`.

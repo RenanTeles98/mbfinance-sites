@@ -34,6 +34,16 @@ Proximo passo recomendado: validar em producao o periodo personalizado 2026-05-1
 
 Proximo passo recomendado: publicar e conferir o painel em desktop para validar se a proporcao ficou confortavel.
 
+### Sessao 2026-05-14 - Origem / midia / campanha UTM
+
+- [x] Substituido o painel "Origem do trafego" por "Origem / midia / campanha UTM".
+- [x] `blog-pages/lib/ga4.ts` agora consulta `sessionSource`, `sessionMedium`, `sessionCampaignName` e `sessionDefaultChannelGroup`.
+- [x] O painel exibe origem, midia, campanha, canal, sessoes, usuarios e eventos.
+- [x] Trafego direto e Google passam a aparecer como origem/midia dentro do mesmo card.
+- [x] Build local do `blog-pages` validado com `npm run build`.
+
+Proximo passo recomendado: validar em producao que o card lista Google, direto, parceiros, WhatsApp, SMS e UTMs quando houver dados no GA4.
+
 ### O que estÃ¡ funcionando
 
 - [x] Home principal (`public/mb-finance-completo.html`) â€” refatorada com separaÃ§Ã£o total de CSS/JS
