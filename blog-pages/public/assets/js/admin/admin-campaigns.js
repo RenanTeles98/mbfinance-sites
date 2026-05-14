@@ -65,7 +65,50 @@ function buildUtmUrl() {
     if (previewEl) previewEl.value = finalUrl;
     if (copyBtn) copyBtn.disabled = false;
     if (saveBtn) saveBtn.disabled = false;
+    shortenUrl(finalUrl);
     return finalUrl;
+}
+
+var _shortenTimer = null;
+function shortenUrl(url) {
+    var wrap    = document.getElementById('camp-short-wrap');
+    var loading = document.getElementById('camp-short-loading');
+    var errEl   = document.getElementById('camp-short-error');
+    var input   = document.getElementById('camp-short-url');
+    if (wrap)    wrap.style.display    = 'none';
+    if (errEl)   errEl.style.display   = 'none';
+    if (loading) loading.style.display = 'block';
+
+    clearTimeout(_shortenTimer);
+    _shortenTimer = setTimeout(function() {
+        var base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
+        fetch(base + '/api/shorten?url=' + encodeURIComponent(url))
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (loading) loading.style.display = 'none';
+                if (data.short) {
+                    if (input) input.value = data.short;
+                    if (wrap)  wrap.style.display = 'flex';
+                } else {
+                    if (errEl) { errEl.textContent = 'Não foi possível encurtar o link.'; errEl.style.display = 'block'; }
+                }
+            })
+            .catch(function() {
+                if (loading) loading.style.display = 'none';
+                if (errEl) { errEl.textContent = 'Erro ao encurtar o link.'; errEl.style.display = 'block'; }
+            });
+    }, 600);
+}
+
+function copyShortUrl() {
+    var input = document.getElementById('camp-short-url');
+    if (!input || !input.value) return;
+    navigator.clipboard.writeText(input.value).then(function() {
+        var btn = document.getElementById('camp-short-copy-btn');
+        if (!btn) return;
+        btn.textContent = 'Copiado!';
+        setTimeout(function() { btn.textContent = '📋 Copiar'; }, 2000);
+    });
 }
 
 function onChannelChange() {
@@ -222,6 +265,7 @@ window.initCampaigns           = initCampaigns;
 window.onChannelChange         = onChannelChange;
 window.buildUtmUrl             = buildUtmUrl;
 window.copyUtmUrl              = copyUtmUrl;
+window.copyShortUrl            = copyShortUrl;
 window.saveUtmLink             = saveUtmLink;
 window.deleteCampaign          = deleteCampaign;
 window.copySavedCamp           = copySavedCamp;

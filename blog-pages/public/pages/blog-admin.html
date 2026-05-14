@@ -1218,13 +1218,23 @@
                     </div>
                 </div>
 
-                <div style="margin-bottom:16px;">
+                <div style="margin-bottom:12px;">
                     <div class="camp-label" style="margin-bottom:8px;">URL gerada <span style="font-size:11px;color:#94a3b8;font-weight:400;">(gerada automaticamente)</span></div>
                     <textarea id="camp-url-preview" class="camp-url-input" rows="2" readonly placeholder="Preencha os campos acima para gerar o link..."></textarea>
                 </div>
 
+                <div id="camp-short-wrap" style="margin-bottom:16px;display:none;">
+                    <div class="camp-label" style="margin-bottom:8px;">Link encurtado <span style="font-size:11px;color:#0099dd;font-weight:400;">— mais amigável para compartilhar</span></div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <input id="camp-short-url" class="camp-input" type="text" readonly style="flex:1;font-weight:700;color:#003956;background:#f0f9ff;border-color:#bae6fd;">
+                        <button id="camp-short-copy-btn" class="camp-btn camp-btn-secondary" onclick="copyShortUrl()" style="white-space:nowrap;">📋 Copiar</button>
+                    </div>
+                </div>
+                <div id="camp-short-loading" style="display:none;font-size:12px;color:#94a3b8;margin-bottom:16px;">Encurtando link...</div>
+                <div id="camp-short-error" style="display:none;font-size:12px;color:#ef4444;margin-bottom:16px;"></div>
+
                 <div class="camp-actions">
-                    <button id="camp-copy-btn" class="camp-btn camp-btn-secondary" onclick="copyUtmUrl()" disabled>📋 Copiar URL</button>
+                    <button id="camp-copy-btn" class="camp-btn camp-btn-secondary" onclick="copyUtmUrl()" disabled>📋 Copiar URL completa</button>
                     <button id="camp-save-btn" class="camp-btn camp-btn-primary" onclick="saveUtmLink()" disabled>💾 Salvar link</button>
                 </div>
             </div>
@@ -1363,7 +1373,7 @@
 <script src="../assets/js/admin/admin-newsletter.js"></script>
 <script src="../assets/js/admin/admin-calendar.js"></script>
 <script src="../assets/js/admin/admin-analytics.js?v=13"></script>
-<script src="../assets/js/admin/admin-campaigns.js?v=2"></script>
+<script src="../assets/js/admin/admin-campaigns.js?v=3"></script>
 <script src="../assets/js/admin/admin-ai.js"></script>
 <script src="../assets/js/admin/admin-banners.js"></script>
 <script src="../assets/js/admin/admin-core.js"></script>
