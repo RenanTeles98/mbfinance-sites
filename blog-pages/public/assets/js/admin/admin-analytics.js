@@ -374,7 +374,6 @@ async function renderTrafficAnalytics() {
 
         renderProductClicks('ga-product-clicks', Array.isArray(data.productClicks) ? data.productClicks : []);
         renderConversionTable('ga-channel-conversions', Array.isArray(data.channelConversions) ? data.channelConversions : [], 'channel');
-        renderConversionTable('ga-campaign-conversions', Array.isArray(data.campaignConversions) ? data.campaignConversions : [], 'campaign');
         renderConversionTable('ga-device-breakdown', Array.isArray(data.deviceBreakdown) ? data.deviceBreakdown : [], 'device');
         renderConversionTable('ga-landing-pages', Array.isArray(data.landingPages) ? data.landingPages : [], 'landing');
 
@@ -385,7 +384,7 @@ async function renderTrafficAnalytics() {
 
         ['ga-traffic-trend','ga-top-pages','ga-highlights','ga-top-countries','ga-top-regions',
          'ga-gender-breakdown','ga-age-breakdown',
-         'ga-channel-conversions','ga-campaign-conversions',
+         'ga-channel-conversions',
          'ga-device-breakdown','ga-landing-pages'].forEach(function(id) { applyCollapse(id); });
 
     } catch (error) {
