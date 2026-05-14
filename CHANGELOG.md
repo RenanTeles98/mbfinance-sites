@@ -17,6 +17,7 @@
 - Corrigida a API de analytics para respeitar o site selecionado no painel.
 - Adicionado suporte a `GA4_MB_NEGOCIOS_PROPERTY_ID` e `GA4_FOMENTA_PROPERTY_ID` com fallback para a service account principal.
 - O seletor do painel passa a refletir o status real de configuracao GA4 por site.
+- Aplicado `536401937` como Property ID fallback do MB Negocios e registrado `G-XS7HTFJKD6` como Measurement ID de referencia.
 
 ## 2026-05-13 - Leads Conta PJ no admin
 

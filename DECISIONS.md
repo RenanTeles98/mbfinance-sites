@@ -809,3 +809,7 @@ Resolver a configuracao GA4 por site no backend. O site `mb-finance` usa as vari
 
 - O seletor passa a refletir se cada site realmente tem GA4 configurado.
 - Para ativar MB Negocios, e necessario informar o Property ID correto no Vercel e liberar a service account na propriedade GA4.
+
+### Atualizacao
+
+- 2026-05-14: o Property ID `536401937` do MB Negocios foi recebido e aplicado como fallback no codigo, porque a CLI da Vercel nao estava autenticada para gravar a variavel de ambiente diretamente.

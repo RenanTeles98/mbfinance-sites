@@ -220,6 +220,7 @@
 - [x] Fazer a API de analytics respeitar o site selecionado (`mb-finance`, `mb-negocios`, `fomenta`).
 - [x] Retornar status real de configuracao GA4 para cada site no seletor.
 - [x] Permitir que MB Negocios/Fomenta reutilizem a service account principal quando apenas o `PROPERTY_ID` for diferente.
-- [ ] Preencher `GA4_MB_NEGOCIOS_PROPERTY_ID` no Vercel.
+- [x] Aplicar `GA4_MB_NEGOCIOS_PROPERTY_ID=536401937` como fallback no codigo.
+- [ ] Preencher `GA4_MB_NEGOCIOS_PROPERTY_ID=536401937` tambem no Vercel quando a CLI estiver autenticada.
 - [ ] Garantir no GA4 que a service account principal tem acesso de leitura à propriedade MB Negocios.
 - [ ] Validar em producao que "MB Negocios (configurar GA4)" desapareceu apos deploy/env.

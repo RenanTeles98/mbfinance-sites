@@ -144,7 +144,7 @@ export function hasGa4Config() {
 function getBuiltInSites(): GaSiteConfig[] {
   const defaultClientEmail = getEnv("GA4_CLIENT_EMAIL");
   const defaultPrivateKey = getEnv("GA4_PRIVATE_KEY");
-  const mbNegociosPropertyId = getEnv("GA4_MB_NEGOCIOS_PROPERTY_ID");
+  const mbNegociosPropertyId = getEnv("GA4_MB_NEGOCIOS_PROPERTY_ID") || "536401937";
   const mbNegociosClientEmail = getEnv("GA4_MB_NEGOCIOS_CLIENT_EMAIL") || defaultClientEmail;
   const mbNegociosPrivateKey = getEnv("GA4_MB_NEGOCIOS_PRIVATE_KEY") || defaultPrivateKey;
   const fomentaPropertyId = getEnv("GA4_FOMENTA_PROPERTY_ID");

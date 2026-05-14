@@ -583,6 +583,20 @@ Estado atual: codigo pronto para GA4 multi-site; para MB Negocios sair de "confi
 
 Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
 
+---
+
+## Atualizacao de sessao - 2026-05-14 - Property ID do MB Negocios
+
+- Recebido o ID de propriedade GA4 do MB Negocios: `536401937`.
+- Recebido o Measurement ID do MB Negocios: `G-XS7HTFJKD6`.
+- Como a CLI da Vercel nao esta autenticada nesta maquina, nao foi possivel gravar a variavel diretamente pelo terminal.
+- `blog-pages/lib/ga4.ts` passou a usar `536401937` como fallback para `GA4_MB_NEGOCIOS_PROPERTY_ID`.
+- `blog-pages/.env.example` foi atualizado com o Property ID e referencia do Measurement ID para configuracao de tag/GTM.
+
+Estado atual: apos deploy, o painel tentara consultar MB Negocios na propriedade GA4 `536401937` usando a service account principal. Se essa service account tiver acesso de leitura nessa propriedade, o aviso "configurar GA4" deve desaparecer.
+
+Validacao: `npm run build` em `blog-pages/` executado com sucesso.
+
 Proximo passo recomendado: validar visualmente `https://blog.mbfinance.com.br/admin` apos publicacao para encontrar qualquer texto residual carregado por dados externos.
 
 ---
