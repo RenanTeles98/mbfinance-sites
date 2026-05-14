@@ -47,21 +47,10 @@ function buildUtmUrl() {
     var medium   = mediumEl  ? mediumEl.value.trim()  : '';
     var content  = contentEl ? contentEl.value.trim() : '';
 
-    var missing = [];
-    if (!url)      { missing.push('URL do site'); if (urlEl) urlEl.style.borderColor = '#ef4444'; }
-    else           { if (urlEl) urlEl.style.borderColor = ''; }
-    if (!campaign) { missing.push('Nome da campanha'); if (nameEl) nameEl.style.borderColor = '#ef4444'; }
-    else           { if (nameEl) nameEl.style.borderColor = ''; }
-    if (!source)   { missing.push('Origem'); if (sourceEl) sourceEl.style.borderColor = '#ef4444'; }
-    else           { if (sourceEl) sourceEl.style.borderColor = ''; }
-    if (!medium)   { missing.push('Midia'); if (mediumEl) mediumEl.style.borderColor = '#ef4444'; }
-    else           { if (mediumEl) mediumEl.style.borderColor = ''; }
-
-    if (missing.length) {
+    if (!url || !campaign || !source || !medium) {
         if (previewEl) previewEl.value = '';
         if (copyBtn) copyBtn.disabled = true;
         if (saveBtn) saveBtn.disabled = true;
-        if (previewEl) previewEl.placeholder = 'Preencha: ' + missing.join(', ');
         return '';
     }
 
