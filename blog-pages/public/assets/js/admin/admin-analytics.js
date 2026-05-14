@@ -203,7 +203,7 @@ function renderFunnel(data) {
 
     var steps = [
         { label: 'Visitantes', count: sessions, pct: 100 },
-        { label: 'Modal aberto', count: modalOpens, pct: sessions ? ((modalOpens / sessions) * 100) : 0 },
+        { label: 'Formulário aberto', count: modalOpens, pct: sessions ? ((modalOpens / sessions) * 100) : 0 },
         { label: 'Lead enviado', count: leadsSent, pct: sessions ? ((leadsSent / sessions) * 100) : 0 },
     ];
     var maxCount = steps[0].count || 1;
