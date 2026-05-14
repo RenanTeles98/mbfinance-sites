@@ -355,6 +355,11 @@ async function renderTrafficAnalytics() {
         renderDemographicList('ga-gender-breakdown', genderBreakdown, 'O GA4 ainda não disponibilizou gênero para este período ou propriedade.');
         renderDemographicList('ga-age-breakdown', ageBreakdown, 'O GA4 ainda não disponibilizou faixa etária para este período ou propriedade.');
 
+        ['ga-traffic-trend','ga-top-pages','ga-highlights','ga-top-countries','ga-top-regions',
+         'ga-gender-breakdown','ga-age-breakdown','ga-traffic-sources','ga-product-clicks',
+         'ga-strategic-quality','ga-channel-conversions','ga-campaign-conversions',
+         'ga-device-breakdown','ga-landing-pages'].forEach(function(id) { applyCollapse(id); });
+
     } catch (error) {
         renderAnalyticsSiteSelector(analyticsSites, getSelectedAnalyticsSite());
         document.getElementById('analytics-last-update').textContent = 'Falha no GA4';
@@ -407,7 +412,7 @@ function renderEditorialAnalytics() {
         return;
     }
 
-    const recentPosts = [...posts].sort((a, b) => String(b.date || '').localeCompare(String(a.date || ''))).slice(0, 8);
+    const recentPosts = [...posts].sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
     recentEl.innerHTML = '<table class="analytics-table"><thead><tr><th>Publicação</th><th>Categoria</th><th>Data</th><th>Situação</th></tr></thead><tbody>'
         + recentPosts.map(post => '<tr>'
             + '<td><div class="analytics-post-title">' + esc(post.title || 'Sem título') + '</div><div class="analytics-post-meta">' + esc(post.readTime || 'Tempo não informado') + '</div></td>'
@@ -416,6 +421,8 @@ function renderEditorialAnalytics() {
             + '<td><span class="analytics-status-badge ' + (post.published !== false ? 'pub' : 'draft') + '">' + (post.published !== false ? 'Publicado' : 'Rascunho') + '</span></td>'
             + '</tr>').join('')
         + '</tbody></table>';
+
+    ['analytics-categories', 'analytics-highlights', 'analytics-recent-posts'].forEach(function(id) { applyCollapse(id); });
 }
 
 function renderAnalytics() {
@@ -726,8 +733,45 @@ function renderProductClicks(targetId, rows) {
         + '</div>';
 }
 
+function applyCollapse(targetId, limit) {
+    limit = limit || 5;
+    var container = document.getElementById(targetId);
+    if (!container) return;
+    // Remove any existing toggle button before re-applying (e.g. on refresh)
+    var existing = container.querySelector('.collapse-toggle-btn');
+    if (existing) existing.remove();
+    var rows = Array.prototype.slice.call(container.querySelectorAll('tbody tr, .category-row, .analytics-highlight-item'));
+    if (rows.length <= limit) return;
+    for (var i = limit; i < rows.length; i++) rows[i].style.display = 'none';
+    var hidden = rows.length - limit;
+    var btn = document.createElement('button');
+    btn.className = 'collapse-toggle-btn';
+    btn.textContent = 'Ver mais ' + hidden + (hidden === 1 ? ' item' : ' itens');
+    btn.setAttribute('data-expanded', 'false');
+    btn.onclick = (function(id, lim) {
+        return function() {
+            var expanded = this.getAttribute('data-expanded') === 'true';
+            var c = document.getElementById(id);
+            if (!c) return;
+            var allRows = Array.prototype.slice.call(c.querySelectorAll('tbody tr, .category-row, .analytics-highlight-item'));
+            var hiddenCount = allRows.length - lim;
+            if (expanded) {
+                for (var i = lim; i < allRows.length; i++) allRows[i].style.display = 'none';
+                this.textContent = 'Ver mais ' + hiddenCount + (hiddenCount === 1 ? ' item' : ' itens');
+                this.setAttribute('data-expanded', 'false');
+            } else {
+                for (var i = 0; i < allRows.length; i++) allRows[i].style.display = '';
+                this.textContent = 'Ver menos';
+                this.setAttribute('data-expanded', 'true');
+            }
+        };
+    })(targetId, limit);
+    container.appendChild(btn);
+}
+
 // Export to window
 window.renderAnalytics = renderAnalytics;
+window.applyCollapse = applyCollapse;
 window.renderTrafficAnalytics = renderTrafficAnalytics;
 window.renderEditorialAnalytics = renderEditorialAnalytics;
 window.setSelectedAnalyticsSite = setSelectedAnalyticsSite;
