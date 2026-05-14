@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Redis } from '@upstash/redis';
+import fs from 'fs';
 
-const TTL_SECONDS = 60 * 60 * 24 * 365;
+const TMP_FILE = '/tmp/mb_shortlinks.json';
 
 function generateCode(): string {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -12,8 +12,36 @@ function generateCode(): string {
 
 function getOrigin(req: NextRequest): string {
     const host = req.headers.get('host') || req.nextUrl.host;
-    const proto = req.headers.get('x-forwarded-proto') || req.nextUrl.protocol.replace(':', '');
+    const proto = req.headers.get('x-forwarded-proto') || 'https';
     return `${proto}://${host}`;
+}
+
+// --- storage: Redis se disponível, /tmp/ como fallback ---
+
+async function storeLink(code: string, url: string) {
+    if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+        const { Redis } = await import('@upstash/redis');
+        const redis = new Redis({ url: process.env.KV_REST_API_URL, token: process.env.KV_REST_API_TOKEN });
+        await redis.set(`short:${code}`, url, { ex: 60 * 60 * 24 * 365 });
+        return;
+    }
+    // fallback: arquivo em /tmp/ (persiste enquanto o container estiver quente)
+    let data: Record<string, string> = {};
+    try { data = JSON.parse(fs.readFileSync(TMP_FILE, 'utf-8')); } catch { /* first use */ }
+    data[code] = url;
+    fs.writeFileSync(TMP_FILE, JSON.stringify(data));
+}
+
+async function codeExists(code: string): Promise<boolean> {
+    if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+        const { Redis } = await import('@upstash/redis');
+        const redis = new Redis({ url: process.env.KV_REST_API_URL, token: process.env.KV_REST_API_TOKEN });
+        return !!(await redis.exists(`short:${code}`));
+    }
+    try {
+        const data = JSON.parse(fs.readFileSync(TMP_FILE, 'utf-8'));
+        return !!data[code];
+    } catch { return false; }
 }
 
 export async function POST(req: NextRequest) {
@@ -22,25 +50,14 @@ export async function POST(req: NextRequest) {
         const url = body?.url;
         if (!url) return NextResponse.json({ error: 'url required' }, { status: 400 });
 
-        if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
-            return NextResponse.json({ error: 'Redis não configurado' }, { status: 503 });
-        }
-
-        const redis = new Redis({
-            url: process.env.KV_REST_API_URL,
-            token: process.env.KV_REST_API_TOKEN,
-        });
-
         let code = generateCode();
         let attempts = 0;
-        while (attempts < 5) {
-            const exists = await redis.exists(`short:${code}`);
-            if (!exists) break;
+        while (await codeExists(code) && attempts < 5) {
             code = generateCode();
             attempts++;
         }
 
-        await redis.set(`short:${code}`, url, { ex: TTL_SECONDS });
+        await storeLink(code, url);
 
         const origin = getOrigin(req);
         return NextResponse.json({ short: `${origin}/c/${code}` });
