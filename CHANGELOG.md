@@ -33,6 +33,10 @@
 - Incluidas metricas de qualidade do trafego: paginas por sessao, taxa do funil e novos vs recorrentes.
 - Incluidas leituras por dispositivo e landing pages de entrada com taxa de conversao.
 
+## 2026-05-14 - Limpeza da pagina de metricas
+
+- Removido o painel visivel "Indicadores de trafego" por redundancia com funil e metricas estrategicas.
+
 ## 2026-05-13 - Textos do painel administrativo
 
 - Traduzidos termos visiveis do admin do blog para pt-BR.

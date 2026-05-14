@@ -30,6 +30,10 @@
   - Paginas por sessao, novos vs recorrentes e taxa do funil.
   - Dispositivo e landing pages de entrada com conversao.
 
+- [x] **Remover painel redundante de indicadores de trafego**
+  - Informacoes repetidas foram removidas da visualizacao principal.
+  - Funil e qualidade do trafego continuam como leitura estrategica.
+
 - [x] **Filtrar posts agendados no Blog (Next.js)** - Implementado no `lib/blog-store.ts` e API.
 
 - [x] **Substituir nÃºmero de WhatsApp fictÃ­cio pelo nÃºmero real** - Centralizado em `lib/constants.ts`.

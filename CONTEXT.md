@@ -54,6 +54,14 @@ Proximo passo recomendado: validar em producao que o card lista Google, direto, 
 
 Proximo passo recomendado: publicar e validar em producao a resposta da API com os novos arrays estrategicos.
 
+### Sessao 2026-05-14 - Remocao de painel redundante
+
+- [x] Removido o painel visivel "Indicadores de trafego" da pagina de metricas do site.
+- [x] Mantido um elemento tecnico oculto `ga-highlights` para preservar compatibilidade com o JavaScript legado durante carregamento.
+- [x] Build local do `blog-pages` validado com `npm run build`.
+
+Proximo passo recomendado: publicar e validar visualmente que a pagina ficou menos repetitiva.
+
 ### O que estÃ¡ funcionando
 
 - [x] Home principal (`public/mb-finance-completo.html`) â€” refatorada com separaÃ§Ã£o total de CSS/JS

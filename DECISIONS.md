@@ -5,6 +5,27 @@
 
 ---
 
+## ADR-039: Remover painel redundante de indicadores de trafego
+
+**Data:** 2026-05-14
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+Depois da criacao dos paineis estrategicos, o bloco "Indicadores de trafego" passou a repetir dados ja exibidos nos cards principais, no funil e em "Qualidade do trafego".
+
+### Decisao
+
+Remover o painel visivel "Indicadores de trafego" da pagina de metricas. Manter somente um elemento tecnico oculto com o mesmo ID para evitar quebra do JavaScript legado ate uma limpeza maior do modulo.
+
+### Consequencias
+
+- A pagina fica mais objetiva e com menos repeticao.
+- O codigo legado permanece compativel sem alterar o fluxo de carregamento do painel.
+
+---
+
 ## ADR-038: Metricas estrategicas devem cruzar trafego com evento de lead
 
 **Data:** 2026-05-14
