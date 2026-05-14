@@ -11,6 +11,7 @@ function generateCode(): string {
 }
 
 function getOrigin(req: NextRequest): string {
+    if (process.env.SHORT_LINK_BASE) return process.env.SHORT_LINK_BASE.replace(/\/$/, '');
     const host = req.headers.get('host') || req.nextUrl.host;
     const proto = req.headers.get('x-forwarded-proto') || 'https';
     return `${proto}://${host}`;
