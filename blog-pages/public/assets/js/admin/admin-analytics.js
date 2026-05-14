@@ -358,7 +358,7 @@ async function renderTrafficAnalytics() {
         renderDemographicList('ga-age-breakdown', ageBreakdown, 'O GA4 ainda não disponibilizou faixa etária para este período ou propriedade.');
 
         ['ga-traffic-trend','ga-top-pages','ga-highlights','ga-top-countries','ga-top-regions',
-         'ga-gender-breakdown','ga-age-breakdown','ga-traffic-sources','ga-product-clicks',
+         'ga-gender-breakdown','ga-age-breakdown','ga-traffic-sources',
          'ga-strategic-quality','ga-channel-conversions','ga-campaign-conversions',
          'ga-device-breakdown','ga-landing-pages'].forEach(function(id) { applyCollapse(id); });
 
