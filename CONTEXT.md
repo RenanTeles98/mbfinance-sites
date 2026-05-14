@@ -26,6 +26,14 @@ Proximo passo recomendado: validar em producao que os endpoints com `startDate`/
 
 Proximo passo recomendado: validar em producao o periodo personalizado 2026-05-11 ate 2026-05-11 para confirmar `Usuarios ativos = 38` e `Contagem de eventos = 254`.
 
+### Sessao 2026-05-14 - Cards maiores no funil GA4
+
+- [x] Aumentado o tamanho visual dos cards de metricas do painel em `blog-pages/public/pages/blog-admin.html`.
+- [x] Grade alterada para cards com largura minima maior, mais espacamento, padding maior e numeros mais legiveis.
+- [x] Build local do `blog-pages` validado com `npm run build`.
+
+Proximo passo recomendado: publicar e conferir o painel em desktop para validar se a proporcao ficou confortavel.
+
 ### O que estÃ¡ funcionando
 
 - [x] Home principal (`public/mb-finance-completo.html`) â€” refatorada com separaÃ§Ã£o total de CSS/JS

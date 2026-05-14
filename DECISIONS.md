@@ -5,6 +5,27 @@
 
 ---
 
+## ADR-036: Cards do funil GA4 devem priorizar leitura rapida
+
+**Data:** 2026-05-14
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+Os cards do funil de conversao estavam pequenos para leitura operacional, principalmente com rotulos longos, badges de etapa e notas explicativas.
+
+### Decisao
+
+Aumentar a largura minima dos cards, o espacamento da grade, o padding interno e o tamanho dos numeros. Em telas menores, manter o comportamento responsivo ja existente.
+
+### Consequencias
+
+- Menos cards aparecem na mesma linha em desktop, mas cada card fica mais facil de ler.
+- A hierarquia visual das metricas principais fica mais forte.
+
+---
+
 ## ADR-035: Card principal do GA4 deve usar Contagem de eventos
 
 **Data:** 2026-05-14

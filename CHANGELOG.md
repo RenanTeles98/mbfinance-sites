@@ -16,6 +16,11 @@
 - O card "Visualizacoes" do painel foi substituido por "Contagem de eventos" para bater com a tela padrao do GA4.
 - Visualizacoes de pagina seguem exibidas como indicador complementar e no ranking de paginas.
 
+## 2026-05-14 - Cards maiores no painel GA4
+
+- Aumentado o tamanho dos cards do funil de conversao no painel.
+- Ajustados largura minima, espacamento, padding, tamanho dos numeros e texto de apoio.
+
 ## 2026-05-13 - Textos do painel administrativo
 
 - Traduzidos termos visiveis do admin do blog para pt-BR.

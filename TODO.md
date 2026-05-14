@@ -16,6 +16,10 @@
   - Backend passa a retornar `eventCount` no resumo e na serie diaria.
   - Visualizacoes de pagina permanecem como indicador complementar.
 
+- [x] **Aumentar cards do funil GA4**
+  - Cards do painel ficaram com largura minima, padding e numeros maiores.
+  - Layout continua responsivo em duas colunas no mobile/tablet.
+
 - [x] **Filtrar posts agendados no Blog (Next.js)** - Implementado no `lib/blog-store.ts` e API.
 
 - [x] **Substituir nÃºmero de WhatsApp fictÃ­cio pelo nÃºmero real** - Centralizado em `lib/constants.ts`.
