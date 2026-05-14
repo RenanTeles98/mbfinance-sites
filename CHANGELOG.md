@@ -12,6 +12,12 @@
 - Traduzidos canais de origem de trafego retornados pelo GA4 e adicionado icone de informacao ao componente.
 - Movido o icone de informacao para cada canal de origem de trafego, com explicacao individual por canal.
 
+## 2026-05-14 - GA4 por site no admin
+
+- Corrigida a API de analytics para respeitar o site selecionado no painel.
+- Adicionado suporte a `GA4_MB_NEGOCIOS_PROPERTY_ID` e `GA4_FOMENTA_PROPERTY_ID` com fallback para a service account principal.
+- O seletor do painel passa a refletir o status real de configuracao GA4 por site.
+
 ## 2026-05-13 - Leads Conta PJ no admin
 
 - Adicionada a metrica "Leads Gerados" ao painel administrativo do blog publicado em `blog-pages/`.

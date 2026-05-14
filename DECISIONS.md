@@ -782,3 +782,30 @@ Traduzir os nomes dos canais na camada de apresentacao do admin, antes de render
 
 - A interface fica em pt-BR sem perder o valor original enviado pelo GA4.
 - Novos canais desconhecidos continuam aparecendo com o texto original ate serem adicionados ao mapa de traducao.
+
+---
+
+## ADR-033: GA4 do admin e resolvido por site selecionado
+
+**Data:** 2026-05-14
+**Status:** Implementado
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O seletor do painel exibia "MB Negocios (configurar GA4)" porque o frontend tinha sites secundarios cadastrados, mas a API de analytics consultava sempre o GA4 principal. Assim, o status de configuracao por site nao era real e o parametro `site` nao era respeitado no backend.
+
+### Decisao
+
+Resolver a configuracao GA4 por site no backend. O site `mb-finance` usa as variaveis principais. `mb-negocios` e `fomenta` usam `GA4_MB_NEGOCIOS_PROPERTY_ID` e `GA4_FOMENTA_PROPERTY_ID`, podendo reutilizar a service account principal quando nao houver credenciais especificas.
+
+### Alternativas Consideradas
+
+- **Criar uma service account obrigatoria para cada site:** mais isolado, mas aumenta trabalho operacional.
+- **Usar sempre uma unica propriedade GA4:** simples, mas mistura marcas e impede analise correta por site.
+- **Property ID por site com fallback para a service account principal (escolhida):** separa dados por propriedade e reduz configuracao quando a mesma conta ja tem acesso.
+
+### Consequencias
+
+- O seletor passa a refletir se cada site realmente tem GA4 configurado.
+- Para ativar MB Negocios, e necessario informar o Property ID correto no Vercel e liberar a service account na propriedade GA4.

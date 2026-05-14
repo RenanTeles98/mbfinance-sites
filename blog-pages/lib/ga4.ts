@@ -71,6 +71,9 @@ export type GaCampaignRow = {
 
 export type GaOverviewResponse = {
   configured: boolean;
+  siteKey?: string;
+  siteName?: string;
+  sites?: GaSiteConfigStatus[];
   propertyId?: string;
   rangeLabel?: string;
   summary?: GaOverviewMetric;
@@ -85,6 +88,18 @@ export type GaOverviewResponse = {
   trafficSources?: GaTrafficSource[];
   productClicks?: GaProductClick[];
   previousPeriod?: GaPeriodComparison;
+};
+
+export type GaSiteConfigStatus = {
+  key: string;
+  name: string;
+  configured: boolean;
+};
+
+type GaSiteConfig = GaSiteConfigStatus & {
+  propertyId: string;
+  clientEmail: string;
+  privateKey: string;
 };
 
 type RunReportRequest = {
@@ -126,6 +141,76 @@ export function hasGa4Config() {
   );
 }
 
+function getBuiltInSites(): GaSiteConfig[] {
+  const defaultClientEmail = getEnv("GA4_CLIENT_EMAIL");
+  const defaultPrivateKey = getEnv("GA4_PRIVATE_KEY");
+  const mbNegociosPropertyId = getEnv("GA4_MB_NEGOCIOS_PROPERTY_ID");
+  const mbNegociosClientEmail = getEnv("GA4_MB_NEGOCIOS_CLIENT_EMAIL") || defaultClientEmail;
+  const mbNegociosPrivateKey = getEnv("GA4_MB_NEGOCIOS_PRIVATE_KEY") || defaultPrivateKey;
+  const fomentaPropertyId = getEnv("GA4_FOMENTA_PROPERTY_ID");
+  const fomentaClientEmail = getEnv("GA4_FOMENTA_CLIENT_EMAIL") || defaultClientEmail;
+  const fomentaPrivateKey = getEnv("GA4_FOMENTA_PRIVATE_KEY") || defaultPrivateKey;
+
+  return [
+    {
+      key: "mb-finance",
+      name: "MB Finance",
+      propertyId: getEnv("GA4_PROPERTY_ID"),
+      clientEmail: getEnv("GA4_CLIENT_EMAIL"),
+      privateKey: getEnv("GA4_PRIVATE_KEY"),
+      configured: hasGa4Config(),
+    },
+    {
+      key: "mb-negocios",
+      name: "MB Negócios",
+      propertyId: mbNegociosPropertyId,
+      clientEmail: mbNegociosClientEmail,
+      privateKey: mbNegociosPrivateKey,
+      configured: Boolean(mbNegociosPropertyId && mbNegociosClientEmail && mbNegociosPrivateKey),
+    },
+    {
+      key: "fomenta",
+      name: "Fomenta",
+      propertyId: fomentaPropertyId,
+      clientEmail: fomentaClientEmail,
+      privateKey: fomentaPrivateKey,
+      configured: Boolean(fomentaPropertyId && fomentaClientEmail && fomentaPrivateKey),
+    },
+  ];
+}
+
+function getConfiguredSites(): GaSiteConfig[] {
+  const dynamicSites = getEnv("GA4_SITES");
+  if (!dynamicSites) return getBuiltInSites();
+
+  try {
+    const parsed = JSON.parse(dynamicSites) as Array<Partial<GaSiteConfig>>;
+    if (!Array.isArray(parsed)) return getBuiltInSites();
+    return parsed
+      .filter((site) => site.key && site.name)
+      .map((site) => ({
+        key: String(site.key),
+        name: String(site.name),
+        propertyId: String(site.propertyId || ""),
+        clientEmail: String(site.clientEmail || ""),
+        privateKey: String(site.privateKey || ""),
+        configured: Boolean(site.propertyId && site.clientEmail && site.privateKey),
+      }));
+  } catch {
+    return getBuiltInSites();
+  }
+}
+
+function getSiteConfig(siteKey = "mb-finance") {
+  const sites = getConfiguredSites();
+  const selected = sites.find((site) => site.key === siteKey) || sites[0];
+  return { selected, sites };
+}
+
+export function isGa4SiteConfigured(siteKey = "mb-finance") {
+  return Boolean(getSiteConfig(siteKey).selected?.configured);
+}
+
 function base64UrlEncode(input: string) {
   return Buffer.from(input)
     .toString("base64")
@@ -134,9 +219,9 @@ function base64UrlEncode(input: string) {
     .replace(/=+$/g, "");
 }
 
-async function getAccessToken() {
-  const clientEmail = getEnv("GA4_CLIENT_EMAIL");
-  const privateKey = normalizePrivateKey(getEnv("GA4_PRIVATE_KEY"));
+async function getAccessToken(config?: Pick<GaSiteConfig, "clientEmail" | "privateKey">) {
+  const clientEmail = config?.clientEmail || getEnv("GA4_CLIENT_EMAIL");
+  const privateKey = normalizePrivateKey(config?.privateKey || getEnv("GA4_PRIVATE_KEY"));
 
   const now = Math.floor(Date.now() / 1000);
   const header = base64UrlEncode(JSON.stringify({ alg: "RS256", typ: "JWT" }));
@@ -220,13 +305,25 @@ function cleanDimensionValue(value?: string, fallback = "Nao informado") {
   return normalized;
 }
 
-export async function getGa4Overview(): Promise<GaOverviewResponse> {
-  if (!hasGa4Config()) {
-    return { configured: false };
+export async function getGa4Overview(siteKey = "mb-finance"): Promise<GaOverviewResponse> {
+  const { selected, sites } = getSiteConfig(siteKey);
+  const siteStatuses = sites.map(({ key, name, configured }) => ({
+    key,
+    name,
+    configured,
+  }));
+
+  if (!selected?.configured) {
+    return {
+      configured: false,
+      siteKey: selected?.key || siteKey,
+      siteName: selected?.name || siteKey,
+      sites: siteStatuses,
+    };
   }
 
-  const propertyId = getEnv("GA4_PROPERTY_ID");
-  const accessToken = await getAccessToken();
+  const propertyId = selected.propertyId;
+  const accessToken = await getAccessToken(selected);
 
   const [
     summaryReport,
@@ -483,6 +580,9 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
 
   return {
     configured: true,
+    siteKey: selected.key,
+    siteName: selected.name,
+    sites: siteStatuses,
     propertyId,
     rangeLabel: "Ultimos 30 dias",
     summary,
@@ -502,12 +602,14 @@ export async function getGa4Overview(): Promise<GaOverviewResponse> {
 
 export async function getCampaignData(
   startDate = "30daysAgo",
-  endDate = "today"
+  endDate = "today",
+  siteKey = "mb-finance"
 ): Promise<GaCampaignRow[]> {
-  if (!hasGa4Config()) return [];
+  const { selected } = getSiteConfig(siteKey);
+  if (!selected?.configured) return [];
 
-  const propertyId = getEnv("GA4_PROPERTY_ID");
-  const accessToken = await getAccessToken();
+  const propertyId = selected.propertyId;
+  const accessToken = await getAccessToken(selected);
 
   try {
     const report = await runReport(accessToken, propertyId, {

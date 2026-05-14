@@ -3,9 +3,11 @@ import { getGa4Overview } from "@/lib/ga4";
 
 export const revalidate = 1800;
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const data = await getGa4Overview();
+    const { searchParams } = new URL(request.url);
+    const site = searchParams.get("site") || "mb-finance";
+    const data = await getGa4Overview(site);
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     const message =

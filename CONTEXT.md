@@ -557,6 +557,32 @@ Estado atual: painel administrativo com textos principais normalizados em portug
 
 Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
 
+---
+
+## Atualizacao de sessao - 2026-05-14 - Configuracao GA4 por site
+
+- Investigado o motivo do seletor exibir "MB Negocios (configurar GA4)".
+- Confirmado que o painel marcava sites secundarios como nao configurados porque a API ainda usava apenas o GA4 principal (`GA4_PROPERTY_ID`, `GA4_CLIENT_EMAIL`, `GA4_PRIVATE_KEY`).
+- `blog-pages/lib/ga4.ts` passou a resolver configuracao por site (`mb-finance`, `mb-negocios`, `fomenta`) e retornar a lista `sites` com status real de configuracao.
+- `blog-pages/app/api/analytics/overview/route.ts` agora aceita `?site=...`.
+- `blog-pages/app/api/analytics/campaigns/route.ts` tambem respeita `?site=...`.
+- `blog-pages/.env.example` foi documentado para permitir MB Negocios/Fomenta usando apenas o `PROPERTY_ID` quando a service account principal ja tiver acesso.
+
+Arquivos modificados nesta etapa:
+- `blog-pages/lib/ga4.ts`
+- `blog-pages/app/api/analytics/overview/route.ts`
+- `blog-pages/app/api/analytics/campaigns/route.ts`
+- `blog-pages/.env.example`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-14-ga4-sites.md`
+
+Estado atual: codigo pronto para GA4 multi-site; para MB Negocios sair de "configurar GA4", falta preencher a variavel `GA4_MB_NEGOCIOS_PROPERTY_ID` no Vercel e garantir acesso da service account na propriedade GA4 correspondente.
+
+Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
+
 Proximo passo recomendado: validar visualmente `https://blog.mbfinance.com.br/admin` apos publicacao para encontrar qualquer texto residual carregado por dados externos.
 
 ---

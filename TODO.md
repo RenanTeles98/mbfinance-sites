@@ -212,3 +212,14 @@
 - [x] Criar explicacoes especificas para cada canal principal do GA4.
 - [ ] Revisar visualmente o admin publicado para localizar textos residuais vindos de dados externos ou cache do navegador.
 - [ ] Ampliar o mapa de traducao se o GA4 retornar novos canais nao previstos.
+
+---
+
+## Atualizacao 2026-05-14 - GA4 por site
+
+- [x] Fazer a API de analytics respeitar o site selecionado (`mb-finance`, `mb-negocios`, `fomenta`).
+- [x] Retornar status real de configuracao GA4 para cada site no seletor.
+- [x] Permitir que MB Negocios/Fomenta reutilizem a service account principal quando apenas o `PROPERTY_ID` for diferente.
+- [ ] Preencher `GA4_MB_NEGOCIOS_PROPERTY_ID` no Vercel.
+- [ ] Garantir no GA4 que a service account principal tem acesso de leitura à propriedade MB Negocios.
+- [ ] Validar em producao que "MB Negocios (configurar GA4)" desapareceu apos deploy/env.

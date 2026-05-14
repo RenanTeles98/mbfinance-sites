@@ -1,19 +1,20 @@
 import { NextResponse } from "next/server";
-import { getCampaignData, hasGa4Config } from "@/lib/ga4";
+import { getCampaignData, isGa4SiteConfigured } from "@/lib/ga4";
 
 export const revalidate = 900;
 
 export async function GET(request: Request) {
   try {
-    if (!hasGa4Config()) {
-      return NextResponse.json({ configured: false }, { status: 200 });
-    }
-
     const { searchParams } = new URL(request.url);
+    const site = searchParams.get("site") || "mb-finance";
     const startDate = searchParams.get("startDate") || "30daysAgo";
     const endDate = searchParams.get("endDate") || "today";
 
-    const rows = await getCampaignData(startDate, endDate);
+    if (!isGa4SiteConfigured(site)) {
+      return NextResponse.json({ configured: false, rows: [] }, { status: 200 });
+    }
+
+    const rows = await getCampaignData(startDate, endDate, site);
     return NextResponse.json({ configured: true, rows }, { status: 200 });
   } catch (error) {
     const message =
