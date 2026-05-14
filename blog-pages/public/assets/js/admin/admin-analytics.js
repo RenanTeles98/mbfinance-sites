@@ -195,6 +195,7 @@ function renderFunnel(data) {
     var sessions = s.sessions || 0;
     var modalOpens = typeof data.modalOpenTotal === 'number' ? data.modalOpenTotal : 0;
     var leadsSent = typeof data.generateLeadTotal === 'number' ? data.generateLeadTotal : 0;
+    var c6Clicks = typeof data.c6AppClickTotal === 'number' ? data.c6AppClickTotal : 0;
 
     if (!sessions) {
         el.innerHTML = '<div class="analytics-empty">Sem dados suficientes para o funil ainda. O GA4 precisa acumular sessões no período.</div>';
@@ -205,6 +206,7 @@ function renderFunnel(data) {
         { label: 'Visitantes', count: sessions, pct: 100 },
         { label: 'Formulário aberto', count: modalOpens, pct: sessions ? ((modalOpens / sessions) * 100) : 0 },
         { label: 'Lead enviado', count: leadsSent, pct: sessions ? ((leadsSent / sessions) * 100) : 0 },
+        { label: 'Baixou app C6 Bank', count: c6Clicks, pct: sessions ? ((c6Clicks / sessions) * 100) : 0 },
     ];
     var maxCount = steps[0].count || 1;
 
