@@ -193,7 +193,7 @@ function renderFunnel(data) {
     if (!el) return;
     var s = data.summary || {};
     var sessions = s.sessions || 0;
-    var modalOpens = s.pjLeadClicks || 0;
+    var modalOpens = typeof data.modalOpenTotal === 'number' ? data.modalOpenTotal : 0;
     var leadsSent = typeof data.generateLeadTotal === 'number' ? data.generateLeadTotal : 0;
 
     if (!sessions) {

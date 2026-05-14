@@ -135,6 +135,7 @@ export type GaOverviewResponse = {
   ageBreakdown?: GaDemographicRow[];
   whatsappClicks?: number;
   generateLeadTotal?: number;
+  modalOpenTotal?: number;
   trafficSources?: GaTrafficSource[];
   productClicks?: GaProductClick[];
   channelConversions?: GaChannelConversion[];
@@ -565,6 +566,7 @@ export async function getGa4Overview(
   const [
     whatsappResult,
     generateLeadResult,
+    modalOpenResult,
     trafficSourcesResult,
     productClicksResult,
     prevPeriodResult,
@@ -589,6 +591,13 @@ export async function getGa4Overview(
         metrics: [{ name: "eventCount" }],
         dimensionFilter: {
           filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "generate_lead" } },
+        },
+      }),
+      runReport(accessToken, propertyId, {
+        dateRanges: [dateRange],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: { fieldName: "eventName", stringFilter: { matchType: "EXACT", value: "lead_modal_open" } },
         },
       }),
       runReport(accessToken, propertyId, {
@@ -695,6 +704,11 @@ export async function getGa4Overview(
   const generateLeadTotal =
     generateLeadResult.status === "fulfilled"
       ? toNumber(generateLeadResult.value.rows?.[0]?.metricValues?.[0]?.value)
+      : 0;
+
+  const modalOpenTotal =
+    modalOpenResult.status === "fulfilled"
+      ? toNumber(modalOpenResult.value.rows?.[0]?.metricValues?.[0]?.value)
       : 0;
 
   const trafficSources: GaTrafficSource[] =
@@ -968,6 +982,7 @@ export async function getGa4Overview(
     ageBreakdown,
     whatsappClicks,
     generateLeadTotal,
+    modalOpenTotal,
     trafficSources,
     productClicks,
     channelConversions,
