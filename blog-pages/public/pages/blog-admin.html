@@ -1091,6 +1091,28 @@
                 </div>
             </div>
 
+            <!-- 1. Funil — resultado principal -->
+            <div class="analytics-panel" style="margin-bottom:18px;">
+                <h3>Funil de conversão</h3>
+                <div class="analytics-panel-sub">De visitante a lead: cada etapa do caminho de conversão nos últimos 30 dias.</div>
+                <div id="ga-funnel"><div class="analytics-empty">Carregando funil...</div></div>
+            </div>
+            <div id="ga-highlights" style="display:none"></div>
+
+            <!-- 2. Produtos e canal — o que e de onde vêm os leads -->
+            <div class="analytics-panel" style="margin-bottom:18px;">
+                <h3>Cliques por produto</h3>
+                <div class="analytics-panel-sub">Quais produtos geram mais interesse — baseado nos CTAs clicados no site.</div>
+                <div id="ga-product-clicks"></div>
+            </div>
+
+            <div class="analytics-panel" style="margin-bottom:18px;">
+                <h3>Canal com mais leads</h3>
+                <div class="analytics-panel-sub">Mostra quais canais trouxeram conversão, não apenas visita.</div>
+                <div id="ga-channel-conversions"></div>
+            </div>
+
+            <!-- 3. Tráfego — volume e comportamento -->
             <div class="analytics-panels" style="margin-bottom:18px;">
                 <div class="analytics-panel">
                     <h3>Tráfego diário</h3>
@@ -1104,25 +1126,7 @@
                 </div>
             </div>
 
-            <div class="analytics-panel" style="margin-bottom:18px;">
-                <h3>Funil de conversão</h3>
-                <div class="analytics-panel-sub">De visitante a lead: cada etapa do caminho de conversão nos últimos 30 dias.</div>
-                <div id="ga-funnel"><div class="analytics-empty">Carregando funil...</div></div>
-            </div>
-            <div id="ga-highlights" style="display:none"></div>
-
-            <div class="analytics-panel" style="margin-bottom:18px;">
-                <h3>Cliques por produto</h3>
-                <div class="analytics-panel-sub">Quais produtos geram mais interesse — baseado nos CTAs clicados no site.</div>
-                <div id="ga-product-clicks"></div>
-            </div>
-
-            <div class="analytics-panel" style="margin-bottom:18px;">
-                <h3>Canal com mais leads</h3>
-                <div class="analytics-panel-sub">Mostra quais canais trouxeram conversão, não apenas visita.</div>
-                <div id="ga-channel-conversions"></div>
-            </div>
-
+            <!-- 4. Otimização — dispositivo e entrada -->
             <div class="analytics-panels" style="margin-bottom:18px;">
                 <div class="analytics-panel">
                     <h3>Conversão por dispositivo</h3>
@@ -1136,6 +1140,7 @@
                 </div>
             </div>
 
+            <!-- 5. Demografia — contexto do público -->
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-bottom:18px;">
                 <div class="analytics-panel">
                     <h3>Países com mais acessos</h3>
