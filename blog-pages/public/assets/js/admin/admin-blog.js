@@ -970,3 +970,4 @@ window.configureOfficialBlog = configureOfficialBlog;
 window.syncOfficialBlog = syncOfficialBlog;
 window.renderSidebar = renderSidebar;
 window.getBannersConfig = getBannersConfig;
+window.getAllPosts = () => (Array.isArray(posts) ? [...posts] : []);

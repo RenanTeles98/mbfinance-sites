@@ -841,6 +841,23 @@
                     </div>
                 </div><!-- /blog-section-seo -->
 
+                <!-- CALENDÁRIO -->
+                <div id="blog-section-calendario" class="blog-section">
+                    <div class="blog-section-wrap">
+                        <div class="blog-section-header">
+                            <div>
+                                <h2 class="blog-section-title">Calendário Editorial</h2>
+                                <p class="blog-section-sub">Visualize e planeje a publicação de conteúdos ao longo do mês.</p>
+                            </div>
+                            <button class="btn-new" style="width:auto;padding:10px 20px;flex-shrink:0;" onclick="switchTab('calendar')">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                Abrir calendário completo
+                            </button>
+                        </div>
+                        <div id="blog-calendar-mini"></div>
+                    </div>
+                </div><!-- /blog-section-calendario -->
+
             </div><!-- /blog-center -->
 
             <!-- RIGHT PANEL: lista de posts -->
@@ -1541,8 +1558,6 @@ function logout() {
 
 /* ── BLOG LEFT NAV ── */
 function switchBlogSection(section) {
-    if (section === 'calendario') { switchTab('calendar'); return; }
-
     document.querySelectorAll('.blog-section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.blog-nav-item').forEach(b => b.classList.remove('active'));
 
@@ -1551,7 +1566,63 @@ function switchBlogSection(section) {
     if (el)  el.classList.add('active');
     if (btn) btn.classList.add('active');
 
-    if (section === 'seo') renderSeoAudit();
+    if (section === 'seo')       renderSeoAudit();
+    if (section === 'pautas')    renderPautasBoard();
+    if (section === 'calendario') renderCalendarioMini();
+    if (section === 'overview' && typeof window.renderEditorialAnalytics === 'function') window.renderEditorialAnalytics();
+}
+
+/* ── CALENDÁRIO MINI ── */
+function renderCalendarioMini() {
+    var el = document.getElementById('blog-calendar-mini');
+    if (!el) return;
+    var posts = typeof window.getAllPosts === 'function' ? window.getAllPosts() : [];
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth();
+    var monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    var firstDay = new Date(year, month, 1).getDay();
+    var daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // index posts by day
+    var byDay = {};
+    posts.forEach(function(p) {
+        if (!p.date) return;
+        var d = new Date(p.date + 'T12:00:00');
+        if (d.getFullYear() === year && d.getMonth() === month) {
+            var day = d.getDate();
+            if (!byDay[day]) byDay[day] = [];
+            byDay[day].push(p);
+        }
+    });
+
+    var html = '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;max-width:700px;">'
+        + '<div style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:20px;">' + monthNames[month] + ' ' + year + '</div>'
+        + '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px;">';
+    ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(function(d) {
+        html += '<div style="text-align:center;font-size:10px;font-weight:800;color:#94a3b8;padding:4px 0;">' + d + '</div>';
+    });
+    html += '</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;">';
+
+    for (var i = 0; i < firstDay; i++) html += '<div></div>';
+    for (var day = 1; day <= daysInMonth; day++) {
+        var isToday = (day === now.getDate());
+        var hasPosts = byDay[day] && byDay[day].length;
+        html += '<div style="min-height:52px;border-radius:8px;padding:5px 6px;background:' + (isToday ? '#eff9ff' : (hasPosts ? '#f8fafc' : '#fafafa')) + ';border:1px solid ' + (isToday ? '#0099dd' : '#e2e8f0') + ';">'
+            + '<div style="font-size:12px;font-weight:' + (isToday ? '900' : '600') + ';color:' + (isToday ? '#0099dd' : '#64748b') + ';margin-bottom:3px;">' + day + '</div>';
+        if (hasPosts) {
+            byDay[day].forEach(function(p) {
+                html += '<div style="font-size:10px;font-weight:700;color:#003956;background:#e0f2fe;border-radius:4px;padding:2px 5px;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;" title="' + escHtml(p.title) + '" onclick="openPostById(\'' + p.id + '\')">' + escHtml(p.title) + '</div>';
+            });
+        }
+        html += '</div>';
+    }
+    html += '</div></div>';
+
+    if (!posts.length) {
+        html += '<div style="margin-top:16px;font-size:13px;color:#94a3b8;text-align:center;">Nenhuma publicação encontrada. Crie artigos na aba Publicações para vê-los no calendário.</div>';
+    }
+    el.innerHTML = html;
 }
 
 /* ── PAUTAS ── */
@@ -1681,6 +1752,7 @@ function openPostById(id) {
     window.init = function() {
         if (origInit) origInit();
         renderPautasBoard();
+        if (typeof window.renderEditorialAnalytics === 'function') window.renderEditorialAnalytics();
     };
 })();
 </script>
