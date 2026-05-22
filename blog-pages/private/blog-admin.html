@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../tailwind.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- This page is only reachable with a valid server-side cookie (middleware). Mark client-side auth as satisfied. -->
+    <script>localStorage.setItem('mb_admin_auth','true');</script>
     <style>
         .nl-block-wrap { margin-bottom:8px;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:12px;background:#fff;transition:border-color 0.15s; }
         .nl-block-wrap:hover { border-color:#cbd5e1; }
