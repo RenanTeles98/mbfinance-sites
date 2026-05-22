@@ -1377,5 +1377,11 @@
 <script src="../assets/js/admin/admin-ai.js"></script>
 <script src="../assets/js/admin/admin-banners.js"></script>
 <script src="../assets/js/admin/admin-core.js"></script>
+<script>
+function logout() {
+    fetch('/api/admin/logout', { method: 'POST' })
+        .finally(() => { window.location.href = '/admin/login'; });
+}
+</script>
 </body>
 </html>

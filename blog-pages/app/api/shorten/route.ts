@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { verifySession, COOKIE_NAME } from '@/lib/admin-auth';
 import fs from 'fs';
 
 const TMP_FILE = '/tmp/mb_shortlinks.json';
@@ -46,6 +47,11 @@ async function codeExists(code: string): Promise<boolean> {
 }
 
 export async function POST(req: NextRequest) {
+    const token = req.cookies.get(COOKIE_NAME)?.value;
+    if (!token || !(await verifySession(token))) {
+        return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+    }
+
     try {
         const body = await req.json().catch(() => null);
         const url = body?.url;

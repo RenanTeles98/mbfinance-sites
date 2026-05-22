@@ -14,13 +14,13 @@ const nextConfig = {
       },
       {
         source: "/blog-admin.html",
-        destination: "/pages/blog-admin.html",
-        permanent: false,
+        destination: "/admin",
+        permanent: true,
       },
       {
-        source: "/admin",
-        destination: "/pages/blog-admin.html",
-        permanent: false,
+        source: "/pages/blog-admin.html",
+        destination: "/admin",
+        permanent: true,
       },
       {
         source: "/artigo-capital-de-giro-melhores-taxas.html",
