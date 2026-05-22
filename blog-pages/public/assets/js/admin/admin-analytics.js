@@ -433,23 +433,9 @@ function renderEditorialAnalytics() {
         + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de publicação</div><div class="analytics-highlight-value">' + (total ? Math.round((published / total) * 100) : 0) + '%</div></div>'
         + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Última atualização</div><div class="analytics-highlight-value">' + (latestDate ? formatAnalyticsDate(latestDate) : 'Sem data') + '</div></div>';
 
-    const recentEl = document.getElementById('analytics-recent-posts');
-    if (!total) {
-        recentEl.innerHTML = '<div class="analytics-empty">Nenhuma publicação para exibir.</div>';
-        return;
-    }
+    if (!total) return;
 
-    const recentPosts = [...posts].sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
-    recentEl.innerHTML = '<table class="analytics-table"><thead><tr><th>Publicação</th><th>Categoria</th><th>Data</th><th>Situação</th></tr></thead><tbody>'
-        + recentPosts.map(post => '<tr>'
-            + '<td><div class="analytics-post-title">' + esc(post.title || 'Sem título') + '</div><div class="analytics-post-meta">' + esc(post.readTime || 'Tempo não informado') + '</div></td>'
-            + '<td>' + esc(post.categoryLabel || CAT_LABELS[post.category] || post.category || 'Sem categoria') + '</td>'
-            + '<td>' + formatAnalyticsDate(post.date) + '</td>'
-            + '<td><span class="analytics-status-badge ' + (post.published !== false ? 'pub' : 'draft') + '">' + (post.published !== false ? 'Publicado' : 'Rascunho') + '</span></td>'
-            + '</tr>').join('')
-        + '</tbody></table>';
-
-    ['analytics-categories', 'analytics-highlights', 'analytics-recent-posts'].forEach(function(id) { applyCollapse(id); });
+    ['analytics-categories', 'analytics-highlights'].forEach(function(id) { applyCollapse(id); });
 }
 
 function renderAnalytics() {
