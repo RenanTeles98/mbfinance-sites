@@ -17,7 +17,7 @@ export async function createSessionToken(): Promise<string> {
     const payloadB64 = btoa(payload);
     const key        = await getKey();
     const sigBuf     = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(payloadB64));
-    const sigB64     = btoa(String.fromCharCode(...new Uint8Array(sigBuf)));
+    const sigB64     = Buffer.from(sigBuf).toString('base64');
     return `${payloadB64}.${sigB64}`;
 }
 
@@ -28,7 +28,7 @@ export async function verifySession(token: string): Promise<boolean> {
         const { exp } = JSON.parse(atob(payloadB64));
         if (!exp || Date.now() > exp) return false;
         const key     = await getKey();
-        const sigBytes = Uint8Array.from(atob(sigB64), c => c.charCodeAt(0));
+        const sigBytes = Buffer.from(sigB64, 'base64');
         return await crypto.subtle.verify('HMAC', key, sigBytes, new TextEncoder().encode(payloadB64));
     } catch {
         return false;
