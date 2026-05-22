@@ -28,8 +28,8 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: #1e293b; min-height: 100vh; }
 
-        /* AUTH */
-        #auth-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #003956 0%, #001e2e 100%); }
+        /* AUTH — hidden by default; server-side middleware already handles auth */
+        #auth-screen { display: none !important; }
         .auth-card { background: #fff; border-radius: 20px; padding: 48px 40px; width: 100%; max-width: 400px; box-shadow: 0 24px 80px rgba(0,0,0,0.25); }
         .auth-logo { font-size: 24px; font-weight: 900; margin-bottom: 6px; }
         .auth-logo span:first-child { color: #003956; }
@@ -43,7 +43,7 @@
         .auth-error { color: #ef4444; font-size: 13px; margin-top: 10px; display: none; }
 
         /* LAYOUT */
-        #admin-app { display: none; flex-direction: column; min-height: 100vh; }
+        #admin-app { display: flex; flex-direction: column; min-height: 100vh; }
         #topbar { height: 60px; background: #003956; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 100; flex-shrink: 0; }
         .topbar-logo { font-size: 18px; font-weight: 900; }
         .topbar-logo span:first-child { color: #fff; }
