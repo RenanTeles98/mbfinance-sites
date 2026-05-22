@@ -433,22 +433,70 @@
         .admin-screen.active { display: block; }
         #screen-posts.active { display: flex; flex-direction: column; }
 
-        /* COLLAPSIBLE METRICS BAR */
-        #blog-metrics-bar { flex-shrink: 0; background: #f8fafc; border-bottom: 1px solid #e2e8f0; overflow: hidden; transition: max-height 0.3s ease; max-height: 0; }
-        #blog-metrics-bar.expanded { max-height: 380px; overflow-x: auto; }
-        #blog-metrics-bar-inner { padding: 16px 20px; }
-        #blog-metrics-bar .analytics-panels { margin-bottom: 0; }
-        #blog-metrics-bar .analytics-panel { min-width: 220px; }
-        #blog-metrics-toggle { flex-shrink: 0; background: #fff; border: none; border-bottom: 1px solid #e2e8f0; padding: 6px 20px; font-size: 11px; font-weight: 800; color: #94a3b8; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 6px; width: 100%; transition: color 0.15s; letter-spacing: 0.5px; text-transform: uppercase; }
-        #blog-metrics-toggle:hover { color: #0099dd; background: #f8fafc; }
-        #blog-metrics-toggle svg { transition: transform 0.3s; }
-        #blog-metrics-toggle.expanded svg { transform: rotate(180deg); }
+        /* BLOG SCREEN — 3 colunas */
+        #screen-posts.active { display: flex; flex-direction: row; height: calc(100vh - 60px - 48px); overflow: hidden; }
 
-        #blog-editor-wrap { flex: 1; display: flex; overflow: hidden; min-height: 0; }
+        /* LEFT NAV */
+        #blog-left-nav { width: 180px; background: #fff; border-right: 1px solid #e2e8f0; flex-shrink: 0; display: flex; flex-direction: column; padding: 16px 10px; gap: 2px; overflow-y: auto; }
+        .blog-nav-section-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #94a3b8; padding: 0 10px; margin-bottom: 8px; margin-top: 4px; }
+        .blog-nav-item { display: flex; align-items: center; gap: 9px; padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; color: #64748b; cursor: pointer; border: none; background: transparent; width: 100%; text-align: left; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+        .blog-nav-item:hover { background: #f1f5f9; color: #1e293b; }
+        .blog-nav-item.active { background: #eff9ff; color: #0099dd; }
+        .blog-nav-item svg { flex-shrink: 0; }
 
-        /* SIDEBAR — mais estreita */
-        #sidebar { width: 220px; }
-        #post-form { padding: 24px 28px 48px; max-width: 920px; }
+        /* CENTER */
+        #blog-center { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+        .blog-section { display: none; flex: 1; overflow-y: auto; }
+        .blog-section.active { display: flex; flex-direction: column; }
+        #blog-section-posts.active { flex-direction: row; overflow: hidden; }
+        #blog-section-posts #editor-panel { flex: 1; overflow-y: auto; background: #f8fafc; }
+        .blog-section-wrap { max-width: 1100px; margin: 0 auto; padding: 32px 28px 60px; width: 100%; }
+        .blog-section-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid #e2e8f0; }
+        .blog-section-title { font-size: 20px; font-weight: 900; color: #1e293b; margin-bottom: 6px; }
+        .blog-section-sub { font-size: 14px; color: #64748b; line-height: 1.6; max-width: 600px; }
+
+        /* RIGHT PANEL */
+        #blog-right-panel { width: 220px; background: #fff; border-left: 1px solid #e2e8f0; flex-shrink: 0; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* FORM */
+        #post-form { padding: 24px 40px 64px; max-width: 860px; margin: 0 auto; width: 100%; }
+
+        /* PAUTAS */
+        .pautas-columns { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+        .pautas-col { background: #f8fafc; border-radius: 14px; padding: 14px; min-height: 160px; }
+        .pautas-col-header { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #94a3b8; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+        .pautas-col.col-producao { background: #fffbeb; }
+        .pautas-col.col-producao .pautas-col-header { color: #d97706; }
+        .pautas-col.col-publicado { background: #f0fdf4; }
+        .pautas-col.col-publicado .pautas-col-header { color: #16a34a; }
+        .pautas-col-count { background: #e2e8f0; color: #64748b; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px; }
+        .pauta-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 13px 14px; margin-bottom: 8px; }
+        .pauta-card-title { font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 8px; line-height: 1.4; }
+        .pauta-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+        .pauta-cat-tag { background: #eff9ff; color: #0099dd; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 5px; }
+        .pauta-card-btns { display: flex; gap: 3px; }
+        .pauta-btn { border: none; background: transparent; cursor: pointer; color: #94a3b8; padding: 3px 5px; border-radius: 5px; font-size: 11px; font-weight: 700; transition: all 0.15s; }
+        .pauta-btn:hover { color: #0099dd; background: #eff9ff; }
+        .pauta-btn.del:hover { color: #ef4444; background: #fef2f2; }
+        #add-pauta-modal { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
+        #add-pauta-modal.open { display: flex; }
+        .pauta-modal-card { background: #fff; border-radius: 16px; padding: 28px; width: 460px; max-width: 90vw; box-shadow: 0 24px 80px rgba(0,0,0,0.2); }
+        .pauta-modal-card h3 { font-size: 17px; font-weight: 800; color: #003956; margin-bottom: 20px; }
+        .pauta-modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+
+        /* SEO AUDIT */
+        .seo-post-row { display: grid; grid-template-columns: 1fr 90px 90px 90px 80px; gap: 12px; align-items: center; padding: 14px 0; border-bottom: 1px solid #f1f5f9; }
+        .seo-post-row:last-child { border-bottom: none; }
+        .seo-post-row-head { grid-template-columns: 1fr 90px 90px 90px 80px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; }
+        .seo-col-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; }
+        .seo-post-title { font-size: 13px; font-weight: 700; color: #1e293b; line-height: 1.35; cursor: pointer; }
+        .seo-post-title:hover { color: #0099dd; }
+        .seo-pill { display: inline-flex; align-items: center; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
+        .seo-pill.ok { background: #dcfce7; color: #166534; }
+        .seo-pill.warn { background: #fef3c7; color: #92400e; }
+        .seo-pill.bad { background: #fee2e2; color: #991b1b; }
+        .blog-seo-refresh { background: transparent; border: 1.5px solid #e2e8f0; border-radius: 8px; color: #64748b; font-size: 12px; font-weight: 700; padding: 8px 16px; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
+        .blog-seo-refresh:hover { border-color: #0099dd; color: #0099dd; }
     </style>
 </head>
 <body>
@@ -523,46 +571,36 @@
     <div id="admin-body">
         <!-- BLOG -->
         <div id="screen-posts" class="admin-screen">
-            <!-- METRICS TOGGLE BUTTON -->
-            <button id="blog-metrics-toggle" onclick="toggleBlogMetrics()">
-                <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-                Resumo editorial
-            </button>
-            <!-- BLOG METRICS (colapsável) -->
-            <div id="blog-metrics-bar">
-                <div id="blog-metrics-bar-inner">
-                    <div class="analytics-panels">
-                        <div class="analytics-panel">
-                            <h3>Indicadores editoriais</h3>
-                            <div class="analytics-panel-sub">Resumo do painel de conteúdo.</div>
-                            <div class="analytics-highlight-list" id="analytics-highlights"></div>
-                        </div>
-                        <div class="analytics-panel">
-                            <h3>Distribuição por categoria</h3>
-                            <div class="analytics-panel-sub">Veja quais temas estão recebendo mais conteúdo no seu blog.</div>
-                            <div id="analytics-categories"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- EDITOR WRAP -->
-            <div id="blog-editor-wrap">
-            <!-- SIDEBAR -->
-            <div id="sidebar">
-                <div class="sidebar-header">
-                    <div class="sidebar-label">Publicações</div>
-                    <button class="btn-new" onclick="newPost()">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                        Nova publicação
-                    </button>
-                </div>
-                <div class="post-list" id="post-list">
-                    <div class="empty-list">Nenhuma publicação ainda.<br>Clique em "Nova publicação" para começar.</div>
-                </div>
-            </div>
+            <!-- LEFT NAV -->
+            <nav id="blog-left-nav">
+                <p class="blog-nav-section-label">Blog</p>
+                <button class="blog-nav-item active" id="blogNav-posts" onclick="switchBlogSection('posts')">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Publicações
+                </button>
+                <button class="blog-nav-item" id="blogNav-overview" onclick="switchBlogSection('overview')">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    Visão Geral
+                </button>
+                <button class="blog-nav-item" id="blogNav-pautas" onclick="switchBlogSection('pautas')">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    Pautas
+                </button>
+                <button class="blog-nav-item" id="blogNav-seo" onclick="switchBlogSection('seo')">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
+                    SEO
+                </button>
+                <button class="blog-nav-item" id="blogNav-calendario" onclick="switchBlogSection('calendario')">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    Calendário
+                </button>
+            </nav>
 
-            <!-- EDITOR -->
-            <div id="editor-panel">
+            <!-- CENTER SECTIONS -->
+            <div id="blog-center">
+                <!-- PUBLICAÇÕES -->
+                <div id="blog-section-posts" class="blog-section active">
+                    <div id="editor-panel">
                 <div id="welcome-screen">
                     <div class="welcome-icon">
                         <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -745,11 +783,110 @@
                 <div style="display:flex;justify-content:flex-end;gap:8px;padding-top:4px">
                     <button class="btn-preview" onclick="previewPost()">Visualizar artigo</button>
                     <button class="btn-save" onclick="savePost()" style="padding:11px 28px;font-size:14px">Salvar publicação</button>
+                    </div><!-- /editor-panel -->
+                </div><!-- /blog-section-posts -->
+
+                <!-- VISÃO GERAL -->
+                <div id="blog-section-overview" class="blog-section">
+                    <div class="blog-section-wrap">
+                        <div class="blog-section-header">
+                            <div>
+                                <h2 class="blog-section-title">Visão Geral</h2>
+                                <p class="blog-section-sub">Resumo editorial do blog — categorias publicadas, tempo médio de leitura e taxa de publicação.</p>
+                            </div>
+                        </div>
+                        <div class="analytics-panels">
+                            <div class="analytics-panel">
+                                <h3>Indicadores editoriais</h3>
+                                <div class="analytics-panel-sub">Resumo do painel de conteúdo.</div>
+                                <div class="analytics-highlight-list" id="analytics-highlights"></div>
+                            </div>
+                            <div class="analytics-panel">
+                                <h3>Distribuição por categoria</h3>
+                                <div class="analytics-panel-sub">Temas com mais conteúdo publicado no blog.</div>
+                                <div id="analytics-categories"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /blog-section-overview -->
+
+                <!-- PAUTAS -->
+                <div id="blog-section-pautas" class="blog-section">
+                    <div class="blog-section-wrap">
+                        <div class="blog-section-header">
+                            <div>
+                                <h2 class="blog-section-title">Pautas</h2>
+                                <p class="blog-section-sub">Planeje os próximos conteúdos. Organize ideias por status e transforme-as em publicações com um clique.</p>
+                            </div>
+                            <button class="btn-new" style="width:auto;padding:10px 20px;flex-shrink:0;" onclick="showAddPautaModal()">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                                Nova pauta
+                            </button>
+                        </div>
+                        <div id="pautas-board"></div>
+                    </div>
+                </div><!-- /blog-section-pautas -->
+
+                <!-- SEO -->
+                <div id="blog-section-seo" class="blog-section">
+                    <div class="blog-section-wrap">
+                        <div class="blog-section-header">
+                            <div>
+                                <h2 class="blog-section-title">Desempenho SEO</h2>
+                                <p class="blog-section-sub">Checklist de otimização para cada publicação. Clique no título para abrir o editor.</p>
+                            </div>
+                            <button class="blog-seo-refresh" onclick="renderSeoAudit()">↻ Atualizar</button>
+                        </div>
+                        <div id="seo-audit-list"></div>
+                    </div>
+                </div><!-- /blog-section-seo -->
+
+            </div><!-- /blog-center -->
+
+            <!-- RIGHT PANEL: lista de posts -->
+            <div id="blog-right-panel">
+                <div class="sidebar-header">
+                    <div class="sidebar-label">Publicações</div>
+                    <button class="btn-new" onclick="newPost()">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                        Nova publicação
+                    </button>
+                </div>
+                <div class="post-list" id="post-list">
+                    <div class="empty-list">Nenhuma publicação ainda.<br>Clique em "Nova publicação" para começar.</div>
+                </div>
+            </div><!-- /blog-right-panel -->
+
+    </div><!-- /screen-posts -->
+
+    <!-- MODAL: Nova pauta -->
+    <div id="add-pauta-modal">
+        <div class="pauta-modal-card">
+            <h3>Nova pauta</h3>
+            <div class="field-group">
+                <label class="field-label">Título da pauta</label>
+                <input type="text" id="pauta-title-input" class="field-input" placeholder="Ex: Como escolher a melhor conta PJ para MEI">
+            </div>
+            <div class="field-group">
+                <label class="field-label">Categoria</label>
+                <select id="pauta-cat-input" class="field-select">
+                    <option value="credito">Crédito Empresarial</option>
+                    <option value="gestao">Gestão Financeira</option>
+                    <option value="conta-pj">Conta PJ</option>
+                    <option value="antecipacao">Antecipação</option>
+                    <option value="gestao-tributaria">Gestão Tributária</option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Observações <span class="field-hint">(opcional)</span></label>
+                <textarea id="pauta-notes-input" class="field-textarea" rows="2" placeholder="Ângulo, referências, palavras-chave..."></textarea>
+            </div>
+            <div class="pauta-modal-actions">
+                <button class="btn-preview" onclick="closeAddPautaModal()">Cancelar</button>
+                <button class="btn-save" onclick="savePauta()">Salvar pauta</button>
             </div>
         </div>
     </div>
-    </div><!-- /blog-editor-wrap -->
-    </div><!-- /screen-posts -->
 
     <!-- BANNERS TAB -->
     <div id="screen-banners" class="admin-screen">
@@ -1402,13 +1539,150 @@ function logout() {
         .finally(() => { window.location.href = '/admin/login'; });
 }
 
-function toggleBlogMetrics() {
-    const bar = document.getElementById('blog-metrics-bar');
-    const btn = document.getElementById('blog-metrics-toggle');
-    const expanded = bar.classList.toggle('expanded');
-    btn.classList.toggle('expanded', expanded);
-    btn.querySelector('svg').style.transform = expanded ? 'rotate(180deg)' : '';
+/* ── BLOG LEFT NAV ── */
+function switchBlogSection(section) {
+    if (section === 'calendario') { switchTab('calendar'); return; }
+
+    document.querySelectorAll('.blog-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.blog-nav-item').forEach(b => b.classList.remove('active'));
+
+    const el = document.getElementById('blog-section-' + section);
+    const btn = document.getElementById('blogNav-' + section);
+    if (el)  el.classList.add('active');
+    if (btn) btn.classList.add('active');
+
+    if (section === 'seo') renderSeoAudit();
 }
+
+/* ── PAUTAS ── */
+var PAUTAS_KEY = 'mb_blog_pautas';
+var CAT_LABELS_P = { credito:'Crédito Empresarial', gestao:'Gestão Financeira', 'conta-pj':'Conta PJ', antecipacao:'Antecipação', 'gestao-tributaria':'Gestão Tributária' };
+
+function loadPautas() { try { return JSON.parse(localStorage.getItem(PAUTAS_KEY)) || []; } catch { return []; } }
+function savePautasStorage(list) { localStorage.setItem(PAUTAS_KEY, JSON.stringify(list)); }
+
+function renderPautasBoard() {
+    var list = loadPautas();
+    var statuses = [
+        { key: 'ideia',     label: 'Ideia',        cls: '' },
+        { key: 'producao',  label: 'Em produção',   cls: 'col-producao' },
+        { key: 'publicado', label: 'Publicado',      cls: 'col-publicado' }
+    ];
+    var html = '<div class="pautas-columns">';
+    statuses.forEach(function(st) {
+        var items = list.filter(function(p) { return p.status === st.key; });
+        html += '<div class="pautas-col ' + st.cls + '">'
+            + '<div class="pautas-col-header">' + st.label + '<span class="pautas-col-count">' + items.length + '</span></div>';
+        if (items.length === 0) {
+            html += '<div style="font-size:12px;color:#94a3b8;text-align:center;padding:20px 0;">Nenhuma pauta</div>';
+        } else {
+            items.forEach(function(p) {
+                var nextStatus = st.key === 'ideia' ? 'producao' : (st.key === 'producao' ? 'publicado' : null);
+                var nextLabel  = st.key === 'ideia' ? '▶ Em produção' : (st.key === 'producao' ? '✓ Publicado' : '');
+                html += '<div class="pauta-card">'
+                    + '<div class="pauta-card-title">' + escHtml(p.title) + '</div>'
+                    + (p.notes ? '<div style="font-size:12px;color:#64748b;margin-bottom:8px;line-height:1.5;">' + escHtml(p.notes) + '</div>' : '')
+                    + '<div class="pauta-card-foot">'
+                    + '<span class="pauta-cat-tag">' + (CAT_LABELS_P[p.cat] || p.cat) + '</span>'
+                    + '<div class="pauta-card-btns">'
+                    + (nextStatus ? '<button class="pauta-btn" onclick="movePauta(\'' + p.id + '\',\'' + nextStatus + '\')" title="' + nextLabel + '">' + nextLabel + '</button>' : '')
+                    + '<button class="pauta-btn del" onclick="deletePauta(\'' + p.id + '\')" title="Excluir">✕</button>'
+                    + '</div></div></div>';
+            });
+        }
+        html += '</div>';
+    });
+    html += '</div>';
+    document.getElementById('pautas-board').innerHTML = html;
+}
+
+function showAddPautaModal() {
+    document.getElementById('pauta-title-input').value = '';
+    document.getElementById('pauta-notes-input').value = '';
+    document.getElementById('add-pauta-modal').classList.add('open');
+    setTimeout(function() { document.getElementById('pauta-title-input').focus(); }, 100);
+}
+function closeAddPautaModal() { document.getElementById('add-pauta-modal').classList.remove('open'); }
+
+function savePauta() {
+    var title = (document.getElementById('pauta-title-input').value || '').trim();
+    if (!title) { document.getElementById('pauta-title-input').focus(); return; }
+    var list = loadPautas();
+    list.push({ id: Date.now().toString(36), title: title, cat: document.getElementById('pauta-cat-input').value, notes: document.getElementById('pauta-notes-input').value.trim(), status: 'ideia' });
+    savePautasStorage(list);
+    closeAddPautaModal();
+    renderPautasBoard();
+}
+
+function movePauta(id, newStatus) {
+    var list = loadPautas();
+    var p = list.find(function(x) { return x.id === id; });
+    if (p) { p.status = newStatus; savePautasStorage(list); renderPautasBoard(); }
+}
+
+function deletePauta(id) {
+    if (!confirm('Excluir esta pauta?')) return;
+    var list = loadPautas().filter(function(x) { return x.id !== id; });
+    savePautasStorage(list);
+    renderPautasBoard();
+}
+
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+/* ── SEO AUDIT ── */
+function renderSeoAudit() {
+    var posts = typeof window.getAllPosts === 'function' ? window.getAllPosts() : (window._allPosts || []);
+    var el = document.getElementById('seo-audit-list');
+    if (!posts || posts.length === 0) {
+        el.innerHTML = '<div class="analytics-empty">Nenhuma publicação encontrada. Crie artigos na aba Publicações para ver o diagnóstico de SEO.</div>';
+        return;
+    }
+    function scoreTitle(t) { var l = (t||'').length; return l >= 40 && l <= 60 ? 'ok' : (l > 0 ? 'warn' : 'bad'); }
+    function scoreDesc(d)  { var l = (d||'').length; return l >= 100 && l <= 155 ? 'ok' : (l > 0 ? 'warn' : 'bad'); }
+    function scoreKeys(k)  { return (k||'').trim().length > 0 ? 'ok' : 'bad'; }
+    function scoreImg(i)   { return (i||'').trim().length > 0 ? 'ok' : 'warn'; }
+    function pill(score, text) { return '<span class="seo-pill ' + score + '">' + text + '</span>'; }
+    var labels = { ok: '✓ OK', warn: '⚠ Melhorar', bad: '✕ Falta' };
+
+    var html = '<div class="seo-post-row seo-post-row-head">'
+        + '<div class="seo-col-label">Publicação</div>'
+        + '<div class="seo-col-label">Título SEO</div>'
+        + '<div class="seo-col-label">Descrição</div>'
+        + '<div class="seo-col-label">Keywords</div>'
+        + '<div class="seo-col-label">Imagem</div>'
+        + '</div>';
+
+    posts.forEach(function(p) {
+        var ts = scoreTitle(p.seoTitle || p.title);
+        var ds = scoreDesc(p.seoDescription || p.excerpt);
+        var ks = scoreKeys(p.keywords);
+        var is = scoreImg(p.image);
+        html += '<div class="seo-post-row">'
+            + '<div class="seo-post-title" onclick="openPostById(\'' + p.id + '\')">' + escHtml(p.title || 'Sem título') + '</div>'
+            + '<div>' + pill(ts, labels[ts]) + '</div>'
+            + '<div>' + pill(ds, labels[ds]) + '</div>'
+            + '<div>' + pill(ks, labels[ks]) + '</div>'
+            + '<div>' + pill(is, labels[is]) + '</div>'
+            + '</div>';
+    });
+    el.innerHTML = html;
+}
+
+/* abre post pelo id e volta para aba Publicações */
+function openPostById(id) {
+    switchBlogSection('posts');
+    if (typeof loadPostById === 'function') loadPostById(id);
+    else if (typeof editPost === 'function') editPost(id);
+}
+
+/* inicializa seções extras no init */
+(function() {
+    var origInit = window.init;
+    window.init = function() {
+        if (origInit) origInit();
+        renderPautasBoard();
+    };
+})();
 </script>
 </body>
 </html>
