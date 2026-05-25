@@ -2,6 +2,7 @@
 
 ## 2026-05-25
 
+- Refeita a hero da capa `/blog` com CTAs e painel financeiro lateral para reforcar o hub de solucoes.
 - A faixa "Escolha por necessidade" virou o menu principal de produtos da capa `/blog`, com Todos e Tributos adicionados e barra inferior removida.
 - Evoluida a capa `/blog` para hub financeiro com cards de produtos e CTA para WhatsApp.
 - Ajustado o topo de `/blog`: logo central maior, "Voltar ao site" a esquerda e hero com fundo branco.

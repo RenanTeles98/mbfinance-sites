@@ -209,3 +209,17 @@
 - Decisao: remover a barra de filtros inferior da capa `/blog`.
   - Motivo: os cards passam a cumprir a funcao de navegacao e filtragem com mais contexto para o usuario.
   - Alternativas consideradas: transformar a barra antiga em menu secundario sticky, descartado nesta rodada para manter a tela mais limpa.
+
+## 2026-05-25 - Hero com painel de solucoes financeiras
+
+- Decisao: transformar a hero da capa `/blog` em uma composicao de duas colunas, com mensagem e CTAs a esquerda e painel financeiro a direita.
+  - Motivo: a hero anterior estava correta, mas visualmente fraca diante da nova faixa de produtos; o painel reforca a ideia de hub financeiro.
+  - Alternativas consideradas: manter apenas texto centralizado, descartado por parecer blog institucional generico.
+
+- Decisao: usar CTA principal para WhatsApp e CTA secundario para a faixa de produtos.
+  - Motivo: cria dois caminhos claros: atendimento comercial ou exploracao autonoma das solucoes.
+  - Alternativas consideradas: deixar a busca como acao principal, descartado porque busca e util, mas nao comunica valor comercial do hub.
+
+- Decisao: manter o painel financeiro como UI abstrata, sem numeros reais.
+  - Motivo: evita expor ou inventar metricas, mas cria contexto visual de produtos financeiros.
+  - Alternativas consideradas: mostrar valores/taxas, descartado porque poderia gerar promessa comercial desatualizada.

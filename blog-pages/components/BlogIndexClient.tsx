@@ -161,36 +161,78 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
       </nav>
 
       <section className="blog-hero">
-        <div className="blog-shell">
-          <div className="hero-tag">Hub financeiro MB Finance</div>
-          <h1 className="hero-title">
-            Soluções e inteligência para
-            <br />
-            <span>sua empresa crescer com mais caixa</span>
-          </h1>
-          <p className="hero-sub">
-            Compare crédito, conta PJ, antecipação e gestão financeira em um só lugar, com guias práticos para decidir melhor.
-          </p>
-          <div className="hero-search-box">
-            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-            </svg>
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") trackSearch();
-              }}
-              type="search"
-              placeholder="Buscar artigos, temas ou palavras-chave..."
-              aria-label="Buscar no blog"
-            />
-            <button type="button" onClick={trackSearch}>Buscar</button>
+        <div className="blog-shell hero-layout">
+          <div className="hero-copy">
+            <div className="hero-tag">Hub financeiro MB Finance</div>
+            <h1 className="hero-title">
+              Encontre a solução financeira certa
+              <br />
+              <span>para o momento da sua empresa</span>
+            </h1>
+            <p className="hero-sub">
+              Crédito, conta PJ, antecipação, gestão e tributos organizados em um hub para empresários decidirem com mais clareza.
+            </p>
+            <div className="hero-actions">
+              <a className="hero-primary" href={specialistWhatsAppUrl} target="_blank" rel="noopener noreferrer">
+                Falar com especialista
+              </a>
+              <a className="hero-secondary" href="#hub-produtos">
+                Explorar soluções
+              </a>
+            </div>
+            <div className="hero-search-box">
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+              </svg>
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") trackSearch();
+                }}
+                type="search"
+                placeholder="Buscar artigos, temas ou palavras-chave..."
+                aria-label="Buscar no blog"
+              />
+              <button type="button" onClick={trackSearch}>Buscar</button>
+            </div>
+          </div>
+
+          <div className="hero-finance-panel" aria-label="Soluções financeiras em destaque">
+            <div className="finance-panel-header">
+              <span>Mapa financeiro</span>
+              <strong>MB Finance</strong>
+            </div>
+            <div className="finance-panel-grid">
+              <div className="finance-mini-card">
+                <span>Capital de giro</span>
+                <strong>Crédito</strong>
+                <small>Liquidez para operação</small>
+              </div>
+              <div className="finance-mini-card">
+                <span>Receba antes</span>
+                <strong>Antecipação</strong>
+                <small>Caixa em até 24h</small>
+              </div>
+              <div className="finance-mini-card">
+                <span>Rotina financeira</span>
+                <strong>Conta PJ</strong>
+                <small>Pagamentos e recebíveis</small>
+              </div>
+              <div className="finance-mini-card">
+                <span>Eficiência fiscal</span>
+                <strong>Tributos</strong>
+                <small>Planejamento empresarial</small>
+              </div>
+            </div>
+            <div className="finance-panel-footer">
+              <span>Conteúdo + atendimento para decidir melhor</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="product-hub-section" aria-label="Soluções financeiras">
+      <section className="product-hub-section" id="hub-produtos" aria-label="Soluções financeiras">
         <div className="blog-shell">
           <div className="hub-section-heading">
             <span>Escolha por necessidade</span>

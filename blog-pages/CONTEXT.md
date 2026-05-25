@@ -397,3 +397,20 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar visualmente os seis cards em desktop e mobile apos deploy, principalmente quebra de texto e altura dos cards.
+
+## Sessao de 2026-05-25 - Hero com painel financeiro
+
+Foi refeita a hero da capa `/blog` para combinar melhor com a nova navegacao por produtos.
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: headline ficou mais direta, foram adicionados CTAs para WhatsApp e para explorar solucoes, e entrou um painel financeiro com mini cards de credito, antecipacao, conta PJ e tributos.
+- `app/blog/blog.css`: criada composicao em duas colunas, fundo claro com transicao azul, estilos do painel financeiro, CTAs e responsividade mobile.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- A hero nao fica mais apenas como texto solto: agora apresenta uma proposta de hub financeiro com caminhos claros de acao.
+- O CTA principal aponta para WhatsApp e o secundario leva para a faixa de produtos.
+- `npm run build` em `blog-pages` passou com sucesso.
+
+Proximo passo recomendado:
+- Validar visualmente a hero publicada em desktop e mobile, especialmente o painel financeiro e a quebra da headline.

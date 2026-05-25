@@ -14,6 +14,7 @@
 
 ## Prioridade atual - Performance do blog
 
+- Validar a nova hero com painel financeiro da capa `/blog` em desktop e mobile.
 - Validar os seis cards do menu de produtos da capa `/blog` em desktop e mobile.
 - Validar os cards de produto e a CTA de WhatsApp da capa `/blog` no ambiente publicado.
 - Evoluir a primeira dobra de `/blog` para comunicar o hub de produtos financeiros da MB Finance.
