@@ -2208,9 +2208,9 @@ function generateAngles(item) {
     });
 }
 
-function createPautaFromAngle(jsonStr) {
+function createPautaFromAngle(a) {
     try {
-        var a = JSON.parse(jsonStr);
+        if (typeof a === 'string') a = JSON.parse(a);
         var list = loadPautas();
         var id = Date.now().toString(36);
         list.push({
@@ -2226,9 +2226,9 @@ function createPautaFromAngle(jsonStr) {
     } catch(e) { console.error('[createPautaFromAngle]', e); }
 }
 
-function createPostFromAngle(jsonStr) {
+function createPostFromAngle(a) {
     try {
-        var a = JSON.parse(jsonStr);
+        if (typeof a === 'string') a = JSON.parse(a);
         var list = loadPautas();
         var id = Date.now().toString(36);
         list.push({
