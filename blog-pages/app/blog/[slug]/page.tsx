@@ -303,8 +303,8 @@ export default async function BlogArticlePage({
       {post.image ? (
         <div className="mx-auto -mt-8 max-w-5xl px-6">
           <div
-            className="h-[320px] rounded-[24px] border border-white/20 bg-cover bg-center shadow-2xl md:h-[420px]"
-            style={{ backgroundImage: `url("${post.image}")` }}
+            className="w-full rounded-[24px] border border-white/20 bg-cover bg-center shadow-2xl"
+            style={{ backgroundImage: `url("${post.image}")`, aspectRatio: '16/9' }}
           />
         </div>
       ) : null}

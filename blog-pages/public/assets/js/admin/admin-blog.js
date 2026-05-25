@@ -234,6 +234,7 @@ async function savePost() {
         categoryLabel: CAT_LABELS[cat] || cat,
         excerpt:       document.getElementById('f-excerpt').value.trim(),
         image:         getImageValue(),
+        imageCard:     getImageCardValue() || undefined,
         content,
         readTime,
         date:          document.getElementById('f-date').value || today(),
@@ -326,6 +327,12 @@ function clearForm() {
     const img = document.getElementById('img-preview');
     img.style.display = 'none'; img.src = '';
     switchImgTab('url');
+    document.getElementById('f-image-card').value = '';
+    document.getElementById('f-image-card-b64').value = '';
+    document.getElementById('f-image-card-file').value = '';
+    const imgCard = document.getElementById('img-card-preview');
+    if (imgCard) { imgCard.style.display = 'none'; imgCard.src = ''; }
+    switchImgCardTab('url');
     const pautaIdEl = document.getElementById('f-pauta-id');
     if (pautaIdEl) pautaIdEl.value = '';
     const banner = document.getElementById('pauta-origem-banner');
@@ -362,6 +369,22 @@ function fillForm(p) {
     updateCharCount('f-seo-desc','cnt-seo-desc',155);
     updateSeoPreview();
     updateImgPreview(p.image || '');
+    // Fill imageCard field
+    if (p.imageCard) {
+        const isB64Card = p.imageCard.startsWith('data:');
+        if (isB64Card) {
+            switchImgCardTab('upload');
+            document.getElementById('f-image-card-b64').value = p.imageCard;
+        } else {
+            switchImgCardTab('url');
+            document.getElementById('f-image-card').value = p.imageCard;
+        }
+        updateImgCardPreview(p.imageCard);
+    } else {
+        switchImgCardTab('url');
+        document.getElementById('f-image-card').value = '';
+        updateImgCardPreview('');
+    }
     const pautaIdEl = document.getElementById('f-pauta-id');
     const banner = document.getElementById('pauta-origem-banner');
     const origTitle = document.getElementById('pauta-origem-title');
@@ -444,6 +467,60 @@ function getImageValue() {
         return document.getElementById('f-image').value.trim();
     }
     return document.getElementById('f-image-b64').value || '';
+}
+
+function getImageCardValue() {
+    const urlPanel = document.getElementById('img-card-url-panel');
+    if (urlPanel && urlPanel.style.display !== 'none') {
+        return document.getElementById('f-image-card').value.trim();
+    }
+    return document.getElementById('f-image-card-b64').value || '';
+}
+
+function switchImgCardTab(tab) {
+    const isUrl = tab === 'url';
+    const urlPanel = document.getElementById('img-card-url-panel');
+    const uploadPanel = document.getElementById('img-card-upload-panel');
+    const tabUrl = document.getElementById('tab-card-url');
+    const tabUpload = document.getElementById('tab-card-upload');
+    if (urlPanel) urlPanel.style.display = isUrl ? '' : 'none';
+    if (uploadPanel) uploadPanel.style.display = isUrl ? 'none' : '';
+    if (tabUrl) tabUrl.classList.toggle('active', isUrl);
+    if (tabUpload) tabUpload.classList.toggle('active', !isUrl);
+}
+
+function updateImgCardPreview(url) {
+    const img = document.getElementById('img-card-preview');
+    if (!img) return;
+    if (url && (url.startsWith('http') || url.startsWith('/') || url.startsWith('data:'))) {
+        img.src = url; img.style.display = 'block';
+    } else { img.style.display = 'none'; img.src = ''; }
+}
+
+function handleCardFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const b64 = e.target.result;
+        document.getElementById('f-image-card-b64').value = b64;
+        document.getElementById('upload-card-label').textContent = 'Imagem selecionada:';
+        const fn = document.getElementById('upload-card-filename');
+        fn.textContent = file.name; fn.style.display = 'block';
+        updateImgCardPreview(b64);
+    };
+    reader.readAsDataURL(file);
+}
+
+function handleCardDrop(e) {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    const input = document.getElementById('f-image-card-file');
+    input.files = dt.files;
+    handleCardFileUpload(input);
 }
 
 /* ── SPELLCHECK LOGIC ── */
@@ -984,6 +1061,11 @@ window.switchImgTab = switchImgTab;
 window.handleFileUpload = handleFileUpload;
 window.handleDrop = handleDrop;
 window.getImageValue = getImageValue;
+window.getImageCardValue = getImageCardValue;
+window.switchImgCardTab = switchImgCardTab;
+window.updateImgCardPreview = updateImgCardPreview;
+window.handleCardFileUpload = handleCardFileUpload;
+window.handleCardDrop = handleCardDrop;
 window.spellClose = spellClose;
 window.spellProceed = spellProceed;
 window.checkSpelling = checkSpelling;

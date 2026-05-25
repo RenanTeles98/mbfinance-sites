@@ -15,6 +15,7 @@ export interface BlogPost {
   categoryLabel: string;
   excerpt: string;
   image: string;
+  imageCard?: string;
   content: string;
   readTime: string;
   date: string;

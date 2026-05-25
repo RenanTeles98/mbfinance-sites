@@ -60,9 +60,10 @@ function formatDate(date: string) {
   });
 }
 
-function imageStyle(image?: string) {
-  return image
-    ? { backgroundImage: `url("${image}")` }
+function imageStyle(image?: string, imageCard?: string) {
+  const src = imageCard || image;
+  return src
+    ? { backgroundImage: `url("${src}")` }
     : { background: "linear-gradient(135deg,#003956,#0099dd)" };
 }
 
@@ -181,7 +182,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
                     key={post.id}
                     className="side-feature-card"
                     href={`/blog/${post.slug}`}
-                    style={imageStyle(post.image)}
+                    style={imageStyle(post.image, post.imageCard)}
                     data-cat={post.category}
                     data-analytics-label={post.title}
                     data-analytics-area="side_feature"
@@ -208,7 +209,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
                     data-analytics-label={post.title}
                     data-analytics-area="news_list"
                   >
-                    <div className="news-thumb" style={imageStyle(post.image)} />
+                    <div className="news-thumb" style={imageStyle(post.image, post.imageCard)} />
                     <div className="news-row-content">
                       <p className="article-category">{post.categoryLabel}</p>
                       <h2>{post.title}</h2>
