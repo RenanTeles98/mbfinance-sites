@@ -546,6 +546,7 @@ function initCampaigns() {
     renderCampaignSummary();
     onChannelChange();
     renderSavedLinks();
+    renderWappTemplates();
     loadCampaignPerformance();
 }
 
@@ -562,11 +563,17 @@ window.copySavedCamp           = copySavedCamp;
 window.loadCampaignPerformance = loadCampaignPerformance;
 window.loadCampaignClickStats  = loadCampaignClickStats;
 window.buildWappTemplate       = buildWappTemplate;
+window.saveWappTemplate        = saveWappTemplate;
+window.useWappTemplate         = useWappTemplate;
+window.deleteWappTemplate      = deleteWappTemplate;
+window.renderWappTemplates     = renderWappTemplates;
 window.copyWappMessage         = copyWappMessage;
 window.openWhatsApp            = openWhatsApp;
 window.exportCampaignsCSV      = exportCampaignsCSV;
 
 // ── TEMPLATE WHATSAPP ────────────────────────────────────────────────────────
+
+var WAPP_TPL_KEY = 'mb_wapp_templates_v1';
 
 var WAPP_TEMPLATES = {
     'capital-giro':   'Olá, {nome}! A MB Finance tem uma solução de Capital de Giro com condições especiais para a sua empresa — sem burocracia e análise rápida. Acesse e saiba mais: {link}',
@@ -575,6 +582,17 @@ var WAPP_TEMPLATES = {
     'antecipacao':    'Olá, {nome}! Antecipe seus recebíveis com a MB Finance e garanta o fluxo de caixa da sua empresa. Taxas competitivas e aprovação rápida. Acesse: {link}',
     'personalizado':  'Olá, {nome}! A MB Finance tem uma condição especial para a sua empresa. Acesse: {link}',
 };
+
+var WAPP_PRODUCT_LABELS = {
+    'capital-giro': 'Capital de Giro', 'conta-pj': 'Conta PJ',
+    'maquina-cartao': 'Máquina de Cartão', 'antecipacao': 'Antecipação',
+    'personalizado': 'Personalizado',
+};
+
+function loadWappTemplates() {
+    try { return JSON.parse(localStorage.getItem(WAPP_TPL_KEY) || '[]'); } catch (e) { return []; }
+}
+function saveWappTemplates(list) { localStorage.setItem(WAPP_TPL_KEY, JSON.stringify(list)); }
 
 function buildWappTemplate() {
     var product  = (document.getElementById('wapp-product')  || {}).value || 'capital-giro';
@@ -587,6 +605,69 @@ function buildWappTemplate() {
     preview.value = template
         .replace('{nome}', name || 'tudo bem?')
         .replace('{link}', link);
+}
+
+function saveWappTemplate() {
+    var nameEl   = document.getElementById('wapp-tpl-name');
+    var preview  = document.getElementById('wapp-preview');
+    var product  = (document.getElementById('wapp-product') || {}).value || 'personalizado';
+    var link     = ((document.getElementById('wapp-link')   || {}).value || '').trim();
+    var tplName  = nameEl ? nameEl.value.trim() : '';
+    var message  = preview ? preview.value.trim() : '';
+    if (!tplName) { if (nameEl) { nameEl.focus(); nameEl.placeholder = 'Digite um nome para o template'; } return; }
+    if (!message) return;
+    var list = loadWappTemplates();
+    list.unshift({ id: Date.now(), name: tplName, product: product, message: message, link: link, date: new Date().toLocaleDateString('pt-BR') });
+    saveWappTemplates(list);
+    if (nameEl) nameEl.value = '';
+    renderWappTemplates();
+}
+
+function useWappTemplate(id) {
+    var tpl = loadWappTemplates().find(function(t) { return t.id === id; });
+    if (!tpl) return;
+    var preview = document.getElementById('wapp-preview');
+    var linkEl  = document.getElementById('wapp-link');
+    var prodEl  = document.getElementById('wapp-product');
+    if (preview) preview.value = tpl.message;
+    if (linkEl && tpl.link)  linkEl.value = tpl.link;
+    if (prodEl && tpl.product) prodEl.value = tpl.product;
+    document.getElementById('wapp-preview') && document.getElementById('wapp-preview').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function deleteWappTemplate(id) {
+    saveWappTemplates(loadWappTemplates().filter(function(t) { return t.id !== id; }));
+    renderWappTemplates();
+}
+
+function renderWappTemplates() {
+    var el    = document.getElementById('wapp-tpl-list');
+    var count = document.getElementById('wapp-tpl-count');
+    if (!el) return;
+    var list = loadWappTemplates();
+    if (count) count.textContent = list.length ? list.length + ' salvo' + (list.length > 1 ? 's' : '') : '';
+    if (!list.length) { el.innerHTML = '<div class="analytics-empty">Nenhum template salvo ainda.</div>'; return; }
+    var html = '';
+    for (var i = 0; i < list.length; i++) {
+        var t = list[i];
+        var label = WAPP_PRODUCT_LABELS[t.product] || t.product;
+        html += '<div style="display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid #f1f5f9;">'
+            + '<div style="flex:1;min-width:0;">'
+            + '<div style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:4px;">' + cesc(t.name) + '</div>'
+            + '<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">'
+            + '<span class="camp-channel-badge">' + cesc(label) + '</span>'
+            + '<span style="font-size:11px;color:#94a3b8;">' + cesc(t.date) + '</span>'
+            + '</div>'
+            + '<div style="font-size:12px;color:#64748b;line-height:1.5;white-space:pre-wrap;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">' + cesc(t.message) + '</div>'
+            + '</div>'
+            + '<div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;">'
+            + '<button class="camp-action-btn" onclick="useWappTemplate(' + t.id + ')" title="Usar este template">Usar</button>'
+            + '<button class="camp-action-btn camp-del-btn camp-icon-only" onclick="deleteWappTemplate(' + t.id + ')" title="Excluir">'
+            + '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>'
+            + '</div>'
+            + '</div>';
+    }
+    el.innerHTML = html;
 }
 
 function copyWappMessage() {
