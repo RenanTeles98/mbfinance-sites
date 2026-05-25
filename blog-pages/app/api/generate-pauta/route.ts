@@ -46,8 +46,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    if (!process.env.GOOGLE_API_KEY) {
-        return NextResponse.json({ error: 'GOOGLE_API_KEY não configurada no servidor.' }, { status: 503 });
+    if (!process.env.GROQ_API_KEY) {
+        return NextResponse.json({ error: 'GROQ_API_KEY não configurada no servidor.' }, { status: 503 });
     }
 
     const body = await req.json().catch(() => null);
@@ -82,28 +82,33 @@ Responda APENAS com um JSON array de 3 objetos, sem texto antes ou depois:
 ]
 `.trim();
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GOOGLE_API_KEY}`;
-
-    const response = await fetch(geminiUrl, {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: {
+            'content-type': 'application/json',
+            'authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+        },
         body: JSON.stringify({
-            system_instruction: { parts: [{ text: MB_CONTEXT }] },
-            contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
-            generationConfig: { temperature: 0.7, maxOutputTokens: 1200 },
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+                { role: 'system', content: MB_CONTEXT },
+                { role: 'user', content: userPrompt },
+            ],
+            max_tokens: 1200,
+            temperature: 0.7,
         }),
     });
 
     if (!response.ok) {
         const err = await response.text();
-        console.error('[generate-pauta] Gemini error:', err);
+        console.error('[generate-pauta] Groq error:', err);
         let detail = '';
         try { detail = JSON.parse(err)?.error?.message || err; } catch { detail = err; }
         return NextResponse.json({ error: 'Erro ao chamar a IA: ' + detail }, { status: 502 });
     }
 
     const data = await response.json();
-    const raw = (data.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
+    const raw = (data.choices?.[0]?.message?.content || '').trim();
 
     // Extract JSON even if model adds surrounding text
     const jsonMatch = raw.match(/\[[\s\S]*\]/);
