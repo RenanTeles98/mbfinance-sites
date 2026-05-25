@@ -14,3 +14,32 @@
 ### Alternativas consideradas
 - Contar apenas `generate_lead`: mais estrito, mas mede envio do formulario, nao clique para abrir Conta PJ.
 - Contar apenas `lead_modal_open`: funciona com a coleta atual, mas pode misturar outros produtos se o site principal usar o mesmo modal.
+
+## 2026-05-18 - Diagnostico de credencial GA4 invalida
+
+### Decisao
+- A API de analytics passou a reconhecer `invalid_grant` com `account not found` e retornar uma mensagem em pt-BR orientando a recriar/atualizar a service account.
+
+### Motivo
+- O painel publicado estava exibindo erro bruto do Google e os cards ficavam sem metricas.
+- O erro acontece na autenticacao, antes das consultas ao GA4, entao a correcao real depende de credenciais/permissaes no Google Cloud e Vercel.
+
+### Alternativas consideradas
+- Ocultar o erro e mostrar apenas "GA4 indisponivel": reduziria ruido, mas esconderia a acao necessaria.
+- Trocar a estrategia de autenticacao por OAuth de usuario: aumentaria complexidade e nao resolve a service account invalida ja configurada.
+
+## 2026-05-25 - Telas visiveis no admin do blog
+
+### Decisao
+- A aba "Campanhas" passou a ter uma tela propria no admin, alimentada pelos posts ja carregados.
+- O switch de abas agora usa "Metricas do site" como fallback quando o painel solicitado nao existe.
+- A aba de newsletter foi apresentada como "E-mails" sem trocar os IDs internos, preservando compatibilidade com o JavaScript existente.
+
+### Motivo
+- Os prints mostravam a navegacao do admin funcionando, mas a area de conteudo vazia.
+- Havia risco de aba sem `screen-*` correspondente deixar o usuario preso em uma tela em branco.
+- Manter os IDs internos reduz o risco de quebrar funcoes ja existentes de newsletter, blog, banners e analytics.
+
+### Alternativas consideradas
+- Reescrever todo o admin como uma aplicacao React: melhor a longo prazo, mas alto risco para uma correcao urgente.
+- Trocar todos os nomes internos de newsletter para e-mails: mais consistente, mas aumentaria o escopo e o risco de regressao.

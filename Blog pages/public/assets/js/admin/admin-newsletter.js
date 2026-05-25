@@ -2,6 +2,65 @@
  * Admin Dashboard - Newsletter & Subscriptions
  */
 
+function renderCampaigns() {
+    const now = new Date();
+    const allPosts = Array.isArray(posts) ? posts : [];
+    const published = allPosts.filter(post => post.published !== false).length;
+    const drafts = allPosts.filter(post => post.published === false).length;
+    const scheduled = allPosts.filter(post => {
+        if (post.published === false || !post.date) return false;
+        const publishDate = new Date(`${post.date}T${post.time || '00:00'}:00`);
+        return publishDate > now;
+    }).length;
+    const featured = allPosts.filter(post => post.featured).length;
+
+    const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    };
+
+    setText('campaigns-published', published);
+    setText('campaigns-drafts', drafts);
+    setText('campaigns-scheduled', scheduled);
+    setText('campaigns-featured', featured);
+
+    const pipeline = document.getElementById('campaigns-pipeline');
+    if (!pipeline) return;
+
+    if (!allPosts.length) {
+        pipeline.innerHTML = '<div class="admin-empty-state">Nenhum post cadastrado ainda. Crie o primeiro conteúdo na aba Blog.</div>';
+        return;
+    }
+
+    const recentPosts = [...allPosts]
+        .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')))
+        .slice(0, 8);
+
+    pipeline.innerHTML = recentPosts.map(post => {
+        let statusClass = 'ok';
+        let statusLabel = 'Publicado';
+        if (post.published === false) {
+            statusClass = 'warn';
+            statusLabel = 'Rascunho';
+        } else if (post.date) {
+            const publishDate = new Date(`${post.date}T${post.time || '00:00'}:00`);
+            if (publishDate > now) {
+                statusClass = 'info';
+                statusLabel = 'Agendado';
+            }
+        }
+
+        const category = post.categoryLabel || CAT_LABELS[post.category] || post.category || 'Sem categoria';
+        return '<div class="admin-list-item">'
+            + '<div>'
+            + '<div class="admin-list-title">' + esc(post.title || 'Post sem título') + '</div>'
+            + '<div class="admin-list-meta">' + esc(category) + ' · ' + formatAnalyticsDate(post.date) + ' · ' + esc(post.readTime || 'Tempo não informado') + '</div>'
+            + '</div>'
+            + '<span class="admin-status ' + statusClass + '">' + statusLabel + '</span>'
+            + '</div>';
+    }).join('');
+}
+
 function updateNewsletterList() {
     const list = document.getElementById('nl-sub-list');
     if (!list) return;
@@ -64,6 +123,7 @@ function nlSaveConfig() {
 }
 
 // Export to window
+window.renderCampaigns = renderCampaigns;
 window.updateNewsletterList = updateNewsletterList;
 window.nlSwitchSubTab = nlSwitchSubTab;
 window.nlAddSubscriber = nlAddSubscriber;

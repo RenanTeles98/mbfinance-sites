@@ -364,6 +364,43 @@
         .admin-screen { display: none; width: 100%; height: 100%; overflow: auto; }
         .admin-screen.active { display: block; }
         #screen-posts.active { display: flex; }
+        .admin-workspace { max-width: 1180px; margin: 0 auto; padding: 28px 24px 56px; }
+        .admin-hero { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 22px; padding: 22px 24px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 8px 28px rgba(15,23,42,0.04); }
+        .admin-hero h2 { color: #003956; font-size: 24px; line-height: 1.2; font-weight: 900; margin-bottom: 6px; }
+        .admin-hero p { color: #64748b; font-size: 14px; line-height: 1.6; max-width: 720px; }
+        .admin-hero-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .admin-primary-btn, .admin-secondary-btn { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 8px; padding: 0 16px; font-size: 13px; font-weight: 800; cursor: pointer; transition: transform .15s ease, background .15s ease, border-color .15s ease; }
+        .admin-primary-btn { background: #003956; color: #fff; }
+        .admin-primary-btn:hover { background: #0099dd; transform: translateY(-1px); }
+        .admin-secondary-btn { background: #fff; color: #003956; border: 1px solid #dbe5ee; }
+        .admin-secondary-btn:hover { border-color: #0099dd; color: #0099dd; }
+        .admin-kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
+        .admin-kpi { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; }
+        .admin-kpi-label { color: #64748b; font-size: 11px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+        .admin-kpi-value { color: #003956; font-size: 28px; line-height: 1; font-weight: 900; }
+        .admin-kpi-note { color: #64748b; font-size: 12px; line-height: 1.5; margin-top: 8px; }
+        .admin-panel-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); gap: 18px; }
+        .admin-panel { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 8px 28px rgba(15,23,42,0.035); }
+        .admin-panel h3 { color: #003956; font-size: 16px; font-weight: 900; margin-bottom: 6px; }
+        .admin-panel-sub { color: #64748b; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
+        .admin-list { display: flex; flex-direction: column; gap: 10px; }
+        .admin-list-item { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; padding: 14px; border: 1px solid #edf2f7; border-radius: 8px; background: #f8fafc; }
+        .admin-list-title { color: #1e293b; font-size: 14px; font-weight: 800; line-height: 1.4; }
+        .admin-list-meta { color: #64748b; font-size: 12px; line-height: 1.5; margin-top: 4px; }
+        .admin-status { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 900; white-space: nowrap; }
+        .admin-status.ok { background: #dcfce7; color: #166534; }
+        .admin-status.warn { background: #fef3c7; color: #92400e; }
+        .admin-status.info { background: #e0f2fe; color: #0369a1; }
+        .admin-empty-state { border: 1px dashed #cbd5e1; border-radius: 8px; padding: 22px; background: #f8fafc; color: #64748b; font-size: 13px; line-height: 1.6; }
+        #screen-newsletter { padding: 24px; }
+        #screen-newsletter > div:first-child { max-width: 1180px; margin: 0 auto; }
+        @media (max-width: 980px) {
+            #topbar { height: auto; min-height: 60px; align-items: flex-start; gap: 14px; padding: 14px 16px; flex-direction: column; }
+            .topbar-actions, #tab-bar { overflow-x: auto; width: 100%; }
+            #admin-body { height: calc(100vh - 122px - 48px); }
+            .admin-hero { align-items: flex-start; flex-direction: column; }
+            .admin-kpi-grid, .admin-panel-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -409,13 +446,17 @@
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
             Métricas do site
         </button>
+        <button class="tab-btn" id="tabBtn-campaigns" onclick="switchTab('campaigns')">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+            Campanhas
+        </button>
         <button class="tab-btn" id="tabBtn-posts" onclick="switchTab('posts')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
             Blog
         </button>
         <button class="tab-btn" id="tabBtn-newsletter" onclick="switchTab('newsletter')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            Newsletter
+            E-mails
         </button>
         <button class="tab-btn" id="tabBtn-banners" onclick="switchTab('banners')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
@@ -690,6 +731,88 @@
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     Salvo! Exporte o blog para aplicar.
                 </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAMPAIGNS TAB -->
+    <div id="screen-campaigns" class="admin-screen">
+        <div class="admin-workspace">
+            <div class="admin-hero">
+                <div>
+                    <h2>Campanhas</h2>
+                    <p>Organize pautas, produtos, públicos e datas de publicação em um único painel para acompanhar o que está em criação, agendado e pronto para divulgar.</p>
+                </div>
+                <div class="admin-hero-actions">
+                    <button class="admin-secondary-btn" onclick="switchTab('calendar')">
+                        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Ver calendário
+                    </button>
+                    <button class="admin-primary-btn" onclick="newPost()">
+                        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M12 4v16m8-8H4"/></svg>
+                        Criar post
+                    </button>
+                </div>
+            </div>
+
+            <div class="admin-kpi-grid">
+                <div class="admin-kpi">
+                    <div class="admin-kpi-label">Posts publicados</div>
+                    <div class="admin-kpi-value" id="campaigns-published">0</div>
+                    <div class="admin-kpi-note">Conteúdos ativos no blog.</div>
+                </div>
+                <div class="admin-kpi">
+                    <div class="admin-kpi-label">Rascunhos</div>
+                    <div class="admin-kpi-value" id="campaigns-drafts">0</div>
+                    <div class="admin-kpi-note">Ideias em produção.</div>
+                </div>
+                <div class="admin-kpi">
+                    <div class="admin-kpi-label">Agendados</div>
+                    <div class="admin-kpi-value" id="campaigns-scheduled">0</div>
+                    <div class="admin-kpi-note">Posts com data futura.</div>
+                </div>
+                <div class="admin-kpi">
+                    <div class="admin-kpi-label">Destaques</div>
+                    <div class="admin-kpi-value" id="campaigns-featured">0</div>
+                    <div class="admin-kpi-note">Conteúdos em destaque.</div>
+                </div>
+            </div>
+
+            <div class="admin-panel-grid">
+                <div class="admin-panel">
+                    <h3>Pipeline editorial</h3>
+                    <div class="admin-panel-sub">Os posts mais recentes aparecem aqui com status, categoria e data.</div>
+                    <div id="campaigns-pipeline" class="admin-list">
+                        <div class="admin-empty-state">Nenhum post cadastrado ainda. Crie o primeiro conteúdo na aba Blog.</div>
+                    </div>
+                </div>
+                <div class="admin-panel">
+                    <h3>Foco da semana</h3>
+                    <div class="admin-panel-sub">Prioridades práticas para manter a régua de publicação ativa.</div>
+                    <div class="admin-list">
+                        <div class="admin-list-item">
+                            <div>
+                                <div class="admin-list-title">Revisar CTAs dos artigos de Conta PJ</div>
+                                <div class="admin-list-meta">Direcionar todos os botões para WhatsApp, conforme regra do projeto.</div>
+                            </div>
+                            <span class="admin-status warn">Pendente</span>
+                        </div>
+                        <div class="admin-list-item">
+                            <div>
+                                <div class="admin-list-title">Publicar uma pauta de crédito empresarial</div>
+                                <div class="admin-list-meta">Tema principal para captar tráfego qualificado.</div>
+                            </div>
+                            <span class="admin-status info">Prioridade</span>
+                        </div>
+                        <div class="admin-list-item">
+                            <div>
+                                <div class="admin-list-title">Conferir métricas após publicação</div>
+                                <div class="admin-list-meta">Validar sessões, cliques em produto e leads gerados.</div>
+                            </div>
+                            <span class="admin-status ok">Rotina</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -54,8 +54,14 @@ function switchTab(id) {
     document.querySelectorAll('.tab-btn').forEach(l => l.classList.remove('active'));
 
     // Mostrar alvo
-    const target = document.getElementById('screen-' + id);
-    const btn = document.getElementById('tabBtn-' + id);
+    let target = document.getElementById('screen-' + id);
+    let btn = document.getElementById('tabBtn-' + id);
+
+    if (!target) {
+        id = 'analytics';
+        target = document.getElementById('screen-analytics');
+        btn = document.getElementById('tabBtn-analytics');
+    }
     
     if (target) target.classList.add('active');
     if (btn) btn.classList.add('active');
@@ -63,6 +69,7 @@ function switchTab(id) {
     // Inicialização específica de cada aba
     if (id === 'calendar' && typeof renderCalendar === 'function') renderCalendar();
     if (id === 'analytics' && typeof renderAnalytics === 'function') renderAnalytics();
+    if (id === 'campaigns' && typeof renderCampaigns === 'function') renderCampaigns();
     if (id === 'newsletter' && typeof updateNewsletterList === 'function') updateNewsletterList();
     if (id === 'banners' && typeof loadBanners === 'function') loadBanners();
 }
