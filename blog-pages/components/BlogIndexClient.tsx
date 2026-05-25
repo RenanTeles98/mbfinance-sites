@@ -17,9 +17,19 @@ const filters = [
 
 const productHubs = [
   {
-    label: "Crédito empresarial",
+    label: "Todos",
+    value: "todos",
+    description: "Veja todos os conteúdos e soluções financeiras da MB Finance.",
+  },
+  {
+    label: "Crédito",
     value: "credito",
     description: "Capital de giro e liquidez para manter a operação rodando.",
+  },
+  {
+    label: "Gestão",
+    value: "gestao",
+    description: "Conteúdo para melhorar margem, caixa e tomada de decisão.",
   },
   {
     label: "Conta PJ",
@@ -32,9 +42,9 @@ const productHubs = [
     description: "Recebíveis convertidos em caixa com mais previsibilidade.",
   },
   {
-    label: "Gestão financeira",
-    value: "gestao",
-    description: "Conteúdo para melhorar margem, caixa e tomada de decisão.",
+    label: "Tributos",
+    value: "gestao-tributaria",
+    description: "Planejamento tributário e impactos fiscais para empresas.",
   },
 ];
 
@@ -202,21 +212,6 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
           </div>
         </div>
       </section>
-
-      <div className="filter-bar">
-        <div className="filter-inner">
-          {filters.map((item) => (
-            <button
-              key={item.value}
-              type="button"
-              className={`filter-btn ${category === item.value ? "active" : ""}`}
-              onClick={() => setCategory(item.value)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-      </div>
 
       <section className="blog-shell blog-main">
         <div className="section-kicker">

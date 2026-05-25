@@ -380,3 +380,20 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar a pagina publicada e, na proxima rodada, ajustar os textos dos artigos/cards para reforcar ainda mais a jornada por produto.
+
+## Sessao de 2026-05-25 - Menu por produtos no hub do blog
+
+Foi consolidada a navegacao de categorias dentro da faixa "Escolha por necessidade".
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: adicionados os cards "Todos" e "Tributos", ajustada a ordem para Todos, Credito, Gestao, Conta PJ, Antecipacao e Tributos, e removida a barra de filtros inferior.
+- `app/blog/blog.css`: o grid de produtos passou a suportar seis cards, os estilos da barra de filtros antiga foram removidos e a responsividade foi ajustada.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- A faixa de produtos agora funciona como menu principal da capa `/blog`.
+- A barra horizontal antiga abaixo da hero nao aparece mais.
+- `npm run build` em `blog-pages` passou com sucesso.
+
+Proximo passo recomendado:
+- Validar visualmente os seis cards em desktop e mobile apos deploy, principalmente quebra de texto e altura dos cards.

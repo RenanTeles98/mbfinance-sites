@@ -199,3 +199,13 @@
 - Decisao: inserir uma CTA clara antes do footer apontando para WhatsApp.
   - Motivo: suaviza a transicao para o rodape escuro e cria caminho direto para atendimento sem criar rota nova.
   - Alternativas consideradas: usar link para secao de contato do site, descartado porque CTAs do projeto devem apontar para WhatsApp.
+
+## 2026-05-25 - Faixa de produtos como menu principal
+
+- Decisao: usar a faixa "Escolha por necessidade" como menu de categorias do hub, incluindo Todos, Credito, Gestao, Conta PJ, Antecipacao e Tributos.
+  - Motivo: evita duplicar duas navegacoes para a mesma funcao e aproxima a pagina de um hub de produtos, nao de um blog com filtros tradicionais.
+  - Alternativas consideradas: manter a barra horizontal antiga abaixo dos cards, descartado por redundancia e excesso visual.
+
+- Decisao: remover a barra de filtros inferior da capa `/blog`.
+  - Motivo: os cards passam a cumprir a funcao de navegacao e filtragem com mais contexto para o usuario.
+  - Alternativas consideradas: transformar a barra antiga em menu secundario sticky, descartado nesta rodada para manter a tela mais limpa.
