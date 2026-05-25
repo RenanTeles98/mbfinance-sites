@@ -295,3 +295,21 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar visualmente `/blog` em desktop e mobile apos o deploy e conferir a tabela de Campanhas no admin publicado.
+
+## Sessao de 2026-05-25 - Hero antiga restaurada no blog
+
+Foi restaurada a hero anterior da pagina publica `/blog`, mantendo a nova organizacao editorial abaixo dela.
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: removida a barra superior compacta inspirada em portal e restaurada a hero com logo, voltar ao site, titulo grande, subtitulo e busca.
+- `app/blog/blog.css`: restaurados os estilos da hero azul anterior e ajustada a responsividade para combinar com a lista editorial atual.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: contexto da decisao e validacao.
+
+Estado atual:
+- `/blog` volta a abrir com a hero visual mais forte da versao anterior.
+- A estrutura editorial criada na rodada anterior permanece abaixo da hero.
+- `npm run build` em `blog-pages` passou com sucesso.
+- Permanecem warnings de `<img>` no logo do blog e na pagina interna de post, sem bloquear build.
+
+Proximo passo recomendado:
+- Validar a pagina publicada em desktop e mobile para confirmar que a hero antiga ficou harmonica com a listagem editorial nova.

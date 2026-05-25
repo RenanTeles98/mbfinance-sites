@@ -149,3 +149,13 @@
 - Decisao: aumentar o respiro entre as colunas da tabela de Campanhas e truncar badges longos de canal.
   - Motivo: os prints mostravam sobreposicao visual entre "Canal" e "Status" quando o nome do canal era comprido.
   - Alternativas consideradas: reduzir o texto do canal no JavaScript, descartado porque esconderia informacao util; o CSS deve acomodar nomes longos.
+
+## 2026-05-25 - Hero anterior preservada no blog
+
+- Decisao: restaurar a hero anterior da pagina `/blog` e manter a nova listagem editorial abaixo dela.
+  - Motivo: o usuario avaliou que a hero anterior tinha aparencia melhor e ela reforca melhor a marca MB Finance no primeiro viewport.
+  - Alternativas consideradas: manter a barra compacta estilo portal, descartado porque deixava a primeira dobra mais fria e menos proprietaria para a marca.
+
+- Decisao: manter o logo em imagem na hero/nav restaurada.
+  - Motivo: preserva a mesma leitura visual da versao anterior solicitada pelo usuario.
+  - Alternativas consideradas: usar logo textual para evitar warning de `<img>`, descartado nesta rodada por alterar demais o visual que o usuario pediu para recuperar.

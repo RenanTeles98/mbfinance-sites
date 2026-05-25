@@ -15,13 +15,6 @@ const filters = [
   { label: "Tributos", value: "gestao-tributaria" },
 ];
 
-const marketItems = [
-  { label: "Capital de giro", value: "a partir de 1,39% a.m.", trend: "up" },
-  { label: "Antecipação", value: "receba em até 24h", trend: "up" },
-  { label: "Conta PJ", value: "compare custos", trend: "neutral" },
-  { label: "Fluxo de caixa", value: "projeção 90 dias", trend: "neutral" },
-];
-
 function formatDate(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString("pt-BR", {
     day: "2-digit",
@@ -118,50 +111,45 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
 
   return (
     <main className="blog-page">
-      <div className="network-strip">
-        <div className="blog-shell network-strip-inner">
-          <a href={mainSiteUrl("/")}>mbfinance.com.br</a>
-          <a href={mainSiteUrl("/#produtos")}>Produtos</a>
-          <a href={mainSiteUrl("/#como-funciona")}>Como funciona</a>
-          <a href={mainSiteUrl("/#contato")}>Atendimento</a>
-        </div>
-      </div>
-
       <nav className="blog-nav">
         <div className="blog-nav-inner">
-          <a href={mainSiteUrl("/")} className="blog-logo-link" aria-label="MB Finance">
-            <span>mb<span>finance.</span></span>
+          <a href={mainSiteUrl("/")} className="blog-logo-link">
+            <img src="/images/logo-horizontal-logo.branca.png" alt="mb finance" width="146" height="36" />
           </a>
-          <strong>Negócios</strong>
-          <div className="blog-nav-actions">
-            <div className="search-box">
-              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.3" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-              </svg>
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") trackSearch();
-                }}
-                type="search"
-                placeholder="Buscar"
-                aria-label="Buscar no blog"
-              />
-            </div>
-            <a href={mainSiteUrl("/")} className="blog-back">Ver site oficial</a>
-          </div>
+          <a href={mainSiteUrl("/")} className="blog-back">
+            <span aria-hidden="true">←</span>
+            Voltar ao site
+          </a>
         </div>
       </nav>
 
-      <section className="market-strip" aria-label="Indicadores e atalhos">
-        <div className="blog-shell market-strip-inner">
-          {marketItems.map((item) => (
-            <div className="market-item" key={item.label}>
-              <span>{item.label}</span>
-              <strong className={`trend-${item.trend}`}>{item.value}</strong>
-            </div>
-          ))}
+      <section className="blog-hero">
+        <div className="blog-shell">
+          <div className="hero-tag">Conteúdo exclusivo</div>
+          <h1 className="hero-title">
+            Inteligência financeira para
+            <br />
+            <span>o seu negócio crescer</span>
+          </h1>
+          <p className="hero-sub">
+            Guias práticos sobre crédito, liquidez, conta PJ e gestão para ajudar empresários a tomar decisões melhores todos os meses.
+          </p>
+          <div className="hero-search-box">
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+            </svg>
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") trackSearch();
+              }}
+              type="search"
+              placeholder="Buscar artigos, temas ou palavras-chave..."
+              aria-label="Buscar no blog"
+            />
+            <button type="button" onClick={trackSearch}>Buscar</button>
+          </div>
         </div>
       </section>
 

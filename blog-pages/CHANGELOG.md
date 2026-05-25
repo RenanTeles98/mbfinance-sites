@@ -2,6 +2,7 @@
 
 ## 2026-05-25
 
+- Restaurada a hero anterior da pagina publica `/blog`, mantendo a nova listagem editorial abaixo.
 - Reorganizada a capa publica `/blog` com layout editorial inspirado em portal de noticias, sem banners de anuncio.
 - Corrigido o espacamento das colunas da lista de links salvos em Campanhas.
 - Evoluida a tela Campanhas com resumo, filtros, status, objetivo, notas, duplicacao e barras de cliques.
