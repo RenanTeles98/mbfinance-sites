@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
         await storeLink(code, url);
 
         const origin = getOrigin(req);
-        return NextResponse.json({ short: `${origin}/c/${code}` });
+        return NextResponse.json({ short: `${origin}/c/${code}`, code });
 
     } catch (err) {
         console.error('[shorten] error:', err);

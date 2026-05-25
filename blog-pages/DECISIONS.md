@@ -103,3 +103,13 @@
 - Decisao: aplicar uma seta SVG discreta via CSS global para os campos `select` do admin.
   - Motivo: a seta nativa do navegador estava muito próxima da borda direita em alguns campos, deixando a interface desalinhada.
   - Alternativas consideradas: ajustar cada classe de select individualmente, descartado porque o admin tem selects em várias telas e alguns usam estilo inline.
+
+## 2026-05-25 - Cliques de campanhas pelo encurtador
+
+- Decisao: contar cliques dos links de campanha no redirecionamento `/c/[code]`.
+  - Motivo: esse e o ponto mais confiavel para medir cliques reais nos links gerados pelo painel, sem depender de GA4 ou do carregamento da pagina de destino.
+  - Alternativas consideradas: usar apenas sessoes do GA4 por UTM, descartado para esta metrica porque GA4 mede sessoes/usuarios e pode perder cliques bloqueados, recusados ou que nao carregam analytics.
+
+- Decisao: mostrar cliques apenas para links salvos com `shortCode`.
+  - Motivo: links antigos salvos apenas como URL UTM nao possuem codigo do encurtador para consultar no storage.
+  - Alternativas consideradas: tentar inferir por `utm_campaign`, descartado porque misturaria acessos de canais diferentes e deixaria de ser contagem por link gerado.

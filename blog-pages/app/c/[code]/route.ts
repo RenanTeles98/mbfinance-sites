@@ -30,13 +30,13 @@ async function lookupUrl(code: string, redis: Awaited<ReturnType<typeof getRedis
     } catch { return null; }
 }
 
-function registerClickBackground(code: string, redis: Awaited<ReturnType<typeof getRedis>>): void {
+async function registerClick(code: string, redis: Awaited<ReturnType<typeof getRedis>>): Promise<void> {
     if (redis) {
-        // fire-and-forget — não bloqueia o redirect
-        Promise.all([
+        // Best-effort tracking; redirect still works if this fails.
+        await Promise.all([
             redis.incr(`short:${code}:clicks`),
             redis.set(`short:${code}:lastClick`, new Date().toISOString()),
-        ]).catch(() => {});
+        ]);
         return;
     }
     try {
@@ -66,8 +66,7 @@ export async function GET(
             return new NextResponse('Destino inválido.', { status: 400 });
         }
 
-        // registra clique em background sem atrasar o redirect
-        registerClickBackground(code, redis);
+        try { await registerClick(code, redis); } catch (err) { console.error('[shortlink-click] error:', err); }
 
         return NextResponse.redirect(url, 302);
     } catch {

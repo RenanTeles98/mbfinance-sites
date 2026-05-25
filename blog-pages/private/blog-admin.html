@@ -356,6 +356,16 @@
         .camp-input:read-only { background: #f1f5f9; color: #64748b; cursor: default; }
         .camp-url-preview-box { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #003956; font-weight: 700; word-break: break-all; min-height: 44px; cursor: pointer; }
         .camp-url-input { width: 100%; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #003956; font-weight: 700; font-family: monospace; resize: none; outline: none; }
+        .camp-url-field { display: flex; align-items: center; gap: 10px; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 8px 8px 8px 14px; background: #fff; min-width: 0; }
+        .camp-url-field-short { border-color: #bae6fd; background: #f0f9ff; }
+        .camp-url-field-badge { font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.3px; }
+        .camp-url-field-badge-full { background: #f1f5f9; color: #64748b; }
+        .camp-url-field-badge-short { background: #0099dd; color: #fff; }
+        .camp-url-field-text { flex: 1; font-size: 13px; font-weight: 700; color: #003956; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+        .camp-url-field-text.empty { color: #94a3b8; font-weight: 400; }
+        .camp-url-copy-icon { flex-shrink: 0; width: 34px; height: 34px; border-radius: 8px; border: 1.5px solid #e2e8f0; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: #64748b; transition: all 0.15s; padding: 0; }
+        .camp-url-copy-icon:hover:not(:disabled) { border-color: #0099dd; color: #0099dd; background: #eff9ff; }
+        .camp-url-copy-icon:disabled { opacity: 0.35; cursor: default; }
         .camp-actions { display: flex; align-items: center; gap: 12px; margin-top: 4px; flex-wrap: wrap; }
         .camp-btn { min-height: 42px; padding: 11px 20px; border-radius: 10px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 9px; line-height: 1; white-space: nowrap; }
         .camp-btn-primary { background: #003956; color: #fff; }
@@ -364,12 +374,13 @@
         .camp-btn-secondary:hover:not(:disabled) { background: #e2e8f0; }
         .camp-btn:disabled { opacity: 0.4; cursor: default; }
         .camp-saved-table { display: flex; flex-direction: column; gap: 0; }
-        .camp-saved-header { display: grid; grid-template-columns: 2fr 1.5fr 1fr 80px 120px; gap: 16px; padding: 0 0 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; border-bottom: 1px solid #e2e8f0; }
-        .camp-saved-row { display: grid; grid-template-columns: 2fr 1.5fr 1fr 80px 120px; gap: 16px; align-items: center; padding: 13px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+        .camp-saved-header { display: grid; grid-template-columns: 2fr 1.35fr 1fr 76px 76px 120px; gap: 14px; padding: 0 0 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; border-bottom: 1px solid #e2e8f0; }
+        .camp-saved-row { display: grid; grid-template-columns: 2fr 1.35fr 1fr 76px 76px 120px; gap: 14px; align-items: center; padding: 13px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
         .camp-saved-row:last-child { border-bottom: none; }
         .camp-saved-name { font-weight: 700; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .camp-saved-meta { color: #64748b; font-size: 12px; }
         .camp-saved-date { color: #94a3b8; font-size: 12px; }
+        .camp-click-count { color: #003956; font-size: 13px; font-weight: 900; font-variant-numeric: tabular-nums; text-align: right; }
         .camp-saved-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
         .camp-action-btn { min-height: 34px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 7px 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: #334155; line-height: 1; white-space: nowrap; }
         .camp-icon-only { width: 34px; padding: 7px; }
@@ -385,6 +396,7 @@
             .camp-saved-header, .camp-saved-row { grid-template-columns: 1fr 1fr; }
             .camp-saved-header span:nth-child(3), .camp-saved-header span:nth-child(4),
             .camp-saved-row > div:nth-child(3), .camp-saved-row > div:nth-child(4) { display: none; }
+            .camp-click-count { text-align: left; }
         }
 
         /* VERIFICADOR ORTOGRÁFICO */
@@ -1505,7 +1517,7 @@
 
             <div class="camp-card">
                 <h3>Links salvos</h3>
-                <div class="camp-card-sub">Histórico de links criados — use o botão Copiar para reutilizar qualquer link a qualquer momento.</div>
+                <div class="camp-card-sub">Histórico de links criados — use o botão Copiar para compartilhar o link encurtado e acompanhar os cliques.</div>
                 <div id="camp-saved-list"><div class="analytics-empty">Nenhum link salvo ainda.</div></div>
             </div>
 
@@ -1623,7 +1635,7 @@
 <script src="../assets/js/admin/admin-newsletter.js"></script>
 <script src="../assets/js/admin/admin-calendar.js"></script>
 <script src="../assets/js/admin/admin-analytics.js?v=13"></script>
-<script src="../assets/js/admin/admin-campaigns.js?v=3"></script>
+<script src="../assets/js/admin/admin-campaigns.js?v=4"></script>
 <script src="../assets/js/admin/admin-ai.js"></script>
 <script src="../assets/js/admin/admin-banners.js"></script>
 <script src="../assets/js/admin/admin-core.js"></script>

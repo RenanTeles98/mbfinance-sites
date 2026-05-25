@@ -200,3 +200,23 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar visualmente os selects em `/admin` apos o deploy.
+
+## Sessao de 2026-05-25 - Cliques por link de campanha
+
+Foi adicionada a contagem de cliques dos links encurtados gerados na aba "Campanhas".
+
+Arquivos modificados:
+- `app/c/[code]/route.ts`: o redirecionamento de links encurtados registra um clique por codigo antes de enviar o usuario ao destino.
+- `app/api/shorten/route.ts`: a API de encurtamento passou a retornar tambem o `code` do link criado.
+- `app/api/shorten/stats/route.ts`: nova rota autenticada para o admin buscar os cliques por codigo de link.
+- `public/assets/js/admin/admin-campaigns.js`: links salvos agora guardam `shortUrl`, `shortCode`, copiam o link encurtado e carregam a contagem de cliques.
+- `private/blog-admin.html`: adicionada a coluna "Cliques" em "Links salvos" e atualizado o cache busting do JS de campanhas.
+
+Estado atual:
+- Novos links salvos com URL encurtada passam a exibir a contagem de cliques na lista.
+- Links antigos sem `shortCode` aparecem com "—" porque nao ha como vincular o contador retroativamente ao encurtador.
+- `node --check public/assets/js/admin/admin-campaigns.js` passou com sucesso.
+- `npm run build` em `blog-pages` passou com sucesso, mantendo apenas avisos preexistentes do Next sobre `<img>`.
+
+Proximo passo recomendado:
+- Criar um novo link no admin publicado, copiar o link encurtado, abrir em uma aba anonima e confirmar que a coluna "Cliques" sobe apos atualizar a aba.
