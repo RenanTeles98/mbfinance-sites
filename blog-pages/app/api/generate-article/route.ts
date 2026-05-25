@@ -3,28 +3,43 @@ import { verifySession, COOKIE_NAME } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
+const PRODUCTS: Record<string, { name: string; pitch: string; pain: string }> = {
+    'conta-pj': {
+        name: 'Conta PJ',
+        pitch: 'A MB Finance oferece Conta PJ 100% gratuita, sem burocracia, aprovada para qualquer CNPJ — MEI, ME ou empresa de médio porte. Zero taxas de manutenção.',
+        pain: 'burocracia bancária, taxas abusivas, limitações do banco único',
+    },
+    'capital-de-giro': {
+        name: 'Capital de Giro',
+        pitch: 'A MB Finance conecta sua empresa a múltiplos bancos e fintech ao mesmo tempo, garantindo as melhores condições de crédito para capital de giro — com aprovação em até 24 horas.',
+        pain: 'falta de caixa, fluxo de caixa negativo, dificuldade de pagar fornecedores',
+    },
+    'antecipacao': {
+        name: 'Antecipação de Recebíveis',
+        pitch: 'Com a MB Finance você antecipa recebíveis de cartão e boleto de forma simples e com as melhores taxas do mercado — o dinheiro na sua conta em horas, não em semanas.',
+        pain: 'dinheiro preso em recebíveis, espera longa para receber, capital imobilizado',
+    },
+    'maquininha': {
+        name: 'Máquina de Cartão',
+        pitch: 'A maquininha da MB Finance tem as menores taxas do mercado e recebimento na hora — sem aluguel, sem fidelidade, sem letra miúda.',
+        pain: 'taxas altas na maquininha, perda de vendas, demora para receber',
+    },
+};
+
 const MB_CONTEXT = `
 Você é um redator especialista da MB Finance, hub financeiro para empresas PJ brasileiro (MEI até médias empresas).
 
-MISSÃO DO BLOG: Educar o empresário sobre as suas dores financeiras. Nunca vender diretamente — primeiro aumentar o nível de consciência sobre o problema, depois apresentar a solução.
-
-PRODUTOS MB FINANCE:
-- Conta PJ: conta sem burocracia, sem taxa, para qualquer CNPJ
-- Capital de Giro: crédito rápido para capital de giro, aprovação em 24h
-- Antecipação de Recebíveis: antecipar recebíveis de cartão e boleto
-- Máquina de Cartão: maquininha com as melhores taxas do mercado
+MISSÃO DO BLOG: Educar o empresário sobre as suas dores financeiras. O artigo deve informar e ao mesmo tempo conduzir o leitor naturalmente a perceber que precisa do produto da MB Finance.
 
 PÚBLICO: Empresários PJ brasileiros, linguagem direta, sem jargão excessivo.
 TOM: Especialista confiante, empático com a dor do empresário, orientado a resultado.
 DIFERENCIAL MB FINANCE: IA que conecta a MÚLTIPLOS bancos — não fica preso às condições de um único banco.
 
 REGRAS DE ESCRITA:
-- Linguagem clara, direta, sem rodeios
-- Parágrafos curtos (3-4 linhas max)
+- Linguagem clara, direta, parágrafos curtos (3-4 linhas max)
 - Use dados, exemplos práticos e situações do cotidiano do empresário
-- Mencione MB Finance naturalmente no final, como solução — nunca no título, nunca de forma forçada
 - Use negrito para destacar pontos-chave
-- Conclua com um CTA suave apontando para a solução MB Finance
+- Construa o artigo como uma jornada: dor → consciência → solução
 `.trim();
 
 export async function POST(req: NextRequest) {
@@ -42,7 +57,9 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'title obrigatório' }, { status: 400 });
     }
 
-    const { title, category = '', keyword = '', notes = '', awarenessLevel = '', excerptOnly = false } = body;
+    const { title, category = '', keyword = '', notes = '', awarenessLevel = '', excerptOnly = false, product = '' } = body;
+
+    const productInfo = PRODUCTS[product];
 
     const userPrompt = excerptOnly
         ? `Escreva um resumo de 1 a 2 frases atrativas para o artigo de blog abaixo. O resumo aparece nos cards do blog e deve capturar a dor do empresário e despertar curiosidade para clicar. Retorne APENAS o texto do resumo, sem aspas, sem prefixo.
@@ -56,11 +73,16 @@ ${category ? `CATEGORIA: ${category}` : ''}
 ${keyword ? `KEYWORD PRINCIPAL: ${keyword}` : ''}
 ${awarenessLevel ? `NÍVEL DE CONSCIÊNCIA: ${awarenessLevel}` : ''}
 ${notes ? `ÂNGULO E TÓPICOS:\n${notes}` : ''}
+${productInfo ? `
+PRODUTO A VENDER: ${productInfo.name}
+DOR QUE ESSE PRODUTO RESOLVE: ${productInfo.pain}
+PITCH DO PRODUTO: ${productInfo.pitch}
+` : ''}
 
 ESTRUTURA ESPERADA:
-1. Introdução (1-2 parágrafos que capturam a dor do empresário)
-2. 3 a 4 seções com subtítulos H2 desenvolvendo o tema
-3. Conclusão com menção natural à MB Finance e CTA suave
+1. Introdução (1-2 parágrafos que capturam a dor do empresário — desperte empatia imediata)
+2. 3 a 4 seções com subtítulos H2 desenvolvendo o tema e aprofundando a consciência do problema
+3. Conclusão persuasiva: conduza o leitor a sentir que precisa resolver isso agora${productInfo ? ` — mencione a MB Finance e o ${productInfo.name} de forma natural, como se fosse a solução óbvia. O tom deve fazer o leitor pensar "eu preciso disso". NÃO seja forçado — a menção deve surgir como consequência lógica do problema apresentado.` : ' — mencione a MB Finance como solução de forma natural.'}
 
 FORMATO DE SAÍDA — retorne APENAS HTML limpo, sem markdown, sem \`\`\`html, sem texto antes ou depois:
 - Use <h2>...</h2> para subtítulos
@@ -68,7 +90,8 @@ FORMATO DE SAÍDA — retorne APENAS HTML limpo, sem markdown, sem \`\`\`html, s
 - Use <strong>...</strong> para destaques
 - Use <ul><li>...</li></ul> para listas
 - Use <blockquote>...</blockquote> para citações ou destaques importantes
-- NÃO inclua <html>, <head>, <body> nem <h1> (o título já está no campo acima)
+- NÃO inclua <html>, <head>, <body> nem <h1>
+- NÃO inclua botão de CTA — ele será adicionado automaticamente pelo sistema
 `.trim();
 
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -103,7 +126,6 @@ FORMATO DE SAÍDA — retorne APENAS HTML limpo, sem markdown, sem \`\`\`html, s
         return NextResponse.json({ excerpt: raw });
     }
 
-    // Strip any accidental markdown code fences
     const html = raw.replace(/^```html?\s*/i, '').replace(/```\s*$/i, '').trim();
     return NextResponse.json({ html });
 }

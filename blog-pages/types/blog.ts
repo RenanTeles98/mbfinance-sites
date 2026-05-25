@@ -25,4 +25,5 @@ export interface BlogPost {
   seoDesc?: string;
   keywords?: string;
   time?: string;
+  product?: string;
 }

@@ -244,6 +244,7 @@ async function savePost() {
         seoTitle:      document.getElementById('f-seo-title').value.trim(),
         seoDesc:       document.getElementById('f-seo-desc').value.trim(),
         keywords:      document.getElementById('f-keywords').value.trim(),
+        product:       document.getElementById('f-product')?.value || undefined,
         ...(pautaId ? { pautaId } : {}),
     };
 
@@ -321,6 +322,10 @@ function clearForm() {
     document.getElementById('f-seo-title').value = '';
     document.getElementById('f-seo-desc').value  = '';
     document.getElementById('f-keywords').value  = '';
+    const productElClear = document.getElementById('f-product');
+    if (productElClear) productElClear.value = '';
+    const ctaPreviewClear = document.getElementById('product-cta-preview');
+    if (ctaPreviewClear) ctaPreviewClear.style.display = 'none';
     updateCharCount('f-seo-title','cnt-seo-title',60);
     updateCharCount('f-seo-desc','cnt-seo-desc',155);
     updateSeoPreview();
@@ -365,6 +370,10 @@ function fillForm(p) {
     document.getElementById('f-seo-title').value = p.seoTitle || '';
     document.getElementById('f-seo-desc').value  = p.seoDesc  || '';
     document.getElementById('f-keywords').value  = p.keywords || '';
+    const productEl = document.getElementById('f-product');
+    if (productEl) { productEl.value = p.product || ''; }
+    const ctaPreview = document.getElementById('product-cta-preview');
+    if (ctaPreview) ctaPreview.style.display = p.product ? '' : 'none';
     updateCharCount('f-seo-title','cnt-seo-title',60);
     updateCharCount('f-seo-desc','cnt-seo-desc',155);
     updateSeoPreview();

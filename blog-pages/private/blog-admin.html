@@ -765,6 +765,23 @@
                 </div>
 
                 <div class="field-group">
+                    <label class="field-label" for="f-product">
+                        Produto a vender
+                        <span class="field-hint">(a IA escreve o artigo conduzindo o leitor a querer esse produto)</span>
+                    </label>
+                    <select id="f-product" class="field-select" style="border-color:#0099dd;" onchange="toggleProductCtaPreview()">
+                        <option value="">— Nenhum (artigo educacional puro) —</option>
+                        <option value="conta-pj">💳 Conta PJ</option>
+                        <option value="capital-de-giro">💰 Capital de Giro</option>
+                        <option value="antecipacao">⚡ Antecipação de Recebíveis</option>
+                        <option value="maquininha">📱 Máquina de Cartão</option>
+                    </select>
+                    <div id="product-cta-preview" style="display:none;margin-top:8px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;padding:10px 14px;font-size:12px;color:#166534;">
+                        <strong>CTA automático no final do artigo:</strong> botão de WhatsApp com mensagem personalizada para o produto selecionado.
+                    </div>
+                </div>
+
+                <div class="field-group">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
                         <label class="field-label" for="f-excerpt" style="margin-bottom:0;">Resumo <span class="field-hint">(aparece nos cards do blog)</span></label>
                         <button type="button" id="btn-gen-excerpt" class="magic-btn" style="padding:4px 10px;font-size:11px;border-radius:6px;" onclick="generateExcerpt()">
@@ -2314,6 +2331,12 @@ function createPostFromAngle(a) {
     } catch(e) { console.error('[createPostFromAngle]', e); }
 }
 
+function toggleProductCtaPreview() {
+    var val = (document.getElementById('f-product') || {}).value || '';
+    var box = document.getElementById('product-cta-preview');
+    if (box) box.style.display = val ? '' : 'none';
+}
+
 async function generateCoverImage() {
     var title = (document.getElementById('f-title') || {}).value || '';
     if (!title.trim()) {
@@ -2401,6 +2424,7 @@ async function writeWithAI() {
     }
 
     var category = (document.getElementById('f-category') || {}).value || '';
+    var product = (document.getElementById('f-product') || {}).value || '';
     var pautaId = (document.getElementById('f-pauta-id') || {}).value || '';
 
     // Try to get keyword and notes from pauta
@@ -2434,7 +2458,7 @@ async function writeWithAI() {
         var res = await fetch('/api/generate-article', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ title: title, category: category, keyword: keyword, notes: notes, awarenessLevel: awarenessLevel }),
+            body: JSON.stringify({ title: title, category: category, keyword: keyword, notes: notes, awarenessLevel: awarenessLevel, product: product }),
         });
         var data = await res.json();
         if (!res.ok || data.error) {
