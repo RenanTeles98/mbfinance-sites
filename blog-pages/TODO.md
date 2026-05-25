@@ -14,6 +14,7 @@
 
 ## Prioridade atual - Performance do blog
 
+- Evoluir a primeira dobra de `/blog` para comunicar o hub de produtos financeiros da MB Finance.
 - Futuramente alimentar o card "Mais acessadas" com dados reais de analytics por post.
 - Validar os titulos da capa `/blog` em azul marinho no ambiente publicado.
 - Validar a hero restaurada de `/blog` em desktop e mobile apos o deploy.

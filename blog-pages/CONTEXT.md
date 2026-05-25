@@ -346,3 +346,19 @@ Estado atual:
 
 Proximo passo recomendado:
 - Quando houver dados de analytics por post disponiveis, trocar a ordenacao desse card para ranking real de acessos.
+
+## Sessao de 2026-05-25 - Hero do blog com fundo branco
+
+Foi ajustado o topo da pagina publica `/blog` para iniciar a transicao para um hub de produtos financeiros.
+
+Arquivos modificados:
+- `app/blog/blog.css`: a barra do menu permanece azul, a logo foi centralizada e ampliada, o link "Voltar ao site" foi movido visualmente para a esquerda e a area da headline passou para fundo branco.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: atualizados com a decisao visual.
+
+Estado atual:
+- O topo do blog agora separa melhor marca/menu e conteudo: menu azul, hero branca, textos em azul marinho e busca com contraste para fundo claro.
+- `npm run build` em `blog-pages` passou com sucesso.
+- Permanecem warnings de `<img>` no logo do blog e na pagina interna de post, sem bloquear build.
+
+Proximo passo recomendado:
+- Validar `/blog` publicado e continuar a evolucao da primeira dobra para comunicar melhor o hub de produtos financeiros da MB Finance.

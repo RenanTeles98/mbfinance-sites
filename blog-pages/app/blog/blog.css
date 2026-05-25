@@ -24,19 +24,20 @@
   padding: 0 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
 }
 
 .blog-logo-link {
   display: inline-flex;
-  width: 146px;
-  height: 36px;
+  width: 176px;
+  height: 44px;
   flex: 0 0 auto;
 }
 
 .blog-logo-link img {
-  height: 36px;
-  width: 146px;
+  height: 44px;
+  width: 176px;
   display: block;
   object-fit: contain;
 }
@@ -46,6 +47,10 @@
 }
 
 .blog-back {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   color: rgba(255,255,255,.7);
   font-size: 13px;
   font-weight: 700;
@@ -56,9 +61,9 @@
 }
 
 .blog-hero {
-  background: #003956;
+  background: #fff;
   padding: 56px 0 80px;
-  color: #fff;
+  color: #003956;
   min-height: 406px;
   contain: layout paint;
 }
@@ -111,7 +116,7 @@
 .hero-sub {
   max-width: 640px;
   min-height: 58px;
-  color: rgba(255,255,255,.68);
+  color: #64748b;
   font-size: 17px;
   line-height: 1.7;
   margin: 0;
@@ -123,14 +128,14 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.16);
+  background: #f8fafc;
+  border: 1px solid #dbe3eb;
   border-radius: 14px;
   padding: 10px 16px;
 }
 
 .hero-search-box svg {
-  color: rgba(255,255,255,.45);
+  color: #64748b;
   flex: 0 0 auto;
 }
 
@@ -140,12 +145,12 @@
   border: 0;
   outline: 0;
   background: transparent;
-  color: #fff;
+  color: #003956;
   font-size: 15px;
 }
 
 .hero-search-box input::placeholder {
-  color: rgba(255,255,255,.38);
+  color: #94a3b8;
 }
 
 .hero-search-box button {
@@ -648,10 +653,12 @@
 
   .blog-logo-link {
     width: 130px;
+    height: 32px;
   }
 
   .blog-logo-link img {
     width: 130px;
+    height: 32px;
   }
 
   .blog-hero {

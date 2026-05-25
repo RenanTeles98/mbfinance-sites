@@ -175,3 +175,13 @@
 - Decisao: manter a lista alimentada pelos posts recomendados ate haver ranking real por analytics.
   - Motivo: evita prometer uma ordenacao baseada em audiencia sem dados confiaveis por post.
   - Alternativas consideradas: criar numeros falsos de acessos, descartado por prejudicar confiabilidade editorial.
+
+## 2026-05-25 - Hero clara para hub financeiro
+
+- Decisao: manter apenas a barra de menu em azul e mudar a area da headline da capa `/blog` para fundo branco.
+  - Motivo: o blog esta evoluindo para um hub de produtos financeiros; uma hero clara reduz peso visual e deixa a comunicacao mais institucional.
+  - Alternativas consideradas: manter toda a hero azul, descartado porque dava aspecto de landing page fechada e menos modular.
+
+- Decisao: centralizar e ampliar a logo na barra azul, com "Voltar ao site" visualmente a esquerda.
+  - Motivo: reforca a marca no topo sem competir com a headline e cria uma navegacao mais equilibrada.
+  - Alternativas consideradas: manter logo a esquerda e voltar a direita, descartado por parecer uma estrutura de blog comum e menos proprietaria.
