@@ -233,3 +233,13 @@
 - Decisao: manter a faixa de produtos como primeira area apos a barra azul.
   - Motivo: ela ja funciona como menu principal do hub e concentra a navegacao por necessidade.
   - Alternativas consideradas: recolocar uma headline simples acima da faixa, descartado nesta rodada para atender a remocao direta.
+
+## 2026-05-25 - Menu lateral de produtos
+
+- Decisao: transformar os cards horizontais de produtos em uma sidebar esquerda.
+  - Motivo: reduz a altura inicial da pagina e deixa a navegacao por produto sempre proxima do conteudo editorial.
+  - Alternativas consideradas: manter a faixa horizontal, descartado porque ocupava muita area antes dos artigos.
+
+- Decisao: manter a sidebar fixa apenas no desktop.
+  - Motivo: em telas largas a navegacao lateral ajuda; em telas menores, sidebar fixa prejudicaria leitura e espaco util.
+  - Alternativas consideradas: esconder o menu no mobile, descartado porque removeria a principal navegacao por produto.

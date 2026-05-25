@@ -431,3 +431,20 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar a pagina publicada para decidir se a faixa de produtos precisa ganhar um cabecalho mais forte agora que virou a primeira secao da pagina.
+
+## Sessao de 2026-05-25 - Menu lateral de produtos no blog
+
+Foi transformado o menu horizontal de produtos da capa `/blog` em uma barra lateral esquerda.
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: o menu de produtos saiu da secao horizontal e passou a ser um `aside` lateral dentro da area principal.
+- `app/blog/blog.css`: removidos estilos dos cards horizontais, adicionados estilos da sidebar esquerda, grid principal em duas colunas e responsividade.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- No desktop, a capa `/blog` abre com menu de produtos na esquerda e conteudo editorial na direita.
+- No tablet/mobile, o menu deixa de ser fixo e se adapta acima do conteudo.
+- `npm run build` em `blog-pages` passou com sucesso.
+
+Proximo passo recomendado:
+- Validar a sidebar publicada em desktop e mobile, especialmente largura, altura dos botoes e leitura dos textos.
