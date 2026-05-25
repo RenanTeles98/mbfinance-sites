@@ -14,6 +14,7 @@
 
 ## Prioridade atual - Performance do blog
 
+- Validar os cards de produto e a CTA de WhatsApp da capa `/blog` no ambiente publicado.
 - Evoluir a primeira dobra de `/blog` para comunicar o hub de produtos financeiros da MB Finance.
 - Futuramente alimentar o card "Mais acessadas" com dados reais de analytics por post.
 - Validar os titulos da capa `/blog` em azul marinho no ambiente publicado.

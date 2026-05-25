@@ -185,3 +185,17 @@
 - Decisao: centralizar e ampliar a logo na barra azul, com "Voltar ao site" visualmente a esquerda.
   - Motivo: reforca a marca no topo sem competir com a headline e cria uma navegacao mais equilibrada.
   - Alternativas consideradas: manter logo a esquerda e voltar a direita, descartado por parecer uma estrutura de blog comum e menos proprietaria.
+
+## 2026-05-25 - Capa como hub de produtos financeiros
+
+- Decisao: adicionar uma faixa "Escolha por necessidade" com cards para Credito empresarial, Conta PJ, Antecipacao e Gestao financeira.
+  - Motivo: a pagina precisa deixar de parecer apenas um blog e comunicar a MB Finance como hub de solucoes financeiras.
+  - Alternativas consideradas: manter apenas filtros de categoria, descartado porque filtros parecem navegacao editorial e nao entrada por necessidade de negocio.
+
+- Decisao: usar fundo azul claro na faixa de produtos e cards brancos com pequenos acentos de cor.
+  - Motivo: cria uma composicao mais amigavel que separa as secoes sem pesar a tela com grandes blocos escuros.
+  - Alternativas consideradas: manter tudo em branco/cinza, descartado porque a pagina ficava fria e com pouca orientacao visual.
+
+- Decisao: inserir uma CTA clara antes do footer apontando para WhatsApp.
+  - Motivo: suaviza a transicao para o rodape escuro e cria caminho direto para atendimento sem criar rota nova.
+  - Alternativas consideradas: usar link para secao de contato do site, descartado porque CTAs do projeto devem apontar para WhatsApp.

@@ -362,3 +362,21 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar `/blog` publicado e continuar a evolucao da primeira dobra para comunicar melhor o hub de produtos financeiros da MB Finance.
+
+## Sessao de 2026-05-25 - Hub financeiro na capa do blog
+
+Foi aplicada a composicao visual para aproximar `/blog` de um hub de produtos financeiros.
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: headline alterada para hub financeiro, adicionada faixa "Escolha por necessidade" com cards de produtos e CTA para WhatsApp antes do footer.
+- `app/blog/blog.css`: criados estilos para a faixa azul clara de produtos, cards brancos com acentos de cor, CTA clara antes do rodape e responsividade.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- A primeira dobra comunica a MB Finance como hub de solucoes: credito empresarial, conta PJ, antecipacao e gestao financeira.
+- Os cards de produto filtram os conteudos da pagina por categoria.
+- A transicao para o footer ficou mais suave com uma CTA clara apontando para WhatsApp.
+- `npm run build` em `blog-pages` passou com sucesso.
+
+Proximo passo recomendado:
+- Validar a pagina publicada e, na proxima rodada, ajustar os textos dos artigos/cards para reforcar ainda mais a jornada por produto.

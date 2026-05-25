@@ -15,6 +15,33 @@ const filters = [
   { label: "Tributos", value: "gestao-tributaria" },
 ];
 
+const productHubs = [
+  {
+    label: "Crédito empresarial",
+    value: "credito",
+    description: "Capital de giro e liquidez para manter a operação rodando.",
+  },
+  {
+    label: "Conta PJ",
+    value: "conta-pj",
+    description: "Estrutura bancária para organizar pagamentos e recebimentos.",
+  },
+  {
+    label: "Antecipação",
+    value: "antecipacao",
+    description: "Recebíveis convertidos em caixa com mais previsibilidade.",
+  },
+  {
+    label: "Gestão financeira",
+    value: "gestao",
+    description: "Conteúdo para melhorar margem, caixa e tomada de decisão.",
+  },
+];
+
+const specialistWhatsAppUrl = `https://wa.me/552139008295?text=${encodeURIComponent(
+  "Olá! Vim pelo hub financeiro da MB Finance e gostaria de falar com um especialista."
+)}`;
+
 function formatDate(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString("pt-BR", {
     day: "2-digit",
@@ -125,14 +152,14 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
 
       <section className="blog-hero">
         <div className="blog-shell">
-          <div className="hero-tag">Conteúdo exclusivo</div>
+          <div className="hero-tag">Hub financeiro MB Finance</div>
           <h1 className="hero-title">
-            Inteligência financeira para
+            Soluções e inteligência para
             <br />
-            <span>o seu negócio crescer</span>
+            <span>sua empresa crescer com mais caixa</span>
           </h1>
           <p className="hero-sub">
-            Guias práticos sobre crédito, liquidez, conta PJ e gestão para ajudar empresários a tomar decisões melhores todos os meses.
+            Compare crédito, conta PJ, antecipação e gestão financeira em um só lugar, com guias práticos para decidir melhor.
           </p>
           <div className="hero-search-box">
             <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -149,6 +176,29 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
               aria-label="Buscar no blog"
             />
             <button type="button" onClick={trackSearch}>Buscar</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="product-hub-section" aria-label="Soluções financeiras">
+        <div className="blog-shell">
+          <div className="hub-section-heading">
+            <span>Escolha por necessidade</span>
+            <strong>Produtos e conteúdos para cada momento da empresa</strong>
+          </div>
+          <div className="product-hub-grid">
+            {productHubs.map((item) => (
+              <button
+                key={item.value}
+                type="button"
+                className={`product-hub-card ${category === item.value ? "active" : ""}`}
+                onClick={() => setCategory(item.value)}
+              >
+                <span>{item.label}</span>
+                <p>{item.description}</p>
+                <strong>Ver conteúdos</strong>
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -280,6 +330,19 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
             </aside>
           </div>
         ) : null}
+      </section>
+
+      <section className="blog-cta-section">
+        <div className="blog-shell blog-cta-box">
+          <div>
+            <span>Atendimento MB Finance</span>
+            <h2>Precisa escolher a solução certa para sua empresa?</h2>
+            <p>Fale com um especialista para comparar crédito, conta PJ, antecipação e gestão de caixa.</p>
+          </div>
+          <a href={specialistWhatsAppUrl} target="_blank" rel="noopener noreferrer">
+            Falar com especialista
+          </a>
+        </div>
       </section>
 
       <BlogFooter />

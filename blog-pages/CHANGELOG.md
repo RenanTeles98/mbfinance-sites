@@ -2,6 +2,7 @@
 
 ## 2026-05-25
 
+- Evoluida a capa `/blog` para hub financeiro com cards de produtos e CTA para WhatsApp.
 - Ajustado o topo de `/blog`: logo central maior, "Voltar ao site" a esquerda e hero com fundo branco.
 - Transformado o card lateral "Guias rapidos" em "Mais acessadas" com ranking numerado.
 - Substituidos os titulos vermelhos da capa `/blog` pelo azul marinho da MB Finance.
