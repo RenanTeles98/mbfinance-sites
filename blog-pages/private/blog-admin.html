@@ -765,7 +765,13 @@
                 </div>
 
                 <div class="field-group">
-                    <label class="field-label" for="f-excerpt">Resumo <span class="field-hint">(aparece nos cards do blog)</span></label>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                        <label class="field-label" for="f-excerpt" style="margin-bottom:0;">Resumo <span class="field-hint">(aparece nos cards do blog)</span></label>
+                        <button type="button" id="btn-gen-excerpt" class="magic-btn" style="padding:4px 10px;font-size:11px;border-radius:6px;" onclick="generateExcerpt()">
+                            <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                            <span id="btn-gen-excerpt-label">Gerar com IA</span>
+                        </button>
+                    </div>
                     <textarea id="f-excerpt" class="field-textarea" placeholder="Escreva 1-2 frases atrativas sobre o artigo..." rows="2"></textarea>
                 </div>
 
@@ -2249,6 +2255,36 @@ function createPostFromAngle(a) {
         renderPautasBoard();
         createPostFromPauta(id);
     } catch(e) { console.error('[createPostFromAngle]', e); }
+}
+
+async function generateExcerpt() {
+    var title = (document.getElementById('f-title') || {}).value || '';
+    if (!title.trim()) {
+        alert('Preencha o Título antes de gerar o resumo.');
+        return;
+    }
+    var btn = document.getElementById('btn-gen-excerpt');
+    var label = document.getElementById('btn-gen-excerpt-label');
+    btn.disabled = true;
+    label.textContent = 'Gerando…';
+    try {
+        var res = await fetch('/api/generate-article', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ title: title, excerptOnly: true }),
+        });
+        var data = await res.json();
+        if (!res.ok || data.error) {
+            alert('⚠ ' + (data.error || 'Erro ao gerar resumo.'));
+        } else if (data.excerpt) {
+            document.getElementById('f-excerpt').value = data.excerpt;
+        }
+    } catch(e) {
+        alert('⚠ Erro de conexão: ' + e.message);
+    } finally {
+        btn.disabled = false;
+        label.textContent = 'Gerar com IA';
+    }
 }
 
 async function writeWithAI() {

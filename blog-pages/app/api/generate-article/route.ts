@@ -42,9 +42,13 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'title obrigatório' }, { status: 400 });
     }
 
-    const { title, category = '', keyword = '', notes = '', awarenessLevel = '' } = body;
+    const { title, category = '', keyword = '', notes = '', awarenessLevel = '', excerptOnly = false } = body;
 
-    const userPrompt = `
+    const userPrompt = excerptOnly
+        ? `Escreva um resumo de 1 a 2 frases atrativas para o artigo de blog abaixo. O resumo aparece nos cards do blog e deve capturar a dor do empresário e despertar curiosidade para clicar. Retorne APENAS o texto do resumo, sem aspas, sem prefixo.
+
+TÍTULO DO ARTIGO: ${title}`.trim()
+        : `
 Escreva um artigo completo de blog para a MB Finance com as seguintes informações:
 
 TÍTULO: ${title}
@@ -79,7 +83,7 @@ FORMATO DE SAÍDA — retorne APENAS HTML limpo, sem markdown, sem \`\`\`html, s
                 { role: 'system', content: MB_CONTEXT },
                 { role: 'user', content: userPrompt },
             ],
-            max_tokens: 3000,
+            max_tokens: excerptOnly ? 120 : 3000,
             temperature: 0.65,
         }),
     });
@@ -93,10 +97,13 @@ FORMATO DE SAÍDA — retorne APENAS HTML limpo, sem markdown, sem \`\`\`html, s
     }
 
     const data = await response.json();
-    let html = (data.choices?.[0]?.message?.content || '').trim();
+    const raw = (data.choices?.[0]?.message?.content || '').trim();
+
+    if (excerptOnly) {
+        return NextResponse.json({ excerpt: raw });
+    }
 
     // Strip any accidental markdown code fences
-    html = html.replace(/^```html?\s*/i, '').replace(/```\s*$/i, '').trim();
-
+    const html = raw.replace(/^```html?\s*/i, '').replace(/```\s*$/i, '').trim();
     return NextResponse.json({ html });
 }
