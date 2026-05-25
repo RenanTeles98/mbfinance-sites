@@ -2,6 +2,8 @@
 
 ## 2026-05-25
 
+- Refinados os espacamentos entre icones e textos dos botoes do admin.
+- Substituidos emojis por icones SVG lineares na tela de Campanhas.
 - Corrigido o aninhamento das telas do admin em `private/blog-admin.html`.
 - As telas de Metricas, Campanhas, E-mails, Publicidade, Calendario e Gerador voltaram a ser filhas diretas de `#admin-body`.
 - Resolvida a causa da area principal cinza/vazia em `/admin`.

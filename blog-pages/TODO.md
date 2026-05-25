@@ -2,7 +2,8 @@
 
 ## Prioridade atual - Admin
 
-- Publicar a correcao de aninhamento do admin e validar `/admin` em producao.
+- Publicar os ajustes visuais de icones/espacamentos do admin e validar `/admin` em producao.
+- Revisar as demais abas do admin para remover emojis remanescentes usados como icones estruturais.
 - Criar um check simples de DOM para garantir que todos os `#screen-*` do admin sejam filhos diretos de `#admin-body`.
 
 ## Prioridade atual - Performance do blog

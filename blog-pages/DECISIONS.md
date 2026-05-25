@@ -87,3 +87,13 @@
 - Decisao: manter o padrao de SPA simples com todas as telas administrativas como filhos diretos de `#admin-body`.
   - Motivo: o `switchTab` espera buscar e ativar `#screen-*` no mesmo nivel visual; aninhar telas dentro de outra tela quebra esse contrato.
   - Alternativas consideradas: mudar o JavaScript para procurar telas aninhadas, descartado porque preservaria markup invalido e fragilizaria futuras abas.
+
+## 2026-05-25 - Icones formais no admin
+
+- Decisao: substituir emojis usados como icones estruturais por SVGs lineares inline nos botoes do admin.
+  - Motivo: a interface administrativa precisa de uma linguagem visual mais formal e consistente; emojis variam por sistema operacional e quebram alinhamento fino com texto.
+  - Alternativas consideradas: importar uma biblioteca de icones, descartado nesta rodada para evitar dependencia nova em um HTML servido diretamente por `private/blog-admin.html`.
+
+- Decisao: centralizar os icones dinamicos da tela "Campanhas" em helpers de `admin-campaigns.js`.
+  - Motivo: acoes como copiar e salvar trocam o conteudo do botao em runtime; helpers evitam que o JavaScript remova os SVGs e volte para texto desalinhado.
+  - Alternativas consideradas: deixar os estados temporarios apenas com `textContent`, descartado porque causava perda de padrao visual apos interacoes.

@@ -50,13 +50,14 @@
         .topbar-logo span:last-child { color: #0099dd; }
         .topbar-badge { background: rgba(0,153,221,0.2); color: #0099dd; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; margin-left: 10px; }
         .topbar-actions { display: flex; align-items: center; gap: 10px; }
-        .btn-export { background: #0099dd; color: #fff; font-size: 13px; font-weight: 700; padding: 8px 18px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: opacity 0.2s; }
+        .btn-export { background: #0099dd; color: #fff; font-size: 13px; font-weight: 700; padding: 8px 18px; border: none; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s; }
+        .btn-export svg, .btn-ghost svg, .tab-btn svg, .camp-btn svg, .camp-action-btn svg, .camp-refresh-btn svg, .blog-seo-refresh svg { width: 15px; height: 15px; flex: 0 0 15px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .btn-export:hover { opacity: 0.85; }
         .sync-indicator { font-size: 11px; font-weight: 700; padding: 6px 10px; border-radius: 999px; border: 1px solid transparent; }
         .sync-indicator.offline { color: #94a3b8; background: #f8fafc; border-color: #e2e8f0; }
         .sync-indicator.online { color: #166534; background: #dcfce7; border-color: #86efac; }
         .sync-indicator.warn { color: #92400e; background: #fef3c7; border-color: #fcd34d; }
-        .btn-ghost { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 600; padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; }
+        .btn-ghost { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 600; padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-ghost:hover { background: rgba(255,255,255,0.18); color: #fff; }
         #admin-body { display: flex; flex: 1; }
 
@@ -193,7 +194,7 @@
 
         /* TAB BAR */
         #tab-bar { height: 48px; background: #fff; border-bottom: 1.5px solid #e2e8f0; display: flex; align-items: center; padding: 0 20px; gap: 2px; flex-shrink: 0; }
-        .tab-btn { display: flex; align-items: center; gap: 7px; padding: 8px 16px; font-size: 13px; font-weight: 700; color: #64748b; border: none; background: transparent; border-radius: 8px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+        .tab-btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 36px; padding: 8px 16px; font-size: 13px; font-weight: 700; color: #64748b; border: none; background: transparent; border-radius: 8px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
         .tab-btn:hover { background: #f1f5f9; color: #1e293b; }
         .tab-btn.active { background: #eff9ff; color: #0099dd; }
 
@@ -345,8 +346,8 @@
         .camp-input:read-only { background: #f1f5f9; color: #64748b; cursor: default; }
         .camp-url-preview-box { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #003956; font-weight: 700; word-break: break-all; min-height: 44px; cursor: pointer; }
         .camp-url-input { width: 100%; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #003956; font-weight: 700; font-family: monospace; resize: none; outline: none; }
-        .camp-actions { display: flex; gap: 12px; margin-top: 4px; }
-        .camp-btn { padding: 11px 22px; border-radius: 10px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; transition: all 0.15s; }
+        .camp-actions { display: flex; align-items: center; gap: 12px; margin-top: 4px; flex-wrap: wrap; }
+        .camp-btn { min-height: 42px; padding: 11px 20px; border-radius: 10px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 9px; line-height: 1; white-space: nowrap; }
         .camp-btn-primary { background: #003956; color: #fff; }
         .camp-btn-primary:hover:not(:disabled) { background: #0099dd; }
         .camp-btn-secondary { background: #f1f5f9; color: #334155; border: 1.5px solid #e2e8f0; }
@@ -359,14 +360,15 @@
         .camp-saved-name { font-weight: 700; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .camp-saved-meta { color: #64748b; font-size: 12px; }
         .camp-saved-date { color: #94a3b8; font-size: 12px; }
-        .camp-saved-actions { display: flex; gap: 6px; }
-        .camp-action-btn { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 7px; padding: 5px 8px; font-size: 13px; cursor: pointer; transition: all 0.15s; }
+        .camp-saved-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+        .camp-action-btn { min-height: 34px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 7px 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: #334155; line-height: 1; white-space: nowrap; }
+        .camp-icon-only { width: 34px; padding: 7px; }
         .camp-action-btn:hover { background: #eff9ff; border-color: #0099dd; }
         .camp-del-btn:hover { background: #fee2e2 !important; border-color: #fca5a5 !important; }
         .camp-channel-badge { background: #eff9ff; color: #0099dd; border: 1px solid rgba(0,153,221,0.2); font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
         .camp-source-tag { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; }
         .camp-perf-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-        .camp-refresh-btn { background: transparent; border: 1.5px solid #e2e8f0; border-radius: 8px; color: #64748b; font-size: 12px; font-weight: 700; padding: 6px 14px; cursor: pointer; transition: all 0.15s; }
+        .camp-refresh-btn { min-height: 36px; background: transparent; border: 1.5px solid #e2e8f0; border-radius: 8px; color: #64748b; font-size: 12px; font-weight: 700; padding: 8px 14px; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; line-height: 1; }
         .camp-refresh-btn:hover { border-color: #0099dd; color: #0099dd; }
         @media (max-width: 720px) {
             .camp-form-grid { grid-template-columns: 1fr; }
@@ -496,7 +498,7 @@
         .seo-pill.ok { background: #dcfce7; color: #166534; }
         .seo-pill.warn { background: #fef3c7; color: #92400e; }
         .seo-pill.bad { background: #fee2e2; color: #991b1b; }
-        .blog-seo-refresh { background: transparent; border: 1.5px solid #e2e8f0; border-radius: 8px; color: #64748b; font-size: 12px; font-weight: 700; padding: 8px 16px; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
+        .blog-seo-refresh { background: transparent; border: 1.5px solid #e2e8f0; border-radius: 8px; color: #64748b; font-size: 12px; font-weight: 700; padding: 8px 16px; cursor: pointer; transition: all 0.15s; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px; line-height: 1; }
         .blog-seo-refresh:hover { border-color: #0099dd; color: #0099dd; }
     </style>
 </head>
@@ -559,14 +561,6 @@
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
             Publicidade
         </button>
-        <button class="tab-btn" id="tabBtn-calendar" onclick="switchTab('calendar')">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Calendário Editorial
-        </button>
-        <button class="tab-btn" id="tabBtn-generator" onclick="switchTab('generator')">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            Gerador (IA)
-        </button>
     </div>
 
     <div id="admin-body">
@@ -594,6 +588,15 @@
                 <button class="blog-nav-item" id="blogNav-calendario" onclick="switchBlogSection('calendario')">
                     <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     Calendário
+                </button>
+                <button class="blog-nav-item" id="blogNav-calendar-full" onclick="switchBlogSection('calendar-full')">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    Calendário Editorial
+                </button>
+                <p class="blog-nav-section-label" style="margin-top:16px">Ferramentas</p>
+                <button class="blog-nav-item" id="blogNav-generator" onclick="switchBlogSection('generator')">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    Gerador IA
                 </button>
             </nav>
 
@@ -838,7 +841,10 @@
                                 <h2 class="blog-section-title">Desempenho SEO</h2>
                                 <p class="blog-section-sub">Checklist de otimização para cada publicação. Clique no título para abrir o editor.</p>
                             </div>
-                            <button class="blog-seo-refresh" onclick="renderSeoAudit()">↻ Atualizar</button>
+                            <button class="blog-seo-refresh" onclick="renderSeoAudit()">
+                                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12a9 9 0 0 1-15.5 6.2"></path><path d="M3 12a9 9 0 0 1 15.5-6.2"></path><path d="M18 3v4h-4"></path><path d="M6 21v-4h4"></path></svg>
+                                <span>Atualizar</span>
+                            </button>
                         </div>
                         <div id="seo-audit-list"></div>
                     </div>
@@ -852,7 +858,7 @@
                                 <h2 class="blog-section-title">Calendário Editorial</h2>
                                 <p class="blog-section-sub">Visualize e planeje a publicação de conteúdos ao longo do mês.</p>
                             </div>
-                            <button class="btn-new" style="width:auto;padding:10px 20px;flex-shrink:0;" onclick="switchTab('calendar')">
+                            <button class="btn-new" style="width:auto;padding:10px 20px;flex-shrink:0;" onclick="switchBlogSection('calendar-full')">
                                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                 Abrir calendário completo
                             </button>
@@ -860,6 +866,70 @@
                         <div id="blog-calendar-mini"></div>
                     </div>
                 </div><!-- /blog-section-calendario -->
+
+                <!-- CALENDÁRIO EDITORIAL (full) -->
+                <div id="blog-section-calendar-full" class="blog-section">
+                    <div class="blog-section-wrap">
+                        <div class="calendar-header">
+                            <div class="calendar-nav">
+                                <button class="calendar-btn" onclick="prevMonth()"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg></button>
+                                <div id="calendar-month-label" class="calendar-month-label">Janeiro de 2024</div>
+                                <button class="calendar-btn" onclick="nextMonth()"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+                            </div>
+                            <button class="btn-new" style="width:auto;padding:10px 20px;" onclick="newPost()">Agendar nova publicação</button>
+                        </div>
+                        <div id="calendar-grid" class="calendar-grid"></div>
+                    </div>
+                </div><!-- /blog-section-calendar-full -->
+
+                <!-- GERADOR IA -->
+                <div id="blog-section-generator" class="blog-section">
+                    <div class="blog-section-wrap">
+                        <div style="text-align:center;margin-bottom:40px;">
+                            <h2 style="font-size:28px;color:#003956;margin-bottom:12px;">Gerador de Conteúdo IA</h2>
+                            <p style="color:#64748b;font-size:15px;">Sugerimos tópicos e criamos rascunhos baseados no seu nicho de finanças empresariais.</p>
+                            <div style="margin-top:32px;display:flex;justify-content:center;gap:12px;">
+                                <button class="magic-btn" onclick="generateIdeas()">
+                                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                                    Gerar novas ideias de publicações
+                                </button>
+                            </div>
+                        </div>
+                        <div id="ai-loading-state" class="ai-loading">
+                            <div style="margin:0 auto;width:60px;height:60px;border:4px solid #f1f5f9;border-top-color:#0099dd;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px;"></div>
+                            <p style="font-weight:700;color:#003956;">Analisando tendências do mercado financeiro...</p>
+                        </div>
+                        <div id="gen-results">
+                            <div class="gen-card premium" onclick="applyIdea('A importância do Capital de Giro para a sobrevivência de pequenas empresas no Brasil','Um guia completo explicando o que é, como calcular e as melhores estratégias de manutenção.')">
+                                <span class="gen-badge badge-trend">Tendência</span>
+                                <h3 class="gen-title">A importância do Capital de Giro para a sobrevivência de pequenas empresas no Brasil</h3>
+                                <p class="gen-desc">Um guia completo explicando o que é, como calcular e as melhores estratégias de manutenção para garantir o fôlego da empresa.</p>
+                                <div class="gen-meta"><span>Pilar: Gestão</span><span>Tempo: 6 min</span><span style="color:#0099dd;">→ Criar rascunho com IA</span></div>
+                            </div>
+                            <div class="gen-card premium" onclick="applyIdea('Antecipação de Recebíveis vs. Empréstimo Bancário: Qual a melhor opção?','Comparativo técnico entre as duas modalidades de crédito mais usadas no mercado B2B.')">
+                                <span class="gen-badge badge-evergreen">Conteúdo Base</span>
+                                <h3 class="gen-title">Antecipação de Recebíveis vs. Empréstimo Bancário: Qual a melhor opção?</h3>
+                                <p class="gen-desc">Comparativo técnico focado em taxas, velocidade de liberação e impacto no balanço patrimonial para o empresário.</p>
+                                <div class="gen-meta"><span>Pilar: Crédito</span><span>Tempo: 8 min</span><span style="color:#0099dd;">→ Criar rascunho com IA</span></div>
+                            </div>
+                        </div>
+                        <div style="margin-top:60px;padding-top:40px;border-top:1px dashed #e2e8f0;">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+                                <div>
+                                    <h3 style="font-size:20px;color:#003956;margin-bottom:4px;">Radar Google Trends</h3>
+                                    <p style="color:#94a3b8;font-size:13px;">Acompanhe o volume de buscas no Brasil sobre temas do seu nicho.</p>
+                                </div>
+                                <div style="display:flex;gap:8px;">
+                                    <button class="calendar-btn" style="width:auto;padding:0 12px;font-size:11px;" onclick="loadTrends('credito')">Crédito</button>
+                                    <button class="calendar-btn" style="width:auto;padding:0 12px;font-size:11px;" onclick="loadTrends('mercado')">Mercado</button>
+                                </div>
+                            </div>
+                            <div id="trends-container" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:20px;min-height:400px;padding:20px;overflow:hidden;">
+                                <p style="text-align:center;color:#94a3b8;padding:100px 0;">Clique em Crédito ou Mercado para carregar o Google Trends.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /blog-section-generator -->
 
             </div><!-- /blog-center -->
 
@@ -1403,21 +1473,30 @@
                     <div class="camp-label" style="margin-bottom:8px;">Link encurtado <span style="font-size:11px;color:#0099dd;font-weight:400;">— mais amigável para compartilhar</span></div>
                     <div style="display:flex;gap:8px;align-items:center;">
                         <input id="camp-short-url" class="camp-input" type="text" readonly style="flex:1;font-weight:700;color:#003956;background:#f0f9ff;border-color:#bae6fd;">
-                        <button id="camp-short-copy-btn" class="camp-btn camp-btn-secondary" onclick="copyShortUrl()" style="white-space:nowrap;">📋 Copiar</button>
+                        <button id="camp-short-copy-btn" class="camp-btn camp-btn-secondary" onclick="copyShortUrl()" style="white-space:nowrap;">
+                            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            <span>Copiar</span>
+                        </button>
                     </div>
                 </div>
                 <div id="camp-short-loading" style="display:none;font-size:12px;color:#94a3b8;margin-bottom:16px;">Encurtando link...</div>
                 <div id="camp-short-error" style="display:none;font-size:12px;color:#ef4444;margin-bottom:16px;"></div>
 
                 <div class="camp-actions">
-                    <button id="camp-copy-btn" class="camp-btn camp-btn-secondary" onclick="copyUtmUrl()" disabled>📋 Copiar URL completa</button>
-                    <button id="camp-save-btn" class="camp-btn camp-btn-primary" onclick="saveUtmLink()" disabled>💾 Salvar link</button>
+                    <button id="camp-copy-btn" class="camp-btn camp-btn-secondary" onclick="copyUtmUrl()" disabled>
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span>Copiar URL completa</span>
+                    </button>
+                    <button id="camp-save-btn" class="camp-btn camp-btn-primary" onclick="saveUtmLink()" disabled>
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8"></path><path d="M7 3v5h8"></path></svg>
+                        <span>Salvar link</span>
+                    </button>
                 </div>
             </div>
 
             <div class="camp-card">
                 <h3>Links salvos</h3>
-                <div class="camp-card-sub">Histórico de links criados — clique em 📋 para copiar qualquer link a qualquer momento.</div>
+                <div class="camp-card-sub">Histórico de links criados — use o botão Copiar para reutilizar qualquer link a qualquer momento.</div>
                 <div id="camp-saved-list"><div class="analytics-empty">Nenhum link salvo ainda.</div></div>
             </div>
 
@@ -1427,32 +1506,18 @@
                         <h3>Desempenho por origem</h3>
                         <div class="camp-card-sub" style="margin-bottom:0">Sessões e usuários vindos de cada campanha UTM no período selecionado.</div>
                     </div>
-                    <button class="camp-refresh-btn" onclick="loadCampaignPerformance()">↻ Atualizar</button>
+                    <button class="camp-refresh-btn" onclick="loadCampaignPerformance()">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12a9 9 0 0 1-15.5 6.2"></path><path d="M3 12a9 9 0 0 1 15.5-6.2"></path><path d="M18 3v4h-4"></path><path d="M6 21v-4h4"></path></svg>
+                        <span>Atualizar</span>
+                    </button>
                 </div>
                 <div id="camp-perf-table" style="margin-top:18px;"><div class="analytics-empty">Carregando...</div></div>
             </div>
         </div>
     </div>
 
-    <!-- CALENDAR PANEL -->
-    <div id="screen-calendar" class="admin-screen">
-        <div class="calendar-wrap">
-            <div class="calendar-header">
-                <div class="calendar-nav">
-                    <button class="calendar-btn" onclick="prevMonth()"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg></button>
-                    <div id="calendar-month-label" class="calendar-month-label">Janeiro de 2024</div>
-                    <button class="calendar-btn" onclick="nextMonth()"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
-                </div>
-                <button class="btn-new" style="width: auto; padding: 10px 20px;" onclick="newPost()">Agendar nova publicação</button>
-            </div>
-            <div id="calendar-grid" class="calendar-grid">
-                <!-- Populado dinamicamente -->
-            </div>
-        </div>
-    </div>
-
-    <!-- GENERATOR PANEL -->
-    <div id="screen-generator" class="admin-screen">
+    <!-- GENERATOR PANEL (mantido para compatibilidade) -->
+    <div id="screen-generator" class="admin-screen" style="display:none!important">
         <div class="generator-wrap">
             <div style="text-align: center; margin-bottom: 40px;">
                 <h2 style="font-size: 32px; color: #003956; margin-bottom: 12px;">Gerador de Conteúdo IA</h2>
@@ -1569,9 +1634,10 @@ function switchBlogSection(section) {
     if (el)  el.classList.add('active');
     if (btn) btn.classList.add('active');
 
-    if (section === 'seo')       renderSeoAudit();
-    if (section === 'pautas')    renderPautasBoard();
-    if (section === 'calendario') renderCalendarioMini();
+    if (section === 'seo')            renderSeoAudit();
+    if (section === 'pautas')         renderPautasBoard();
+    if (section === 'calendario')     renderCalendarioMini();
+    if (section === 'calendar-full' && typeof renderCalendar === 'function') renderCalendar();
     if (section === 'overview' && typeof window.renderEditorialAnalytics === 'function') window.renderEditorialAnalytics();
 }
 

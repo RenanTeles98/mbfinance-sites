@@ -4,6 +4,22 @@
 
 var CAMP_STORAGE_KEY = 'mb_campaigns_v1';
 
+var CAMP_ICONS = {
+    copy: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>',
+    save: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8"></path><path d="M7 3v5h8"></path></svg>',
+    close: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>'
+};
+
+function campButtonHtml(icon, label) {
+    var text = label ? '<span>' + cesc(label) + '</span>' : '';
+    return (CAMP_ICONS[icon] || '') + text;
+}
+
+function setCampButton(btn, icon, label) {
+    if (!btn) return;
+    btn.innerHTML = campButtonHtml(icon, label);
+}
+
 var CHANNEL_PRESETS = [
     { value: 'sms',               label: 'SMS',                    source: 'sms',       medium: 'sms'      },
     { value: 'email',             label: 'E-mail',                 source: 'email',     medium: 'email'    },
@@ -118,8 +134,8 @@ function copyShortUrl() {
     navigator.clipboard.writeText(input.value).then(function() {
         var btn = document.getElementById('camp-short-copy-btn');
         if (!btn) return;
-        btn.textContent = 'Copiado!';
-        setTimeout(function() { btn.textContent = '📋 Copiar'; }, 2000);
+        btn.innerHTML = '<span>Copiado</span>';
+        setTimeout(function() { setCampButton(btn, 'copy', 'Copiar'); }, 2000);
     });
 }
 
@@ -161,8 +177,8 @@ function copyUtmUrl() {
     navigator.clipboard.writeText(val).then(function() {
         var btn = document.getElementById('camp-copy-btn');
         if (!btn) return;
-        btn.textContent = 'Copiado!';
-        setTimeout(function() { btn.textContent = 'Copiar URL'; }, 2000);
+        btn.innerHTML = '<span>Copiado</span>';
+        setTimeout(function() { setCampButton(btn, 'copy', 'Copiar URL completa'); }, 2000);
     });
 }
 
@@ -189,7 +205,10 @@ function saveUtmLink() {
     renderSavedLinks();
 
     var btn = document.getElementById('camp-save-btn');
-    if (btn) { btn.textContent = 'Salvo!'; setTimeout(function() { btn.textContent = 'Salvar link'; }, 2000); }
+    if (btn) {
+        btn.innerHTML = '<span>Salvo</span>';
+        setTimeout(function() { setCampButton(btn, 'save', 'Salvar link'); }, 2000);
+    }
 }
 
 function deleteCampaign(id) {
@@ -203,9 +222,9 @@ function copySavedCamp(id) {
     navigator.clipboard.writeText(item.url).then(function() {
         var btn = document.getElementById('camp-copy-saved-' + id);
         if (!btn) return;
-        var orig = btn.textContent;
-        btn.textContent = 'OK';
-        setTimeout(function() { btn.textContent = orig; }, 1500);
+        var orig = btn.innerHTML;
+        btn.innerHTML = '<span>Copiado</span>';
+        setTimeout(function() { btn.innerHTML = orig; }, 1500);
     });
 }
 
@@ -226,8 +245,8 @@ function renderSavedLinks() {
             + '<div class="camp-saved-meta">' + cesc(c.source) + ' / ' + cesc(c.medium) + '</div>'
             + '<div class="camp-saved-date">' + cesc(c.date) + '</div>'
             + '<div class="camp-saved-actions">'
-            + '<button id="camp-copy-saved-' + c.id + '" class="camp-action-btn" onclick="copySavedCamp(' + c.id + ')" title="Copiar URL">Copiar</button>'
-            + '<button class="camp-action-btn camp-del-btn" onclick="deleteCampaign(' + c.id + ')" title="Excluir">X</button>'
+            + '<button id="camp-copy-saved-' + c.id + '" class="camp-action-btn" onclick="copySavedCamp(' + c.id + ')" title="Copiar URL">' + campButtonHtml('copy', 'Copiar') + '</button>'
+            + '<button class="camp-action-btn camp-del-btn camp-icon-only" onclick="deleteCampaign(' + c.id + ')" title="Excluir" aria-label="Excluir link">' + CAMP_ICONS.close + '</button>'
             + '</div></div>';
     }
     el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Campanha</span><span>Canal</span><span>Origem / Midia</span><span>Data</span><span></span></div>' + rows + '</div>';
