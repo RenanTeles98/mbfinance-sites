@@ -3,7 +3,6 @@
  */
 
 var CAL_EVENTS_KEY = 'mb_cal_events_v1';
-var calDate = new Date();
 
 var CAL_TYPE_LABELS = {
     post: 'Post', video: 'Vídeo', story: 'Story',
