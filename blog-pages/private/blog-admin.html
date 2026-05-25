@@ -955,20 +955,26 @@
 
                 <!-- SEO -->
                 <div class="seo-box">
-                    <div class="seo-box-title">
-                        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
-                        SEO — Como vai aparecer no Google
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                        <div class="seo-box-title" style="margin-bottom:0;">
+                            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
+                            SEO — Como vai aparecer no Google
+                        </div>
+                        <button type="button" id="btn-gen-seo" class="magic-btn" style="padding:4px 10px;font-size:11px;border-radius:6px;" onclick="generateSEO()">
+                            <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                            <span id="btn-gen-seo-label">Gerar tudo com IA</span>
+                        </button>
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="f-seo-title">Título SEO <span class="field-hint">(aba do navegador e resultado do Google · máx. 60 caracteres)</span></label>
-                        <input type="text" id="f-seo-title" class="field-input" placeholder="Ex: Capital de Giro com as Melhores Taxas | MB Finance" maxlength="70" oninput="updateCharCount('f-seo-title','cnt-seo-title',60)">
+                        <input type="text" id="f-seo-title" class="field-input" placeholder="Ex: Capital de Giro com as Melhores Taxas | MB Finance" maxlength="70" oninput="updateCharCount('f-seo-title','cnt-seo-title',60); updateSeoPreview()">
                         <div class="char-count" id="cnt-seo-title">0/60</div>
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="f-seo-desc">Meta Descrição <span class="field-hint">(texto abaixo do título no Google · máx. 155 caracteres)</span></label>
-                        <textarea id="f-seo-desc" class="field-textarea" rows="2" placeholder="Ex: A MB Finance compara as melhores condições de capital de giro entre bancos e fintech para a sua empresa. Aprovação em 24h." maxlength="160" oninput="updateCharCount('f-seo-desc','cnt-seo-desc',155)"></textarea>
+                        <textarea id="f-seo-desc" class="field-textarea" rows="2" placeholder="Ex: A MB Finance compara as melhores condições de capital de giro entre bancos e fintech para a sua empresa. Aprovação em 24h." maxlength="160" oninput="updateCharCount('f-seo-desc','cnt-seo-desc',155); updateSeoPreview()"></textarea>
                         <div class="char-count" id="cnt-seo-desc">0/155</div>
                     </div>
 
@@ -2403,6 +2409,49 @@ function selectTitle(el) {
     updateSeoPreview();
     var box = document.getElementById('title-suggestions-box');
     if (box) box.remove();
+}
+
+async function generateSEO() {
+    var title = (document.getElementById('f-title') || {}).value || '';
+    if (!title.trim()) {
+        alert('Preencha o Título do artigo antes de gerar o SEO.');
+        return;
+    }
+    var category = (document.getElementById('f-category') || {}).value || '';
+    var product = (document.getElementById('f-product') || {}).value || '';
+    var btn = document.getElementById('btn-gen-seo');
+    var label = document.getElementById('btn-gen-seo-label');
+    btn.disabled = true;
+    label.textContent = 'Gerando…';
+    try {
+        var res = await fetch('/api/generate-article', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ seoOnly: true, title: title, category: category, product: product }),
+        });
+        var data = await res.json();
+        if (!res.ok || data.error) {
+            alert('⚠ ' + (data.error || 'Erro ao gerar SEO.'));
+        } else {
+            if (data.seoTitle) {
+                document.getElementById('f-seo-title').value = data.seoTitle;
+                updateCharCount('f-seo-title', 'cnt-seo-title', 60);
+            }
+            if (data.seoDesc) {
+                document.getElementById('f-seo-desc').value = data.seoDesc;
+                updateCharCount('f-seo-desc', 'cnt-seo-desc', 155);
+            }
+            if (data.keywords) {
+                document.getElementById('f-keywords').value = data.keywords;
+            }
+            updateSeoPreview();
+        }
+    } catch(e) {
+        alert('⚠ Erro de conexão: ' + e.message);
+    } finally {
+        btn.disabled = false;
+        label.textContent = 'Gerar tudo com IA';
+    }
 }
 
 function toggleProductCtaPreview() {

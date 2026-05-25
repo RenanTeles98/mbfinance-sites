@@ -53,13 +53,46 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json().catch(() => null);
-    const { title = '', category = '', keyword = '', notes = '', awarenessLevel = '', excerptOnly = false, titleOnly = false, product = '' } = body || {};
+    const { title = '', category = '', keyword = '', notes = '', awarenessLevel = '', excerptOnly = false, titleOnly = false, seoOnly = false, product = '' } = body || {};
 
     if (!title && !titleOnly && !excerptOnly) {
         return NextResponse.json({ error: 'title obrigatório' }, { status: 400 });
     }
 
     const productInfo = PRODUCTS[product];
+
+    if (seoOnly) {
+        const seoPrompt = `Gere os dados de SEO para um artigo de blog da MB Finance.
+
+TÍTULO DO ARTIGO: ${title}
+${category ? `CATEGORIA: ${category}` : ''}
+${productInfo ? `PRODUTO: ${productInfo.name}` : ''}
+
+Retorne APENAS um JSON com este formato exato, sem texto antes ou depois:
+{
+  "seoTitle": "Título SEO com até 60 caracteres — pode incluir | MB Finance no final",
+  "seoDesc": "Meta descrição de 140-155 caracteres que desperta curiosidade e inclui a palavra-chave principal",
+  "keywords": "palavra-chave 1, palavra-chave 2, palavra-chave 3, palavra-chave 4, palavra-chave 5"
+}`.trim();
+
+        const seoRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json', 'authorization': `Bearer ${process.env.GROQ_API_KEY}` },
+            body: JSON.stringify({
+                model: 'llama-3.3-70b-versatile',
+                messages: [{ role: 'user', content: seoPrompt }],
+                max_tokens: 300,
+                temperature: 0.5,
+            }),
+        });
+        if (!seoRes.ok) return NextResponse.json({ error: 'Erro ao gerar SEO.' }, { status: 502 });
+        const seoData = await seoRes.json();
+        const rawSeo = (seoData.choices?.[0]?.message?.content || '').trim();
+        const matchSeo = rawSeo.match(/\{[\s\S]*\}/);
+        if (!matchSeo) return NextResponse.json({ error: 'Resposta inesperada da IA.' }, { status: 500 });
+        const seo = JSON.parse(matchSeo[0]);
+        return NextResponse.json(seo);
+    }
 
     if (titleOnly) {
         const titlePrompt = `Gere 3 opções de título SEO para um artigo de blog da MB Finance.
