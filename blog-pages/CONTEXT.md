@@ -414,3 +414,20 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar visualmente a hero publicada em desktop e mobile, especialmente o painel financeiro e a quebra da headline.
+
+## Sessao de 2026-05-25 - Remocao da hero do hub
+
+Foi removida a primeira secao/hero da capa `/blog` a pedido do usuario.
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: removida a hero com headline, CTAs, busca e painel financeiro; a pagina agora inicia direto na faixa de produtos.
+- `app/blog/blog.css`: removidos os estilos de `blog-hero`, `hero-*` e `finance-panel`.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- Depois da barra azul com a logo, a capa `/blog` abre diretamente na secao "Escolha por necessidade".
+- A busca da capa foi removida junto com a hero.
+- `npm run build` em `blog-pages` passou com sucesso.
+
+Proximo passo recomendado:
+- Validar a pagina publicada para decidir se a faixa de produtos precisa ganhar um cabecalho mais forte agora que virou a primeira secao da pagina.

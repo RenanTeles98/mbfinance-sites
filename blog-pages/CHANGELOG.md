@@ -2,6 +2,7 @@
 
 ## 2026-05-25
 
+- Removida a primeira secao/hero da capa `/blog`, iniciando a pagina direto pelo menu de produtos.
 - Refeita a hero da capa `/blog` com CTAs e painel financeiro lateral para reforcar o hub de solucoes.
 - A faixa "Escolha por necessidade" virou o menu principal de produtos da capa `/blog`, com Todos e Tributos adicionados e barra inferior removida.
 - Evoluida a capa `/blog` para hub financeiro com cards de produtos e CTA para WhatsApp.

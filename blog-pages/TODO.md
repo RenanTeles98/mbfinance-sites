@@ -14,15 +14,12 @@
 
 ## Prioridade atual - Performance do blog
 
-- Validar a nova hero com painel financeiro da capa `/blog` em desktop e mobile.
+- Validar a capa `/blog` sem hero, iniciando direto pelo menu de produtos.
 - Validar os seis cards do menu de produtos da capa `/blog` em desktop e mobile.
 - Validar os cards de produto e a CTA de WhatsApp da capa `/blog` no ambiente publicado.
-- Evoluir a primeira dobra de `/blog` para comunicar o hub de produtos financeiros da MB Finance.
 - Futuramente alimentar o card "Mais acessadas" com dados reais de analytics por post.
 - Validar os titulos da capa `/blog` em azul marinho no ambiente publicado.
-- Validar a hero restaurada de `/blog` em desktop e mobile apos o deploy.
 - Validar a nova capa publica `/blog` em desktop e mobile apos o deploy.
-- Publicar os ajustes de CLS do hero do blog.
 - Rodar PageSpeed novamente na URL publica do blog apos deploy.
 - Se ainda houver CLS, investigar o trace do PageSpeed para confirmar se a causa restante vem de fonte, imagem ou conteudo injetado.
 

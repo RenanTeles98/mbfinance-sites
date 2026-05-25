@@ -223,3 +223,13 @@
 - Decisao: manter o painel financeiro como UI abstrata, sem numeros reais.
   - Motivo: evita expor ou inventar metricas, mas cria contexto visual de produtos financeiros.
   - Alternativas consideradas: mostrar valores/taxas, descartado porque poderia gerar promessa comercial desatualizada.
+
+## 2026-05-25 - Remocao da primeira secao do hub
+
+- Decisao: remover a hero/painel financeiro da capa `/blog`.
+  - Motivo: o usuario avaliou que a secao ficou visualmente ruim e pediu para tirar essa primeira secao do site.
+  - Alternativas consideradas: refinar a hero novamente, descartado porque o pedido foi remover a secao.
+
+- Decisao: manter a faixa de produtos como primeira area apos a barra azul.
+  - Motivo: ela ja funciona como menu principal do hub e concentra a navegacao por necessidade.
+  - Alternativas consideradas: recolocar uma headline simples acima da faixa, descartado nesta rodada para atender a remocao direta.
