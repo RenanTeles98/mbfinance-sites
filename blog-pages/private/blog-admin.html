@@ -1486,28 +1486,31 @@
                     </div>
                 </div>
 
-                <div style="margin-bottom:12px;">
-                    <div class="camp-label" style="margin-bottom:8px;">URL gerada <span style="font-size:11px;color:#94a3b8;font-weight:400;">(gerada automaticamente)</span></div>
-                    <textarea id="camp-url-preview" class="camp-url-input" rows="2" readonly placeholder="Preencha os campos acima para gerar o link..."></textarea>
+                <div style="margin-bottom:10px;">
+                    <textarea id="camp-url-preview" style="display:none;" readonly></textarea>
+                    <div class="camp-url-field">
+                        <span class="camp-url-field-badge camp-url-field-badge-full">URL completa</span>
+                        <span id="camp-url-preview-text" class="camp-url-field-text empty">Preencha os campos acima...</span>
+                        <button id="camp-copy-btn" class="camp-url-copy-icon" onclick="copyUtmUrl()" disabled title="Copiar URL completa">
+                            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
                 </div>
 
-                <div id="camp-short-wrap" style="margin-bottom:16px;display:none;">
-                    <div class="camp-label" style="margin-bottom:8px;">Link encurtado <span style="font-size:11px;color:#0099dd;font-weight:400;">— mais amigável para compartilhar</span></div>
-                    <div id="camp-short-url-display" style="background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:10px;padding:11px 14px;font-size:13px;color:#003956;font-weight:700;word-break:break-all;margin-bottom:10px;line-height:1.5;"></div>
+                <div id="camp-short-wrap" style="margin-bottom:12px;display:none;">
                     <input id="camp-short-url" type="hidden">
-                    <button id="camp-short-copy-btn" class="camp-btn camp-btn-secondary" onclick="copyShortUrl()" style="white-space:nowrap;">
-                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span>Copiar</span>
-                    </button>
+                    <div class="camp-url-field camp-url-field-short">
+                        <span class="camp-url-field-badge camp-url-field-badge-short">Link curto</span>
+                        <span id="camp-short-url-display" class="camp-url-field-text"></span>
+                        <button id="camp-short-copy-btn" class="camp-url-copy-icon" onclick="copyShortUrl()" title="Copiar link curto">
+                            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
                 </div>
-                <div id="camp-short-loading" style="display:none;font-size:12px;color:#94a3b8;margin-bottom:16px;">Encurtando link...</div>
-                <div id="camp-short-error" style="display:none;font-size:12px;color:#ef4444;margin-bottom:16px;"></div>
+                <div id="camp-short-loading" style="display:none;font-size:12px;color:#94a3b8;margin-bottom:12px;">Encurtando link...</div>
+                <div id="camp-short-error" style="display:none;font-size:12px;color:#ef4444;margin-bottom:12px;"></div>
 
                 <div class="camp-actions">
-                    <button id="camp-copy-btn" class="camp-btn camp-btn-secondary" onclick="copyUtmUrl()" disabled>
-                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span>Copiar URL completa</span>
-                    </button>
                     <button id="camp-save-btn" class="camp-btn camp-btn-primary" onclick="saveUtmLink()" disabled>
                         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8"></path><path d="M7 3v5h8"></path></svg>
                         <span>Salvar link</span>

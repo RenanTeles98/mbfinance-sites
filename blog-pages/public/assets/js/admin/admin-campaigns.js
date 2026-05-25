@@ -84,8 +84,11 @@ function buildUtmUrl() {
     var medium   = mediumEl  ? mediumEl.value.trim()  : '';
     var content  = contentEl ? contentEl.value.trim() : '';
 
+    var previewText = document.getElementById('camp-url-preview-text');
+
     if (!url || !campaign || !source || !medium) {
         if (previewEl) previewEl.value = '';
+        if (previewText) { previewText.textContent = 'Preencha os campos acima...'; previewText.classList.add('empty'); }
         if (copyBtn) copyBtn.disabled = true;
         if (saveBtn) saveBtn.disabled = true;
         return '';
@@ -100,6 +103,7 @@ function buildUtmUrl() {
 
     var finalUrl = base + '?' + params.toString();
     if (previewEl) previewEl.value = finalUrl;
+    if (previewText) { previewText.textContent = finalUrl; previewText.classList.remove('empty'); }
     if (copyBtn) copyBtn.disabled = false;
     if (saveBtn) saveBtn.disabled = false;
     shortenUrl(finalUrl);
@@ -154,14 +158,17 @@ function shortenUrl(url) {
     }, 600);
 }
 
+var CHECK_ICON = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#0099dd" stroke-width="2.5"><path d="M20 6 9 17l-5-5"></path></svg>';
+var COPY_ICON  = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+
 function copyShortUrl() {
     var input = document.getElementById('camp-short-url');
     if (!input || !input.value) return;
     navigator.clipboard.writeText(input.value).then(function() {
         var btn = document.getElementById('camp-short-copy-btn');
         if (btn) {
-            btn.innerHTML = '<span>Copiado ✓</span>';
-            setTimeout(function() { setCampButton(btn, 'copy', 'Copiar'); }, 2000);
+            btn.innerHTML = CHECK_ICON;
+            setTimeout(function() { btn.innerHTML = COPY_ICON; }, 2000);
         }
         saveUtmLink();
     });
@@ -205,8 +212,8 @@ function copyUtmUrl() {
     navigator.clipboard.writeText(val).then(function() {
         var btn = document.getElementById('camp-copy-btn');
         if (!btn) return;
-        btn.innerHTML = '<span>Copiado</span>';
-        setTimeout(function() { setCampButton(btn, 'copy', 'Copiar URL completa'); }, 2000);
+        btn.innerHTML = CHECK_ICON;
+        setTimeout(function() { btn.innerHTML = COPY_ICON; }, 2000);
     });
 }
 
