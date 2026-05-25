@@ -2178,12 +2178,12 @@ function generateAngles(item) {
         if (data.error) { panel.innerHTML = '<div class="radar-empty" style="color:#ef4444;">⚠ ' + escHtml(data.error) + '</div>'; return; }
         var angles = data.angles || [];
         var CAT_MAP = { credito:'Crédito Empresarial', gestao:'Gestão Financeira', 'conta-pj':'Conta PJ', mercado:'Mercado', antecipacao:'Antecipação', noticias:'Notícias' };
+        window._radarAngles = angles;
         panel.innerHTML = '<div class="angles-panel">'
             + '<div class="angles-panel-header">3 ângulos gerados pela IA</div>'
             + '<div class="angles-panel-sub">Com base em: <strong>' + escHtml(item.title) + '</strong></div>'
-            + angles.map(function(a) {
+            + angles.map(function(a, i) {
                 var lvlClass = 'angle-level-' + (a.awarenessLevel || 'topo');
-                var aJson = JSON.stringify(JSON.stringify(a));
                 return '<div class="angle-card">'
                     + '<div class="angle-header">'
                     + '<div class="angle-title">' + escHtml(a.title) + '</div>'
@@ -2194,8 +2194,8 @@ function generateAngles(item) {
                     + '<div class="angle-footer">'
                     + '<span style="font-size:11px;color:#94a3b8;">' + escHtml(CAT_MAP[a.category] || a.category || '') + '</span>'
                     + '<div style="display:flex;gap:8px;">'
-                    + '<button class="angle-create-btn" style="background:#f1f5f9;color:#003956;border:1.5px solid #e2e8f0;" onclick="createPautaFromAngle(' + aJson + ')">+ Salvar no board</button>'
-                    + '<button class="angle-create-btn" onclick="createPostFromAngle(' + aJson + ')">✏ Criar publicação</button>'
+                    + '<button class="angle-create-btn" style="background:#f1f5f9;color:#003956;border:1.5px solid #e2e8f0;" onclick="createPautaFromAngle(window._radarAngles[' + i + '])">+ Salvar no board</button>'
+                    + '<button class="angle-create-btn" onclick="createPostFromAngle(window._radarAngles[' + i + '])">✏ Criar publicação</button>'
                     + '</div>'
                     + '</div>'
                     + '</div>';
