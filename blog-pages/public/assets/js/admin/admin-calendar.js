@@ -1,85 +1,226 @@
 /**
- * Admin Dashboard - Editorial Calendar
+ * Admin Dashboard - Calendário Editorial
  */
 
+var CAL_EVENTS_KEY = 'mb_cal_events_v1';
+var calDate = new Date();
+
+var CAL_TYPE_LABELS = {
+    post: 'Post', video: 'Vídeo', story: 'Story',
+    email: 'E-mail', whatsapp: 'WhatsApp', reuniao: 'Reunião', outro: 'Outro'
+};
+
+var MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+              'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+
+// ── Storage ────────────────────────────────────────────────────────────────
+
+function loadCalEvents() {
+    try { return JSON.parse(localStorage.getItem(CAL_EVENTS_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveCalEvents(list) { localStorage.setItem(CAL_EVENTS_KEY, JSON.stringify(list)); }
+
+// ── Render ─────────────────────────────────────────────────────────────────
+
 function renderCalendar() {
-    const grid = document.getElementById('calendar-grid');
-    const label = document.getElementById('calendar-month-label');
+    var grid  = document.getElementById('calendar-grid');
+    var label = document.getElementById('calendar-month-label');
     if (!grid || !label) return;
-    const now = new Date();
-    
-    // Configura meses e dias
-    const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-    label.innerText = months[calDate.getMonth()] + ' de ' + calDate.getFullYear();
-    
+
+    var now   = new Date();
+    var year  = calDate.getFullYear();
+    var month = calDate.getMonth();
+
+    label.textContent = MONTHS[month] + ' de ' + year;
     grid.innerHTML = '';
-    const dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
-    dayNames.forEach(d => grid.innerHTML += `<div class="calendar-day-head">${d}</div>`);
-    
-    const year = calDate.getFullYear();
-    const month = calDate.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const prevDaysInMonth = new Date(year, month, 0).getDate();
-    
-    // Dias do mês anterior para completar o grid
-    for (let i = firstDay - 1; i >= 0; i--) {
-        grid.innerHTML += `<div class="calendar-cell other-month"><div class="calendar-day-num">${prevDaysInMonth - i}</div></div>`;
+
+    // cabeçalho dias
+    ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(function(d) {
+        var el = document.createElement('div');
+        el.className = 'calendar-day-head';
+        el.textContent = d;
+        grid.appendChild(el);
+    });
+
+    var firstDay     = new Date(year, month, 1).getDay();
+    var daysInMonth  = new Date(year, month + 1, 0).getDate();
+    var prevDays     = new Date(year, month, 0).getDate();
+
+    // carregar posts e eventos do mês
+    var posts  = typeof window.getAllPosts === 'function' ? window.getAllPosts() : [];
+    var events = loadCalEvents();
+
+    function byDate(list, key) {
+        var map = {};
+        list.forEach(function(item) {
+            var d = item[key] || '';
+            if (!map[d]) map[d] = [];
+            map[d].push(item);
+        });
+        return map;
     }
-    
-    // Dias do mês atual
-    for (let d = 1; d <= daysInMonth; d++) {
-        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-        const dayPosts = posts.filter(p => p.date === dateStr);
-        const isToday = now.toDateString() === new Date(year, month, d).toDateString();
-        
-        let pillsHtml = dayPosts.map(p => {
-            let statusClass = p.published !== false ? 'pub' : 'draft';
+    var postsByDate  = byDate(posts,  'date');
+    var eventsByDate = byDate(events, 'date');
+
+    // dias do mês anterior
+    for (var i = firstDay - 1; i >= 0; i--) {
+        var cell = document.createElement('div');
+        cell.className = 'calendar-cell other-month';
+        cell.innerHTML = '<div class="calendar-day-num">' + (prevDays - i) + '</div>';
+        grid.appendChild(cell);
+    }
+
+    // dias do mês atual
+    for (var d = 1; d <= daysInMonth; d++) {
+        var dateStr = year + '-' + pad(month + 1) + '-' + pad(d);
+        var isToday = now.toDateString() === new Date(year, month, d).toDateString();
+
+        var cell = document.createElement('div');
+        cell.className = 'calendar-cell' + (isToday ? ' today' : '');
+        cell.setAttribute('data-date', dateStr);
+        cell.innerHTML = '<div class="calendar-day-num">' + d + '</div>';
+
+        // pills de posts do blog
+        (postsByDate[dateStr] || []).forEach(function(p) {
+            var statusClass = p.published !== false ? 'pub' : 'draft';
             if (p.published !== false) {
-                const pubDate = new Date(`${p.date}T${p.time || '00:00'}:00`);
+                var pubDate = new Date(p.date + 'T' + (p.time || '00:00') + ':00');
                 if (pubDate > now) statusClass = 'sched';
             }
-            return `<div class="cal-post-pill ${statusClass}" onclick="editPost('${p.id}')" title="${esc(p.title)}">
-                <span class="cal-post-time">${p.time || '00:00'}</span> ${esc(p.title)}
-            </div>`;
-        }).join('');
-        
-        grid.innerHTML += `
-            <div class="calendar-cell ${isToday ? 'today' : ''}" onclick="if(event.target===this) prepareNewPostFromDate('${dateStr}')">
-                <div class="calendar-day-num">${d}</div>
-                ${pillsHtml}
-            </div>
-        `;
+            var pill = document.createElement('div');
+            pill.className = 'cal-post-pill ' + statusClass;
+            pill.title = p.title || '';
+            pill.innerHTML = '<span class="cal-post-time">' + (p.time || '') + '</span> ' + esc(p.title || '');
+            pill.onclick = function(e) { e.stopPropagation(); if (typeof editPost === 'function') editPost(p.id); };
+            cell.appendChild(pill);
+        });
+
+        // pills de eventos customizados
+        (eventsByDate[dateStr] || []).forEach(function(ev) {
+            var pill = document.createElement('div');
+            pill.className = 'cal-event-pill';
+            pill.setAttribute('data-type', ev.type || 'outro');
+            pill.title = ev.title + (ev.notes ? '\n' + ev.notes : '');
+            pill.innerHTML = (ev.time ? '<span class="cal-post-time">' + ev.time + '</span> ' : '') + esc(ev.title);
+            pill.onclick = function(e) { e.stopPropagation(); openCalEventModal(ev.id); };
+            cell.appendChild(pill);
+        });
+
+        // clicar no fundo do dia abre modal com data preenchida
+        cell.onclick = function(e) {
+            if (e.target === this || e.target.classList.contains('calendar-day-num')) {
+                openCalEventModal(null, this.getAttribute('data-date'));
+            }
+        };
+
+        grid.appendChild(cell);
     }
-    
-    // Completar o grid com dias do mês seguinte
-    const totalCells = firstDay + daysInMonth;
-    const extraCells = (7 - (totalCells % 7)) % 7;
-    for (let i = 1; i <= extraCells; i++) {
-        grid.innerHTML += `<div class="calendar-cell other-month"><div class="calendar-day-num">${i}</div></div>`;
+
+    // completar grid
+    var total = firstDay + daysInMonth;
+    var extra = (7 - (total % 7)) % 7;
+    for (var j = 1; j <= extra; j++) {
+        var cell = document.createElement('div');
+        cell.className = 'calendar-cell other-month';
+        cell.innerHTML = '<div class="calendar-day-num">' + j + '</div>';
+        grid.appendChild(cell);
     }
 }
 
-function prevMonth() { 
-    calDate.setMonth(calDate.getMonth() - 1); 
-    renderCalendar(); 
-}
+function pad(n) { return String(n).padStart(2, '0'); }
+function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function nextMonth() { 
-    calDate.setMonth(calDate.getMonth() + 1); 
-    renderCalendar(); 
-}
+function prevMonth() { calDate.setMonth(calDate.getMonth() - 1); renderCalendar(); }
+function nextMonth() { calDate.setMonth(calDate.getMonth() + 1); renderCalendar(); }
 
-function prepareNewPostFromDate(dateStr) {
-    if (typeof newPost === 'function') {
-        newPost();
-        const dateInput = document.getElementById('f-date');
-        if (dateInput) dateInput.value = dateStr;
+// ── Modal ─────────────────────────────────────────────────────────────────
+
+function openCalEventModal(id, prefillDate) {
+    var modal     = document.getElementById('cal-event-modal');
+    var titleEl   = document.getElementById('cal-modal-title');
+    var inputId   = document.getElementById('cal-ev-id');
+    var inputTitle = document.getElementById('cal-ev-title');
+    var inputType  = document.getElementById('cal-ev-type');
+    var inputDate  = document.getElementById('cal-ev-date');
+    var inputTime  = document.getElementById('cal-ev-time');
+    var inputNotes = document.getElementById('cal-ev-notes');
+    var deleteBtn  = document.getElementById('cal-ev-delete-btn');
+    if (!modal) return;
+
+    if (id) {
+        var ev = loadCalEvents().find(function(e) { return e.id === id; });
+        if (!ev) return;
+        titleEl.textContent     = 'Editar evento';
+        inputId.value           = id;
+        inputTitle.value        = ev.title  || '';
+        inputType.value         = ev.type   || 'outro';
+        inputDate.value         = ev.date   || '';
+        inputTime.value         = ev.time   || '';
+        inputNotes.value        = ev.notes  || '';
+        deleteBtn.style.display = 'inline-flex';
+    } else {
+        titleEl.textContent     = 'Novo evento';
+        inputId.value           = '';
+        inputTitle.value        = '';
+        inputType.value         = 'post';
+        inputDate.value         = prefillDate || '';
+        inputTime.value         = '';
+        inputNotes.value        = '';
+        deleteBtn.style.display = 'none';
     }
+
+    modal.style.display = 'flex';
+    setTimeout(function() { inputTitle.focus(); }, 50);
 }
 
-// Export to window
-window.renderCalendar = renderCalendar;
-window.prevMonth = prevMonth;
-window.nextMonth = nextMonth;
-window.prepareNewPostFromDate = prepareNewPostFromDate;
+function closeCalEventModal() {
+    var modal = document.getElementById('cal-event-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+function saveCalEvent() {
+    var id     = document.getElementById('cal-ev-id').value;
+    var title  = (document.getElementById('cal-ev-title').value  || '').trim();
+    var type   = document.getElementById('cal-ev-type').value   || 'outro';
+    var date   = document.getElementById('cal-ev-date').value   || '';
+    var time   = document.getElementById('cal-ev-time').value   || '';
+    var notes  = (document.getElementById('cal-ev-notes').value || '').trim();
+
+    if (!title) { document.getElementById('cal-ev-title').focus(); return; }
+    if (!date)  { document.getElementById('cal-ev-date').focus();  return; }
+
+    var list = loadCalEvents();
+    if (id) {
+        var idx = list.findIndex(function(e) { return e.id === Number(id); });
+        if (idx !== -1) list[idx] = { id: Number(id), title: title, type: type, date: date, time: time, notes: notes };
+    } else {
+        list.push({ id: Date.now(), title: title, type: type, date: date, time: time, notes: notes });
+    }
+    saveCalEvents(list);
+    closeCalEventModal();
+    renderCalendar();
+}
+
+function deleteCalEvent() {
+    var id = Number(document.getElementById('cal-ev-id').value);
+    if (!id) return;
+    saveCalEvents(loadCalEvents().filter(function(e) { return e.id !== id; }));
+    closeCalEventModal();
+    renderCalendar();
+}
+
+// fechar modal clicando no backdrop
+document.addEventListener('click', function(e) {
+    var modal = document.getElementById('cal-event-modal');
+    if (modal && e.target === modal) closeCalEventModal();
+});
+
+// ── Expor globais ──────────────────────────────────────────────────────────
+
+window.renderCalendar      = renderCalendar;
+window.prevMonth           = prevMonth;
+window.nextMonth           = nextMonth;
+window.openCalEventModal   = openCalEventModal;
+window.closeCalEventModal  = closeCalEventModal;
+window.saveCalEvent        = saveCalEvent;
+window.deleteCalEvent      = deleteCalEvent;
