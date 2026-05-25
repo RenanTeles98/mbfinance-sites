@@ -276,3 +276,22 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar em producao a criacao de um link novo com objetivo/status/notas, filtro na lista e duplicacao.
+
+## Sessao de 2026-05-25 - Blog publico em layout editorial
+
+Foi reorganizada a pagina publica `/blog` com uma estrutura inspirada em portais editoriais como o G1, sem banners de anuncio.
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: recriada a composicao da home do blog com barra superior, indicadores, destaques, lista de noticias e sidebar editorial.
+- `app/blog/blog.css`: substituido o layout anterior por estilos de portal de noticias, com manchete principal, cards laterais, listagem compacta e responsividade.
+- `private/blog-admin.html`: ajustado o grid dos links salvos em Campanhas para dar mais espaco entre colunas, evitando sobreposicao entre canal e status.
+- `app/api/news-feed/route.ts`: convertido o iterador de `matchAll` para array para compatibilidade do build TypeScript.
+
+Estado atual:
+- A pagina `/blog` ficou mais parecida com uma capa editorial: navegacao compacta, manchete principal, destaques visuais e lista de artigos para leitura continua.
+- A tabela de Campanhas ganhou respiro entre colunas e badges longos agora truncam corretamente.
+- `npm run build` em `blog-pages` passou com sucesso.
+- Permanecem apenas avisos preexistentes do Next sobre `<img>` em `app/blog/[slug]/page.tsx`.
+
+Proximo passo recomendado:
+- Validar visualmente `/blog` em desktop e mobile apos o deploy e conferir a tabela de Campanhas no admin publicado.

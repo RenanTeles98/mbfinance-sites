@@ -135,3 +135,17 @@
 - Decisao: manter dados operacionais dos links salvos no `localStorage` do admin.
   - Motivo: a estrutura atual dos links salvos ja usa armazenamento local; manter o padrao reduz risco e evita criar banco novo para essa rodada.
   - Alternativas consideradas: migrar tudo para Redis/servidor, descartado por ser uma mudanca maior e exigir uma estrategia de migracao dos links ja salvos.
+
+## 2026-05-25 - Capa publica do blog em formato editorial
+
+- Decisao: reorganizar `/blog` como uma capa editorial inspirada em portais de noticia, com barra compacta, indicadores, manchete principal, destaques laterais, lista de artigos e sidebar.
+  - Motivo: a referencia enviada pelo usuario valoriza escaneabilidade, hierarquia clara e leitura continua; esse formato e mais adequado para um blog de conteudo financeiro do que uma home promocional.
+  - Alternativas consideradas: copiar banners e blocos publicitarios da referencia, descartado porque o usuario pediu para ignorar anuncios e porque eles atrapalhariam o foco editorial.
+
+- Decisao: usar imagens dos posts como `background-image` nos cards da capa.
+  - Motivo: permite cortes consistentes no layout editorial e evita introduzir novos avisos de `<img>` na pagina `/blog`.
+  - Alternativas consideradas: trocar para `next/image` nesta rodada, descartado para manter a mudanca concentrada no layout da capa sem mexer no contrato de dados dos posts.
+
+- Decisao: aumentar o respiro entre as colunas da tabela de Campanhas e truncar badges longos de canal.
+  - Motivo: os prints mostravam sobreposicao visual entre "Canal" e "Status" quando o nome do canal era comprido.
+  - Alternativas consideradas: reduzir o texto do canal no JavaScript, descartado porque esconderia informacao util; o CSS deve acomodar nomes longos.

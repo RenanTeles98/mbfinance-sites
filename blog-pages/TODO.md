@@ -2,6 +2,7 @@
 
 ## Prioridade atual - Admin
 
+- Validar o novo espacamento das colunas da lista de links salvos em Campanhas no admin publicado.
 - Publicar os ajustes visuais de icones/espacamentos do admin e validar `/admin` em producao.
 - Conferir os campos `select` no painel publicado para confirmar a seta com espaçamento correto.
 - Validar a contagem de cliques dos links encurtados na aba "Campanhas" apos o deploy.
@@ -13,6 +14,7 @@
 
 ## Prioridade atual - Performance do blog
 
+- Validar a nova capa publica `/blog` em desktop e mobile apos o deploy.
 - Publicar os ajustes de CLS do hero do blog.
 - Rodar PageSpeed novamente na URL publica do blog apos deploy.
 - Se ainda houver CLS, investigar o trace do PageSpeed para confirmar se a causa restante vem de fonte, imagem ou conteudo injetado.

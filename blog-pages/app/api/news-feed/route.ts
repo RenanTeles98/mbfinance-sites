@@ -35,7 +35,7 @@ function stripHtml(raw: string): string {
 
 function parseRss(xml: string, sourceName: string, sourceColor: string): NewsItem[] {
     const items: NewsItem[] = [];
-    const matches = xml.matchAll(/<item>([\s\S]*?)<\/item>/g);
+    const matches = Array.from(xml.matchAll(/<item>([\s\S]*?)<\/item>/g));
 
     for (const m of matches) {
         const block = m[1];

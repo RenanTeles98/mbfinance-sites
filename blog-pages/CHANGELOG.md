@@ -2,6 +2,8 @@
 
 ## 2026-05-25
 
+- Reorganizada a capa publica `/blog` com layout editorial inspirado em portal de noticias, sem banners de anuncio.
+- Corrigido o espacamento das colunas da lista de links salvos em Campanhas.
 - Evoluida a tela Campanhas com resumo, filtros, status, objetivo, notas, duplicacao e barras de cliques.
 - Adicionada confirmacao dupla para excluir links salvos em Campanhas.
 - Corrigido o F5 do admin para manter a aba ativa aberta.

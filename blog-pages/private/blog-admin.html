@@ -397,8 +397,8 @@
         .camp-btn:disabled { opacity: 0.4; cursor: default; }
         .camp-list-toolbar { display: grid; grid-template-columns: minmax(180px, 1fr) 150px 140px 150px; gap: 10px; margin-bottom: 18px; }
         .camp-saved-table { display: flex; flex-direction: column; gap: 0; }
-        .camp-saved-header { display: grid; grid-template-columns: 1.8fr 110px 1.4fr 90px 100px 130px; gap: 28px; padding: 0 0 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; border-bottom: 1px solid #e2e8f0; }
-        .camp-saved-row { display: grid; grid-template-columns: 1.8fr 110px 1.4fr 90px 100px 130px; gap: 28px; align-items: center; padding: 16px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+        .camp-saved-header { display: grid; grid-template-columns: minmax(220px,1.6fr) 88px minmax(180px,1fr) 112px 110px 168px; gap: 18px; padding: 0 0 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; border-bottom: 1px solid #e2e8f0; }
+        .camp-saved-row { display: grid; grid-template-columns: minmax(220px,1.6fr) 88px minmax(180px,1fr) 112px 110px 168px; gap: 18px; align-items: center; padding: 16px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
         .camp-saved-row:last-child { border-bottom: none; }
         .camp-saved-name { font-weight: 700; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .camp-saved-detail { font-size: 11px; color: #94a3b8; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -414,7 +414,7 @@
         .camp-action-btn:hover { background: #eff9ff; border-color: #0099dd; }
         .camp-del-btn:hover { background: #fee2e2 !important; border-color: #fca5a5 !important; }
         .camp-confirm-del-btn { background: #fee2e2; border-color: #fca5a5; color: #991b1b; padding: 7px 12px; }
-        .camp-channel-badge { background: #eff9ff; color: #0099dd; border: 1px solid rgba(0,153,221,0.2); font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+        .camp-channel-badge { display: inline-block; max-width: 100%; background: #eff9ff; color: #0099dd; border: 1px solid rgba(0,153,221,0.2); font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
         .camp-status-badge { display: inline-flex; align-items: center; justify-content: center; width: fit-content; font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 999px; border: 1px solid #e2e8f0; white-space: nowrap; }
         .camp-status-active { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
         .camp-status-paused { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }

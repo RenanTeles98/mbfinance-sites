@@ -8,17 +8,24 @@ import "@/app/blog/blog.css";
 
 const filters = [
   { label: "Todos", value: "todos" },
-  { label: "Crédito Empresarial", value: "credito" },
-  { label: "Gestão Financeira", value: "gestao" },
+  { label: "Crédito", value: "credito" },
+  { label: "Gestão", value: "gestao" },
   { label: "Conta PJ", value: "conta-pj" },
   { label: "Antecipação", value: "antecipacao" },
-  { label: "Gestão Tributária", value: "gestao-tributaria" },
+  { label: "Tributos", value: "gestao-tributaria" },
+];
+
+const marketItems = [
+  { label: "Capital de giro", value: "a partir de 1,39% a.m.", trend: "up" },
+  { label: "Antecipação", value: "receba em até 24h", trend: "up" },
+  { label: "Conta PJ", value: "compare custos", trend: "neutral" },
+  { label: "Fluxo de caixa", value: "projeção 90 dias", trend: "neutral" },
 ];
 
 function formatDate(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString("pt-BR", {
     day: "2-digit",
-    month: "long",
+    month: "short",
     year: "numeric",
   });
 }
@@ -39,31 +46,37 @@ function imageStyle(image?: string) {
     : { background: "linear-gradient(135deg,#003956,#0099dd)" };
 }
 
+function ArticleMeta({ post }: { post: BlogPost }) {
+  return (
+    <div className="article-meta">
+      <span>{formatDate(post.date)}</span>
+      <span>{post.readTime}</span>
+    </div>
+  );
+}
+
 export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("todos");
   const [email, setEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const featured = posts.find((post) => post.featured) || posts[0] || null;
-  const gridPosts = posts.filter((post) => post.id !== featured?.id);
-
-  const visibleFeatured =
-    featured &&
-    (category === "todos" || featured.category === category) &&
-    matchesSearch(featured, query)
-      ? featured
-      : null;
-
-  const visibleGridPosts = useMemo(
+  const visiblePosts = useMemo(
     () =>
-      gridPosts.filter(
+      posts.filter(
         (post) =>
           (category === "todos" || post.category === category) &&
           matchesSearch(post, query)
       ),
-    [category, gridPosts, query]
+    [category, posts, query]
   );
+
+  const leadPost = visiblePosts.find((post) => post.featured) || visiblePosts[0] || null;
+  const secondaryPosts = visiblePosts.filter((post) => post.id !== leadPost?.id).slice(0, 2);
+  const listPosts = visiblePosts
+    .filter((post) => post.id !== leadPost?.id && !secondaryPosts.some((item) => item.id === post.id));
+  const sidebarPosts = posts.filter((post) => post.id !== leadPost?.id).slice(0, 5);
+  const hasResults = visiblePosts.length > 0;
 
   async function handleNewsletterSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -75,9 +88,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         body: JSON.stringify({ email }),
       });
       const data = await response.json();
-      if (!response.ok || !data.ok) {
-        throw new Error(data.error || "Erro ao inscrever");
-      }
+      if (!response.ok || !data.ok) throw new Error(data.error || "Erro ao inscrever");
       pushAnalyticsEvent("newsletter_submit", {
         form_name: "blog_index_newsletter",
         source_area: "blog_index",
@@ -96,58 +107,61 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
   function trackSearch() {
     const searchTerm = query.trim();
     if (!searchTerm) return;
-
     pushAnalyticsEvent("blog_search", {
       search_term: searchTerm,
-      results_count: Number(visibleFeatured ? 1 : 0) + visibleGridPosts.length,
+      results_count: visiblePosts.length,
     });
     pushAnalyticsEvent("search", {
       search_term: searchTerm,
     });
   }
 
-  const hasResults = Boolean(visibleFeatured) || visibleGridPosts.length > 0;
-
   return (
     <main className="blog-page">
+      <div className="network-strip">
+        <div className="blog-shell network-strip-inner">
+          <a href={mainSiteUrl("/")}>mbfinance.com.br</a>
+          <a href={mainSiteUrl("/#produtos")}>Produtos</a>
+          <a href={mainSiteUrl("/#como-funciona")}>Como funciona</a>
+          <a href={mainSiteUrl("/#contato")}>Atendimento</a>
+        </div>
+      </div>
+
       <nav className="blog-nav">
         <div className="blog-nav-inner">
-          <a href={mainSiteUrl("/")} className="blog-logo-link">
-            <img src="/images/logo-horizontal-logo.branca.png" alt="mb finance" width="146" height="36" />
+          <a href={mainSiteUrl("/")} className="blog-logo-link" aria-label="MB Finance">
+            <span>mb<span>finance.</span></span>
           </a>
-          <a href={mainSiteUrl("/")} className="blog-back">
-            <span aria-hidden="true">←</span>
-            Voltar ao site
-          </a>
+          <strong>Negócios</strong>
+          <div className="blog-nav-actions">
+            <div className="search-box">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.3" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+              </svg>
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") trackSearch();
+                }}
+                type="search"
+                placeholder="Buscar"
+                aria-label="Buscar no blog"
+              />
+            </div>
+            <a href={mainSiteUrl("/")} className="blog-back">Ver site oficial</a>
+          </div>
         </div>
       </nav>
 
-      <section className="blog-hero">
-        <div className="blog-shell">
-          <div className="hero-tag">Conteúdo exclusivo</div>
-          <h1 className="hero-title">
-            Inteligência financeira para
-            <br />
-            <span>o seu negócio crescer</span>
-          </h1>
-          <p className="hero-sub">
-            Guias práticos sobre crédito, liquidez, conta PJ e gestão para ajudar empresários a tomar decisões melhores todos os meses.
-          </p>
-          <div className="search-box">
-            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-            </svg>
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") trackSearch();
-              }}
-              type="text"
-              placeholder="Buscar artigos, temas ou palavras-chave..."
-            />
-            <button type="button" onClick={trackSearch}>Buscar</button>
-          </div>
+      <section className="market-strip" aria-label="Indicadores e atalhos">
+        <div className="blog-shell market-strip-inner">
+          {marketItems.map((item) => (
+            <div className="market-item" key={item.label}>
+              <span>{item.label}</span>
+              <strong className={`trend-${item.trend}`}>{item.value}</strong>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -167,93 +181,117 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
       </div>
 
       <section className="blog-shell blog-main">
-        <div className="intro-banner">
-          <div>
-            <h3>{posts.length} artigos publicados no blog</h3>
-            <p>Conteúdo sobre crédito empresarial, gestão financeira e soluções para fazer o seu negócio crescer.</p>
+        <div className="section-kicker">
+          <span>MB Finance</span>
+          <strong>{posts.length} análises publicadas</strong>
+        </div>
+
+        {hasResults && leadPost ? (
+          <section className="top-news-grid">
+            <a
+              className="lead-story"
+              href={`/blog/${leadPost.slug}`}
+              data-cat={leadPost.category}
+              data-analytics-label={leadPost.title}
+              data-analytics-area="lead_story"
+            >
+              <p className="article-category">{leadPost.categoryLabel}</p>
+              <h1>{leadPost.title}</h1>
+              <p>{leadPost.excerpt}</p>
+              <ArticleMeta post={leadPost} />
+            </a>
+
+            <div className="side-feature-stack">
+              {secondaryPosts.map((post) => (
+                <a
+                  key={post.id}
+                  className="side-feature-card"
+                  href={`/blog/${post.slug}`}
+                  style={imageStyle(post.image)}
+                  data-cat={post.category}
+                  data-analytics-label={post.title}
+                  data-analytics-area="side_feature"
+                >
+                  <span>{post.categoryLabel}</span>
+                  <h2>{post.title}</h2>
+                </a>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <div className="no-results">Nenhum artigo encontrado para esta busca.</div>
+        )}
+
+        {hasResults ? (
+          <div className="content-layout">
+            <section className="news-list" aria-label="Artigos recentes">
+              {listPosts.map((post) => (
+                <a
+                  key={post.id}
+                  className="news-row"
+                  href={`/blog/${post.slug}`}
+                  data-cat={post.category}
+                  data-analytics-label={post.title}
+                  data-analytics-area="news_list"
+                >
+                  <div className="news-thumb" style={imageStyle(post.image)} />
+                  <div className="news-row-content">
+                    <p className="article-category">{post.categoryLabel}</p>
+                    <h2>{post.title}</h2>
+                    <p>{post.excerpt}</p>
+                    <ArticleMeta post={post} />
+                  </div>
+                </a>
+              ))}
+            </section>
+
+            <aside className="blog-sidebar">
+              <section className="sidebar-card">
+                <h3>Guias rápidos</h3>
+                <div className="quick-links">
+                  {sidebarPosts.map((post) => (
+                    <a key={post.id} href={`/blog/${post.slug}`}>
+                      {post.title}
+                    </a>
+                  ))}
+                </div>
+              </section>
+
+              <section className="sidebar-card newsletter-card">
+                <h3>Receba análises</h3>
+                <p>Conteúdos sobre crédito, caixa e gestão direto no seu e-mail.</p>
+                <form onSubmit={handleNewsletterSubmit} className="newsletter-form">
+                  <input
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    type="email"
+                    placeholder="seu@email.com.br"
+                    required
+                  />
+                  <button disabled={newsletterStatus === "loading"} type="submit">
+                    {newsletterStatus === "loading" ? "Enviando..." : "Cadastrar"}
+                  </button>
+                </form>
+                {newsletterStatus === "success" ? <small>Cadastro realizado com sucesso.</small> : null}
+                {newsletterStatus === "error" ? <small>Não foi possível cadastrar agora. Tente novamente.</small> : null}
+              </section>
+
+              <section className="sidebar-card">
+                <h3>Editorias</h3>
+                <div className="topic-grid">
+                  {filters.slice(1).map((item) => (
+                    <button key={item.value} type="button" onClick={() => setCategory(item.value)}>
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </section>
+            </aside>
           </div>
-          <span>Ao vivo</span>
-        </div>
-
-        {visibleFeatured ? (
-          <>
-            <p className="section-title">Destaque</p>
-            <a
-              className="featured-card"
-              href={`/blog/${visibleFeatured.slug}`}
-              data-cat={visibleFeatured.category}
-              data-analytics-label={visibleFeatured.title}
-              data-analytics-area="featured_post"
-            >
-              <div className="featured-image" style={imageStyle(visibleFeatured.image)}>
-                <div className="featured-image-overlay" />
-                <span>Artigo em destaque</span>
-              </div>
-              <div className="featured-content">
-                <p className="article-category">{visibleFeatured.categoryLabel}</p>
-                <h2>{visibleFeatured.title}</h2>
-                <p className="featured-excerpt">{visibleFeatured.excerpt}</p>
-                <div className="article-meta">
-                  <span>{formatDate(visibleFeatured.date)}</span>
-                  <span>{visibleFeatured.readTime}</span>
-                </div>
-                <strong className="read-btn">
-                  Ler artigo
-                  <span aria-hidden="true">→</span>
-                </strong>
-              </div>
-            </a>
-          </>
         ) : null}
-
-        <p className="section-title">Artigos recentes</p>
-        <div className="posts-grid">
-          {visibleGridPosts.map((post) => (
-            <a
-              key={post.id}
-              className="post-card"
-              href={`/blog/${post.slug}`}
-              data-cat={post.category}
-              data-analytics-label={post.title}
-              data-analytics-area="recent_posts"
-            >
-              <div className="card-thumb" style={imageStyle(post.image)} />
-              <div className="card-body">
-                <p className="card-category">{post.categoryLabel}</p>
-                <h3>{post.title}</h3>
-                <p>{post.excerpt}</p>
-                <div className="card-footer">
-                  <span>{post.readTime}</span>
-                  <strong>Ler agora</strong>
-                </div>
-              </div>
-            </a>
-          ))}
-          {!hasResults ? <div className="no-results">Nenhum artigo encontrado para esta busca.</div> : null}
-        </div>
-
-        <section className="newsletter-box">
-          <h2>Receba os melhores conteúdos</h2>
-          <p>Análises e guias sobre finanças empresariais direto no seu e-mail.</p>
-          <form onSubmit={handleNewsletterSubmit} className="newsletter-form">
-            <input
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              type="email"
-              placeholder="seu@email.com.br"
-              required
-            />
-            <button disabled={newsletterStatus === "loading"} type="submit">
-              {newsletterStatus === "loading" ? "Enviando..." : "Quero receber"}
-            </button>
-          </form>
-          {newsletterStatus === "success" ? <small>Cadastro realizado com sucesso.</small> : null}
-          {newsletterStatus === "error" ? <small>Não foi possível cadastrar agora. Tente novamente.</small> : null}
-        </section>
       </section>
 
       <BlogFooter />
-
     </main>
   );
 }
@@ -264,11 +302,9 @@ function BlogFooter() {
       <div className="blog-shell">
         <div className="footer-grid">
           <div className="footer-col">
-            <a href={mainSiteUrl("/")} className="footer-logo">
-              <img src="/images/logo-horizontal-logo.branca.png" alt="mb finance" />
-            </a>
+            <a href={mainSiteUrl("/")} className="footer-logo">mb<span>finance.</span></a>
             <p className="footer-bio">
-              Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado. Seu elo estratégico com as principais instituições bancárias do Brasil.
+              Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado.
             </p>
             <div className="footer-social">
               <a href="https://www.linkedin.com/company/mbfassessoria/?viewAsMember=true" target="_blank" rel="noopener noreferrer">in</a>
@@ -281,25 +317,18 @@ function BlogFooter() {
             <ul>
               <li><a href={mainSiteUrl("/#produtos")}>Conta Corrente Empresarial</a></li>
               <li><a href={mainSiteUrl("/#produtos")}>Máquina de Cartão</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Seguros e Consórcios</a></li>
               <li><a href={mainSiteUrl("/#produtos")}>Crédito Rápido</a></li>
               <li><a href={mainSiteUrl("/#produtos")}>Soluções Tributárias</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Telemedicina</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Soluções Personalizadas</a></li>
             </ul>
           </div>
 
           <div className="footer-col">
             <h4>Empresa</h4>
             <ul>
-              <li><a href={mainSiteUrl("/#como-funciona")}>Como Funciona</a></li>
-              <li><a href="https://mbfinance.inhire.app/vagas">Trabalhe Conosco</a></li>
-              <li><a href={mainSiteUrl("/")}>Seja um Parceiro</a></li>
-            </ul>
-            <h4 style={{ marginTop: 44 }}>Legal</h4>
-            <ul>
-              <li><a href={mainSiteUrl("/pages/politica-de-privacidade.html")}>Política de Privacidade</a></li>
-              <li><a href={mainSiteUrl("/pages/termos-de-uso.html")}>Termos de Uso</a></li>
+              <li><a href={mainSiteUrl("/#como-funciona")}>Como funciona</a></li>
+              <li><a href="https://mbfinance.inhire.app/vagas">Trabalhe conosco</a></li>
+              <li><a href={mainSiteUrl("/pages/politica-de-privacidade.html")}>Política de privacidade</a></li>
+              <li><a href={mainSiteUrl("/pages/termos-de-uso.html")}>Termos de uso</a></li>
             </ul>
           </div>
 
@@ -308,15 +337,11 @@ function BlogFooter() {
             <span className="footer-phone">(21) 3900-8295</span>
             <span className="footer-hours">Seg - Sex: 9h às 18h</span>
             <p><a href="mailto:atendimento@mbfinance.com.br">atendimento@mbfinance.com.br</a></p>
-            <p>
-              Av. Rio Branco, 110 - 30º andar<br />
-              Centro, Rio de Janeiro - RJ<br />
-              CEP: 20040-006
-            </p>
+            <p>Av. Rio Branco, 110 - 30º andar<br />Centro, Rio de Janeiro - RJ</p>
           </div>
         </div>
         <div className="footer-bottom">
-          © 2026 MB Assessoria e Estruturação de Negócios LTDA. CNPJ: 26.388.817/0001-72. Todos os direitos reservados.
+          © 2026 MB Assessoria e Estruturação de Negócios LTDA. Todos os direitos reservados.
         </div>
       </div>
     </footer>
