@@ -4,25 +4,13 @@ import { verifySession, COOKIE_NAME } from '@/lib/admin-auth';
 export const dynamic = 'force-dynamic';
 
 const CATEGORY_THEMES: Record<string, string> = {
-    'credito': 'business loan approval, money flow, financial growth charts, coins and banknotes',
-    'gestao': 'financial management dashboard, cash flow charts, business planning, spreadsheets',
-    'conta-pj': 'digital banking, smartphone with banking app, modern corporate bank account',
-    'mercado': 'Brazilian economy, financial market, stock charts, business news',
-    'antecipacao': 'cash advance, receivables, credit card machine, instant payment',
-    'noticias': 'financial news, Brazilian business, economy headlines',
+    'credito': 'fluxo de dinheiro, aprovação de crédito, crescimento financeiro, moedas e notas',
+    'gestao': 'dashboard financeiro, gráficos de fluxo de caixa, planejamento empresarial',
+    'conta-pj': 'banco digital, app bancário no smartphone, conta empresarial moderna',
+    'mercado': 'mercado financeiro brasileiro, gráficos de ações, notícias de negócios',
+    'antecipacao': 'antecipação de recebíveis, maquininha de cartão, pagamento instantâneo',
+    'noticias': 'economia brasileira, notícias financeiras, empresas e negócios',
 };
-
-function buildPrompt(title: string, category: string): string {
-    const theme = CATEGORY_THEMES[category] || 'Brazilian business finance, corporate, professional';
-
-    return `Professional blog cover image for a Brazilian financial company called MB Finance.
-Theme: ${theme}. Inspired by the article title: "${title}".
-Visual style: modern flat illustration, clean fintech design, dark navy blue background (#003956),
-accents of sky blue (#0099dd) and white. Abstract geometric shapes, subtle grid lines,
-glowing light effects. Professional and trustworthy mood.
-No text, no letters, no words, no logos.
-Widescreen 16:9 composition. High quality, sharp, corporate fintech aesthetic.`.replace(/\n/g, ' ');
-}
 
 export async function POST(req: NextRequest) {
     const token = req.cookies.get(COOKIE_NAME)?.value;
@@ -30,8 +18,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    if (!process.env.FAL_KEY) {
-        return NextResponse.json({ error: 'FAL_KEY não configurada no servidor.' }, { status: 503 });
+    if (!process.env.GROQ_API_KEY) {
+        return NextResponse.json({ error: 'GROQ_API_KEY não configurada no servidor.' }, { status: 503 });
     }
 
     const body = await req.json().catch(() => null);
@@ -40,36 +28,52 @@ export async function POST(req: NextRequest) {
     }
 
     const { title, category = '' } = body;
-    const prompt = buildPrompt(title, category);
+    const categoryTheme = CATEGORY_THEMES[category] || 'finanças empresariais, negócios, corporativo';
 
-    const response = await fetch('https://fal.run/fal-ai/flux/schnell', {
+    const systemPrompt = `Você é especialista em criar prompts para geração de imagens com DALL-E 3.
+Sempre gera prompts em inglês, detalhados, otimizados para DALL-E 3.
+A identidade visual da MB Finance é: fundo azul marinho escuro (#003956), acentos em azul claro (#0099dd) e branco, estilo flat illustration moderno, estética fintech clean e profissional.
+NUNCA incluir texto, letras, palavras ou logos na imagem.`;
+
+    const userPrompt = `Crie um prompt DALL-E 3 para a capa de um artigo de blog com o título: "${title}"
+Tema visual do artigo: ${categoryTheme}
+
+O prompt deve:
+- Descrever uma ilustração flat moderna, estilo fintech/corporativo
+- Usar fundo azul marinho escuro com acentos em azul claro e branco
+- Incluir elementos visuais que representem o tema do artigo
+- Ser composição widescreen 16:9
+- NÃO incluir texto, letras ou logos
+- Ser em inglês, detalhado e direto
+
+Retorne APENAS o prompt, sem explicações, sem aspas, sem prefixo.`;
+
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
-            'authorization': `Key ${process.env.FAL_KEY}`,
+            'authorization': `Bearer ${process.env.GROQ_API_KEY}`,
         },
         body: JSON.stringify({
-            prompt,
-            image_size: 'landscape_16_9',
-            num_inference_steps: 4,
-            num_images: 1,
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt },
+            ],
+            max_tokens: 300,
+            temperature: 0.7,
         }),
     });
 
     if (!response.ok) {
         const err = await response.text();
-        console.error('[generate-image] fal.ai error:', err);
         let detail = '';
-        try { detail = JSON.parse(err)?.detail || err; } catch { detail = err; }
-        return NextResponse.json({ error: 'Erro ao gerar imagem: ' + detail }, { status: 502 });
+        try { detail = JSON.parse(err)?.error?.message || err; } catch { detail = err; }
+        return NextResponse.json({ error: 'Erro ao gerar prompt: ' + detail }, { status: 502 });
     }
 
     const data = await response.json();
-    const imageUrl = data?.images?.[0]?.url;
+    const prompt = (data.choices?.[0]?.message?.content || '').trim();
 
-    if (!imageUrl) {
-        return NextResponse.json({ error: 'Nenhuma imagem retornada pela IA.' }, { status: 500 });
-    }
-
-    return NextResponse.json({ url: imageUrl });
+    return NextResponse.json({ prompt });
 }
