@@ -823,11 +823,18 @@
                 <div class="field-group">
                     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
                         <label class="field-label" style="margin-bottom:0;">Conteúdo do artigo</label>
-                        <button type="button" class="magic-btn" style="padding: 6px 12px; font-size: 11px; border-radius: 8px;" onclick="writeWithAI()">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
-                            Escrever com IA
+                        <button type="button" id="btn-write-ai" class="magic-btn" style="padding: 6px 12px; font-size: 11px; border-radius: 8px;" onclick="writeWithAI()">
+                            <svg id="btn-write-ai-icon" width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                            <span id="btn-write-ai-label">Escrever com IA</span>
                         </button>
                     </div>
+                    <div id="ai-article-loading" style="display:none;background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:8px;padding:28px 20px;text-align:center;margin-bottom:8px;">
+                        <div style="display:flex;align-items:center;justify-content:center;gap:10px;color:#0369a1;font-size:13px;font-weight:600;">
+                            <svg width="18" height="18" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24" style="animation:spin 1s linear infinite"><path stroke-linecap="round" d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                            Gerando artigo com IA… isso pode levar alguns segundos
+                        </div>
+                    </div>
+                    <div id="ai-article-error" style="display:none;background:#fef2f2;border:1.5px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:8px;font-size:13px;color:#dc2626;"></div>
                     <div class="editor-wrap">
                         <div class="editor-toolbar">
                             <button class="tb-btn" onclick="cmd('bold')" title="Negrito"><b>N</b></button>
@@ -2242,6 +2249,72 @@ function createPostFromAngle(a) {
         renderPautasBoard();
         createPostFromPauta(id);
     } catch(e) { console.error('[createPostFromAngle]', e); }
+}
+
+async function writeWithAI() {
+    var title = (document.getElementById('f-title') || {}).value || '';
+    if (!title.trim()) {
+        alert('Preencha o Título antes de gerar o conteúdo com IA.');
+        return;
+    }
+
+    var category = (document.getElementById('f-category') || {}).value || '';
+    var pautaId = (document.getElementById('f-pauta-id') || {}).value || '';
+
+    // Try to get keyword and notes from pauta
+    var keyword = '', notes = '', awarenessLevel = '';
+    if (pautaId) {
+        var pautas = loadPautas();
+        var pauta = pautas.find(function(p) { return p.id === pautaId; });
+        if (pauta) {
+            notes = pauta.notes || '';
+            keyword = pauta.keyword || '';
+        }
+    }
+
+    var btn = document.getElementById('btn-write-ai');
+    var label = document.getElementById('btn-write-ai-label');
+    var loading = document.getElementById('ai-article-loading');
+    var errBox = document.getElementById('ai-article-error');
+    var editor = document.getElementById('editor-content');
+
+    // Check if editor already has content
+    if (editor && editor.innerText.trim().length > 20) {
+        if (!confirm('O editor já tem conteúdo. Deseja substituir pelo texto gerado pela IA?')) return;
+    }
+
+    btn.disabled = true;
+    label.textContent = 'Gerando…';
+    loading.style.display = '';
+    errBox.style.display = 'none';
+
+    try {
+        var res = await fetch('/api/generate-article', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ title: title, category: category, keyword: keyword, notes: notes, awarenessLevel: awarenessLevel }),
+        });
+        var data = await res.json();
+        if (!res.ok || data.error) {
+            errBox.textContent = '⚠ ' + (data.error || 'Erro ao gerar artigo.');
+            errBox.style.display = '';
+        } else if (data.html) {
+            editor.innerHTML = data.html;
+            editor.focus();
+            // Auto-fill read time estimate (~200 words/min)
+            var wordCount = editor.innerText.split(/\s+/).filter(Boolean).length;
+            var mins = Math.max(1, Math.round(wordCount / 200));
+            var rt = document.getElementById('f-readtime');
+            if (rt && !rt.value) rt.value = mins + ' min';
+        }
+    } catch(e) {
+        errBox.textContent = '⚠ Erro de conexão: ' + e.message;
+        errBox.style.display = '';
+    } finally {
+        btn.disabled = false;
+        label.textContent = 'Escrever com IA';
+        loading.style.display = 'none';
+    }
 }
 
 function showRadarToast(msg) {
