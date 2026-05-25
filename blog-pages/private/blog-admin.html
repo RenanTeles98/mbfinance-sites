@@ -43,7 +43,7 @@
         .auth-error { color: #ef4444; font-size: 13px; margin-top: 10px; display: none; }
 
         /* LAYOUT */
-        #admin-app { display: flex; flex-direction: column; min-height: 100vh; }
+        #admin-app { display: none; flex-direction: column; min-height: 100vh; }
         #topbar { height: 60px; background: #003956; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 100; flex-shrink: 0; }
         .topbar-logo { font-size: 18px; font-weight: 900; }
         .topbar-logo span:first-child { color: #fff; }
@@ -431,11 +431,11 @@
             background-size: 200% 100%; animation: shimmer 1.5s infinite;
         }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .admin-screen { display: none; width: 100%; overflow: auto; }
-        .admin-screen.active { display: block; min-height: calc(100vh - 60px - 48px); }
+        .admin-screen { display: none; width: 100%; height: 100%; overflow: auto; }
+        .admin-screen.active { display: block; }
 
         /* BLOG SCREEN — 3 colunas */
-        #screen-posts.active { display: flex; flex-direction: row; height: calc(100vh - 60px - 48px); overflow: hidden; min-height: unset; }
+        #screen-posts.active { display: flex; flex-direction: row; height: calc(100vh - 60px - 48px); overflow: hidden; }
 
         /* LEFT NAV */
         #blog-left-nav { width: 180px; background: #fff; border-right: 1px solid #e2e8f0; flex-shrink: 0; display: flex; flex-direction: column; padding: 16px 10px; gap: 2px; overflow-y: auto; }
