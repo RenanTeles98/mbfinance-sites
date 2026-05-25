@@ -329,3 +329,20 @@ Estado atual:
 
 Proximo passo recomendado:
 - Conferir `/blog` publicado para validar contraste e hierarquia visual dos titulos em azul marinho.
+
+## Sessao de 2026-05-25 - Card Mais acessadas no blog
+
+Foi ajustado o card lateral da capa publica do blog para ficar mais editorial.
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: o card "Guias rapidos" passou a ser "Mais acessadas" e a lista virou ranking numerado.
+- `app/blog/blog.css`: adicionados estilos para o card de ranking com marcador azul, numeracao e alinhamento dos links.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- A sidebar do `/blog` apresenta os posts recomendados como "Mais acessadas", com leitura mais proxima de portal editorial.
+- A fonte dos itens continua sendo a lista de posts recomendados/destacados, nao analytics real de audiencia.
+- `npm run build` em `blog-pages` passou com sucesso.
+
+Proximo passo recomendado:
+- Quando houver dados de analytics por post disponiveis, trocar a ordenacao desse card para ranking real de acessos.

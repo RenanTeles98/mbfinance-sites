@@ -2,6 +2,7 @@
 
 ## 2026-05-25
 
+- Transformado o card lateral "Guias rapidos" em "Mais acessadas" com ranking numerado.
 - Substituidos os titulos vermelhos da capa `/blog` pelo azul marinho da MB Finance.
 - Restaurada a hero anterior da pagina publica `/blog`, mantendo a nova listagem editorial abaixo.
 - Reorganizada a capa publica `/blog` com layout editorial inspirado em portal de noticias, sem banners de anuncio.

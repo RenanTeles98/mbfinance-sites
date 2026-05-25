@@ -234,15 +234,18 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
             </section>
 
             <aside className="blog-sidebar">
-              <section className="sidebar-card">
-                <h3>Guias rápidos</h3>
-                <div className="quick-links">
-                  {sidebarPosts.map((post) => (
-                    <a key={post.id} href={`/blog/${post.slug}`}>
-                      {post.title}
-                    </a>
+              <section className="sidebar-card hot-news-card">
+                <h3>Mais acessadas</h3>
+                <ol className="quick-links hot-links">
+                  {sidebarPosts.map((post, index) => (
+                    <li key={post.id}>
+                      <a href={`/blog/${post.slug}`}>
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <strong>{post.title}</strong>
+                      </a>
+                    </li>
                   ))}
-                </div>
+                </ol>
               </section>
 
               <section className="sidebar-card newsletter-card">

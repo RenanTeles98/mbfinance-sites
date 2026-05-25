@@ -165,3 +165,13 @@
 - Decisao: substituir o vermelho dos titulos da capa publica do blog por azul marinho `#003956`.
   - Motivo: vermelho remetia a identidade do G1 e nao faz parte da linguagem visual principal da MB Finance.
   - Alternativas consideradas: usar azul claro `#0099dd`, descartado para titulos longos porque o marinho tem melhor legibilidade e peso editorial.
+
+## 2026-05-25 - Card lateral como Mais acessadas
+
+- Decisao: renomear o card "Guias rapidos" para "Mais acessadas" e exibir os links como ranking numerado.
+  - Motivo: a capa do blog agora tem linguagem de portal editorial; "Mais acessadas" e mais familiar para leitores do que "Guias rapidos".
+  - Alternativas consideradas: usar "Noticias quentes", descartado por soar mais sensacionalista e menos adequado ao tom financeiro da MB Finance.
+
+- Decisao: manter a lista alimentada pelos posts recomendados ate haver ranking real por analytics.
+  - Motivo: evita prometer uma ordenacao baseada em audiencia sem dados confiaveis por post.
+  - Alternativas consideradas: criar numeros falsos de acessos, descartado por prejudicar confiabilidade editorial.
