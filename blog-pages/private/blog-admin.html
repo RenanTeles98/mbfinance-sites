@@ -537,6 +537,8 @@
         .pauta-btn { border: none; background: transparent; cursor: pointer; color: #94a3b8; padding: 3px 5px; border-radius: 5px; font-size: 11px; font-weight: 700; transition: all 0.15s; }
         .pauta-btn:hover { color: #0099dd; background: #eff9ff; }
         .pauta-btn.del:hover { color: #ef4444; background: #fef2f2; }
+        .pauta-btn.create { color: #0099dd; border: 1px solid #bae6fd; background: #f0f9ff; }
+        .pauta-btn.create:hover { background: #0099dd; color: #fff; border-color: #0099dd; }
         #add-pauta-modal { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
         #add-pauta-modal.open { display: flex; }
         .pauta-modal-card { background: #fff; border-radius: 16px; padding: 28px; width: 460px; max-width: 90vw; box-shadow: 0 24px 80px rgba(0,0,0,0.2); }
@@ -677,6 +679,13 @@
                         <button class="btn-delete" id="btn-delete" onclick="deleteCurrentPost()" style="display:none">Excluir</button>
                         <button class="btn-save" onclick="savePost()">Salvar</button>
                     </div>
+                </div>
+
+                <input type="hidden" id="f-pauta-id">
+                <div id="pauta-origem-banner" style="display:none;background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:10px 14px;margin-bottom:12px;align-items:center;gap:10px;font-size:12px;color:#0369a1;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    <span>Originado da pauta: <strong id="pauta-origem-title" style="color:#0c4a6e;"></strong></span>
+                    <button onclick="switchBlogSection('pautas')" style="margin-left:auto;font-size:11px;font-weight:600;color:#0369a1;background:none;border:1px solid #7dd3fc;border-radius:6px;padding:4px 10px;cursor:pointer;">Ver pauta →</button>
                 </div>
 
                 <div class="field-group">
@@ -1906,6 +1915,7 @@ function savePautasStorage(list) { localStorage.setItem(PAUTAS_KEY, JSON.stringi
 
 function renderPautasBoard() {
     var list = loadPautas();
+    var allPosts = (window.posts && Array.isArray(window.posts)) ? window.posts : [];
     var statuses = [
         { key: 'ideia',     label: 'Ideia',        cls: '' },
         { key: 'producao',  label: 'Em produção',   cls: 'col-producao' },
@@ -1920,15 +1930,28 @@ function renderPautasBoard() {
             html += '<div style="font-size:12px;color:#94a3b8;text-align:center;padding:20px 0;">Nenhuma pauta</div>';
         } else {
             items.forEach(function(p) {
+                var linkedPost = allPosts.find(function(post) { return post.pautaId === p.id; });
                 var nextStatus = st.key === 'ideia' ? 'producao' : (st.key === 'producao' ? 'publicado' : null);
                 var nextLabel  = st.key === 'ideia' ? '▶ Em produção' : (st.key === 'producao' ? '✓ Publicado' : '');
+
+                var linkedBadge = linkedPost
+                    ? '<div style="margin-bottom:8px;"><span onclick="openPostFromPauta(\'' + linkedPost.id + '\')" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#0369a1;background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:3px 8px;cursor:pointer;">'
+                      + (linkedPost.published ? '✓ Publicado' : '○ Rascunho') + ' — Editar post →</span></div>'
+                    : '';
+
+                var createBtn = (!linkedPost && st.key !== 'publicado')
+                    ? '<button class="pauta-btn create" onclick="createPostFromPauta(\'' + p.id + '\')" title="Criar publicação a partir desta pauta">✏ Criar publicação</button>'
+                    : '';
+
                 html += '<div class="pauta-card">'
                     + '<div class="pauta-card-title">' + escHtml(p.title) + '</div>'
+                    + linkedBadge
                     + (p.notes ? '<div style="font-size:12px;color:#64748b;margin-bottom:8px;line-height:1.5;">' + escHtml(p.notes) + '</div>' : '')
                     + '<div class="pauta-card-foot">'
-                    + '<span class="pauta-cat-tag">' + (CAT_LABELS_P[p.cat] || p.cat) + '</span>'
+                    + '<span class="pauta-cat-tag">' + (CAT_LABELS_P[p.cat] || p.cat || '—') + '</span>'
                     + '<div class="pauta-card-btns">'
-                    + (nextStatus ? '<button class="pauta-btn" onclick="movePauta(\'' + p.id + '\',\'' + nextStatus + '\')" title="' + nextLabel + '">' + nextLabel + '</button>' : '')
+                    + createBtn
+                    + (nextStatus && !linkedPost ? '<button class="pauta-btn" onclick="movePauta(\'' + p.id + '\',\'' + nextStatus + '\')">' + nextLabel + '</button>' : '')
                     + '<button class="pauta-btn del" onclick="deletePauta(\'' + p.id + '\')" title="Excluir">✕</button>'
                     + '</div></div></div>';
             });
@@ -1938,6 +1961,48 @@ function renderPautasBoard() {
     html += '</div>';
     document.getElementById('pautas-board').innerHTML = html;
 }
+
+function createPostFromPauta(id) {
+    var pauta = loadPautas().find(function(p) { return p.id === id; });
+    if (!pauta) return;
+    switchBlogSection('posts');
+    if (typeof newPost === 'function') newPost();
+    document.getElementById('f-title').value = pauta.title;
+    document.getElementById('f-category').value = pauta.cat || 'credito';
+    document.getElementById('f-pauta-id').value = id;
+    var banner = document.getElementById('pauta-origem-banner');
+    var origTitle = document.getElementById('pauta-origem-title');
+    if (banner && origTitle) { origTitle.textContent = pauta.title; banner.style.display = 'flex'; }
+    if (pauta.status === 'ideia') movePauta(id, 'producao');
+    setTimeout(function() { var el = document.getElementById('f-title'); if (el) el.focus(); }, 100);
+}
+
+function openPostFromPauta(postId) {
+    switchBlogSection('posts');
+    if (typeof editPost === 'function') editPost(postId);
+}
+
+function syncPautaFromPost(pautaId, isPublished) {
+    if (!pautaId) return;
+    var list = loadPautas();
+    var pauta = list.find(function(p) { return p.id === pautaId; });
+    if (!pauta) return;
+    var newStatus = isPublished ? 'publicado' : 'producao';
+    if (pauta.status !== newStatus) { pauta.status = newStatus; savePautasStorage(list); }
+}
+
+function revertPautaFromPost(pautaId) {
+    if (!pautaId) return;
+    var list = loadPautas();
+    var pauta = list.find(function(p) { return p.id === pautaId; });
+    if (!pauta) return;
+    pauta.status = 'ideia';
+    savePautasStorage(list);
+}
+
+window.syncPautaFromPost  = syncPautaFromPost;
+window.revertPautaFromPost = revertPautaFromPost;
+window.loadPautas          = loadPautas;
 
 function showAddPautaModal() {
     document.getElementById('pauta-title-input').value = '';

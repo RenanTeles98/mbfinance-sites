@@ -224,6 +224,8 @@ async function savePost() {
     const content = document.getElementById('editor-content').innerHTML;
     const readTime = document.getElementById('f-readtime').value.trim() || calcReadTime(content);
 
+    const pautaId = (document.getElementById('f-pauta-id')?.value || '').trim() || null;
+
     const post = {
         id:            currentId || uid(),
         title,
@@ -241,6 +243,7 @@ async function savePost() {
         seoTitle:      document.getElementById('f-seo-title').value.trim(),
         seoDesc:       document.getElementById('f-seo-desc').value.trim(),
         keywords:      document.getElementById('f-keywords').value.trim(),
+        ...(pautaId ? { pautaId } : {}),
     };
 
     async function doSave() {
@@ -254,6 +257,9 @@ async function savePost() {
             document.getElementById('btn-delete').style.display = '';
         }
         persistLocal();
+        if (pautaId && typeof window.syncPautaFromPost === 'function') {
+            window.syncPautaFromPost(pautaId, post.published);
+        }
         renderSidebar();
         document.querySelectorAll('.post-item').forEach(el => el.classList.remove('active'));
         const el = document.querySelector(`.post-item[data-id="${currentId}"]`);
@@ -279,8 +285,12 @@ async function deleteCurrentPost() {
     if (!currentId) return;
     const p = posts.find(x => x.id === currentId);
     if (!p || !confirm(`Excluir "${p.title}"?\nEsta ação não pode ser desfeita.`)) return;
+    const deletedPautaId = p.pautaId || null;
     posts = posts.filter(x => x.id !== currentId);
     persistLocal();
+    if (deletedPautaId && typeof window.revertPautaFromPost === 'function') {
+        window.revertPautaFromPost(deletedPautaId);
+    }
     await syncOfficialBlog(false);
     currentId = null;
     renderSidebar();
@@ -316,6 +326,10 @@ function clearForm() {
     const img = document.getElementById('img-preview');
     img.style.display = 'none'; img.src = '';
     switchImgTab('url');
+    const pautaIdEl = document.getElementById('f-pauta-id');
+    if (pautaIdEl) pautaIdEl.value = '';
+    const banner = document.getElementById('pauta-origem-banner');
+    if (banner) banner.style.display = 'none';
 }
 
 function fillForm(p) {
@@ -348,6 +362,20 @@ function fillForm(p) {
     updateCharCount('f-seo-desc','cnt-seo-desc',155);
     updateSeoPreview();
     updateImgPreview(p.image || '');
+    const pautaIdEl = document.getElementById('f-pauta-id');
+    const banner = document.getElementById('pauta-origem-banner');
+    const origTitle = document.getElementById('pauta-origem-title');
+    if (pautaIdEl) pautaIdEl.value = p.pautaId || '';
+    if (banner && origTitle) {
+        if (p.pautaId && typeof loadPautas === 'function') {
+            const pautas = loadPautas();
+            const pauta = pautas.find(pa => pa.id === p.pautaId);
+            origTitle.textContent = pauta ? pauta.title : 'Pauta removida';
+            banner.style.display = 'flex';
+        } else {
+            banner.style.display = 'none';
+        }
+    }
 }
 
 function showToast(msg) {
