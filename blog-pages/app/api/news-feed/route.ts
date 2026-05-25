@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 const SOURCES = [
     { name: 'G1 Economia', url: 'https://g1.globo.com/rss/g1/economia/', color: '#cc0000' },
     { name: 'G1 Educação Financeira', url: 'https://g1.globo.com/rss/g1/economia/educacao-financeira/', color: '#cc0000' },
+    { name: 'Valor Econômico', url: 'https://valor.globo.com/financas/rss/', color: '#1a5276' },
     { name: 'Exame Negócios', url: 'https://exame.com/feed/', color: '#1a1a2e' },
 ];
 

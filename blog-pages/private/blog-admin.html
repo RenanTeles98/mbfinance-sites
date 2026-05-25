@@ -540,6 +540,12 @@
         .pauta-btn.create { color: #0099dd; border: 1px solid #bae6fd; background: #f0f9ff; }
         .pauta-btn.create:hover { background: #0099dd; color: #fff; border-color: #0099dd; }
 
+        /* ── PAUTAS SUB-ABAS ── */
+        .pautas-subtabs { display:flex; gap:4px; margin-bottom:20px; background:#f1f5f9; border-radius:10px; padding:4px; width:fit-content; }
+        .pautas-subtab { display:flex; align-items:center; gap:6px; border:none; background:transparent; border-radius:8px; padding:7px 16px; font-size:12px; font-weight:700; color:#64748b; cursor:pointer; transition:all .15s; white-space:nowrap; }
+        .pautas-subtab.active { background:#fff; color:#003956; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+        .pautas-subtab:hover:not(.active) { color:#003956; }
+
         /* ── RADAR ── */
         .radar-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
         .radar-pulse { width:8px; height:8px; background:#22c55e; border-radius:50%; animation:radarPulse 2s infinite; flex-shrink:0; }
@@ -927,44 +933,52 @@
                         <div class="blog-section-header">
                             <div>
                                 <h2 class="blog-section-title">Pautas</h2>
-                                <p class="blog-section-sub">Planeje os próximos conteúdos. Use o Radar para captar tendências e gerar ideias com IA.</p>
+                                <p class="blog-section-sub">Planeje conteúdos estratégicos ou use o Radar para captar tendências com IA.</p>
                             </div>
-                            <button class="btn-new" style="width:auto;padding:10px 20px;flex-shrink:0;" onclick="showAddPautaModal()">
+                            <button class="btn-new" id="btn-nova-pauta" style="width:auto;padding:10px 20px;flex-shrink:0;" onclick="showAddPautaModal()">
                                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                                 Nova pauta
                             </button>
                         </div>
 
-                        <!-- RADAR DE TENDÊNCIAS -->
-                        <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:28px;">
-                            <div class="radar-header">
+                        <!-- SUB-ABAS -->
+                        <div class="pautas-subtabs">
+                            <button class="pautas-subtab active" id="subtab-board" onclick="switchPautaTab('board')">
+                                <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke-width="2"/></svg>
+                                Board
+                            </button>
+                            <button class="pautas-subtab" id="subtab-radar" onclick="switchPautaTab('radar')">
+                                <div class="radar-pulse" style="width:6px;height:6px;display:inline-block;vertical-align:middle;margin-right:4px;"></div>
+                                Radar de Tendências
+                            </button>
+                        </div>
+
+                        <!-- SUB-ABA: BOARD -->
+                        <div id="pautas-tab-board">
+                            <div id="pautas-board"></div>
+                        </div>
+
+                        <!-- SUB-ABA: RADAR -->
+                        <div id="pautas-tab-radar" style="display:none;">
+                            <div class="radar-header" style="margin-bottom:16px;">
                                 <div class="radar-title">
                                     <div class="radar-pulse"></div>
-                                    Radar de Tendências
+                                    Notícias do nicho PJ em tempo real
                                     <span id="radar-meta" class="radar-meta"></span>
                                 </div>
                                 <button class="radar-refresh-btn" onclick="loadRadarNews(true)">↻ Atualizar</button>
                             </div>
-
-                            <!-- Filtro de produto -->
-                            <div id="radar-product-filter" class="product-selector" style="display:none;">
-                                <span style="font-size:12px;color:#64748b;font-weight:600;align-self:center;">Promover:</span>
-                                <button class="product-pill active" data-product="" onclick="setRadarProduct(this,'')">Qualquer</button>
+                            <div id="radar-product-filter" class="product-selector" style="display:none;margin-bottom:16px;">
+                                <span style="font-size:12px;color:#64748b;font-weight:600;align-self:center;">Foco:</span>
+                                <button class="product-pill active" data-product="" onclick="setRadarProduct(this,'')">Qualquer produto</button>
                                 <button class="product-pill" data-product="Capital de Giro" onclick="setRadarProduct(this,'Capital de Giro')">Capital de Giro</button>
                                 <button class="product-pill" data-product="Antecipação de Recebíveis" onclick="setRadarProduct(this,'Antecipação de Recebíveis')">Antecipação</button>
                                 <button class="product-pill" data-product="Conta PJ" onclick="setRadarProduct(this,'Conta PJ')">Conta PJ</button>
                                 <button class="product-pill" data-product="Máquina de Cartão" onclick="setRadarProduct(this,'Máquina de Cartão')">Máquina de Cartão</button>
                             </div>
-
-                            <div id="radar-news-grid" class="radar-grid">
-                                <div class="radar-loading"><div class="radar-spinner"></div>Buscando tendências do dia...</div>
-                            </div>
-
-                            <!-- Painel de ângulos gerados pela IA -->
-                            <div id="radar-angles-panel" style="display:none;"></div>
+                            <div id="radar-news-grid" class="radar-grid"></div>
+                            <div id="radar-angles-panel" style="display:none;margin-top:20px;"></div>
                         </div>
-
-                        <div id="pautas-board"></div>
                     </div>
                 </div><!-- /blog-section-pautas -->
 
@@ -1921,8 +1935,8 @@ function switchBlogSection(section) {
     if (el)  el.classList.add('active');
     if (btn) btn.classList.add('active');
 
-    if (section === 'seo')            renderSeoAudit();
-    if (section === 'pautas')       { renderPautasBoard(); if (typeof loadRadarNews === 'function') loadRadarNews(); }
+    if (section === 'seo')   renderSeoAudit();
+    if (section === 'pautas') { renderPautasBoard(); switchPautaTab('board'); }
     if (section === 'calendar-full' && typeof renderCalendar === 'function') renderCalendar();
     if (section === 'overview' && typeof window.renderEditorialAnalytics === 'function') window.renderEditorialAnalytics();
 }
@@ -2078,6 +2092,19 @@ window.syncPautaFromPost  = syncPautaFromPost;
 window.revertPautaFromPost = revertPautaFromPost;
 window.loadPautas          = loadPautas;
 
+/* ── PAUTAS SUB-ABAS ── */
+var radarLoaded = false;
+
+function switchPautaTab(tab) {
+    document.getElementById('pautas-tab-board').style.display = tab === 'board' ? '' : 'none';
+    document.getElementById('pautas-tab-radar').style.display = tab === 'radar' ? '' : 'none';
+    document.getElementById('subtab-board').classList.toggle('active', tab === 'board');
+    document.getElementById('subtab-radar').classList.toggle('active', tab === 'radar');
+    var novaBtn = document.getElementById('btn-nova-pauta');
+    if (novaBtn) novaBtn.style.display = tab === 'board' ? '' : 'none';
+    if (tab === 'radar' && !radarLoaded) { loadRadarNews(); radarLoaded = true; }
+}
+
 /* ── RADAR DE TENDÊNCIAS ── */
 var radarProduct = '';
 var radarSelectedNews = null;
@@ -2094,6 +2121,7 @@ function loadRadarNews(force) {
     var meta = document.getElementById('radar-meta');
     if (!grid) return;
 
+    if (force) radarLoaded = false;
     grid.innerHTML = '<div class="radar-loading"><div class="radar-spinner"></div>Buscando tendências do dia...</div>';
     document.getElementById('radar-angles-panel').style.display = 'none';
     document.getElementById('radar-product-filter').style.display = 'none';
@@ -2155,6 +2183,7 @@ function generateAngles(item) {
             + '<div class="angles-panel-sub">Com base em: <strong>' + escHtml(item.title) + '</strong></div>'
             + angles.map(function(a) {
                 var lvlClass = 'angle-level-' + (a.awarenessLevel || 'topo');
+                var aJson = JSON.stringify(JSON.stringify(a));
                 return '<div class="angle-card">'
                     + '<div class="angle-header">'
                     + '<div class="angle-title">' + escHtml(a.title) + '</div>'
@@ -2164,7 +2193,10 @@ function generateAngles(item) {
                     + '<div class="angle-keyword">🔍 ' + escHtml(a.keyword) + '</div>'
                     + '<div class="angle-footer">'
                     + '<span style="font-size:11px;color:#94a3b8;">' + escHtml(CAT_MAP[a.category] || a.category || '') + '</span>'
-                    + '<button class="angle-create-btn" onclick="createPautaFromAngle(' + JSON.stringify(JSON.stringify(a)) + ')">+ Criar pauta</button>'
+                    + '<div style="display:flex;gap:8px;">'
+                    + '<button class="angle-create-btn" style="background:#f1f5f9;color:#003956;border:1.5px solid #e2e8f0;" onclick="createPautaFromAngle(' + aJson + ')">+ Salvar no board</button>'
+                    + '<button class="angle-create-btn" onclick="createPostFromAngle(' + aJson + ')">✏ Criar publicação</button>'
+                    + '</div>'
                     + '</div>'
                     + '</div>';
             }).join('')
@@ -2192,6 +2224,24 @@ function createPautaFromAngle(jsonStr) {
         renderPautasBoard();
         showRadarToast('Pauta "' + a.title.substring(0, 40) + '..." adicionada ao board!');
     } catch(e) { console.error('[createPautaFromAngle]', e); }
+}
+
+function createPostFromAngle(jsonStr) {
+    try {
+        var a = JSON.parse(jsonStr);
+        var list = loadPautas();
+        var id = Date.now().toString(36);
+        list.push({
+            id: id,
+            title: a.title,
+            cat: a.category || 'mercado',
+            notes: (a.angle || '') + (a.notes ? '\n\nTópicos:\n' + a.notes : '') + (a.keyword ? '\n\nKeyword: ' + a.keyword : ''),
+            status: 'producao'
+        });
+        savePautasStorage(list);
+        renderPautasBoard();
+        createPostFromPauta(id);
+    } catch(e) { console.error('[createPostFromAngle]', e); }
 }
 
 function showRadarToast(msg) {
