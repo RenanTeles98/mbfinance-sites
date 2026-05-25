@@ -539,6 +539,50 @@
         .pauta-btn.del:hover { color: #ef4444; background: #fef2f2; }
         .pauta-btn.create { color: #0099dd; border: 1px solid #bae6fd; background: #f0f9ff; }
         .pauta-btn.create:hover { background: #0099dd; color: #fff; border-color: #0099dd; }
+
+        /* ── RADAR ── */
+        .radar-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+        .radar-pulse { width:8px; height:8px; background:#22c55e; border-radius:50%; animation:radarPulse 2s infinite; flex-shrink:0; }
+        @keyframes radarPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+        .radar-title { font-size:13px; font-weight:800; color:#1e293b; display:flex; align-items:center; gap:8px; }
+        .radar-meta { font-size:11px; color:#94a3b8; }
+        .radar-refresh-btn { border:1px solid #e2e8f0; background:#fff; border-radius:8px; padding:6px 12px; font-size:12px; font-weight:600; color:#64748b; cursor:pointer; transition:all .15s; }
+        .radar-refresh-btn:hover { background:#f8fafc; color:#003956; }
+        .radar-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
+        .radar-card { background:#fff; border:1.5px solid #e2e8f0; border-radius:12px; padding:14px; cursor:pointer; transition:all .2s; }
+        .radar-card:hover { border-color:#0099dd; box-shadow:0 4px 16px rgba(0,153,221,.1); }
+        .radar-card.selected { border-color:#0099dd; background:#f0f9ff; }
+        .radar-source-badge { font-size:10px; font-weight:800; padding:2px 7px; border-radius:5px; color:#fff; display:inline-block; margin-bottom:8px; }
+        .radar-card-title { font-size:13px; font-weight:700; color:#1e293b; line-height:1.4; margin-bottom:6px; }
+        .radar-card-desc { font-size:11px; color:#64748b; line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+        .radar-card-date { font-size:10px; color:#94a3b8; margin-top:8px; }
+        .radar-empty { text-align:center; padding:32px; color:#94a3b8; font-size:13px; grid-column:1/-1; }
+        .radar-loading { display:flex; align-items:center; justify-content:center; gap:10px; padding:32px; color:#94a3b8; font-size:13px; grid-column:1/-1; }
+        .radar-spinner { width:18px; height:18px; border:2.5px solid #e2e8f0; border-top-color:#0099dd; border-radius:50%; animation:spin .7s linear infinite; }
+        @keyframes spin { to{transform:rotate(360deg)} }
+        /* Angles panel */
+        .angles-panel { background:#fff; border:1.5px solid #e2e8f0; border-radius:14px; padding:20px; margin-top:16px; }
+        .angles-panel-header { font-size:12px; font-weight:800; color:#003956; margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em; }
+        .angles-panel-sub { font-size:12px; color:#64748b; margin-bottom:16px; line-height:1.5; }
+        .angle-card { border:1.5px solid #e2e8f0; border-radius:10px; padding:14px; margin-bottom:10px; transition:all .15s; }
+        .angle-card:last-child { margin-bottom:0; }
+        .angle-card:hover { border-color:#0099dd; }
+        .angle-header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:8px; }
+        .angle-level-badge { font-size:10px; font-weight:800; padding:3px 8px; border-radius:6px; white-space:nowrap; flex-shrink:0; }
+        .angle-level-topo { background:#fef3c7; color:#92400e; }
+        .angle-level-meio { background:#dbeafe; color:#1e40af; }
+        .angle-level-fundo { background:#dcfce7; color:#166534; }
+        .angle-title { font-size:13px; font-weight:800; color:#1e293b; line-height:1.4; }
+        .angle-body { font-size:12px; color:#64748b; line-height:1.5; margin-bottom:10px; }
+        .angle-keyword { font-size:11px; background:#f0f9ff; color:#0099dd; font-weight:700; padding:2px 8px; border-radius:5px; display:inline-block; margin-bottom:10px; }
+        .angle-footer { display:flex; align-items:center; justify-content:space-between; }
+        .angle-create-btn { background:#003956; color:#fff; border:none; border-radius:8px; padding:7px 14px; font-size:12px; font-weight:700; cursor:pointer; transition:background .15s; }
+        .angle-create-btn:hover { background:#0099dd; }
+        .angles-loading { display:flex; align-items:center; gap:10px; padding:20px; color:#64748b; font-size:13px; }
+        .product-selector { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+        .product-pill { border:1.5px solid #e2e8f0; background:#fff; border-radius:20px; padding:5px 12px; font-size:12px; font-weight:600; color:#64748b; cursor:pointer; transition:all .15s; }
+        .product-pill:hover,.product-pill.active { border-color:#003956; background:#003956; color:#fff; }
+
         #add-pauta-modal { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
         #add-pauta-modal.open { display: flex; }
         .pauta-modal-card { background: #fff; border-radius: 16px; padding: 28px; width: 460px; max-width: 90vw; box-shadow: 0 24px 80px rgba(0,0,0,0.2); }
@@ -883,13 +927,43 @@
                         <div class="blog-section-header">
                             <div>
                                 <h2 class="blog-section-title">Pautas</h2>
-                                <p class="blog-section-sub">Planeje os próximos conteúdos. Organize ideias por status e transforme-as em publicações com um clique.</p>
+                                <p class="blog-section-sub">Planeje os próximos conteúdos. Use o Radar para captar tendências e gerar ideias com IA.</p>
                             </div>
                             <button class="btn-new" style="width:auto;padding:10px 20px;flex-shrink:0;" onclick="showAddPautaModal()">
                                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                                 Nova pauta
                             </button>
                         </div>
+
+                        <!-- RADAR DE TENDÊNCIAS -->
+                        <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:28px;">
+                            <div class="radar-header">
+                                <div class="radar-title">
+                                    <div class="radar-pulse"></div>
+                                    Radar de Tendências
+                                    <span id="radar-meta" class="radar-meta"></span>
+                                </div>
+                                <button class="radar-refresh-btn" onclick="loadRadarNews(true)">↻ Atualizar</button>
+                            </div>
+
+                            <!-- Filtro de produto -->
+                            <div id="radar-product-filter" class="product-selector" style="display:none;">
+                                <span style="font-size:12px;color:#64748b;font-weight:600;align-self:center;">Promover:</span>
+                                <button class="product-pill active" data-product="" onclick="setRadarProduct(this,'')">Qualquer</button>
+                                <button class="product-pill" data-product="Capital de Giro" onclick="setRadarProduct(this,'Capital de Giro')">Capital de Giro</button>
+                                <button class="product-pill" data-product="Antecipação de Recebíveis" onclick="setRadarProduct(this,'Antecipação de Recebíveis')">Antecipação</button>
+                                <button class="product-pill" data-product="Conta PJ" onclick="setRadarProduct(this,'Conta PJ')">Conta PJ</button>
+                                <button class="product-pill" data-product="Máquina de Cartão" onclick="setRadarProduct(this,'Máquina de Cartão')">Máquina de Cartão</button>
+                            </div>
+
+                            <div id="radar-news-grid" class="radar-grid">
+                                <div class="radar-loading"><div class="radar-spinner"></div>Buscando tendências do dia...</div>
+                            </div>
+
+                            <!-- Painel de ângulos gerados pela IA -->
+                            <div id="radar-angles-panel" style="display:none;"></div>
+                        </div>
+
                         <div id="pautas-board"></div>
                     </div>
                 </div><!-- /blog-section-pautas -->
@@ -1848,7 +1922,7 @@ function switchBlogSection(section) {
     if (btn) btn.classList.add('active');
 
     if (section === 'seo')            renderSeoAudit();
-    if (section === 'pautas')         renderPautasBoard();
+    if (section === 'pautas')       { renderPautasBoard(); if (typeof loadRadarNews === 'function') loadRadarNews(); }
     if (section === 'calendar-full' && typeof renderCalendar === 'function') renderCalendar();
     if (section === 'overview' && typeof window.renderEditorialAnalytics === 'function') window.renderEditorialAnalytics();
 }
@@ -2003,6 +2077,147 @@ function revertPautaFromPost(pautaId) {
 window.syncPautaFromPost  = syncPautaFromPost;
 window.revertPautaFromPost = revertPautaFromPost;
 window.loadPautas          = loadPautas;
+
+/* ── RADAR DE TENDÊNCIAS ── */
+var radarProduct = '';
+var radarSelectedNews = null;
+
+function setRadarProduct(btn, product) {
+    radarProduct = product;
+    document.querySelectorAll('.product-pill').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    if (radarSelectedNews) generateAngles(radarSelectedNews);
+}
+
+function loadRadarNews(force) {
+    var grid = document.getElementById('radar-news-grid');
+    var meta = document.getElementById('radar-meta');
+    if (!grid) return;
+
+    grid.innerHTML = '<div class="radar-loading"><div class="radar-spinner"></div>Buscando tendências do dia...</div>';
+    document.getElementById('radar-angles-panel').style.display = 'none';
+    document.getElementById('radar-product-filter').style.display = 'none';
+    radarSelectedNews = null;
+
+    var url = '/api/news-feed' + (force ? '?t=' + Date.now() : '');
+    fetch(url)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            var items = data.items || [];
+            meta.textContent = items.length ? 'Atualizado ' + formatRadarTime(data.fetchedAt) : '';
+            if (!items.length) {
+                grid.innerHTML = '<div class="radar-empty">Nenhuma tendência encontrada no momento. Tente atualizar em alguns minutos.</div>';
+                return;
+            }
+            document.getElementById('radar-product-filter').style.display = 'flex';
+            grid.innerHTML = items.map(function(item, i) {
+                return '<div class="radar-card" data-i="' + i + '" onclick="selectRadarCard(this,' + i + ')">'
+                    + '<div><span class="radar-source-badge" style="background:' + (item.sourceColor||'#64748b') + '">' + escHtml(item.source) + '</span></div>'
+                    + '<div class="radar-card-title">' + escHtml(item.title) + '</div>'
+                    + (item.description ? '<div class="radar-card-desc">' + escHtml(item.description) + '</div>' : '')
+                    + '<div class="radar-card-date">' + formatRadarDate(item.pubDate) + '</div>'
+                    + '</div>';
+            }).join('');
+            window._radarItems = items;
+        })
+        .catch(function(err) {
+            grid.innerHTML = '<div class="radar-empty">Erro ao buscar tendências. Verifique sua conexão.</div>';
+            console.error('[radar]', err);
+        });
+}
+
+function selectRadarCard(el, index) {
+    document.querySelectorAll('.radar-card').forEach(function(c) { c.classList.remove('selected'); });
+    el.classList.add('selected');
+    var item = (window._radarItems || [])[index];
+    if (!item) return;
+    radarSelectedNews = item;
+    generateAngles(item);
+}
+
+function generateAngles(item) {
+    var panel = document.getElementById('radar-angles-panel');
+    panel.style.display = 'block';
+    panel.innerHTML = '<div class="angles-loading"><div class="radar-spinner"></div>Gerando ângulos estratégicos com IA...</div>';
+
+    fetch('/api/generate-pauta', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ headline: item.title, description: item.description, product: radarProduct })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        if (data.error) { panel.innerHTML = '<div class="radar-empty" style="color:#ef4444;">⚠ ' + escHtml(data.error) + '</div>'; return; }
+        var angles = data.angles || [];
+        var CAT_MAP = { credito:'Crédito Empresarial', gestao:'Gestão Financeira', 'conta-pj':'Conta PJ', mercado:'Mercado', antecipacao:'Antecipação', noticias:'Notícias' };
+        panel.innerHTML = '<div class="angles-panel">'
+            + '<div class="angles-panel-header">3 ângulos gerados pela IA</div>'
+            + '<div class="angles-panel-sub">Com base em: <strong>' + escHtml(item.title) + '</strong></div>'
+            + angles.map(function(a) {
+                var lvlClass = 'angle-level-' + (a.awarenessLevel || 'topo');
+                return '<div class="angle-card">'
+                    + '<div class="angle-header">'
+                    + '<div class="angle-title">' + escHtml(a.title) + '</div>'
+                    + '<span class="angle-level-badge ' + lvlClass + '">' + escHtml(a.awarenessLabel || a.awarenessLevel) + '</span>'
+                    + '</div>'
+                    + '<div class="angle-body">' + escHtml(a.angle) + '</div>'
+                    + '<div class="angle-keyword">🔍 ' + escHtml(a.keyword) + '</div>'
+                    + '<div class="angle-footer">'
+                    + '<span style="font-size:11px;color:#94a3b8;">' + escHtml(CAT_MAP[a.category] || a.category || '') + '</span>'
+                    + '<button class="angle-create-btn" onclick="createPautaFromAngle(' + JSON.stringify(JSON.stringify(a)) + ')">+ Criar pauta</button>'
+                    + '</div>'
+                    + '</div>';
+            }).join('')
+            + '</div>';
+    })
+    .catch(function(err) {
+        panel.innerHTML = '<div class="radar-empty" style="color:#ef4444;">Erro ao conectar com a IA.</div>';
+        console.error('[generate-pauta]', err);
+    });
+}
+
+function createPautaFromAngle(jsonStr) {
+    try {
+        var a = JSON.parse(jsonStr);
+        var list = loadPautas();
+        var id = Date.now().toString(36);
+        list.push({
+            id: id,
+            title: a.title,
+            cat: a.category || 'mercado',
+            notes: (a.angle || '') + (a.notes ? '\n\nTópicos:\n' + a.notes : '') + (a.keyword ? '\n\nKeyword: ' + a.keyword : ''),
+            status: 'ideia'
+        });
+        savePautasStorage(list);
+        renderPautasBoard();
+        showRadarToast('Pauta "' + a.title.substring(0, 40) + '..." adicionada ao board!');
+    } catch(e) { console.error('[createPautaFromAngle]', e); }
+}
+
+function showRadarToast(msg) {
+    var t = document.getElementById('save-toast');
+    if (!t) return;
+    t.textContent = '✓ ' + msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 3000);
+}
+
+function formatRadarTime(iso) {
+    if (!iso) return '';
+    try {
+        var d = new Date(iso);
+        return 'às ' + d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+    } catch(e) { return ''; }
+}
+
+function formatRadarDate(pubDate) {
+    if (!pubDate) return '';
+    try {
+        var d = new Date(pubDate);
+        if (isNaN(d.getTime())) return '';
+        return d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
+    } catch(e) { return ''; }
+}
 
 function showAddPautaModal() {
     document.getElementById('pauta-title-input').value = '';
