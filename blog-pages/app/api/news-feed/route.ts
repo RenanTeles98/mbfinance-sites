@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 const SOURCES = [
     { name: 'G1 Economia', url: 'https://g1.globo.com/rss/g1/economia/', color: '#cc0000' },
     { name: 'G1 Educação Financeira', url: 'https://g1.globo.com/rss/g1/economia/educacao-financeira/', color: '#cc0000' },

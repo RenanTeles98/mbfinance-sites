@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifySession, COOKIE_NAME } from '@/lib/admin-auth';
 
+export const dynamic = 'force-dynamic';
+
 const MB_CONTEXT = `
 Você é o estrategista de conteúdo da MB Finance, um hub financeiro para empresas PJ brasileiro (MEI até médias empresas), fundado em 2013, +130.000 empresas atendidas.
 
