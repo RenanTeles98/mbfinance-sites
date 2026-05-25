@@ -739,7 +739,13 @@
                 </div>
 
                 <div class="field-group">
-                    <label class="field-label" for="f-title">Título</label>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                        <label class="field-label" for="f-title" style="margin-bottom:0;">Título</label>
+                        <button type="button" id="btn-gen-title" class="magic-btn" style="padding:4px 10px;font-size:11px;border-radius:6px;" onclick="generateTitle()">
+                            <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                            <span id="btn-gen-title-label">Gerar com IA</span>
+                        </button>
+                    </div>
                     <input type="text" id="f-title" class="field-input" placeholder="Ex: Como conseguir capital de giro com as melhores taxas" style="font-size:16px;font-weight:700;padding:12px 14px;" oninput="updateSeoPreview()">
                 </div>
 
@@ -2329,6 +2335,74 @@ function createPostFromAngle(a) {
         renderPautasBoard();
         createPostFromPauta(id);
     } catch(e) { console.error('[createPostFromAngle]', e); }
+}
+
+async function generateTitle() {
+    var pautaId = (document.getElementById('f-pauta-id') || {}).value || '';
+    var category = (document.getElementById('f-category') || {}).value || '';
+    var product = (document.getElementById('f-product') || {}).value || '';
+    var notes = '';
+
+    if (pautaId) {
+        var pautas = loadPautas();
+        var pauta = pautas.find(function(p) { return p.id === pautaId; });
+        if (pauta) notes = pauta.notes || pauta.title || '';
+    }
+
+    if (!notes.trim() && !category) {
+        alert('Selecione uma categoria ou vincule uma pauta para gerar o título.');
+        return;
+    }
+
+    var btn = document.getElementById('btn-gen-title');
+    var label = document.getElementById('btn-gen-title-label');
+    btn.disabled = true;
+    label.textContent = 'Gerando…';
+
+    try {
+        var res = await fetch('/api/generate-article', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ titleOnly: true, category: category, notes: notes, product: product }),
+        });
+        var data = await res.json();
+        if (!res.ok || data.error) {
+            alert('⚠ ' + (data.error || 'Erro ao gerar título.'));
+        } else if (data.titles) {
+            showTitleSuggestions(data.titles);
+        }
+    } catch(e) {
+        alert('⚠ Erro de conexão: ' + e.message);
+    } finally {
+        btn.disabled = false;
+        label.textContent = 'Gerar com IA';
+    }
+}
+
+function showTitleSuggestions(titles) {
+    var existing = document.getElementById('title-suggestions-box');
+    if (existing) existing.remove();
+
+    var box = document.createElement('div');
+    box.id = 'title-suggestions-box';
+    box.style.cssText = 'background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;padding:12px 14px;margin-top:8px;';
+    box.innerHTML = '<div style="font-size:11px;font-weight:700;color:#003956;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Escolha um título:</div>'
+        + titles.map(function(t, i) {
+            return '<div onclick="selectTitle(this)" style="padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:6px;font-size:14px;font-weight:600;color:#1e293b;cursor:pointer;margin-bottom:6px;transition:all .15s;" onmouseover="this.style.borderColor=\'#0099dd\';this.style.background=\'#f0f9ff\'" onmouseout="this.style.borderColor=\'#e2e8f0\';this.style.background=\'#fff\'">'
+                + escHtml(t) + '</div>';
+        }).join('');
+    box.innerHTML += '<div style="font-size:11px;color:#94a3b8;margin-top:4px;">Clique em um título para usar</div>';
+
+    var titleInput = document.getElementById('f-title');
+    titleInput.parentNode.insertBefore(box, titleInput.nextSibling);
+}
+
+function selectTitle(el) {
+    var text = el.textContent;
+    document.getElementById('f-title').value = text;
+    updateSeoPreview();
+    var box = document.getElementById('title-suggestions-box');
+    if (box) box.remove();
 }
 
 function toggleProductCtaPreview() {

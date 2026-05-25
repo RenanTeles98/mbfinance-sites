@@ -53,13 +53,47 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json().catch(() => null);
-    if (!body?.title) {
+    const { title = '', category = '', keyword = '', notes = '', awarenessLevel = '', excerptOnly = false, titleOnly = false, product = '' } = body || {};
+
+    if (!title && !titleOnly && !excerptOnly) {
         return NextResponse.json({ error: 'title obrigatório' }, { status: 400 });
     }
 
-    const { title, category = '', keyword = '', notes = '', awarenessLevel = '', excerptOnly = false, product = '' } = body;
-
     const productInfo = PRODUCTS[product];
+
+    if (titleOnly) {
+        const titlePrompt = `Gere 3 opções de título SEO para um artigo de blog da MB Finance.
+${category ? `Categoria: ${category}` : ''}
+${productInfo ? `Produto a vender: ${productInfo.name}` : ''}
+${notes ? `Tema / ângulo: ${notes}` : ''}
+
+Regras:
+- Máximo 65 caracteres cada
+- Formatos que funcionam: "Como...", "Por que...", listas ("X formas de..."), perguntas diretas
+- Deve capturar a dor do empresário, não mencionar MB Finance
+- Títulos diferentes entre si (não repita a mesma estrutura)
+
+Retorne APENAS um JSON array com 3 strings, sem texto antes ou depois:
+["Título 1", "Título 2", "Título 3"]`.trim();
+
+        const titleRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json', 'authorization': `Bearer ${process.env.GROQ_API_KEY}` },
+            body: JSON.stringify({
+                model: 'llama-3.3-70b-versatile',
+                messages: [{ role: 'user', content: titlePrompt }],
+                max_tokens: 200,
+                temperature: 0.8,
+            }),
+        });
+        if (!titleRes.ok) return NextResponse.json({ error: 'Erro ao gerar títulos.' }, { status: 502 });
+        const titleData = await titleRes.json();
+        const raw = (titleData.choices?.[0]?.message?.content || '').trim();
+        const match = raw.match(/\[[\s\S]*\]/);
+        if (!match) return NextResponse.json({ error: 'Resposta inesperada da IA.' }, { status: 500 });
+        const titles: string[] = JSON.parse(match[0]);
+        return NextResponse.json({ titles });
+    }
 
     const userPrompt = excerptOnly
         ? `Escreva um resumo de 1 a 2 frases atrativas para o artigo de blog abaixo. O resumo aparece nos cards do blog e deve capturar a dor do empresário e despertar curiosidade para clicar. Retorne APENAS o texto do resumo, sem aspas, sem prefixo.
