@@ -448,3 +448,20 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar a sidebar publicada em desktop e mobile, especialmente largura, altura dos botoes e leitura dos textos.
+
+## Sessao de 2026-05-25 - Sidebar de produtos suavizada
+
+Foi refinado o design da barra lateral de produtos da capa `/blog`.
+
+Arquivos modificados:
+- `app/blog/blog.css`: sidebar ficou mais leve, com fundo branco translucido, tipografia menos agressiva, botoes compactos, estado ativo por faixa azul discreta e comportamento sticky com scroll interno.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- A sidebar acompanha a rolagem no desktop usando `position: sticky`.
+- Se a altura da tela for menor, a sidebar tem scroll proprio para nao cortar itens.
+- Os textos e botoes ficaram visualmente mais harmonicos.
+- `npm run build` em `blog-pages` passou com sucesso.
+
+Proximo passo recomendado:
+- Validar a sidebar publicada em desktop, notebook menor e mobile para conferir se o sticky e o scroll interno estao confortaveis.

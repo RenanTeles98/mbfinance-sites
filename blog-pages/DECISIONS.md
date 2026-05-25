@@ -243,3 +243,13 @@
 - Decisao: manter a sidebar fixa apenas no desktop.
   - Motivo: em telas largas a navegacao lateral ajuda; em telas menores, sidebar fixa prejudicaria leitura e espaco util.
   - Alternativas consideradas: esconder o menu no mobile, descartado porque removeria a principal navegacao por produto.
+
+## 2026-05-25 - Sidebar de produtos mais discreta
+
+- Decisao: suavizar a sidebar de produtos com tipografia menor, pesos menos agressivos e estado ativo por faixa lateral azul.
+  - Motivo: a versao anterior chamava mais atencao que os artigos e deixava a navegacao pesada visualmente.
+  - Alternativas consideradas: manter cards grandes dentro da sidebar, descartado porque ocupava espaco e competia com o conteudo.
+
+- Decisao: usar `position: sticky` com `max-height` e scroll interno no desktop.
+  - Motivo: a navegacao deve acompanhar o usuario durante a leitura, mas sem cortar itens em telas menores.
+  - Alternativas consideradas: sidebar fixa absoluta, descartado por risco de sobrepor conteudo e piorar responsividade.

@@ -14,6 +14,7 @@
 
 ## Prioridade atual - Performance do blog
 
+- Validar o comportamento sticky e o scroll interno da sidebar de produtos em desktop/notebook.
 - Validar o menu lateral esquerdo de produtos da capa `/blog` em desktop e mobile.
 - Validar a capa `/blog` sem hero, iniciando direto pelo menu de produtos.
 - Validar os seis cards do menu de produtos da capa `/blog` em desktop e mobile.
