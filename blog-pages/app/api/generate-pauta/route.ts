@@ -100,7 +100,9 @@ Responda APENAS com um JSON array de 3 objetos, sem texto antes ou depois:
     if (!response.ok) {
         const err = await response.text();
         console.error('[generate-pauta] Anthropic error:', err);
-        return NextResponse.json({ error: 'Erro ao chamar a IA. Verifique a API key.' }, { status: 502 });
+        let detail = '';
+        try { detail = JSON.parse(err)?.error?.message || err; } catch { detail = err; }
+        return NextResponse.json({ error: 'Erro ao chamar a IA: ' + detail }, { status: 502 });
     }
 
     const data = await response.json();
