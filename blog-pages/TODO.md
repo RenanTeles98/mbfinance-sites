@@ -7,6 +7,7 @@
 - Validar a contagem de cliques dos links encurtados na aba "Campanhas" apos o deploy.
 - Validar que F5 preserva a aba ativa no admin publicado.
 - Validar a confirmacao dupla ao excluir links salvos na aba "Campanhas".
+- Validar filtros, duplicacao, objetivo, status e notas da tela "Campanhas" em producao.
 - Revisar as demais abas do admin para remover emojis remanescentes usados como icones estruturais.
 - Criar um check simples de DOM para garantir que todos os `#screen-*` do admin sejam filhos diretos de `#admin-body`.
 

@@ -2,6 +2,7 @@
 
 ## 2026-05-25
 
+- Evoluida a tela Campanhas com resumo, filtros, status, objetivo, notas, duplicacao e barras de cliques.
 - Adicionada confirmacao dupla para excluir links salvos em Campanhas.
 - Corrigido o F5 do admin para manter a aba ativa aberta.
 - Adicionada contagem de cliques por link encurtado na aba Campanhas do admin.

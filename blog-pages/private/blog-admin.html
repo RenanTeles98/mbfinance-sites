@@ -346,6 +346,11 @@
         .camp-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(15,23,42,0.04); }
         .camp-card h3 { font-size: 15px; font-weight: 800; color: #1e293b; margin-bottom: 6px; }
         .camp-card-sub { font-size: 13px; color: #94a3b8; margin-bottom: 20px; line-height: 1.5; }
+        .camp-summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+        .camp-summary-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 18px; box-shadow: 0 8px 30px rgba(15,23,42,0.04); min-width: 0; }
+        .camp-summary-label { font-size: 11px; font-weight: 800; letter-spacing: 0.7px; text-transform: uppercase; color: #94a3b8; margin-bottom: 8px; }
+        .camp-summary-value { font-size: 24px; font-weight: 900; color: #1e293b; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .camp-summary-note { font-size: 12px; color: #64748b; margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .camp-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
         .camp-form-group { display: flex; flex-direction: column; gap: 6px; }
         .camp-form-group.full { grid-column: 1 / -1; }
@@ -354,6 +359,7 @@
         .camp-input, .camp-select { width: 100%; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 14px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s; background: #fff; color: #1e293b; }
         .camp-input:focus, .camp-select:focus { border-color: #0099dd; }
         .camp-input:read-only { background: #f1f5f9; color: #64748b; cursor: default; }
+        .camp-textarea { min-height: 74px; resize: vertical; line-height: 1.5; }
         .camp-url-preview-box { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #003956; font-weight: 700; word-break: break-all; min-height: 44px; cursor: pointer; }
         .camp-url-input { width: 100%; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #003956; font-weight: 700; font-family: monospace; resize: none; outline: none; }
         .camp-url-field { display: flex; align-items: center; gap: 10px; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 8px 8px 8px 14px; background: #fff; min-width: 0; }
@@ -373,14 +379,19 @@
         .camp-btn-secondary { background: #f1f5f9; color: #334155; border: 1.5px solid #e2e8f0; }
         .camp-btn-secondary:hover:not(:disabled) { background: #e2e8f0; }
         .camp-btn:disabled { opacity: 0.4; cursor: default; }
+        .camp-list-toolbar { display: grid; grid-template-columns: minmax(180px, 1fr) 150px 140px 150px; gap: 10px; margin-bottom: 18px; }
         .camp-saved-table { display: flex; flex-direction: column; gap: 0; }
-        .camp-saved-header { display: grid; grid-template-columns: 1.2fr 120px 1.4fr 110px 120px; gap: 20px; padding: 0 0 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; border-bottom: 1px solid #e2e8f0; }
-        .camp-saved-row { display: grid; grid-template-columns: 1.2fr 120px 1.4fr 110px 120px; gap: 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+        .camp-saved-header { display: grid; grid-template-columns: 1.3fr 86px 110px 110px 90px 190px; gap: 14px; padding: 0 0 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; border-bottom: 1px solid #e2e8f0; }
+        .camp-saved-row { display: grid; grid-template-columns: 1.3fr 86px 110px 110px 90px 190px; gap: 14px; align-items: center; padding: 16px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
         .camp-saved-row:last-child { border-bottom: none; }
         .camp-saved-name { font-weight: 700; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .camp-saved-detail { font-size: 11px; color: #94a3b8; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .camp-saved-meta { color: #64748b; font-size: 12px; }
         .camp-saved-date { color: #94a3b8; font-size: 12px; }
+        .camp-click-cell { min-width: 0; }
         .camp-click-count { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: center; color: #64748b; }
+        .camp-click-bar { height: 4px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin-top: 6px; }
+        .camp-click-fill { height: 100%; background: linear-gradient(90deg, #003956, #0099dd); border-radius: 999px; width: 0%; }
         .camp-saved-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
         .camp-action-btn { min-height: 34px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 7px 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: #334155; line-height: 1; white-space: nowrap; }
         .camp-icon-only { width: 34px; padding: 7px; }
@@ -388,15 +399,21 @@
         .camp-del-btn:hover { background: #fee2e2 !important; border-color: #fca5a5 !important; }
         .camp-confirm-del-btn { background: #fee2e2; border-color: #fca5a5; color: #991b1b; padding: 7px 12px; }
         .camp-channel-badge { background: #eff9ff; color: #0099dd; border: 1px solid rgba(0,153,221,0.2); font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+        .camp-status-badge { display: inline-flex; align-items: center; justify-content: center; width: fit-content; font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 999px; border: 1px solid #e2e8f0; white-space: nowrap; }
+        .camp-status-active { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+        .camp-status-paused { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+        .camp-status-expired { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
         .camp-source-tag { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; }
         .camp-perf-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
         .camp-refresh-btn { min-height: 36px; background: transparent; border: 1.5px solid #e2e8f0; border-radius: 8px; color: #64748b; font-size: 12px; font-weight: 700; padding: 8px 14px; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; line-height: 1; }
         .camp-refresh-btn:hover { border-color: #0099dd; color: #0099dd; }
         @media (max-width: 720px) {
+            .camp-summary-grid { grid-template-columns: 1fr 1fr; }
             .camp-form-grid { grid-template-columns: 1fr; }
-            .camp-saved-header, .camp-saved-row { grid-template-columns: 1fr 80px 120px; }
-            .camp-saved-header span:nth-child(3), .camp-saved-header span:nth-child(4),
-            .camp-saved-row > div:nth-child(3), .camp-saved-row > div:nth-child(4) { display: none; }
+            .camp-list-toolbar { grid-template-columns: 1fr; }
+            .camp-saved-header, .camp-saved-row { grid-template-columns: 1fr 80px 130px; }
+            .camp-saved-header span:nth-child(3), .camp-saved-header span:nth-child(4), .camp-saved-header span:nth-child(5),
+            .camp-saved-row > div:nth-child(3), .camp-saved-row > div:nth-child(4), .camp-saved-row > div:nth-child(5) { display: none; }
             .camp-click-count { text-align: left; }
         }
 
@@ -1442,16 +1459,18 @@
         <div class="camp-wrap">
             <div class="camp-page-header">
                 <h2>Campanhas e UTMs</h2>
-                <p>Crie links rastreados para cada canal de marketing (SMS, Google Ads, parceiros, etc.) e acompanhe o desempenho de cada origem diretamente pelo GA4.</p>
+                <p>Crie links rastreados para cada canal de marketing e acompanhe cliques, visitas e campanhas ativas em um só lugar.</p>
             </div>
+
+            <div id="camp-summary" class="camp-summary-grid"></div>
 
             <div class="camp-card">
                 <h3>Criar link de campanha</h3>
-                <div class="camp-card-sub">Preencha os campos abaixo para gerar o link com parâmetros UTM. Compartilhe o link gerado no canal escolhido.</div>
+                <div class="camp-card-sub">Preencha os campos abaixo para gerar um link rastreável. Use o link curto para compartilhar e medir cliques.</div>
 
                 <div class="camp-form-grid">
                     <div class="camp-form-group full">
-                        <label class="camp-label" for="camp-url">URL do site <span>(página de destino)</span></label>
+                        <label class="camp-label" for="camp-url">Página de destino <span>(para onde o cliente será enviado)</span></label>
                         <input id="camp-url" class="camp-input" type="text" placeholder="https://mbfinance.com.br" oninput="buildUtmUrl()" onchange="buildUtmUrl()">
                     </div>
                     <div class="camp-form-group">
@@ -1459,7 +1478,7 @@
                         <input id="camp-name" class="camp-input" type="text" placeholder="Ex: Black Friday, Parceria Banco X" oninput="buildUtmUrl()" onchange="buildUtmUrl()">
                     </div>
                     <div class="camp-form-group">
-                        <label class="camp-label" for="camp-channel">Canal</label>
+                        <label class="camp-label" for="camp-channel">Canal de divulgação</label>
                         <select id="camp-channel" class="camp-select" onchange="onChannelChange()">
                             <option value="sms">SMS</option>
                             <option value="email">E-mail</option>
@@ -1474,16 +1493,38 @@
                         </select>
                     </div>
                     <div class="camp-form-group">
-                        <label class="camp-label" for="camp-source">Origem <span>(utm_source)</span></label>
+                        <label class="camp-label" for="camp-source">De onde veio <span>(origem técnica)</span></label>
                         <input id="camp-source" class="camp-input" type="text" placeholder="ex: google, sms, parceiros" oninput="buildUtmUrl()">
                     </div>
                     <div class="camp-form-group">
-                        <label class="camp-label" for="camp-medium">Mídia <span>(utm_medium)</span></label>
+                        <label class="camp-label" for="camp-medium">Tipo de canal <span>(tráfego técnico)</span></label>
                         <input id="camp-medium" class="camp-input" type="text" placeholder="ex: cpc, email, referral" oninput="buildUtmUrl()">
                     </div>
+                    <div class="camp-form-group">
+                        <label class="camp-label" for="camp-objective">Objetivo</label>
+                        <select id="camp-objective" class="camp-select">
+                            <option value="leads">Leads</option>
+                            <option value="whatsapp">WhatsApp</option>
+                            <option value="conta-pj">Conta PJ</option>
+                            <option value="trafego">Tráfego</option>
+                            <option value="cadastro">Cadastro</option>
+                        </select>
+                    </div>
+                    <div class="camp-form-group">
+                        <label class="camp-label" for="camp-status">Status</label>
+                        <select id="camp-status" class="camp-select">
+                            <option value="active">Ativo</option>
+                            <option value="paused">Pausado</option>
+                            <option value="expired">Expirado</option>
+                        </select>
+                    </div>
                     <div class="camp-form-group full">
-                        <label class="camp-label" for="camp-content">Identificador <span>(utm_content — opcional, para diferenciar versões)</span></label>
+                        <label class="camp-label" for="camp-content">Versão do anúncio ou botão <span>(opcional)</span></label>
                         <input id="camp-content" class="camp-input" type="text" placeholder="Ex: banner-topo, botao-verde, versao-a" oninput="buildUtmUrl()">
+                    </div>
+                    <div class="camp-form-group full">
+                        <label class="camp-label" for="camp-notes">Notas internas <span>(opcional)</span></label>
+                        <textarea id="camp-notes" class="camp-input camp-textarea" placeholder="Ex: usado no story do dia 25, campanha com Ricardo, link enviado por SMS"></textarea>
                     </div>
                 </div>
 
@@ -1522,14 +1563,31 @@
             <div class="camp-card">
                 <h3>Links salvos</h3>
                 <div class="camp-card-sub">Histórico de links criados — use o botão Copiar para compartilhar o link encurtado e acompanhar os cliques.</div>
+                <div class="camp-list-toolbar">
+                    <input id="camp-search" class="camp-input" type="search" placeholder="Buscar campanha..." oninput="renderSavedLinks()">
+                    <select id="camp-filter-channel" class="camp-select" onchange="renderSavedLinks()">
+                        <option value="">Todos os canais</option>
+                    </select>
+                    <select id="camp-filter-status" class="camp-select" onchange="renderSavedLinks()">
+                        <option value="">Todos os status</option>
+                        <option value="active">Ativo</option>
+                        <option value="paused">Pausado</option>
+                        <option value="expired">Expirado</option>
+                    </select>
+                    <select id="camp-sort" class="camp-select" onchange="renderSavedLinks()">
+                        <option value="recent">Mais recentes</option>
+                        <option value="clicks">Mais clicados</option>
+                        <option value="name">Nome A-Z</option>
+                    </select>
+                </div>
                 <div id="camp-saved-list"><div class="analytics-empty">Nenhum link salvo ainda.</div></div>
             </div>
 
             <div class="camp-card">
                 <div class="camp-perf-header">
                     <div>
-                        <h3>Desempenho por origem</h3>
-                        <div class="camp-card-sub" style="margin-bottom:0">Sessões e usuários vindos de cada campanha UTM no período selecionado.</div>
+                        <h3>Tráfego no site por canal</h3>
+                        <div class="camp-card-sub" style="margin-bottom:0">Mostra quantas visitas chegaram ao site por cada campanha rastreada.</div>
                     </div>
                     <button class="camp-refresh-btn" onclick="loadCampaignPerformance()">
                         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12a9 9 0 0 1-15.5 6.2"></path><path d="M3 12a9 9 0 0 1 15.5-6.2"></path><path d="M18 3v4h-4"></path><path d="M6 21v-4h4"></path></svg>
@@ -1639,7 +1697,7 @@
 <script src="../assets/js/admin/admin-newsletter.js"></script>
 <script src="../assets/js/admin/admin-calendar.js"></script>
 <script src="../assets/js/admin/admin-analytics.js?v=13"></script>
-<script src="../assets/js/admin/admin-campaigns.js?v=5"></script>
+<script src="../assets/js/admin/admin-campaigns.js?v=6"></script>
 <script src="../assets/js/admin/admin-ai.js"></script>
 <script src="../assets/js/admin/admin-banners.js"></script>
 <script src="../assets/js/admin/admin-core.js?v=2"></script>

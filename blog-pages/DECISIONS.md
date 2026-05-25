@@ -125,3 +125,13 @@
 - Decisao: usar confirmacao inline em dois cliques para excluir links salvos.
   - Motivo: evita exclusao acidental sem abrir modal ou `confirm()` do navegador, mantendo o fluxo rapido dentro da tabela.
   - Alternativas consideradas: usar `window.confirm`, descartado por ser mais bruto visualmente e menos consistente com o painel.
+
+## 2026-05-25 - Campanhas como ferramenta operacional
+
+- Decisao: evoluir a tela de Campanhas com resumo, filtros, status, objetivo, notas e duplicacao de links.
+  - Motivo: a tela deixou de ser apenas um gerador de UTM e passou a apoiar o acompanhamento diario das campanhas.
+  - Alternativas consideradas: criar telas separadas para relatorios e cadastro, descartado porque aumentaria a navegacao e deixaria o fluxo mais lento.
+
+- Decisao: manter dados operacionais dos links salvos no `localStorage` do admin.
+  - Motivo: a estrutura atual dos links salvos ja usa armazenamento local; manter o padrao reduz risco e evita criar banco novo para essa rodada.
+  - Alternativas consideradas: migrar tudo para Redis/servidor, descartado por ser uma mudanca maior e exigir uma estrategia de migracao dos links ja salvos.

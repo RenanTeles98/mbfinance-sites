@@ -256,3 +256,23 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar em producao que o link so e apagado apos clicar em X e depois em "Confirmar".
+
+## Sessao de 2026-05-25 - Evolucao da tela Campanhas
+
+Foram adicionadas funcionalidades operacionais na tela "Campanhas e UTMs".
+
+Arquivos modificados:
+- `private/blog-admin.html`: adicionados cards de resumo, campos de objetivo/status/notas, filtros da lista, coluna de status e textos menos tecnicos.
+- `public/assets/js/admin/admin-campaigns.js`: adicionados resumo de campanhas, filtros, ordenacao, duplicacao de links, status, objetivo, notas e barras proporcionais de cliques.
+
+Estado atual:
+- A tela mostra resumo com links criados, cliques totais, link mais clicado e ultimo clique.
+- Cada link salvo pode ter objetivo, status e notas internas.
+- A lista permite buscar, filtrar por canal/status e ordenar por recentes, mais clicados ou nome.
+- O botao duplicar preenche o formulario com os dados do link selecionado.
+- A area de trafego por canal usa nomenclaturas mais simples: visitas, pessoas, tipo de canal e nome da campanha.
+- `node --check public/assets/js/admin/admin-campaigns.js` passou com sucesso.
+- `npm run build` em `blog-pages` passou com sucesso, mantendo avisos preexistentes sobre `<img>`.
+
+Proximo passo recomendado:
+- Validar em producao a criacao de um link novo com objetivo/status/notas, filtro na lista e duplicacao.
