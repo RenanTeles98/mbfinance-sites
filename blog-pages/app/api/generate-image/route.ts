@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const systemPrompt = `Você é especialista em criar prompts para geração de imagens com DALL-E 3.
 Sempre gera prompts em inglês, detalhados, otimizados para DALL-E 3.
 A identidade visual da MB Finance é: fundo azul marinho escuro (#003956), acentos em azul claro (#0099dd) e branco, estilo flat illustration moderno, estética fintech clean e profissional.
-NUNCA incluir texto, letras, palavras ou logos na imagem.`;
+Se o prompt incluir qualquer texto, rótulo ou palavra visível na imagem, esse texto deve estar obrigatoriamente em português do Brasil.`;
 
     const userPrompt = `Crie um prompt DALL-E 3 para a capa de um artigo de blog com o título: "${title}"
 Tema visual do artigo: ${categoryTheme}
@@ -43,7 +43,7 @@ O prompt deve:
 - Usar fundo azul marinho escuro com acentos em azul claro e branco
 - Incluir elementos visuais que representem o tema do artigo
 - Ser composição widescreen 16:9
-- NÃO incluir texto, letras ou logos
+- Se houver qualquer texto ou palavra na imagem, deve obrigatoriamente estar em português do Brasil
 - Ser em inglês, detalhado e direto
 
 Retorne APENAS o prompt, sem explicações, sem aspas, sem prefixo.`;
