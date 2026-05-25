@@ -111,7 +111,9 @@ function shortenUrl(url) {
                 if (loading) loading.style.display = 'none';
                 if (data.short) {
                     if (input) input.value = data.short;
-                    if (wrap)  wrap.style.display = 'flex';
+                    var display = document.getElementById('camp-short-url-display');
+                    if (display) display.textContent = data.short;
+                    if (wrap)  wrap.style.display = 'block';
                 } else {
                     var msg = data.error || 'Não foi possível encurtar o link.';
                     if (msg.indexOf('Redis') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta função.';
@@ -133,9 +135,11 @@ function copyShortUrl() {
     if (!input || !input.value) return;
     navigator.clipboard.writeText(input.value).then(function() {
         var btn = document.getElementById('camp-short-copy-btn');
-        if (!btn) return;
-        btn.innerHTML = '<span>Copiado</span>';
-        setTimeout(function() { setCampButton(btn, 'copy', 'Copiar'); }, 2000);
+        if (btn) {
+            btn.innerHTML = '<span>Copiado ✓</span>';
+            setTimeout(function() { setCampButton(btn, 'copy', 'Copiar'); }, 2000);
+        }
+        saveUtmLink();
     });
 }
 
@@ -192,6 +196,9 @@ function saveUtmLink() {
     var mediumEl = document.getElementById('camp-medium');
 
     var list = loadCampaigns();
+    var alreadySaved = list.some(function(c) { return c.url === url; });
+    if (alreadySaved) return;
+
     list.unshift({
         id:      Date.now(),
         name:    nameEl   ? nameEl.value.trim()   : '',
