@@ -3,6 +3,7 @@
 ## Prioridade atual - Admin
 
 - Publicar os ajustes visuais de icones/espacamentos do admin e validar `/admin` em producao.
+- Conferir os campos `select` no painel publicado para confirmar a seta com espaçamento correto.
 - Revisar as demais abas do admin para remover emojis remanescentes usados como icones estruturais.
 - Criar um check simples de DOM para garantir que todos os `#screen-*` do admin sejam filhos diretos de `#admin-body`.
 

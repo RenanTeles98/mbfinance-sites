@@ -2,6 +2,7 @@
 
 ## 2026-05-25
 
+- Ajustado o espaçamento da seta dos campos de seleção do admin.
 - Refinados os espacamentos entre icones e textos dos botoes do admin.
 - Substituidos emojis por icones SVG lineares na tela de Campanhas.
 - Corrigido o aninhamento das telas do admin em `private/blog-admin.html`.

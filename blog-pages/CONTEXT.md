@@ -185,3 +185,18 @@ Onde o trabalho parou:
 
 Proximo passo recomendado:
 - Validar visualmente `/admin` em producao na aba "Campanhas" apos o deploy automatico da Vercel.
+
+## Sessao de 2026-05-25 - Seta dos campos select
+
+Foi ajustado o espaçamento da seta dos campos de seleção do admin.
+
+Arquivos modificados:
+- `private/blog-admin.html`: adicionado estilo global para `select`, com seta SVG discreta, `padding-right` reservado e posicionamento afastado da borda.
+
+Estado atual:
+- As setas dos selects não ficam mais coladas na linha/borda direita.
+- O ajuste vale para selects do editor, métricas, campanhas e demais áreas do admin.
+- `npm run build` em `blog-pages` passou com sucesso, mantendo apenas avisos preexistentes do Next sobre `<img>`.
+
+Proximo passo recomendado:
+- Validar visualmente os selects em `/admin` apos o deploy.

@@ -97,3 +97,9 @@
 - Decisao: centralizar os icones dinamicos da tela "Campanhas" em helpers de `admin-campaigns.js`.
   - Motivo: acoes como copiar e salvar trocam o conteudo do botao em runtime; helpers evitam que o JavaScript remova os SVGs e volte para texto desalinhado.
   - Alternativas consideradas: deixar os estados temporarios apenas com `textContent`, descartado porque causava perda de padrao visual apos interacoes.
+
+## 2026-05-25 - Selects com seta customizada
+
+- Decisao: aplicar uma seta SVG discreta via CSS global para os campos `select` do admin.
+  - Motivo: a seta nativa do navegador estava muito próxima da borda direita em alguns campos, deixando a interface desalinhada.
+  - Alternativas consideradas: ajustar cada classe de select individualmente, descartado porque o admin tem selects em várias telas e alguns usam estilo inline.
