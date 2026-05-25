@@ -238,3 +238,21 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar em producao: abrir `/admin`, entrar em "Campanhas", pressionar F5 e confirmar que a aba permanece.
+
+## Sessao de 2026-05-25 - Confirmacao dupla para excluir links
+
+Foi adicionada uma protecao contra exclusao acidental dos links salvos na aba "Campanhas".
+
+Arquivos modificados:
+- `public/assets/js/admin/admin-campaigns.js`: o botao de excluir agora exige dois cliques; o primeiro mostra "Confirmar" e o segundo apaga.
+- `private/blog-admin.html`: adicionada classe visual para o estado de confirmacao e atualizado o cache busting do JS de campanhas.
+
+Estado atual:
+- Clicar no X nao apaga o link imediatamente.
+- O botao muda para "Confirmar" por 4 segundos.
+- Se o usuario nao confirmar, o botao volta para X automaticamente.
+- `node --check public/assets/js/admin/admin-campaigns.js` passou com sucesso.
+- `npm run build` em `blog-pages` passou com sucesso, mantendo apenas avisos preexistentes do Next sobre `<img>`.
+
+Proximo passo recomendado:
+- Validar em producao que o link so e apagado apos clicar em X e depois em "Confirmar".

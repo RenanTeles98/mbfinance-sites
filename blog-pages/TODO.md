@@ -6,6 +6,7 @@
 - Conferir os campos `select` no painel publicado para confirmar a seta com espaçamento correto.
 - Validar a contagem de cliques dos links encurtados na aba "Campanhas" apos o deploy.
 - Validar que F5 preserva a aba ativa no admin publicado.
+- Validar a confirmacao dupla ao excluir links salvos na aba "Campanhas".
 - Revisar as demais abas do admin para remover emojis remanescentes usados como icones estruturais.
 - Criar um check simples de DOM para garantir que todos os `#screen-*` do admin sejam filhos diretos de `#admin-body`.
 

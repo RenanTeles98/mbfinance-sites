@@ -119,3 +119,9 @@
 - Decisao: persistir a aba ativa do admin em `localStorage` e no hash da URL.
   - Motivo: ao dar F5, o painel voltava para "Metricas do site", interrompendo o fluxo de trabalho em abas como "Campanhas".
   - Alternativas consideradas: usar apenas `localStorage`, descartado porque o hash tambem permite recarregar/compartilhar uma URL que abre direto na aba correta.
+
+## 2026-05-25 - Confirmacao dupla na exclusao de links
+
+- Decisao: usar confirmacao inline em dois cliques para excluir links salvos.
+  - Motivo: evita exclusao acidental sem abrir modal ou `confirm()` do navegador, mantendo o fluxo rapido dentro da tabela.
+  - Alternativas consideradas: usar `window.confirm`, descartado por ser mais bruto visualmente e menos consistente com o painel.

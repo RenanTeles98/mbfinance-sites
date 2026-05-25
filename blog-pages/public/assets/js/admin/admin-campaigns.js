@@ -3,6 +3,8 @@
  */
 
 var CAMP_STORAGE_KEY = 'mb_campaigns_v1';
+var _pendingDeleteCampaignId = null;
+var _pendingDeleteTimer = null;
 
 var CAMP_ICONS = {
     copy: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>',
@@ -256,7 +258,26 @@ function saveUtmLink() {
     }
 }
 
+function requestDeleteCampaign(id) {
+    if (_pendingDeleteCampaignId === id) {
+        deleteCampaign(id);
+        return;
+    }
+
+    _pendingDeleteCampaignId = id;
+    clearTimeout(_pendingDeleteTimer);
+    renderSavedLinks();
+    _pendingDeleteTimer = setTimeout(function() {
+        if (_pendingDeleteCampaignId === id) {
+            _pendingDeleteCampaignId = null;
+            renderSavedLinks();
+        }
+    }, 4000);
+}
+
 function deleteCampaign(id) {
+    clearTimeout(_pendingDeleteTimer);
+    _pendingDeleteCampaignId = null;
     saveCampaigns(loadCampaigns().filter(function(c) { return c.id !== id; }));
     renderSavedLinks();
 }
@@ -286,6 +307,7 @@ function renderSavedLinks() {
         var c = list[i];
         var shareUrl = getCampaignShareUrl(c);
         var code = c.shortCode || extractShortCode(c.shortUrl || '');
+        var isConfirmingDelete = (_pendingDeleteCampaignId === c.id);
         rows += '<div class="camp-saved-row">'
             + '<div class="camp-saved-name" title="' + cesc(shareUrl) + '">' + cesc(c.name) + '</div>'
             + '<div class="camp-click-count" data-short-code="' + cesc(code) + '">' + (code ? formatCampClicks(c.clicks || 0) : '—') + '</div>'
@@ -293,7 +315,9 @@ function renderSavedLinks() {
             + '<div class="camp-saved-date">' + cesc(c.date) + '</div>'
             + '<div class="camp-saved-actions">'
             + '<button id="camp-copy-saved-' + c.id + '" class="camp-action-btn" onclick="copySavedCamp(' + c.id + ')" title="Copiar URL">' + campButtonHtml('copy', 'Copiar') + '</button>'
-            + '<button class="camp-action-btn camp-del-btn camp-icon-only" onclick="deleteCampaign(' + c.id + ')" title="Excluir" aria-label="Excluir link">' + CAMP_ICONS.close + '</button>'
+            + (isConfirmingDelete
+                ? '<button class="camp-action-btn camp-del-btn camp-confirm-del-btn" onclick="requestDeleteCampaign(' + c.id + ')" title="Confirmar exclusão">Confirmar</button>'
+                : '<button class="camp-action-btn camp-del-btn camp-icon-only" onclick="requestDeleteCampaign(' + c.id + ')" title="Excluir" aria-label="Excluir link">' + CAMP_ICONS.close + '</button>')
             + '</div></div>';
     }
     el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Campanha</span><span style="text-align:center">Cliques</span><span>Canal</span><span>Data</span><span></span></div>' + rows + '</div>';
@@ -388,6 +412,7 @@ window.copyUtmUrl              = copyUtmUrl;
 window.copyShortUrl            = copyShortUrl;
 window.saveUtmLink             = saveUtmLink;
 window.deleteCampaign          = deleteCampaign;
+window.requestDeleteCampaign   = requestDeleteCampaign;
 window.copySavedCamp           = copySavedCamp;
 window.loadCampaignPerformance = loadCampaignPerformance;
 window.loadCampaignClickStats  = loadCampaignClickStats;
