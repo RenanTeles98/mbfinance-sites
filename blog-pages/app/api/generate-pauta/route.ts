@@ -82,7 +82,7 @@ Responda APENAS com um JSON array de 3 objetos, sem texto antes ou depois:
 ]
 `.trim();
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GOOGLE_API_KEY}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GOOGLE_API_KEY}`;
 
     const response = await fetch(geminiUrl, {
         method: 'POST',
