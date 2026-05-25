@@ -296,7 +296,7 @@ function renderSavedLinks() {
             + '<button class="camp-action-btn camp-del-btn camp-icon-only" onclick="deleteCampaign(' + c.id + ')" title="Excluir" aria-label="Excluir link">' + CAMP_ICONS.close + '</button>'
             + '</div></div>';
     }
-    el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Campanha</span><span>Cliques</span><span>Canal</span><span>Data</span><span></span></div>' + rows + '</div>';
+    el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Campanha</span><span style="text-align:center">Cliques</span><span>Canal</span><span>Data</span><span></span></div>' + rows + '</div>';
     loadCampaignClickStats();
 }
 
