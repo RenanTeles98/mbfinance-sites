@@ -1,10 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 
-const TMP_FILE = '/tmp/mb_shortlinks.json';
+const TMP_FILE       = '/tmp/mb_shortlinks.json';
 const TMP_STATS_FILE = '/tmp/mb_shortlink_clicks.json';
 
 const ALLOWED_HOSTS = ['mbfinance.com.br', 'mbnegocios.com.br', 'blog.mbfinance.com.br', 'localhost'];
+
+// Redis singleton — criado uma vez por container, reutilizado em todos os requests
+let _redis: import('@upstash/redis').Redis | null | undefined = undefined;
+async function getRedis() {
+    if (_redis !== undefined) return _redis;
+    if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+        const { Redis } = await import('@upstash/redis');
+        _redis = new Redis({ url: process.env.KV_REST_API_URL, token: process.env.KV_REST_API_TOKEN });
+    } else {
+        _redis = null;
+    }
+    return _redis;
+}
 
 function isSafeUrl(raw: string): boolean {
     try {
@@ -12,14 +25,6 @@ function isSafeUrl(raw: string): boolean {
         if (protocol !== 'https:' && protocol !== 'http:') return false;
         return ALLOWED_HOSTS.some(h => hostname === h || hostname.endsWith(`.${h}`));
     } catch { return false; }
-}
-
-async function getRedis() {
-    if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
-        const { Redis } = await import('@upstash/redis');
-        return new Redis({ url: process.env.KV_REST_API_URL, token: process.env.KV_REST_API_TOKEN });
-    }
-    return null;
 }
 
 async function lookupUrl(code: string, redis: Awaited<ReturnType<typeof getRedis>>): Promise<string | null> {
@@ -30,13 +35,13 @@ async function lookupUrl(code: string, redis: Awaited<ReturnType<typeof getRedis
     } catch { return null; }
 }
 
-async function registerClick(code: string, redis: Awaited<ReturnType<typeof getRedis>>): Promise<void> {
+// Fire-and-forget — nunca bloqueia o redirect
+function trackClick(code: string, redis: Awaited<ReturnType<typeof getRedis>>): void {
     if (redis) {
-        // Best-effort tracking; redirect still works if this fails.
-        await Promise.all([
+        Promise.all([
             redis.incr(`short:${code}:clicks`),
             redis.set(`short:${code}:lastClick`, new Date().toISOString()),
-        ]);
+        ]).catch(() => {});
         return;
     }
     try {
@@ -59,14 +64,10 @@ export async function GET(
         const redis = await getRedis();
         const url = await lookupUrl(code, redis);
 
-        if (!url) {
-            return new NextResponse('Link não encontrado ou expirado.', { status: 404 });
-        }
-        if (!isSafeUrl(url)) {
-            return new NextResponse('Destino inválido.', { status: 400 });
-        }
+        if (!url) return new NextResponse('Link não encontrado ou expirado.', { status: 404 });
+        if (!isSafeUrl(url)) return new NextResponse('Destino inválido.', { status: 400 });
 
-        try { await registerClick(code, redis); } catch (err) { console.error('[shortlink-click] error:', err); }
+        trackClick(code, redis); // sem await — redirect acontece imediatamente
 
         return NextResponse.redirect(url, 302);
     } catch {
