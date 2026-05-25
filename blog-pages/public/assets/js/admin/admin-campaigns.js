@@ -287,17 +287,16 @@ function renderSavedLinks() {
         var shareUrl = getCampaignShareUrl(c);
         var code = c.shortCode || extractShortCode(c.shortUrl || '');
         rows += '<div class="camp-saved-row">'
-            + '<div class="camp-click-count" data-short-code="' + cesc(code) + '">' + (code ? formatCampClicks(c.clicks || 0) : '—') + '</div>'
             + '<div class="camp-saved-name" title="' + cesc(shareUrl) + '">' + cesc(c.name) + '</div>'
+            + '<div class="camp-click-count" data-short-code="' + cesc(code) + '">' + (code ? formatCampClicks(c.clicks || 0) : '—') + '</div>'
             + '<div><span class="camp-channel-badge">' + cesc(c.channel) + '</span></div>'
-            + '<div class="camp-saved-meta">' + cesc(c.source) + ' / ' + cesc(c.medium) + '</div>'
             + '<div class="camp-saved-date">' + cesc(c.date) + '</div>'
             + '<div class="camp-saved-actions">'
             + '<button id="camp-copy-saved-' + c.id + '" class="camp-action-btn" onclick="copySavedCamp(' + c.id + ')" title="Copiar URL">' + campButtonHtml('copy', 'Copiar') + '</button>'
             + '<button class="camp-action-btn camp-del-btn camp-icon-only" onclick="deleteCampaign(' + c.id + ')" title="Excluir" aria-label="Excluir link">' + CAMP_ICONS.close + '</button>'
             + '</div></div>';
     }
-    el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Cliques</span><span>Campanha</span><span>Canal</span><span>Origem / Mídia</span><span>Data</span><span></span></div>' + rows + '</div>';
+    el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Campanha</span><span>Cliques</span><span>Canal</span><span>Data</span><span></span></div>' + rows + '</div>';
     loadCampaignClickStats();
 }
 
