@@ -2,6 +2,7 @@
 
 ## 2026-05-25
 
+- Corrigido o F5 do admin para manter a aba ativa aberta.
 - Adicionada contagem de cliques por link encurtado na aba Campanhas do admin.
 - Ajustado o espaçamento da seta dos campos de seleção do admin.
 - Refinados os espacamentos entre icones e textos dos botoes do admin.

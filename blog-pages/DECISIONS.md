@@ -113,3 +113,9 @@
 - Decisao: mostrar cliques apenas para links salvos com `shortCode`.
   - Motivo: links antigos salvos apenas como URL UTM nao possuem codigo do encurtador para consultar no storage.
   - Alternativas consideradas: tentar inferir por `utm_campaign`, descartado porque misturaria acessos de canais diferentes e deixaria de ser contagem por link gerado.
+
+## 2026-05-25 - Persistencia da aba ativa
+
+- Decisao: persistir a aba ativa do admin em `localStorage` e no hash da URL.
+  - Motivo: ao dar F5, o painel voltava para "Metricas do site", interrompendo o fluxo de trabalho em abas como "Campanhas".
+  - Alternativas consideradas: usar apenas `localStorage`, descartado porque o hash tambem permite recarregar/compartilhar uma URL que abre direto na aba correta.

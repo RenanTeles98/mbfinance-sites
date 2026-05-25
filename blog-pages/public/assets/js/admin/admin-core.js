@@ -24,6 +24,29 @@ async function login() {
     }
 }
 
+const ADMIN_TAB_STORAGE_KEY = 'mb_admin_active_tab';
+const ADMIN_TABS = ['analytics', 'campaigns', 'posts', 'newsletter', 'banners'];
+
+function getInitialTab() {
+    const hashTab = window.location.hash ? window.location.hash.replace('#', '').trim() : '';
+    if (ADMIN_TABS.indexOf(hashTab) !== -1) return hashTab;
+
+    const savedTab = localStorage.getItem(ADMIN_TAB_STORAGE_KEY);
+    if (ADMIN_TABS.indexOf(savedTab) !== -1) return savedTab;
+
+    return 'analytics';
+}
+
+function persistActiveTab(id) {
+    if (ADMIN_TABS.indexOf(id) === -1) return;
+    localStorage.setItem(ADMIN_TAB_STORAGE_KEY, id);
+
+    const nextHash = '#' + id;
+    if (window.location.hash !== nextHash && window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', nextHash);
+    }
+}
+
 function init() {
     const authStatus = localStorage.getItem('mb_admin_auth');
     
@@ -46,10 +69,12 @@ function init() {
     if (typeof updateOfficialBlogUi === 'function') updateOfficialBlogUi();
 
     // Como métricas é o padrão (tela ativa no HTML), renderiza agora
-    if (typeof renderAnalytics === 'function') renderAnalytics();
+    switchTab(getInitialTab());
 }
 
 function switchTab(id) {
+    if (ADMIN_TABS.indexOf(id) === -1) id = 'analytics';
+
     // Esconder todas as telas
     document.querySelectorAll('.admin-screen').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(l => l.classList.remove('active'));
@@ -60,6 +85,7 @@ function switchTab(id) {
     
     if (target) target.classList.add('active');
     if (btn) btn.classList.add('active');
+    persistActiveTab(id);
 
     // Inicialização específica de cada aba
     if (id === 'calendar' && typeof renderCalendar === 'function') renderCalendar();

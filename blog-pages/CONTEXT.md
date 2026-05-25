@@ -220,3 +220,21 @@ Estado atual:
 
 Proximo passo recomendado:
 - Criar um novo link no admin publicado, copiar o link encurtado, abrir em uma aba anonima e confirmar que a coluna "Cliques" sobe apos atualizar a aba.
+
+## Sessao de 2026-05-25 - Persistencia da aba ativa no admin
+
+Foi corrigido o comportamento do admin ao atualizar a pagina com F5.
+
+Arquivos modificados:
+- `public/assets/js/admin/admin-core.js`: adicionada persistencia da aba ativa em `localStorage` e no hash da URL.
+- `private/blog-admin.html`: atualizado o cache busting do `admin-core.js` para carregar a nova versao.
+
+Estado atual:
+- Ao trocar para Campanhas, Blog, E-mails ou Publicidade, a aba fica salva.
+- Ao dar F5, o admin restaura a mesma aba em vez de voltar para "Metricas do site".
+- A URL tambem passa a indicar a aba, por exemplo `/admin#campaigns`.
+- `node --check public/assets/js/admin/admin-core.js` passou com sucesso.
+- `npm run build` em `blog-pages` passou com sucesso, mantendo apenas avisos preexistentes do Next sobre `<img>`.
+
+Proximo passo recomendado:
+- Validar em producao: abrir `/admin`, entrar em "Campanhas", pressionar F5 e confirmar que a aba permanece.
