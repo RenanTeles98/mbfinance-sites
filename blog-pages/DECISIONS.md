@@ -77,3 +77,13 @@
 - Decisao: usar `generate_lead` como evento principal de conversao.
   - Motivo: e o evento recomendado para medir lead concluido e acontece quando o formulario de lead envia o usuario para WhatsApp.
   - Alternativas consideradas: marcar todo clique em WhatsApp como conversao, descartado porque cliques iniciais podem abrir modal sem gerar lead completo.
+
+## 2026-05-25 - Telas do admin devem ser filhas diretas de `#admin-body`
+
+- Decisao: corrigir o HTML de `private/blog-admin.html` fechando `post-form`, `editor-panel` e `blog-section-posts` antes das demais telas.
+  - Motivo: `screen-analytics` e as outras telas estavam aninhadas dentro de `screen-posts`; como `screen-posts` fica `display:none` quando a aba Blog nao esta ativa, nenhuma tela filha podia aparecer visualmente.
+  - Alternativas consideradas: continuar ajustando altura/overflow/cache, descartado porque o DOM provou que o problema era estrutural de aninhamento.
+
+- Decisao: manter o padrao de SPA simples com todas as telas administrativas como filhos diretos de `#admin-body`.
+  - Motivo: o `switchTab` espera buscar e ativar `#screen-*` no mesmo nivel visual; aninhar telas dentro de outra tela quebra esse contrato.
+  - Alternativas consideradas: mudar o JavaScript para procurar telas aninhadas, descartado porque preservaria markup invalido e fragilizaria futuras abas.

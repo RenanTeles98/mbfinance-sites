@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-05-25
+
+- Corrigido o aninhamento das telas do admin em `private/blog-admin.html`.
+- As telas de Metricas, Campanhas, E-mails, Publicidade, Calendario e Gerador voltaram a ser filhas diretas de `#admin-body`.
+- Resolvida a causa da area principal cinza/vazia em `/admin`.
+
 ## 2026-05-06
 
 - Adicionados eventos `dataLayer` para GTM no blog e na pagina principal.

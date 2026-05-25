@@ -1,5 +1,10 @@
 # TODO
 
+## Prioridade atual - Admin
+
+- Publicar a correcao de aninhamento do admin e validar `/admin` em producao.
+- Criar um check simples de DOM para garantir que todos os `#screen-*` do admin sejam filhos diretos de `#admin-body`.
+
 ## Prioridade atual - Performance do blog
 
 - Publicar os ajustes de CLS do hero do blog.

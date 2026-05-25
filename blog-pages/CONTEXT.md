@@ -146,3 +146,22 @@ Onde o trabalho parou:
 
 Proximo passo recomendado:
 - Publicar o codigo e configurar as tags GA4 Event no GTM para cada evento do `dataLayer`.
+
+## Sessao de 2026-05-25 - Correcao das telas em branco do admin
+
+Foi corrigida a causa raiz da area cinza/vazia em `https://blog.mbfinance.com.br/admin`.
+
+Arquivos modificados:
+- `private/blog-admin.html`: corrigido o aninhamento de `div`s no bloco do editor do Blog, fechando corretamente `post-form`, `editor-panel` e `blog-section-posts` antes das demais telas administrativas.
+
+Estado atual:
+- `#screen-analytics`, `#screen-campaigns`, `#screen-newsletter`, `#screen-banners`, `#screen-calendar` e `#screen-generator` voltaram a ser filhos diretos de `#admin-body`.
+- O problema nao era cache da Vercel, CSS de altura ou chamada duplicada de `init()`: as telas estavam dentro de `#screen-posts`, que fica com `display:none` quando a aba Blog nao esta ativa.
+- `npm run build` em `blog-pages` passou com sucesso.
+- Permanecem apenas avisos preexistentes do Next sobre uso de `<img>` em vez de `next/image`.
+
+Onde o trabalho parou:
+- Correcao aplicada localmente e pronta para commit/push no projeto Vercel `blog-mbfinace`.
+
+Proximo passo recomendado:
+- Publicar e validar em producao que a aba "Metricas do site" mostra o H2 e os cards imediatamente abaixo das abas.
