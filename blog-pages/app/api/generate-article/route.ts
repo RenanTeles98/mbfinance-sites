@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json().catch(() => null);
-    const { title = '', category = '', keyword = '', notes = '', awarenessLevel = '', excerptOnly = false, titleOnly = false, seoOnly = false, product = '' } = body || {};
+    const { title = '', category = '', keyword = '', notes = '', awarenessLevel = '', excerptOnly = false, titleOnly = false, seoOnly = false, seoField = 'all', product = '' } = body || {};
 
     if (!title && !titleOnly && !excerptOnly) {
         return NextResponse.json({ error: 'title obrigatório' }, { status: 400 });
@@ -62,18 +62,23 @@ export async function POST(req: NextRequest) {
     const productInfo = PRODUCTS[product];
 
     if (seoOnly) {
+        const fieldInstructions: Record<string, string> = {
+            title: `Retorne APENAS um JSON: { "seoTitle": "Título SEO com até 60 caracteres, pode terminar com | MB Finance" }`,
+            desc:  `Retorne APENAS um JSON: { "seoDesc": "Meta descrição de 140-155 caracteres que desperta curiosidade e inclui a palavra-chave principal" }`,
+            keywords: `Retorne APENAS um JSON: { "keywords": "palavra-chave 1, palavra-chave 2, palavra-chave 3, palavra-chave 4, palavra-chave 5" }`,
+            all: `Retorne APENAS um JSON com este formato exato:
+{ "seoTitle": "...", "seoDesc": "...", "keywords": "..." }`,
+        };
+
         const seoPrompt = `Gere os dados de SEO para um artigo de blog da MB Finance.
 
 TÍTULO DO ARTIGO: ${title}
 ${category ? `CATEGORIA: ${category}` : ''}
 ${productInfo ? `PRODUTO: ${productInfo.name}` : ''}
 
-Retorne APENAS um JSON com este formato exato, sem texto antes ou depois:
-{
-  "seoTitle": "Título SEO com até 60 caracteres — pode incluir | MB Finance no final",
-  "seoDesc": "Meta descrição de 140-155 caracteres que desperta curiosidade e inclui a palavra-chave principal",
-  "keywords": "palavra-chave 1, palavra-chave 2, palavra-chave 3, palavra-chave 4, palavra-chave 5"
-}`.trim();
+${fieldInstructions[seoField] || fieldInstructions.all}
+
+Sem texto antes ou depois do JSON.`.trim();
 
         const seoRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',

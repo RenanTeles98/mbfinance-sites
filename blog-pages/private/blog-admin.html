@@ -967,19 +967,37 @@
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="f-seo-title">Título SEO <span class="field-hint">(aba do navegador e resultado do Google · máx. 60 caracteres)</span></label>
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                            <label class="field-label" for="f-seo-title" style="margin-bottom:0;">Título SEO <span class="field-hint">(aba do navegador e resultado do Google · máx. 60 caracteres)</span></label>
+                            <button type="button" id="btn-gen-seo-title" class="magic-btn" style="padding:4px 10px;font-size:11px;border-radius:6px;flex-shrink:0;" onclick="generateSEOField('title')">
+                                <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                                <span id="btn-gen-seo-title-label">Gerar com IA</span>
+                            </button>
+                        </div>
                         <input type="text" id="f-seo-title" class="field-input" placeholder="Ex: Capital de Giro com as Melhores Taxas | MB Finance" maxlength="70" oninput="updateCharCount('f-seo-title','cnt-seo-title',60); updateSeoPreview()">
                         <div class="char-count" id="cnt-seo-title">0/60</div>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="f-seo-desc">Meta Descrição <span class="field-hint">(texto abaixo do título no Google · máx. 155 caracteres)</span></label>
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                            <label class="field-label" for="f-seo-desc" style="margin-bottom:0;">Meta Descrição <span class="field-hint">(texto abaixo do título no Google · máx. 155 caracteres)</span></label>
+                            <button type="button" id="btn-gen-seo-desc" class="magic-btn" style="padding:4px 10px;font-size:11px;border-radius:6px;flex-shrink:0;" onclick="generateSEOField('desc')">
+                                <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                                <span id="btn-gen-seo-desc-label">Gerar com IA</span>
+                            </button>
+                        </div>
                         <textarea id="f-seo-desc" class="field-textarea" rows="2" placeholder="Ex: A MB Finance compara as melhores condições de capital de giro entre bancos e fintech para a sua empresa. Aprovação em 24h." maxlength="160" oninput="updateCharCount('f-seo-desc','cnt-seo-desc',155); updateSeoPreview()"></textarea>
                         <div class="char-count" id="cnt-seo-desc">0/155</div>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="f-keywords">Palavras-chave <span class="field-hint">(separe por vírgulas — ex: capital de giro, crédito PJ, financiamento)</span></label>
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                            <label class="field-label" for="f-keywords" style="margin-bottom:0;">Palavras-chave <span class="field-hint">(separe por vírgulas — ex: capital de giro, crédito PJ, financiamento)</span></label>
+                            <button type="button" id="btn-gen-seo-kw" class="magic-btn" style="padding:4px 10px;font-size:11px;border-radius:6px;flex-shrink:0;" onclick="generateSEOField('keywords')">
+                                <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
+                                <span id="btn-gen-seo-kw-label">Gerar com IA</span>
+                            </button>
+                        </div>
                         <input type="text" id="f-keywords" class="field-input" placeholder="capital de giro, crédito empresarial, financiamento PJ">
                     </div>
 
@@ -2409,6 +2427,47 @@ function selectTitle(el) {
     updateSeoPreview();
     var box = document.getElementById('title-suggestions-box');
     if (box) box.remove();
+}
+
+async function generateSEOField(field) {
+    var title = (document.getElementById('f-title') || {}).value || '';
+    if (!title.trim()) { alert('Preencha o Título do artigo antes de gerar o SEO.'); return; }
+    var category = (document.getElementById('f-category') || {}).value || '';
+    var product = (document.getElementById('f-product') || {}).value || '';
+    var btnId = { title: 'btn-gen-seo-title', desc: 'btn-gen-seo-desc', keywords: 'btn-gen-seo-kw' }[field];
+    var labelId = btnId + '-label';
+    var btn = document.getElementById(btnId);
+    var label = document.getElementById(labelId);
+    btn.disabled = true;
+    label.textContent = 'Gerando…';
+    try {
+        var res = await fetch('/api/generate-article', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ seoOnly: true, seoField: field, title: title, category: category, product: product }),
+        });
+        var data = await res.json();
+        if (!res.ok || data.error) {
+            alert('⚠ ' + (data.error || 'Erro ao gerar.'));
+        } else {
+            if (field === 'title' && data.seoTitle) {
+                document.getElementById('f-seo-title').value = data.seoTitle;
+                updateCharCount('f-seo-title', 'cnt-seo-title', 60);
+                updateSeoPreview();
+            } else if (field === 'desc' && data.seoDesc) {
+                document.getElementById('f-seo-desc').value = data.seoDesc;
+                updateCharCount('f-seo-desc', 'cnt-seo-desc', 155);
+                updateSeoPreview();
+            } else if (field === 'keywords' && data.keywords) {
+                document.getElementById('f-keywords').value = data.keywords;
+            }
+        }
+    } catch(e) {
+        alert('⚠ Erro de conexão: ' + e.message);
+    } finally {
+        btn.disabled = false;
+        label.textContent = 'Gerar com IA';
+    }
 }
 
 async function generateSEO() {
