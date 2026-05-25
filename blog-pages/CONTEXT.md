@@ -313,3 +313,19 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar a pagina publicada em desktop e mobile para confirmar que a hero antiga ficou harmonica com a listagem editorial nova.
+
+## Sessao de 2026-05-25 - Cores editoriais alinhadas a marca
+
+Foram removidos os textos vermelhos da capa publica do blog.
+
+Arquivos modificados:
+- `app/blog/blog.css`: manchete principal, titulos da lista de artigos e links rapidos da sidebar passaram de vermelho para o azul marinho `#003956`.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-25.md` e `CHANGELOG.md`: atualizados com a decisao visual.
+
+Estado atual:
+- A capa publica do blog usa azul marinho nos textos editoriais principais, alinhando melhor com a identidade MB Finance.
+- `npm run build` em `blog-pages` passou com sucesso.
+- Permanecem warnings de `<img>` no logo do blog e na pagina interna de post, sem bloquear build.
+
+Proximo passo recomendado:
+- Conferir `/blog` publicado para validar contraste e hierarquia visual dos titulos em azul marinho.

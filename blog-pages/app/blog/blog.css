@@ -247,7 +247,7 @@
 .lead-story h1 {
   max-width: 620px;
   margin: 0 0 12px;
-  color: #c40000;
+  color: #003956;
   font-size: clamp(28px, 4.2vw, 43px);
   line-height: 1.05;
   font-weight: 900;
@@ -356,7 +356,7 @@
 
 .news-row-content h2 {
   margin: 0 0 8px;
-  color: #c40000;
+  color: #003956;
   font-size: 20px;
   line-height: 1.18;
   font-weight: 900;
@@ -401,7 +401,7 @@
 .quick-links a {
   padding: 12px 0;
   border-bottom: 1px solid #edf0f3;
-  color: #c40000;
+  color: #003956;
   font-size: 13px;
   line-height: 1.35;
   font-weight: 800;

@@ -2,6 +2,7 @@
 
 ## 2026-05-25
 
+- Substituidos os titulos vermelhos da capa `/blog` pelo azul marinho da MB Finance.
 - Restaurada a hero anterior da pagina publica `/blog`, mantendo a nova listagem editorial abaixo.
 - Reorganizada a capa publica `/blog` com layout editorial inspirado em portal de noticias, sem banners de anuncio.
 - Corrigido o espacamento das colunas da lista de links salvos em Campanhas.

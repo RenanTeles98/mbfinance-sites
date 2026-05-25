@@ -14,6 +14,7 @@
 
 ## Prioridade atual - Performance do blog
 
+- Validar os titulos da capa `/blog` em azul marinho no ambiente publicado.
 - Validar a hero restaurada de `/blog` em desktop e mobile apos o deploy.
 - Validar a nova capa publica `/blog` em desktop e mobile apos o deploy.
 - Publicar os ajustes de CLS do hero do blog.

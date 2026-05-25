@@ -159,3 +159,9 @@
 - Decisao: manter o logo em imagem na hero/nav restaurada.
   - Motivo: preserva a mesma leitura visual da versao anterior solicitada pelo usuario.
   - Alternativas consideradas: usar logo textual para evitar warning de `<img>`, descartado nesta rodada por alterar demais o visual que o usuario pediu para recuperar.
+
+## 2026-05-25 - Azul marinho nos titulos editoriais
+
+- Decisao: substituir o vermelho dos titulos da capa publica do blog por azul marinho `#003956`.
+  - Motivo: vermelho remetia a identidade do G1 e nao faz parte da linguagem visual principal da MB Finance.
+  - Alternativas consideradas: usar azul claro `#0099dd`, descartado para titulos longos porque o marinho tem melhor legibilidade e peso editorial.
