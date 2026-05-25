@@ -37,15 +37,16 @@ function stripHtml(raw: string): string {
 
 function parseRss(xml: string, sourceName: string, sourceColor: string): NewsItem[] {
     const items: NewsItem[] = [];
-    const matches = Array.from(xml.matchAll(/<item>([\s\S]*?)<\/item>/g));
+    const re = /<item>([\s\S]*?)<\/item>/g;
+    let m: RegExpExecArray | null;
 
-    for (const m of matches) {
+    while ((m = re.exec(xml)) !== null) {
         const block = m[1];
-        const title       = extractCdata((block.match(/<title>([\s\S]*?)<\/title>/)       || [])[1] || '');
-        const link        = ((block.match(/<link>([\s\S]*?)<\/link>/)                     || [])[1] || '').trim();
+        const title       = extractCdata((block.match(/<title>([\s\S]*?)<\/title>/)            || [])[1] || '');
+        const link        = ((block.match(/<link>([\s\S]*?)<\/link>/)                          || [])[1] || '').trim();
         const rawDesc     = extractCdata((block.match(/<description>([\s\S]*?)<\/description>/) || [])[1] || '');
         const description = stripHtml(rawDesc).substring(0, 220);
-        const pubDate     = ((block.match(/<pubDate>([\s\S]*?)<\/pubDate>/)               || [])[1] || '').trim();
+        const pubDate     = ((block.match(/<pubDate>([\s\S]*?)<\/pubDate>/)                    || [])[1] || '').trim();
 
         if (title && link) items.push({ source: sourceName, sourceColor, title, link, description, pubDate });
         if (items.length >= 20) break;
