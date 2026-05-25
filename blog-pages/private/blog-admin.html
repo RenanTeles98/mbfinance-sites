@@ -1561,9 +1561,17 @@
             </div>
 
             <div class="camp-card">
-                <h3>Links salvos</h3>
-                <div class="camp-card-sub">Histórico de links criados — use o botão Copiar para compartilhar o link encurtado e acompanhar os cliques.</div>
-                <div class="camp-list-toolbar">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:4px;">
+                    <div>
+                        <h3>Links salvos</h3>
+                        <div class="camp-card-sub" style="margin-bottom:0">Histórico de links criados — use o botão Copiar para compartilhar o link encurtado e acompanhar os cliques.</div>
+                    </div>
+                    <button class="camp-refresh-btn" onclick="exportCampaignsCSV()" style="flex-shrink:0;white-space:nowrap;">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Exportar CSV
+                    </button>
+                </div>
+                <div class="camp-list-toolbar" style="margin-top:16px;">
                     <input id="camp-search" class="camp-input" type="search" placeholder="Buscar campanha..." oninput="renderSavedLinks()">
                     <select id="camp-filter-channel" class="camp-select" onchange="renderSavedLinks()">
                         <option value="">Todos os canais</option>
@@ -1581,6 +1589,45 @@
                     </select>
                 </div>
                 <div id="camp-saved-list"><div class="analytics-empty">Nenhum link salvo ainda.</div></div>
+            </div>
+
+            <div class="camp-card">
+                <h3>Template WhatsApp</h3>
+                <div class="camp-card-sub">Monte uma mensagem pronta com o link da campanha para enviar direto pelo WhatsApp.</div>
+                <div class="camp-form-grid">
+                    <div class="camp-form-group">
+                        <label class="camp-label" for="wapp-product">Produto / Oferta</label>
+                        <select id="wapp-product" class="camp-select" onchange="buildWappTemplate()">
+                            <option value="capital-giro">Capital de Giro</option>
+                            <option value="conta-pj">Conta PJ</option>
+                            <option value="maquina-cartao">Máquina de Cartão</option>
+                            <option value="antecipacao">Antecipação de Recebíveis</option>
+                            <option value="personalizado">Personalizado</option>
+                        </select>
+                    </div>
+                    <div class="camp-form-group">
+                        <label class="camp-label" for="wapp-name">Nome do contato <span>(opcional)</span></label>
+                        <input id="wapp-name" class="camp-input" type="text" placeholder="Ex: João, Ricardo..." oninput="buildWappTemplate()">
+                    </div>
+                    <div class="camp-form-group full">
+                        <label class="camp-label" for="wapp-link">Link da campanha <span>(preenchido automaticamente ao salvar um link acima)</span></label>
+                        <input id="wapp-link" class="camp-input" type="text" placeholder="https://mbnegocios.com.br/c/..." oninput="buildWappTemplate()">
+                    </div>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label class="camp-label" style="margin-bottom:8px;">Mensagem gerada</label>
+                    <textarea id="wapp-preview" class="camp-url-input" rows="4" readonly placeholder="Preencha os campos acima para gerar a mensagem..."></textarea>
+                </div>
+                <div class="camp-actions">
+                    <button class="camp-btn camp-btn-secondary" onclick="copyWappMessage()">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span>Copiar mensagem</span>
+                    </button>
+                    <button id="wapp-send-btn" class="camp-btn camp-btn-primary" onclick="openWhatsApp()">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        <span>Abrir no WhatsApp</span>
+                    </button>
+                </div>
             </div>
 
         </div>

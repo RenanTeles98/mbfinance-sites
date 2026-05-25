@@ -353,6 +353,13 @@ function saveUtmLink() {
     saveCampaigns(list);
     renderSavedLinks();
 
+    // auto-preenche o link no template WhatsApp
+    var wappLink = document.getElementById('wapp-link');
+    if (wappLink && (shortUrl || url)) {
+        wappLink.value = shortUrl || url;
+        buildWappTemplate();
+    }
+
     var btn = document.getElementById('camp-save-btn');
     if (btn) {
         btn.innerHTML = '<span>Salvo</span>';
@@ -554,3 +561,81 @@ window.requestDeleteCampaign   = requestDeleteCampaign;
 window.copySavedCamp           = copySavedCamp;
 window.loadCampaignPerformance = loadCampaignPerformance;
 window.loadCampaignClickStats  = loadCampaignClickStats;
+window.buildWappTemplate       = buildWappTemplate;
+window.copyWappMessage         = copyWappMessage;
+window.openWhatsApp            = openWhatsApp;
+window.exportCampaignsCSV      = exportCampaignsCSV;
+
+// ── TEMPLATE WHATSAPP ────────────────────────────────────────────────────────
+
+var WAPP_TEMPLATES = {
+    'capital-giro':   'Olá, {nome}! A MB Finance tem uma solução de Capital de Giro com condições especiais para a sua empresa — sem burocracia e análise rápida. Acesse e saiba mais: {link}',
+    'conta-pj':       'Olá, {nome}! Abra sua Conta PJ com a MB Finance e tenha acesso aos melhores produtos financeiros do mercado para o seu negócio. Acesse: {link}',
+    'maquina-cartao': 'Olá, {nome}! Aceite cartões com a Máquina de Cartão da MB Finance — as melhores taxas para PJ e sem aluguel. Saiba mais: {link}',
+    'antecipacao':    'Olá, {nome}! Antecipe seus recebíveis com a MB Finance e garanta o fluxo de caixa da sua empresa. Taxas competitivas e aprovação rápida. Acesse: {link}',
+    'personalizado':  'Olá, {nome}! A MB Finance tem uma condição especial para a sua empresa. Acesse: {link}',
+};
+
+function buildWappTemplate() {
+    var product  = (document.getElementById('wapp-product')  || {}).value || 'capital-giro';
+    var name     = ((document.getElementById('wapp-name')    || {}).value || '').trim();
+    var link     = ((document.getElementById('wapp-link')    || {}).value || '').trim();
+    var preview  = document.getElementById('wapp-preview');
+    if (!preview) return;
+    if (!link) { preview.value = ''; return; }
+    var template = WAPP_TEMPLATES[product] || WAPP_TEMPLATES['personalizado'];
+    preview.value = template
+        .replace('{nome}', name || 'tudo bem?')
+        .replace('{link}', link);
+}
+
+function copyWappMessage() {
+    var preview = document.getElementById('wapp-preview');
+    if (!preview || !preview.value) return;
+    navigator.clipboard.writeText(preview.value).then(function() {
+        var btns = document.querySelectorAll('.camp-actions .camp-btn-secondary');
+        btns.forEach(function(btn) {
+            if (btn.textContent.indexOf('Copiar mensagem') !== -1) {
+                var orig = btn.innerHTML;
+                btn.innerHTML = CHECK_ICON + '<span>Copiado</span>';
+                setTimeout(function() { btn.innerHTML = orig; }, 2000);
+            }
+        });
+    });
+}
+
+function openWhatsApp() {
+    var preview = document.getElementById('wapp-preview');
+    if (!preview || !preview.value) return;
+    window.open('https://wa.me/?text=' + encodeURIComponent(preview.value), '_blank');
+}
+
+// ── EXPORT CSV ───────────────────────────────────────────────────────────────
+
+function exportCampaignsCSV() {
+    var list = loadCampaigns();
+    if (!list.length) { alert('Nenhum link salvo para exportar.'); return; }
+    var header = ['Campanha', 'Canal', 'Origem', 'Midia', 'Cliques', 'Data', 'Link Curto', 'URL Completa'];
+    var rows = list.map(function(c) {
+        return [
+            '"' + String(c.name    || '').replace(/"/g, '""') + '"',
+            '"' + String(c.channel || '').replace(/"/g, '""') + '"',
+            '"' + String(c.source  || '').replace(/"/g, '""') + '"',
+            '"' + String(c.medium  || '').replace(/"/g, '""') + '"',
+            c.clicks || 0,
+            '"' + String(c.date    || '').replace(/"/g, '""') + '"',
+            '"' + String(c.shortUrl || '').replace(/"/g, '""') + '"',
+            '"' + String(c.url     || '').replace(/"/g, '""') + '"',
+        ].join(',');
+    });
+    var csv = '﻿' + [header.join(',')].concat(rows).join('\r\n');
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement('a');
+    a.href     = url;
+    a.download = 'campanhas-mb-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
