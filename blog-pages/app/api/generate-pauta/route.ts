@@ -46,8 +46,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    if (!process.env.ANTHROPIC_API_KEY) {
-        return NextResponse.json({ error: 'ANTHROPIC_API_KEY não configurada no servidor.' }, { status: 503 });
+    if (!process.env.GOOGLE_API_KEY) {
+        return NextResponse.json({ error: 'GOOGLE_API_KEY não configurada no servidor.' }, { status: 503 });
     }
 
     const body = await req.json().catch(() => null);
@@ -82,31 +82,28 @@ Responda APENAS com um JSON array de 3 objetos, sem texto antes ou depois:
 ]
 `.trim();
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GOOGLE_API_KEY}`;
+
+    const response = await fetch(geminiUrl, {
         method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-            'x-api-key': process.env.ANTHROPIC_API_KEY,
-            'anthropic-version': '2023-06-01',
-        },
+        headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
-            model: 'claude-haiku-4-5-20251001',
-            max_tokens: 1200,
-            system: MB_CONTEXT,
-            messages: [{ role: 'user', content: userPrompt }],
+            system_instruction: { parts: [{ text: MB_CONTEXT }] },
+            contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+            generationConfig: { temperature: 0.7, maxOutputTokens: 1200 },
         }),
     });
 
     if (!response.ok) {
         const err = await response.text();
-        console.error('[generate-pauta] Anthropic error:', err);
+        console.error('[generate-pauta] Gemini error:', err);
         let detail = '';
         try { detail = JSON.parse(err)?.error?.message || err; } catch { detail = err; }
         return NextResponse.json({ error: 'Erro ao chamar a IA: ' + detail }, { status: 502 });
     }
 
     const data = await response.json();
-    const raw = (data.content?.[0]?.text || '').trim();
+    const raw = (data.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
 
     // Extract JSON even if model adds surrounding text
     const jsonMatch = raw.match(/\[[\s\S]*\]/);
