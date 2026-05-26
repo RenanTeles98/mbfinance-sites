@@ -99,6 +99,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
   const [email, setEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const activeFilter = productHubs.find((item) => item.value === activeProduct)?.filterValue || "todos";
+  const activeProductLabel = productHubs.find((item) => item.value === activeProduct)?.label || "Todos";
 
   const visiblePosts = useMemo(
     () =>
@@ -160,6 +161,31 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         </div>
       </nav>
 
+      <section className="blog-hero">
+        <div className="blog-shell blog-hero-inner">
+          <div className="blog-hero-text">
+            <p className="blog-hero-kicker">Hub Financeiro para Empresas</p>
+            <h1>Conteúdo financeiro para empresas que precisam decidir melhor</h1>
+            <p>Análises, guias e estratégias sobre crédito, gestão de caixa, tributos e soluções PJ.</p>
+          </div>
+          <div className="blog-hero-actions">
+            <a
+              href={specialistWhatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="blog-hero-cta"
+              data-analytics-area="hero"
+              data-analytics-label="falar_especialista"
+            >
+              Falar com especialista
+            </a>
+            <span className="blog-hero-count">
+              {posts.length} {posts.length === 1 ? "análise publicada" : "análises publicadas"}
+            </span>
+          </div>
+        </div>
+      </section>
+
       <section className="blog-shell blog-main">
         <aside className="product-side-menu" id="hub-produtos" aria-label="Menu de produtos">
           <span>Escolha por necessidade</span>
@@ -181,8 +207,9 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
 
         <div className="blog-main-content">
           <div className="section-kicker">
-            <span>MB Finance</span>
-            <strong>{posts.length} análises publicadas</strong>
+            <span>{activeProductLabel === "Todos" ? "Todos os conteúdos" : activeProductLabel}</span>
+            <strong>·</strong>
+            <strong>{visiblePosts.length} {visiblePosts.length === 1 ? "artigo" : "artigos"}</strong>
           </div>
 
           {hasResults && leadPost ? (
@@ -190,6 +217,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
               <a
                 className="lead-story"
                 href={`/blog/${leadPost.slug}`}
+                style={imageStyle(leadPost.image, leadPost.imageCard)}
                 data-cat={leadPost.category}
                 data-analytics-label={leadPost.title}
                 data-analytics-area="lead_story"
@@ -198,6 +226,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
                 <h1>{leadPost.title}</h1>
                 <p>{leadPost.excerpt}</p>
                 <ArticleMeta post={leadPost} />
+                <span className="lead-read-more">Ler análise →</span>
               </a>
 
               <div className="side-feature-stack">
@@ -218,7 +247,17 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
               </div>
             </section>
           ) : (
-            <div className="no-results">Nenhum artigo encontrado para esta busca.</div>
+            <div className="no-results">
+              <p>Nenhum artigo publicado nesta categoria ainda.</p>
+              <div className="no-results-actions">
+                <button type="button" onClick={() => setActiveProduct("todos")}>
+                  Ver todos os artigos
+                </button>
+                <a href={specialistWhatsAppUrl} target="_blank" rel="noopener noreferrer">
+                  Falar com especialista
+                </a>
+              </div>
+            </div>
           )}
 
           {hasResults ? (
@@ -287,6 +326,19 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
                       </button>
                     ))}
                   </div>
+                </section>
+
+                <section className="sidebar-card sidebar-specialist-card">
+                  <p>Precisa de orientação personalizada?</p>
+                  <a
+                    href={specialistWhatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-analytics-area="sidebar"
+                    data-analytics-label="falar_especialista"
+                  >
+                    Falar com especialista
+                  </a>
                 </section>
               </aside>
             </div>
