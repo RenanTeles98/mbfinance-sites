@@ -2,7 +2,7 @@
 
 ## Prioridade atual
 - Publicar e validar a nova interface do admin do blog no ambiente oficial.
-- Validar o redimensionamento manual da barra de publicacoes da aba Blog no admin publicado.
+- Validar a alca visivel e o redimensionamento manual da barra de publicacoes da aba Blog no admin publicado.
 - Restaurar a autenticacao do GA4 no Vercel: revisar `GA4_CLIENT_EMAIL`, `GA4_PRIVATE_KEY` e permissao da service account na propriedade GA4.
 - Validar no GA4 se os eventos de lead aparecem no relatorio do painel.
 - Separar o evento especifico de Conta PJ no site principal caso o GTM ainda envie apenas `lead_modal_open`.

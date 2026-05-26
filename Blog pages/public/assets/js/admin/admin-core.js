@@ -84,7 +84,6 @@ function initSidebarResize() {
         const startX = event.clientX;
         const startWidth = sidebar.getBoundingClientRect().width;
         document.body.classList.add('resizing-sidebar');
-        resizer.setPointerCapture(event.pointerId);
 
         function onPointerMove(moveEvent) {
             const nextWidth = applyWidth(startWidth + moveEvent.clientX - startX);
@@ -93,14 +92,14 @@ function initSidebarResize() {
 
         function stopResize() {
             document.body.classList.remove('resizing-sidebar');
-            resizer.removeEventListener('pointermove', onPointerMove);
-            resizer.removeEventListener('pointerup', stopResize);
-            resizer.removeEventListener('pointercancel', stopResize);
+            document.removeEventListener('pointermove', onPointerMove);
+            document.removeEventListener('pointerup', stopResize);
+            document.removeEventListener('pointercancel', stopResize);
         }
 
-        resizer.addEventListener('pointermove', onPointerMove);
-        resizer.addEventListener('pointerup', stopResize);
-        resizer.addEventListener('pointercancel', stopResize);
+        document.addEventListener('pointermove', onPointerMove);
+        document.addEventListener('pointerup', stopResize);
+        document.addEventListener('pointercancel', stopResize);
     });
 
     resizer.addEventListener('keydown', function(event) {

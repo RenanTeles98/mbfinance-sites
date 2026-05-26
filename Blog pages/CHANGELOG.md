@@ -19,3 +19,4 @@
 
 - Aumentada a largura da barra de publicacoes da aba Blog do admin para melhorar a leitura e o aproveitamento de espaco.
 - Adicionado redimensionamento manual da barra de publicacoes com persistencia local.
+- Ajustada a alca de redimensionamento para ficar sempre visivel e evitar cache antigo do script.
