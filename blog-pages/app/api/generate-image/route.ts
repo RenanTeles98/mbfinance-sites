@@ -3,13 +3,17 @@ import { verifySession, COOKIE_NAME } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
-const CATEGORY_THEMES: Record<string, string> = {
-    'credito': 'fluxo de dinheiro, aprovação de crédito, crescimento financeiro, moedas e notas',
-    'gestao': 'dashboard financeiro, gráficos de fluxo de caixa, planejamento empresarial',
-    'conta-pj': 'banco digital, app bancário no smartphone, conta empresarial moderna',
-    'mercado': 'mercado financeiro brasileiro, gráficos de ações, notícias de negócios',
-    'antecipacao': 'antecipação de recebíveis, maquininha de cartão, pagamento instantâneo',
-    'noticias': 'economia brasileira, notícias financeiras, empresas e negócios',
+const CATEGORY_SCENES: Record<string, string> = {
+    'credito': 'a confident Brazilian business owner smiling while looking at a phone, relief on their face, modern office background',
+    'gestao': 'a focused Brazilian entrepreneur reviewing documents at a clean desk, natural light, calm and organized environment',
+    'conta-pj': 'a Brazilian small business owner holding a smartphone with a satisfied expression, casual professional attire',
+    'mercado': 'a Brazilian professional standing in a modern office, thoughtful expression, city skyline visible through window',
+    'antecipacao': 'a Brazilian business owner with a relieved smile, looking at a tablet, bright and airy workspace',
+    'noticias': 'a Brazilian entrepreneur reading news on a tablet in a café, engaged and thoughtful expression',
+    'seguros': 'a Brazilian business couple shaking hands with an advisor, warm and trustworthy atmosphere',
+    'tributario': 'a focused Brazilian accountant or business owner at a desk with papers, calm and professional setting',
+    'telemedicina': 'a Brazilian person having a video call on a laptop, comfortable home or office setting, relieved expression',
+    'solucoes-personalizadas': 'a Brazilian executive in a modern meeting room, confident posture, clean corporate environment',
 };
 
 export async function POST(req: NextRequest) {
@@ -28,25 +32,28 @@ export async function POST(req: NextRequest) {
     }
 
     const { title, category = '' } = body;
-    const categoryTheme = CATEGORY_THEMES[category] || 'finanças empresariais, negócios, corporativo';
+    const scene = CATEGORY_SCENES[category] || 'a confident Brazilian business owner smiling in a modern office, natural and approachable';
 
-    const systemPrompt = `Você é especialista em criar prompts para geração de imagens com DALL-E 3.
-Sempre gera prompts em inglês, detalhados, otimizados para DALL-E 3.
-A identidade visual da MB Finance é: fundo azul marinho escuro (#003956), acentos em azul claro (#0099dd) e branco, estilo flat illustration moderno, estética fintech clean e profissional.
-Se o prompt incluir qualquer texto, rótulo ou palavra visível na imagem, esse texto deve estar obrigatoriamente em português do Brasil.`;
+    const systemPrompt = `You are an expert at writing DALL-E 3 image generation prompts for blog covers.
+Your prompts always produce minimalist, people-focused photos that feel real, warm and relatable.
+Style reference: Bloomberg Businessweek covers, Nubank / iFood marketing photography.
+NEVER include text, words, labels, charts, icons, dashboards, or graphic elements in the image.`;
 
-    const userPrompt = `Crie um prompt DALL-E 3 para a capa de um artigo de blog com o título: "${title}"
-Tema visual do artigo: ${categoryTheme}
+    const userPrompt = `Write a DALL-E 3 prompt for a blog cover image.
 
-O prompt deve:
-- Descrever uma ilustração flat moderna, estilo fintech/corporativo
-- Usar fundo azul marinho escuro com acentos em azul claro e branco
-- Incluir elementos visuais que representem o tema do artigo
-- Ser composição widescreen 16:9
-- Se houver qualquer texto ou palavra na imagem, deve obrigatoriamente estar em português do Brasil
-- Ser em inglês, detalhado e direto
+Article title: "${title}"
+Scene to use: ${scene}
 
-Retorne APENAS o prompt, sem explicações, sem aspas, sem prefixo.`;
+Rules:
+- Style: minimalist editorial photography, soft natural light, clean background
+- Color palette: deep navy blue tones (#003956), with white or light blue accents — either as background color, clothing, or environment
+- Focus on ONE person that the reader can identify with — a Brazilian business owner, entrepreneur or professional
+- The person's expression should convey the emotion related to the article theme (relief, confidence, focus, satisfaction)
+- Composition: 16:9 widescreen, subject slightly off-center, generous negative space on one side
+- NO text, NO words, NO letters, NO logos, NO charts, NO icons anywhere in the image
+- Photorealistic, not illustration
+
+Return ONLY the prompt, no explanation, no quotes, no prefix.`;
 
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
