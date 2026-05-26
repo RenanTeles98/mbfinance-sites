@@ -18,10 +18,13 @@ async function getAccessToken(credentials: {
   const now = Math.floor(Date.now() / 1000);
   const toBase64url = (s: string) => Buffer.from(s).toString('base64url');
 
+  const impersonateEmail = process.env.GOOGLE_GSC_IMPERSONATE ?? '';
+
   const header = toBase64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
   const payload = toBase64url(
     JSON.stringify({
       iss: credentials.client_email,
+      sub: impersonateEmail || undefined,
       scope: 'https://www.googleapis.com/auth/webmasters.readonly',
       aud: 'https://oauth2.googleapis.com/token',
       exp: now + 3600,
