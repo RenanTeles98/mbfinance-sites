@@ -22,8 +22,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    if (!process.env.GROQ_API_KEY) {
-        return NextResponse.json({ error: 'GROQ_API_KEY não configurada no servidor.' }, { status: 503 });
+    if (!process.env.OPENAI_API_KEY) {
+        return NextResponse.json({ error: 'OPENAI_API_KEY não configurada no servidor.' }, { status: 503 });
     }
 
     const body = await req.json().catch(() => null);
@@ -60,14 +60,14 @@ Rules:
 
 Return ONLY the prompt, no explanation, no quotes, no prefix.`;
 
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
-            'authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+            'authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
+            model: 'gpt-4o-mini',
             messages: [
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: userPrompt },

@@ -46,8 +46,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    if (!process.env.GROQ_API_KEY) {
-        return NextResponse.json({ error: 'GROQ_API_KEY não configurada no servidor.' }, { status: 503 });
+    if (!process.env.OPENAI_API_KEY) {
+        return NextResponse.json({ error: 'OPENAI_API_KEY não configurada no servidor.' }, { status: 503 });
     }
 
     const body = await req.json().catch(() => null);
@@ -82,14 +82,14 @@ Responda APENAS com um JSON array de 3 objetos, sem texto antes ou depois:
 ]
 `.trim();
 
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
-            'authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+            'authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
+            model: 'gpt-4o-mini',
             messages: [
                 { role: 'system', content: MB_CONTEXT },
                 { role: 'user', content: userPrompt },
@@ -101,7 +101,7 @@ Responda APENAS com um JSON array de 3 objetos, sem texto antes ou depois:
 
     if (!response.ok) {
         const err = await response.text();
-        console.error('[generate-pauta] Groq error:', err);
+        console.error('[generate-pauta] OpenAI error:', err);
         let detail = '';
         try { detail = JSON.parse(err)?.error?.message || err; } catch { detail = err; }
         return NextResponse.json({ error: 'Erro ao chamar a IA: ' + detail }, { status: 502 });

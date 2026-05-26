@@ -68,8 +68,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    if (!process.env.GROQ_API_KEY) {
-        return NextResponse.json({ error: 'GROQ_API_KEY não configurada no servidor.' }, { status: 503 });
+    if (!process.env.OPENAI_API_KEY) {
+        return NextResponse.json({ error: 'OPENAI_API_KEY não configurada no servidor.' }, { status: 503 });
     }
 
     const body = await req.json().catch(() => null);
@@ -100,11 +100,11 @@ ${fieldInstructions[seoField] || fieldInstructions.all}
 
 Sem texto antes ou depois do JSON.`.trim();
 
-        const seoRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        const seoRes = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
-            headers: { 'content-type': 'application/json', 'authorization': `Bearer ${process.env.GROQ_API_KEY}` },
+            headers: { 'content-type': 'application/json', 'authorization': `Bearer ${process.env.OPENAI_API_KEY}` },
             body: JSON.stringify({
-                model: 'llama-3.3-70b-versatile',
+                model: 'gpt-4o-mini',
                 messages: [{ role: 'user', content: seoPrompt }],
                 max_tokens: 300,
                 temperature: 0.5,
@@ -134,11 +134,11 @@ Regras:
 Retorne APENAS um JSON array com 3 strings, sem texto antes ou depois:
 ["Título 1", "Título 2", "Título 3"]`.trim();
 
-        const titleRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        const titleRes = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
-            headers: { 'content-type': 'application/json', 'authorization': `Bearer ${process.env.GROQ_API_KEY}` },
+            headers: { 'content-type': 'application/json', 'authorization': `Bearer ${process.env.OPENAI_API_KEY}` },
             body: JSON.stringify({
-                model: 'llama-3.3-70b-versatile',
+                model: 'gpt-4o-mini',
                 messages: [{ role: 'user', content: titlePrompt }],
                 max_tokens: 200,
                 temperature: 0.8,
@@ -186,14 +186,14 @@ FORMATO DE SAÍDA — retorne APENAS HTML limpo, sem markdown, sem \`\`\`html, s
 - NÃO inclua botão de CTA — ele será adicionado automaticamente pelo sistema
 `.trim();
 
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
-            'authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+            'authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
+            model: 'gpt-4o-mini',
             messages: [
                 { role: 'system', content: MB_CONTEXT },
                 { role: 'user', content: userPrompt },
