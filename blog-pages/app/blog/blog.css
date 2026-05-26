@@ -85,7 +85,7 @@
   margin: 0 0 14px;
   color: #0099dd;
   font-size: 10px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -96,7 +96,7 @@
   color: #003956;
   font-size: clamp(24px, 3.2vw, 38px);
   line-height: 1.08;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -.4px;
 }
 
@@ -126,7 +126,7 @@
   color: #fff;
   border-radius: 10px;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
   transition: background .18s ease, transform .18s ease;
@@ -188,7 +188,7 @@
   display: block;
   color: #0099dd;
   font-size: 9px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 1.6px;
   text-transform: uppercase;
   margin: 2px 4px 6px;
@@ -338,7 +338,7 @@
   margin: 0 0 10px;
   color: rgba(153, 221, 255, .9);
   font-size: 10px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
@@ -349,7 +349,7 @@
   color: #fff;
   font-size: clamp(22px, 3.6vw, 38px);
   line-height: 1.07;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -.2px;
 }
 
@@ -430,7 +430,7 @@
   margin-bottom: 7px;
   color: rgba(153, 221, 255, .9);
   font-size: 10px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
@@ -439,7 +439,7 @@
   margin: 0;
   font-size: 17px;
   line-height: 1.22;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 /* ===== CONTENT LAYOUT (list + sidebar) ===== */
@@ -499,7 +499,7 @@
   color: #003956;
   font-size: 19px;
   line-height: 1.2;
-  font-weight: 900;
+  font-weight: 700;
   transition: color .15s ease;
 }
 
@@ -542,7 +542,7 @@
   margin: 0 0 14px;
   color: #003956;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -.1px;
 }
 
@@ -592,7 +592,7 @@
   color: #0099dd;
   font-size: 12px;
   line-height: 1.4;
-  font-weight: 900;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
@@ -640,7 +640,7 @@
   color: #fff;
   padding: 11px 14px;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
   cursor: pointer;
   transition: background .15s ease;
 }
@@ -709,7 +709,7 @@
   background: #0099dd;
   color: #fff;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
   transition: background .15s ease;
 }
@@ -768,7 +768,7 @@
   background: #003956;
   color: #fff;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -801,7 +801,7 @@
   display: block;
   color: #0099dd;
   font-size: 10px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 10px;
@@ -813,7 +813,7 @@
   color: #fff;
   font-size: clamp(22px, 2.6vw, 30px);
   line-height: 1.15;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .blog-cta-box p {
@@ -835,7 +835,7 @@
   color: #fff;
   padding: 0 30px;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
   transition: background .18s ease, transform .18s ease;
@@ -869,7 +869,7 @@
   margin-bottom: 24px;
   color: #fff;
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -897,7 +897,7 @@
   border-radius: 8px;
   background: rgba(255, 255, 255, .05);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   transition: border-color .15s ease, background .15s ease;
 }
 
@@ -911,7 +911,7 @@
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
   margin: 0 0 18px;
 }
 
@@ -940,7 +940,7 @@
   display: block;
   color: #fff;
   font-size: 19px;
-  font-weight: 900;
+  font-weight: 700;
   margin-bottom: 4px;
 }
 
