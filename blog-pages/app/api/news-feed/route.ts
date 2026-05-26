@@ -105,7 +105,7 @@ export async function GET() {
         .map(r => r.reason?.message || 'unknown');
 
     return NextResponse.json({
-        items: deduped.slice(0, 20),
+        items: deduped.slice(0, 30),
         fetchedAt: new Date().toISOString(),
         ...(errors.length ? { errors } : {}),
     });

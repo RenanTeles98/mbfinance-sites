@@ -2230,11 +2230,52 @@ function switchPautaTab(tab) {
 var radarProduct = '';
 var radarSelectedNews = null;
 
+var RADAR_PRODUCT_KEYWORDS = {
+    'Capital de Giro':           ['capital de giro','crédito','empréstimo','financiamento','banco','juros','caixa','bndes','limite de crédito'],
+    'Antecipação de Recebíveis': ['antecipação','recebíveis','cartão','boleto','pix','pagamento','faturamento','receita'],
+    'Conta PJ':                  ['conta pj','conta empresarial','cnpj','abertura de empresa','fintech','banco digital','tarifas bancárias','open finance'],
+    'Máquina de Cartão':         ['maquininha','pagamento','cartão','pix','taxa','vendas','adquirente','rotativo'],
+};
+
+function filterItemsByProduct(items, product) {
+    if (!product) return items;
+    var kws = (RADAR_PRODUCT_KEYWORDS[product] || []).map(function(k) {
+        return k.normalize('NFD').replace(/[̀-ͯ]/g, '');
+    });
+    if (!kws.length) return items;
+    return items.filter(function(item) {
+        var text = (item.title + ' ' + (item.description||'')).toLowerCase()
+            .normalize('NFD').replace(/[̀-ͯ]/g, '');
+        return kws.some(function(k) { return text.includes(k); });
+    });
+}
+
+function renderRadarGrid(items) {
+    var grid = document.getElementById('radar-news-grid');
+    if (!grid) return;
+    if (!items.length) {
+        grid.innerHTML = '<div class="radar-empty">Nenhuma notícia encontrada para este produto. Selecione "Qualquer produto" para ver tudo.</div>';
+        return;
+    }
+    grid.innerHTML = items.map(function(item) {
+        var i = item._idx;
+        return '<div class="radar-card" data-i="' + i + '" onclick="selectRadarCard(this,' + i + ')">'
+            + '<div><span class="radar-source-badge" style="background:' + (item.sourceColor||'#64748b') + '">' + escHtml(item.source) + '</span></div>'
+            + '<div class="radar-card-title">' + escHtml(item.title) + '</div>'
+            + (item.description ? '<div class="radar-card-desc">' + escHtml(item.description) + '</div>' : '')
+            + '<div class="radar-card-date">' + formatRadarDate(item.pubDate) + '</div>'
+            + '</div>';
+    }).join('');
+}
+
 function setRadarProduct(btn, product) {
     radarProduct = product;
     document.querySelectorAll('.product-pill').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
-    if (radarSelectedNews) generateAngles(radarSelectedNews);
+    var filtered = filterItemsByProduct(window._radarItems || [], product);
+    renderRadarGrid(filtered);
+    radarSelectedNews = null;
+    document.getElementById('radar-angles-panel').style.display = 'none';
 }
 
 function loadRadarNews(force) {
@@ -2252,22 +2293,15 @@ function loadRadarNews(force) {
     fetch(url)
         .then(function(r) { return r.json(); })
         .then(function(data) {
-            var items = data.items || [];
+            var items = (data.items || []).map(function(item, i) { item._idx = i; return item; });
+            window._radarItems = items;
             meta.textContent = items.length ? 'Atualizado ' + formatRadarTime(data.fetchedAt) : '';
             if (!items.length) {
                 grid.innerHTML = '<div class="radar-empty">Nenhuma tendência encontrada no momento. Tente atualizar em alguns minutos.</div>';
                 return;
             }
             document.getElementById('radar-product-filter').style.display = 'flex';
-            grid.innerHTML = items.map(function(item, i) {
-                return '<div class="radar-card" data-i="' + i + '" onclick="selectRadarCard(this,' + i + ')">'
-                    + '<div><span class="radar-source-badge" style="background:' + (item.sourceColor||'#64748b') + '">' + escHtml(item.source) + '</span></div>'
-                    + '<div class="radar-card-title">' + escHtml(item.title) + '</div>'
-                    + (item.description ? '<div class="radar-card-desc">' + escHtml(item.description) + '</div>' : '')
-                    + '<div class="radar-card-date">' + formatRadarDate(item.pubDate) + '</div>'
-                    + '</div>';
-            }).join('');
-            window._radarItems = items;
+            renderRadarGrid(items);
         })
         .catch(function(err) {
             grid.innerHTML = '<div class="radar-empty">Erro ao buscar tendências. Verifique sua conexão.</div>';
