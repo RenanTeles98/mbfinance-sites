@@ -220,6 +220,11 @@ async function savePost() {
     const title = document.getElementById('f-title').value.trim();
     if (!title) { alert('O título é obrigatório.'); document.getElementById('f-title').focus(); return; }
 
+    // Loading state on all save buttons
+    const saveBtns = document.querySelectorAll('.btn-save[onclick="savePost()"]');
+    saveBtns.forEach(b => { b.disabled = true; b.textContent = 'Salvando…'; });
+    showToast('Salvando publicação…', true);
+
     const cat = document.getElementById('f-category').value;
     const content = document.getElementById('editor-content').innerHTML;
     const readTime = document.getElementById('f-readtime').value.trim() || calcReadTime(content);
@@ -275,11 +280,15 @@ async function savePost() {
         }
     }
 
-    if (post.published) {
-        const textToCheck = [title, post.excerpt, post.content.replace(/<[^>]+>/g, ' ')].join(' ');
-        await checkSpelling(textToCheck, doSave);
-    } else {
-        await doSave();
+    try {
+        if (post.published) {
+            const textToCheck = [title, post.excerpt, post.content.replace(/<[^>]+>/g, ' ')].join(' ');
+            await checkSpelling(textToCheck, doSave);
+        } else {
+            await doSave();
+        }
+    } finally {
+        saveBtns.forEach(b => { b.disabled = false; b.textContent = 'Salvar'; });
     }
 }
 
@@ -410,12 +419,19 @@ function fillForm(p) {
     }
 }
 
-function showToast(msg) {
+function showToast(msg, loading = false) {
     const t = document.getElementById('save-toast');
     if (!t) return;
-    t.textContent = '✓ ' + (msg || 'Publicação salva!');
+    clearTimeout(t._hideTimer);
+    if (loading) {
+        t.textContent = '⏳ ' + msg;
+        t.style.background = '#0369a1';
+    } else {
+        t.textContent = '✓ ' + (msg || 'Publicação salva!');
+        t.style.background = '';
+        t._hideTimer = setTimeout(() => t.classList.remove('show'), 2500);
+    }
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
 }
 
 /* ── IMAGE HELPERS ── */
