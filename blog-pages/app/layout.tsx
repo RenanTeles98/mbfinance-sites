@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     canonical: BLOG_BASE_URL,
   },
   icons: {
-    icon: "/images/favicon.svg",
-    shortcut: "/images/favicon.svg",
-    apple: "/images/favicon.svg",
+    icon: "/images/logo-icon.png",
+    shortcut: "/images/logo-icon.png",
+    apple: "/images/logo-icon.png",
   },
   openGraph: {
     title: "Blog MB Finance",
