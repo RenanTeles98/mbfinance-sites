@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { pushAnalyticsEvent } from "@/components/AnalyticsTracker";
 import type { BlogPost } from "@/types/blog";
 import { mainSiteUrl } from "@/lib/site";
@@ -43,11 +43,92 @@ function ArticleMeta({ post }: { post: BlogPost }) {
   );
 }
 
+function NewsletterModal({ onClose }: { onClose: () => void }) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || "Erro");
+      pushAnalyticsEvent("newsletter_submit", {
+        form_name: "hero_newsletter_modal",
+        source_area: "hero",
+      });
+      pushAnalyticsEvent("sign_up", {
+        method: "newsletter",
+        source_area: "hero",
+      });
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  return (
+    <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true">
+      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} type="button" aria-label="Fechar">
+          ×
+        </button>
+
+        {status === "success" ? (
+          <div className="modal-success">
+            <span aria-hidden="true">✓</span>
+            <h2>Cadastro realizado!</h2>
+            <p>Você vai receber análises financeiras no seu e-mail em breve.</p>
+            <button type="button" onClick={onClose}>Fechar</button>
+          </div>
+        ) : (
+          <>
+            <p className="modal-kicker">MB Finance · Newsletter</p>
+            <h2>Receba análises financeiras no seu e-mail</h2>
+            <p>Conteúdos sobre crédito, gestão de caixa, tributos e soluções PJ — direto para você.</p>
+            <form onSubmit={handleSubmit} className="modal-form">
+              <input
+                type="email"
+                placeholder="seu@email.com.br"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoFocus
+              />
+              <button type="submit" disabled={status === "loading"}>
+                {status === "loading" ? "Enviando..." : "Quero receber"}
+              </button>
+            </form>
+            {status === "error" && (
+              <small className="modal-error">Não foi possível cadastrar. Tente novamente.</small>
+            )}
+            <p className="modal-fine">Sem spam. Cancele quando quiser.</p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
   const [activeFilter, setActiveFilter] = useState("todos");
   const [searchQuery, setSearchQuery] = useState("");
   const [email, setEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const visiblePosts = useMemo(
     () =>
@@ -121,16 +202,15 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
             <p>Análises, guias e estratégias sobre crédito, gestão de caixa, tributos e soluções PJ.</p>
           </div>
           <div className="blog-hero-actions">
-            <a
-              href={specialistWhatsAppUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               className="blog-hero-cta"
+              onClick={() => setModalOpen(true)}
               data-analytics-area="hero"
-              data-analytics-label="falar_especialista"
+              data-analytics-label="abrir_newsletter"
             >
-              Falar com especialista
-            </a>
+              Receber análises gratuitas
+            </button>
             <span className="blog-hero-count">
               {posts.length} {posts.length === 1 ? "análise publicada" : "análises publicadas"}
             </span>
@@ -340,6 +420,8 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
       </section>
 
       <BlogFooter />
+
+      {modalOpen && <NewsletterModal onClose={() => setModalOpen(false)} />}
     </main>
   );
 }
