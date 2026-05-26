@@ -18,3 +18,4 @@
 ## 2026-05-26
 
 - Aumentada a largura da barra de publicacoes da aba Blog do admin para melhorar a leitura e o aproveitamento de espaco.
+- Adicionado redimensionamento manual da barra de publicacoes com persistencia local.

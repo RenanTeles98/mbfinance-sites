@@ -80,9 +80,11 @@
 - Aumentada a largura da coluna lateral de publicacoes na aba Blog do admin.
 - A lista de posts passou a usar mais espaco horizontal, com titulos em ate duas linhas e metadados com quebra controlada.
 - Adicionado comportamento responsivo para empilhar a lista acima do editor em telas menores.
+- Adicionada alca manual para o usuario ajustar a largura da lista de publicacoes com o mouse ou teclado.
 
 ### Arquivos modificados
 - `public/pages/blog-admin.html`
+- `public/assets/js/admin/admin-core.js`
 - `CONTEXT.md`
 - `TODO.md`
 - `DECISIONS.md`
@@ -91,6 +93,7 @@
 
 ### Estado atual
 - A barra de publicacoes do admin usa largura responsiva `clamp(340px, 24vw, 420px)`.
+- A largura pode ser ajustada manualmente entre 300px e 560px e fica salva em `localStorage`.
 - O editor continua ocupando o restante da tela com `min-width: 0`, evitando estouro horizontal.
 - O build de producao foi executado com sucesso; permaneceram apenas warnings antigos de `<img>` no blog publico.
 

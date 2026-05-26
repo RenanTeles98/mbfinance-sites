@@ -48,12 +48,15 @@
 
 ### Decisao
 - A coluna lateral da aba Blog passou de largura fixa de `272px` para `clamp(340px, 24vw, 420px)`.
+- A coluna ganhou uma alca manual de redimensionamento, com largura salva em `localStorage`.
 - Em telas menores, a lista de publicacoes empilha acima do editor e ocupa 100% da largura.
 
 ### Motivo
 - A largura anterior deixava titulos, categorias e status muito comprimidos, desperdicando espaco disponivel no admin.
 - Uma largura responsiva melhora a leitura em desktop sem prender a interface a um unico tamanho de tela.
+- O ajuste manual permite que cada usuario adapte o espaco entre lista e editor conforme o monitor e a rotina de edicao.
 
 ### Alternativas consideradas
 - Usar uma largura fixa maior: simples, mas menos adaptavel a notebooks e monitores grandes.
+- Criar um painel de preferencias para o admin: mais completo, mas excessivo para uma necessidade de layout pontual.
 - Reestruturar todo o editor do blog: desnecessario para o ajuste pontual solicitado.

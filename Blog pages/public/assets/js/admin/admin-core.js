@@ -37,6 +37,7 @@ function init() {
     // Se estiver logado, esconde auth e mostra app
     document.getElementById('auth-screen').style.display = 'none';
     document.getElementById('admin-app').style.display = 'flex';
+    initSidebarResize();
 
     // Carregar posts (do admin-blog.js)
     if (typeof loadPosts === 'function') loadPosts();
@@ -46,6 +47,81 @@ function init() {
 
     // Como métricas é o padrão (tela ativa no HTML), renderiza agora
     if (typeof renderAnalytics === 'function') renderAnalytics();
+}
+
+function initSidebarResize() {
+    const sidebar = document.getElementById('sidebar');
+    const resizer = document.getElementById('sidebar-resizer');
+    const screen = document.getElementById('screen-posts');
+    if (!sidebar || !resizer || !screen || resizer.dataset.ready === 'true') return;
+
+    const storageKey = 'mb_admin_posts_sidebar_width';
+    const minWidth = 300;
+    const maxWidth = 560;
+
+    function getMaxWidth() {
+        return Math.min(maxWidth, Math.max(minWidth, Math.floor(window.innerWidth * 0.45)));
+    }
+
+    function applyWidth(width) {
+        const nextWidth = Math.max(minWidth, Math.min(getMaxWidth(), Math.round(width)));
+        sidebar.style.width = nextWidth + 'px';
+        resizer.setAttribute('aria-valuenow', String(nextWidth));
+        return nextWidth;
+    }
+
+    resizer.setAttribute('aria-valuemin', String(minWidth));
+    resizer.setAttribute('aria-valuemax', String(maxWidth));
+
+    const savedWidth = Number(localStorage.getItem(storageKey));
+    if (window.innerWidth > 980) {
+        applyWidth(savedWidth || sidebar.getBoundingClientRect().width);
+    }
+
+    resizer.addEventListener('pointerdown', function(event) {
+        if (window.innerWidth <= 980) return;
+        event.preventDefault();
+        const startX = event.clientX;
+        const startWidth = sidebar.getBoundingClientRect().width;
+        document.body.classList.add('resizing-sidebar');
+        resizer.setPointerCapture(event.pointerId);
+
+        function onPointerMove(moveEvent) {
+            const nextWidth = applyWidth(startWidth + moveEvent.clientX - startX);
+            localStorage.setItem(storageKey, String(nextWidth));
+        }
+
+        function stopResize() {
+            document.body.classList.remove('resizing-sidebar');
+            resizer.removeEventListener('pointermove', onPointerMove);
+            resizer.removeEventListener('pointerup', stopResize);
+            resizer.removeEventListener('pointercancel', stopResize);
+        }
+
+        resizer.addEventListener('pointermove', onPointerMove);
+        resizer.addEventListener('pointerup', stopResize);
+        resizer.addEventListener('pointercancel', stopResize);
+    });
+
+    resizer.addEventListener('keydown', function(event) {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        const currentWidth = sidebar.getBoundingClientRect().width;
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const nextWidth = applyWidth(currentWidth + direction * 24);
+        localStorage.setItem(storageKey, String(nextWidth));
+    });
+
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 980) {
+            const savedWidth = Number(localStorage.getItem(storageKey));
+            applyWidth(savedWidth || sidebar.getBoundingClientRect().width);
+        } else {
+            sidebar.style.width = '';
+        }
+    });
+
+    resizer.dataset.ready = 'true';
 }
 
 function switchTab(id) {
