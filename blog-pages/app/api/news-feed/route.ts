@@ -7,6 +7,13 @@ const SOURCES = [
     { name: 'G1 Educação Financeira', url: 'https://g1.globo.com/rss/g1/economia/educacao-financeira/', color: '#cc0000' },
     { name: 'Valor Econômico', url: 'https://valor.globo.com/financas/rss/', color: '#1a5276' },
     { name: 'Exame Negócios', url: 'https://exame.com/feed/', color: '#1a1a2e' },
+    { name: 'InfoMoney', url: 'https://www.infomoney.com.br/feed/', color: '#e65c00' },
+    { name: 'PEGN', url: 'https://revistapegn.globo.com/rss/feed.html', color: '#007a4d' },
+    { name: 'Época Negócios', url: 'https://epocanegocios.globo.com/rss/feed.html', color: '#6b21a8' },
+    { name: 'CNN Brasil Negócios', url: 'https://www.cnnbrasil.com.br/economia/negocios/feed/', color: '#c00' },
+    { name: 'Agência Brasil', url: 'https://agenciabrasil.ebc.com.br/rss/economia/feed.rss', color: '#1d4ed8' },
+    { name: 'Folha Mercado', url: 'https://feeds.folha.uol.com.br/mercado/rss091.xml', color: '#005a8e' },
+    { name: 'Jornal Contábil', url: 'https://www.jornalcontabil.com.br/feed/', color: '#0f766e' },
 ];
 
 const PJ_KEYWORDS = [
@@ -98,7 +105,7 @@ export async function GET() {
         .map(r => r.reason?.message || 'unknown');
 
     return NextResponse.json({
-        items: deduped.slice(0, 15),
+        items: deduped.slice(0, 20),
         fetchedAt: new Date().toISOString(),
         ...(errors.length ? { errors } : {}),
     });
