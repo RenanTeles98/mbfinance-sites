@@ -126,8 +126,6 @@ function NewsletterModal({ onClose }: { onClose: () => void }) {
 export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
   const [activeFilter, setActiveFilter] = useState("todos");
   const [searchQuery, setSearchQuery] = useState("");
-  const [email, setEmail] = useState("");
-  const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [modalOpen, setModalOpen] = useState(false);
 
   const visiblePosts = useMemo(
@@ -153,32 +151,6 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
   const sidebarPosts = posts.filter((post) => post.id !== leadPost?.id).slice(0, 5);
   const hasResults = visiblePosts.length > 0;
   const activeFilterLabel = filters.find((f) => f.value === activeFilter)?.label || "Todos";
-
-  async function handleNewsletterSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setNewsletterStatus("loading");
-    try {
-      const response = await fetch("/api/newsletter/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
-      if (!response.ok || !data.ok) throw new Error(data.error || "Erro ao inscrever");
-      pushAnalyticsEvent("newsletter_submit", {
-        form_name: "blog_index_newsletter",
-        source_area: "blog_index",
-      });
-      pushAnalyticsEvent("sign_up", {
-        method: "newsletter",
-        source_area: "blog_index",
-      });
-      setEmail("");
-      setNewsletterStatus("success");
-    } catch {
-      setNewsletterStatus("error");
-    }
-  }
 
   return (
     <main className="blog-page">
@@ -356,37 +328,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
                 </ol>
               </section>
 
-              <section className="sidebar-card newsletter-card">
-                <h3>Receba análises</h3>
-                <p>Conteúdos sobre crédito, caixa e gestão direto no seu e-mail.</p>
-                <form onSubmit={handleNewsletterSubmit} className="newsletter-form">
-                  <input
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    type="email"
-                    placeholder="seu@email.com.br"
-                    required
-                  />
-                  <button disabled={newsletterStatus === "loading"} type="submit">
-                    {newsletterStatus === "loading" ? "Enviando..." : "Cadastrar"}
-                  </button>
-                </form>
-                {newsletterStatus === "success" ? <small>Cadastro realizado com sucesso.</small> : null}
-                {newsletterStatus === "error" ? <small>Não foi possível cadastrar agora. Tente novamente.</small> : null}
-              </section>
-
-              <section className="sidebar-card">
-                <h3>Editorias</h3>
-                <div className="topic-grid">
-                  {filters.slice(1).map((item) => (
-                    <button key={item.value} type="button" onClick={() => setActiveFilter(item.value)}>
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              </section>
-
-              <section className="sidebar-card sidebar-specialist-card">
+<section className="sidebar-card sidebar-specialist-card">
                 <p>Precisa de orientação personalizada?</p>
                 <a
                   href={specialistWhatsAppUrl}
