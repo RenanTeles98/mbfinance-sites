@@ -253,3 +253,17 @@
 - Decisao: usar `position: sticky` com `max-height` e scroll interno no desktop.
   - Motivo: a navegacao deve acompanhar o usuario durante a leitura, mas sem cortar itens em telas menores.
   - Alternativas consideradas: sidebar fixa absoluta, descartado por risco de sobrepor conteudo e piorar responsividade.
+
+## 2026-05-26 - Produtos reais na sidebar do blog
+
+- Decisao: substituir as categorias editoriais da sidebar pelos produtos reais do site principal.
+  - Motivo: a sidebar deve funcionar como navegacao de produtos da MB Finance, nao como lista generica de categorias do blog.
+  - Alternativas consideradas: manter Credito/Gestao/Conta PJ/Antecipacao/Tributos, descartado porque ficava diferente da oferta oficial do site.
+
+- Decisao: produtos sem categoria editorial dedicada filtram para "Todos".
+  - Motivo: evita que Maquina de Cartao, Seguros e Consorcios ou Telemedicina abram uma lista vazia enquanto ainda nao existem artigos especificos.
+  - Alternativas consideradas: esconder esses produtos ate ter conteudo, descartado porque o pedido foi refletir os produtos do site principal.
+
+- Decisao: manter o sticky CSS existente e reforcar o deploy com a lista atualizada.
+  - Motivo: o comportamento sticky ja esta definido no CSS; a validacao principal agora e confirmar a versao publicada no Vercel.
+  - Alternativas consideradas: usar JavaScript para fixar a sidebar no scroll, descartado porque CSS sticky e mais simples e menos sujeito a bugs.

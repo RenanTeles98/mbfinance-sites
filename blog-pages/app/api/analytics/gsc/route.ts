@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { cookies } from 'next/headers';
 import { verifySession, COOKIE_NAME } from '@/lib/admin-auth';
@@ -54,7 +54,7 @@ async function getAccessToken(credentials: {
   return data.access_token;
 }
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   const authed = await requireAuth();
   if (!authed) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

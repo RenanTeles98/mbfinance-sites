@@ -1,5 +1,24 @@
 # Contexto do Projeto
 
+## Sessao de 2026-05-26 - Produtos reais na sidebar do blog
+
+Foi alinhada a barra lateral de produtos da capa `/blog` com os produtos exibidos no site principal.
+
+Arquivos modificados:
+- `components/BlogIndexClient.tsx`: a sidebar passou a listar Conta Corrente Empresarial, Maquina de Cartao, Seguros e Consorcios, Credito Rapido, Solucoes Tributarias, Telemedicina e Solucoes Personalizadas, alem de Todos.
+- `app/api/analytics/gsc/route.ts`: removido parametro nao usado do GET para o build passar.
+- `components/PostEngagement.tsx`: removido setter nao usado de comentarios para o build passar.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-05-26.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- A sidebar usa os nomes e descricoes dos produtos do site principal.
+- Produtos sem categoria editorial dedicada mantem a listagem geral para evitar tela vazia.
+- A sidebar continua com comportamento sticky no desktop.
+- `npm run build` em `blog-pages` passou com sucesso.
+
+Proximo passo recomendado:
+- Validar no site publicado se a sidebar acompanha o scroll e se os produtos batem com a secao oficial do site principal.
+
 ## Sessão de 2026-05-05
 
 Foi aplicada a auditoria editorial do Blog MB Finance.

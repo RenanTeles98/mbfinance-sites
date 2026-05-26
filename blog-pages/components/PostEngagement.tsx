@@ -80,7 +80,7 @@ export default function PostEngagement({ slug, initialComments }: PostEngagement
   }
 
   // ── Comments state ───────────────────────────────────────────
-  const [comments, setComments] = useState<Comment[]>(initialComments);
+  const [comments] = useState<Comment[]>(initialComments);
   const [authorInput, setAuthorInput] = useState('');
   const [bodyInput, setBodyInput] = useState('');
   const [submitting, setSubmitting] = useState(false);

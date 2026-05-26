@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-05-26
+
+- Alinhada a sidebar de produtos do `/blog` com os produtos oficiais do site principal.
+- Ajustado o build removendo parametros/setters nao usados em rotas de analytics/comentarios.
+
 ## 2026-05-25
 
 - Suavizado o design da sidebar de produtos e adicionado comportamento sticky com scroll interno.

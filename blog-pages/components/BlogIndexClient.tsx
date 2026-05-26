@@ -19,32 +19,50 @@ const productHubs = [
   {
     label: "Todos",
     value: "todos",
+    filterValue: "todos",
     description: "Veja todos os conteúdos e soluções financeiras da MB Finance.",
   },
   {
-    label: "Crédito",
-    value: "credito",
-    description: "Capital de giro e liquidez para manter a operação rodando.",
+    label: "Conta Corrente Empresarial",
+    value: "conta-corrente-empresarial",
+    filterValue: "conta-pj",
+    description: "Abertura simplificada nos principais bancos.",
   },
   {
-    label: "Gestão",
-    value: "gestao",
-    description: "Conteúdo para melhorar margem, caixa e tomada de decisão.",
+    label: "Máquina de Cartão",
+    value: "maquina-de-cartao",
+    filterValue: "todos",
+    description: "Maquininhas e gateway de pagamento.",
   },
   {
-    label: "Conta PJ",
-    value: "conta-pj",
-    description: "Estrutura bancária para organizar pagamentos e recebimentos.",
+    label: "Seguros e Consórcios",
+    value: "seguros-e-consorcios",
+    filterValue: "todos",
+    description: "Proteção patrimonial e planejamento de aquisições.",
   },
   {
-    label: "Antecipação",
-    value: "antecipacao",
-    description: "Recebíveis convertidos em caixa com mais previsibilidade.",
+    label: "Crédito Rápido",
+    value: "credito-rapido",
+    filterValue: "credito",
+    description: "Crédito empresarial, imobiliário e veicular.",
   },
   {
-    label: "Tributos",
-    value: "gestao-tributaria",
-    description: "Planejamento tributário e impactos fiscais para empresas.",
+    label: "Soluções Tributárias",
+    value: "solucoes-tributarias",
+    filterValue: "gestao-tributaria",
+    description: "Diagnóstico, recuperação e planejamento fiscal.",
+  },
+  {
+    label: "Telemedicina",
+    value: "telemedicina",
+    filterValue: "todos",
+    description: "Médico na tela para toda a sua família.",
+  },
+  {
+    label: "Soluções Personalizadas",
+    value: "solucoes-personalizadas",
+    filterValue: "gestao",
+    description: "Operações estruturadas para grandes empresas.",
   },
 ];
 
@@ -77,16 +95,17 @@ function ArticleMeta({ post }: { post: BlogPost }) {
 }
 
 export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
-  const [category, setCategory] = useState("todos");
+  const [activeProduct, setActiveProduct] = useState("todos");
   const [email, setEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const activeFilter = productHubs.find((item) => item.value === activeProduct)?.filterValue || "todos";
 
   const visiblePosts = useMemo(
     () =>
       posts.filter(
-        (post) => category === "todos" || post.category === category
+        (post) => activeFilter === "todos" || post.category === activeFilter
       ),
-    [category, posts]
+    [activeFilter, posts]
   );
 
   const leadPost = visiblePosts.find((post) => post.featured) || visiblePosts[0] || null;
@@ -95,6 +114,11 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
     .filter((post) => post.id !== leadPost?.id && !secondaryPosts.some((item) => item.id === post.id));
   const sidebarPosts = posts.filter((post) => post.id !== leadPost?.id).slice(0, 5);
   const hasResults = visiblePosts.length > 0;
+
+  function selectProductByFilter(filterValue: string) {
+    const product = productHubs.find((item) => item.filterValue === filterValue);
+    setActiveProduct(product?.value || "todos");
+  }
 
   async function handleNewsletterSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -145,8 +169,8 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
               <button
                 key={item.value}
                 type="button"
-                className={`product-menu-button ${category === item.value ? "active" : ""}`}
-                onClick={() => setCategory(item.value)}
+                className={`product-menu-button ${activeProduct === item.value ? "active" : ""}`}
+                onClick={() => setActiveProduct(item.value)}
               >
                 <strong>{item.label}</strong>
                 <small>{item.description}</small>
@@ -258,7 +282,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
                   <h3>Editorias</h3>
                   <div className="topic-grid">
                     {filters.slice(1).map((item) => (
-                      <button key={item.value} type="button" onClick={() => setCategory(item.value)}>
+                      <button key={item.value} type="button" onClick={() => selectProductByFilter(item.value)}>
                         {item.label}
                       </button>
                     ))}
