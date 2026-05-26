@@ -15,57 +15,6 @@ const filters = [
   { label: "Tributos", value: "gestao-tributaria" },
 ];
 
-const productHubs = [
-  {
-    label: "Todos",
-    value: "todos",
-    filterValue: "todos",
-    description: "Veja todos os conteúdos e soluções financeiras da MB Finance.",
-  },
-  {
-    label: "Conta Corrente Empresarial",
-    value: "conta-corrente-empresarial",
-    filterValue: "conta-pj",
-    description: "Abertura simplificada nos principais bancos.",
-  },
-  {
-    label: "Máquina de Cartão",
-    value: "maquina-de-cartao",
-    filterValue: "todos",
-    description: "Maquininhas e gateway de pagamento.",
-  },
-  {
-    label: "Seguros e Consórcios",
-    value: "seguros-e-consorcios",
-    filterValue: "todos",
-    description: "Proteção patrimonial e planejamento de aquisições.",
-  },
-  {
-    label: "Crédito Rápido",
-    value: "credito-rapido",
-    filterValue: "credito",
-    description: "Crédito empresarial, imobiliário e veicular.",
-  },
-  {
-    label: "Soluções Tributárias",
-    value: "solucoes-tributarias",
-    filterValue: "gestao-tributaria",
-    description: "Diagnóstico, recuperação e planejamento fiscal.",
-  },
-  {
-    label: "Telemedicina",
-    value: "telemedicina",
-    filterValue: "todos",
-    description: "Médico na tela para toda a sua família.",
-  },
-  {
-    label: "Soluções Personalizadas",
-    value: "solucoes-personalizadas",
-    filterValue: "gestao",
-    description: "Operações estruturadas para grandes empresas.",
-  },
-];
-
 const specialistWhatsAppUrl = `https://wa.me/552139008295?text=${encodeURIComponent(
   "Olá! Vim pelo hub financeiro da MB Finance e gostaria de falar com um especialista."
 )}`;
@@ -95,31 +44,34 @@ function ArticleMeta({ post }: { post: BlogPost }) {
 }
 
 export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
-  const [activeProduct, setActiveProduct] = useState("todos");
+  const [activeFilter, setActiveFilter] = useState("todos");
+  const [searchQuery, setSearchQuery] = useState("");
   const [email, setEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const activeFilter = productHubs.find((item) => item.value === activeProduct)?.filterValue || "todos";
-  const activeProductLabel = productHubs.find((item) => item.value === activeProduct)?.label || "Todos";
 
   const visiblePosts = useMemo(
     () =>
-      posts.filter(
-        (post) => activeFilter === "todos" || post.category === activeFilter
-      ),
-    [activeFilter, posts]
+      posts.filter((post) => {
+        const matchesFilter = activeFilter === "todos" || post.category === activeFilter;
+        const q = searchQuery.trim().toLowerCase();
+        const matchesSearch =
+          !q ||
+          post.title.toLowerCase().includes(q) ||
+          post.excerpt.toLowerCase().includes(q) ||
+          post.categoryLabel.toLowerCase().includes(q);
+        return matchesFilter && matchesSearch;
+      }),
+    [activeFilter, posts, searchQuery]
   );
 
   const leadPost = visiblePosts.find((post) => post.featured) || visiblePosts[0] || null;
   const secondaryPosts = visiblePosts.filter((post) => post.id !== leadPost?.id).slice(0, 2);
-  const listPosts = visiblePosts
-    .filter((post) => post.id !== leadPost?.id && !secondaryPosts.some((item) => item.id === post.id));
+  const listPosts = visiblePosts.filter(
+    (post) => post.id !== leadPost?.id && !secondaryPosts.some((item) => item.id === post.id)
+  );
   const sidebarPosts = posts.filter((post) => post.id !== leadPost?.id).slice(0, 5);
   const hasResults = visiblePosts.length > 0;
-
-  function selectProductByFilter(filterValue: string) {
-    const product = productHubs.find((item) => item.filterValue === filterValue);
-    setActiveProduct(product?.value || "todos");
-  }
+  const activeFilterLabel = filters.find((f) => f.value === activeFilter)?.label || "Todos";
 
   async function handleNewsletterSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -186,164 +138,192 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         </div>
       </section>
 
-      <section className="blog-shell blog-main">
-        <aside className="product-side-menu" id="hub-produtos" aria-label="Menu de produtos">
-          <span>Escolha por necessidade</span>
-          <h2>Produtos e conteúdos</h2>
-          <div className="product-menu-list">
-            {productHubs.map((item) => (
+      <div className="blog-filter-bar">
+        <div className="blog-filter-bar-inner">
+          <nav className="filter-pills" aria-label="Filtrar por categoria">
+            {filters.map((item) => (
               <button
                 key={item.value}
                 type="button"
-                className={`product-menu-button ${activeProduct === item.value ? "active" : ""}`}
-                onClick={() => setActiveProduct(item.value)}
+                className={`filter-pill ${activeFilter === item.value ? "active" : ""}`}
+                onClick={() => setActiveFilter(item.value)}
+                aria-pressed={activeFilter === item.value}
               >
-                <strong>{item.label}</strong>
-                <small>{item.description}</small>
+                {item.label}
               </button>
             ))}
+          </nav>
+          <div className="filter-divider" aria-hidden="true" />
+          <div className="filter-search">
+            <input
+              type="search"
+              placeholder="Buscar artigos..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Buscar artigos"
+            />
           </div>
-        </aside>
+        </div>
+      </div>
 
-        <div className="blog-main-content">
-          <div className="section-kicker">
-            <span>{activeProductLabel === "Todos" ? "Todos os conteúdos" : activeProductLabel}</span>
-            <strong>·</strong>
-            <strong>{visiblePosts.length} {visiblePosts.length === 1 ? "artigo" : "artigos"}</strong>
-          </div>
-
-          {hasResults && leadPost ? (
-            <section className="top-news-grid">
-              <a
-                className="lead-story"
-                href={`/blog/${leadPost.slug}`}
-                style={imageStyle(leadPost.image, leadPost.imageCard)}
-                data-cat={leadPost.category}
-                data-analytics-label={leadPost.title}
-                data-analytics-area="lead_story"
-              >
-                <p className="article-category">{leadPost.categoryLabel}</p>
-                <h1>{leadPost.title}</h1>
-                <p>{leadPost.excerpt}</p>
-                <ArticleMeta post={leadPost} />
-                <span className="lead-read-more">Ler análise →</span>
-              </a>
-
-              <div className="side-feature-stack">
-                {secondaryPosts.map((post) => (
-                  <a
-                    key={post.id}
-                    className="side-feature-card"
-                    href={`/blog/${post.slug}`}
-                    style={imageStyle(post.image, post.imageCard)}
-                    data-cat={post.category}
-                    data-analytics-label={post.title}
-                    data-analytics-area="side_feature"
-                  >
-                    <span>{post.categoryLabel}</span>
-                    <h2>{post.title}</h2>
-                  </a>
-                ))}
-              </div>
-            </section>
+      <section className="blog-shell blog-content">
+        <div className="section-kicker">
+          {searchQuery.trim() ? (
+            <>
+              <span>Resultados para &ldquo;{searchQuery}&rdquo;</span>
+              <strong>·</strong>
+              <strong>{visiblePosts.length} {visiblePosts.length === 1 ? "artigo" : "artigos"}</strong>
+            </>
           ) : (
-            <div className="no-results">
-              <p>Nenhum artigo publicado nesta categoria ainda.</p>
-              <div className="no-results-actions">
-                <button type="button" onClick={() => setActiveProduct("todos")}>
+            <>
+              <span>{activeFilterLabel === "Todos" ? "Todos os conteúdos" : activeFilterLabel}</span>
+              <strong>·</strong>
+              <strong>{visiblePosts.length} {visiblePosts.length === 1 ? "artigo" : "artigos"}</strong>
+            </>
+          )}
+        </div>
+
+        {hasResults && leadPost ? (
+          <section className="top-news-grid">
+            <a
+              className="lead-story"
+              href={`/blog/${leadPost.slug}`}
+              style={imageStyle(leadPost.image, leadPost.imageCard)}
+              data-cat={leadPost.category}
+              data-analytics-label={leadPost.title}
+              data-analytics-area="lead_story"
+            >
+              <p className="article-category">{leadPost.categoryLabel}</p>
+              <h1>{leadPost.title}</h1>
+              <p>{leadPost.excerpt}</p>
+              <ArticleMeta post={leadPost} />
+              <span className="lead-read-more">Ler análise →</span>
+            </a>
+
+            <div className="side-feature-stack">
+              {secondaryPosts.map((post) => (
+                <a
+                  key={post.id}
+                  className="side-feature-card"
+                  href={`/blog/${post.slug}`}
+                  style={imageStyle(post.image, post.imageCard)}
+                  data-cat={post.category}
+                  data-analytics-label={post.title}
+                  data-analytics-area="side_feature"
+                >
+                  <span>{post.categoryLabel}</span>
+                  <h2>{post.title}</h2>
+                </a>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <div className="no-results">
+            <p>
+              {searchQuery.trim()
+                ? `Nenhum resultado para "${searchQuery}".`
+                : "Nenhum artigo publicado nesta categoria ainda."}
+            </p>
+            <div className="no-results-actions">
+              {searchQuery.trim() ? (
+                <button type="button" onClick={() => setSearchQuery("")}>
+                  Limpar busca
+                </button>
+              ) : (
+                <button type="button" onClick={() => setActiveFilter("todos")}>
                   Ver todos os artigos
                 </button>
-                <a href={specialistWhatsAppUrl} target="_blank" rel="noopener noreferrer">
-                  Falar com especialista
-                </a>
-              </div>
+              )}
+              <a href={specialistWhatsAppUrl} target="_blank" rel="noopener noreferrer">
+                Falar com especialista
+              </a>
             </div>
-          )}
+          </div>
+        )}
 
-          {hasResults ? (
-            <div className="content-layout">
-              <section className="news-list" aria-label="Artigos recentes">
-                {listPosts.map((post) => (
-                  <a
-                    key={post.id}
-                    className="news-row"
-                    href={`/blog/${post.slug}`}
-                    data-cat={post.category}
-                    data-analytics-label={post.title}
-                    data-analytics-area="news_list"
-                  >
-                    <div className="news-thumb" style={imageStyle(post.image, post.imageCard)} />
-                    <div className="news-row-content">
-                      <p className="article-category">{post.categoryLabel}</p>
-                      <h2>{post.title}</h2>
-                      <p>{post.excerpt}</p>
-                      <ArticleMeta post={post} />
-                    </div>
-                  </a>
-                ))}
+        {hasResults ? (
+          <div className="content-layout">
+            <section className="news-list" aria-label="Artigos recentes">
+              {listPosts.map((post) => (
+                <a
+                  key={post.id}
+                  className="news-row"
+                  href={`/blog/${post.slug}`}
+                  data-cat={post.category}
+                  data-analytics-label={post.title}
+                  data-analytics-area="news_list"
+                >
+                  <div className="news-thumb" style={imageStyle(post.image, post.imageCard)} />
+                  <div className="news-row-content">
+                    <p className="article-category">{post.categoryLabel}</p>
+                    <h2>{post.title}</h2>
+                    <p>{post.excerpt}</p>
+                    <ArticleMeta post={post} />
+                  </div>
+                </a>
+              ))}
+            </section>
+
+            <aside className="blog-sidebar">
+              <section className="sidebar-card hot-news-card">
+                <h3>Mais acessadas</h3>
+                <ol className="quick-links hot-links">
+                  {sidebarPosts.map((post, index) => (
+                    <li key={post.id}>
+                      <a href={`/blog/${post.slug}`}>
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <strong>{post.title}</strong>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
               </section>
 
-              <aside className="blog-sidebar">
-                <section className="sidebar-card hot-news-card">
-                  <h3>Mais acessadas</h3>
-                  <ol className="quick-links hot-links">
-                    {sidebarPosts.map((post, index) => (
-                      <li key={post.id}>
-                        <a href={`/blog/${post.slug}`}>
-                          <span>{String(index + 1).padStart(2, "0")}</span>
-                          <strong>{post.title}</strong>
-                        </a>
-                      </li>
-                    ))}
-                  </ol>
-                </section>
+              <section className="sidebar-card newsletter-card">
+                <h3>Receba análises</h3>
+                <p>Conteúdos sobre crédito, caixa e gestão direto no seu e-mail.</p>
+                <form onSubmit={handleNewsletterSubmit} className="newsletter-form">
+                  <input
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    type="email"
+                    placeholder="seu@email.com.br"
+                    required
+                  />
+                  <button disabled={newsletterStatus === "loading"} type="submit">
+                    {newsletterStatus === "loading" ? "Enviando..." : "Cadastrar"}
+                  </button>
+                </form>
+                {newsletterStatus === "success" ? <small>Cadastro realizado com sucesso.</small> : null}
+                {newsletterStatus === "error" ? <small>Não foi possível cadastrar agora. Tente novamente.</small> : null}
+              </section>
 
-                <section className="sidebar-card newsletter-card">
-                  <h3>Receba análises</h3>
-                  <p>Conteúdos sobre crédito, caixa e gestão direto no seu e-mail.</p>
-                  <form onSubmit={handleNewsletterSubmit} className="newsletter-form">
-                    <input
-                      value={email}
-                      onChange={(event) => setEmail(event.target.value)}
-                      type="email"
-                      placeholder="seu@email.com.br"
-                      required
-                    />
-                    <button disabled={newsletterStatus === "loading"} type="submit">
-                      {newsletterStatus === "loading" ? "Enviando..." : "Cadastrar"}
+              <section className="sidebar-card">
+                <h3>Editorias</h3>
+                <div className="topic-grid">
+                  {filters.slice(1).map((item) => (
+                    <button key={item.value} type="button" onClick={() => setActiveFilter(item.value)}>
+                      {item.label}
                     </button>
-                  </form>
-                  {newsletterStatus === "success" ? <small>Cadastro realizado com sucesso.</small> : null}
-                  {newsletterStatus === "error" ? <small>Não foi possível cadastrar agora. Tente novamente.</small> : null}
-                </section>
+                  ))}
+                </div>
+              </section>
 
-                <section className="sidebar-card">
-                  <h3>Editorias</h3>
-                  <div className="topic-grid">
-                    {filters.slice(1).map((item) => (
-                      <button key={item.value} type="button" onClick={() => selectProductByFilter(item.value)}>
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
-                </section>
-
-                <section className="sidebar-card sidebar-specialist-card">
-                  <p>Precisa de orientação personalizada?</p>
-                  <a
-                    href={specialistWhatsAppUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-analytics-area="sidebar"
-                    data-analytics-label="falar_especialista"
-                  >
-                    Falar com especialista
-                  </a>
-                </section>
-              </aside>
-            </div>
-          ) : null}
-        </div>
+              <section className="sidebar-card sidebar-specialist-card">
+                <p>Precisa de orientação personalizada?</p>
+                <a
+                  href={specialistWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-analytics-area="sidebar"
+                  data-analytics-label="falar_especialista"
+                >
+                  Falar com especialista
+                </a>
+              </section>
+            </aside>
+          </div>
+        ) : null}
       </section>
 
       <section className="blog-cta-section">
