@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { Redis } from '@upstash/redis';
 import { cookies } from 'next/headers';
 import { verifySession, COOKIE_NAME } from '@/lib/admin-auth';
-import type { Comment } from '@/app/api/blog/posts/[slug]/comments/route';
+import type { Comment } from '@/lib/comment-store';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,7 +20,7 @@ async function requireAuth(): Promise<boolean> {
   return verifySession(token);
 }
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   const authed = await requireAuth();
   if (!authed) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
