@@ -5,24 +5,44 @@ export const dynamic = 'force-dynamic';
 
 const PRODUCTS: Record<string, { name: string; pitch: string; pain: string }> = {
     'conta-pj': {
-        name: 'Conta PJ',
-        pitch: 'A MB Finance oferece Conta PJ 100% gratuita, sem burocracia, aprovada para qualquer CNPJ — MEI, ME ou empresa de médio porte. Zero taxas de manutenção.',
-        pain: 'burocracia bancária, taxas abusivas, limitações do banco único',
-    },
-    'capital-de-giro': {
-        name: 'Capital de Giro',
-        pitch: 'A MB Finance conecta sua empresa a múltiplos bancos e fintech ao mesmo tempo, garantindo as melhores condições de crédito para capital de giro — com aprovação em até 24 horas.',
-        pain: 'falta de caixa, fluxo de caixa negativo, dificuldade de pagar fornecedores',
-    },
-    'antecipacao': {
-        name: 'Antecipação de Recebíveis',
-        pitch: 'Com a MB Finance você antecipa recebíveis de cartão e boleto de forma simples e com as melhores taxas do mercado — o dinheiro na sua conta em horas, não em semanas.',
-        pain: 'dinheiro preso em recebíveis, espera longa para receber, capital imobilizado',
+        name: 'Conta Corrente Empresarial',
+        pitch: 'A MB Finance simplifica a abertura de conta empresarial nos principais bancos — sem burocracia, sem filas, com toda a estrutura que o seu CNPJ precisa para operar.',
+        pain: 'burocracia bancária, dificuldade de abrir conta PJ, limitações do banco único',
     },
     'maquininha': {
         name: 'Máquina de Cartão',
-        pitch: 'A maquininha da MB Finance tem as menores taxas do mercado e recebimento na hora — sem aluguel, sem fidelidade, sem letra miúda.',
+        pitch: 'A MB Finance oferece maquininhas e soluções de gateway de pagamento com as menores taxas do mercado e recebimento na hora — sem aluguel, sem fidelidade.',
         pain: 'taxas altas na maquininha, perda de vendas, demora para receber',
+    },
+    'credito-rapido': {
+        name: 'Crédito Rápido',
+        pitch: 'A MB Finance conecta sua empresa a múltiplos bancos simultaneamente para crédito empresarial, imobiliário e veicular — aprovação ágil com as melhores condições do mercado.',
+        pain: 'dificuldade de conseguir crédito, juros altos, burocracia para financiamento',
+    },
+    'antecipacao': {
+        name: 'Antecipação de Recebíveis',
+        pitch: 'Com a MB Finance você antecipa recebíveis de cartão e boleto com as melhores taxas do mercado — o dinheiro cai na sua conta em horas, não em semanas.',
+        pain: 'dinheiro preso em recebíveis, espera longa para receber, capital imobilizado',
+    },
+    'seguros': {
+        name: 'Seguros e Consórcios',
+        pitch: 'A MB Finance estrutura a proteção patrimonial e o planejamento de aquisições da sua empresa — seguros empresariais e consórcios com as melhores condições do mercado.',
+        pain: 'patrimônio desprotegido, falta de planejamento para aquisições, riscos empresariais',
+    },
+    'tributario': {
+        name: 'Soluções Tributárias',
+        pitch: 'A MB Finance oferece diagnóstico, recuperação e planejamento fiscal para sua empresa pagar menos impostos dentro da lei — com especialistas que conhecem a realidade do empresário PJ.',
+        pain: 'carga tributária alta, impostos mal planejados, passivo fiscal acumulado',
+    },
+    'telemedicina': {
+        name: 'Telemedicina',
+        pitch: 'Com a MB Finance, sua empresa oferece acesso a médico na tela para toda a família dos colaboradores — benefício de saúde acessível, sem custo de plano de saúde tradicional.',
+        pain: 'falta de benefício de saúde, custo alto de plano de saúde, dificuldade de reter talentos',
+    },
+    'solucoes-personalizadas': {
+        name: 'Soluções Personalizadas',
+        pitch: 'Para grandes empresas, a MB Finance estrutura operações financeiras sob medida — crédito estruturado, gestão de passivo e soluções que os bancos tradicionais não conseguem entregar.',
+        pain: 'operações complexas, falta de soluções sob medida, limitações dos bancos tradicionais',
     },
 };
 

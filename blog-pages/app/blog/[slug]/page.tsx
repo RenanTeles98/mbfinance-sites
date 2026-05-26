@@ -233,34 +233,62 @@ export default async function BlogArticlePage({
   const posts = await readPublishedBlogPosts();
   const title = getDisplayTitle(post);
   const content = enhanceArticleContent(post);
-  const productCtas: Record<string, { title: string; description: string; button: string; message: string; accent: string }> = {
+  const productCtas: Record<string, { title: string; description: string; button: string; message: string; label: string }> = {
     'conta-pj': {
-      title: "Sua empresa merece uma conta sem burocracia",
-      description: "Conta PJ gratuita, sem taxa de manutenção, aprovada para qualquer CNPJ. Abra agora e comece a operar hoje mesmo.",
-      button: "Abrir Conta PJ Gratuita",
-      message: `Olá! Li o artigo "${title}" e quero abrir minha Conta PJ na MB Finance.`,
-      accent: "#0099dd",
-    },
-    'capital-de-giro': {
-      title: "Capital de giro com aprovação em 24 horas",
-      description: "A MB Finance conecta sua empresa a múltiplos bancos ao mesmo tempo — você recebe as melhores propostas sem sair do lugar.",
-      button: "Simular Capital de Giro",
-      message: `Olá! Li o artigo "${title}" e quero simular capital de giro para minha empresa.`,
-      accent: "#0099dd",
-    },
-    'antecipacao': {
-      title: "Antecipe seus recebíveis sem complicação",
-      description: "Transforme suas vendas a prazo em dinheiro imediato. Taxas competitivas, processo 100% digital, dinheiro na conta em horas.",
-      button: "Antecipar Meus Recebíveis",
-      message: `Olá! Li o artigo "${title}" e quero antecipar meus recebíveis com a MB Finance.`,
-      accent: "#0099dd",
+      label: "Conta Corrente Empresarial",
+      title: "Abra sua conta empresarial sem burocracia",
+      description: "A MB Finance simplifica a abertura de conta nos principais bancos. Sem filas, sem papelada, com toda estrutura que seu CNPJ precisa.",
+      button: "Abrir Conta Empresarial",
+      message: `Olá! Li o artigo "${title}" e quero abrir minha conta empresarial com a MB Finance.`,
     },
     'maquininha': {
+      label: "Máquina de Cartão",
       title: "Pare de perder dinheiro nas taxas da maquininha",
-      description: "A maquininha da MB Finance tem as menores taxas do mercado e recebimento na hora. Sem aluguel, sem fidelidade.",
+      description: "Maquininhas com as menores taxas do mercado e recebimento na hora. Sem aluguel, sem fidelidade, sem letra miúda.",
       button: "Pedir Minha Maquininha",
       message: `Olá! Li o artigo "${title}" e tenho interesse na Máquina de Cartão da MB Finance.`,
-      accent: "#0099dd",
+    },
+    'credito-rapido': {
+      label: "Crédito Rápido",
+      title: "Crédito para sua empresa com as melhores condições",
+      description: "A MB Finance conecta sua empresa a múltiplos bancos ao mesmo tempo — crédito empresarial, imobiliário e veicular com aprovação ágil.",
+      button: "Simular Crédito Agora",
+      message: `Olá! Li o artigo "${title}" e quero simular crédito para minha empresa com a MB Finance.`,
+    },
+    'antecipacao': {
+      label: "Antecipação de Recebíveis",
+      title: "Transforme vendas a prazo em dinheiro imediato",
+      description: "Antecipe recebíveis de cartão e boleto com as melhores taxas do mercado. Processo 100% digital, dinheiro na conta em horas.",
+      button: "Antecipar Meus Recebíveis",
+      message: `Olá! Li o artigo "${title}" e quero antecipar meus recebíveis com a MB Finance.`,
+    },
+    'seguros': {
+      label: "Seguros e Consórcios",
+      title: "Proteja o patrimônio da sua empresa",
+      description: "A MB Finance estrutura seguros empresariais e consórcios com as melhores condições — proteção real para o que você levou anos construindo.",
+      button: "Conhecer Seguros e Consórcios",
+      message: `Olá! Li o artigo "${title}" e quero conhecer as opções de seguros e consórcios da MB Finance.`,
+    },
+    'tributario': {
+      label: "Soluções Tributárias",
+      title: "Pague menos impostos dentro da lei",
+      description: "Diagnóstico, recuperação e planejamento fiscal com especialistas que conhecem a realidade do empresário PJ. Sua empresa pode estar pagando mais do que deve.",
+      button: "Fazer Diagnóstico Tributário",
+      message: `Olá! Li o artigo "${title}" e quero fazer um diagnóstico tributário com a MB Finance.`,
+    },
+    'telemedicina': {
+      label: "Telemedicina",
+      title: "Médico na tela para você e sua equipe",
+      description: "Ofereça acesso a saúde para toda a família dos seus colaboradores — benefício de alto valor, sem o custo de um plano de saúde tradicional.",
+      button: "Conhecer a Telemedicina",
+      message: `Olá! Li o artigo "${title}" e quero conhecer a solução de telemedicina da MB Finance.`,
+    },
+    'solucoes-personalizadas': {
+      label: "Soluções Personalizadas",
+      title: "Sua empresa precisa de mais do que o banco oferece",
+      description: "Para operações complexas e grandes empresas, a MB Finance estrutura soluções financeiras sob medida que os bancos tradicionais não entregam.",
+      button: "Falar com um Especialista",
+      message: `Olá! Li o artigo "${title}" e quero conhecer as soluções personalizadas da MB Finance para minha empresa.`,
     },
   };
 
@@ -380,9 +408,9 @@ export default async function BlogArticlePage({
         ) : null}
 
         <div className="mt-10 overflow-hidden rounded-[24px] bg-[#003956] px-8 py-10 text-white" style={{ background: "linear-gradient(135deg, #003956 0%, #002840 100%)" }}>
-          {post.product && (
+          {post.product && productCtas[post.product] && (
             <p className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-sky-400">
-              MB Finance — {post.product === 'conta-pj' ? 'Conta PJ' : post.product === 'capital-de-giro' ? 'Capital de Giro' : post.product === 'antecipacao' ? 'Antecipação de Recebíveis' : 'Máquina de Cartão'}
+              MB Finance — {productCtas[post.product].label}
             </p>
           )}
           <h2 className="font-sans text-2xl font-black leading-snug md:text-3xl">{cta.title}</h2>
