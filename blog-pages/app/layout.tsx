@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: BLOG_BASE_URL,
   },
+  icons: {
+    icon: "/images/favicon.svg",
+    shortcut: "/images/favicon.svg",
+    apple: "/images/favicon.svg",
+  },
   openGraph: {
     title: "Blog MB Finance",
     description:
