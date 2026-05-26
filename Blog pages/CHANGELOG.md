@@ -14,3 +14,7 @@
 - Refeita a estrutura visual do admin do blog para evitar abas com conteudo em branco.
 - Adicionada tela de Campanhas com KPIs e pipeline editorial.
 - Ajustada navegacao do admin para usar Metricas como fallback quando uma aba nao tiver painel correspondente.
+
+## 2026-05-26
+
+- Aumentada a largura da barra de publicacoes da aba Blog do admin para melhorar a leitura e o aproveitamento de espaco.
