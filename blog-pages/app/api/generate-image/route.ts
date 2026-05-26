@@ -35,22 +35,27 @@ export async function POST(req: NextRequest) {
     const scene = CATEGORY_SCENES[category] || 'a confident Brazilian business owner smiling in a modern office, natural and approachable';
 
     const systemPrompt = `You are an expert at writing DALL-E 3 image generation prompts for blog covers.
-Your prompts always produce minimalist, people-focused photos that feel real, warm and relatable.
+Your prompts produce minimalist editorial photography — clean, real, warm and relatable.
 Style reference: Bloomberg Businessweek covers, Nubank / iFood marketing photography.
-NEVER include text, words, labels, charts, icons, dashboards, or graphic elements in the image.`;
+Text in the image must always be in Portuguese (pt-BR), short, and placed as a subtle environmental element — never as a headline overlay.`;
 
     const userPrompt = `Write a DALL-E 3 prompt for a blog cover image.
 
 Article title: "${title}"
-Scene to use: ${scene}
+Scene: ${scene}
 
 Rules:
-- Style: minimalist editorial photography, soft natural light, clean background
-- Color palette: deep navy blue tones (#003956), with white or light blue accents — either as background color, clothing, or environment
-- Focus on ONE person that the reader can identify with — a Brazilian business owner, entrepreneur or professional
-- The person's expression should convey the emotion related to the article theme (relief, confidence, focus, satisfaction)
+- Style: minimalist editorial photography, soft natural light, clean navy blue background
+- Color palette: deep navy blue (#003956) dominant, with white or sky blue accents in clothing or props
+- ONE person, Brazilian-looking, that the reader identifies with — entrepreneur, business owner, professional
+- Expression matches the article emotion: relief, confidence, focus, or satisfaction
 - Composition: 16:9 widescreen, subject slightly off-center, generous negative space on one side
-- NO text, NO words, NO letters, NO logos, NO charts, NO icons anywhere in the image
+- Add ONE subtle contextual element that makes the image less generic — choose the most natural fit:
+  • A small framed sign or whiteboard in the background with 2–3 short Portuguese words related to the theme (e.g. "Crédito / Crescimento / Resultado")
+  • OR a coffee mug, notebook, or prop with a single short Portuguese word on it
+  • OR a very subtle, small icon/badge near a prop (phone screen, laptop, notepad) — minimal, not dominant
+- The text element must be small, environmental, secondary — never a headline or main focus
+- NO charts, NO dashboards, NO complex graphics, NO overlay text
 - Photorealistic, not illustration
 
 Return ONLY the prompt, no explanation, no quotes, no prefix.`;
