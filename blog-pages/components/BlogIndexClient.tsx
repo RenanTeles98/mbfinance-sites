@@ -97,8 +97,8 @@ function NewsletterModal({ onClose }: { onClose: () => void }) {
         ) : (
           <>
             <p className="modal-kicker">MB Finance · Newsletter</p>
-            <h2>Receba análises financeiras no seu e-mail</h2>
-            <p>Conteúdos sobre crédito, gestão de caixa, tributos e soluções PJ — direto para você.</p>
+            <h2>Receba conteúdos exclusivos no seu e-mail</h2>
+            <p>Dicas, guias e novidades sobre crédito, gestão financeira e soluções PJ — antes de todo mundo.</p>
             <form onSubmit={handleSubmit} className="modal-form">
               <input
                 type="email"
@@ -209,11 +209,8 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
               data-analytics-area="hero"
               data-analytics-label="abrir_newsletter"
             >
-              Receber análises gratuitas
+              Receber conteúdos exclusivos
             </button>
-            <span className="blog-hero-count">
-              {posts.length} {posts.length === 1 ? "análise publicada" : "análises publicadas"}
-            </span>
           </div>
         </div>
       </section>
