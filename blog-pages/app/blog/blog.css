@@ -65,15 +65,18 @@
   grid-template-columns: 228px minmax(0, 1fr);
   gap: 30px;
   align-items: start;
+  overflow: visible;
   padding-top: 30px;
   padding-bottom: 64px;
 }
 
 .product-side-menu {
+  position: -webkit-sticky;
   position: sticky;
-  top: 22px;
+  top: 84px;
+  z-index: 5;
   align-self: start;
-  max-height: calc(100vh - 44px);
+  max-height: calc(100vh - 104px);
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #c7ddeb transparent;

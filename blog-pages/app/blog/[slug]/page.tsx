@@ -4,6 +4,21 @@ import { notFound } from "next/navigation";
 import { readBlogPostBySlug, readPublishedBlogPosts } from "@/lib/blog-store";
 import { blogUrl, mainSiteUrl } from "@/lib/site";
 import type { BlogPost } from "@/types/blog";
+import PostEngagement, { type Comment } from "@/components/PostEngagement";
+
+async function fetchApprovedComments(slug: string): Promise<Comment[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/blog/posts/${slug}/comments`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.comments || [];
+  } catch {
+    return [];
+  }
+}
 
 export const dynamic = "force-dynamic";
 
@@ -230,7 +245,10 @@ export default async function BlogArticlePage({
 }) {
   const post = await readBlogPostBySlug(params.slug);
   if (!post) notFound();
-  const posts = await readPublishedBlogPosts();
+  const [posts, initialComments] = await Promise.all([
+    readPublishedBlogPosts(),
+    fetchApprovedComments(params.slug),
+  ]);
   const title = getDisplayTitle(post);
   const content = enhanceArticleContent(post);
   const productCtas: Record<string, { title: string; description: string; button: string; message: string; label: string }> = {
@@ -430,6 +448,8 @@ export default async function BlogArticlePage({
             {cta.button}
           </a>
         </div>
+
+        <PostEngagement slug={post.slug} initialComments={initialComments} />
       </article>
 
       <footer className="text-white" style={{ background: "#040f1a", padding: "80px 0 64px" }}>

@@ -697,6 +697,15 @@
                     <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
                     SEO
                 </button>
+                <button class="blog-nav-item" id="blogNav-comments" onclick="switchBlogSection('comments')">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-3 3v-3z"/></svg>
+                    Comentários
+                    <span id="comments-pending-badge" style="display:none;background:#ef4444;color:#fff;font-size:10px;font-weight:800;padding:1px 6px;border-radius:20px;margin-left:4px;"></span>
+                </button>
+                <button class="blog-nav-item" id="blogNav-gsc" onclick="switchBlogSection('gsc')">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    Search Console
+                </button>
                 <p class="blog-nav-section-label" style="margin-top:16px">Ferramentas</p>
                 <button class="blog-nav-item" id="blogNav-generator" onclick="switchBlogSection('generator')">
                     <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
@@ -1119,6 +1128,26 @@
                         <div id="seo-audit-list"></div>
                     </div>
                 </div><!-- /blog-section-seo -->
+
+                <!-- COMENTÁRIOS -->
+                <div id="blog-section-comments" class="blog-section">
+                    <div class="blog-section-wrap">
+                        <div class="blog-section-header">
+                            <div>
+                                <h2 class="blog-section-title">Moderação de Comentários</h2>
+                                <p class="blog-section-sub">Aprove ou rejeite comentários enviados pelos leitores antes de publicá-los.</p>
+                            </div>
+                            <button class="blog-seo-refresh" onclick="loadComments()">
+                                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12a9 9 0 0 1-15.5 6.2"></path><path d="M3 12a9 9 0 0 1 15.5-6.2"></path><path d="M18 3v4h-4"></path><path d="M6 21v-4h4"></path></svg>
+                                Atualizar
+                            </button>
+                        </div>
+                        <div id="comments-list-wrap"></div>
+                    </div>
+                </div><!-- /blog-section-comments -->
+
+                <!-- GOOGLE SEARCH CONSOLE -->
+                <div id="blog-section-gsc" class="blog-section"></div>
 
                 <!-- CALENDÁRIO -->
                 <!-- CALENDÁRIO (unificado) -->
@@ -2056,10 +2085,112 @@ function switchBlogSection(section) {
     if (el)  el.classList.add('active');
     if (btn) btn.classList.add('active');
 
-    if (section === 'seo')   renderSeoAudit();
-    if (section === 'pautas') { renderPautasBoard(); switchPautaTab('board'); }
+    if (section === 'seo')      renderSeoAudit();
+    if (section === 'pautas')   { renderPautasBoard(); switchPautaTab('board'); }
     if (section === 'calendar-full' && typeof renderCalendar === 'function') renderCalendar();
-    if (section === 'overview' && typeof window.renderEditorialAnalytics === 'function') window.renderEditorialAnalytics();
+    if (section === 'overview'  && typeof window.renderEditorialAnalytics === 'function') window.renderEditorialAnalytics();
+    if (section === 'comments') loadComments();
+    if (section === 'gsc')      loadGSC();
+}
+
+/* ── COMMENTS MODERATION ── */
+function loadComments() {
+    var wrap = document.getElementById('comments-list-wrap');
+    if (!wrap) return;
+    wrap.innerHTML = '<div style="padding:32px;text-align:center;color:#94a3b8;font-size:13px;">Carregando comentários...</div>';
+    fetch('/api/admin/comments')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            var comments = data.comments || [];
+            var badge = document.getElementById('comments-pending-badge');
+            if (badge) { badge.textContent = comments.length || ''; badge.style.display = comments.length ? '' : 'none'; }
+            if (!comments.length) {
+                wrap.innerHTML = '<div style="padding:32px;text-align:center;color:#94a3b8;font-size:13px;">Nenhum comentário pendente de moderação.</div>';
+                return;
+            }
+            wrap.innerHTML = comments.map(function(c) {
+                return '<div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:18px 20px;margin-bottom:12px;">'
+                    + '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;">'
+                    + '<div>'
+                    + '<span style="font-size:14px;font-weight:700;color:#003956;">' + escHtml(c.author) + '</span>'
+                    + '<span style="font-size:11px;color:#94a3b8;margin-left:10px;">' + escHtml(c.createdAt ? new Date(c.createdAt).toLocaleString('pt-BR') : '') + '</span>'
+                    + '<div style="font-size:11px;color:#0099dd;margin-top:3px;">' + escHtml(c.slug || '') + '</div>'
+                    + '</div>'
+                    + '<div style="display:flex;gap:8px;flex-shrink:0;">'
+                    + '<button onclick="moderateComment(\'' + escHtml(c.slug) + '\',\'' + escHtml(c.id) + '\',\'approve\')" style="padding:6px 14px;background:#003956;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Aprovar</button>'
+                    + '<button onclick="moderateComment(\'' + escHtml(c.slug) + '\',\'' + escHtml(c.id) + '\',\'reject\')" style="padding:6px 14px;background:#fff;color:#ef4444;border:1.5px solid #fecaca;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Rejeitar</button>'
+                    + '</div></div>'
+                    + '<p style="font-size:13px;color:#374151;line-height:1.6;margin:0;">' + escHtml(c.body) + '</p>'
+                    + '</div>';
+            }).join('');
+        })
+        .catch(function() { wrap.innerHTML = '<div style="padding:32px;text-align:center;color:#ef4444;font-size:13px;">Erro ao carregar comentários.</div>'; });
+}
+
+function moderateComment(slug, id, action) {
+    fetch('/api/admin/comments', {
+        method: 'PATCH',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ slug: slug, id: id, action: action })
+    }).then(function() { loadComments(); });
+}
+
+/* ── GOOGLE SEARCH CONSOLE ── */
+function loadGSC() {
+    var section = document.getElementById('blog-section-gsc');
+    if (!section) return;
+    section.style.display = '';
+    section.innerHTML = '<div class="blog-section-wrap"><div style="text-align:center;padding:40px;color:#94a3b8;font-size:13px;">Carregando dados do Search Console...</div></div>';
+    fetch('/api/analytics/gsc')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (!data.configured) {
+                section.innerHTML = '<div class="blog-section-wrap">'
+                    + '<div class="blog-section-header"><div><h2 class="blog-section-title">Google Search Console</h2>'
+                    + '<p class="blog-section-sub">Veja quais palavras-chave estão trazendo visitas ao seu blog.</p></div></div>'
+                    + '<div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:32px;max-width:600px;">'
+                    + '<h3 style="font-size:16px;font-weight:700;color:#003956;margin-bottom:12px;">Como configurar</h3>'
+                    + '<ol style="font-size:13px;color:#374151;line-height:2;padding-left:20px;margin:0;">'
+                    + '<li>Acesse o <a href="https://console.cloud.google.com" target="_blank" style="color:#0099dd;">Google Cloud Console</a> e crie um projeto</li>'
+                    + '<li>Ative a <strong>Search Console API</strong></li>'
+                    + '<li>Crie uma <strong>Conta de Serviço</strong> e baixe o JSON de credenciais</li>'
+                    + '<li>No Google Search Console, adicione o e-mail da conta de serviço como usuário da propriedade</li>'
+                    + '<li>No Vercel, adicione as env vars: <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">GOOGLE_GSC_KEY</code> (conteúdo do JSON) e <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">GOOGLE_GSC_SITE</code> (ex: https://blog.mbfinance.com.br/)</li>'
+                    + '</ol></div></div>';
+                return;
+            }
+            var rows = data.rows || [];
+            section.innerHTML = '<div class="blog-section-wrap">'
+                + '<div class="blog-section-header"><div><h2 class="blog-section-title">Google Search Console</h2>'
+                + '<p class="blog-section-sub">Palavras-chave e páginas com mais cliques nos últimos 28 dias.</p></div>'
+                + '<button class="blog-seo-refresh" onclick="loadGSC()"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12a9 9 0 0 1-15.5 6.2"></path><path d="M3 12a9 9 0 0 1 15.5-6.2"></path><path d="M18 3v4h-4"></path><path d="M6 21v-4h4"></path></svg><span>Atualizar</span></button>'
+                + '</div>'
+                + '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:13px;">'
+                + '<thead><tr style="border-bottom:2px solid #e2e8f0;">'
+                + '<th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:700;">Keyword</th>'
+                + '<th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:700;">Página</th>'
+                + '<th style="text-align:right;padding:10px 12px;color:#64748b;font-weight:700;">Cliques</th>'
+                + '<th style="text-align:right;padding:10px 12px;color:#64748b;font-weight:700;">Impressões</th>'
+                + '<th style="text-align:right;padding:10px 12px;color:#64748b;font-weight:700;">CTR</th>'
+                + '<th style="text-align:right;padding:10px 12px;color:#64748b;font-weight:700;">Posição</th>'
+                + '</tr></thead><tbody>'
+                + rows.map(function(r, i) {
+                    var bg = i % 2 === 0 ? '#fff' : '#f8fafc';
+                    var page = (r.keys[1] || '').replace(/^https?:\/\/[^\/]+/, '');
+                    return '<tr style="background:' + bg + ';border-bottom:1px solid #f1f5f9;">'
+                        + '<td style="padding:10px 12px;font-weight:600;color:#003956;">' + escHtml(r.keys[0] || '') + '</td>'
+                        + '<td style="padding:10px 12px;color:#64748b;font-size:12px;">' + escHtml(page) + '</td>'
+                        + '<td style="padding:10px 12px;text-align:right;font-weight:700;color:#0099dd;">' + (r.clicks||0) + '</td>'
+                        + '<td style="padding:10px 12px;text-align:right;color:#64748b;">' + (r.impressions||0) + '</td>'
+                        + '<td style="padding:10px 12px;text-align:right;color:#64748b;">' + ((r.ctr||0)*100).toFixed(1) + '%</td>'
+                        + '<td style="padding:10px 12px;text-align:right;color:#64748b;">' + (r.position||0).toFixed(1) + '</td>'
+                        + '</tr>';
+                }).join('')
+                + '</tbody></table></div></div>';
+        })
+        .catch(function() {
+            section.innerHTML = '<div class="blog-section-wrap"><div style="padding:32px;text-align:center;color:#ef4444;font-size:13px;">Erro ao carregar Search Console.</div></div>';
+        });
 }
 
 /* ── CALENDÁRIO MINI ── */
