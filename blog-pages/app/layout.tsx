@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(BLOG_BASE_URL),
   title: {
     default: "Blog MB Finance",
-    template: "%s | Blog MB Finance",
+    template: "%s | MB Finance",
   },
   description:
     "Conteúdos sobre crédito empresarial, conta PJ, antecipação de recebíveis e gestão financeira para empresas.",

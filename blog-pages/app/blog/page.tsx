@@ -6,7 +6,7 @@ import { blogUrl } from "@/lib/site";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Blog MB Finance",
+  title: "Blog",
   description:
     "Conteúdos sobre crédito empresarial, conta PJ, antecipação de recebíveis e gestão financeira.",
   alternates: {
