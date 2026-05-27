@@ -302,6 +302,27 @@
             </div>
 
         </div>
+
+        <!-- ── Faixa de números ── -->
+        <div class="fade-up" style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08);display:grid;grid-template-columns:repeat(4,1fr);position:relative;z-index:1;">
+            <div style="text-align:center;padding:0 16px;">
+                <div style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:#fff;letter-spacing:-0.02em;">5 anos</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">de documentos analisados</div>
+            </div>
+            <div style="text-align:center;padding:0 16px;border-left:1px solid rgba(255,255,255,0.08);">
+                <div style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:#fff;letter-spacing:-0.02em;">+80%</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">das empresas pagam a mais</div>
+            </div>
+            <div style="text-align:center;padding:0 16px;border-left:1px solid rgba(255,255,255,0.08);">
+                <div style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:#fff;letter-spacing:-0.02em;">R$ 150 mil</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">recuperados em média por empresa</div>
+            </div>
+            <div style="text-align:center;padding:0 16px;border-left:1px solid rgba(255,255,255,0.08);">
+                <div style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:#fff;letter-spacing:-0.02em;">100%</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">administrativo, sem ação judicial</div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Responsive: oculta imagem em mobile -->
@@ -309,34 +330,12 @@
         @media (max-width: 900px) {
             .hero-tributos-card { display: none; }
         }
+        @media (max-width: 640px) {
+            .hero-stats-strip { grid-template-columns: repeat(2,1fr) !important; gap: 20px 0; }
+        }
     </style>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     PROVA SOCIAL
-══════════════════════════════════════════════════════════ -->
-<section style="background:#040f1a;padding:64px 0;">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="stat-card fade-up">
-                <div class="text-white font-bold mb-2" style="font-size:clamp(1.6rem,3vw,2.4rem);">5 anos</div>
-                <div class="text-white/45 text-sm">de documentos analisados</div>
-            </div>
-            <div class="stat-card fade-up" style="transition-delay:0.1s;">
-                <div class="text-white font-bold mb-2" style="font-size:clamp(1.6rem,3vw,2.4rem);">+80%</div>
-                <div class="text-white/45 text-sm">das empresas pagam a mais</div>
-            </div>
-            <div class="stat-card fade-up" style="transition-delay:0.2s;">
-                <div class="text-white font-bold mb-2" style="font-size:clamp(1.6rem,3vw,2.4rem);">R$ 150 mil</div>
-                <div class="text-white/45 text-sm">recuperados em média por empresa</div>
-            </div>
-            <div class="stat-card fade-up" style="transition-delay:0.3s;">
-                <div class="text-white font-bold mb-2" style="font-size:clamp(1.6rem,3vw,2.4rem);">100%</div>
-                <div class="text-white/45 text-sm">administrativo, sem ação judicial</div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- ══════════════════════════════════════════════════════════
      O PROBLEMA
