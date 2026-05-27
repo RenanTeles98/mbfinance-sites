@@ -356,92 +356,54 @@
                 </div>
             </div>
             <div class="fade-up" style="transition-delay:0.15s;">
-                <div style="background:#f8fafc;border-radius:24px;padding:32px;border:1px solid #e5e7eb;">
-
-                    <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0099dd;margin-bottom:6px;">Verifique sua empresa</p>
-                    <p style="font-size:14px;color:#64748b;margin-bottom:20px;">Selecione o produto e veja se o seu perfil se enquadra.</p>
-
-                    <div class="seg-tabs-wrapper">
-                        <input type="radio" id="seg-pis" name="seg-tab" checked>
-                        <input type="radio" id="seg-inss" name="seg-tab">
-
-                        <div class="seg-tab-bar">
-                            <label for="seg-pis">PIS / COFINS</label>
-                            <label for="seg-inss">INSS Patronal</label>
-                        </div>
-
-                        <!-- PIS / COFINS -->
-                        <div class="seg-pis-content">
-                            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Exclusivo para o setor varejista com produtos monofásicos.</p>
-                            <div class="seg-grid">
-                                <div class="seg-card">
-                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h12"/><circle cx="9" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg></div>
-                                    <div class="seg-card-name">Supermercado</div>
-                                </div>
-                                <div class="seg-card">
-                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
-                                    <div class="seg-card-name">Farmácia</div>
-                                </div>
-                                <div class="seg-card">
-                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg></div>
-                                    <div class="seg-card-name">Moda / Calçados</div>
-                                </div>
-                                <div class="seg-card">
-                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-                                    <div class="seg-card-name">Cosméticos</div>
-                                </div>
-                                <div class="seg-card">
-                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect width="14" height="8" x="5" y="2" rx="2"/><path d="M2 12h20M5 12v8h14v-8"/></svg></div>
-                                    <div class="seg-card-name">Eletro / Informática</div>
-                                </div>
-                                <div class="seg-card">
-                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
-                                    <div class="seg-card-name">Outros varejos</div>
-                                </div>
+                <div style="background:#f8fafc;border-radius:24px;padding:36px;border:1px solid #e5e7eb;">
+                    <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-2">Quem mais paga a mais</p>
+                    <p class="text-slate-500 text-sm mb-6">Segmentos que costumam ignorar o tema tributário e acumulam créditos sem perceber.</p>
+                    <div style="display:flex;flex-direction:column;gap:14px;">
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Supermercados e atacadistas</span>
+                                <span class="text-brand-primary text-sm font-bold">92%</span>
                             </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:92%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
                         </div>
-
-                        <!-- INSS Patronal -->
-                        <div class="seg-inss-content">
-                            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Sua empresa precisa atender todos os critérios abaixo.</p>
-                            <div class="seg-criteria">
-                                <div class="seg-criterion">
-                                    <div class="seg-criterion-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-                                    <div>
-                                        <div class="seg-criterion-title">Não ser MEI</div>
-                                        <div class="seg-criterion-sub">ME, EPP, Simples ou Lucro Real/Presumido</div>
-                                    </div>
-                                </div>
-                                <div class="seg-criterion">
-                                    <div class="seg-criterion-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-                                    <div>
-                                        <div class="seg-criterion-title">CNPJ ativo há mais de 5 anos</div>
-                                        <div class="seg-criterion-sub">Para cobrir o período máximo de análise</div>
-                                    </div>
-                                </div>
-                                <div class="seg-criterion">
-                                    <div class="seg-criterion-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-                                    <div>
-                                        <div class="seg-criterion-title">INSS mensal acima de R$ 10 mil</div>
-                                        <div class="seg-criterion-sub">Valor mínimo para a análise ser viável</div>
-                                    </div>
-                                </div>
-                                <div class="seg-criterion">
-                                    <div class="seg-criterion-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-                                    <div>
-                                        <div class="seg-criterion-title">Recolhimentos em dia</div>
-                                        <div class="seg-criterion-sub">Sem pendências ou atrasos junto à Receita Federal</div>
-                                    </div>
-                                </div>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Indústria e manufatura</span>
+                                <span class="text-brand-primary text-sm font-bold">85%</span>
                             </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:85%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
                         </div>
-
-                        <a href="#" data-trib-modal class="seg-cta">
-                            Verificar se minha empresa se enquadra
-                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </a>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Farmácias e drogarias</span>
+                                <span class="text-brand-primary text-sm font-bold">83%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:83%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Construção civil</span>
+                                <span class="text-brand-primary text-sm font-bold">80%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:80%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Comércio em geral</span>
+                                <span class="text-brand-primary text-sm font-bold">76%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:76%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Prestadores de serviço</span>
+                                <span class="text-brand-primary text-sm font-bold">68%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:68%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
                     </div>
-
+                    <p style="font-size:11px;color:#94a3b8;margin-top:20px;">% das empresas de cada segmento com crédito tributário identificado em análise.</p>
                 </div>
             </div>
         </div>
@@ -462,7 +424,7 @@
                 A MB Finance atua como intermediária comercial em parceria com a Auditto, especializada em soluções fiscais e recuperação de ativos.
             </p>
         </div>
-        <div class="grid lg:grid-cols-2 gap-8">
+        <div class="tributos-solutions-grid">
 
             <!-- PIS e COFINS -->
             <div class="solution-card-tributos fade-up">
@@ -489,12 +451,15 @@
                     <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Ressarcimento ou compensação via Receita Federal</span></div>
                     <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Sem necessidade de mudar contabilidade ou operação</span></div>
                 </div>
+                <a href="#" data-trib-modal data-trib-product="pis_cofins" class="tributos-card-cta">
+                    Iniciar análise de PIS/COFINS
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
             </div>
 
             <!-- INSS Patronal -->
-            <div class="solution-card-tributos featured fade-up" style="transition-delay:0.1s;">
-                <div style="position:absolute;top:20px;right:20px;background:#0099dd;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;position:relative;display:inline-flex;margin-bottom:4px;">Especial para condomínios</div>
-                <div class="benefit-icon" style="margin-top:12px;">
+            <div class="solution-card-tributos featured fade-up is-inss-card" style="transition-delay:0.1s;">
+                <div class="benefit-icon">
                     <svg width="22" height="22" fill="none" stroke="#0099dd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 11h3"/></svg>
                 </div>
                 <h3 class="font-bold text-brand-primary mb-3" style="font-size:1.5rem;">INSS Patronal</h3>
@@ -511,6 +476,10 @@
                     <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Compensações diretas pelo e-CAC</span></div>
                     <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Economia contínua após as compensações</span></div>
                 </div>
+                <a href="#" data-trib-modal data-trib-product="inss" class="tributos-card-cta">
+                    Iniciar análise de INSS
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
             </div>
 
         </div>
