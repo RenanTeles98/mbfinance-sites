@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="../assets/css/sobre.css">
     <link rel="stylesheet" href="../assets/css/landing-produto.css">
     <link rel="stylesheet" href="../assets/css/cookie-banner.css">
+    <link rel="stylesheet" href="../assets/css/mb-tributos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
@@ -355,52 +356,92 @@
                 </div>
             </div>
             <div class="fade-up" style="transition-delay:0.15s;">
-                <div style="background:#f8fafc;border-radius:24px;padding:36px;border:1px solid #e5e7eb;">
-                    <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-6">Segmentos com maior risco</p>
-                    <div style="display:flex;flex-direction:column;gap:14px;">
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Supermercados</span>
-                                <span class="text-brand-primary text-sm font-bold">90%</span>
-                            </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:90%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                <div style="background:#f8fafc;border-radius:24px;padding:32px;border:1px solid #e5e7eb;">
+
+                    <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0099dd;margin-bottom:6px;">Verifique sua empresa</p>
+                    <p style="font-size:14px;color:#64748b;margin-bottom:20px;">Selecione o produto e veja se o seu perfil se enquadra.</p>
+
+                    <div class="seg-tabs-wrapper">
+                        <input type="radio" id="seg-pis" name="seg-tab" checked>
+                        <input type="radio" id="seg-inss" name="seg-tab">
+
+                        <div class="seg-tab-bar">
+                            <label for="seg-pis">PIS / COFINS</label>
+                            <label for="seg-inss">INSS Patronal</label>
                         </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Cosméticos</span>
-                                <span class="text-brand-primary text-sm font-bold">85%</span>
+
+                        <!-- PIS / COFINS -->
+                        <div class="seg-pis-content">
+                            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Exclusivo para o setor varejista com produtos monofásicos.</p>
+                            <div class="seg-grid">
+                                <div class="seg-card">
+                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h12"/><circle cx="9" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg></div>
+                                    <div class="seg-card-name">Supermercado</div>
+                                </div>
+                                <div class="seg-card">
+                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+                                    <div class="seg-card-name">Farmácia</div>
+                                </div>
+                                <div class="seg-card">
+                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg></div>
+                                    <div class="seg-card-name">Moda / Calçados</div>
+                                </div>
+                                <div class="seg-card">
+                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                                    <div class="seg-card-name">Cosméticos</div>
+                                </div>
+                                <div class="seg-card">
+                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect width="14" height="8" x="5" y="2" rx="2"/><path d="M2 12h20M5 12v8h14v-8"/></svg></div>
+                                    <div class="seg-card-name">Eletro / Informática</div>
+                                </div>
+                                <div class="seg-card">
+                                    <div class="seg-card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+                                    <div class="seg-card-name">Outros varejos</div>
+                                </div>
                             </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:85%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
                         </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Farmácias</span>
-                                <span class="text-brand-primary text-sm font-bold">82%</span>
+
+                        <!-- INSS Patronal -->
+                        <div class="seg-inss-content">
+                            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Sua empresa precisa atender todos os critérios abaixo.</p>
+                            <div class="seg-criteria">
+                                <div class="seg-criterion">
+                                    <div class="seg-criterion-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                                    <div>
+                                        <div class="seg-criterion-title">Não ser MEI</div>
+                                        <div class="seg-criterion-sub">ME, EPP, Simples ou Lucro Real/Presumido</div>
+                                    </div>
+                                </div>
+                                <div class="seg-criterion">
+                                    <div class="seg-criterion-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                                    <div>
+                                        <div class="seg-criterion-title">CNPJ ativo há mais de 5 anos</div>
+                                        <div class="seg-criterion-sub">Para cobrir o período máximo de análise</div>
+                                    </div>
+                                </div>
+                                <div class="seg-criterion">
+                                    <div class="seg-criterion-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                                    <div>
+                                        <div class="seg-criterion-title">INSS mensal acima de R$ 10 mil</div>
+                                        <div class="seg-criterion-sub">Valor mínimo para a análise ser viável</div>
+                                    </div>
+                                </div>
+                                <div class="seg-criterion">
+                                    <div class="seg-criterion-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                                    <div>
+                                        <div class="seg-criterion-title">Recolhimentos em dia</div>
+                                        <div class="seg-criterion-sub">Sem pendências ou atrasos junto à Receita Federal</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:82%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
                         </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Autopeças</span>
-                                <span class="text-brand-primary text-sm font-bold">78%</span>
-                            </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:78%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
-                        </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Petshops</span>
-                                <span class="text-brand-primary text-sm font-bold">65%</span>
-                            </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:65%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
-                        </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Restaurantes e bares</span>
-                                <span class="text-brand-primary text-sm font-bold">72%</span>
-                            </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:72%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
-                        </div>
+
+                        <a href="#" data-trib-modal class="seg-cta">
+                            Verificar se minha empresa se enquadra
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
                     </div>
+
                 </div>
             </div>
         </div>
