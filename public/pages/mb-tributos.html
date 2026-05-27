@@ -223,36 +223,142 @@
 <!-- ══════════════════════════════════════════════════════════
      HERO
 ══════════════════════════════════════════════════════════ -->
-<section class="relative min-h-[85vh] flex items-center lp-dot-bg" style="background:linear-gradient(135deg,#001e2e 0%,#003956 60%,#005080 100%);">
-    <div class="relative max-w-7xl mx-auto px-6 lg:px-16 z-10 w-full" style="padding-top: 7rem; padding-bottom: 5rem;">
-        <nav class="mb-6" aria-label="Breadcrumb">
-            <ol style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.45);">
-                <li><a href="../index.html" style="color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Início</a></li>
-                <li style="opacity:0.4;">/</li>
-                <li style="color:rgba(255,255,255,0.7);">mb tributos</li>
-            </ol>
-        </nav>
-        <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-6 fade-up">Soluções Tributárias · Em parceria com a Auditto</p>
-        <h1 class="text-white font-bold leading-tight mb-6 fade-up max-w-4xl" style="font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:-0.02em;transition-delay:0.1s;">
-            Sua empresa pode estar pagando<br>
-            <span style="color:#0099dd;">tributos a mais sem saber</span>
-        </h1>
-        <p class="text-white/85 text-lg font-normal leading-relaxed mb-10 max-w-2xl fade-up" style="transition-delay:0.2s;">
-            Recupere PIS, COFINS e INSS pagos indevidamente nos últimos 5 anos com análise técnica especializada, processo 100% administrativo e sem custo antecipado.
-        </p>
-        <div class="flex flex-wrap gap-4 fade-up" style="transition-delay:0.3s;">
-            <a href="https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20solicitar%20uma%20an%C3%A1lise%20tribut%C3%A1ria%20gratuita%20para%20PIS%2C%20COFINS%20ou%20INSS." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0099dd;color:#fff;font-weight:700;font-size:15px;padding:16px 36px;border-radius:14px;border:none;cursor:pointer;transition:all 0.3s;box-shadow:0 12px 32px rgba(0,153,221,0.28);text-decoration:none;" onmouseover="this.style.background='#0077b6';this.style.transform='scale(1.03)';" onmouseout="this.style.background='#0099dd';this.style.transform='scale(1)';">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                Solicitar análise gratuita
-            </a>
-            <span style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,0.55);font-size:13px;padding:16px 0;">
-                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Sem custo antecipado &nbsp;·&nbsp;
-                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Pague só se houver resultado
-            </span>
+<section class="relative overflow-hidden" style="background:#040f1a; min-height:100vh; display:flex; align-items:center;">
+
+    <!-- Glow azul superior direito -->
+    <div style="position:absolute;top:-120px;right:-80px;width:640px;height:640px;background:radial-gradient(circle,rgba(0,153,221,0.18) 0%,transparent 65%);pointer-events:none;"></div>
+    <!-- Glow azul inferior esquerdo -->
+    <div style="position:absolute;bottom:-160px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,57,86,0.5) 0%,transparent 70%);pointer-events:none;"></div>
+    <!-- Grid de pontos -->
+    <div style="position:absolute;inset:0;opacity:0.05;background-image:radial-gradient(rgba(255,255,255,0.8) 1px,transparent 1px);background-size:36px 36px;pointer-events:none;"></div>
+    <!-- Linha de destaque superior -->
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#0099dd 40%,transparent);"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-16 w-full" style="padding-top:9rem;padding-bottom:6rem;z-index:1;">
+
+        <!-- Layout 2 colunas -->
+        <div class="hero-tributos-grid" style="display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:center;">
+
+            <!-- ── Coluna esquerda ── -->
+            <div>
+                <!-- Badge de alerta -->
+                <div class="fade-up" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,180,0,0.12);border:1px solid rgba(255,180,0,0.3);border-radius:999px;padding:6px 16px;margin-bottom:28px;">
+                    <svg width="14" height="14" fill="none" stroke="#ffb400" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+                    <span style="color:#ffb400;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;">+80% das empresas do varejo pagam tributos a mais</span>
+                </div>
+
+                <!-- Headline principal -->
+                <h1 class="fade-up" style="color:#ffffff;font-size:clamp(2.6rem,4.8vw,4.2rem);font-weight:800;line-height:1.06;letter-spacing:-0.03em;margin:0 0 24px;transition-delay:0.08s;">
+                    Você está deixando<br>
+                    <span style="color:#0099dd;">dinheiro na mesa</span><br>
+                    todo mês.
+                </h1>
+
+                <!-- Sub-headline de impacto -->
+                <p class="fade-up" style="color:rgba(255,255,255,0.7);font-size:clamp(1rem,1.5vw,1.2rem);line-height:1.7;max-width:560px;margin:0 0 36px;transition-delay:0.16s;">
+                    PIS, COFINS e INSS pagos a maior nos últimos 5 anos podem ser recuperados legalmente. Análise gratuita, processo 100% administrativo, sem custo antecipado.
+                </p>
+
+                <!-- Trust chips -->
+                <div class="fade-up" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;transition-delay:0.22s;">
+                    <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:7px 14px;color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;">
+                        <svg width="12" height="12" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        Análise 100% gratuita
+                    </span>
+                    <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:7px 14px;color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;">
+                        <svg width="12" height="12" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        Pague só se houver resultado
+                    </span>
+                    <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:7px 14px;color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;">
+                        <svg width="12" height="12" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        Sem ação judicial
+                    </span>
+                </div>
+
+                <!-- CTAs -->
+                <div class="fade-up" style="display:flex;flex-wrap:wrap;gap:14px;transition-delay:0.3s;">
+                    <a href="https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20solicitar%20uma%20an%C3%A1lise%20tribut%C3%A1ria%20gratuita%20para%20PIS%2C%20COFINS%20ou%20INSS." target="_blank" rel="noopener"
+                       style="display:inline-flex;align-items:center;gap:10px;background:#0099dd;color:#fff;font-weight:700;font-size:15px;padding:17px 36px;border-radius:14px;text-decoration:none;transition:all 0.3s;box-shadow:0 14px 40px rgba(0,153,221,0.32);"
+                       onmouseover="this.style.background='#0077b6';this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#0099dd';this.style.transform='translateY(0)';">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Quero minha análise gratuita
+                    </a>
+                    <a href="#solucoes" style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:14px;font-weight:600;text-decoration:none;padding:17px 0;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
+                        Ver como funciona
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </a>
+                </div>
+
+                <!-- Mini autoridade -->
+                <div class="fade-up" style="display:flex;align-items:center;gap:16px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.08);transition-delay:0.38s;">
+                    <img src="../images/logo-horizontal-logo.branca.png" alt="mb finance" style="height:22px;width:auto;opacity:0.5;">
+                    <span style="color:rgba(255,255,255,0.2);font-size:11px;">×</span>
+                    <span style="color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;letter-spacing:0.08em;">Em parceria técnica com a <strong style="color:rgba(255,255,255,0.65);">Auditto</strong></span>
+                </div>
+            </div>
+
+            <!-- ── Coluna direita: card de diagnóstico ── -->
+            <div class="hero-tributos-card fade-up" style="transition-delay:0.2s;">
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:32px;backdrop-filter:blur(12px);box-shadow:0 32px 80px rgba(0,0,0,0.4);">
+
+                    <!-- Header do card -->
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;">
+                        <div style="width:36px;height:36px;background:rgba(0,153,221,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        </div>
+                        <div>
+                            <p style="color:#fff;font-size:13px;font-weight:700;margin:0;">Sua empresa se encaixa?</p>
+                            <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:2px 0 0;">Segmentos com maior risco de bitributação</p>
+                        </div>
+                    </div>
+
+                    <!-- Lista de segmentos -->
+                    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:10px;">
+                            <span style="color:rgba(255,255,255,0.75);font-size:13px;">Supermercados</span>
+                            <span style="color:#0099dd;font-size:12px;font-weight:700;background:rgba(0,153,221,0.15);padding:3px 10px;border-radius:999px;">90% de risco</span>
+                        </div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:10px;">
+                            <span style="color:rgba(255,255,255,0.75);font-size:13px;">Cosméticos &amp; Farmácias</span>
+                            <span style="color:#0099dd;font-size:12px;font-weight:700;background:rgba(0,153,221,0.15);padding:3px 10px;border-radius:999px;">82–85%</span>
+                        </div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:10px;">
+                            <span style="color:rgba(255,255,255,0.75);font-size:13px;">Autopeças</span>
+                            <span style="color:#0099dd;font-size:12px;font-weight:700;background:rgba(0,153,221,0.15);padding:3px 10px;border-radius:999px;">78% de risco</span>
+                        </div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:10px;">
+                            <span style="color:rgba(255,255,255,0.75);font-size:13px;">Petshops &amp; Restaurantes</span>
+                            <span style="color:#0099dd;font-size:12px;font-weight:700;background:rgba(0,153,221,0.15);padding:3px 10px;border-radius:999px;">65–72%</span>
+                        </div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:10px;">
+                            <span style="color:rgba(255,255,255,0.75);font-size:13px;">Condomínios (INSS)</span>
+                            <span style="color:#ffb400;font-size:12px;font-weight:700;background:rgba(255,180,0,0.12);padding:3px 10px;border-radius:999px;">Alta chance</span>
+                        </div>
+                    </div>
+
+                    <!-- Divisor -->
+                    <div style="height:1px;background:rgba(255,255,255,0.08);margin-bottom:20px;"></div>
+
+                    <!-- Potencial de recuperação -->
+                    <div style="text-align:center;padding:16px;background:rgba(0,153,221,0.08);border-radius:12px;border:1px solid rgba(0,153,221,0.2);">
+                        <p style="color:rgba(255,255,255,0.5);font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin:0 0 6px;">Potencial médio por empresa</p>
+                        <p style="color:#fff;font-size:2rem;font-weight:800;line-height:1;margin:0;">R$ 30k – 150k</p>
+                        <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:6px 0 0;">recuperados dos últimos 5 anos</p>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
+
+    <!-- Responsive: colapsa card em mobile -->
+    <style>
+        @media (max-width: 900px) {
+            .hero-tributos-grid { grid-template-columns: 1fr !important; }
+            .hero-tributos-card { display: none; }
+        }
+    </style>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
