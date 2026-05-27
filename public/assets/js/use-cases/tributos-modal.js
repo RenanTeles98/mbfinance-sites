@@ -272,7 +272,7 @@
     function getModal()   { return document.getElementById('trib-modal'); }
     function getOverlay() { return document.getElementById('trib-overlay'); }
 
-    function setContent(html) {
+    function setContent(html, callback) {
         const body = document.getElementById('trib-body');
         body.style.opacity = '0';
         body.style.transform = 'translateX(12px)';
@@ -283,6 +283,7 @@
                 body.style.opacity = '1';
                 body.style.transform = 'translateX(0)';
             });
+            if (callback) callback();
         }, 180);
     }
 
@@ -314,21 +315,21 @@
                 `).join('')}
             </div>
             <button class="trib-btn" id="trib-next-product" disabled>Continuar →</button>
-        `);
-
-        document.querySelectorAll('.trib-product-card').forEach(card => {
-            card.addEventListener('click', () => {
-                document.querySelectorAll('.trib-product-card').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-                state.product = card.dataset.product;
-                document.getElementById('trib-next-product').disabled = false;
+        `, () => {
+            document.querySelectorAll('.trib-product-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.trib-product-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    state.product = card.dataset.product;
+                    document.getElementById('trib-next-product').disabled = false;
+                });
             });
-        });
 
-        document.getElementById('trib-next-product').addEventListener('click', () => {
-            if (!state.product) return;
-            state.step = 0;
-            showQuestion();
+            document.getElementById('trib-next-product').addEventListener('click', () => {
+                if (!state.product) return;
+                state.step = 0;
+                showQuestion();
+            });
         });
     }
 
@@ -352,41 +353,40 @@
                 `).join('')}
             </div>
             ${current > 0 ? `<button class="trib-btn-ghost" id="trib-back">← Voltar</button>` : ''}
-        `);
+        `, () => {
+            document.querySelectorAll('.trib-option').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const val = btn.dataset.value;
 
-        document.querySelectorAll('.trib-option').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const val = btn.dataset.value;
+                    if (q.disqualify && q.disqualify(val)) {
+                        state.answers[q.id] = val;
+                        showDisqualified(q.disqualifyMsg);
+                        return;
+                    }
 
-                // Check disqualification
-                if (q.disqualify && q.disqualify(val)) {
                     state.answers[q.id] = val;
-                    showDisqualified(q.disqualifyMsg);
-                    return;
-                }
 
-                state.answers[q.id] = val;
-
-                if (state.step < total - 1) {
-                    state.step++;
-                    showQuestion();
-                } else {
-                    showQualified();
-                }
+                    if (state.step < total - 1) {
+                        state.step++;
+                        showQuestion();
+                    } else {
+                        showQualified();
+                    }
+                });
             });
+
+            const backBtn = document.getElementById('trib-back');
+            if (backBtn) {
+                backBtn.addEventListener('click', () => {
+                    if (state.step === 0) {
+                        showProductSelect();
+                    } else {
+                        state.step--;
+                        showQuestion();
+                    }
+                });
+            }
         });
-
-        const backBtn = document.getElementById('trib-back');
-        if (backBtn) {
-            backBtn.addEventListener('click', () => {
-                if (state.step === 0) {
-                    showProductSelect();
-                } else {
-                    state.step--;
-                    showQuestion();
-                }
-            });
-        }
     }
 
     function showQualified() {
@@ -413,9 +413,9 @@
                 </a>
                 <button class="trib-btn-ghost" id="trib-restart">Analisar outro produto</button>
             </div>
-        `);
-
-        document.getElementById('trib-restart').addEventListener('click', showProductSelect);
+        `, () => {
+            document.getElementById('trib-restart').addEventListener('click', showProductSelect);
+        });
     }
 
     function showDisqualified(msg) {
@@ -427,10 +427,10 @@
                 <button class="trib-btn" id="trib-other-product">Ver outro produto</button>
                 <button class="trib-btn-ghost" id="trib-close-disq">Fechar</button>
             </div>
-        `);
-
-        document.getElementById('trib-other-product').addEventListener('click', showProductSelect);
-        document.getElementById('trib-close-disq').addEventListener('click', closeModal);
+        `, () => {
+            document.getElementById('trib-other-product').addEventListener('click', showProductSelect);
+            document.getElementById('trib-close-disq').addEventListener('click', closeModal);
+        });
     }
 
     // ── Modal open / close ────────────────────────────────────────────────────
