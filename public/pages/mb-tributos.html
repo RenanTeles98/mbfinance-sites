@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -8,271 +8,779 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-MDST4NTK');</script>
     <!-- End Google Tag Manager -->
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mb tributos — Em Breve</title>
+    <title>mb tributos | Recuperação de PIS, COFINS e INSS | mb finance</title>
+    <link rel="icon" type="image/png" href="../images/logo-horizontal-logo.png.png">
+    <link rel="apple-touch-icon" href="../images/logo-horizontal-logo.png.png">
+
+    <meta name="description" content="Recupere tributos pagos a maior com análise dos últimos 5 anos. PIS e COFINS em produtos monofásicos e INSS patronal. Análise gratuita, sem custo antecipado.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://mbfinance.com.br/pages/mb-tributos.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mbfinance.com.br/pages/mb-tributos.html">
+    <meta property="og:title" content="mb tributos | Recuperação de PIS, COFINS e INSS | mb finance">
+    <meta property="og:description" content="Recupere tributos pagos a maior com análise dos últimos 5 anos. Análise gratuita, sem custo antecipado.">
+    <meta property="og:image" content="https://www.mbfinance.com.br/images/hero-bg.jpg">
+    <meta property="og:site_name" content="mb finance">
+    <meta property="og:locale" content="pt_BR">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="mb tributos | Recuperação de PIS, COFINS e INSS | mb finance">
+    <meta name="twitter:description" content="Recupere tributos pagos a maior com análise dos últimos 5 anos. Análise gratuita, sem custo antecipado.">
+    <meta name="twitter:image" content="https://www.mbfinance.com.br/images/hero-bg.jpg">
+
+    <link rel="stylesheet" href="../tailwind.min.css">
+    <link rel="stylesheet" href="../assets/css/sobre.css">
+    <link rel="stylesheet" href="../assets/css/landing-produto.css">
+    <link rel="stylesheet" href="../assets/css/cookie-banner.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { height: 100%; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #040f1a;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
-        /* Background aurora */
-        .bg-layer {
-            position: fixed;
+    <style>
+        .lp-dot-bg::before {
+            content: "";
+            position: absolute;
             inset: 0;
-            z-index: 0;
-            overflow: hidden;
+            opacity: 0.06;
+            background-image: radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px);
+            background-size: 36px 36px;
             pointer-events: none;
         }
-        .aurora-1 {
-            position: absolute;
-            width: 700px; height: 700px;
-            background: radial-gradient(circle, rgba(0,153,221,0.18) 0%, transparent 70%);
-            top: -200px; left: -150px;
-            animation: drift1 16s ease-in-out infinite alternate;
+        .solution-card-tributos {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 36px 32px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
-        .aurora-2 {
-            position: absolute;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(0,57,86,0.35) 0%, transparent 70%);
-            bottom: -100px; right: -100px;
-            animation: drift2 20s ease-in-out infinite alternate;
+        .solution-card-tributos:hover {
+            box-shadow: 0 16px 48px rgba(0, 57, 86, 0.09);
+            transform: translateY(-4px);
         }
-        @keyframes drift1 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(60px,-40px) scale(1.08); } }
-        @keyframes drift2 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-50px,40px) scale(1.05); } }
-
-        /* Navbar */
-        nav {
-            position: relative;
-            z-index: 10;
-            padding: 28px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+        .solution-card-tributos.featured {
+            border-color: rgba(0,153,221,0.35);
+            box-shadow: 0 8px 32px rgba(0,153,221,0.12);
         }
-        .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .nav-back {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            transition: color 0.2s;
-            border: 1px solid rgba(255,255,255,0.12);
-            padding: 8px 16px;
-            border-radius: 8px;
-        }
-        .nav-back:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
-
-        /* Main content */
-        main {
-            position: relative;
-            z-index: 10;
-            flex: 1;
+        .step-tributos {
             display: flex;
             flex-direction: column;
+            gap: 14px;
+        }
+        .step-tributos .step-num {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #0099dd;
+            color: #fff;
+            font-weight: 800;
+            font-size: 15px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 60px 24px;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0,153,221,0.15);
-            border: 1px solid rgba(0,153,221,0.3);
-            color: #0099dd;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            padding: 6px 16px;
-            border-radius: 100px;
-            margin-bottom: 32px;
-        }
-        .badge-dot {
-            width: 6px; height: 6px;
-            background: #0099dd;
-            border-radius: 50%;
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.7); }
-        }
-
-        h1 {
-            font-size: clamp(42px, 7vw, 80px);
-            font-weight: 900;
-            letter-spacing: -2px;
-            line-height: 1.05;
-            margin-bottom: 12px;
-            color: #fff;
-        }
-        h1 span { color: #0099dd; }
-
-        .subtitle {
-            font-size: clamp(16px, 2.5vw, 22px);
-            color: rgba(255,255,255,0.45);
-            font-weight: 300;
-            max-width: 520px;
-            line-height: 1.6;
-            margin-bottom: 48px;
-        }
-
-        .desc-box {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 28px 36px;
-            max-width: 560px;
-            margin-bottom: 48px;
-            text-align: left;
-        }
-        .desc-box h3 {
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.35);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-        }
-        .desc-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-        .desc-item:last-child { border-bottom: none; }
-        .desc-dot {
-            width: 6px; height: 6px;
-            background: #0099dd;
-            border-radius: 50%;
-            margin-top: 7px;
             flex-shrink: 0;
         }
-        .desc-item span {
-            font-size: 14px;
-            color: rgba(255,255,255,0.6);
-            font-weight: 300;
-            line-height: 1.5;
-        }
-
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #0099dd;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 14px 28px;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s, transform 0.15s;
-        }
-        .cta-btn:hover { background: #007ab5; transform: translateY(-1px); }
-
-        .footer-note {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 24px;
-            font-size: 12px;
-            color: rgba(255,255,255,0.2);
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
+        .check-item { display: flex; align-items: flex-start; gap: 12px; }
+        .check-icon { width: 20px; height: 20px; border-radius: 50%; background: rgba(0,153,221,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .stat-card { padding: 28px 24px; border-radius: 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
+        .tag-pill { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; background: rgba(0,153,221,0.1); color: #0099dd; }
+        .dd-prod-link { display: flex; align-items: center; gap: 10px; padding: 9px 12px 9px 0; font-size: 14px; font-weight: 500; color: #334155; text-decoration: none; border-radius: 8px; transition: color 0.18s; background: none; border: none; cursor: pointer; width: 100%; text-align: left; }
+        .dd-prod-link:hover { color: #0099dd; }
+        .dd-icon { width: 28px; height: 28px; border-radius: 8px; background: rgba(0,153,221,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        #mobile-menu { position: fixed; top: 0; right: -100%; width: 85%; max-width: 360px; height: 100vh; background: #fff; z-index: 200; overflow-y: auto; transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+        #mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 190; }
     </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type":"ListItem","position":1,"name":"Início","item":"https://mbfinance.com.br/"},
+            {"@type":"ListItem","position":2,"name":"mb tributos","item":"https://mbfinance.com.br/pages/mb-tributos.html"}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "O que é a recuperação de PIS e COFINS?",
+              "acceptedAnswer": {"@type":"Answer","text":"É o processo de identificar e reaver tributos pagos indevidamente sobre produtos monofásicos, onde PIS e COFINS já foram recolhidos na indústria ou distribuidor, mas o varejista continuou pagando novamente. A recuperação pode alcançar os últimos 5 anos e é feita pela via administrativa junto à Receita Federal."}
+            },
+            {
+              "@type": "Question",
+              "name": "Quais segmentos têm maior risco de bitributação?",
+              "acceptedAnswer": {"@type":"Answer","text":"Supermercados, farmácias, cosméticos, autopeças, petshops, restaurantes, lojas de conveniência, bares e transportadoras são os segmentos com maior incidência de pagamento indevido de PIS e COFINS sobre produtos monofásicos."}
+            },
+            {
+              "@type": "Question",
+              "name": "O que é a recuperação de INSS patronal?",
+              "acceptedAnswer": {"@type":"Answer","text":"É a análise dos últimos 5 anos da folha de pagamento para identificar valores de INSS patronal recolhidos a maior sobre verbas indenizatórias. Com base em entendimentos do STJ, esses valores podem ser compensados ou ressarcidos administrativamente via e-CAC."}
+            },
+            {
+              "@type": "Question",
+              "name": "Preciso pagar algo para iniciar a análise?",
+              "acceptedAnswer": {"@type":"Answer","text":"Não. A análise inicial é 100% gratuita e sem compromisso. Você só decide se quer seguir após receber o relatório com os valores recuperáveis identificados. O pagamento acontece apenas sobre o resultado efetivamente obtido."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
-<body>
+<body class="bg-white text-brand-primary overflow-x-hidden" style="font-family:'Inter',sans-serif;">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDST4NTK"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <div class="bg-layer">
-        <div class="aurora-1"></div>
-        <div class="aurora-2"></div>
-    </div>
-
-    <nav>
-        <a href="../index.html" class="nav-logo">
-            <img src="../images/logo-horizontal-logo.branca.png" alt="mb finance" style="height:30px;width:auto;">
-        </a>
-        <a href="../index.html" class="nav-back">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-            Voltar ao site
-        </a>
-    </nav>
-
-    <main>
-
-        <div class="badge">
-            <span class="badge-dot"></span>
-            Em desenvolvimento
+<!-- ══════════════════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════════════════ -->
+<header id="navbar" class="absolute top-0 left-0 right-0 z-[100] py-6" style="background:transparent;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+            <div class="w-1/4">
+                <a href="../index.html" class="flex items-center group">
+                    <img id="logo-img" src="../images/logo-horizontal-logo.branca.png" data-logo-normal="../images/logo-horizontal-logo.branca.png" data-logo-scrolled="../images/logo-horizontal-logo.png.png" alt="mb finance" style="height:36px;width:auto;display:block;">
+                </a>
+            </div>
+            <div id="desktop-nav" class="flex-1 hidden lg:flex justify-center">
+                <nav class="flex items-center gap-10">
+                    <div class="py-2" id="mega-menu-wrapper">
+                        <button class="nav-link flex items-center gap-1 text-[13px] font-semibold tracking-wider transition-colors" id="nav-nav-produtos" style="background:none;border:none;cursor:pointer;padding:0;color:#ffffff;">
+                            PRODUTOS
+                            <svg id="mega-menu-chevron" class="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </div>
+                    <a href="sobre.html" class="nav-link text-[13px] font-semibold tracking-wider transition-colors" style="color:#ffffff;">SOBRE</a>
+                    <a href="../index.html#parceiros" class="nav-link text-[13px] font-semibold tracking-wider transition-colors" style="color:#ffffff;">PARCEIROS</a>
+                    <a href="https://blog.mbfinance.com.br/blog" class="nav-link text-[13px] font-semibold tracking-wider transition-colors" style="color:#ffffff;">BLOG</a>
+                </nav>
+            </div>
+            <div class="w-1/4 flex justify-end">
+                <button id="mobile-menu-toggle" class="lg:hidden p-1 transition-colors" style="color:#ffffff;background:none;border:none;cursor:pointer;">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+                <div id="desktop-cta" class="hidden lg:block">
+                    <a href="https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20solicitar%20uma%20an%C3%A1lise%20tribut%C3%A1ria%20gratuita." target="_blank" rel="noopener" class="text-[11px] font-semibold uppercase tracking-wider transition-all duration-300" style="display:inline-flex;align-items:center;text-decoration:none;border:2px solid #0099dd;color:#0099dd;padding:10px 24px;border-radius:12px;" onmouseover="this.style.background='#0099dd';this.style.color='#fff';" onmouseout="this.style.background='transparent';this.style.color='#0099dd';">
+                        Falar com especialista
+                    </a>
+                </div>
+            </div>
         </div>
+    </div>
+    <div id="mobile-overlay" onclick="closeMobileMenu()"></div>
+    <div id="mobile-menu">
+        <div style="padding:24px 24px 16px;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;">
+            <img src="../images/logo-horizontal-logo.png.png" alt="mb finance" style="height:36px;width:auto;display:block;">
+            <button onclick="closeMobileMenu()" aria-label="Fechar menu">
+                <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <div style="padding:24px;">
+            <div style="margin-bottom:4px;"><a href="../index.html" onclick="closeMobileMenu();" style="display:block;font-size:1.1rem;font-weight:600;color:#003956;padding:14px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;">INÍCIO</a></div>
+            <div style="margin-bottom:4px;"><a href="../index.html#produtos" onclick="closeMobileMenu();" style="display:block;font-size:1.1rem;font-weight:600;color:#003956;padding:14px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;">PRODUTOS</a></div>
+            <div style="margin-bottom:4px;"><a href="sobre.html" onclick="closeMobileMenu();" style="display:block;font-size:1.1rem;font-weight:600;color:#003956;padding:14px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;">SOBRE</a></div>
+            <div style="margin-bottom:4px;"><a href="../index.html#parceiros" onclick="closeMobileMenu();" style="display:block;font-size:1.1rem;font-weight:600;color:#003956;padding:14px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;">PARCEIROS</a></div>
+            <div style="margin-bottom:24px;"><a href="https://blog.mbfinance.com.br/blog" onclick="closeMobileMenu();" style="display:block;font-size:1.1rem;font-weight:600;color:#003956;padding:14px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;">BLOG</a></div>
+            <a href="https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20solicitar%20uma%20an%C3%A1lise%20tribut%C3%A1ria%20gratuita." target="_blank" rel="noopener" style="display:block;width:100%;background:#0099dd;color:#fff;font-size:1rem;font-weight:700;text-align:center;padding:16px 20px;border-radius:16px;text-decoration:none;box-sizing:border-box;">
+                Falar com Especialista
+            </a>
+        </div>
+    </div>
+    <div id="produtos-dropdown">
+        <div style="background:#ffffff;border-top:3px solid #0099dd;box-shadow:0 8px 32px rgba(0,0,0,0.13);">
+            <div style="max-width:1280px;margin:0 auto;padding:36px 32px 44px;display:flex;gap:0;align-items:flex-start;">
+                <div style="flex:1;">
+                    <p style="font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:20px;">Conheça nossas soluções</p>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0 32px;">
+                        <div>
+                            <a href="conta-pj.html" class="dd-prod-link"><span class="dd-icon"><svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 10v11"/><path d="M19 10v11"/><path d="M9 10v11"/><path d="M15 10v11"/><path d="m2 10 10-8 10 8"/></svg></span>Conta Corrente Empresarial</a>
+                            <a href="maquina-de-cartao.html" class="dd-prod-link"><span class="dd-icon"><svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.5" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M9 6h6"/><path d="M7 10h10v4H7V10z"/></svg></span>Máquina de Cartão</a>
+                            <a href="../index.html#produtos" class="dd-prod-link"><span class="dd-icon"><svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></span>Seguros e Consórcios</a>
+                        </div>
+                        <div>
+                            <a href="../index.html#produtos" class="dd-prod-link"><span class="dd-icon"><svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.5" viewBox="0 0 24 24"><path d="M11 2a2 2 0 0 0-2 2v5H4a2 2 0 0 0-2 2v2c0 1.1.9 2 2 2h5v5c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-5h5c1.1 0 2-.9 2-2v-2a2 2 0 0 0-2-2h-5V4a2 2 0 0 0-2-2h-2z"/></svg></span>Telemedicina</a>
+                            <a href="capital-de-giro.html" class="dd-prod-link"><span class="dd-icon"><svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></span>Crédito Rápido</a>
+                            <a href="mb-tributos.html" class="dd-prod-link" style="color:#0099dd;"><span class="dd-icon"><svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.5" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/></svg></span>Soluções Tributárias</a>
+                        </div>
+                        <div>
+                            <a href="antecipacao-de-recebiveis.html" class="dd-prod-link"><span class="dd-icon"><svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>Antecipação de Recebíveis</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-        <h1>MB <span>Tributos</span></h1>
-
-        <p class="subtitle">
-            Nossa plataforma de consultoria e recupera��o tribut�ria est� chegando. Estamos construindo algo especial para o seu neg�cio.
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="relative min-h-[85vh] flex items-center lp-dot-bg" style="background:linear-gradient(135deg,#001e2e 0%,#003956 60%,#005080 100%);">
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-16 py-44 z-10 w-full">
+        <nav class="mb-6" aria-label="Breadcrumb">
+            <ol style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.45);">
+                <li><a href="../index.html" style="color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#0099dd'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Início</a></li>
+                <li style="opacity:0.4;">/</li>
+                <li style="color:rgba(255,255,255,0.7);">mb tributos</li>
+            </ol>
+        </nav>
+        <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-6 fade-up">Soluções Tributárias · Em parceria com a Auditto</p>
+        <h1 class="text-white font-bold leading-tight mb-6 fade-up max-w-4xl" style="font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:-0.02em;transition-delay:0.1s;">
+            Sua empresa pode estar pagando<br>
+            <span style="color:#0099dd;">tributos a mais sem saber</span>
+        </h1>
+        <p class="text-white/85 text-lg font-normal leading-relaxed mb-10 max-w-2xl fade-up" style="transition-delay:0.2s;">
+            Recupere PIS, COFINS e INSS pagos indevidamente nos últimos 5 anos com análise técnica especializada, processo 100% administrativo e sem custo antecipado.
         </p>
+        <div class="flex flex-wrap gap-4 fade-up" style="transition-delay:0.3s;">
+            <a href="https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20solicitar%20uma%20an%C3%A1lise%20tribut%C3%A1ria%20gratuita%20para%20PIS%2C%20COFINS%20ou%20INSS." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0099dd;color:#fff;font-weight:700;font-size:15px;padding:16px 36px;border-radius:14px;border:none;cursor:pointer;transition:all 0.3s;box-shadow:0 12px 32px rgba(0,153,221,0.28);text-decoration:none;" onmouseover="this.style.background='#0077b6';this.style.transform='scale(1.03)';" onmouseout="this.style.background='#0099dd';this.style.transform='scale(1)';">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Solicitar análise gratuita
+            </a>
+            <span style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,0.55);font-size:13px;padding:16px 0;">
+                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Sem custo antecipado &nbsp;·&nbsp;
+                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Pague só se houver resultado
+            </span>
+        </div>
+    </div>
+</section>
 
-        <div class="desc-box">
-            <h3>O que vem por a�</h3>
-            <div class="desc-item">
-                <span class="desc-dot"></span>
-                <span>Diagn�stico tribut�rio completo e gratuito</span>
+<!-- ══════════════════════════════════════════════════════════
+     PROVA SOCIAL
+══════════════════════════════════════════════════════════ -->
+<section style="background:#040f1a;padding:64px 0;">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="stat-card fade-up">
+                <div class="text-white font-bold mb-2" style="font-size:clamp(1.6rem,3vw,2.4rem);">5 anos</div>
+                <div class="text-white/45 text-sm">de documentos analisados</div>
             </div>
-            <div class="desc-item">
-                <span class="desc-dot"></span>
-                <span>Recupera��o de tributos pagos a maior nos �ltimos 5 anos</span>
+            <div class="stat-card fade-up" style="transition-delay:0.1s;">
+                <div class="text-white font-bold mb-2" style="font-size:clamp(1.6rem,3vw,2.4rem);">+80%</div>
+                <div class="text-white/45 text-sm">das empresas pagam a mais</div>
             </div>
-            <div class="desc-item">
-                <span class="desc-dot"></span>
-                <span>Planejamento fiscal estrat�gico para reduzir sua carga tribut�ria</span>
+            <div class="stat-card fade-up" style="transition-delay:0.2s;">
+                <div class="text-white font-bold mb-2" style="font-size:clamp(1.6rem,3vw,2.4rem);">R$ 150 mil</div>
+                <div class="text-white/45 text-sm">recuperados em média por empresa</div>
             </div>
-            <div class="desc-item">
-                <span class="desc-dot"></span>
-                <span>Adequa��o � nova Reforma Tribut�ria brasileira</span>
-            </div>
-            <div class="desc-item">
-                <span class="desc-dot"></span>
-                <span>Honor�rios apenas sobre o que for efetivamente recuperado</span>
+            <div class="stat-card fade-up" style="transition-delay:0.3s;">
+                <div class="text-white font-bold mb-2" style="font-size:clamp(1.6rem,3vw,2.4rem);">100%</div>
+                <div class="text-white/45 text-sm">administrativo, sem ação judicial</div>
             </div>
         </div>
-
-        <a href="https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20MB%20Tributos." target="_blank" class="cta-btn">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Quero ser avisado quando lan�ar
-        </a>
-
-    </main>
-
-    <div class="footer-note">
-        � 2025 mb finance � mb tributos — Em breve
     </div>
+</section>
 
+<!-- ══════════════════════════════════════════════════════════
+     O PROBLEMA
+══════════════════════════════════════════════════════════ -->
+<section style="padding:120px 0;background:#fff;" id="problema">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="fade-up">
+                <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">O problema</p>
+                <h2 class="font-bold mb-6 text-brand-primary" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
+                    Sua empresa pode estar perdendo dinheiro todos os meses sem perceber
+                </h2>
+                <p class="text-slate-600 text-base leading-relaxed mb-5">
+                    No Brasil, muitas empresas do varejo e comércio pagam <strong>PIS e COFINS</strong> duas vezes sobre os mesmos produtos. Isso acontece com produtos monofásicos — bebidas, cosméticos, autopeças, medicamentos, alimentos — onde os tributos já foram recolhidos na indústria ou no distribuidor.
+                </p>
+                <p class="text-slate-600 text-base leading-relaxed mb-8">
+                    Em condomínios, o mesmo problema acontece com o <strong>INSS patronal</strong>: muitos valores são recolhidos sobre verbas indenizatórias que não deveriam compor a base de cálculo, gerando um crédito acumulado que pode ser recuperado.
+                </p>
+                <div class="flex flex-col gap-3">
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Prejuízo silencioso que se acumula mês a mês</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Mais de 80% das empresas nesses setores estão afetadas</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Legislação permite reaver os últimos 5 anos</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Processo 100% administrativo, sem risco jurídico</span></div>
+                </div>
+            </div>
+            <div class="fade-up" style="transition-delay:0.15s;">
+                <div style="background:#f8fafc;border-radius:24px;padding:36px;border:1px solid #e5e7eb;">
+                    <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-6">Segmentos com maior risco</p>
+                    <div style="display:flex;flex-direction:column;gap:14px;">
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Supermercados</span>
+                                <span class="text-brand-primary text-sm font-bold">90%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:90%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Cosméticos</span>
+                                <span class="text-brand-primary text-sm font-bold">85%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:85%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Farmácias</span>
+                                <span class="text-brand-primary text-sm font-bold">82%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:82%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Autopeças</span>
+                                <span class="text-brand-primary text-sm font-bold">78%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:78%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Petshops</span>
+                                <span class="text-brand-primary text-sm font-bold">65%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:65%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                                <span class="text-slate-700 text-sm font-medium">Restaurantes e bares</span>
+                                <span class="text-brand-primary text-sm font-bold">72%</span>
+                            </div>
+                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:72%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SOLUÇÕES
+══════════════════════════════════════════════════════════ -->
+<section style="padding:120px 0;background:#f8fafc;" id="solucoes">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="text-center mb-16 fade-up">
+            <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">O que comercializamos</p>
+            <h2 class="font-bold text-brand-primary mb-4" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
+                Duas frentes tributárias com escopo definido
+            </h2>
+            <p class="text-slate-500 text-base max-w-2xl mx-auto">
+                A MB Finance atua como intermediária comercial em parceria com a Auditto, especializada em soluções fiscais e recuperação de ativos.
+            </p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8">
+
+            <!-- PIS e COFINS -->
+            <div class="solution-card-tributos fade-up">
+                <div class="benefit-icon">
+                    <svg width="22" height="22" fill="none" stroke="#0099dd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <h3 class="font-bold text-brand-primary mb-3" style="font-size:1.5rem;">PIS e COFINS</h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                    Revisão de notas fiscais e XMLs para identificar pagamentos indevidos em produtos monofásicos. Varejo, comércio e distribuidores com potencial de recuperação dos últimos 5 anos.
+                </p>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+                    <span class="tag-pill">Bebidas</span>
+                    <span class="tag-pill">Cosméticos</span>
+                    <span class="tag-pill">Autopeças</span>
+                    <span class="tag-pill">Medicamentos</span>
+                    <span class="tag-pill">Alimentos</span>
+                    <span class="tag-pill">Supermercados</span>
+                    <span class="tag-pill">Farmácias</span>
+                    <span class="tag-pill">Petshops</span>
+                    <span class="tag-pill">Bares e conveniências</span>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Relatório técnico antes de qualquer decisão</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Ressarcimento ou compensação via Receita Federal</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Sem necessidade de mudar contabilidade ou operação</span></div>
+                </div>
+            </div>
+
+            <!-- INSS Patronal -->
+            <div class="solution-card-tributos featured fade-up" style="transition-delay:0.1s;">
+                <div style="position:absolute;top:20px;right:20px;background:#0099dd;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;position:relative;display:inline-flex;margin-bottom:4px;">Especial para condomínios</div>
+                <div class="benefit-icon" style="margin-top:12px;">
+                    <svg width="22" height="22" fill="none" stroke="#0099dd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 11h3"/></svg>
+                </div>
+                <h3 class="font-bold text-brand-primary mb-3" style="font-size:1.5rem;">INSS Patronal</h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                    Análise dos últimos 5 anos da folha de pagamento para identificar INSS patronal pago a maior sobre verbas indenizatórias. Compensações realizadas via e-CAC, sem necessidade de ação judicial.
+                </p>
+                <div style="background:rgba(0,153,221,0.06);border-radius:12px;padding:16px 18px;margin-bottom:20px;border-left:3px solid #0099dd;">
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        <strong class="text-brand-primary">Modelo de partilha:</strong> A economia gerada permanece majoritariamente com o condomínio. A participação comercial ocorre somente sobre o ganho efetivo, sem nenhum custo antecipado.
+                    </p>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Fundamentado em decisões do STJ</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Compensações diretas pelo e-CAC</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Economia contínua após as compensações</span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     COMO FUNCIONA
+══════════════════════════════════════════════════════════ -->
+<section style="padding:120px 0;background:#fff;" id="processo">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="fade-up">
+                <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">Como funciona</p>
+                <h2 class="font-bold text-brand-primary mb-6" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
+                    Um processo simples, seguro e sem burocracia
+                </h2>
+                <p class="text-slate-500 text-base leading-relaxed mb-8">
+                    Muita gente imagina que recuperação tributária é complexa ou arriscada. Na prática, é o oposto: você não precisa mudar nada na contabilidade da empresa e nossa equipe cuida de tudo com clareza e transparência.
+                </p>
+                <a href="https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20iniciar%20minha%20an%C3%A1lise%20tribut%C3%A1ria%20gratuita." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0099dd;color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:12px;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.background='#0077b6';" onmouseout="this.style.background='#0099dd';">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Iniciar análise gratuita
+                </a>
+            </div>
+            <div class="fade-up" style="transition-delay:0.15s;">
+                <div style="display:flex;flex-direction:column;gap:0;">
+
+                    <div style="display:flex;gap:16px;padding:24px 0;border-bottom:1px solid #f1f5f9;">
+                        <div class="step-number">01</div>
+                        <div>
+                            <h4 class="font-semibold text-brand-primary mb-2" style="font-size:1rem;">Envio dos documentos fiscais</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed">Você envia as notas fiscais eletrônicas (XML) ou informações da folha de pagamento dos últimos anos via formulário gratuito.</p>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;gap:16px;padding:24px 0;border-bottom:1px solid #f1f5f9;">
+                        <div class="step-number">02</div>
+                        <div>
+                            <h4 class="font-semibold text-brand-primary mb-2" style="font-size:1rem;">Análise tributária técnica</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed">A equipe especializada da Auditto identifica quais produtos sofreram cobrança indevida e calcula os valores recuperáveis com base na legislação.</p>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;gap:16px;padding:24px 0;border-bottom:1px solid #f1f5f9;">
+                        <div class="step-number">03</div>
+                        <div>
+                            <h4 class="font-semibold text-brand-primary mb-2" style="font-size:1rem;">Relatório e decisão sem compromisso</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed">Você recebe um relatório detalhado com os valores que podem ser recuperados. Decide se quer seguir com total liberdade, sem nenhum custo nessa etapa.</p>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;gap:16px;padding:24px 0;">
+                        <div class="step-number" style="background:#003956;">04</div>
+                        <div>
+                            <h4 class="font-semibold text-brand-primary mb-2" style="font-size:1rem;">Compensação ou ressarcimento</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed">Se decidir seguir, são formalizados contrato e procuração. A equipe conduz todo o processo junto à Receita Federal, via e-CAC, de forma administrativa.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODELO COMERCIAL
+══════════════════════════════════════════════════════════ -->
+<section style="padding:120px 0;background:#040f1a;" id="modelo">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="fade-up">
+                <p style="color:#0099dd;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;margin-bottom:16px;">Modelo comercial</p>
+                <h2 class="font-bold text-white mb-6" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
+                    Pague apenas se houver resultado validado
+                </h2>
+                <p class="text-white/60 text-base leading-relaxed">
+                    Um modelo justo, transparente e feito para gerar resultado. Você não paga nada para iniciar, e a participação comercial ocorre apenas sobre o ganho efetivamente obtido.
+                </p>
+            </div>
+            <div class="fade-up" style="transition-delay:0.1s;display:flex;flex-direction:column;gap:20px;">
+
+                <div style="padding:24px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #0099dd;">
+                    <h4 class="text-white font-semibold mb-2">Análise inicial gratuita</h4>
+                    <p class="text-white/50 text-sm leading-relaxed">Você envia os documentos e recebe um relatório com os valores recuperáveis sem custo ou compromisso algum.</p>
+                </div>
+
+                <div style="padding:24px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #0099dd;">
+                    <h4 class="text-white font-semibold mb-2">Sem taxa de entrada</h4>
+                    <p class="text-white/50 text-sm leading-relaxed">Sem mensalidade, sem taxa inicial, sem surpresas. O processo começa sem nenhum custo para a empresa.</p>
+                </div>
+
+                <div style="padding:24px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #0099dd;">
+                    <h4 class="text-white font-semibold mb-2">Participação somente sobre resultado</h4>
+                    <p class="text-white/50 text-sm leading-relaxed">Se optar por seguir, o pagamento é feito somente após o crédito ser validado. No INSS patronal, a maior parte da economia permanece com o cliente.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PARCERIA AUDITTO
+══════════════════════════════════════════════════════════ -->
+<section style="padding:120px 0;background:#fff;" id="parceria">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="fade-up">
+                <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">Papel de cada empresa</p>
+                <h2 class="font-bold text-brand-primary mb-6" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
+                    MB Finance comercializa.<br>Auditto executa.
+                </h2>
+                <p class="text-slate-500 text-base leading-relaxed mb-5">
+                    A <strong class="text-brand-primary">MB Finance</strong> atua como intermediária comercial: apresenta a solução, orienta o cliente no primeiro contato e facilita a conexão com a Auditto.
+                </p>
+                <p class="text-slate-500 text-base leading-relaxed mb-8">
+                    A <strong class="text-brand-primary">Auditto</strong> é a parceira responsável pela análise técnica, condução administrativa, fundamentação jurídica e todos os trâmites junto à Receita Federal. Toda a responsabilidade técnica e jurídica da execução é da Auditto.
+                </p>
+                <div style="background:#f8fafc;border-radius:16px;padding:24px;border:1px solid #e5e7eb;">
+                    <p class="text-slate-600 text-xs font-bold tracking-widest uppercase mb-4">Transparência para o cliente</p>
+                    <div class="flex flex-col gap-3">
+                        <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">A recuperação depende da documentação e da análise do caso concreto</span></div>
+                        <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">O processo é administrativo, sem promessa de resultado antes da validação</span></div>
+                        <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Atuação dentro das normas da Receita Federal com acompanhamento especializado</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="fade-up" style="transition-delay:0.15s;">
+                <div style="background:#f8fafc;border-radius:24px;padding:40px;border:1px solid #e5e7eb;text-align:center;">
+                    <div style="display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:20px;background:rgba(0,153,221,0.1);margin:0 auto 20px;">
+                        <svg width="32" height="32" fill="none" stroke="#0099dd" stroke-width="1.5" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h18"/></svg>
+                    </div>
+                    <h3 class="font-bold text-brand-primary mb-3" style="font-size:1.25rem;">Áreas de Especialidade da Auditto</h3>
+                    <div style="display:flex;flex-direction:column;gap:12px;margin-top:20px;text-align:left;">
+                        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;">
+                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,153,221,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-brand-primary text-sm">PIS &amp; COFINS</p>
+                                <p class="text-slate-500 text-xs">Mapeamento de créditos sobre produtos monofásicos</p>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;">
+                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,153,221,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-brand-primary text-sm">INSS sobre Folha</p>
+                                <p class="text-slate-500 text-xs">Recuperação de valores recolhidos nos últimos 5 anos</p>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;">
+                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,153,221,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-brand-primary text-sm">Auditoria Digital</p>
+                                <p class="text-slate-500 text-xs">Tecnologia para cruzamento de dados e detecção de oportunidades</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════════════════ -->
+<section style="padding:120px 0;background:#f8fafc;">
+    <div class="max-w-3xl mx-auto px-6 lg:px-12">
+        <div class="text-center mb-14 fade-up">
+            <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">Dúvidas frequentes</p>
+            <h2 class="font-bold text-brand-primary" style="font-size:clamp(1.8rem,3.5vw,2.4rem);line-height:1.2;letter-spacing:-0.02em;">Perguntas frequentes</h2>
+        </div>
+        <div>
+            <div class="faq-item fade-up">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    Qualquer empresa pode solicitar a análise de PIS e COFINS?
+                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
+                    Sim, desde que a empresa comercialize produtos monofásicos nos segmentos elegíveis (varejo, farmácia, cosméticos, autopeças, alimentos, etc.) e seja optante pelo Lucro Real ou Presumido. A análise inicial é gratuita e vai indicar se há potencial de recuperação no caso específico.
+                </div>
+            </div>
+            <div class="faq-item fade-up">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    Quais documentos preciso enviar para a análise?
+                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
+                    Para PIS e COFINS: os arquivos XML das notas fiscais eletrônicas dos últimos 5 anos. Para INSS patronal: os dados da folha de pagamento do mesmo período. Você recebe um formulário guiado após o primeiro contato pelo WhatsApp.
+                </div>
+            </div>
+            <div class="faq-item fade-up">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    O processo exige alguma ação judicial?
+                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
+                    Não. Todo o processo é feito pela via administrativa, diretamente junto à Receita Federal pelo sistema e-CAC. Não há necessidade de entrar na Justiça, o que torna o processo mais rápido, seguro e menos custoso.
+                </div>
+            </div>
+            <div class="faq-item fade-up">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    Preciso trocar de contador ou mudar minha contabilidade?
+                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
+                    Não. Você mantém toda a sua estrutura atual sem nenhuma alteração. A análise e a recuperação são conduzidas pela Auditto de forma paralela, sem interferir na rotina da empresa.
+                </div>
+            </div>
+            <div class="faq-item fade-up">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    Qual o prazo para receber os créditos?
+                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
+                    O prazo varia conforme o tipo de recuperação e o volume de documentos. Em geral, os créditos de PIS/COFINS podem ser compensados em poucos meses após o início do processo. Para INSS patronal, o prazo depende do andamento do pedido junto à Receita Federal.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CTA
+══════════════════════════════════════════════════════════ -->
+<section style="position:relative;overflow:hidden;background:linear-gradient(135deg,#001e2e 0%,#003956 100%);padding:112px 0;">
+    <div style="position:absolute;top:0;right:0;width:520px;height:520px;background:rgba(0,153,221,0.12);filter:blur(140px);pointer-events:none;"></div>
+    <div style="max-width:780px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1;" class="fade-up">
+        <p style="color:#0099dd;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;margin-bottom:16px;">Análise gratuita</p>
+        <h2 style="color:#fff;font-size:clamp(28px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-0.025em;margin-bottom:24px;">
+            Quer saber quanto sua empresa <span style="color:#0099dd;">pode recuperar?</span>
+        </h2>
+        <p style="color:rgba(255,255,255,0.65);font-size:clamp(15px,2vw,18px);font-weight:300;line-height:1.7;margin-bottom:48px;">
+            Fale com a MB Finance pelo WhatsApp e solicite a análise gratuita para PIS, COFINS ou INSS patronal.
+        </p>
+        <a href="https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20solicitar%20uma%20an%C3%A1lise%20tribut%C3%A1ria%20gratuita%20para%20verificar%20valores%20a%20recuperar." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#0099dd;color:#fff;font-weight:700;font-size:16px;padding:18px 48px;border-radius:18px;border:none;cursor:pointer;transition:all 0.3s;box-shadow:0 14px 40px rgba(0,153,221,0.28);font-family:inherit;text-decoration:none;" onmouseover="this.style.background='#0077b6';this.style.transform='scale(1.04)';" onmouseout="this.style.background='#0099dd';this.style.transform='scale(1)';">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Solicitar análise pelo WhatsApp
+        </a>
+        <div style="margin-top:40px;display:flex;flex-wrap:wrap;justify-content:center;gap:24px;color:rgba(255,255,255,0.7);font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;">
+            <span style="display:flex;align-items:center;gap:8px;"><span style="width:4px;height:4px;border-radius:999px;background:#0099dd;"></span>100% gratuito para iniciar</span>
+            <span style="display:flex;align-items:center;gap:8px;"><span style="width:4px;height:4px;border-radius:999px;background:#0099dd;"></span>Sem compromisso</span>
+            <span style="display:flex;align-items:center;gap:8px;"><span style="width:4px;height:4px;border-radius:999px;background:#0099dd;"></span>Processo 100% administrativo</span>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer class="text-white" style="background:#040f1a; padding: 120px 0;">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-24">
+            <div class="lg:col-span-4 space-y-8">
+                <div class="mb-8">
+                    <a href="../index.html" class="inline-block hover:opacity-80 transition-opacity">
+                        <img src="../images/logo-horizontal-logo.branca.png" alt="mb finance" style="height: 36px; width: auto;">
+                    </a>
+                </div>
+                <p class="font-medium text-[15px] leading-relaxed max-w-sm" style="color: rgba(255,255,255,0.45);">
+                    Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado. Seu elo estratégico com as principais instituições bancárias do Brasil.
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://www.linkedin.com/company/mbfassessoria/?viewAsMember=true" target="_blank" rel="noopener" class="w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-white/15 hover:scale-110 transition-all group">
+                        <svg class="w-5 h-5 text-slate-300 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/mbfassessoria/" target="_blank" rel="noopener" class="w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-white/15 hover:scale-110 transition-all group">
+                        <svg class="w-5 h-5 text-slate-300 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.058-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="lg:col-span-2">
+                <h4 class="font-bold text-sm uppercase tracking-widest mb-10" style="color: #ffffff !important;">Soluções</h4>
+                <ul class="space-y-4 font-medium text-sm" style="color: rgba(255,255,255,0.4);">
+                    <li><a href="conta-pj.html" class="hover:text-[#0099dd] transition-colors">Conta Corrente Empresarial</a></li>
+                    <li><a href="maquina-de-cartao.html" class="hover:text-[#0099dd] transition-colors">Máquina de Cartão</a></li>
+                    <li><a href="../index.html#produtos" class="hover:text-[#0099dd] transition-colors">Seguros e Consórcios</a></li>
+                    <li><a href="capital-de-giro.html" class="hover:text-[#0099dd] transition-colors">Crédito Rápido</a></li>
+                    <li><a href="mb-tributos.html" class="hover:text-[#0099dd] transition-colors" style="color:#0099dd;">Soluções Tributárias</a></li>
+                    <li><a href="../index.html#produtos" class="hover:text-[#0099dd] transition-colors">Telemedicina</a></li>
+                    <li><a href="antecipacao-de-recebiveis.html" class="hover:text-[#0099dd] transition-colors">Antecipação de Recebíveis</a></li>
+                </ul>
+            </div>
+            <div class="lg:col-span-2 flex flex-col gap-12">
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-widest mb-10" style="color: #ffffff !important;">Empresa</h4>
+                    <ul class="space-y-4 font-medium text-sm" style="color: rgba(255,255,255,0.4);">
+                        <li><a href="../index.html#como-funciona" class="hover:text-[#0099dd] transition-colors">Como Funciona</a></li>
+                        <li><a href="https://mbfinance.inhire.app/vagas" target="_blank" class="hover:text-[#0099dd] transition-colors">Trabalhe Conosco</a></li>
+                        <li><a href="../index.html" class="hover:text-[#0099dd] transition-colors">Seja um Parceiro</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-widest mb-8" style="color: #ffffff !important;">Legal</h4>
+                    <ul class="space-y-4 font-medium text-sm" style="color: rgba(255,255,255,0.4);">
+                        <li><a href="politica-de-privacidade.html" class="hover:text-[#0099dd] transition-colors">Política de Privacidade</a></li>
+                        <li><a href="termos-de-uso.html" class="hover:text-[#0099dd] transition-colors">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="lg:col-span-2">
+                <h4 class="font-bold text-sm uppercase tracking-widest mb-10" style="color: #ffffff !important;">Ecossistema MB</h4>
+                <ul class="space-y-4 font-medium text-sm" style="color: rgba(255,255,255,0.4);">
+                    <li><a href="https://mbnegocios.com.br/" target="_blank" rel="noopener" class="hover:text-[#0099dd] transition-colors">mb negócios</a></li>
+                    <li><a href="https://fomentamais.com.br/" target="_blank" rel="noopener" class="hover:text-[#0099dd] transition-colors">Fomenta Mais</a></li>
+                    <li><a href="mb-tributos.html" class="hover:text-[#0099dd] transition-colors" style="color:#0099dd;">mb tributos</a></li>
+                </ul>
+            </div>
+            <div class="lg:col-span-2">
+                <h4 class="font-bold text-sm uppercase tracking-widest mb-10" style="color: #ffffff !important;">Contato</h4>
+                <div class="space-y-8 text-white/40 text-sm">
+                    <div class="flex flex-col gap-1">
+                        <span class="text-white font-bold text-xl">(21) 3900-8295</span>
+                        <span class="text-[10px] uppercase tracking-wider text-white/20">Seg - Sex: 9h às 18h</span>
+                    </div>
+                    <div><a href="mailto:atendimento@mbfinance.com.br" class="text-white/60 hover:text-white transition-colors">atendimento@mbfinance.com.br</a></div>
+                    <div class="text-[13px] leading-relaxed text-white/30 max-w-[200px]">
+                        Av. Rio Branco, 110 - 30º andar<br>
+                        Centro, Rio de Janeiro - RJ<br>
+                        CEP: 20040-006
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pt-12 border-t border-white/5">
+            <p class="text-[10px] sm:text-[11px] uppercase tracking-[2px] text-center leading-relaxed" style="color: rgba(255,255,255,0.6) !important;">
+                © 2026 MB ASSESSORIA E ESTRUTURAÇÃO DE NEGÓCIOS LTDA. CNPJ: 26.388.817/0001-72. TODOS OS DIREITOS RESERVADOS.<br>
+                <span style="color:rgba(255,255,255,0.3);font-size:10px;display:block;margin-top:6px;text-transform:none;letter-spacing:0;">mb tributos é uma frente comercial da MB Finance em parceria técnica com a Auditto. A responsabilidade técnica e jurídica pela execução é da Auditto.</span>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a id="wa-float" href="https://wa.me/552139008295?text=Ol%C3%A1!%20Quero%20solicitar%20uma%20an%C3%A1lise%20tribut%C3%A1ria%20gratuita." target="_blank" rel="noopener" style="position:fixed;bottom:32px;right:32px;z-index:999;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:transform 0.3s;text-decoration:none;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script src="../assets/js/ui/navbar.js"></script>
+<script src="../assets/js/ui/landing-produto.js"></script>
+<script src="../assets/js/ui/cookie-banner.js"></script>
+<script>
+function toggleFaq(btn) {
+    var body = btn.nextElementSibling;
+    var icon = btn.querySelector('.faq-icon');
+    var isOpen = body.style.display === 'block';
+    document.querySelectorAll('.faq-body').forEach(function(el) { el.style.display = 'none'; });
+    document.querySelectorAll('.faq-icon').forEach(function(el) { el.style.transform = 'rotate(0deg)'; });
+    if (!isOpen) {
+        body.style.display = 'block';
+        icon.style.transform = 'rotate(180deg)';
+    }
+}
+</script>
 </body>
 </html>
-
-
-
-
