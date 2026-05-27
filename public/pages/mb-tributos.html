@@ -237,10 +237,10 @@
     <div class="relative max-w-7xl mx-auto px-6 lg:px-16 w-full" style="padding-top:9rem;padding-bottom:6rem;z-index:1;">
 
         <!-- Layout 2 colunas -->
-        <div class="hero-tributos-grid" style="display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:center;">
+        <div class="hero-tributos-grid" style="display:grid;grid-template-columns:1fr 480px;gap:0;align-items:stretch;">
 
             <!-- ── Coluna esquerda ── -->
-            <div>
+            <div style="display:flex;flex-direction:column;justify-content:center;">
 
 <!-- Headline principal -->
                 <h1 class="fade-up" style="color:#ffffff;font-size:clamp(2.6rem,4.8vw,4.2rem);font-weight:800;line-height:1.06;letter-spacing:-0.03em;margin:0 0 24px;transition-delay:0.08s;">
@@ -291,22 +291,21 @@
                 </div>
             </div>
 
-            <!-- ── Coluna direita: imagem ── -->
-            <div class="hero-tributos-card fade-up" style="transition-delay:0.2s;position:relative;display:flex;align-items:center;justify-content:center;">
-                <!-- Glow atrás da imagem -->
-                <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,153,221,0.18) 0%,transparent 70%);border-radius:32px;pointer-events:none;"></div>
-                <!-- Container da imagem -->
-                <div style="position:relative;width:100%;max-width:400px;">
-                    <img
-                        src="../images/comerciante-tributos.jpg.png"
-                        alt="Comerciante visualizando crédito recuperado de R$ 87.340,00 no celular"
-                        style="width:100%;height:auto;border-radius:28px;display:block;box-shadow:0 40px 80px rgba(0,0,0,0.55);object-fit:cover;"
-                    >
-                    <!-- Gradiente esquerdo para fundir com o fundo escuro -->
-                    <div style="position:absolute;top:0;left:0;width:38%;height:100%;background:linear-gradient(to right,#040f1a 0%,transparent 100%);border-radius:28px 0 0 28px;pointer-events:none;"></div>
-                    <!-- Gradiente inferior suave -->
-                    <div style="position:absolute;bottom:0;left:0;right:0;height:22%;background:linear-gradient(to top,rgba(4,15,26,0.7) 0%,transparent 100%);border-radius:0 0 28px 28px;pointer-events:none;"></div>
-                </div>
+            <!-- ── Coluna direita: imagem de fundo ── -->
+            <div class="hero-tributos-card" style="position:relative;overflow:hidden;margin-top:-9rem;margin-bottom:-6rem;">
+                <img
+                    src="../images/comerciante-tributos.jpg.png"
+                    alt="Comerciante visualizando crédito recuperado de R$ 87.340,00 no celular"
+                    style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;min-height:640px;"
+                >
+                <!-- Funde a esquerda com o fundo -->
+                <div style="position:absolute;inset:0;background:linear-gradient(to right,#040f1a 0%,rgba(4,15,26,0.55) 35%,transparent 70%);pointer-events:none;"></div>
+                <!-- Funde o topo -->
+                <div style="position:absolute;top:0;left:0;right:0;height:32%;background:linear-gradient(to bottom,#040f1a 0%,transparent 100%);pointer-events:none;"></div>
+                <!-- Funde a base -->
+                <div style="position:absolute;bottom:0;left:0;right:0;height:32%;background:linear-gradient(to top,#040f1a 0%,transparent 100%);pointer-events:none;"></div>
+                <!-- Glow azul sutil sobre a imagem -->
+                <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(0,153,221,0.1) 0%,transparent 65%);pointer-events:none;"></div>
             </div>
 
         </div>
