@@ -37,19 +37,6 @@
             icon: `<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
             questions: [
                 {
-                    id: 'segmento',
-                    text: 'Qual é o setor da sua empresa?',
-                    options: [
-                        { label: 'Comércio',         value: 'Comércio' },
-                        { label: 'Indústria',         value: 'Indústria' },
-                        { label: 'Construção Civil',  value: 'Construção Civil' },
-                        { label: 'Serviços',          value: 'Serviços' },
-                        { label: 'Tecnologia',        value: 'Tecnologia' },
-                        { label: 'Outro',             value: 'Outro' },
-                    ],
-                    disqualify: null,
-                },
-                {
                     id: 'mei',
                     text: 'Sua empresa é MEI?',
                     options: [
@@ -399,7 +386,8 @@
                 if (state.product === 'inss') {
                     showSubProductSelect();
                 } else {
-                    showDataForm();
+                    state.step = 0;
+                    showQuestion();
                 }
             });
         });
@@ -423,7 +411,8 @@
             document.querySelectorAll('.trib-subprod-card').forEach(btn => {
                 btn.addEventListener('click', () => {
                     state.subProduct = btn.dataset.sub;
-                    showDataForm();
+                    state.step = 0;
+                    showQuestion();
                 });
             });
             document.getElementById('trib-sub-back').addEventListener('click', showProductSelect);
@@ -431,10 +420,11 @@
     }
 
     function showDataForm() {
+        const product = PRODUCTS[state.product];
         setContent(`
-            <div class="trib-label">Seus dados</div>
-            <h2 class="trib-title">Precisamos de algumas informações</h2>
-            <p class="trib-subtitle">Para enviar o diagnóstico personalizado da sua empresa.</p>
+            <div class="trib-label">Quase lá</div>
+            <h2 class="trib-title">Sua empresa passou na pré-qualificação!</h2>
+            <p class="trib-subtitle">Preencha seus dados para receber o diagnóstico gratuito.</p>
             <div class="trib-input-group">
                 <div class="trib-input-wrap">
                     <label class="trib-input-label">Nome completo *</label>
@@ -449,7 +439,7 @@
                     <input id="trib-cnpj" class="trib-input" type="text" placeholder="00.000.000/0000-00" maxlength="18">
                 </div>
             </div>
-            <button class="trib-btn" id="trib-data-next" disabled>Continuar →</button>
+            <button class="trib-btn" id="trib-data-next" disabled>Ver resultado →</button>
             <button class="trib-btn-ghost" id="trib-data-back">← Voltar</button>
         `, () => {
             const nome     = document.getElementById('trib-nome');
@@ -490,12 +480,12 @@
                     telefone: telefone.value.trim(),
                     cnpj:     cnpj.value.trim(),
                 };
-                state.step = 0;
-                showQuestion();
+                showQualified();
             });
 
             document.getElementById('trib-data-back').addEventListener('click', () => {
-                state.product === 'inss' ? showSubProductSelect() : showProductSelect();
+                state.step = product.questions.length - 1;
+                showQuestion();
             });
         });
     }
@@ -536,7 +526,7 @@
                         state.step++;
                         showQuestion();
                     } else {
-                        showQualified();
+                        showDataForm();
                     }
                 });
             });
@@ -623,7 +613,7 @@
             if (productId === 'inss') {
                 showSubProductSelect();
             } else {
-                showDataForm();
+                showQuestion();
             }
         } else {
             showProductSelect();
