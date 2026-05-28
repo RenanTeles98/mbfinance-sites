@@ -447,8 +447,20 @@
             const cnpj     = document.getElementById('trib-cnpj');
             const nextBtn  = document.getElementById('trib-data-next');
 
+            let cnpjPromise = null;
+            let cnpjCache   = '';
+
             function checkFields() {
                 nextBtn.disabled = !(nome.value.trim() && telefone.value.trim().length >= 8 && cnpj.value.trim().length >= 14);
+            }
+
+            // Pré-busca assim que CNPJ estiver completo
+            function prefetchCnpj(numeros) {
+                if (numeros.length !== 14 || numeros === cnpjCache) return;
+                cnpjCache   = numeros;
+                cnpjPromise = fetch('https://brasilapi.com.br/api/cnpj/v1/' + numeros)
+                    .then(r => r.ok ? r.json() : null)
+                    .catch(() => null);
             }
 
             // Máscara CNPJ
@@ -459,6 +471,7 @@
                 else if (v.length > 5) v = v.replace(/^(\d{2})(\d{3})(\d{0,3})/, '$1.$2.$3');
                 else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,3})/, '$1.$2');
                 cnpj.value = v;
+                prefetchCnpj(v.replace(/\D/g, ''));
                 checkFields();
             });
 
@@ -482,21 +495,14 @@
                     razaoSocial: '',
                 };
 
-                // Busca razão social na BrasilAPI
+                // Usa resultado pré-buscado ou faz a requisição agora
                 nextBtn.disabled = true;
-                nextBtn.textContent = 'Consultando CNPJ...';
+                const pending = cnpjPromise || fetch('https://brasilapi.com.br/api/cnpj/v1/' + cnpj.value.replace(/\D/g, '')).then(r => r.ok ? r.json() : null).catch(() => null);
 
-                const cnpjNumeros = cnpj.value.replace(/\D/g, '');
-                fetch('https://brasilapi.com.br/api/cnpj/v1/' + cnpjNumeros)
-                    .then(r => r.ok ? r.json() : Promise.reject())
-                    .then(data => {
-                        state.contact.razaoSocial = data.nome_fantasia || data.razao_social || '';
-                        showQualified();
-                    })
-                    .catch(() => {
-                        // API falhou — segue sem o nome da empresa
-                        showQualified();
-                    });
+                pending.then(data => {
+                    state.contact.razaoSocial = (data && (data.nome_fantasia || data.razao_social)) || '';
+                    showQualified();
+                });
             });
 
             document.getElementById('trib-data-back').addEventListener('click', () => {
