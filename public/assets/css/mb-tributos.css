@@ -1164,8 +1164,8 @@ section[id*="resultados"] > div > div:first-child p {
 section[id*="resultados"] > div > div:first-child h2 {
     margin: 0;
     color: #003956;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    line-height: 1.08;
+    font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+    line-height: 1.12;
     font-weight: 800;
     letter-spacing: 0;
 }
