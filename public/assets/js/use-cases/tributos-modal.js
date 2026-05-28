@@ -2,6 +2,31 @@
 
     const WA_NUMBER = '552139008295';
 
+    // ── Sub-produtos PIS/COFINS ───────────────────────────────────────────────
+
+    const PIS_COFINS_SUBPRODUCTS = [
+        {
+            id: 'monofasico',
+            label: 'PIS/COFINS Monofásico',
+            desc: 'Produtos como alimentos, bebidas, cosméticos, medicamentos e autopeças já têm PIS e COFINS recolhidos na indústria. Se sua empresa revendeu esses itens e pagou os tributos novamente, há crédito a recuperar dos últimos 5 anos.',
+        },
+        {
+            id: 'icms_base',
+            label: 'ICMS na Base de Cálculo',
+            desc: 'O Supremo Tribunal Federal decidiu que o ICMS não deve entrar no cálculo do PIS e COFINS. Empresas que incluíram esse valor pagaram a mais e têm direito à restituição — com respaldo de decisão judicial definitiva (RE 574.706).',
+        },
+        {
+            id: 'credito_nao_cumulativo',
+            label: 'Revisão de Créditos (Lucro Real)',
+            desc: 'Empresas no Lucro Real têm direito a descontar créditos de PIS e COFINS sobre compras, custos e despesas. Uma revisão dos últimos 5 anos pode identificar créditos que não foram aproveitados e gerar restituição ou compensação.',
+        },
+        {
+            id: 'nao_sei',
+            label: 'Não sei ao certo',
+            desc: 'Nosso especialista avalia o perfil da sua empresa e identifica qual modalidade se aplica melhor ao seu caso.',
+        },
+    ];
+
     // ── Sub-produtos INSS ─────────────────────────────────────────────────────
 
     const INSS_SUBPRODUCTS = [
@@ -383,23 +408,22 @@
 
             document.getElementById('trib-next-product').addEventListener('click', () => {
                 if (!state.product) return;
-                if (state.product === 'inss') {
-                    showSubProductSelect();
-                } else {
-                    state.step = 0;
-                    showQuestion();
-                }
+                showSubProductSelect();
             });
         });
     }
 
     function showSubProductSelect() {
+        const isInss    = state.product === 'inss';
+        const subProds  = isInss ? INSS_SUBPRODUCTS : PIS_COFINS_SUBPRODUCTS;
+        const label     = isInss ? 'INSS Patronal' : 'PIS / COFINS';
+
         setContent(`
-            <div class="trib-label">INSS Patronal</div>
+            <div class="trib-label">${label}</div>
             <h2 class="trib-title">Com qual modalidade sua empresa se identifica?</h2>
-            <p class="trib-subtitle">Trabalhamos com três tipos de recuperação de INSS. Selecione o que mais se aplica.</p>
+            <p class="trib-subtitle">Trabalhamos com três modalidades. Selecione a que mais se aplica ao seu caso.</p>
             <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:8px;">
-                ${INSS_SUBPRODUCTS.map(sp => `
+                ${subProds.map(sp => `
                     <button class="trib-subprod-card" data-sub="${sp.id}">
                         <span class="sp-label">${sp.label}</span>
                         <span class="sp-desc">${sp.desc}</span>
@@ -647,7 +671,8 @@
     function showQualified() {
         const product     = PRODUCTS[state.product];
         const contact     = state.contact || {};
-        const subProd     = INSS_SUBPRODUCTS.find(s => s.id === state.subProduct);
+        const allSubProds = [...INSS_SUBPRODUCTS, ...PIS_COFINS_SUBPRODUCTS];
+        const subProd     = allSubProds.find(s => s.id === state.subProduct);
         const nomeEmpresa = contact.razaoSocial || '';
         const nomeCliente = contact.nome ? contact.nome.split(' ')[0] : '';
 
@@ -720,11 +745,7 @@
         overlay = getOverlay();
         if (productId && PRODUCTS[productId]) {
             state = { product: productId, subProduct: null, step: 0, answers: {}, contact: { nome: '', telefone: '', cnpj: '' } };
-            if (productId === 'inss') {
-                showSubProductSelect();
-            } else {
-                showQuestion();
-            }
+            showSubProductSelect();
         } else {
             showProductSelect();
         }
