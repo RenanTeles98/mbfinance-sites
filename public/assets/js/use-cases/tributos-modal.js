@@ -152,6 +152,18 @@
                     disqualify: v => v === 'Apenas serviços',
                     disqualifyMsg: 'A análise de PIS/COFINS depende da compra e revenda de produtos. Para empresas de serviços, podemos avaliar outro caminho mais adequado.',
                 },
+                {
+                    id: 'faturamento_anual',
+                    text: 'Qual é o faturamento anual da sua empresa?',
+                    options: [
+                        { label: 'Menos de R$ 100 mil',             value: 'Menos de R$ 100 mil' },
+                        { label: 'R$ 100 mil a R$ 500 mil',         value: 'R$ 100 mil a R$ 500 mil' },
+                        { label: 'R$ 500 mil a R$ 2 milhões',       value: 'R$ 500 mil a R$ 2 milhões' },
+                        { label: 'Acima de R$ 2 milhões',           value: 'Acima de R$ 2 milhões' },
+                    ],
+                    disqualify: v => v === 'Menos de R$ 100 mil',
+                    disqualifyMsg: 'Para que a análise de PIS/COFINS seja viável, o faturamento anual mínimo é de R$ 100 mil. Com volumes menores, o crédito identificado normalmente não cobre os custos do processo.',
+                },
             ],
         },
     };
