@@ -2,6 +2,31 @@
 
     const WA_NUMBER = '552139008295';
 
+    // ── Sub-produtos INSS ─────────────────────────────────────────────────────
+
+    const INSS_SUBPRODUCTS = [
+        {
+            id: 'verbas_indenizatorias',
+            label: 'Exclusão de Verbas Indenizatórias',
+            desc: 'Sua empresa pode estar pagando INSS sobre rubricas que não deveriam entrar no cálculo — como aviso prévio indenizado, vale-transporte e férias indenizadas. A análise recupera os últimos 5 anos.',
+        },
+        {
+            id: 'teto_contribuicao',
+            label: 'Teto de Contribuição INSS',
+            desc: 'Colaboradores com salário acima do teto legal não devem ter INSS calculado sobre o valor excedente. Se isso ocorreu na sua folha, há crédito a recuperar.',
+        },
+        {
+            id: 'desoneracao_folha',
+            label: 'Desoneração da Folha (CPRB)',
+            desc: 'Empresas elegíveis podem substituir os 20% sobre a folha por uma alíquota menor sobre o faturamento. Se sua empresa não aproveitou esse benefício corretamente, há valores a reaver.',
+        },
+        {
+            id: 'nao_sei',
+            label: 'Não sei ao certo',
+            desc: 'Nosso especialista avalia o perfil da sua empresa e identifica qual modalidade se aplica melhor ao seu caso.',
+        },
+    ];
+
     // ── Produtos e perguntas ──────────────────────────────────────────────────
 
     const PRODUCTS = {
@@ -38,10 +63,10 @@
                     id: 'funcionarios',
                     text: 'Quantos funcionários registrados sua empresa tem?',
                     options: [
-                        { label: 'Menos de 10',       value: 'Menos de 10' },
-                        { label: 'De 10 a 30',        value: 'De 10 a 30' },
-                        { label: 'De 31 a 100',       value: 'De 31 a 100' },
-                        { label: 'Mais de 100',       value: 'Mais de 100' },
+                        { label: 'Menos de 10',  value: 'Menos de 10' },
+                        { label: 'De 10 a 30',   value: 'De 10 a 30' },
+                        { label: 'De 31 a 100',  value: 'De 31 a 100' },
+                        { label: 'Mais de 100',  value: 'Mais de 100' },
                     ],
                     disqualify: v => v === 'Menos de 10',
                     disqualifyMsg: 'Para que a análise de INSS seja viável, a empresa precisa ter pelo menos 10 funcionários registrados. Com uma folha menor, o valor a recuperar normalmente não cobre o processo.',
@@ -61,10 +86,10 @@
                     id: 'valor_inss',
                     text: 'Quanto sua empresa recolhe de INSS por mês, aproximadamente?',
                     options: [
-                        { label: 'Menos de R$ 10 mil',         value: 'Menos de R$ 10 mil' },
-                        { label: 'R$ 10 mil a R$ 30 mil',       value: 'R$ 10 mil a R$ 30 mil' },
-                        { label: 'R$ 30 mil a R$ 100 mil',      value: 'R$ 30 mil a R$ 100 mil' },
-                        { label: 'Acima de R$ 100 mil',         value: 'Acima de R$ 100 mil' },
+                        { label: 'Menos de R$ 10 mil',     value: 'Menos de R$ 10 mil' },
+                        { label: 'R$ 10 mil a R$ 30 mil',   value: 'R$ 10 mil a R$ 30 mil' },
+                        { label: 'R$ 30 mil a R$ 100 mil',  value: 'R$ 30 mil a R$ 100 mil' },
+                        { label: 'Acima de R$ 100 mil',     value: 'Acima de R$ 100 mil' },
                     ],
                     disqualify: v => v === 'Menos de R$ 10 mil',
                     disqualifyMsg: 'Para que a recuperação seja financeiramente viável, o recolhimento mensal mínimo é de R$ 10 mil. Com valores menores, o crédito recuperado não cobre os custos do processo.',
@@ -73,8 +98,8 @@
                     id: 'pagamento_dia',
                     text: 'Os recolhimentos de INSS da sua empresa estão em dia?',
                     options: [
-                        { label: 'Sim, está tudo em dia',           value: 'Em dia' },
-                        { label: 'Não, há atrasos ou pendências',   value: 'Com pendências' },
+                        { label: 'Sim, está tudo em dia',         value: 'Em dia' },
+                        { label: 'Não, há atrasos ou pendências', value: 'Com pendências' },
                     ],
                     disqualify: v => v === 'Com pendências',
                     disqualifyMsg: 'Para prosseguir com a análise, os pagamentos precisam estar regulares. Assim que normalizar as pendências, entre em contato — ficaremos felizes em ajudar.',
@@ -122,9 +147,11 @@
     // ── Estado ────────────────────────────────────────────────────────────────
 
     let state = {
-        product:  null,
-        step:     0,
-        answers:  {},
+        product:    null,
+        subProduct: null,
+        step:       0,
+        answers:    {},
+        contact:    { nome: '', telefone: '', cnpj: '' },
     };
 
     // ── Injeção de CSS ────────────────────────────────────────────────────────
@@ -214,12 +241,41 @@
                 background: rgba(0,153,221,0.14);
                 color: #fff;
             }
-            .trib-option-icon {
-                width: 36px; height: 36px; border-radius: 10px;
-                background: rgba(0,153,221,0.12);
-                display: flex; align-items: center; justify-content: center;
-                flex-shrink: 0; color: #0099dd;
+
+            .trib-subprod-card {
+                background: rgba(255,255,255,0.04);
+                border: 1.5px solid rgba(255,255,255,0.1);
+                border-radius: 14px; padding: 16px 18px;
+                cursor: pointer; text-align: left; width: 100%;
+                transition: all 0.18s;
+                display: flex; flex-direction: column; gap: 5px;
             }
+            .trib-subprod-card:hover,
+            .trib-subprod-card.selected {
+                border-color: #0099dd;
+                background: rgba(0,153,221,0.1);
+            }
+            .trib-subprod-card .sp-label {
+                font-size: 14px; font-weight: 700; color: #fff;
+            }
+            .trib-subprod-card .sp-desc {
+                font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.55;
+            }
+
+            .trib-input-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 8px; }
+            .trib-input-wrap { display: flex; flex-direction: column; gap: 6px; }
+            .trib-input-label { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 600; }
+            .trib-input {
+                width: 100%; padding: 13px 14px;
+                background: rgba(255,255,255,0.05);
+                border: 1.5px solid rgba(255,255,255,0.1);
+                border-radius: 10px; color: #fff; font-size: 14px;
+                outline: none; box-sizing: border-box;
+                transition: border-color 0.2s;
+                font-family: inherit;
+            }
+            .trib-input:focus { border-color: rgba(0,153,221,0.6); }
+            .trib-input::placeholder { color: rgba(255,255,255,0.2); }
 
             .trib-product-card {
                 background: rgba(255,255,255,0.04);
@@ -233,11 +289,13 @@
                 border-color: #0099dd;
                 background: rgba(0,153,221,0.1);
             }
-            .trib-product-card .card-name {
-                font-size: 15px; font-weight: 700; color: #fff;
-            }
-            .trib-product-card .card-desc {
-                font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5;
+            .trib-product-card .card-name { font-size: 15px; font-weight: 700; color: #fff; }
+            .trib-product-card .card-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+            .trib-option-icon {
+                width: 36px; height: 36px; border-radius: 10px;
+                background: rgba(0,153,221,0.12);
+                display: flex; align-items: center; justify-content: center;
+                flex-shrink: 0; color: #0099dd;
             }
 
             .trib-btn {
@@ -260,9 +318,7 @@
             }
             .trib-btn-ghost:hover { color: #fff; }
 
-            .trib-result {
-                text-align: center; padding: 8px 0;
-            }
+            .trib-result { text-align: center; padding: 8px 0; }
             .trib-result-icon {
                 width: 64px; height: 64px; border-radius: 50%;
                 display: flex; align-items: center; justify-content: center;
@@ -283,7 +339,6 @@
 
     // ── DOM helpers ───────────────────────────────────────────────────────────
 
-    function getModal()   { return document.getElementById('trib-modal'); }
     function getOverlay() { return document.getElementById('trib-overlay'); }
 
     function setContent(html, callback) {
@@ -314,7 +369,7 @@
     // ── Telas ─────────────────────────────────────────────────────────────────
 
     function showProductSelect() {
-        state = { product: null, step: 0, answers: {} };
+        state = { product: null, subProduct: null, step: 0, answers: {}, contact: { nome: '', telefone: '', cnpj: '' } };
         setContent(`
             <div class="trib-label">Análise gratuita</div>
             <h2 class="trib-title">Qual produto tem interesse?</h2>
@@ -341,8 +396,106 @@
 
             document.getElementById('trib-next-product').addEventListener('click', () => {
                 if (!state.product) return;
+                if (state.product === 'inss') {
+                    showSubProductSelect();
+                } else {
+                    showDataForm();
+                }
+            });
+        });
+    }
+
+    function showSubProductSelect() {
+        setContent(`
+            <div class="trib-label">INSS Patronal</div>
+            <h2 class="trib-title">Com qual modalidade sua empresa se identifica?</h2>
+            <p class="trib-subtitle">Trabalhamos com três tipos de recuperação de INSS. Selecione o que mais se aplica.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:8px;">
+                ${INSS_SUBPRODUCTS.map(sp => `
+                    <button class="trib-subprod-card" data-sub="${sp.id}">
+                        <span class="sp-label">${sp.label}</span>
+                        <span class="sp-desc">${sp.desc}</span>
+                    </button>
+                `).join('')}
+            </div>
+            <button class="trib-btn-ghost" id="trib-sub-back">← Voltar</button>
+        `, () => {
+            document.querySelectorAll('.trib-subprod-card').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    state.subProduct = btn.dataset.sub;
+                    showDataForm();
+                });
+            });
+            document.getElementById('trib-sub-back').addEventListener('click', showProductSelect);
+        });
+    }
+
+    function showDataForm() {
+        setContent(`
+            <div class="trib-label">Seus dados</div>
+            <h2 class="trib-title">Precisamos de algumas informações</h2>
+            <p class="trib-subtitle">Para enviar o diagnóstico personalizado da sua empresa.</p>
+            <div class="trib-input-group">
+                <div class="trib-input-wrap">
+                    <label class="trib-input-label">Nome completo *</label>
+                    <input id="trib-nome" class="trib-input" type="text" placeholder="Seu nome completo" autocomplete="name">
+                </div>
+                <div class="trib-input-wrap">
+                    <label class="trib-input-label">Telefone / WhatsApp *</label>
+                    <input id="trib-telefone" class="trib-input" type="tel" placeholder="(00) 00000-0000" autocomplete="tel">
+                </div>
+                <div class="trib-input-wrap">
+                    <label class="trib-input-label">CNPJ da empresa *</label>
+                    <input id="trib-cnpj" class="trib-input" type="text" placeholder="00.000.000/0000-00" maxlength="18">
+                </div>
+            </div>
+            <button class="trib-btn" id="trib-data-next" disabled>Continuar →</button>
+            <button class="trib-btn-ghost" id="trib-data-back">← Voltar</button>
+        `, () => {
+            const nome     = document.getElementById('trib-nome');
+            const telefone = document.getElementById('trib-telefone');
+            const cnpj     = document.getElementById('trib-cnpj');
+            const nextBtn  = document.getElementById('trib-data-next');
+
+            function checkFields() {
+                nextBtn.disabled = !(nome.value.trim() && telefone.value.trim().length >= 8 && cnpj.value.trim().length >= 14);
+            }
+
+            // Máscara CNPJ
+            cnpj.addEventListener('input', () => {
+                let v = cnpj.value.replace(/\D/g, '').slice(0, 14);
+                if (v.length > 12) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/, '$1.$2.$3/$4-$5');
+                else if (v.length > 8) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4})/, '$1.$2.$3/$4');
+                else if (v.length > 5) v = v.replace(/^(\d{2})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,3})/, '$1.$2');
+                cnpj.value = v;
+                checkFields();
+            });
+
+            // Máscara telefone
+            telefone.addEventListener('input', () => {
+                let v = telefone.value.replace(/\D/g, '').slice(0, 11);
+                if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+                else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+                telefone.value = v;
+                checkFields();
+            });
+
+            nome.addEventListener('input', checkFields);
+
+            nextBtn.addEventListener('click', () => {
+                state.contact = {
+                    nome:     nome.value.trim(),
+                    telefone: telefone.value.trim(),
+                    cnpj:     cnpj.value.trim(),
+                };
                 state.step = 0;
                 showQuestion();
+            });
+
+            document.getElementById('trib-data-back').addEventListener('click', () => {
+                state.product === 'inss' ? showSubProductSelect() : showProductSelect();
             });
         });
     }
@@ -353,7 +506,6 @@
         const q         = questions[state.step];
         const total     = questions.length;
         const current   = state.step;
-
         const isSingleCol = q.options.length <= 2;
 
         setContent(`
@@ -366,7 +518,7 @@
                     <button class="trib-option" data-value="${o.value}">${o.label}</button>
                 `).join('')}
             </div>
-            ${current > 0 ? `<button class="trib-btn-ghost" id="trib-back">← Voltar</button>` : ''}
+            ${current > 0 ? `<button class="trib-btn-ghost" id="trib-back">← Voltar</button>` : `<button class="trib-btn-ghost" id="trib-back">← Voltar</button>`}
         `, () => {
             document.querySelectorAll('.trib-option').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -393,7 +545,7 @@
             if (backBtn) {
                 backBtn.addEventListener('click', () => {
                     if (state.step === 0) {
-                        showProductSelect();
+                        showDataForm();
                     } else {
                         state.step--;
                         showQuestion();
@@ -404,16 +556,23 @@
     }
 
     function showQualified() {
-        const product = PRODUCTS[state.product];
+        const product   = PRODUCTS[state.product];
+        const contact   = state.contact || {};
+        const subProd   = INSS_SUBPRODUCTS.find(s => s.id === state.subProduct);
 
-        // Build WhatsApp message
         const lines = [
             `Olá! Fiz a pré-qualificação pelo site e gostaria de saber mais sobre *${product.label}*.`,
             '',
-            '*Minhas respostas:*',
+            '*Dados de contato:*',
+            `• Nome: *${contact.nome || '-'}*`,
+            `• Telefone: *${contact.telefone || '-'}*`,
+            `• CNPJ: *${contact.cnpj || '-'}*`,
+            '',
+            ...(subProd ? [`*Modalidade de interesse:* ${subProd.label}`, ''] : []),
+            '*Respostas da pré-qualificação:*',
             ...product.questions.map(q => `• ${q.text.replace('?', '')}: *${state.answers[q.id] || '-'}*`),
         ];
-        const msg = encodeURIComponent(lines.join('\n'));
+        const msg   = encodeURIComponent(lines.join('\n'));
         const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
 
         setContent(`
@@ -460,8 +619,12 @@
         if (!overlay) buildOverlay();
         overlay = getOverlay();
         if (productId && PRODUCTS[productId]) {
-            state = { product: productId, step: 0, answers: {} };
-            showQuestion();
+            state = { product: productId, subProduct: null, step: 0, answers: {}, contact: { nome: '', telefone: '', cnpj: '' } };
+            if (productId === 'inss') {
+                showSubProductSelect();
+            } else {
+                showDataForm();
+            }
         } else {
             showProductSelect();
         }
