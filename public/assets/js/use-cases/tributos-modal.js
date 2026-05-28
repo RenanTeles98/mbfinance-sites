@@ -12,13 +12,13 @@
         },
         {
             id: 'icms_base',
-            label: 'ICMS na Base de Cálculo',
-            desc: 'O Supremo Tribunal Federal decidiu que o ICMS não deve entrar no cálculo do PIS e COFINS. Empresas que incluíram esse valor pagaram a mais e têm direito à restituição — com respaldo de decisão judicial definitiva (RE 574.706).',
+            label: 'Crédito de PIS/COFINS sobre ICMS',
+            desc: 'O Supremo Tribunal Federal decidiu que o ICMS não deve entrar no cálculo do PIS e COFINS. Empresas que incluíram esse valor pagaram a mais e têm direito à restituição — com respaldo de decisão judicial definitiva.',
         },
         {
             id: 'credito_nao_cumulativo',
-            label: 'Revisão de Créditos (Lucro Real)',
-            desc: 'Empresas no Lucro Real têm direito a descontar créditos de PIS e COFINS sobre compras, custos e despesas. Uma revisão dos últimos 5 anos pode identificar créditos que não foram aproveitados e gerar restituição ou compensação.',
+            label: 'Otimização de Créditos PIS/COFINS (Lucro Real)',
+            desc: 'Empresas no Lucro Real têm direito a descontar créditos de PIS e COFINS sobre compras, custos e despesas. Uma revisão dos últimos 5 anos pode identificar créditos não aproveitados e gerar restituição ou compensação.',
         },
         {
             id: 'nao_sei',
