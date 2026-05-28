@@ -7,7 +7,7 @@
     const PRODUCTS = {
         inss: {
             id: 'inss',
-            label: 'INSS Patronal',
+            label: 'INSS',
             desc: 'Recupere valores pagos a mais de INSS nos últimos 5 anos.',
             icon: `<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
             questions: [
@@ -32,7 +32,19 @@
                         { label: 'Sim — somos MEI',               value: 'Sim' },
                     ],
                     disqualify: v => v === 'Sim',
-                    disqualifyMsg: 'O INSS Patronal é para empresas acima do MEI. Como MEI, o recolhimento é unificado no DAS e não se aplica a essa análise.',
+                    disqualifyMsg: 'A análise de INSS é para empresas acima do MEI. Como MEI, o recolhimento é unificado no DAS e não se aplica a essa análise.',
+                },
+                {
+                    id: 'funcionarios',
+                    text: 'Quantos funcionários registrados sua empresa tem?',
+                    options: [
+                        { label: 'Menos de 10',       value: 'Menos de 10' },
+                        { label: 'De 10 a 30',        value: 'De 10 a 30' },
+                        { label: 'De 31 a 100',       value: 'De 31 a 100' },
+                        { label: 'Mais de 100',       value: 'Mais de 100' },
+                    ],
+                    disqualify: v => v === 'Menos de 10',
+                    disqualifyMsg: 'Para que a análise de INSS seja viável, a empresa precisa ter pelo menos 10 funcionários registrados. Com uma folha menor, o valor a recuperar normalmente não cobre o processo.',
                 },
                 {
                     id: 'tempo_cnpj',
@@ -73,7 +85,7 @@
         pis_cofins: {
             id: 'pis_cofins',
             label: 'PIS / COFINS',
-            desc: 'Recupere créditos tributários do varejo dos últimos 5 anos.',
+            desc: 'Recupere créditos sobre produtos que sua empresa compra e revende.',
             icon: `<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg>`,
             questions: [
                 {
@@ -92,14 +104,16 @@
                     disqualifyMsg: 'O PIS/COFINS é exclusivo para empresas do varejo. Para outros segmentos, temos outros produtos que podem se adequar melhor ao seu perfil.',
                 },
                 {
-                    id: 'tempo_cnpj',
-                    text: 'Há quanto tempo seu CNPJ está ativo?',
+                    id: 'revenda_produtos',
+                    text: 'Sua empresa compra e revende produtos?',
+                    subtitle: 'A análise de PIS/COFINS depende dos itens comercializados pela empresa.',
                     options: [
-                        { label: 'Menos de 2 anos', value: 'Menos de 2 anos' },
-                        { label: 'De 2 a 5 anos',   value: 'De 2 a 5 anos' },
-                        { label: 'Mais de 5 anos',  value: 'Mais de 5 anos' },
+                        { label: 'Sim, compra e revende produtos', value: 'Compra e revende produtos' },
+                        { label: 'Vende produtos e serviços',      value: 'Produtos e serviços' },
+                        { label: 'Não, vende apenas serviços',      value: 'Apenas serviços' },
                     ],
-                    disqualify: null,
+                    disqualify: v => v === 'Apenas serviços',
+                    disqualifyMsg: 'A análise de PIS/COFINS depende da compra e revenda de produtos. Para empresas de serviços, podemos avaliar outro caminho mais adequado.',
                 },
             ],
         },
@@ -441,11 +455,16 @@
 
     // ── Modal open / close ────────────────────────────────────────────────────
 
-    function openModal() {
+    function openModal(productId) {
         let overlay = getOverlay();
         if (!overlay) buildOverlay();
         overlay = getOverlay();
-        showProductSelect();
+        if (productId && PRODUCTS[productId]) {
+            state = { product: productId, step: 0, answers: {} };
+            showQuestion();
+        } else {
+            showProductSelect();
+        }
         requestAnimationFrame(() => overlay.classList.add('open'));
     }
 
@@ -479,7 +498,7 @@
         document.querySelectorAll('[data-trib-modal]').forEach(el => {
             el.addEventListener('click', function (e) {
                 e.preventDefault();
-                openModal();
+                openModal(el.dataset.tribProduct);
             });
         });
     });
