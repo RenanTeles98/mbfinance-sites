@@ -1380,26 +1380,29 @@ section[id*="resultados"] > div > div:nth-of-type(4) a:hover {
     transform: translateY(-2px);
 }
 
-/* ── CAROUSEL ──────────────────────────────────────────────── */
+/* ── CAROUSEL — seletores estruturais (resistente a cache) ── */
 
-/* override grid do Codex — o 3º div vira bloco */
+/* 3º div = wrapper do carousel → bloco */
 section[id*="resultados"] > div > div:nth-of-type(3) {
     display: block;
     overflow: visible;
 }
 
-.trib-carousel-outer {
+/* outer wrapper com espaço para os botões */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child {
     position: relative;
     padding: 0 56px;
 }
 
-.trib-carousel-track {
+/* track scrollável */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div {
     display: flex;
     gap: 20px;
     overflow: hidden;
 }
 
-.trib-carousel-track > article {
+/* cards */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article {
     flex: 0 0 calc(33.333% - 14px);
     min-width: 0;
     display: flex;
@@ -1413,121 +1416,116 @@ section[id*="resultados"] > div > div:nth-of-type(3) {
     transition: box-shadow 0.25s, transform 0.25s;
 }
 
-.trib-carousel-track > article:hover {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article:hover {
     box-shadow: 0 24px 60px rgba(0, 57, 86, 0.13);
     transform: translateY(-3px);
 }
 
-.trib-carousel-track > article.trib-card-featured {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article.trib-card-featured {
     border-color: rgba(0, 153, 221, 0.35);
     background: linear-gradient(160deg, #f0f9ff 0%, #ffffff 62%);
     box-shadow: 0 24px 60px rgba(0, 153, 221, 0.12);
 }
 
-.trib-carousel-track > article > div:first-child {
+/* cabeçalho do card */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:first-child {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.trib-carousel-track > article > div:first-child > div:first-child {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:first-child > div:first-child {
     width: 44px; height: 44px; flex: 0 0 44px;
     display: flex; align-items: center; justify-content: center;
     border-radius: 50%;
     color: #ffffff; font-size: 18px; font-weight: 800;
 }
 
-.trib-carousel-track > article > div:first-child > div:nth-child(2) {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:first-child > div:nth-child(2) {
     min-width: 0; flex: 1;
 }
 
-.trib-carousel-track > article > div:first-child strong {
-    display: block;
-    color: #003956; font-size: 14px; font-weight: 800;
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:first-child strong {
+    display: block; color: #003956; font-size: 14px; font-weight: 800;
 }
 
-.trib-carousel-track > article > div:first-child span {
-    display: block;
-    margin-top: 3px; color: #64748b; font-size: 12px; line-height: 1.35;
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:first-child span {
+    display: block; margin-top: 3px; color: #64748b; font-size: 12px; line-height: 1.35;
 }
 
-.trib-carousel-track > article > div:first-child > span {
-    flex: 0 0 auto;
-    padding: 5px 10px; border-radius: 999px;
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:first-child > span {
+    flex: 0 0 auto; padding: 5px 10px; border-radius: 999px;
     font-size: 11px; font-weight: 700; line-height: 1; white-space: nowrap;
 }
 
-.trib-carousel-track > article > div:nth-child(2) {
-    line-height: 1;
+/* quote */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > p {
+    margin: 0; color: #334155; font-size: 14.5px; line-height: 1.65; flex: 1;
 }
 
-.trib-carousel-track > article > p {
-    margin: 0;
-    color: #334155; font-size: 14.5px; line-height: 1.65; flex: 1;
-}
-
-.trib-carousel-track > article > div:last-child {
+/* rodapé valor */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:last-child {
     display: flex; align-items: center; justify-content: space-between; gap: 14px;
     margin-top: auto; padding-top: 16px; border-top: 1px solid #e8eef4;
 }
 
-.trib-carousel-track > article > div:last-child span {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:last-child span {
     color: #64748b; font-size: 12px;
 }
 
-.trib-carousel-track > article > div:last-child strong {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:last-child strong {
     color: #0099dd; font-size: 18px; font-weight: 850; white-space: nowrap;
 }
 
-/* Botões prev/next */
-.trib-car-btn {
+/* botões prev / next */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > button {
     position: absolute;
     top: 50%; transform: translateY(-50%);
     width: 44px; height: 44px; border-radius: 50%;
     border: 1px solid #dce7ef;
     background: #ffffff; color: #003956;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; z-index: 2;
+    cursor: pointer; z-index: 2; padding: 0;
     transition: background 0.2s, border-color 0.2s, color 0.2s;
     box-shadow: 0 2px 12px rgba(0, 57, 86, 0.1);
 }
 
-.trib-car-btn:hover {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > button:hover {
     background: #003956; border-color: #003956; color: #ffffff;
 }
 
-.trib-car-btn:disabled {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > button:disabled {
     opacity: 0.35; cursor: default; pointer-events: none;
 }
 
-.trib-car-prev { left: 0; }
-.trib-car-next { right: 0; }
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > button:first-child { left: 0; }
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > button:last-child  { right: 0; }
 
-/* Dots */
-.trib-car-dots {
+/* dots */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:last-child {
     display: flex; align-items: center; justify-content: center;
     gap: 8px; margin-top: 28px;
 }
 
-.trib-car-dot {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:last-child > button {
     width: 8px; height: 8px; border-radius: 50%; border: none;
     background: #dce7ef; cursor: pointer; padding: 0;
     transition: background 0.2s, transform 0.2s;
 }
 
-.trib-car-dot.active {
+section[id*="resultados"] > div > div:nth-of-type(3) > div:last-child > button.active {
     background: #0099dd; transform: scale(1.35);
 }
 
-/* Responsive */
+/* responsive */
 @media (max-width: 980px) {
-    .trib-carousel-outer { padding: 0 48px; }
-    .trib-carousel-track > article { flex: 0 0 calc(50% - 10px); }
+    section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child { padding: 0 48px; }
+    section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article { flex: 0 0 calc(50% - 10px); }
 }
 
 @media (max-width: 600px) {
-    .trib-carousel-outer { padding: 0 40px; }
-    .trib-carousel-track > article { flex: 0 0 100%; }
+    section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child { padding: 0 40px; }
+    section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article { flex: 0 0 100%; }
 }
 
 .solution-card {
