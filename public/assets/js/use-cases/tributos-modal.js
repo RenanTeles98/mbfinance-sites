@@ -430,6 +430,66 @@
     function showDataForm() {
         const product = PRODUCTS[state.product];
         const saved   = loadSavedContact();
+
+        // Se tem dados salvos, mostra tela de seleção primeiro
+        if (saved.nome && saved.telefone && saved.cnpj) {
+            setContent(`
+                <div class="trib-label">Quase lá</div>
+                <h2 class="trib-title">Sua empresa passou na pré-qualificação!</h2>
+                <p class="trib-subtitle">Encontramos informações salvas do seu último acesso.</p>
+                <div style="background:rgba(0,153,221,0.08);border:1.5px solid rgba(0,153,221,0.25);border-radius:14px;padding:18px 20px;margin-bottom:16px;">
+                    <div style="font-size:11px;color:#0099dd;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;">Dados salvos</div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <svg width="14" height="14" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <span style="font-size:14px;color:#fff;font-weight:600;">${saved.nome}</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <svg width="14" height="14" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.9 1.11h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span style="font-size:14px;color:rgba(255,255,255,0.7);">${saved.telefone}</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <svg width="14" height="14" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                            <span style="font-size:14px;color:rgba(255,255,255,0.7);">${saved.cnpj}</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="trib-btn" id="trib-use-saved">Usar esses dados →</button>
+                <button class="trib-btn-ghost" id="trib-new-data">Informar novos dados</button>
+                <button class="trib-btn-ghost" id="trib-data-back" style="margin-top:4px;">← Voltar</button>
+            `, () => {
+                // Pré-busca CNPJ salvo em paralelo
+                prefetchCnpjSaved(saved.cnpj.replace(/\D/g, ''));
+
+                document.getElementById('trib-use-saved').addEventListener('click', () => {
+                    state.contact = { nome: saved.nome, telefone: saved.telefone, cnpj: saved.cnpj, razaoSocial: '' };
+                    const cnpjNums = saved.cnpj.replace(/\D/g, '');
+                    const pending  = window._tribCnpjPromise || fetch('https://brasilapi.com.br/api/cnpj/v1/' + cnpjNums).then(r => r.ok ? r.json() : null).catch(() => null);
+                    pending.then(data => {
+                        state.contact.razaoSocial = (data && (data.nome_fantasia || data.razao_social)) || '';
+                        showQualified();
+                    });
+                });
+
+                document.getElementById('trib-new-data').addEventListener('click', showDataFormBlank);
+                document.getElementById('trib-data-back').addEventListener('click', () => {
+                    state.product === 'inss' ? showSubProductSelect() : showProductSelect();
+                });
+            });
+            return;
+        }
+
+        showDataFormBlank();
+    }
+
+    function prefetchCnpjSaved(numeros) {
+        if (!numeros || numeros.length !== 14) return;
+        window._tribCnpjPromise = fetch('https://brasilapi.com.br/api/cnpj/v1/' + numeros)
+            .then(r => r.ok ? r.json() : null).catch(() => null);
+    }
+
+    function showDataFormBlank() {
+        const product = PRODUCTS[state.product];
         setContent(`
             <div class="trib-label">Quase lá</div>
             <h2 class="trib-title">Sua empresa passou na pré-qualificação!</h2>
@@ -437,18 +497,17 @@
             <div class="trib-input-group">
                 <div class="trib-input-wrap">
                     <label class="trib-input-label">Nome completo *</label>
-                    <input id="trib-nome" class="trib-input" type="text" placeholder="Seu nome completo" autocomplete="name" value="${saved.nome || ''}">
+                    <input id="trib-nome" class="trib-input" type="text" placeholder="Seu nome completo" autocomplete="name">
                 </div>
                 <div class="trib-input-wrap">
                     <label class="trib-input-label">Telefone / WhatsApp *</label>
-                    <input id="trib-telefone" class="trib-input" type="tel" placeholder="(00) 00000-0000" autocomplete="tel" value="${saved.telefone || ''}">
+                    <input id="trib-telefone" class="trib-input" type="tel" placeholder="(00) 00000-0000" autocomplete="tel">
                 </div>
                 <div class="trib-input-wrap">
                     <label class="trib-input-label">CNPJ da empresa *</label>
-                    <input id="trib-cnpj" class="trib-input" type="text" placeholder="00.000.000/0000-00" maxlength="18" value="${saved.cnpj || ''}">
+                    <input id="trib-cnpj" class="trib-input" type="text" placeholder="00.000.000/0000-00" maxlength="18">
                 </div>
             </div>
-            ${saved.nome ? '<p style="font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin:4px 0 0;">Dados salvos do seu último acesso.</p>' : ''}
             <button class="trib-btn" id="trib-data-next" disabled>Ver resultado →</button>
             <button class="trib-btn-ghost" id="trib-data-back">← Voltar</button>
         `, () => {
@@ -464,8 +523,6 @@
                 nextBtn.disabled = !(nome.value.trim() && telefone.value.trim().length >= 8 && cnpj.value.trim().length >= 14);
             }
 
-            // Pré-busca e habilita botão se CNPJ já veio salvo
-            if (saved.cnpj) prefetchCnpj(saved.cnpj.replace(/\D/g, ''));
             checkFields();
 
             // Pré-busca assim que CNPJ estiver completo
@@ -521,8 +578,13 @@
             });
 
             document.getElementById('trib-data-back').addEventListener('click', () => {
-                state.step = product.questions.length - 1;
-                showQuestion();
+                const saved2 = loadSavedContact();
+                if (saved2.nome && saved2.telefone && saved2.cnpj) {
+                    showDataForm(); // volta para tela de seleção
+                } else {
+                    state.step = product.questions.length - 1;
+                    showQuestion();
+                }
             });
         });
     }
