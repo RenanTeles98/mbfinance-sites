@@ -419,8 +419,17 @@
         });
     }
 
+    function loadSavedContact() {
+        try { return JSON.parse(localStorage.getItem('trib_contact') || '{}'); } catch(e) { return {}; }
+    }
+
+    function saveContact(data) {
+        try { localStorage.setItem('trib_contact', JSON.stringify(data)); } catch(e) {}
+    }
+
     function showDataForm() {
         const product = PRODUCTS[state.product];
+        const saved   = loadSavedContact();
         setContent(`
             <div class="trib-label">Quase lá</div>
             <h2 class="trib-title">Sua empresa passou na pré-qualificação!</h2>
@@ -428,17 +437,18 @@
             <div class="trib-input-group">
                 <div class="trib-input-wrap">
                     <label class="trib-input-label">Nome completo *</label>
-                    <input id="trib-nome" class="trib-input" type="text" placeholder="Seu nome completo" autocomplete="name">
+                    <input id="trib-nome" class="trib-input" type="text" placeholder="Seu nome completo" autocomplete="name" value="${saved.nome || ''}">
                 </div>
                 <div class="trib-input-wrap">
                     <label class="trib-input-label">Telefone / WhatsApp *</label>
-                    <input id="trib-telefone" class="trib-input" type="tel" placeholder="(00) 00000-0000" autocomplete="tel">
+                    <input id="trib-telefone" class="trib-input" type="tel" placeholder="(00) 00000-0000" autocomplete="tel" value="${saved.telefone || ''}">
                 </div>
                 <div class="trib-input-wrap">
                     <label class="trib-input-label">CNPJ da empresa *</label>
-                    <input id="trib-cnpj" class="trib-input" type="text" placeholder="00.000.000/0000-00" maxlength="18">
+                    <input id="trib-cnpj" class="trib-input" type="text" placeholder="00.000.000/0000-00" maxlength="18" value="${saved.cnpj || ''}">
                 </div>
             </div>
+            ${saved.nome ? '<p style="font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin:4px 0 0;">Dados salvos do seu último acesso.</p>' : ''}
             <button class="trib-btn" id="trib-data-next" disabled>Ver resultado →</button>
             <button class="trib-btn-ghost" id="trib-data-back">← Voltar</button>
         `, () => {
@@ -453,6 +463,10 @@
             function checkFields() {
                 nextBtn.disabled = !(nome.value.trim() && telefone.value.trim().length >= 8 && cnpj.value.trim().length >= 14);
             }
+
+            // Pré-busca e habilita botão se CNPJ já veio salvo
+            if (saved.cnpj) prefetchCnpj(saved.cnpj.replace(/\D/g, ''));
+            checkFields();
 
             // Pré-busca assim que CNPJ estiver completo
             function prefetchCnpj(numeros) {
@@ -501,6 +515,7 @@
 
                 pending.then(data => {
                     state.contact.razaoSocial = (data && (data.nome_fantasia || data.razao_social)) || '';
+                    saveContact({ nome: state.contact.nome, telefone: state.contact.telefone, cnpj: state.contact.cnpj });
                     showQualified();
                 });
             });
