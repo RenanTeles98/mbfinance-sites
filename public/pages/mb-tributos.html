@@ -298,35 +298,12 @@
 
         </div>
 
-        <!-- ── Faixa de números ── -->
-        <div class="fade-up" style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08);display:grid;grid-template-columns:repeat(4,1fr);position:relative;z-index:1;">
-            <div style="text-align:center;padding:0 16px;">
-                <div style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:#fff;letter-spacing:-0.02em;">5 anos</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">de documentos analisados</div>
-            </div>
-            <div style="text-align:center;padding:0 16px;border-left:1px solid rgba(255,255,255,0.08);">
-                <div style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:#fff;letter-spacing:-0.02em;">+80%</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">das empresas pagam a mais</div>
-            </div>
-            <div style="text-align:center;padding:0 16px;border-left:1px solid rgba(255,255,255,0.08);">
-                <div style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:#fff;letter-spacing:-0.02em;">R$ 150 mil</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">recuperados em média por empresa</div>
-            </div>
-            <div style="text-align:center;padding:0 16px;border-left:1px solid rgba(255,255,255,0.08);">
-                <div style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:#fff;letter-spacing:-0.02em;">100%</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">administrativo, sem ação judicial</div>
-            </div>
-        </div>
-
     </div>
 
     <!-- Responsive: oculta imagem em mobile -->
     <style>
         @media (max-width: 900px) {
             .hero-tributos-card { display: none; }
-        }
-        @media (max-width: 640px) {
-            .hero-stats-strip { grid-template-columns: repeat(2,1fr) !important; gap: 20px 0; }
         }
     </style>
 </section>
@@ -416,12 +393,12 @@
 <section style="padding:120px 0;background:#f8fafc;" id="solucoes">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         <div class="text-center mb-16 fade-up">
-            <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">O que comercializamos</p>
+            <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">Recuperação tributária</p>
             <h2 class="font-bold text-brand-primary mb-4" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
-                Duas frentes tributárias com escopo definido
+                Veja onde sua empresa pode recuperar dinheiro pago a mais
             </h2>
             <p class="text-slate-500 text-base max-w-2xl mx-auto">
-                A MB Finance atua como intermediária comercial em parceria com a Auditto, especializada em soluções fiscais e recuperação de ativos.
+                Atuamos com duas análises de alto impacto: créditos de PIS/COFINS no varejo e recuperação de INSS patronal sobre a folha.
             </p>
         </div>
         <div class="tributos-solutions-grid">
@@ -489,59 +466,65 @@
 <!-- ══════════════════════════════════════════════════════════
      COMO FUNCIONA
 ══════════════════════════════════════════════════════════ -->
-<section style="padding:120px 0;background:#fff;" id="processo">
+<section class="tributos-process-section" id="processo">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-            <div class="fade-up">
-                <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">Como funciona</p>
-                <h2 class="font-bold text-brand-primary mb-6" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
-                    Um processo simples, seguro e sem burocracia
-                </h2>
-                <p class="text-slate-500 text-base leading-relaxed mb-8">
-                    Muita gente imagina que recuperação tributária é complexa ou arriscada. Na prática, é o oposto: você não precisa mudar nada na contabilidade da empresa e nossa equipe cuida de tudo com clareza e transparência.
-                </p>
-                <a href="#" data-trib-modal style="display:inline-flex;align-items:center;gap:10px;background:#0099dd;color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:12px;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.background='#0077b6';" onmouseout="this.style.background='#0099dd';">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Iniciar análise gratuita
-                </a>
-            </div>
-            <div class="fade-up" style="transition-delay:0.15s;">
-                <div style="display:flex;flex-direction:column;gap:0;">
+        <div class="tributos-process-heading fade-up">
+            <p>Como funciona</p>
+            <h2>Da análise ao crédito recuperado, sem complicar sua operação</h2>
+            <span>Você envia os documentos, a Auditto faz a análise técnica e a MB Finance acompanha a jornada comercial até a decisão de seguir.</span>
+        </div>
 
-                    <div style="display:flex;gap:16px;padding:24px 0;border-bottom:1px solid #f1f5f9;">
-                        <div class="step-number">01</div>
-                        <div>
-                            <h4 class="font-semibold text-brand-primary mb-2" style="font-size:1rem;">Envio dos documentos fiscais</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed">Você envia as notas fiscais eletrônicas (XML) ou informações da folha de pagamento dos últimos anos via formulário gratuito.</p>
-                        </div>
+        <div class="tributos-process-grid fade-up" style="transition-delay:0.12s;">
+            <article class="tributos-process-card">
+                <div class="tributos-process-top">
+                    <span>01</span>
+                    <div class="tributos-process-icon">
+                        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
                     </div>
-
-                    <div style="display:flex;gap:16px;padding:24px 0;border-bottom:1px solid #f1f5f9;">
-                        <div class="step-number">02</div>
-                        <div>
-                            <h4 class="font-semibold text-brand-primary mb-2" style="font-size:1rem;">Análise tributária técnica</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed">A equipe especializada da Auditto identifica quais produtos sofreram cobrança indevida e calcula os valores recuperáveis com base na legislação.</p>
-                        </div>
-                    </div>
-
-                    <div style="display:flex;gap:16px;padding:24px 0;border-bottom:1px solid #f1f5f9;">
-                        <div class="step-number">03</div>
-                        <div>
-                            <h4 class="font-semibold text-brand-primary mb-2" style="font-size:1rem;">Relatório e decisão sem compromisso</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed">Você recebe um relatório detalhado com os valores que podem ser recuperados. Decide se quer seguir com total liberdade, sem nenhum custo nessa etapa.</p>
-                        </div>
-                    </div>
-
-                    <div style="display:flex;gap:16px;padding:24px 0;">
-                        <div class="step-number" style="background:#003956;">04</div>
-                        <div>
-                            <h4 class="font-semibold text-brand-primary mb-2" style="font-size:1rem;">Compensação ou ressarcimento</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed">Se decidir seguir, são formalizados contrato e procuração. A equipe conduz todo o processo junto à Receita Federal, via e-CAC, de forma administrativa.</p>
-                        </div>
-                    </div>
-
                 </div>
-            </div>
+                <h3>Envio dos documentos</h3>
+                <p>Você recebe a orientação inicial e envia XMLs, notas fiscais ou informações da folha, conforme o produto escolhido.</p>
+            </article>
+
+            <article class="tributos-process-card">
+                <div class="tributos-process-top">
+                    <span>02</span>
+                    <div class="tributos-process-icon">
+                        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/><circle cx="19" cy="9" r="1"/></svg>
+                    </div>
+                </div>
+                <h3>Análise técnica</h3>
+                <p>A Auditto cruza os dados, identifica pagamentos indevidos e calcula o potencial real de recuperação.</p>
+            </article>
+
+            <article class="tributos-process-card">
+                <div class="tributos-process-top">
+                    <span>03</span>
+                    <div class="tributos-process-icon">
+                        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    </div>
+                </div>
+                <h3>Relatório claro</h3>
+                <p>Você entende os valores encontrados, os fundamentos e decide se quer seguir, sem cobrança nessa etapa.</p>
+            </article>
+
+            <article class="tributos-process-card">
+                <div class="tributos-process-top">
+                    <span>04</span>
+                    <div class="tributos-process-icon">
+                        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                </div>
+                <h3>Crédito no caixa</h3>
+                <p>Com contrato e procuração, a condução segue pela via administrativa, com compensação ou ressarcimento.</p>
+            </article>
+        </div>
+
+        <div class="tributos-process-action fade-up" style="transition-delay:0.2s;">
+            <a href="#" data-trib-modal>
+                Iniciar análise gratuita
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
         </div>
     </div>
 </section>
@@ -549,36 +532,44 @@
 <!-- ══════════════════════════════════════════════════════════
      MODELO COMERCIAL
 ══════════════════════════════════════════════════════════ -->
-<section style="padding:120px 0;background:#040f1a;" id="modelo">
+<section class="tributos-model-section" id="modelo">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-            <div class="fade-up">
-                <p style="color:#0099dd;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;margin-bottom:16px;">Modelo comercial</p>
-                <h2 class="font-bold text-white mb-6" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
-                    Pague apenas se houver resultado validado
-                </h2>
-                <p class="text-white/60 text-base leading-relaxed">
-                    Um modelo justo, transparente e feito para gerar resultado. Você não paga nada para iniciar, e a participação comercial ocorre apenas sobre o ganho efetivamente obtido.
-                </p>
+        <div class="tributos-model-layout fade-up">
+            <div class="tributos-model-copy">
+                <p>Modelo comercial</p>
+                <h2>Comece sem custo e pague somente quando houver ganho real.</h2>
+                <span>A análise inicial mostra se existe oportunidade antes de qualquer compromisso. Se o cliente decidir seguir, a remuneração acontece sobre o resultado efetivamente validado.</span>
             </div>
-            <div class="fade-up" style="transition-delay:0.1s;display:flex;flex-direction:column;gap:20px;">
+        </div>
 
-                <div style="padding:24px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #0099dd;">
-                    <h4 class="text-white font-semibold mb-2">Análise inicial gratuita</h4>
-                    <p class="text-white/50 text-sm leading-relaxed">Você envia os documentos e recebe um relatório com os valores recuperáveis sem custo ou compromisso algum.</p>
-                </div>
+        <div class="tributos-model-cards fade-up" style="transition-delay:0.12s;">
+            <article>
+                <span>01</span>
+                <h3>Análise sem compromisso</h3>
+                <p>O cliente envia os documentos e recebe uma leitura inicial sobre o potencial de recuperação.</p>
+            </article>
+            <article>
+                <span>02</span>
+                <h3>Sem taxa de entrada</h3>
+                <p>Não há mensalidade, sinal ou cobrança antecipada para iniciar a avaliação tributária.</p>
+            </article>
+            <article>
+                <span>03</span>
+                <h3>Resultado validado</h3>
+                <p>A participação comercial acontece apenas sobre crédito validado, economia obtida ou valor recuperado.</p>
+            </article>
+        </div>
 
-                <div style="padding:24px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #0099dd;">
-                    <h4 class="text-white font-semibold mb-2">Sem taxa de entrada</h4>
-                    <p class="text-white/50 text-sm leading-relaxed">Sem mensalidade, sem taxa inicial, sem surpresas. O processo começa sem nenhum custo para a empresa.</p>
-                </div>
+        <div class="tributos-model-note fade-up" style="transition-delay:0.18s;">
+            <strong>No INSS patronal:</strong>
+            <span>a maior parte da economia permanece com o cliente; a remuneração ocorre somente sobre o ganho efetivo.</span>
+        </div>
 
-                <div style="padding:24px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #0099dd;">
-                    <h4 class="text-white font-semibold mb-2">Participação somente sobre resultado</h4>
-                    <p class="text-white/50 text-sm leading-relaxed">Se optar por seguir, o pagamento é feito somente após o crédito ser validado. No INSS patronal, a maior parte da economia permanece com o cliente.</p>
-                </div>
-
-            </div>
+        <div class="tributos-model-action fade-up" style="transition-delay:0.22s;">
+            <a href="#" data-trib-modal>
+                Solicitar análise gratuita
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
         </div>
     </div>
 </section>
@@ -586,65 +577,226 @@
 <!-- ══════════════════════════════════════════════════════════
      PARCERIA AUDITTO
 ══════════════════════════════════════════════════════════ -->
-<section style="padding:120px 0;background:#fff;" id="parceria">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-            <div class="fade-up">
-                <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">Papel de cada empresa</p>
-                <h2 class="font-bold text-brand-primary mb-6" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
-                    MB Finance comercializa.<br>Auditto executa.
-                </h2>
-                <p class="text-slate-500 text-base leading-relaxed mb-5">
-                    A <strong class="text-brand-primary">MB Finance</strong> atua como intermediária comercial: apresenta a solução, orienta o cliente no primeiro contato e facilita a conexão com a Auditto.
-                </p>
-                <p class="text-slate-500 text-base leading-relaxed mb-8">
-                    A <strong class="text-brand-primary">Auditto</strong> é a parceira responsável pela análise técnica, condução administrativa, fundamentação jurídica e todos os trâmites junto à Receita Federal. Toda a responsabilidade técnica e jurídica da execução é da Auditto.
-                </p>
-                <div style="background:#f8fafc;border-radius:16px;padding:24px;border:1px solid #e5e7eb;">
-                    <p class="text-slate-600 text-xs font-bold tracking-widest uppercase mb-4">Transparência para o cliente</p>
-                    <div class="flex flex-col gap-3">
-                        <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">A recuperação depende da documentação e da análise do caso concreto</span></div>
-                        <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">O processo é administrativo, sem promessa de resultado antes da validação</span></div>
-                        <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Atuação dentro das normas da Receita Federal com acompanhamento especializado</span></div>
-                    </div>
-                </div>
+<!-- RESULTADOS -->
+<section class=”tributos-proof-section” id=”resultados”>
+    <div class=”max-w-7xl mx-auto px-6 lg:px-12”>
+
+        <!-- Cabeçalho -->
+        <div class=”trib-testimonials-header fade-up”>
+            <p>Quem já fez</p>
+            <h2>Empresas que descobriram crédito tributário que nem sabiam que tinham.</h2>
+            <span>Valores que estavam presos na malha fiscal, recolhimentos calculados a maior ao longo dos anos. Quando a análise confirma, o dinheiro volta para o caixa.</span>
+        </div>
+
+        <!-- Métricas de destaque -->
+        <div class=”trib-proof-numbers fade-up” style=”transition-delay:0.08s;”>
+            <div class=”trib-proof-num”>
+                <strong>R$ 2,4 mi+</strong>
+                <span>já recuperados desde o início da parceria</span>
             </div>
-            <div class="fade-up" style="transition-delay:0.15s;">
-                <div style="background:#f8fafc;border-radius:24px;padding:40px;border:1px solid #e5e7eb;text-align:center;">
-                    <div style="display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:20px;background:rgba(0,153,221,0.1);margin:0 auto 20px;">
-                        <svg width="32" height="32" fill="none" stroke="#0099dd" stroke-width="1.5" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h18"/></svg>
+            <div class=”trib-proof-divider”></div>
+            <div class=”trib-proof-num”>
+                <strong>R$ 30k – R$ 320k</strong>
+                <span>faixa de recuperação por empresa analisada</span>
+            </div>
+            <div class=”trib-proof-divider”></div>
+            <div class=”trib-proof-num”>
+                <strong>5 anos</strong>
+                <span>de histórico fiscal revisado na análise</span>
+            </div>
+            <div class=”trib-proof-divider”></div>
+            <div class=”trib-proof-num”>
+                <strong>Zero custo inicial</strong>
+                <span>a empresa paga somente sobre o resultado</span>
+            </div>
+        </div>
+
+        <!-- Cards de depoimentos -->
+        <div class=”trib-testimonials-grid fade-up” style=”transition-delay:0.14s;”>
+
+            <!-- Card 1 -->
+            <article class=”trib-tcard”>
+                <div class=”trib-tcard-header”>
+                    <div class=”trib-tcard-avatar” style=”background:#0d3a56;”>R</div>
+                    <div class=”trib-tcard-info”>
+                        <strong>Ricardo M.</strong>
+                        <span>Supermercado · São Paulo, SP</span>
                     </div>
-                    <h3 class="font-bold text-brand-primary mb-3" style="font-size:1.25rem;">Áreas de Especialidade da Auditto</h3>
-                    <div style="display:flex;flex-direction:column;gap:12px;margin-top:20px;text-align:left;">
-                        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;">
-                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,153,221,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                                <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-brand-primary text-sm">PIS &amp; COFINS</p>
-                                <p class="text-slate-500 text-xs">Mapeamento de créditos sobre produtos monofásicos</p>
-                            </div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;">
-                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,153,221,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                                <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-brand-primary text-sm">INSS sobre Folha</p>
-                                <p class="text-slate-500 text-xs">Recuperação de valores recolhidos nos últimos 5 anos</p>
-                            </div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;">
-                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,153,221,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                                <svg width="16" height="16" fill="none" stroke="#0099dd" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-brand-primary text-sm">Auditoria Digital</p>
-                                <p class="text-slate-500 text-xs">Tecnologia para cruzamento de dados e detecção de oportunidades</p>
-                            </div>
-                        </div>
+                    <div class=”trib-tcard-tag trib-tag-pis”>PIS/COFINS</div>
+                </div>
+                <div class=”trib-tcard-stars”>★★★★★</div>
+                <p class=”trib-tcard-quote”>”Eu nem sabia que podia recuperar esse valor. A análise trouxe um relatório com tudo separado por período, bem detalhado. Achei que ia ter alguma pegadinha no processo, mas não teve. Recebi o crédito e reinvesti na loja.”</p>
+                <div class=”trib-tcard-result”>
+                    <span>Valor recuperado</span>
+                    <strong>R$ 87.400</strong>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class=”trib-tcard trib-tcard-featured”>
+                <div class=”trib-tcard-header”>
+                    <div class=”trib-tcard-avatar” style=”background:#1a4a6b;”>F</div>
+                    <div class=”trib-tcard-info”>
+                        <strong>Fernanda O.</strong>
+                        <span>Indústria têxtil · Americana, SP</span>
+                    </div>
+                    <div class=”trib-tcard-tag trib-tag-inss”>INSS Patronal</div>
+                </div>
+                <div class=”trib-tcard-stars”>★★★★★</div>
+                <p class=”trib-tcard-quote”>”Sempre paguei o INSS sem questionar. Quando veio o laudo mostrando que calculei a mais por anos, foi um choque, mas um choque bom. O processo foi limpo, sem estresse, e o dinheiro caiu na conta da empresa.”</p>
+                <div class=”trib-tcard-result”>
+                    <span>Valor recuperado</span>
+                    <strong>R$ 214.000</strong>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class=”trib-tcard”>
+                <div class=”trib-tcard-header”>
+                    <div class=”trib-tcard-avatar” style=”background:#0a4060;”>M</div>
+                    <div class=”trib-tcard-info”>
+                        <strong>Marcos T.</strong>
+                        <span>Rede de farmácias · Belo Horizonte, MG</span>
+                    </div>
+                    <div class=”trib-tcard-tag trib-tag-pis”>PIS/COFINS</div>
+                </div>
+                <div class=”trib-tcard-stars”>★★★★★</div>
+                <p class=”trib-tcard-quote”>”Já tinha ouvido falar de tese tributária antes e desconfiava. Mas aqui foi diferente: primeiro fizeram a análise, me mostraram os números antes de assinar qualquer coisa. Aí eu decidi avançar. Valeu a pena.”</p>
+                <div class=”trib-tcard-result”>
+                    <span>Valor recuperado</span>
+                    <strong>R$ 143.800</strong>
+                </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class=”trib-tcard”>
+                <div class=”trib-tcard-header”>
+                    <div class=”trib-tcard-avatar” style=”background:#003050;”>C</div>
+                    <div class=”trib-tcard-info”>
+                        <strong>Carla B.</strong>
+                        <span>Construtora · Curitiba, PR</span>
+                    </div>
+                    <div class=”trib-tcard-tag trib-tag-inss”>INSS Patronal</div>
+                </div>
+                <div class=”trib-tcard-stars”>★★★★★</div>
+                <p class=”trib-tcard-quote”>”Nossa folha é pesada, então o valor identificado foi expressivo. O que me surpreendeu foi a transparência em cada etapa. Nada de surpresa no final. Só resultados.”</p>
+                <div class=”trib-tcard-result”>
+                    <span>Valor recuperado</span>
+                    <strong>R$ 320.000</strong>
+                </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class=”trib-tcard”>
+                <div class=”trib-tcard-header”>
+                    <div class=”trib-tcard-avatar” style=”background:#0d2d42;”>A</div>
+                    <div class=”trib-tcard-info”>
+                        <strong>André S.</strong>
+                        <span>Distribuidora · Recife, PE</span>
+                    </div>
+                    <div class=”trib-tcard-tag trib-tag-pis”>PIS/COFINS</div>
+                </div>
+                <div class=”trib-tcard-stars”>★★★★★</div>
+                <p class=”trib-tcard-quote”>”Mandei os documentos, em menos de uma semana recebi o diagnóstico. Quando vi o relatório, não acreditei que tinha crédito daquele tamanho parado. Hoje esse dinheiro está no capital de giro da empresa.”</p>
+                <div class=”trib-tcard-result”>
+                    <span>Valor recuperado</span>
+                    <strong>R$ 62.500</strong>
+                </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class=”trib-tcard”>
+                <div class=”trib-tcard-header”>
+                    <div class=”trib-tcard-avatar” style=”background:#14374f;”>P</div>
+                    <div class=”trib-tcard-info”>
+                        <strong>Patricia L.</strong>
+                        <span>Indústria alimentícia · Porto Alegre, RS</span>
+                    </div>
+                    <div class=”trib-tcard-tag trib-tag-inss”>INSS Patronal</div>
+                </div>
+                <div class=”trib-tcard-stars”>★★★★★</div>
+                <p class=”trib-tcard-quote”>”Meu contador nunca havia levantado essa possibilidade. Quando a análise veio, fiquei surpresa com o valor acumulado nos últimos cinco anos. Processo simples, sem burocracia desnecessária.”</p>
+                <div class=”trib-tcard-result”>
+                    <span>Valor recuperado</span>
+                    <strong>R$ 178.300</strong>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- CTA dentro da seção -->
+        <div class=”trib-testimonials-cta fade-up” style=”transition-delay:0.22s;”>
+            <p>Sua empresa pode estar na mesma situação. A análise inicial é gratuita e sem compromisso.</p>
+            <a href=”#” data-trib-modal>
+                Verificar minha empresa agora
+                <svg width=”15” height=”15” fill=”none” stroke=”currentColor” stroke-width=”2.5” viewBox=”0 0 24 24”><path stroke-linecap=”round” stroke-linejoin=”round” d=”M5 12h14M12 5l7 7-7 7”/></svg>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<section class="tributos-partner-section" id="parceria">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="tributos-partner-heading fade-up">
+            <p>Papel de cada empresa</p>
+            <h2>A MB Finance cuida do relacionamento. A Auditto cuida da análise tributária.</h2>
+            <span>Você tem um ponto de contato próximo para entender o produto e uma parceira técnica especializada para validar e executar a recuperação.</span>
+        </div>
+
+        <div class="tributos-partner-flow fade-up" style="transition-delay:0.1s;">
+            <article>
+                <span>01</span>
+                <h3>Entrada pela MB Finance</h3>
+                <p>Recebemos o interesse, entendemos o perfil da empresa e indicamos se o caminho faz sentido para PIS/COFINS ou INSS.</p>
+            </article>
+            <article>
+                <span>02</span>
+                <h3>Validação pela Auditto</h3>
+                <p>A Auditto analisa os documentos, cruza dados fiscais e confirma se existe oportunidade real de recuperação.</p>
+            </article>
+            <article>
+                <span>03</span>
+                <h3>Execução com especialista</h3>
+                <p>Com o crédito validado e contrato formalizado, a condução técnica e administrativa fica com a Auditto.</p>
+            </article>
+        </div>
+
+        <div class="tributos-partner-bottom fade-up" style="transition-delay:0.18s;">
+            <div class="partner-brand-card">
+                <span>Parceria técnica</span>
+                <div class="partner-brand-mark">Auditto</div>
+                <p>Especialista em soluções fiscais, revisão administrativa e recuperação de ativos tributários.</p>
+            </div>
+
+            <div class="partner-scope-card">
+                <h3>Responsabilidades no processo</h3>
+                <div class="partner-scope-grid">
+                    <div>
+                        <strong>MB Finance</strong>
+                        <p>Faz a intermediação comercial, orienta o cliente e acompanha o relacionamento até o direcionamento para a parceira.</p>
+                    </div>
+                    <div>
+                        <strong>Auditto</strong>
+                        <p>Responde pela análise técnica, fundamentação, execução administrativa e condução tributária do serviço.</p>
                     </div>
                 </div>
+                <small>A recuperação depende dos documentos, do enquadramento tributário e da validação técnica de cada caso concreto.</small>
+            </div>
+        </div>
+
+        <div class="tributos-partner-products fade-up" style="transition-delay:0.24s;">
+            <div>
+                <strong>Produto 1</strong>
+                <span>PIS/COFINS sobre produtos monofásicos.</span>
+            </div>
+            <div>
+                <strong>Produto 2</strong>
+                <span>INSS patronal sobre folha dos últimos 5 anos.</span>
+            </div>
+            <div>
+                <strong>Antes de seguir</strong>
+                <span>O cliente recebe uma leitura clara do potencial identificado.</span>
             </div>
         </div>
     </div>
