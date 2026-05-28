@@ -1138,7 +1138,7 @@ svg {
 /* ── SEÇÃO RESULTADOS — depoimentos de clientes ───────────── */
 section[id*="resultados"] {
     padding: 112px 0;
-    background: #f8fafc;
+    background: #ffffff;
 }
 
 section[id*="resultados"] > div {
