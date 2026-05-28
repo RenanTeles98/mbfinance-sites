@@ -479,8 +479,24 @@
                     nome:     nome.value.trim(),
                     telefone: telefone.value.trim(),
                     cnpj:     cnpj.value.trim(),
+                    razaoSocial: '',
                 };
-                showQualified();
+
+                // Busca razão social na BrasilAPI
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'Consultando CNPJ...';
+
+                const cnpjNumeros = cnpj.value.replace(/\D/g, '');
+                fetch('https://brasilapi.com.br/api/cnpj/v1/' + cnpjNumeros)
+                    .then(r => r.ok ? r.json() : Promise.reject())
+                    .then(data => {
+                        state.contact.razaoSocial = data.nome_fantasia || data.razao_social || '';
+                        showQualified();
+                    })
+                    .catch(() => {
+                        // API falhou — segue sem o nome da empresa
+                        showQualified();
+                    });
             });
 
             document.getElementById('trib-data-back').addEventListener('click', () => {
@@ -546,9 +562,11 @@
     }
 
     function showQualified() {
-        const product   = PRODUCTS[state.product];
-        const contact   = state.contact || {};
-        const subProd   = INSS_SUBPRODUCTS.find(s => s.id === state.subProduct);
+        const product     = PRODUCTS[state.product];
+        const contact     = state.contact || {};
+        const subProd     = INSS_SUBPRODUCTS.find(s => s.id === state.subProduct);
+        const nomeEmpresa = contact.razaoSocial || '';
+        const nomeCliente = contact.nome ? contact.nome.split(' ')[0] : '';
 
         const lines = [
             `Olá! Fiz a pré-qualificação pelo site e gostaria de saber mais sobre *${product.label}*.`,
@@ -557,6 +575,7 @@
             `• Nome: *${contact.nome || '-'}*`,
             `• Telefone: *${contact.telefone || '-'}*`,
             `• CNPJ: *${contact.cnpj || '-'}*`,
+            ...(nomeEmpresa ? [`• Empresa: *${nomeEmpresa}*`] : []),
             '',
             ...(subProd ? [`*Modalidade de interesse:* ${subProd.label}`, ''] : []),
             '*Respostas da pré-qualificação:*',
@@ -565,15 +584,23 @@
         const msg   = encodeURIComponent(lines.join('\n'));
         const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
 
+        const titulo    = nomeEmpresa
+            ? `A <strong style="color:#fff;">${nomeEmpresa}</strong> está apta!`
+            : `${nomeCliente ? nomeCliente + ', sua' : 'Sua'} empresa está apta!`;
+
+        const subtitulo = nomeEmpresa
+            ? `Identificamos que a <strong style="color:#fff;">${nomeEmpresa}</strong> se enquadra para receber um diagnóstico completo de <strong style="color:#fff;">${product.label}</strong>.`
+            : `Sua empresa se enquadra para receber um <strong style="color:#fff;">diagnóstico completo de ${product.label}</strong> — com uma estimativa real de quanto você tem a recuperar.`;
+
         setContent(`
             <div class="trib-result">
                 <div class="trib-result-icon success" style="font-size:32px;">🎯</div>
-                <h2>Sua empresa está apta!</h2>
-                <p style="margin-bottom:16px;">Sua empresa se enquadra para receber um <strong style="color:#fff;">diagnóstico completo de ${product.label}</strong> — com uma estimativa real de quanto você tem a recuperar.</p>
+                <h2>${titulo}</h2>
+                <p style="margin-bottom:16px;">${subtitulo}</p>
                 <div style="background:rgba(0,153,221,0.1);border:1px solid rgba(0,153,221,0.25);border-radius:12px;padding:14px 16px;margin-bottom:20px;text-align:left;">
                     <div style="font-size:12px;font-weight:700;color:#0099dd;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Como funciona</div>
                     <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6;">
-                        Fale com nosso especialista agora pelo WhatsApp e em até <strong style="color:#fff;">5 dias úteis</strong> você recebe o diagnóstico com o valor estimado de crédito disponível para sua empresa — sem custo e sem compromisso.
+                        Fale com nosso especialista agora pelo WhatsApp e em até <strong style="color:#fff;">5 dias úteis</strong> você recebe o diagnóstico com o valor estimado de crédito disponível — sem custo e sem compromisso.
                     </div>
                 </div>
                 <a href="${waUrl}" target="_blank" rel="noopener" class="trib-btn" style="text-decoration:none;">
