@@ -609,104 +609,131 @@
         </div>
 
         <!-- Cards de depoimentos — carousel -->
-        <div class=”fade-up” style=”transition-delay:0.18s;”>
-            <div class=”trib-carousel-outer”>
-                <button class=”trib-car-btn trib-car-prev” id=”tribPrev” aria-label=”Anterior”>
-                    <svg width=”20” height=”20” fill=”none” stroke=”currentColor” stroke-width=”2.5” viewBox=”0 0 24 24”><path stroke-linecap=”round” stroke-linejoin=”round” d=”M15 19l-7-7 7-7”/></svg>
-                </button>
-                <div class=”trib-carousel-track” id=”tribTrack”>
+        <div style=”position:relative;padding:0 56px;margin-bottom:0;”>
+            <!-- Prev -->
+            <button id=”tribPrev” aria-label=”Anterior” style=”position:absolute;top:50%;transform:translateY(-50%);left:0;width:44px;height:44px;border-radius:50%;border:1px solid #dce7ef;background:#fff;color:#003956;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;box-shadow:0 2px 12px rgba(0,57,86,0.1);”>
+                <svg width=”20” height=”20” fill=”none” stroke=”currentColor” stroke-width=”2.5” viewBox=”0 0 24 24”><path stroke-linecap=”round” stroke-linejoin=”round” d=”M15 19l-7-7 7-7”/></svg>
+            </button>
 
-                    <article>
-                        <div>
-                            <div style=”background:#0d3a56;”>R</div>
-                            <div>
-                                <strong>Ricardo M.</strong>
-                                <span>Supermercado · São Paulo, SP</span>
-                            </div>
-                            <span style=”background:#e0f2fe;color:#0369a1;”>PIS/COFINS</span>
+            <!-- Track -->
+            <div id=”tribTrack” style=”display:flex;gap:20px;overflow:hidden;”>
+
+                <!-- Card 1 -->
+                <article style=”flex:0 0 calc(33.333% - 14px);min-width:0;display:flex;flex-direction:column;gap:14px;padding:26px;border:1px solid #dce7ef;border-radius:16px;background:#fff;box-shadow:0 18px 46px rgba(0,57,86,0.07);”>
+                    <div style=”display:flex;align-items:center;gap:12px;”>
+                        <div style=”width:44px;height:44px;min-width:44px;border-radius:50%;background:#0d3a56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;”>R</div>
+                        <div style=”flex:1;min-width:0;”>
+                            <strong style=”display:block;color:#003956;font-size:14px;font-weight:800;”>Ricardo M.</strong>
+                            <span style=”display:block;color:#64748b;font-size:12px;margin-top:2px;”>Supermercado · São Paulo, SP</span>
                         </div>
-                        <div style=”color:#f59e0b;font-size:14px;letter-spacing:2px;”>★★★★★</div>
-                        <p>”Eu nem sabia que podia recuperar esse valor. A análise trouxe um relatório com tudo separado por período, bem detalhado. Achei que ia ter alguma pegadinha no processo, mas não teve. Recebi o crédito e reinvesti na loja.”</p>
-                        <div><span style="color:#64748b;font-size:12px;">Valor recuperado</span><strong style="color:#0099dd;font-size:20px;font-weight:900;">R$ 87.400</strong></div>
-                    </article>
+                        <span style=”flex-shrink:0;padding:5px 10px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-size:11px;font-weight:700;white-space:nowrap;”>PIS/COFINS</span>
+                    </div>
+                    <div style=”color:#f59e0b;font-size:13px;letter-spacing:2px;line-height:1;”>★★★★★</div>
+                    <p style=”margin:0;color:#334155;font-size:14px;line-height:1.65;flex:1;”>”Eu nem sabia que podia recuperar esse valor. A análise trouxe um relatório com tudo separado por período, bem detalhado. Não teve pegadinha — recebi o crédito e reinvesti na loja.”</p>
+                    <div style=”display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid #e8eef4;”>
+                        <span style=”color:#64748b;font-size:12px;”>Valor recuperado</span>
+                        <strong style=”color:#0099dd;font-size:20px;font-weight:900;”>R$ 87.400</strong>
+                    </div>
+                </article>
 
-                    <article class=”trib-card-featured”>
-                        <div>
-                            <div style=”background:#1a4a6b;”>F</div>
-                            <div>
-                                <strong>Fernanda O.</strong>
-                                <span>Indústria têxtil · Americana, SP</span>
-                            </div>
-                            <span style=”background:#d1fae5;color:#047857;”>INSS</span>
+                <!-- Card 2 (destaque) -->
+                <article style=”flex:0 0 calc(33.333% - 14px);min-width:0;display:flex;flex-direction:column;gap:14px;padding:26px;border:1px solid rgba(0,153,221,0.35);border-radius:16px;background:linear-gradient(160deg,#f0f9ff 0%,#fff 62%);box-shadow:0 24px 60px rgba(0,153,221,0.12);”>
+                    <div style=”display:flex;align-items:center;gap:12px;”>
+                        <div style=”width:44px;height:44px;min-width:44px;border-radius:50%;background:#1a4a6b;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;”>F</div>
+                        <div style=”flex:1;min-width:0;”>
+                            <strong style=”display:block;color:#003956;font-size:14px;font-weight:800;”>Fernanda O.</strong>
+                            <span style=”display:block;color:#64748b;font-size:12px;margin-top:2px;”>Indústria têxtil · Americana, SP</span>
                         </div>
-                        <div style=”color:#f59e0b;font-size:14px;letter-spacing:2px;”>★★★★★</div>
-                        <p>”Sempre paguei o INSS sem questionar. Quando veio o laudo mostrando que calculei a mais por anos, foi um choque, mas um choque bom. O processo foi limpo, sem estresse, e o dinheiro caiu na conta da empresa.”</p>
-                        <div><span style="color:#64748b;font-size:12px;">Valor recuperado</span><strong style="color:#0099dd;font-size:20px;font-weight:900;">R$ 214.000</strong></div>
-                    </article>
+                        <span style=”flex-shrink:0;padding:5px 10px;border-radius:999px;background:#d1fae5;color:#047857;font-size:11px;font-weight:700;white-space:nowrap;”>INSS</span>
+                    </div>
+                    <div style=”color:#f59e0b;font-size:13px;letter-spacing:2px;line-height:1;”>★★★★★</div>
+                    <p style=”margin:0;color:#334155;font-size:14px;line-height:1.65;flex:1;”>”Sempre paguei o INSS sem questionar. Quando veio o laudo mostrando que calculei a mais por anos, foi um choque bom. O processo foi limpo, sem estresse, e o dinheiro caiu na conta.”</p>
+                    <div style=”display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid #e8eef4;”>
+                        <span style=”color:#64748b;font-size:12px;”>Valor recuperado</span>
+                        <strong style=”color:#0099dd;font-size:20px;font-weight:900;”>R$ 214.000</strong>
+                    </div>
+                </article>
 
-                    <article>
-                        <div>
-                            <div style=”background:#0a4060;”>M</div>
-                            <div>
-                                <strong>Marcos T.</strong>
-                                <span>Rede de farmácias · Belo Horizonte, MG</span>
-                            </div>
-                            <span style=”background:#e0f2fe;color:#0369a1;”>PIS/COFINS</span>
+                <!-- Card 3 -->
+                <article style=”flex:0 0 calc(33.333% - 14px);min-width:0;display:flex;flex-direction:column;gap:14px;padding:26px;border:1px solid #dce7ef;border-radius:16px;background:#fff;box-shadow:0 18px 46px rgba(0,57,86,0.07);”>
+                    <div style=”display:flex;align-items:center;gap:12px;”>
+                        <div style=”width:44px;height:44px;min-width:44px;border-radius:50%;background:#0a4060;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;”>M</div>
+                        <div style=”flex:1;min-width:0;”>
+                            <strong style=”display:block;color:#003956;font-size:14px;font-weight:800;”>Marcos T.</strong>
+                            <span style=”display:block;color:#64748b;font-size:12px;margin-top:2px;”>Rede de farmácias · Belo Horizonte, MG</span>
                         </div>
-                        <div style=”color:#f59e0b;font-size:14px;letter-spacing:2px;”>★★★★★</div>
-                        <p>”Já tinha ouvido falar de tese tributária antes e desconfiava. Mas aqui foi diferente: primeiro fizeram a análise, me mostraram os números antes de assinar qualquer coisa. Aí eu decidi avançar. Valeu a pena.”</p>
-                        <div><span style="color:#64748b;font-size:12px;">Valor recuperado</span><strong style="color:#0099dd;font-size:20px;font-weight:900;">R$ 143.800</strong></div>
-                    </article>
+                        <span style=”flex-shrink:0;padding:5px 10px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-size:11px;font-weight:700;white-space:nowrap;”>PIS/COFINS</span>
+                    </div>
+                    <div style=”color:#f59e0b;font-size:13px;letter-spacing:2px;line-height:1;”>★★★★★</div>
+                    <p style=”margin:0;color:#334155;font-size:14px;line-height:1.65;flex:1;”>”Já tinha ouvido falar de tese tributária e desconfiava. Aqui foi diferente: primeiro fizeram a análise, me mostraram os números antes de assinar qualquer coisa. Valeu a pena.”</p>
+                    <div style=”display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid #e8eef4;”>
+                        <span style=”color:#64748b;font-size:12px;”>Valor recuperado</span>
+                        <strong style=”color:#0099dd;font-size:20px;font-weight:900;”>R$ 143.800</strong>
+                    </div>
+                </article>
 
-                    <article>
-                        <div>
-                            <div style=”background:#003050;”>C</div>
-                            <div>
-                                <strong>Carla B.</strong>
-                                <span>Construtora · Curitiba, PR</span>
-                            </div>
-                            <span style=”background:#d1fae5;color:#047857;”>INSS</span>
+                <!-- Card 4 -->
+                <article style=”flex:0 0 calc(33.333% - 14px);min-width:0;display:flex;flex-direction:column;gap:14px;padding:26px;border:1px solid #dce7ef;border-radius:16px;background:#fff;box-shadow:0 18px 46px rgba(0,57,86,0.07);”>
+                    <div style=”display:flex;align-items:center;gap:12px;”>
+                        <div style=”width:44px;height:44px;min-width:44px;border-radius:50%;background:#003050;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;”>C</div>
+                        <div style=”flex:1;min-width:0;”>
+                            <strong style=”display:block;color:#003956;font-size:14px;font-weight:800;”>Carla B.</strong>
+                            <span style=”display:block;color:#64748b;font-size:12px;margin-top:2px;”>Construtora · Curitiba, PR</span>
                         </div>
-                        <div style=”color:#f59e0b;font-size:14px;letter-spacing:2px;”>★★★★★</div>
-                        <p>”Nossa folha é pesada, então o valor identificado foi expressivo. O que me surpreendeu foi a transparência em cada etapa. Nada de surpresa no final. Só resultados.”</p>
-                        <div><span style="color:#64748b;font-size:12px;">Valor recuperado</span><strong style="color:#0099dd;font-size:20px;font-weight:900;">R$ 320.000</strong></div>
-                    </article>
+                        <span style=”flex-shrink:0;padding:5px 10px;border-radius:999px;background:#d1fae5;color:#047857;font-size:11px;font-weight:700;white-space:nowrap;”>INSS</span>
+                    </div>
+                    <div style=”color:#f59e0b;font-size:13px;letter-spacing:2px;line-height:1;”>★★★★★</div>
+                    <p style=”margin:0;color:#334155;font-size:14px;line-height:1.65;flex:1;”>”Nossa folha é pesada, então o valor identificado foi expressivo. O que me surpreendeu foi a transparência em cada etapa. Nada de surpresa no final. Só resultados.”</p>
+                    <div style=”display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid #e8eef4;”>
+                        <span style=”color:#64748b;font-size:12px;”>Valor recuperado</span>
+                        <strong style=”color:#0099dd;font-size:20px;font-weight:900;”>R$ 320.000</strong>
+                    </div>
+                </article>
 
-                    <article>
-                        <div>
-                            <div style=”background:#0d2d42;”>A</div>
-                            <div>
-                                <strong>André S.</strong>
-                                <span>Distribuidora · Recife, PE</span>
-                            </div>
-                            <span style=”background:#e0f2fe;color:#0369a1;”>PIS/COFINS</span>
+                <!-- Card 5 -->
+                <article style=”flex:0 0 calc(33.333% - 14px);min-width:0;display:flex;flex-direction:column;gap:14px;padding:26px;border:1px solid #dce7ef;border-radius:16px;background:#fff;box-shadow:0 18px 46px rgba(0,57,86,0.07);”>
+                    <div style=”display:flex;align-items:center;gap:12px;”>
+                        <div style=”width:44px;height:44px;min-width:44px;border-radius:50%;background:#0d2d42;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;”>A</div>
+                        <div style=”flex:1;min-width:0;”>
+                            <strong style=”display:block;color:#003956;font-size:14px;font-weight:800;”>André S.</strong>
+                            <span style=”display:block;color:#64748b;font-size:12px;margin-top:2px;”>Distribuidora · Recife, PE</span>
                         </div>
-                        <div style=”color:#f59e0b;font-size:14px;letter-spacing:2px;”>★★★★★</div>
-                        <p>”Mandei os documentos, em menos de uma semana recebi o diagnóstico. Quando vi o relatório, não acreditei que tinha crédito daquele tamanho parado. Hoje esse dinheiro está no capital de giro da empresa.”</p>
-                        <div><span style="color:#64748b;font-size:12px;">Valor recuperado</span><strong style="color:#0099dd;font-size:20px;font-weight:900;">R$ 62.500</strong></div>
-                    </article>
+                        <span style=”flex-shrink:0;padding:5px 10px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-size:11px;font-weight:700;white-space:nowrap;”>PIS/COFINS</span>
+                    </div>
+                    <div style=”color:#f59e0b;font-size:13px;letter-spacing:2px;line-height:1;”>★★★★★</div>
+                    <p style=”margin:0;color:#334155;font-size:14px;line-height:1.65;flex:1;”>”Mandei os documentos, em menos de uma semana recebi o diagnóstico. Não acreditei que tinha crédito daquele tamanho parado. Hoje esse dinheiro está no capital de giro da empresa.”</p>
+                    <div style=”display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid #e8eef4;”>
+                        <span style=”color:#64748b;font-size:12px;”>Valor recuperado</span>
+                        <strong style=”color:#0099dd;font-size:20px;font-weight:900;”>R$ 62.500</strong>
+                    </div>
+                </article>
 
-                    <article>
-                        <div>
-                            <div style=”background:#14374f;”>P</div>
-                            <div>
-                                <strong>Patricia L.</strong>
-                                <span>Indústria alimentícia · Porto Alegre, RS</span>
-                            </div>
-                            <span style=”background:#d1fae5;color:#047857;”>INSS</span>
+                <!-- Card 6 -->
+                <article style=”flex:0 0 calc(33.333% - 14px);min-width:0;display:flex;flex-direction:column;gap:14px;padding:26px;border:1px solid #dce7ef;border-radius:16px;background:#fff;box-shadow:0 18px 46px rgba(0,57,86,0.07);”>
+                    <div style=”display:flex;align-items:center;gap:12px;”>
+                        <div style=”width:44px;height:44px;min-width:44px;border-radius:50%;background:#14374f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;”>P</div>
+                        <div style=”flex:1;min-width:0;”>
+                            <strong style=”display:block;color:#003956;font-size:14px;font-weight:800;”>Patricia L.</strong>
+                            <span style=”display:block;color:#64748b;font-size:12px;margin-top:2px;”>Indústria alimentícia · Porto Alegre, RS</span>
                         </div>
-                        <div style=”color:#f59e0b;font-size:14px;letter-spacing:2px;”>★★★★★</div>
-                        <p>”Meu contador nunca havia levantado essa possibilidade. Quando a análise veio, fiquei surpresa com o valor acumulado nos últimos cinco anos. Processo simples, sem burocracia desnecessária.”</p>
-                        <div><span style="color:#64748b;font-size:12px;">Valor recuperado</span><strong style="color:#0099dd;font-size:20px;font-weight:900;">R$ 178.300</strong></div>
-                    </article>
+                        <span style=”flex-shrink:0;padding:5px 10px;border-radius:999px;background:#d1fae5;color:#047857;font-size:11px;font-weight:700;white-space:nowrap;”>INSS</span>
+                    </div>
+                    <div style=”color:#f59e0b;font-size:13px;letter-spacing:2px;line-height:1;”>★★★★★</div>
+                    <p style=”margin:0;color:#334155;font-size:14px;line-height:1.65;flex:1;”>”Meu contador nunca havia levantado essa possibilidade. Quando a análise veio, fiquei surpresa com o valor acumulado nos últimos cinco anos. Processo simples, sem burocracia.”</p>
+                    <div style=”display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid #e8eef4;”>
+                        <span style=”color:#64748b;font-size:12px;”>Valor recuperado</span>
+                        <strong style=”color:#0099dd;font-size:20px;font-weight:900;”>R$ 178.300</strong>
+                    </div>
+                </article>
 
-                </div>
-                <button class=”trib-car-btn trib-car-next” id=”tribNext” aria-label=”Próximo”>
-                    <svg width=”20” height=”20” fill=”none” stroke=”currentColor” stroke-width=”2.5” viewBox=”0 0 24 24”><path stroke-linecap=”round” stroke-linejoin=”round” d=”M9 5l7 7-7 7”/></svg>
-                </button>
             </div>
-            <div class=”trib-car-dots” id=”tribDots”></div>
+
+            <!-- Next -->
+            <button id=”tribNext” aria-label=”Próximo” style=”position:absolute;top:50%;transform:translateY(-50%);right:0;width:44px;height:44px;border-radius:50%;border:1px solid #dce7ef;background:#fff;color:#003956;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;box-shadow:0 2px 12px rgba(0,57,86,0.1);”>
+                <svg width=”20” height=”20” fill=”none” stroke=”currentColor” stroke-width=”2.5” viewBox=”0 0 24 24”><path stroke-linecap=”round” stroke-linejoin=”round” d=”M9 5l7 7-7 7”/></svg>
+            </button>
         </div>
+        <div class=”trib-car-dots” id=”tribDots” style=”display:flex;align-items:center;justify-content:center;gap:8px;margin-top:28px;”></div>
 
         <!-- CTA da seção -->
         <div class=”fade-up” style=”transition-delay:0.24s;”>
