@@ -429,6 +429,102 @@ svg {
     margin-bottom: 28px;
 }
 
+.tributos-subproducts-list {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.tributos-subproducts-list > article,
+.tributos-subproducts-list > div {
+    padding: 16px 18px;
+    border: 1px solid #e5edf3;
+    border-left: 3px solid #0099dd;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.tributos-subproducts-list strong {
+    display: block;
+    color: #003956;
+    font-size: 14px;
+    line-height: 1.3;
+    font-weight: 800;
+}
+
+.tributos-subproducts-list p {
+    margin: 8px 0 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.solution-card-tributos.featured .tributos-subproducts-list article {
+    background: rgba(0, 153, 221, 0.045);
+    border-color: rgba(0, 153, 221, 0.18);
+    border-left-color: #0099dd;
+}
+
+.tributos-problem-products {
+    display: grid;
+    gap: 16px;
+}
+
+.tributos-problem-products > article {
+    padding: 20px;
+    border: 1px solid #e5edf3;
+    border-radius: 16px;
+    background: #ffffff;
+}
+
+.tributos-problem-product-head {
+    margin-bottom: 14px;
+}
+
+.tributos-problem-product-head span {
+    display: block;
+    color: #0099dd;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.tributos-problem-product-head h3 {
+    margin: 6px 0 8px;
+    color: #003956;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 850;
+}
+
+.tributos-problem-product-head p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.tributos-subproducts-list.compact {
+    gap: 8px;
+    margin-bottom: 0;
+}
+
+.tributos-subproducts-list.compact > div {
+    padding: 12px 14px;
+    background: #f8fafc;
+}
+
+.tributos-subproducts-list.compact strong {
+    font-size: 13px;
+}
+
+.tributos-subproducts-list.compact p {
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
 .tributos-card-cta:hover {
     background: #0077b6;
     transform: translateY(-1px);
@@ -2505,6 +2601,96 @@ section[id*="resultados"] > div > div:nth-of-type(3) > div:last-child > button.a
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
     }
+}
+
+/* ── UI/UX Pro Max — Accessibility & Interaction Fixes ────── */
+
+/* Focus-visible: teclado e acessibilidade */
+a:focus-visible,
+button:focus-visible,
+[data-trib-modal]:focus-visible {
+    outline: 2px solid #0099dd;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Cursor pointer em todos os elementos clicáveis */
+.trib-car-btn,
+.trib-car-dot,
+[data-trib-modal],
+.faq-question {
+    cursor: pointer;
+}
+
+/* Hero CTA — substituir inline JS hover por CSS puro */
+.hero-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #0099dd;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 17px 36px;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: background 0.2s ease-out, transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    box-shadow: 0 4px 20px rgba(0, 153, 221, 0.3);
+}
+
+.hero-cta-primary:hover {
+    background: #0077b6;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0, 153, 221, 0.45);
+}
+
+.hero-cta-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 153, 221, 0.2);
+}
+
+.hero-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 17px 0;
+    transition: color 0.2s ease-out;
+}
+
+.hero-cta-secondary:hover { color: #ffffff; }
+
+/* Carousel buttons — transition específico (não "all") */
+.trib-car-btn {
+    transition: background 0.2s ease-out, border-color 0.2s ease-out, color 0.2s ease-out, box-shadow 0.2s ease-out !important;
+}
+
+/* Cards de depoimento — transition específico */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article {
+    transition: box-shadow 0.25s ease-out, transform 0.25s ease-out !important;
+}
+
+/* Mínimo 44px de altura em todos os CTAs (touch target) */
+a[data-trib-modal],
+.trib-btn {
+    min-height: 44px;
+}
+
+/* Botões do FAQ — acessibilidade */
+.faq-question {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+}
+
+.faq-question:focus-visible {
+    outline: 2px solid #0099dd;
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 /* ── Segment tab widget ─────────────────────────────────────────── */

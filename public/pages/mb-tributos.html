@@ -255,7 +255,7 @@
         <div style="max-width:600px;">
 
             <!-- Headline principal -->
-            <h1 class="fade-up" style="color:#ffffff;font-size:clamp(2.6rem,4.8vw,4.2rem);font-weight:600;line-height:1.06;letter-spacing:-0.03em;margin:0 0 24px;transition-delay:0.08s;">
+            <h1 class="fade-up" style="color:#ffffff;font-size:clamp(2.6rem,4.8vw,4.2rem);font-weight:700;line-height:1.06;letter-spacing:-0.03em;margin:0 0 24px;transition-delay:0.08s;">
                 Sua empresa pode estar pagando<br>
                 <span style="color:#0099dd;">tributos a mais <span style="white-space:nowrap;">sem saber</span></span>
             </h1>
@@ -283,13 +283,11 @@
 
             <!-- CTAs -->
             <div class="fade-up" style="display:flex;flex-wrap:wrap;gap:14px;transition-delay:0.3s;">
-                <a href="#" data-trib-modal
-                   style="display:inline-flex;align-items:center;gap:10px;background:#0099dd;color:#fff;font-weight:700;font-size:15px;padding:17px 36px;border-radius:14px;text-decoration:none;transition:all 0.3s;"
-                   onmouseover="this.style.background='#0077b6';this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#0099dd';this.style.transform='translateY(0)';">
+                <a href="#" data-trib-modal class="hero-cta-primary">
                     <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
                     Quero minha análise gratuita
                 </a>
-                <a href="#solucoes" style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:14px;font-weight:600;text-decoration:none;padding:17px 0;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
+                <a href="#solucoes" class="hero-cta-secondary">
                     Ver como funciona
                     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                 </a>
@@ -334,53 +332,52 @@
             </div>
             <div class="fade-up" style="transition-delay:0.15s;">
                 <div style="background:#f8fafc;border-radius:24px;padding:36px;border:1px solid #e5e7eb;">
-                    <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-2">Quem mais paga a mais</p>
-                    <p class="text-slate-500 text-sm mb-6">Segmentos que costumam ignorar o tema tributário e acumulam créditos sem perceber.</p>
-                    <div style="display:flex;flex-direction:column;gap:14px;">
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Supermercados e atacadistas</span>
-                                <span class="text-brand-primary text-sm font-bold">92%</span>
+                    <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-2">Produtos analisados</p>
+                    <p class="text-slate-500 text-sm mb-6">A análise separa o problema em produtos principais e ramificações específicas para encontrar onde está o crédito.</p>
+                    <div class="tributos-problem-products">
+                        <article>
+                            <div class="tributos-problem-product-head">
+                                <span>Produto principal</span>
+                                <h3>PIS e COFINS</h3>
+                                <p>Para empresas que compram, revendem, apuram créditos ou tiveram tributos calculados sobre bases indevidas.</p>
                             </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:92%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
-                        </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Indústria e manufatura</span>
-                                <span class="text-brand-primary text-sm font-bold">85%</span>
+                            <div class="tributos-subproducts-list compact">
+                                <div>
+                                    <strong>PIS/COFINS Monofásico</strong>
+                                    <p>Produtos em que o tributo já foi recolhido antes da revenda.</p>
+                                </div>
+                                <div>
+                                    <strong>Crédito sobre ICMS</strong>
+                                    <p>Revisão da inclusão do ICMS na base de cálculo.</p>
+                                </div>
+                                <div>
+                                    <strong>Créditos no Lucro Real</strong>
+                                    <p>Compras, custos e despesas com crédito não aproveitado.</p>
+                                </div>
                             </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:85%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
-                        </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Farmácias e drogarias</span>
-                                <span class="text-brand-primary text-sm font-bold">83%</span>
+                        </article>
+                        <article>
+                            <div class="tributos-problem-product-head">
+                                <span>Produto principal</span>
+                                <h3>INSS</h3>
+                                <p>Para empresas com folha de pagamento que podem ter recolhido valores acima do devido.</p>
                             </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:83%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
-                        </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Construção civil</span>
-                                <span class="text-brand-primary text-sm font-bold">80%</span>
+                            <div class="tributos-subproducts-list compact">
+                                <div>
+                                    <strong>Verbas indenizatórias</strong>
+                                    <p>Rubricas que não deveriam compor a base de cálculo.</p>
+                                </div>
+                                <div>
+                                    <strong>Teto de contribuição</strong>
+                                    <p>Recolhimento sobre valores acima do teto legal.</p>
+                                </div>
+                                <div>
+                                    <strong>Desoneração da folha</strong>
+                                    <p>Possível substituição por alíquota sobre faturamento.</p>
+                                </div>
                             </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:80%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
-                        </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Comércio em geral</span>
-                                <span class="text-brand-primary text-sm font-bold">76%</span>
-                            </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:76%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
-                        </div>
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="text-slate-700 text-sm font-medium">Prestadores de serviço</span>
-                                <span class="text-brand-primary text-sm font-bold">68%</span>
-                            </div>
-                            <div style="height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;"><div style="height:100%;width:68%;background:linear-gradient(90deg,#0099dd,#003956);border-radius:999px;"></div></div>
-                        </div>
+                        </article>
                     </div>
-                    <p style="font-size:11px;color:#94a3b8;margin-top:20px;">% das empresas de cada segmento com crédito tributário identificado em análise.</p>
                 </div>
             </div>
         </div>
@@ -410,21 +407,23 @@
                 </div>
                 <h3 class="font-bold text-brand-primary mb-3" style="font-size:1.5rem;">PIS e COFINS</h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                    Revisão tributária para empresas que compram, vendem, apuram créditos ou tiveram PIS e COFINS calculados sobre bases indevidas.
+                    Revisão de notas fiscais e XMLs para identificar pagamentos indevidos em produtos monofásicos. Indicado para empresas que compram e revendem itens como bebidas, cosméticos, autopeças, medicamentos e alimentos.
                 </p>
-                <div class="tributos-subproducts-list">
-                    <article>
-                        <strong>PIS/COFINS Monofásico</strong>
-                        <p>Recupera valores pagos novamente sobre produtos em que o tributo já foi recolhido na indústria ou distribuidor, como bebidas, cosméticos, medicamentos, autopeças e alimentos.</p>
-                    </article>
-                    <article>
-                        <strong>Crédito de PIS/COFINS sobre ICMS</strong>
-                        <p>Revisa a inclusão do ICMS na base de cálculo do PIS e COFINS para identificar valores pagos a maior e possíveis créditos administrativos ou judiciais.</p>
-                    </article>
-                    <article>
-                        <strong>Otimização de créditos no Lucro Real</strong>
-                        <p>Analisa compras, custos e despesas para encontrar créditos de PIS e COFINS não aproveitados nos últimos anos.</p>
-                    </article>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+                    <span class="tag-pill">Bebidas</span>
+                    <span class="tag-pill">Cosméticos</span>
+                    <span class="tag-pill">Autopeças</span>
+                    <span class="tag-pill">Medicamentos</span>
+                    <span class="tag-pill">Alimentos</span>
+                    <span class="tag-pill">Supermercados</span>
+                    <span class="tag-pill">Farmácias</span>
+                    <span class="tag-pill">Petshops</span>
+                    <span class="tag-pill">Bares e conveniências</span>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Relatório técnico antes de qualquer decisão</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Ressarcimento ou compensação via Receita Federal</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Sem necessidade de mudar contabilidade ou operação</span></div>
                 </div>
                 <a href="#" data-trib-modal data-trib-product="pis_cofins" class="tributos-card-cta">
                     Iniciar análise de PIS/COFINS
@@ -439,21 +438,17 @@
                 </div>
                 <h3 class="font-bold text-brand-primary mb-3" style="font-size:1.5rem;">INSS</h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                    Análise da folha de pagamento para encontrar créditos, recolhimentos acima do devido e oportunidades de redução legal da carga previdenciária.
+                    Análise dos últimos 5 anos da folha de pagamento para identificar INSS pago a maior sobre verbas indenizatórias. Compensações realizadas via e-CAC, sem necessidade de ação judicial.
                 </p>
-                <div class="tributos-subproducts-list">
-                    <article>
-                        <strong>Exclusão de verbas indenizatórias</strong>
-                        <p>Identifica rubricas que não deveriam compor a base do INSS, como aviso prévio indenizado, vale-transporte e férias indenizadas.</p>
-                    </article>
-                    <article>
-                        <strong>Teto de contribuição INSS</strong>
-                        <p>Verifica se colaboradores com salário acima do teto tiveram recolhimento sobre valores excedentes, gerando crédito a recuperar.</p>
-                    </article>
-                    <article>
-                        <strong>Desoneração da folha (CPRB)</strong>
-                        <p>Avalia se a empresa poderia substituir a contribuição sobre a folha por alíquota sobre faturamento e recuperar valores pagos indevidamente.</p>
-                    </article>
+                <div style="background:rgba(0,153,221,0.06);border-radius:12px;padding:16px 18px;margin-bottom:20px;border-left:3px solid #0099dd;">
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        <strong class="text-brand-primary">Modelo de partilha:</strong> A economia gerada permanece majoritariamente com o cliente. A participação comercial ocorre somente sobre o ganho efetivo, sem nenhum custo antecipado.
+                    </p>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Fundamentado em decisões do STJ</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Compensações diretas pelo e-CAC</span></div>
+                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Economia contínua após as compensações</span></div>
                 </div>
                 <a href="#" data-trib-modal data-trib-product="inss" class="tributos-card-cta">
                     Iniciar análise de INSS
@@ -796,7 +791,7 @@
             <div class="lg:col-span-4 space-y-8">
                 <div class="mb-8">
                     <a href="../index.html" class="inline-block hover:opacity-80 transition-opacity">
-                        <img src="../images/logo-horizontal-logo.branca.png" alt="mb finance" style="height: 36px; width: auto;">
+                        <img src="../images/logo-horizontal-logo.branca.png" alt="mb finance" style="height: 36px; width: auto;" loading="lazy">
                     </a>
                 </div>
                 <p class="font-medium text-[15px] leading-relaxed max-w-sm" style="color: rgba(255,255,255,0.45);">

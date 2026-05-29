@@ -7,8 +7,8 @@
 /* ── Fade-up animation ─────────────────────────────────────────────────────── */
 .fade-up {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
+    transform: translateY(20px);
+    transition: opacity 0.38s ease-out, transform 0.38s ease-out;
 }
 .fade-up.visible {
     opacity: 1;
