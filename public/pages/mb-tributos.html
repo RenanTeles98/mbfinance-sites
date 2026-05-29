@@ -284,7 +284,7 @@
             <!-- CTAs -->
             <div class="fade-up" style="display:flex;flex-wrap:wrap;gap:14px;transition-delay:0.3s;">
                 <a href="#" data-trib-modal
-                   style="display:inline-flex;align-items:center;gap:10px;background:#0099dd;color:#fff;font-weight:700;font-size:15px;padding:17px 36px;border-radius:14px;text-decoration:none;transition:all 0.3s;box-shadow:0 14px 40px rgba(0,153,221,0.32);"
+                   style="display:inline-flex;align-items:center;gap:10px;background:#0099dd;color:#fff;font-weight:700;font-size:15px;padding:17px 36px;border-radius:14px;text-decoration:none;transition:all 0.3s;"
                    onmouseover="this.style.background='#0077b6';this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#0099dd';this.style.transform='translateY(0)';">
                     <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
                     Quero minha análise gratuita
@@ -410,23 +410,21 @@
                 </div>
                 <h3 class="font-bold text-brand-primary mb-3" style="font-size:1.5rem;">PIS e COFINS</h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                    Revisão de notas fiscais e XMLs para identificar pagamentos indevidos em produtos monofásicos. Indicado para empresas que compram e revendem itens como bebidas, cosméticos, autopeças, medicamentos e alimentos.
+                    Revisão tributária para empresas que compram, vendem, apuram créditos ou tiveram PIS e COFINS calculados sobre bases indevidas.
                 </p>
-                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
-                    <span class="tag-pill">Bebidas</span>
-                    <span class="tag-pill">Cosméticos</span>
-                    <span class="tag-pill">Autopeças</span>
-                    <span class="tag-pill">Medicamentos</span>
-                    <span class="tag-pill">Alimentos</span>
-                    <span class="tag-pill">Supermercados</span>
-                    <span class="tag-pill">Farmácias</span>
-                    <span class="tag-pill">Petshops</span>
-                    <span class="tag-pill">Bares e conveniências</span>
-                </div>
-                <div class="flex flex-col gap-3">
-                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Relatório técnico antes de qualquer decisão</span></div>
-                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Ressarcimento ou compensação via Receita Federal</span></div>
-                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Sem necessidade de mudar contabilidade ou operação</span></div>
+                <div class="tributos-subproducts-list">
+                    <article>
+                        <strong>PIS/COFINS Monofásico</strong>
+                        <p>Recupera valores pagos novamente sobre produtos em que o tributo já foi recolhido na indústria ou distribuidor, como bebidas, cosméticos, medicamentos, autopeças e alimentos.</p>
+                    </article>
+                    <article>
+                        <strong>Crédito de PIS/COFINS sobre ICMS</strong>
+                        <p>Revisa a inclusão do ICMS na base de cálculo do PIS e COFINS para identificar valores pagos a maior e possíveis créditos administrativos ou judiciais.</p>
+                    </article>
+                    <article>
+                        <strong>Otimização de créditos no Lucro Real</strong>
+                        <p>Analisa compras, custos e despesas para encontrar créditos de PIS e COFINS não aproveitados nos últimos anos.</p>
+                    </article>
                 </div>
                 <a href="#" data-trib-modal data-trib-product="pis_cofins" class="tributos-card-cta">
                     Iniciar análise de PIS/COFINS
@@ -441,17 +439,21 @@
                 </div>
                 <h3 class="font-bold text-brand-primary mb-3" style="font-size:1.5rem;">INSS</h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                    Análise dos últimos 5 anos da folha de pagamento para identificar INSS pago a maior sobre verbas indenizatórias. Compensações realizadas via e-CAC, sem necessidade de ação judicial.
+                    Análise da folha de pagamento para encontrar créditos, recolhimentos acima do devido e oportunidades de redução legal da carga previdenciária.
                 </p>
-                <div style="background:rgba(0,153,221,0.06);border-radius:12px;padding:16px 18px;margin-bottom:20px;border-left:3px solid #0099dd;">
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        <strong class="text-brand-primary">Modelo de partilha:</strong> A economia gerada permanece majoritariamente com o condomínio. A participação comercial ocorre somente sobre o ganho efetivo, sem nenhum custo antecipado.
-                    </p>
-                </div>
-                <div class="flex flex-col gap-3">
-                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Fundamentado em decisões do STJ</span></div>
-                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Compensações diretas pelo e-CAC</span></div>
-                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Economia contínua após as compensações</span></div>
+                <div class="tributos-subproducts-list">
+                    <article>
+                        <strong>Exclusão de verbas indenizatórias</strong>
+                        <p>Identifica rubricas que não deveriam compor a base do INSS, como aviso prévio indenizado, vale-transporte e férias indenizadas.</p>
+                    </article>
+                    <article>
+                        <strong>Teto de contribuição INSS</strong>
+                        <p>Verifica se colaboradores com salário acima do teto tiveram recolhimento sobre valores excedentes, gerando crédito a recuperar.</p>
+                    </article>
+                    <article>
+                        <strong>Desoneração da folha (CPRB)</strong>
+                        <p>Avalia se a empresa poderia substituir a contribuição sobre a folha por alíquota sobre faturamento e recuperar valores pagos indevidamente.</p>
+                    </article>
                 </div>
                 <a href="#" data-trib-modal data-trib-product="inss" class="tributos-card-cta">
                     Iniciar análise de INSS
@@ -586,29 +588,6 @@
             <p>Quem já fez</p>
             <h2>Empresas que descobriram crédito tributário que nem sabiam que tinham.</h2>
             <span>Mais de 80% das empresas nesses setores pagam tributos a mais sem saber. Veja o que encontramos para quem decidiu analisar.</span>
-        </div>
-
-        <!-- Métricas de destaque -->
-        <div class=”fade-up” style=”transition-delay:0.1s;”>
-            <div>
-                <strong>R$ 2,4 mi+</strong>
-                <span>já recuperados desde o início da parceria</span>
-            </div>
-            <div></div>
-            <div>
-                <strong>R$ 30k – R$ 320k</strong>
-                <span>faixa de recuperação por empresa analisada</span>
-            </div>
-            <div></div>
-            <div>
-                <strong>5 anos</strong>
-                <span>de histórico fiscal revisado na análise</span>
-            </div>
-            <div></div>
-            <div>
-                <strong>Zero custo inicial</strong>
-                <span>a empresa paga somente sobre o resultado</span>
-            </div>
         </div>
 
         <!-- Cards de depoimentos — carousel -->
