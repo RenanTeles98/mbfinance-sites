@@ -2697,6 +2697,141 @@ a[data-trib-modal],
 
 #seg-pis, #seg-inss { display: none; }
 
+/* ══════════════════════════════════════════════════════════════════
+   REDESIGN UI/UX Pro Max — Problema · Depoimentos · FAQ · CTA
+══════════════════════════════════════════════════════════════════ */
+
+/* ── FAQ cards ───────────────────────────────────────────────────── */
+
+.faq-card {
+    background: #ffffff;
+    border: 1px solid #e8eef4;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.faq-card.open {
+    border-color: rgba(0, 153, 221, 0.35);
+    box-shadow: 0 8px 32px rgba(0, 57, 86, 0.08);
+}
+
+.faq-card .faq-btn {
+    padding: 22px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #003956;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.faq-card .faq-btn span:first-child {
+    flex: 1;
+    line-height: 1.45;
+}
+
+.faq-icon-wrap {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 8px;
+    background: #f1f7fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.25s ease-out;
+    color: #0099dd;
+}
+
+.faq-card.open .faq-icon-wrap {
+    background: rgba(0, 153, 221, 0.12);
+    transform: rotate(180deg);
+}
+
+.faq-card .faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.32s ease-out, padding 0.2s;
+    padding: 0 24px;
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.75;
+    border-top: 0px solid transparent;
+}
+
+.faq-card.open .faq-content {
+    max-height: 300px;
+    padding: 0 24px 22px;
+    border-top: 1px solid #e8eef4;
+}
+
+/* ── Depoimentos — melhorias visuais ─────────────────────────────── */
+
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:nth-child(2) {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    line-height: 1;
+}
+
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > div:last-child strong {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+/* Quote mark decorativo */
+section[id*="resultados"] > div > div:nth-of-type(3) > div:first-child > div > article > p::before {
+    content: "\201C";
+    color: #0099dd;
+    font-size: 48px;
+    line-height: 0;
+    vertical-align: -18px;
+    margin-right: 4px;
+    font-weight: 900;
+    opacity: 0.4;
+}
+
+/* ── CTA final — botão CSS-only ──────────────────────────────────── */
+
+.cta-final-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #ffffff;
+    color: #003956;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 18px 48px;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: background 0.2s ease-out, transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    min-height: 56px;
+}
+
+.cta-final-btn:hover {
+    background: #e6f4fb;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28);
+}
+
+.cta-final-btn:active {
+    transform: translateY(0);
+}
+
+/* ── Responsivo — problema cards ─────────────────────────────────── */
+
+@media (max-width: 768px) {
+    #problema > div > div:nth-child(2) {
+        grid-template-columns: 1fr !important;
+    }
+    #problema > div > div:nth-child(3) {
+        grid-template-columns: 1fr !important;
+    }
+}
+
 .seg-tab-bar {
     display: flex; gap: 4px;
     background: #e9ecef; border-radius: 14px; padding: 4px;

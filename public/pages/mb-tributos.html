@@ -310,77 +310,100 @@
 <!-- ══════════════════════════════════════════════════════════
      O PROBLEMA
 ══════════════════════════════════════════════════════════ -->
-<section style="padding:120px 0;background:#fff;" id="problema">
+<section style="padding:112px 0;background:#ffffff;" id="problema">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-            <div class="fade-up">
-                <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">O problema</p>
-                <h2 class="font-bold mb-6 text-brand-primary" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-0.02em;">
-                    Sua empresa pode estar perdendo dinheiro todos os meses sem perceber
-                </h2>
-                <p class="text-slate-600 text-base leading-relaxed mb-5">
-                    No Brasil, muitas empresas do varejo e comércio pagam <strong>PIS e COFINS</strong> duas vezes sobre os mesmos produtos. Isso acontece com produtos monofásicos como bebidas, cosméticos, autopeças, medicamentos e alimentos, onde os tributos já foram recolhidos na indústria ou no distribuidor.
-                </p>
-                <p class="text-slate-600 text-base leading-relaxed mb-8">
-                    O mesmo problema acontece com o <strong>INSS</strong>: muitas empresas recolhem valores sobre verbas indenizatórias que não deveriam compor a base de cálculo. Qualquer empresa que atenda os pré-requisitos pode identificar e recuperar esse crédito acumulado dos últimos 5 anos.
-                </p>
-                <div class="flex flex-col gap-3">
-                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Prejuízo silencioso que se acumula mês a mês</span></div>
-                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">Mais de 80% das empresas nesses setores estão afetadas</span></div>
-                    <div class="check-item"><div class="check-icon"><svg width="12" height="12" fill="none" stroke="#0099dd" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-slate-600 text-sm">PIS/COFINS depende dos produtos comprados e revendidos</span></div>
-                </div>
-            </div>
-            <div class="fade-up" style="transition-delay:0.15s;">
-                <div style="background:#f8fafc;border-radius:24px;padding:36px;border:1px solid #e5e7eb;">
-                    <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-2">Produtos analisados</p>
-                    <p class="text-slate-500 text-sm mb-6">A análise separa o problema em produtos principais e ramificações específicas para encontrar onde está o crédito.</p>
-                    <div class="tributos-problem-products">
-                        <article>
-                            <div class="tributos-problem-product-head">
-                                <span>Produto principal</span>
-                                <h3>PIS e COFINS</h3>
-                                <p>Para empresas que compram, revendem, apuram créditos ou tiveram tributos calculados sobre bases indevidas.</p>
-                            </div>
-                            <div class="tributos-subproducts-list compact">
-                                <div>
-                                    <strong>PIS/COFINS Monofásico</strong>
-                                    <p>Produtos em que o tributo já foi recolhido antes da revenda.</p>
-                                </div>
-                                <div>
-                                    <strong>Crédito sobre ICMS</strong>
-                                    <p>Revisão da inclusão do ICMS na base de cálculo.</p>
-                                </div>
-                                <div>
-                                    <strong>Créditos no Lucro Real</strong>
-                                    <p>Compras, custos e despesas com crédito não aproveitado.</p>
-                                </div>
-                            </div>
-                        </article>
-                        <article>
-                            <div class="tributos-problem-product-head">
-                                <span>Produto principal</span>
-                                <h3>INSS</h3>
-                                <p>Para empresas com folha de pagamento que podem ter recolhido valores acima do devido.</p>
-                            </div>
-                            <div class="tributos-subproducts-list compact">
-                                <div>
-                                    <strong>Verbas indenizatórias</strong>
-                                    <p>Rubricas que não deveriam compor a base de cálculo.</p>
-                                </div>
-                                <div>
-                                    <strong>Teto de contribuição</strong>
-                                    <p>Recolhimento sobre valores acima do teto legal.</p>
-                                </div>
-                                <div>
-                                    <strong>Desoneração da folha</strong>
-                                    <p>Possível substituição por alíquota sobre faturamento.</p>
-                                </div>
-                            </div>
-                        </article>
+
+        <!-- Cabeçalho centralizado -->
+        <div class="fade-up" style="max-width:680px;margin:0 auto 64px;text-align:center;">
+            <p style="color:#0099dd;font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;margin:0 0 14px;">O problema</p>
+            <h2 style="color:#003956;font-size:clamp(2rem,4vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-0.02em;margin:0 0 20px;">Sua empresa pode estar perdendo dinheiro todos os meses sem perceber</h2>
+            <p style="color:#64748b;font-size:17px;line-height:1.7;margin:0;">No Brasil, muitas empresas pagam tributos a mais por não conhecerem a legislação específica do seu setor. O dinheiro existe — só está no lugar errado.</p>
+        </div>
+
+        <!-- Cards dos dois produtos principais -->
+        <div class="fade-up" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;transition-delay:0.1s;">
+
+            <!-- PIS/COFINS -->
+            <article style="background:#003956;border-radius:20px;padding:clamp(28px,4vw,40px);position:relative;overflow:hidden;">
+                <div style="position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(0,153,221,0.18) 0%,transparent 65%);pointer-events:none;"></div>
+                <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#0099dd,transparent);"></div>
+                <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,153,221,0.15);border:1px solid rgba(0,153,221,0.3);border-radius:999px;padding:5px 14px;margin-bottom:24px;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#0099dd;display:inline-block;"></span>
+                    <span style="color:#0099dd;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Produto principal</span>
+                </span>
+                <h3 style="color:#ffffff;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:800;margin:0 0 10px;line-height:1.1;">PIS / COFINS</h3>
+                <p style="color:rgba(255,255,255,0.55);font-size:14px;line-height:1.65;margin:0 0 28px;">Para empresas que compram e revendem produtos, apuram créditos ou tiveram tributos calculados sobre bases indevidas.</p>
+                <div style="display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);">
+                    <div style="display:flex;gap:12px;align-items:flex-start;">
+                        <span style="width:28px;height:28px;min-width:28px;border-radius:8px;background:rgba(0,153,221,0.2);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                            <svg width="13" height="13" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <div><strong style="display:block;color:#fff;font-size:13px;font-weight:700;margin-bottom:2px;">PIS/COFINS Monofásico</strong><span style="color:rgba(255,255,255,0.45);font-size:12px;">Tributo já recolhido antes da revenda</span></div>
+                    </div>
+                    <div style="display:flex;gap:12px;align-items:flex-start;">
+                        <span style="width:28px;height:28px;min-width:28px;border-radius:8px;background:rgba(0,153,221,0.2);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                            <svg width="13" height="13" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <div><strong style="display:block;color:#fff;font-size:13px;font-weight:700;margin-bottom:2px;">Crédito sobre ICMS</strong><span style="color:rgba(255,255,255,0.45);font-size:12px;">Revisão da inclusão do ICMS na base</span></div>
+                    </div>
+                    <div style="display:flex;gap:12px;align-items:flex-start;">
+                        <span style="width:28px;height:28px;min-width:28px;border-radius:8px;background:rgba(0,153,221,0.2);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                            <svg width="13" height="13" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <div><strong style="display:block;color:#fff;font-size:13px;font-weight:700;margin-bottom:2px;">Créditos no Lucro Real</strong><span style="color:rgba(255,255,255,0.45);font-size:12px;">Compras com crédito não aproveitado</span></div>
                     </div>
                 </div>
+            </article>
+
+            <!-- INSS -->
+            <article style="background:#003956;border-radius:20px;padding:clamp(28px,4vw,40px);position:relative;overflow:hidden;">
+                <div style="position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(0,153,221,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+                <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#0099dd,transparent);"></div>
+                <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,153,221,0.15);border:1px solid rgba(0,153,221,0.3);border-radius:999px;padding:5px 14px;margin-bottom:24px;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#0099dd;display:inline-block;"></span>
+                    <span style="color:#0099dd;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Produto principal</span>
+                </span>
+                <h3 style="color:#ffffff;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:800;margin:0 0 10px;line-height:1.1;">INSS Patronal</h3>
+                <p style="color:rgba(255,255,255,0.55);font-size:14px;line-height:1.65;margin:0 0 28px;">Para empresas com folha de pagamento que podem ter recolhido valores acima do devido nos últimos 5 anos.</p>
+                <div style="display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);">
+                    <div style="display:flex;gap:12px;align-items:flex-start;">
+                        <span style="width:28px;height:28px;min-width:28px;border-radius:8px;background:rgba(0,153,221,0.2);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                            <svg width="13" height="13" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <div><strong style="display:block;color:#fff;font-size:13px;font-weight:700;margin-bottom:2px;">Exclusão de Verbas Indenizatórias</strong><span style="color:rgba(255,255,255,0.45);font-size:12px;">Rubricas fora da base de cálculo</span></div>
+                    </div>
+                    <div style="display:flex;gap:12px;align-items:flex-start;">
+                        <span style="width:28px;height:28px;min-width:28px;border-radius:8px;background:rgba(0,153,221,0.2);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                            <svg width="13" height="13" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <div><strong style="display:block;color:#fff;font-size:13px;font-weight:700;margin-bottom:2px;">Teto de Contribuição INSS</strong><span style="color:rgba(255,255,255,0.45);font-size:12px;">Recolhimento acima do teto legal</span></div>
+                    </div>
+                    <div style="display:flex;gap:12px;align-items:flex-start;">
+                        <span style="width:28px;height:28px;min-width:28px;border-radius:8px;background:rgba(0,153,221,0.2);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                            <svg width="13" height="13" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <div><strong style="display:block;color:#fff;font-size:13px;font-weight:700;margin-bottom:2px;">Desoneração da Folha (CPRB)</strong><span style="color:rgba(255,255,255,0.45);font-size:12px;">Substituição por alíquota sobre faturamento</span></div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- Strip de stats -->
+        <div class="fade-up" style="margin-top:20px;background:#f8fafc;border-radius:16px;border:1px solid #e8eef4;padding:28px 36px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;transition-delay:0.18s;">
+            <div style="text-align:center;padding:12px 24px;">
+                <strong style="display:block;color:#003956;font-size:2rem;font-weight:800;line-height:1;">80%+</strong>
+                <span style="color:#64748b;font-size:13px;line-height:1.4;">das empresas nesses setores têm crédito a recuperar</span>
+            </div>
+            <div style="text-align:center;padding:12px 24px;border-left:1px solid #e8eef4;border-right:1px solid #e8eef4;">
+                <strong style="display:block;color:#003956;font-size:2rem;font-weight:800;line-height:1;">5 anos</strong>
+                <span style="color:#64748b;font-size:13px;line-height:1.4;">de histórico fiscal podem ser revisados</span>
+            </div>
+            <div style="text-align:center;padding:12px 24px;">
+                <strong style="display:block;color:#003956;font-size:2rem;font-weight:800;line-height:1;">Zero</strong>
+                <span style="color:#64748b;font-size:13px;line-height:1.4;">custo inicial — paga somente sobre o resultado</span>
             </div>
         </div>
+
     </div>
 </section>
 
@@ -701,58 +724,66 @@
 <!-- ══════════════════════════════════════════════════════════
      FAQ
 ══════════════════════════════════════════════════════════ -->
-<section style="padding:120px 0;background:#f8fafc;">
-    <div class="max-w-3xl mx-auto px-6 lg:px-12">
-        <div class="text-center mb-14 fade-up">
-            <p class="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-4">Dúvidas frequentes</p>
-            <h2 class="font-bold text-brand-primary" style="font-size:clamp(1.8rem,3.5vw,2.4rem);line-height:1.2;letter-spacing:-0.02em;">Perguntas frequentes</h2>
+<section style="padding:112px 0;background:#ffffff;">
+    <div style="max-width:780px;margin:0 auto;padding:0 24px;">
+
+        <div class="fade-up" style="text-align:center;margin-bottom:56px;">
+            <p style="color:#0099dd;font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;margin:0 0 14px;">Dúvidas frequentes</p>
+            <h2 style="color:#003956;font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;line-height:1.1;letter-spacing:-0.02em;margin:0;">Perguntas frequentes</h2>
         </div>
-        <div>
-            <div class="faq-item fade-up">
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+
+            <div class="faq-item faq-card fade-up">
                 <button class="faq-btn" onclick="toggleFaq(this)">
-                    Qualquer empresa pode solicitar a análise de PIS e COFINS?
-                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                    <span>Qualquer empresa pode solicitar a análise de PIS e COFINS?</span>
+                    <span class="faq-icon-wrap"><svg class="faq-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></span>
                 </button>
-                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
+                <div class="faq-content">
                     Sim, desde que a empresa comercialize produtos monofásicos nos segmentos elegíveis (varejo, farmácia, cosméticos, autopeças, alimentos, etc.) e seja optante pelo Lucro Real ou Presumido. A análise inicial é gratuita e vai indicar se há potencial de recuperação no caso específico.
                 </div>
             </div>
-            <div class="faq-item fade-up">
+
+            <div class="faq-item faq-card fade-up" style="transition-delay:0.05s;">
                 <button class="faq-btn" onclick="toggleFaq(this)">
-                    Quais documentos preciso enviar para a análise?
-                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                    <span>Quais documentos preciso enviar para a análise?</span>
+                    <span class="faq-icon-wrap"><svg class="faq-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></span>
                 </button>
-                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
+                <div class="faq-content">
                     Para PIS e COFINS: os arquivos XML das notas fiscais eletrônicas dos produtos comprados e revendidos pela empresa. Para INSS: os dados da folha de pagamento do período analisado. Você recebe um formulário guiado após o primeiro contato pelo WhatsApp.
                 </div>
             </div>
-            <div class="faq-item fade-up">
+
+            <div class="faq-item faq-card fade-up" style="transition-delay:0.1s;">
                 <button class="faq-btn" onclick="toggleFaq(this)">
-                    O processo exige alguma ação judicial?
-                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                    <span>O processo exige alguma ação judicial?</span>
+                    <span class="faq-icon-wrap"><svg class="faq-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></span>
                 </button>
-                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
+                <div class="faq-content">
                     Não. Todo o processo é feito pela via administrativa, diretamente junto à Receita Federal pelo sistema e-CAC. Não há necessidade de entrar na Justiça, o que torna o processo mais rápido, seguro e menos custoso.
                 </div>
             </div>
-            <div class="faq-item fade-up">
+
+            <div class="faq-item faq-card fade-up" style="transition-delay:0.15s;">
                 <button class="faq-btn" onclick="toggleFaq(this)">
-                    Preciso trocar de contador ou mudar minha contabilidade?
-                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                    <span>Preciso trocar de contador ou mudar minha contabilidade?</span>
+                    <span class="faq-icon-wrap"><svg class="faq-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></span>
                 </button>
-                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
-                    Não. Você mantém toda a sua estrutura atual sem nenhuma alteração. A análise e a recuperação são conduzidas pela Auditto de forma paralela, sem interferir na rotina da empresa.
+                <div class="faq-content">
+                    Não. Você mantém toda a sua estrutura atual sem nenhuma alteração. A análise e a recuperação são conduzidas de forma paralela, sem interferir na rotina da empresa.
                 </div>
             </div>
-            <div class="faq-item fade-up">
+
+            <div class="faq-item faq-card fade-up" style="transition-delay:0.2s;">
                 <button class="faq-btn" onclick="toggleFaq(this)">
-                    Qual o prazo para receber os créditos?
-                    <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                    <span>Qual o prazo para receber os créditos?</span>
+                    <span class="faq-icon-wrap"><svg class="faq-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></span>
                 </button>
-                <div class="faq-body" style="display:none;padding:0 0 20px;color:#64748b;font-size:15px;line-height:1.7;">
+                <div class="faq-content">
                     O prazo varia conforme o tipo de recuperação e o volume de documentos. Em geral, os créditos de PIS/COFINS podem ser compensados em poucos meses após o início do processo. Para INSS, o prazo depende do andamento do pedido junto à Receita Federal.
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -760,24 +791,41 @@
 <!-- ══════════════════════════════════════════════════════════
      CTA
 ══════════════════════════════════════════════════════════ -->
-<section style="position:relative;overflow:hidden;background:linear-gradient(135deg,#001e2e 0%,#003956 100%);padding:112px 0;">
-    <div style="position:absolute;top:0;right:0;width:520px;height:520px;background:rgba(0,153,221,0.12);filter:blur(140px);pointer-events:none;"></div>
-    <div style="max-width:780px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1;" class="fade-up">
-        <p style="color:#0099dd;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;margin-bottom:16px;">Análise gratuita</p>
-        <h2 style="color:#fff;font-size:clamp(28px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-0.025em;margin-bottom:24px;">
-            Quer saber quanto sua empresa <span style="color:#0099dd;">pode recuperar?</span>
+<section style="position:relative;overflow:hidden;background:#003956;padding:120px 0;">
+    <!-- Decoração de fundo -->
+    <div style="position:absolute;inset:0;opacity:0.06;background-image:radial-gradient(rgba(255,255,255,0.8) 1px,transparent 1px);background-size:36px 36px;pointer-events:none;"></div>
+    <div style="position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,153,221,0.25) 0%,transparent 60%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-150px;left:-150px;width:400px;height:400px;background:radial-gradient(circle,rgba(0,153,221,0.12) 0%,transparent 65%);pointer-events:none;"></div>
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,153,221,0.4),transparent);"></div>
+
+    <div style="max-width:720px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1;" class="fade-up">
+        <p style="color:#0099dd;font-size:11px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:20px;">Análise gratuita</p>
+        <h2 style="color:#ffffff;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.08;letter-spacing:-0.025em;margin-bottom:20px;">
+            Quer saber quanto sua empresa<br><span style="color:#0099dd;">pode recuperar?</span>
         </h2>
-        <p style="color:rgba(255,255,255,0.65);font-size:clamp(15px,2vw,18px);font-weight:300;line-height:1.7;margin-bottom:48px;">
+        <p style="color:rgba(255,255,255,0.6);font-size:clamp(15px,2vw,17px);line-height:1.7;margin-bottom:44px;max-width:560px;margin-left:auto;margin-right:auto;">
             Fale com a MB Finance pelo WhatsApp e solicite a análise gratuita para PIS, COFINS ou INSS.
         </p>
-        <a href="#" data-trib-modal style="display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#0099dd;color:#fff;font-weight:700;font-size:16px;padding:18px 48px;border-radius:18px;border:none;cursor:pointer;transition:all 0.3s;box-shadow:0 14px 40px rgba(0,153,221,0.28);font-family:inherit;text-decoration:none;" onmouseover="this.style.background='#0077b6';this.style.transform='scale(1.04)';" onmouseout="this.style.background='#0099dd';this.style.transform='scale(1)';">
+
+        <a href="#" data-trib-modal class="cta-final-btn">
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Solicitar análise pelo WhatsApp
         </a>
-        <div style="margin-top:40px;display:flex;flex-wrap:wrap;justify-content:center;gap:24px;color:rgba(255,255,255,0.7);font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;">
-            <span style="display:flex;align-items:center;gap:8px;"><span style="width:4px;height:4px;border-radius:999px;background:#0099dd;"></span>100% gratuito para iniciar</span>
-            <span style="display:flex;align-items:center;gap:8px;"><span style="width:4px;height:4px;border-radius:999px;background:#0099dd;"></span>Sem compromisso</span>
-            <span style="display:flex;align-items:center;gap:8px;"><span style="width:4px;height:4px;border-radius:999px;background:#0099dd;"></span>Processo 100% administrativo</span>
+
+        <!-- Trust badges -->
+        <div style="margin-top:44px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
+            <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:999px;padding:8px 18px;color:rgba(255,255,255,0.75);font-size:12px;font-weight:600;">
+                <svg width="14" height="14" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                100% gratuito para iniciar
+            </span>
+            <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:999px;padding:8px 18px;color:rgba(255,255,255,0.75);font-size:12px;font-weight:600;">
+                <svg width="14" height="14" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Sem compromisso
+            </span>
+            <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:999px;padding:8px 18px;color:rgba(255,255,255,0.75);font-size:12px;font-weight:600;">
+                <svg width="14" height="14" fill="none" stroke="#0099dd" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Processo 100% administrativo
+            </span>
         </div>
     </div>
 </section>
