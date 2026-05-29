@@ -94,6 +94,81 @@
     display: block;
 }
 
+/* ── FAQ card style (mb-tributos) ───────────────────────────────────────────── */
+.faq-card {
+    background: #ffffff;
+    border: 1px solid #e8eef4;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 0;
+}
+.faq-card.open {
+    border-color: rgba(0, 153, 221, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 57, 86, 0.08);
+}
+.faq-card .faq-btn {
+    padding: 20px 24px;
+    font-size: 15px;
+}
+.faq-card .faq-btn span:first-child {
+    flex: 1;
+}
+.faq-icon-wrap {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 8px;
+    background: #f1f7fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.25s ease-out;
+    color: #0099dd;
+}
+.faq-card.open .faq-icon-wrap {
+    background: rgba(0, 153, 221, 0.12);
+    transform: rotate(180deg);
+}
+.faq-card .faq-content {
+    display: none;
+    padding: 0 24px 22px;
+    border-top: 1px solid #e8eef4;
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.75;
+}
+.faq-card.open .faq-content {
+    display: block;
+}
+
+/* ── CTA final button ────────────────────────────────────────────────────────── */
+.cta-final-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #ffffff;
+    color: #003956;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 18px 48px;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: background 0.2s ease-out, transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    min-height: 56px;
+    cursor: pointer;
+}
+.cta-final-btn:hover {
+    background: #e6f4fb;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.28);
+}
+.cta-final-btn:active {
+    transform: translateY(0);
+}
+
 /* ── Check list ────────────────────────────────────────────────────────────── */
 .check-item {
     display: flex;
