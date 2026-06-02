@@ -1,25 +1,14 @@
 'use client';
 
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-
-const REMEMBER_KEY = 'mb_admin_saved_pass';
 
 export default function AdminLoginPage() {
     const [password,    setPassword]    = useState('');
     const [showPass,    setShowPass]    = useState(false);
-    const [remember,    setRemember]    = useState(false);
     const [error,       setError]       = useState('');
     const [loading,     setLoading]     = useState(false);
     const router = useRouter();
-
-    useEffect(() => {
-        const saved = localStorage.getItem(REMEMBER_KEY);
-        if (saved) {
-            setPassword(saved);
-            setRemember(true);
-        }
-    }, []);
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -33,11 +22,6 @@ export default function AdminLoginPage() {
         });
 
         if (res.ok) {
-            if (remember) {
-                localStorage.setItem(REMEMBER_KEY, password);
-            } else {
-                localStorage.removeItem(REMEMBER_KEY);
-            }
             router.push('/admin');
         } else {
             const data = await res.json().catch(() => ({}));
@@ -160,23 +144,8 @@ export default function AdminLoginPage() {
                         )}
                     </div>
 
-                    {/* Lembrar senha + Esqueceu a senha */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                            <input
-                                type="checkbox"
-                                checked={remember}
-                                onChange={e => setRemember(e.target.checked)}
-                                style={{
-                                    width: '16px',
-                                    height: '16px',
-                                    accentColor: '#0099dd',
-                                    cursor: 'pointer',
-                                }}
-                            />
-                            <span style={{ fontSize: '13px', color: '#64748b', userSelect: 'none' }}>Lembrar senha</span>
-                        </label>
-
+                    {/* Esqueceu a senha */}
+                    <div style={{ textAlign: 'right', marginBottom: '20px' }}>
                         <a
                             href="/admin/forgot-password"
                             style={{
