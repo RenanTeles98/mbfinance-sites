@@ -59,7 +59,7 @@ export default function AdminLoginPage() {
                     </div>
                 </div>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} autoComplete="off">
                     <div style={{ marginBottom: '16px' }}>
                         <label style={{
                             display: 'block',
@@ -82,6 +82,7 @@ export default function AdminLoginPage() {
                                 placeholder="Digite sua senha"
                                 required
                                 autoFocus
+                                autoComplete="new-password"
                                 style={{
                                     width: '100%',
                                     padding: '14px 48px 14px 16px',
