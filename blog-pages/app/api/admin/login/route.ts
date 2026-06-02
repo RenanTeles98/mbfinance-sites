@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createSessionToken, COOKIE_NAME } from '@/lib/admin-auth';
+import { createSessionToken, COOKIE_NAME, getPasswordOverride } from '@/lib/admin-auth';
 import crypto from 'crypto';
 
 export async function POST(req: NextRequest) {
     const { password } = await req.json().catch(() => ({}));
-    const expected = process.env.ADMIN_PASSWORD ?? '';
+
+    // Prioridade: senha override salva no Redis (via reset-password), depois env var
+    const override = await getPasswordOverride();
+    const expected = override ?? process.env.ADMIN_PASSWORD ?? '';
 
     if (!expected) {
         return NextResponse.json({ error: 'Servidor não configurado' }, { status: 500 });
