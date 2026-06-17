@@ -38,7 +38,7 @@
     margin: 0;
 }
 .cookie-text a {
-    color: #0099dd;
+    color: #0077b6;
     text-decoration: underline;
 }
 .cookie-actions {
@@ -58,7 +58,7 @@
 }
 .cookie-btn:hover { opacity: 0.85; }
 .cookie-btn-primary {
-    background: #0099dd;
+    background: #0077b6;
     color: #fff;
 }
 .cookie-btn-outline {
