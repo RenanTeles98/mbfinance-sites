@@ -1,8 +1,10 @@
-﻿/**
+/**
  * Admin Dashboard - Campanhas e UTM Builder
  */
 
-var CAMP_STORAGE_KEY = 'mb_campaigns_v1';
+var CAMP_STORAGE_KEY = 'mb_campaigns_v2';
+var CAMP_PROJECT_STORAGE_KEY = 'mb_campaign_projects_v1';
+var CAMP_CLIENT_LINK_STORAGE_KEY = 'mb_campaign_client_links_v1';
 var _pendingDeleteCampaignId = null;
 var _pendingDeleteTimer = null;
 
@@ -37,6 +39,15 @@ function setCampButton(btn, icon, label) {
     btn.innerHTML = campButtonHtml(icon, label);
 }
 
+var DEFAULT_CAMPAIGN_PROJECTS = [
+    { id: 'mb-finance', name: 'MB Finance', domain: 'https://mbfinance.com.br' },
+    { id: 'mb-negocios', name: 'MB Negócios', domain: 'https://mbnegocios.com.br' },
+];
+
+function isDefaultCampaignProject(id) {
+    return DEFAULT_CAMPAIGN_PROJECTS.some(function(project) { return project.id === id; });
+}
+
 var CHANNEL_PRESETS = [
     { value: 'sms',               label: 'SMS',                    source: 'sms',       medium: 'sms'      },
     { value: 'email',             label: 'E-mail',                 source: 'email',     medium: 'email'    },
@@ -47,6 +58,8 @@ var CHANNEL_PRESETS = [
     { value: 'linkedin-cpc',      label: 'LinkedIn Ads',           source: 'linkedin',  medium: 'cpc'      },
     { value: 'parceiros',         label: 'Parceiros',              source: 'parceiros', medium: 'referral' },
     { value: 'instagram-organic', label: 'Instagram Organico',     source: 'instagram', medium: 'social'   },
+    { value: 'instagram-bio',     label: 'Instagram Bio',          source: 'instagram', medium: 'social'   },
+    { value: 'facebook-bio',      label: 'Facebook Bio',           source: 'facebook',  medium: 'social'   },
     { value: 'manual',            label: 'Personalizado',          source: '',          medium: ''         },
 ];
 
@@ -57,6 +70,66 @@ function loadCampaigns() {
 
 function saveCampaigns(list) {
     localStorage.setItem(CAMP_STORAGE_KEY, JSON.stringify(list));
+}
+
+function normalizeProjectId(value) {
+    return String(value || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .replace(/-{2,}/g, '-') || 'projeto';
+}
+
+function normalizeProjectName(value) {
+    return String(value || '').trim().replace(/\s+/g, ' ');
+}
+
+function normalizeProjectDomain(value) {
+    var raw = String(value || '').trim();
+    if (!raw) return '';
+    try {
+        var parsed = new URL(raw.indexOf('://') === -1 ? 'https://' + raw : raw);
+        return parsed.protocol + '//' + parsed.host;
+    } catch (e) {
+        return raw;
+    }
+}
+
+function mergeCampaignProjects(projects) {
+    var map = {};
+    DEFAULT_CAMPAIGN_PROJECTS.concat(projects || []).forEach(function(project) {
+        var name = normalizeProjectName(project.name);
+        if (!name) return;
+        var id = project.id || normalizeProjectId(name);
+        map[id] = { id: id, name: name, domain: normalizeProjectDomain(project.domain) };
+    });
+    loadCampaigns().forEach(function(item) {
+        var name = getCampaignProject(item);
+        var id = normalizeProjectId(name);
+        if (name && !map[id]) map[id] = { id: id, name: name, domain: '' };
+    });
+    return Object.keys(map).map(function(id) { return map[id]; }).sort(function(a, b) {
+        return a.name.localeCompare(b.name, 'pt-BR');
+    });
+}
+
+function loadCampaignProjects() {
+    var stored = [];
+    try { stored = JSON.parse(localStorage.getItem(CAMP_PROJECT_STORAGE_KEY) || '[]'); }
+    catch (e) { stored = []; }
+    return mergeCampaignProjects(stored);
+}
+
+function saveCampaignProjects(projects) {
+    localStorage.setItem(CAMP_PROJECT_STORAGE_KEY, JSON.stringify(mergeCampaignProjects(projects)));
+}
+
+function getSelectedCampaignProject() {
+    var select = document.getElementById('camp-filter-project');
+    return select ? select.value : '';
 }
 
 function cesc(s) {
@@ -96,6 +169,27 @@ function getCampStatusLabel(value) {
     return CAMP_STATUSES[normalizeCampStatus(value)];
 }
 
+function getCampaignProject(item) {
+    return String((item && item.project) || 'Sem projeto').trim() || 'Sem projeto';
+}
+
+function formatCampaignDate(value) {
+    if (!value) return '—';
+    try { return new Date(value).toLocaleDateString('pt-BR'); }
+    catch (e) { return String(value || '—'); }
+}
+
+function getShortDisplayUrl(item) {
+    return item.shortUrl || item.url || '';
+}
+
+function getRequestedShortCode() {
+    var el = document.getElementById('camp-slug');
+    var value = el ? String(el.value || '').trim().toLowerCase() : '';
+    if (!value) return '';
+    return value.replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '').replace(/-{2,}/g, '-').slice(0, 40);
+}
+
 function getCampaignBaseUrl(url) {
     try {
         var parsed = new URL(url);
@@ -118,8 +212,10 @@ function matchesCampaignFilters(item) {
     var search = (document.getElementById('camp-search')?.value || '').toLowerCase().trim();
     var channel = document.getElementById('camp-filter-channel')?.value || '';
     var status = document.getElementById('camp-filter-status')?.value || '';
-    var haystack = [item.name, item.channel, item.source, item.medium, item.notes, getCampObjectiveLabel(item.objective)].join(' ').toLowerCase();
+    var project = getSelectedCampaignProject();
+    var haystack = [item.project, item.name, item.channel, item.source, item.medium, item.notes, item.shortUrl, item.targetUrl, getCampObjectiveLabel(item.objective)].join(' ').toLowerCase();
     if (search && haystack.indexOf(search) === -1) return false;
+    if (project && normalizeProjectId(getCampaignProject(item)) !== project) return false;
     if (channel && String(item.channelValue || inferChannelValue(item.channel)) !== channel) return false;
     if (status && normalizeCampStatus(item.status) !== status) return false;
     return true;
@@ -137,7 +233,9 @@ function sortCampaigns(list) {
 function renderCampaignSummary() {
     var el = document.getElementById('camp-summary');
     if (!el) return;
-    var list = loadCampaigns();
+    var allCampaigns = loadCampaigns();
+    var hasFilterControls = !!document.getElementById('camp-search');
+    var list = hasFilterControls ? allCampaigns.filter(matchesCampaignFilters) : allCampaigns;
     var totalLinks = list.length;
     var totalClicks = list.reduce(function(sum, item) { return sum + Number(item.clicks || 0); }, 0);
     var top = list.slice().sort(function(a, b) { return Number(b.clicks || 0) - Number(a.clicks || 0); })[0];
@@ -152,15 +250,162 @@ function renderCampaignSummary() {
 }
 
 function populateCampaignFilters() {
-    var select = document.getElementById('camp-filter-channel');
-    if (!select) return;
-    var current = select.value;
-    select.innerHTML = '<option value="">Todos os canais</option>' + CHANNEL_PRESETS.map(function(item) {
-        return '<option value="' + cesc(item.value) + '">' + cesc(item.label) + '</option>';
-    }).join('');
-    select.value = current;
+    var projects = loadCampaignProjects();
+    var selectedProject = getSelectedCampaignProject();
+    var projectSelect = document.getElementById('camp-filter-project');
+    if (projectSelect) {
+        projectSelect.innerHTML = '<option value="">Todos os projetos</option>' + projects.map(function(project) {
+            return '<option value="' + cesc(project.id) + '">' + cesc(project.name) + '</option>';
+        }).join('');
+        projectSelect.value = projects.some(function(project) { return project.id === selectedProject; }) ? selectedProject : '';
+    }
+
+    var createProjectSelect = document.getElementById('camp-project');
+    if (createProjectSelect) {
+        var current = createProjectSelect.value || (projectSelect ? projectSelect.value : '');
+        createProjectSelect.innerHTML = projects.map(function(project) {
+            return '<option value="' + cesc(project.id) + '">' + cesc(project.name) + '</option>';
+        }).join('');
+        if (projects.some(function(project) { return project.id === current; })) createProjectSelect.value = current;
+        else if (projectSelect && projectSelect.value) createProjectSelect.value = projectSelect.value;
+        else if (projects[0]) createProjectSelect.value = projects[0].id;
+    }
+
+    var channelSelect = document.getElementById('camp-filter-channel');
+    if (channelSelect) {
+        var currentChannel = channelSelect.value;
+        channelSelect.innerHTML = '<option value="">Todos os canais</option>' + CHANNEL_PRESETS.map(function(item) {
+            return '<option value="' + cesc(item.value) + '">' + cesc(item.label) + '</option>';
+        }).join('');
+        channelSelect.value = currentChannel;
+    }
+    renderCampaignProjects();
+    updateCampaignProjectContext();
 }
 
+
+function getProjectNameById(id) {
+    var project = loadCampaignProjects().find(function(item) { return item.id === id; });
+    return project ? project.name : 'Sem projeto';
+}
+
+function getProjectDomainById(id) {
+    var project = loadCampaignProjects().find(function(item) { return item.id === id; });
+    return project ? project.domain : '';
+}
+
+function updateCampaignProjectContext() {
+    var note = document.getElementById('camp-project-context-note');
+    var selected = getSelectedCampaignProject();
+    if (!note) return;
+    if (!selected) {
+        note.textContent = 'Visão geral com todos os projetos. Selecione um projeto para filtrar métricas, links e criação.';
+        return;
+    }
+    note.textContent = 'Mostrando métricas, links e criação para ' + getProjectNameById(selected) + '.';
+}
+
+function onCampaignCreateProjectChange() {
+    var projectSelect = document.getElementById('camp-project');
+    var urlEl = document.getElementById('camp-url');
+    var domain = projectSelect ? getProjectDomainById(projectSelect.value) : '';
+    if (urlEl && domain && !urlEl.value.trim()) urlEl.value = domain;
+    buildUtmUrl();
+}
+
+function onCampaignProjectFilterChange() {
+    var selected = getSelectedCampaignProject();
+    var createProject = document.getElementById('camp-project');
+    if (createProject && selected) {
+        createProject.value = selected;
+        onCampaignCreateProjectChange();
+    }
+    renderCampaignSummary();
+    renderSavedLinks();
+    renderClientLinks();
+    updateCampaignProjectContext();
+}
+
+function openCampaignProjectsModal() {
+    var modal = document.getElementById('campaign-projects-modal');
+    if (!modal) return;
+    populateCampaignFilters();
+    renderCampaignProjects();
+    modal.classList.add('open');
+    setTimeout(function() {
+        var el = document.getElementById('camp-project-name');
+        if (el) el.focus();
+    }, 60);
+}
+
+function closeCampaignProjectsModal() {
+    var modal = document.getElementById('campaign-projects-modal');
+    if (modal) modal.classList.remove('open');
+}
+function focusCampaignProjectForm() {
+    openCampaignProjectsModal();
+}
+
+function saveCampaignProject() {
+    var nameEl = document.getElementById('camp-project-name');
+    var domainEl = document.getElementById('camp-project-domain');
+    var name = normalizeProjectName(nameEl ? nameEl.value : '');
+    if (!name) {
+        if (nameEl) { nameEl.focus(); nameEl.placeholder = 'Digite o nome do projeto'; }
+        return;
+    }
+    var projects = loadCampaignProjects();
+    var id = normalizeProjectId(name);
+    var domain = normalizeProjectDomain(domainEl ? domainEl.value : '');
+    var existing = projects.find(function(project) { return project.id === id; });
+    if (existing) {
+        existing.name = name;
+        existing.domain = domain || existing.domain;
+    } else {
+        projects.push({ id: id, name: name, domain: domain });
+    }
+    saveCampaignProjects(projects);
+    if (nameEl) nameEl.value = '';
+    if (domainEl) domainEl.value = '';
+    populateCampaignFilters();
+    var projectFilter = document.getElementById('camp-filter-project');
+    if (projectFilter) projectFilter.value = id;
+    onCampaignProjectFilterChange();
+    renderCampaignProjects();
+}
+
+function deleteCampaignProject(id) {
+    if (!id) return;
+    if (isDefaultCampaignProject(id)) {
+        alert('MB Finance e MB Negócios são projetos base e não podem ser apagados.');
+        return;
+    }
+    var used = loadCampaigns().some(function(item) { return normalizeProjectId(getCampaignProject(item)) === id; });
+    if (used) {
+        alert('Este projeto possui links salvos. Remova ou mova os links antes de apagar o projeto.');
+        return;
+    }
+    var projects = loadCampaignProjects().filter(function(project) { return project.id !== id; });
+    saveCampaignProjects(projects);
+    var filter = document.getElementById('camp-filter-project');
+    if (filter && filter.value === id) filter.value = '';
+    populateCampaignFilters();
+    renderCampaignSummary();
+    renderSavedLinks();
+}
+function renderCampaignProjects() {
+    var el = document.getElementById('camp-project-list');
+    if (!el) return;
+    var selected = getSelectedCampaignProject();
+    var html = loadCampaignProjects().map(function(project) {
+        var used = loadCampaigns().some(function(item) { return normalizeProjectId(getCampaignProject(item)) === project.id; });
+        var locked = used || isDefaultCampaignProject(project.id);
+        return '<div class="camp-project-chip' + (selected === project.id ? ' active' : '') + '"><span>' + cesc(project.name) + '</span>'
+            + (project.domain ? '<span class="camp-project-chip-domain">' + cesc(project.domain) + '</span>' : '')
+            + '<button type="button" onclick="deleteCampaignProject(\'' + cesc(project.id) + '\')" title="Excluir projeto" aria-label="Excluir projeto"' + (locked ? ' disabled' : '') + '>' + CAMP_ICONS.close + '</button></div>';
+    }).join('');
+    el.innerHTML = html || '<div class="analytics-empty">Nenhum projeto cadastrado ainda.</div>';
+}
 
 function buildUtmUrl() {
     var urlEl     = document.getElementById('camp-url');
@@ -204,6 +449,45 @@ function buildUtmUrl() {
     return finalUrl;
 }
 
+
+function showCampaignShortError(message, canRelease) {
+    var errEl = document.getElementById('camp-short-error');
+    if (!errEl) return;
+    var code = getRequestedShortCode();
+    errEl.style.display = 'block';
+    if (canRelease && code) {
+        errEl.innerHTML = cesc(message) + ' <button type="button" class="camp-inline-link" onclick="releaseRequestedShortCode()">Liberar apelido</button>';
+    } else {
+        errEl.textContent = message;
+    }
+}
+
+function releaseRequestedShortCode() {
+    var code = getRequestedShortCode();
+    if (!code) return;
+    var errEl = document.getElementById('camp-short-error');
+    var base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
+    if (errEl) errEl.textContent = 'Liberando apelido...';
+    fetch(base + '/api/shorten', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code }),
+    })
+        .then(function(r) {
+            return r.json().catch(function() { return {}; }).then(function(data) {
+                if (!r.ok) throw new Error(data.error || 'HTTP ' + r.status);
+                return data;
+            });
+        })
+        .then(function() {
+            if (errEl) errEl.textContent = 'Apelido liberado. Gerando o link novamente...';
+            buildUtmUrl();
+        })
+        .catch(function(err) {
+            var msg = err && err.message ? err.message : 'Nao foi possivel liberar este apelido.';
+            showCampaignShortError(msg, false);
+        });
+}
 var _shortenTimer = null;
 function shortenUrl(url) {
     var wrap    = document.getElementById('camp-short-wrap');
@@ -217,14 +501,21 @@ function shortenUrl(url) {
     clearTimeout(_shortenTimer);
     _shortenTimer = setTimeout(function() {
         var base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
+        var shortDomainEl = document.getElementById('camp-short-domain');
         fetch(base + '/api/shorten', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url: url }),
+            body: JSON.stringify({
+                url: url,
+                baseUrl: shortDomainEl ? shortDomainEl.value : '',
+                customCode: getRequestedShortCode(),
+            }),
         })
             .then(function(r) {
-                if (!r.ok) throw new Error('HTTP ' + r.status);
-                return r.json();
+                return r.json().catch(function() { return {}; }).then(function(data) {
+                    if (!r.ok) throw new Error(data.error || 'HTTP ' + r.status);
+                    return data;
+                });
             })
             .then(function(data) {
                 if (loading) loading.style.display = 'none';
@@ -239,7 +530,7 @@ function shortenUrl(url) {
                 } else {
                     var msg = data.error || 'Não foi possível encurtar o link.';
                     if (msg.indexOf('Redis') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta função.';
-                    if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+                    showCampaignShortError(msg, false);
                 }
             })
             .catch(function(err) {
@@ -247,7 +538,13 @@ function shortenUrl(url) {
                 var msg = 'Não foi possível encurtar o link.';
                 if (err && err.message && err.message.indexOf('404') !== -1) msg = 'API não encontrada — o site precisa estar no ar via Vercel.';
                 if (err && err.message && err.message.indexOf('503') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta função.';
-                if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+                if (err && err.message && err.message.indexOf('destino') !== -1) msg = err.message + '. Confira se o endereço foi digitado corretamente.';
+                var canRelease = false;
+                if (err && err.message && err.message.toLowerCase().indexOf('apelido') !== -1) {
+                    msg = err.message;
+                    canRelease = true;
+                }
+                showCampaignShortError(msg, canRelease);
             });
     }, 600);
 }
@@ -315,6 +612,7 @@ function saveUtmLink() {
     var url = buildUtmUrl();
     if (!url) return;
 
+    var projectEl = document.getElementById('camp-project');
     var nameEl   = document.getElementById('camp-name');
     var chanEl   = document.getElementById('camp-channel');
     var sourceEl = document.getElementById('camp-source');
@@ -334,6 +632,8 @@ function saveUtmLink() {
 
     list.unshift({
         id:      Date.now(),
+        project: projectEl ? getProjectNameById(projectEl.value) : 'Sem projeto',
+        projectId: projectEl ? projectEl.value : '',
         name:    nameEl   ? nameEl.value.trim()   : '',
         targetUrl: document.getElementById('camp-url') ? document.getElementById('camp-url').value.trim() : '',
         channel: chanEl   ? chanEl.options[chanEl.selectedIndex].text : '',
@@ -347,6 +647,7 @@ function saveUtmLink() {
         url:     url,
         shortUrl: shortUrl,
         shortCode: shortCode,
+        customCode: getRequestedShortCode(),
         clicks: 0,
         date:    new Date().toLocaleDateString('pt-BR'),
     });
@@ -374,9 +675,11 @@ function duplicateCampaign(id) {
     var channelValue = item.channelValue || inferChannelValue(item.channel);
     var channelEl = document.getElementById('camp-channel');
     if (document.getElementById('camp-url')) document.getElementById('camp-url').value = item.targetUrl || getCampaignBaseUrl(item.url);
+    if (document.getElementById('camp-project')) document.getElementById('camp-project').value = item.projectId || normalizeProjectId(getCampaignProject(item));
     if (document.getElementById('camp-name')) document.getElementById('camp-name').value = (item.name || 'Campanha') + ' - cópia';
     if (channelEl) channelEl.value = channelValue;
     if (document.getElementById('camp-content')) document.getElementById('camp-content').value = item.content || '';
+    if (document.getElementById('camp-slug')) document.getElementById('camp-slug').value = '';
     if (document.getElementById('camp-objective')) document.getElementById('camp-objective').value = item.objective || 'leads';
     if (document.getElementById('camp-status')) document.getElementById('camp-status').value = 'active';
     if (document.getElementById('camp-notes')) document.getElementById('camp-notes').value = item.notes || '';
@@ -390,6 +693,19 @@ function duplicateCampaign(id) {
     document.getElementById('camp-name')?.focus();
 }
 
+
+function releaseCampaignShortCode(item) {
+    var code = item ? (item.shortCode || extractShortCode(item.shortUrl || '')) : '';
+    if (!code) return;
+    var base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
+    fetch(base + '/api/shorten', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code, url: item.url || '' }),
+    }).catch(function(err) {
+        console.warn('[campaigns] Nao foi possivel liberar o apelido do link curto:', err);
+    });
+}
 function requestDeleteCampaign(id) {
     if (_pendingDeleteCampaignId === id) {
         deleteCampaign(id);
@@ -410,7 +726,10 @@ function requestDeleteCampaign(id) {
 function deleteCampaign(id) {
     clearTimeout(_pendingDeleteTimer);
     _pendingDeleteCampaignId = null;
-    saveCampaigns(loadCampaigns().filter(function(c) { return c.id !== id; }));
+    var list = loadCampaigns();
+    var item = list.find(function(c) { return c.id === id; });
+    if (item) releaseCampaignShortCode(item);
+    saveCampaigns(list.filter(function(c) { return c.id !== id; }));
     renderCampaignSummary();
     renderSavedLinks();
 }
@@ -443,16 +762,19 @@ function renderSavedLinks() {
     for (var i = 0; i < list.length; i++) {
         var c = list[i];
         var shareUrl = getCampaignShareUrl(c);
+        var shortDisplay = getShortDisplayUrl(c) || 'Link curto pendente';
         var code = c.shortCode || extractShortCode(c.shortUrl || '');
         var isConfirmingDelete = (_pendingDeleteCampaignId === c.id);
         var status = normalizeCampStatus(c.status);
         var width = Math.round((Number(c.clicks || 0) / maxClicks) * 100);
+        var lastClick = c.lastClick ? formatCampaignDate(c.lastClick) : 'Sem cliques';
         rows += '<div class="camp-saved-row">'
-            + '<div><div class="camp-saved-name" title="' + cesc(shareUrl) + '">' + cesc(c.name) + '</div><div class="camp-saved-detail">' + cesc(getCampObjectiveLabel(c.objective)) + (c.notes ? ' · ' + cesc(c.notes) : '') + '</div></div>'
-            + '<div class="camp-click-cell"><div class="camp-click-count" data-short-code="' + cesc(code) + '">' + (code ? formatCampClicks(c.clicks || 0) : '—') + '</div><div class="camp-click-bar"><div class="camp-click-fill" style="width:' + width + '%"></div></div></div>'
+            + '<div><div class="camp-project-pill" title="' + cesc(getCampaignProject(c)) + '">' + cesc(getCampaignProject(c)) + '</div><div class="camp-saved-name" title="' + cesc(c.name) + '">' + cesc(c.name || 'Campanha sem nome') + '</div><div class="camp-saved-detail">Criado em ' + cesc(c.date || '—') + ' · ' + cesc(getCampObjectiveLabel(c.objective)) + (c.notes ? ' · ' + cesc(c.notes) : '') + '</div></div>'
+            + '<div><div class="camp-link-short" title="' + cesc(shortDisplay) + '">' + cesc(shortDisplay) + '</div><div class="camp-link-dest" title="' + cesc(c.targetUrl || c.url || '') + '">' + cesc(c.targetUrl || c.url || '') + '</div></div>'
+            + '<div class="camp-click-cell"><div class="camp-click-count" data-short-code="' + cesc(code) + '">' + (code ? formatCampClicks(c.clicks || 0) : '—') + '</div><div class="camp-click-bar"><div class="camp-click-fill" data-click-fill-code="' + cesc(code) + '" style="width:' + width + '%"></div></div></div>'
+            + '<div><div class="camp-last-click' + (c.lastClick ? '' : ' empty') + '" data-last-click-code="' + cesc(code) + '">' + cesc(lastClick) + '</div></div>'
             + '<div><span class="camp-channel-badge">' + cesc(c.channel) + '</span></div>'
             + '<div><span class="camp-status-badge camp-status-' + status + '">' + cesc(getCampStatusLabel(status)) + '</span></div>'
-            + '<div class="camp-saved-date">' + cesc(c.date) + '</div>'
             + '<div class="camp-saved-actions">'
             + '<button id="camp-copy-saved-' + c.id + '" class="camp-action-btn" onclick="copySavedCamp(' + c.id + ')" title="Copiar URL">' + campButtonHtml('copy', 'Copiar') + '</button>'
             + '<button class="camp-action-btn camp-icon-only" onclick="duplicateCampaign(' + c.id + ')" title="Duplicar link" aria-label="Duplicar link">' + CAMP_ICONS.duplicate + '</button>'
@@ -461,10 +783,9 @@ function renderSavedLinks() {
                 : '<button class="camp-action-btn camp-del-btn camp-icon-only" onclick="requestDeleteCampaign(' + c.id + ')" title="Excluir" aria-label="Excluir link">' + CAMP_ICONS.close + '</button>')
             + '</div></div>';
     }
-    el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Campanha</span><span style="text-align:center">Cliques</span><span>Canal</span><span>Status</span><span>Data</span><span></span></div>' + rows + '</div>';
+    el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Projeto / campanha</span><span>Link personalizado</span><span style="text-align:center">Cliques</span><span>Último clique</span><span>Canal</span><span>Status</span><span></span></div>' + rows + '</div>';
     loadCampaignClickStats();
 }
-
 function loadCampaignClickStats() {
     var list = loadCampaigns();
     var codes = [];
@@ -507,6 +828,303 @@ function loadCampaignClickStats() {
         });
 }
 
+
+function loadClientLinks() {
+    try { return JSON.parse(localStorage.getItem(CAMP_CLIENT_LINK_STORAGE_KEY) || '[]'); }
+    catch (e) { return []; }
+}
+
+function saveClientLinks(list) {
+    localStorage.setItem(CAMP_CLIENT_LINK_STORAGE_KEY, JSON.stringify(list));
+}
+
+function setClientStatus(message, type) {
+    var el = document.getElementById('camp-client-status');
+    if (!el) return;
+    el.className = 'camp-client-status' + (type ? ' ' + type : '');
+    el.textContent = message || '';
+}
+
+function normalizeClientField(value) {
+    return String(value || '').trim().replace(/\s+/g, ' ');
+}
+
+function parseClientRows(raw) {
+    return String(raw || '').split(/\r?\n/).map(function(line) {
+        var clean = line.trim();
+        if (!clean) return null;
+        var parts = clean.split(/\t|;|,/).map(normalizeClientField);
+        if (!parts[0]) return null;
+        return {
+            name: parts[0] || '',
+            cnpj: parts[1] || '',
+            phone: parts[2] || '',
+            company: parts[3] || parts[0] || '',
+        };
+    }).filter(Boolean);
+}
+
+function makeClientCode(existingCodes) {
+    var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    var code = '';
+    do {
+        code = 'lc';
+        for (var i = 0; i < 10; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    } while (existingCodes.indexOf(code) !== -1);
+    existingCodes.push(code);
+    return code;
+}
+
+function getClientCampaignContext() {
+    var projectEl = document.getElementById('camp-project');
+    var nameEl = document.getElementById('camp-name');
+    var chanEl = document.getElementById('camp-channel');
+    var sourceEl = document.getElementById('camp-source');
+    var mediumEl = document.getElementById('camp-medium');
+    var contentEl = document.getElementById('camp-content');
+    var targetEl = document.getElementById('camp-url');
+    var domainEl = document.getElementById('camp-short-domain');
+    return {
+        project: projectEl ? getProjectNameById(projectEl.value) : 'Sem projeto',
+        projectId: projectEl ? projectEl.value : '',
+        campaign: nameEl ? nameEl.value.trim() : '',
+        channel: chanEl ? chanEl.options[chanEl.selectedIndex].text : '',
+        channelValue: chanEl ? chanEl.value : '',
+        source: sourceEl ? sourceEl.value.trim() : '',
+        medium: mediumEl ? mediumEl.value.trim() : '',
+        content: contentEl ? contentEl.value.trim() : '',
+        targetUrl: targetEl ? targetEl.value.trim() : '',
+        shortBase: domainEl ? domainEl.value : '',
+    };
+}
+
+function buildClientBaseUtmUrl(context) {
+    if (!context.targetUrl || !context.campaign || !context.source || !context.medium) return '';
+    var base = context.targetUrl.split('?')[0].split('#')[0];
+    var params = new URLSearchParams();
+    params.set('utm_source', context.source);
+    params.set('utm_medium', context.medium);
+    params.set('utm_campaign', slugify(context.campaign));
+    if (context.content) params.set('utm_content', slugify(context.content));
+    return base + '?' + params.toString();
+}
+
+function buildClientTargetUrl(context, client, code) {
+    var baseUrl = buildClientBaseUtmUrl(context);
+    if (!baseUrl) return '';
+    try {
+        var parsed = new URL(baseUrl);
+        var content = context.content ? slugify(context.content) + '-' + code : code;
+        parsed.searchParams.set('utm_content', content);
+        parsed.searchParams.set('mb_lead', code);
+        return parsed.toString();
+    } catch (e) {
+        return baseUrl + (baseUrl.indexOf('?') === -1 ? '?' : '&') + 'mb_lead=' + encodeURIComponent(code);
+    }
+}
+function renderClientMessage(template, item) {
+    return String(template || '')
+        .replace(/\{nome\}/gi, item.name || '')
+        .replace(/\{empresa\}/gi, item.company || '')
+        .replace(/\{cnpj\}/gi, item.cnpj || '')
+        .replace(/\{telefone\}/gi, item.phone || '')
+        .replace(/\{link\}/gi, item.shortUrl || '')
+        .replace(/\{campanha\}/gi, item.campaign || '');
+}
+
+function requestShortLinkForClient(url, baseUrl, code, attempt) {
+    var base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
+    return fetch(base + '/api/shorten', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: url, baseUrl: baseUrl || '', customCode: code }),
+    }).then(function(res) {
+        return res.json().catch(function() { return {}; }).then(function(data) {
+            if (res.ok) return data;
+            if (res.status === 409 && attempt < 3) throw new Error('retry-code');
+            throw new Error(data.error || 'Nao foi possivel gerar o link curto.');
+        });
+    });
+}
+
+async function generateClientLinks() {
+    var rowsEl = document.getElementById('camp-client-rows');
+    var templateEl = document.getElementById('camp-client-message');
+    var btn = document.getElementById('camp-client-generate-btn');
+    var clients = parseClientRows(rowsEl ? rowsEl.value : '');
+    if (!clients.length) { setClientStatus('Cole ao menos um cliente para gerar os links.', 'error'); return; }
+
+    var context = getClientCampaignContext();
+    if (!context.targetUrl || !context.campaign || !context.source || !context.medium) {
+        setClientStatus('Preencha destino, campanha, origem e meio no bloco acima.', 'error');
+        return;
+    }
+
+    var existing = loadClientLinks();
+    var existingCodes = existing.map(function(item) { return item.shortCode; }).filter(Boolean);
+    var created = [];
+    if (btn) btn.disabled = true;
+    setClientStatus('Gerando 0 de ' + clients.length + ' links...', '');
+
+    try {
+        for (var i = 0; i < clients.length; i++) {
+            var client = clients[i];
+            var code = makeClientCode(existingCodes);
+            var targetUrl = buildClientTargetUrl(context, client, code);
+            var data = null;
+            for (var attempt = 0; attempt < 4; attempt++) {
+                try {
+                    data = await requestShortLinkForClient(targetUrl, context.shortBase, code, attempt);
+                    break;
+                } catch (err) {
+                    if (String(err && err.message) !== 'retry-code') throw err;
+                    code = makeClientCode(existingCodes);
+                    targetUrl = buildClientTargetUrl(context, client, code);
+                }
+            }
+            var item = {
+                id: Date.now() + i,
+                token: code,
+                shortCode: data && data.code ? data.code : code,
+                shortUrl: data && data.short ? data.short : '',
+                targetUrl: context.targetUrl,
+                url: targetUrl,
+                project: context.project,
+                projectId: context.projectId,
+                campaign: context.campaign,
+                channel: context.channel,
+                channelValue: context.channelValue,
+                source: context.source,
+                medium: context.medium,
+                content: context.content,
+                name: client.name,
+                cnpj: client.cnpj,
+                phone: client.phone,
+                company: client.company,
+                clicks: 0,
+                lastClick: null,
+                date: new Date().toLocaleDateString('pt-BR'),
+            };
+            item.message = renderClientMessage(templateEl ? templateEl.value : '', item);
+            created.push(item);
+            setClientStatus('Gerando ' + (i + 1) + ' de ' + clients.length + ' links...', '');
+        }
+        saveClientLinks(created.concat(existing));
+        if (rowsEl) rowsEl.value = '';
+        setClientStatus(created.length + ' links por cliente gerados.', 'success');
+        renderClientLinks();
+    } catch (err) {
+        setClientStatus(err && err.message ? err.message : 'Erro ao gerar links por cliente.', 'error');
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
+function matchesClientProject(item) {
+    var project = getSelectedCampaignProject();
+    if (!project) return true;
+    return normalizeProjectId(item.project || '') === project || item.projectId === project;
+}
+
+function renderClientLinks() {
+    var el = document.getElementById('camp-client-list');
+    if (!el) return;
+    var list = loadClientLinks().filter(matchesClientProject);
+    if (!list.length) {
+        el.innerHTML = '<div class="analytics-empty">Nenhum link por cliente gerado ainda.</div>';
+        return;
+    }
+    var rows = list.map(function(item) {
+        var code = item.shortCode || extractShortCode(item.shortUrl || '');
+        var lastClick = item.lastClick ? formatCampaignDate(item.lastClick) : 'Sem cliques';
+        return '<div class="camp-client-row">'
+            + '<div><div class="camp-client-name">' + cesc(item.name || 'Cliente sem nome') + '</div><div class="camp-client-meta">CNPJ: ' + cesc(item.cnpj || '-') + (item.company ? ' · ' + cesc(item.company) : '') + (item.phone ? ' · ' + cesc(item.phone) : '') + '</div></div>'
+            + '<div><div class="camp-client-link" title="' + cesc(item.shortUrl || '') + '">' + cesc(item.shortUrl || 'Link pendente') + '</div><div class="camp-client-msg" title="' + cesc(item.message || '') + '">' + cesc(item.message || '') + '</div></div>'
+            + '<div class="camp-click-cell"><div class="camp-click-count" data-client-code="' + cesc(code) + '">' + formatCampClicks(item.clicks || 0) + '</div><div class="camp-click-bar"><div class="camp-click-fill" data-client-fill-code="' + cesc(code) + '" style="width:' + Math.min(100, Number(item.clicks || 0) * 12) + '%"></div></div></div>'
+            + '<div><div class="camp-last-click' + (item.lastClick ? '' : ' empty') + '" data-client-last-code="' + cesc(code) + '">' + cesc(lastClick) + '</div></div>'
+            + '<div class="camp-client-row-actions"><button class="camp-action-btn" onclick="copyClientLink(' + item.id + ')">' + campButtonHtml('copy', 'Link') + '</button><button class="camp-action-btn" onclick="copyClientMessage(' + item.id + ')">' + campButtonHtml('copy', 'Mensagem') + '</button><button class="camp-action-btn camp-del-btn camp-icon-only" onclick="deleteClientLink(' + item.id + ')" aria-label="Excluir link por cliente">' + CAMP_ICONS.close + '</button></div>'
+            + '</div>';
+    }).join('');
+    el.innerHTML = '<div class="camp-client-table"><div class="camp-client-header"><span>Cliente</span><span>Link e mensagem</span><span>Cliques</span><span>Ultimo clique</span><span></span></div>' + rows + '</div>';
+    loadClientLinkStats();
+}
+
+function loadClientLinkStats() {
+    var list = loadClientLinks();
+    var codes = [];
+    list.forEach(function(item) {
+        var code = item.shortCode || extractShortCode(item.shortUrl || '');
+        if (code && codes.indexOf(code) === -1) codes.push(code);
+    });
+    if (!codes.length) return;
+    var base = (typeof getApiBase === 'function' ? getApiBase() : window.location.origin).replace(/\/$/, '');
+    fetch(base + '/api/shorten/stats', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ codes: codes }),
+        cache: 'no-store',
+    })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            var stats = data && data.stats ? data.stats : {};
+            var changed = false;
+            list.forEach(function(item) {
+                var code = item.shortCode || extractShortCode(item.shortUrl || '');
+                if (!code || !stats[code]) return;
+                item.shortCode = code;
+                item.clicks = Number(stats[code].clicks || 0);
+                item.lastClick = stats[code].lastClick || null;
+                changed = true;
+            });
+            if (changed) saveClientLinks(list);
+            document.querySelectorAll('[data-client-code]').forEach(function(el) {
+                var code = el.getAttribute('data-client-code');
+                if (code && stats[code]) el.textContent = formatCampClicks(stats[code].clicks || 0);
+            });
+            document.querySelectorAll('[data-client-last-code]').forEach(function(el) {
+                var code = el.getAttribute('data-client-last-code');
+                if (code && stats[code]) {
+                    el.textContent = stats[code].lastClick ? formatCampaignDate(stats[code].lastClick) : 'Sem cliques';
+                    el.classList.toggle('empty', !stats[code].lastClick);
+                }
+            });
+        });
+}
+
+function copyClientLink(id) {
+    var item = loadClientLinks().find(function(row) { return row.id === id; });
+    if (item && item.shortUrl) navigator.clipboard.writeText(item.shortUrl);
+}
+
+function copyClientMessage(id) {
+    var item = loadClientLinks().find(function(row) { return row.id === id; });
+    if (item && item.message) navigator.clipboard.writeText(item.message);
+}
+
+function deleteClientLink(id) {
+    var list = loadClientLinks();
+    var item = list.find(function(row) { return row.id === id; });
+    if (item) releaseCampaignShortCode({ shortCode: item.shortCode, shortUrl: item.shortUrl, url: item.url });
+    saveClientLinks(list.filter(function(row) { return row.id !== id; }));
+    renderClientLinks();
+}
+
+function exportClientLinksCSV() {
+    var list = loadClientLinks().filter(matchesClientProject);
+    if (!list.length) return;
+    var header = ['Projeto', 'Campanha', 'Cliente', 'Empresa', 'CNPJ', 'Telefone', 'Cliques', 'Ultimo Clique', 'Codigo', 'Link', 'Mensagem'];
+    var rows = list.map(function(item) {
+        return [item.project, item.campaign, item.name, item.company, item.cnpj, item.phone, item.clicks || 0, item.lastClick ? formatCampaignDate(item.lastClick) : '', item.shortCode || '', item.shortUrl || '', item.message || ''].map(function(value) {
+            return '"' + String(value || '').replace(/"/g, '""') + '"';
+        }).join(',');
+    });
+    var blob = new Blob([header.join(',') + '\n' + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'links-por-cliente.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
 function loadCampaignPerformance() {
     var el = document.getElementById('camp-perf-table');
     if (!el) return;
@@ -536,25 +1154,40 @@ function loadCampaignPerformance() {
                     + '<td style="text-align:right;font-weight:800;color:#003956">' + fmt(r.sessions) + '</td>'
                     + '<td style="text-align:right;color:#64748b">' + fmt(r.activeUsers) + '</td></tr>';
             }
-            el.innerHTML = '<table class="analytics-table"><thead><tr><th>De onde veio</th><th>Tipo de canal</th><th>Nome da campanha</th><th style="text-align:right">Visitas</th><th style="text-align:right">Pessoas</th></tr></thead><tbody>' + trs + '</tbody></table>';
+            el.innerHTML = '<table class="analytics-table"><thead><tr><th>Origem</th><th>Meio</th><th>Nome da campanha</th><th style="text-align:right">Visitas</th><th style="text-align:right">Pessoas</th></tr></thead><tbody>' + trs + '</tbody></table>';
         })
         .catch(function() { el.innerHTML = '<div class="analytics-empty">Erro ao carregar dados de campanhas do GA4.</div>'; });
 }
 
 function initCampaigns() {
+    if (!window.__campaignProjectEscBound) {
+        window.__campaignProjectEscBound = true;
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') closeCampaignProjectsModal();
+        });
+    }
     populateCampaignFilters();
     renderCampaignSummary();
     onChannelChange();
     renderSavedLinks();
+    renderClientLinks();
     renderWappTemplates();
     loadCampaignPerformance();
 }
 
 window.initCampaigns           = initCampaigns;
+window.onCampaignProjectFilterChange = onCampaignProjectFilterChange;
+window.focusCampaignProjectForm = focusCampaignProjectForm;
+window.openCampaignProjectsModal = openCampaignProjectsModal;
+window.closeCampaignProjectsModal = closeCampaignProjectsModal;
+window.onCampaignCreateProjectChange = onCampaignCreateProjectChange;
+window.saveCampaignProject = saveCampaignProject;
+window.deleteCampaignProject = deleteCampaignProject;
 window.onChannelChange         = onChannelChange;
 window.buildUtmUrl             = buildUtmUrl;
 window.copyUtmUrl              = copyUtmUrl;
 window.copyShortUrl            = copyShortUrl;
+window.releaseRequestedShortCode = releaseRequestedShortCode;
 window.saveUtmLink             = saveUtmLink;
 window.duplicateCampaign       = duplicateCampaign;
 window.deleteCampaign          = deleteCampaign;
@@ -562,6 +1195,13 @@ window.requestDeleteCampaign   = requestDeleteCampaign;
 window.copySavedCamp           = copySavedCamp;
 window.loadCampaignPerformance = loadCampaignPerformance;
 window.loadCampaignClickStats  = loadCampaignClickStats;
+window.generateClientLinks    = generateClientLinks;
+window.renderClientLinks      = renderClientLinks;
+window.loadClientLinkStats    = loadClientLinkStats;
+window.copyClientLink         = copyClientLink;
+window.copyClientMessage      = copyClientMessage;
+window.deleteClientLink       = deleteClientLink;
+window.exportClientLinksCSV   = exportClientLinksCSV;
 window.buildWappTemplate       = buildWappTemplate;
 window.saveWappTemplate        = saveWappTemplate;
 window.useWappTemplate         = useWappTemplate;
@@ -696,15 +1336,18 @@ function openWhatsApp() {
 function exportCampaignsCSV() {
     var list = loadCampaigns();
     if (!list.length) { alert('Nenhum link salvo para exportar.'); return; }
-    var header = ['Campanha', 'Canal', 'Origem', 'Midia', 'Cliques', 'Data', 'Link Curto', 'URL Completa'];
+    var header = ['Projeto', 'Campanha', 'Canal', 'Origem', 'Meio', 'Cliques', 'Ultimo Clique', 'Data', 'Codigo', 'Link Curto', 'URL Completa'];
     var rows = list.map(function(c) {
         return [
+            '"' + String(getCampaignProject(c)).replace(/"/g, '""') + '"',
             '"' + String(c.name    || '').replace(/"/g, '""') + '"',
             '"' + String(c.channel || '').replace(/"/g, '""') + '"',
             '"' + String(c.source  || '').replace(/"/g, '""') + '"',
             '"' + String(c.medium  || '').replace(/"/g, '""') + '"',
             c.clicks || 0,
+            '"' + String(c.lastClick ? formatCampaignDate(c.lastClick) : '').replace(/"/g, '""') + '"',
             '"' + String(c.date    || '').replace(/"/g, '""') + '"',
+            '"' + String(c.shortCode || extractShortCode(c.shortUrl || '') || '').replace(/"/g, '""') + '"',
             '"' + String(c.shortUrl || '').replace(/"/g, '""') + '"',
             '"' + String(c.url     || '').replace(/"/g, '""') + '"',
         ].join(',');

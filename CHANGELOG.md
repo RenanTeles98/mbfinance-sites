@@ -4,6 +4,51 @@
 
 ---
 
+## 2026-05-29 - Subprodutos em mb tributos
+
+### Modificado
+- Secao "O problema" de `public/pages/mb-tributos.html` passou a apresentar produtos principais e subprodutos com descricao curta.
+- PIS/COFINS agora lista PIS/COFINS Monofasico, Credito sobre ICMS e Creditos no Lucro Real.
+- INSS agora lista Verbas indenizatorias, Teto de contribuicao e Desoneracao da folha.
+- Secao "Recuperacao tributaria" voltou a funcionar como chamada dos dois produtos principais, sem detalhamento duplicado.
+- Corrigida legenda residual do modal para manter a nomenclatura ampla de INSS.
+
+## 2026-05-28 - Ajuste visual mb tributos
+
+### Modificado
+- Removida a faixa de metricas do final do hero da pagina `public/pages/mb-tributos.html`.
+- Ajustados textos e modal de PIS/COFINS para focar em produtos comprados e revendidos, sem prazo minimo/maximo.
+- Corrigido o layout da secao "Quem ja fez", incluindo cabecalho, metricas, cards de depoimento e responsividade.
+- Removida a nomenclatura anterior da oferta de INSS nos textos publicos, metadados, FAQ estruturado e modal.
+- Removido o brilho do CTA principal "Quero minha analise gratuita" no hero de mb tributos.
+
+## 2026-05-27 - Pagina mb tributos
+
+### Adicionado
+- Landing page completa para `public/pages/mb-tributos.html`, substituindo o placeholder de "em breve".
+- CSS dedicado em `public/assets/css/mb-tributos.css`.
+
+### Modificado
+- Conteudo comercial de mb tributos estruturado para PIS/COFINS e INSS.
+- Texto passa a explicitar que a MB Finance atua como intermediaria comercial em parceria com a Auditto.
+- CTAs direcionam para WhatsApp e mantem rastreamento via `analytics-events.js`.
+- `public/sitemap.xml` atualizado para incluir a pagina mb tributos.
+- Secao de solucoes ajustada para exibir INSS antes de PIS/COFINS e manter os cards lado a lado em telas maiores.
+- Removido o selo "Especial para condominios" do card de INSS.
+- Adicionados botoes nos cards para abrir o formulario ja no produto selecionado.
+- Botoes dos cards alinhados na base e sem brilho/sombra.
+- Adicionado espacamento entre a lista de beneficios e os botoes dos cards.
+- Titulo e subtitulo da secao de solucoes reescritos com linguagem mais comercial.
+- Fundo da secao "Modelo comercial" alterado para azul escuro da marca.
+- Secao "Como funciona" redesenhada como fluxo visual em cards responsivos.
+- Secao "Modelo comercial" repaginada com destaque de custo inicial zero, cards de beneficios e CTA.
+- Adicionada secao "Resultado possivel" com relato comercial e metricas de recuperacao para reforcar prova de viabilidade.
+- Adicionados comentarios ilustrativos de empresarios, com aviso de que nao sao depoimentos reais identificados.
+- Secao "Papel de cada empresa" reformulada com fluxo MB Finance/Auditto e responsabilidades separadas.
+- Ajustada a versao desktop e mobile da secao "Papel de cada empresa".
+- Produtos da secao de solucoes passam a funcionar como carrossel horizontal no mobile.
+- Cards da secao "Como funciona" passam a funcionar como carrossel horizontal no mobile.
+
 ## 2026-05-14 - Periodo das metricas GA4
 
 - Corrigido o endpoint de analytics para respeitar o periodo selecionado no painel.
@@ -56,6 +101,12 @@
 
 - Adicionada a metrica "Leads Gerados" ao painel administrativo do blog publicado em `blog-pages/`.
 - A API de analytics do blog passou a contar eventos GA4 de abertura/clique de lead para Conta PJ.
+
+## 2026-06-02 - Links curtos MB Finance
+
+- Adicionado seletor de dominio curto na aba Campanhas para gerar links com `mbnegocios.com.br` ou `mbfinance.com.br`.
+- Adicionada validacao de allowlist na API de encurtamento.
+- Preparada regra Apache no pacote do CPanel para encaminhar links `/c/...` da MB Finance ao contador central do blog.
 
 ## 2026-05-13 - Demografia GA4 no admin
 

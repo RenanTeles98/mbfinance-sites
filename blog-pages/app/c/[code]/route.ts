@@ -2,7 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'edge';
 
-const ALLOWED_HOSTS = ['mbfinance.com.br', 'mbnegocios.com.br', 'blog.mbfinance.com.br', 'localhost'];
+const ALLOWED_HOSTS = [
+    'mbfinance.com.br',
+    'mbnegocios.com.br',
+    'blog.mbfinance.com.br',
+    'wa.me',
+    'api.whatsapp.com',
+    'whatsapp.com',
+    'localhost',
+];
 
 function isSafeUrl(raw: string): boolean {
     try {

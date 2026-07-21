@@ -7,7 +7,7 @@ function loadPosts() {
     const apiUrl = getPostsApiUrl();
     if (!apiUrl) {
         loadLocalPosts();
-        setSyncStatus('Somente local', 'offline');
+        setSyncStatus('Local', 'offline');
         return;
     }
 
@@ -32,7 +32,7 @@ function loadPosts() {
             posts = remotePosts;
             localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
             renderSidebar();
-            setSyncStatus('Conectado ao blog oficial', 'online');
+            setSyncStatus('Conectado', 'online');
         })
         .catch(() => {
             loadLocalPosts();
@@ -94,7 +94,7 @@ function configureOfficialBlog() {
         localStorage.removeItem(API_BASE_KEY);
         localStorage.removeItem(API_TOKEN_KEY);
         updateOfficialBlogUi();
-        setSyncStatus('Somente local', 'offline');
+        setSyncStatus('Local', 'offline');
         return;
     }
     localStorage.setItem(API_BASE_KEY, normalizedBase);
@@ -109,7 +109,7 @@ async function syncOfficialBlog(showSuccess = true) {
     const apiUrl = getPostsApiUrl();
     if (!apiUrl) {
         if (showSuccess) alert('Configure a API do blog oficial primeiro.');
-        setSyncStatus('Somente local', 'offline');
+        setSyncStatus('Local', 'offline');
         return false;
     }
 
@@ -128,7 +128,7 @@ async function syncOfficialBlog(showSuccess = true) {
             throw new Error(details || `Falha ao publicar (${response.status})`);
         }
 
-        setSyncStatus('Publicado no blog oficial', 'online');
+        setSyncStatus('Publicado', 'online');
         localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
         if (showSuccess) {
             alert('Conteúdo publicado no blog oficial.\n\nO blog oficial conectado ao app Next.js já está lendo esses posts automaticamente.');
@@ -276,7 +276,7 @@ async function savePost() {
             showToast('Publicação salva e publicada!');
         } else {
             showToast('Publicação salva apenas neste navegador.');
-            alert('A publicação foi salva localmente, mas não foi publicada no blog oficial. Clique em "Publicar no site" para tentar novamente e ver o erro.');
+            alert('A publicação foi salva localmente, mas não foi publicada no blog oficial. Clique em "Atualizar blog" para tentar novamente e ver o erro.');
         }
     }
 

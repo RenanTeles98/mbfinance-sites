@@ -1,0 +1,122 @@
+# ─────────────────────────────────────────────
+#  MB Finance — Otimizações de Performance
+# ─────────────────────────────────────────────
+
+# ── Compressão Gzip ──────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/woff
+  AddOutputFilterByType DEFLATE font/woff2
+  AddOutputFilterByType DEFLATE application/font-woff
+  AddOutputFilterByType DEFLATE application/font-woff2
+</IfModule>
+
+# ── Cache de Browser ─────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Imagens
+  ExpiresByType image/jpg          "access plus 1 year"
+  ExpiresByType image/jpeg         "access plus 1 year"
+  ExpiresByType image/png          "access plus 1 year"
+  ExpiresByType image/gif          "access plus 1 year"
+  ExpiresByType image/webp         "access plus 1 year"
+  ExpiresByType image/svg+xml      "access plus 1 year"
+  ExpiresByType image/x-icon       "access plus 1 year"
+  ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+
+  # Fontes
+  ExpiresByType font/ttf           "access plus 1 year"
+  ExpiresByType font/otf           "access plus 1 year"
+  ExpiresByType font/woff          "access plus 1 year"
+  ExpiresByType font/woff2         "access plus 1 year"
+  ExpiresByType application/font-woff  "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+
+  # CSS e JavaScript
+  ExpiresByType text/css           "access plus 6 months"
+  ExpiresByType application/javascript "access plus 6 months"
+  ExpiresByType text/javascript    "access plus 6 months"
+
+  # HTML e dados
+  ExpiresByType text/html          "access plus 1 hour"
+  ExpiresByType application/json   "access plus 0 seconds"
+</IfModule>
+
+# ── Cache-Control Headers ────────────────────
+<IfModule mod_headers.c>
+  # Força revalidação para HTML
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  # Cache longo para assets com hash/versão
+  <FilesMatch "\.(css|js|woff|woff2|ttf|otf)$">
+    Header set Cache-Control "public, max-age=15552000, immutable"
+  </FilesMatch>
+
+  # Cache longo para imagens
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Segurança
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Keep-Alive
+  Header set Connection keep-alive
+</IfModule>
+
+# ── Segurança Adicional ──────────────────────
+<IfModule mod_headers.c>
+  # HSTS — força HTTPS por 1 ano, subdomínios incluídos
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # CSP Report-Only — monitorar violações por 2 semanas antes de aplicar em modo ativo
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://googleads.g.doubleclick.net https://cdn.growthbook.io; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://cdn.growthbook.io https://www.facebook.com; frame-ancestors 'self'"
+
+  # Permissions-Policy — desabilita funcionalidades sensíveis não utilizadas pelo site
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # Isolamento cross-origin
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
+</IfModule>
+
+# ── Desabilitar listagem de diretórios ───────
+Options -Indexes
+
+# ── ETag ─────────────────────────────────────
+<IfModule mod_headers.c>
+  Header unset ETag
+</IfModule>
+FileETag None
+
+# ── Redirecionamento HTTPS ───────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Links curtos da MB Finance usam o mesmo contador central do blog.
+  RewriteRule ^c/([a-z0-9]+)$ https://blog.mbfinance.com.br/c/$1 [L,R=302,NE]
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ── Mime Types corretos ──────────────────────
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType font/woff  .woff
+  AddType image/webp .webp
+</IfModule>

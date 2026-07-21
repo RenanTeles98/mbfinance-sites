@@ -7,7 +7,7 @@ function loadPosts() {
     const apiUrl = getPostsApiUrl();
     if (!apiUrl) {
         loadLocalPosts();
-        setSyncStatus('Somente local', 'offline');
+        setSyncStatus('Local', 'offline');
         return;
     }
 
@@ -27,7 +27,7 @@ function loadPosts() {
             posts = remotePosts;
             localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
             renderSidebar();
-            setSyncStatus('Conectado ao blog oficial', 'online');
+            setSyncStatus('Conectado', 'online');
         })
         .catch(() => {
             loadLocalPosts();
@@ -82,7 +82,7 @@ function configureOfficialBlog() {
         localStorage.removeItem(API_BASE_KEY);
         localStorage.removeItem(API_TOKEN_KEY);
         updateOfficialBlogUi();
-        setSyncStatus('Somente local', 'offline');
+        setSyncStatus('Local', 'offline');
         return;
     }
     localStorage.setItem(API_BASE_KEY, normalizedBase);
@@ -97,7 +97,7 @@ async function syncOfficialBlog(showSuccess = true) {
     const apiUrl = getPostsApiUrl();
     if (!apiUrl) {
         if (showSuccess) alert('Configure a API do blog oficial primeiro.');
-        setSyncStatus('Somente local', 'offline');
+        setSyncStatus('Local', 'offline');
         return false;
     }
 
@@ -113,7 +113,7 @@ async function syncOfficialBlog(showSuccess = true) {
 
         if (!response.ok) throw new Error('Falha ao publicar');
 
-        setSyncStatus('Publicado no blog oficial', 'online');
+        setSyncStatus('Publicado', 'online');
         if (showSuccess) {
             alert('✅ Conteudo publicado no blog oficial.\n\nO blog oficial conectado ao app Next.js ja esta lendo esses posts automaticamente.');
         }

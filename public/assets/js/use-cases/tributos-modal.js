@@ -428,7 +428,7 @@
     function showSubProductSelect() {
         const isInss    = state.product === 'inss';
         const subProds  = isInss ? INSS_SUBPRODUCTS : PIS_COFINS_SUBPRODUCTS;
-        const label     = isInss ? 'INSS Patronal' : 'PIS / COFINS';
+        const label     = isInss ? 'INSS' : 'PIS / COFINS';
 
         setContent(`
             <div class="trib-label">${label}</div>

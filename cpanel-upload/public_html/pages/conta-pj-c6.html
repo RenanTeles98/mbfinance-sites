@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abrindo sua Conta PJ | MB Finance</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/MDGzVRmC/logo-mb-finance.png">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XS7HTFJKD6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XS7HTFJKD6');
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #003956 0%, #001e2e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.3);
+        }
+        .logo { font-size: 22px; font-weight: 900; margin-bottom: 32px; }
+        .logo span:first-child { color: #003956; }
+        .logo span:last-child { color: #0099dd; }
+        .check-icon {
+            width: 72px; height: 72px;
+            background: linear-gradient(135deg, #003956, #0099dd);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 24px;
+        }
+        .check-icon svg { color: #fff; }
+        h1 { font-size: 28px; font-weight: 900; color: #003956; margin-bottom: 12px; }
+        .subtitle { font-size: 15px; color: #64748b; line-height: 1.6; margin-bottom: 32px; }
+        .redirect-info {
+            background: #eff9ff;
+            border: 1.5px solid rgba(0,153,221,0.2);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 13px;
+            color: #0099dd;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .spinner {
+            width: 18px; height: 18px;
+            border: 2.5px solid rgba(0,153,221,0.3);
+            border-top-color: #0099dd;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            flex-shrink: 0;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: #003956;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 800;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #0099dd; }
+        .footer-note { font-size: 12px; color: #94a3b8; margin-top: 20px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo"><span>mb</span><span>finance.</span></div>
+        <div class="check-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+        </div>
+        <h1>Pronto!</h1>
+        <p class="subtitle">Sua indicação foi registrada com sucesso. Agora baixe o app do C6 Bank para finalizar a abertura da sua Conta PJ.</p>
+        <div class="redirect-info">
+            <div class="spinner"></div>
+            <span>Redirecionando para o app do C6 Bank...</span>
+        </div>
+        <a class="btn" href="https://onelink.to/xujgk3" id="btn-c6">Baixar app do C6 Bank</a>
+        <p class="footer-note">Não foi redirecionado automaticamente? Clique no botão acima.</p>
+    </div>
+
+    <script>
+        // Fire GA4 event and redirect
+        gtag('event', 'c6_app_click', {
+            send_to: 'G-XS7HTFJKD6',
+            event_category: 'conversion',
+            event_label: 'conta_pj_c6_bank',
+            event_callback: function() {
+                window.location.href = 'https://onelink.to/xujgk3';
+            }
+        });
+        // Fallback: redirect after 1.5s even if gtag callback doesn't fire
+        setTimeout(function() {
+            window.location.href = 'https://onelink.to/xujgk3';
+        }, 1500);
+    </script>
+</body>
+</html>

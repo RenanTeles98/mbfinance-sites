@@ -484,3 +484,597 @@ Estado atual:
 
 Proximo passo recomendado:
 - Validar a sidebar publicada em desktop, notebook menor e mobile para conferir se o sticky e o scroll interno estao confortaveis.
+
+## Sessao de 2026-06-02 - Dominio MB Finance nos links curtos
+
+- `private/blog-admin.html`: adicionado seletor de dominio curto com `mbnegocios.com.br` e `mbfinance.com.br`.
+- `public/assets/js/admin/admin-campaigns.js`: o dominio escolhido passou a ser enviado para `/api/shorten`.
+- `app/api/shorten/route.ts`: o dominio solicitado e validado por allowlist.
+- `../cpanel-upload/public_html/.htaccess`: preparada regra para encaminhar `mbfinance.com.br/c/[code]` ao contador central do blog.
+
+Estado atual: codigo pronto para deploy. A regra do CPanel precisa ser publicada para `mbfinance.com.br/c/...` deixar de responder `404`.
+
+Validacao: `node --check public/assets/js/admin/admin-campaigns.js` e `npm run build` passaram com sucesso.
+
+Ajuste complementar:
+- Destinos invalidos passam a ser recusados no momento da criacao do link, e nao apenas no clique.
+- Destinos oficiais de WhatsApp (`wa.me`, `api.whatsapp.com` e `whatsapp.com`) foram adicionados a allowlist.
+- Links antigos que exibem `Destino invalido` precisam ser recriados.
+
+## Sessao de 2026-07-13 - Influencers por projeto em Videos IA
+
+Foi reorganizado o card de influencer da aba Videos IA para permitir multiplas influencers por projeto.
+
+Arquivos modificados:
+- `private/blog-admin.html`: card de influencer substituido por lista/formulario com seletor, resumo da personagem, importacao de manual e campos de IDs do HeyGen.
+- `public/assets/js/admin/admin-videos.js`: adicionada persistencia local por projeto, filtro automatico ao trocar projeto e vinculo da influencer ativa aos roteiros gerados.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-07-13.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- Cada projeto mostra somente as influencers cadastradas nele.
+- MB Negocios recebe a influencer inicial Heena Duarte com ID de aparencia e Voice ID informados pelo usuario.
+- O campo do lote mostra apenas a influencer selecionada; os IDs tecnicos ficam no cadastro da personagem.
+- `npm run build` passou com sucesso.
+
+Proximo passo recomendado:
+- Validar em producao se o ID de aparencia enviado ao HeyGen e aceito como `avatar_id`; se a API exigir outro campo, ajustar a rota `/api/heygen/videos`.
+
+## Sessao de 2026-07-13 - Espacamento do card de influencers
+
+Foi refinado o layout do card Influencers do projeto na aba Videos IA.
+
+Arquivos modificados:
+- `private/blog-admin.html`: o card passou a usar cabecalho em grid, lista da influencer separada e formulario em coluna unica dentro da lateral.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-07-13.md` e `CHANGELOG.md`: atualizados com a sessao.
+
+Estado atual:
+- Campos do cadastro de influencer deixam de ficar espremidos em duas colunas.
+- Botoes, seletor, resumo e formulario seguem uma hierarquia vertical mais previsivel.
+- `npm run build` passou com sucesso.
+
+Proximo passo recomendado:
+- Validar visualmente a aba Videos IA em producao em notebook e desktop.
+
+## Sessao de 2026-07-13 - Foto e manual anexados no perfil da influencer
+
+Foi adicionada a possibilidade de anexar foto e documento do manual no cadastro de influencers da aba Videos IA.
+
+Arquivos modificados:
+- `private/blog-admin.html`: adicionados botoes Anexar foto e Anexar manual, preview visual da foto no avatar e labels de arquivo anexado.
+- `public/assets/js/admin/admin-videos.js`: salva foto compactada, nome do arquivo e documento do manual no perfil local da influencer.
+- `CONTEXT.md`, `TODO.md`, `DECISIONS.md`, `docs/sessions/2026-07-13.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- A foto substitui as iniciais HD/IA no resumo da influencer.
+- O manual pode ser anexado como TXT, MD, JSON, PDF, DOC ou DOCX.
+- TXT/MD/JSON tambem preenchem o resumo usado nos roteiros.
+- PDF/DOC/DOCX ficam anexados ao perfil local, mas o texto nao e extraido automaticamente nesta etapa.
+- `npm run build` passou com sucesso.
+
+Proximo passo recomendado:
+- Migrar foto e manual para storage/banco quando sair de `localStorage`, porque arquivos anexados agora ficam somente no navegador atual.
+
+## Sessao de 2026-07-13 - PDFs maiores no manual da influencer
+
+Foi corrigido o limite baixo ao anexar PDF no manual da influencer.
+
+Arquivos modificados:
+- `public/assets/js/admin/admin-videos.js`: PDFs/DOCs deixam de ser salvos em `localStorage` e passam a ser guardados em IndexedDB no navegador, com limite local de 15 MB.
+- `private/blog-admin.html`: texto do campo atualizado para PDF, DOC, TXT e MD.
+- `CONTEXT.md`, `DECISIONS.md`, `docs/sessions/2026-07-13.md` e `CHANGELOG.md`: atualizados com a decisao.
+
+Estado atual:
+- O perfil da influencer guarda no `localStorage` apenas metadados do manual.
+- O arquivo pesado fica em IndexedDB, evitando o erro de limite anterior.
+- TXT/MD continuam preenchendo o resumo do manual automaticamente.
+- `npm run build` passou com sucesso.
+
+## Sessao de 2026-07-13 - Galeria visual da influencer Helena Duarte
+
+### O que foi feito
+- Copiadas 8 imagens de referencia da pasta local da influencer para `public/images/influencers/helena-duarte/`.
+- A aba Videos IA passou a exibir uma galeria de referencias visuais no card da influencer.
+- O perfil padrao da Heena Duarte em MB Negocios recebeu foto principal e referencias fixas, sem apagar IDs ja salvos localmente.
+- O script de videos foi versionado para `admin-videos.js?v=8`.
+
+### Estado atual
+- Ao selecionar MB Negocios e Heena Duarte, as imagens aparecem no painel da influencer.
+- Clicar em uma referencia aplica aquela imagem como foto principal do perfil local.
+
+### Proximo passo recomendado
+- Otimizar as imagens em WebP/AVIF quando houver ferramenta de compressao disponivel e definir qual imagem sera a referencia oficial final.
+
+## Sessao de 2026-07-13 - Manual da Helena Duarte
+
+### O que foi feito
+- O resumo/manual da Helena Duarte foi cadastrado como manual padrao da influencer no projeto MB Negocios.
+- O nome padrao foi corrigido de Heena Duarte para Helena Duarte, preservando o ID interno antigo para compatibilidade.
+- Perfis antigos salvos no navegador recebem o manual padrao apenas se ainda nao tiverem manual preenchido.
+- O script de videos foi versionado para `admin-videos.js?v=9`.
+
+### Estado atual
+- Ao abrir Videos IA em MB Negocios, a Helena deve carregar com galeria, IDs tecnicos e resumo manual preenchido quando o perfil local ainda estiver vazio.
+
+### Proximo passo recomendado
+- Validar em producao se o resumo aparece no campo Manual da influencer e se os roteiros passam a incorporar essa identidade.
+
+## Sessao de 2026-07-13 - Video unico e lote por calendario
+
+### O que foi feito
+- A aba Videos IA passou a separar o fluxo de criacao entre `Gerar 1 video` e `Gerar lote para varios dias`.
+- O formulario recebeu campos de primeira publicacao e intervalo em dias para planejar lotes.
+- Cada roteiro do lote passa a salvar `plannedDate` e exibir a postagem planejada na fila.
+- O CSV de videos agora exporta Data planejada e Data criacao separadamente.
+- O script de videos foi versionado para `admin-videos.js?v=10`.
+
+### Estado atual
+- O usuario pode gerar uma peca unica sem alterar a quantidade do lote.
+- O lote continua gerando variacoes diferentes, agora com agenda sugerida por data.
+
+### Proximo passo recomendado
+- Validar em producao gerando 1 video e depois um lote com data inicial para conferir a ordem das datas planejadas.
+
+## Sessao de 2026-07-13 - Uso do video e multiplas redes
+
+### O que foi feito
+- A aba Videos IA passou a ter o campo `Uso do video`, separando conteudo para redes sociais, anuncios pagos ou ambos.
+- O antigo campo unico de Canal foi substituido por uma selecao multipla de redes onde o video sera usado.
+- Os campos de quantidade, primeira publicacao e intervalo foram agrupados como configuracao do lote.
+- Roteiros, fila e CSV passam a guardar o uso do video e a lista de redes selecionadas.
+- O script de videos foi versionado para `admin-videos.js?v=11`.
+
+### Estado atual
+- Um mesmo roteiro pode ser planejado para Instagram, TikTok, YouTube Shorts, Facebook Reels, Stories e Meta Ads.
+- A tela deixa mais claro o que pertence ao video e o que pertence apenas ao lote.
+
+## Sessao de 2026-07-13 - Filtro de redes por uso do video
+
+### O que foi feito
+- Corrigida a selecao de redes na aba Videos IA para reagir ao campo Uso do video.
+- Conteudo para redes sociais mostra apenas canais organicos: Instagram, Stories, TikTok, YouTube e Facebook.
+- Anuncios pagos mostra apenas canais pagos: Meta Ads, Instagram Ads, Facebook Ads, TikTok Ads e YouTube Ads.
+- Conteudo e anuncios mostra os dois grupos.
+- Os nomes organicos foram encurtados, removendo sufixos como Reels e Shorts.
+- O script de videos foi versionado para `admin-videos.js?v=12`.
+
+### Estado atual
+- A lista nao exibe mais todos os canais para qualquer escolha de uso.
+- Os modelos rapidos tambem selecionam canais coerentes com o tipo de uso.
+
+## Sessao de 2026-07-13 - Linha editorial e Kanban de Videos IA
+
+### O que foi feito
+- Adicionada a secao Linha editorial dentro da aba Videos IA.
+- Criados pilares editoriais baseados no manual da Helena: educacao financeira PJ, beneficios praticos, quebra de objecoes, comparativos, bastidores e oferta/conversao.
+- Adicionado Kanban local com colunas Ideias, Roteiro, Producao e Publicado.
+- O usuario pode adicionar ideias, mover entre colunas, excluir e aplicar uma ideia diretamente no briefing do video.
+- Adicionada acao Sugerir ideias base para iniciar o planejamento editorial.
+- O script de videos foi versionado para `admin-videos.js?v=13`.
+
+### Estado atual
+- A linha editorial fica salva em `localStorage` pela chave `mb_ai_video_editorial_v1`.
+- O Kanban ainda e local do navegador, igual a fila inicial de videos.
+
+### Proximo passo recomendado
+- Validar em producao o cadastro de ideias e a acao Usar, depois avaliar persistencia em banco/API para compartilhar com a equipe.
+
+## Sessao de 2026-07-13 - Remocao de cards auxiliares em Videos IA
+
+### O que foi feito
+- Removidos os cards laterais Fluxo recomendado e Modelos rapidos da aba Videos IA.
+- Mantida a nota de integracao HeyGen.
+- O script de videos foi versionado para `admin-videos.js?v=14` para quebrar cache.
+
+### Estado atual
+- A lateral de Videos IA fica mais limpa, focada na influencer e na integracao.
+
+## Sessao 2026-07-13 - Linha editorial em pagina propria
+
+### O que foi feito
+- O Kanban de Linha editorial saiu de dentro da aba Videos IA e virou uma pagina propria no menu principal do admin.
+- A nova tela recebeu colunas mais largas, area lateral para pilares editoriais e formulario separado para nova ideia.
+- A aba Videos IA voltou a focar em criacao de videos, influencer do projeto e fila de producao.
+- O botao Usar no Kanban agora aplica a ideia no briefing e leva o usuario para Videos IA.
+- Scripts versionados para `admin-videos.js?v=15` e `admin-core.js?v=3`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `public/assets/js/admin/admin-core.js`
+- `public/assets/js/admin/admin-videos.js`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- A linha editorial tem uma pagina dedicada, com mais espaco para visualizar e mover cards.
+- O armazenamento das ideias continua em `localStorage` nesta etapa.
+- Build de producao passou, mantendo apenas warnings antigos de `<img>`.
+
+### Proximo passo recomendado
+- Validar em producao o fluxo: abrir Linha editorial, criar ideia, mover card e usar a ideia no briefing de Videos IA.
+
+## Sessao 2026-07-13 - Submenu dentro de Videos IA
+
+### O que foi feito
+- A Linha editorial deixou de ser item independente do menu principal.
+- A pagina Videos IA ganhou um submenu interno com `Criar videos` e `Linha editorial`.
+- O Kanban continua com layout amplo, mas agora fica dentro do contexto de criacao de videos com IA.
+- O core do admin voltou a tratar apenas `videos` como aba principal.
+- Scripts versionados para `admin-videos.js?v=16` e `admin-core.js?v=4`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `public/assets/js/admin/admin-core.js`
+- `public/assets/js/admin/admin-videos.js`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- Todo o fluxo de criacao de conteudo por video com IA fica dentro da aba Videos IA.
+- A subaba Linha editorial renderiza o Kanban sob demanda e a subaba Criar videos renderiza resumo, formulario, influencer e fila.
+
+### Proximo passo recomendado
+- Validar em producao se a troca entre Criar videos e Linha editorial esta confortavel no uso diario.
+
+## Sessao 2026-07-13 - Kanban editorial em largura ampliada
+
+### O que foi feito
+- A subaba Linha editorial dentro de Videos IA passou a usar melhor a largura disponivel da tela.
+- Pilares editoriais e formulario de nova ideia foram organizados acima do board.
+- O Kanban passou a ocupar uma linha inteira, com colunas mais largas e area vertical maior.
+- A tela Videos IA adiciona a classe `video-editorial-active` ao abrir a subaba editorial para remover o limite de largura do container.
+- O script de videos foi versionado para `admin-videos.js?v=17`.
+
+### Estado atual
+- A Linha editorial continua dentro de Videos IA, mas o Kanban nao fica mais comprimido ao lado dos pilares.
+- Build de producao passou, com apenas warnings antigos de `<img>` no blog.
+
+### Proximo passo recomendado
+- Validar visualmente em producao se as quatro colunas aparecem confortaveis no monitor principal de uso.
+
+## Sessao 2026-07-13 - Limpeza visual em Criar videos
+
+### O que foi feito
+- Removido o card azul de integracao da subaba Criar videos em Videos IA.
+- A Fila de producao foi movida para a coluna do formulario, logo abaixo dos botoes de geracao.
+- O espaco em branco entre o formulario e a fila foi reduzido.
+- A regra CSS obsoleta do card de integracao foi removida.
+
+### Estado atual
+- A integracao HeyGen continua existindo tecnicamente pela rota `/api/heygen/videos`, mas sem ocupar espaco visual com um aviso fixo.
+- A fila aparece no fluxo direto de criacao de videos.
+
+### Proximo passo recomendado
+- Validar visualmente a subaba Criar videos em producao e revisar se a fila deve virar um painel colapsavel quando houver muitos roteiros.
+
+## Sessao 2026-07-13 - Melhor uso lateral em Videos IA
+
+### O que foi feito
+- A tela Videos IA deixou de ficar presa ao limite de `1180px` e agora usa toda a largura disponivel da area administrativa.
+- A grade principal foi recalibrada para dar mais espaco ao formulario e manter uma coluna lateral mais confortavel para a influencer.
+- Cards de resumo, formularios e espaçamentos passaram a aproveitar melhor as laterais da tela.
+
+### Estado atual
+- A subaba Criar videos deve aparecer menos espremida em monitores largos.
+- Em telas menores, o layout continua empilhando para evitar estouro horizontal.
+
+### Proximo passo recomendado
+- Validar visualmente em producao no monitor principal e ajustar a proporcao entre formulario e influencer se necessario.
+
+## 2026-07-13 - Videos IA: perfis sociais por projeto
+
+- Substituida a selecao manual de canais em Videos IA por um bloco de perfis conectados.
+- Cada projeto agora pode cadastrar perfis de Instagram e Facebook em `localStorage` usando a chave `mb_ai_video_social_accounts_v1`.
+- A geracao de roteiro usa os perfis conectados selecionados como destino do video e bloqueia a criacao quando nao ha perfil selecionado.
+- Arquivos modificados: `private/blog-admin.html` e `public/assets/js/admin/admin-videos.js`.
+- Validacao executada: `node --check public\assets\js\admin\admin-videos.js` e `npm run build`.
+- Proximo passo recomendado: implementar OAuth real da Meta para importar paginas/perfis e habilitar agendamento via API oficial.
+
+## 2026-07-13 - OAuth real Meta para Videos IA
+
+- Substituida a conexao manual/fake de perfis sociais por um fluxo OAuth real da Meta.
+- Criadas as rotas `GET /api/meta/connect` e `GET /api/meta/callback`.
+- O admin abre o login oficial da Meta em popup, troca o `code` no servidor, busca paginas do Facebook e perfis profissionais do Instagram vinculados e salva os perfis reais no projeto selecionado.
+- O frontend recebe apenas dados dos perfis; tokens da Meta nao sao expostos no JavaScript publico.
+- Variaveis adicionadas em `.env.example`: `META_APP_ID`, `META_APP_SECRET`, `META_GRAPH_VERSION` e `NEXT_PUBLIC_SITE_URL`.
+- Arquivos modificados: `app/api/meta/connect/route.ts`, `app/api/meta/callback/route.ts`, `private/blog-admin.html`, `public/assets/js/admin/admin-videos.js`, `.env.example`.
+- Validacao executada: `node --check public\assets\js\admin\admin-videos.js` e `npm run build`.
+- Proximo passo recomendado: configurar o app da Meta e as variaveis na Vercel; para agendamento real, persistir tokens no servidor com criptografia e banco.
+
+## Sessao 2026-07-13 - Retorno visivel do OAuth Meta em Videos IA
+
+### O que foi feito
+- A pagina `/api/meta/callback` deixou de fechar automaticamente o popup da Meta e agora mostra uma confirmacao visivel no dominio `blog.mbfinance.com.br`.
+- O callback grava o resultado em `localStorage`, envia `postMessage` para o admin e oferece o botao `Aplicar no admin` como fallback manual.
+- O admin Videos IA passou a capturar o retorno da Meta tambem por evento de `storage`, foco da janela e fechamento do popup.
+- O script de videos foi versionado para `admin-videos.js?v=22`.
+
+### Arquivos modificados
+- `app/api/meta/callback/route.ts`
+- `public/assets/js/admin/admin-videos.js`
+- `private/blog-admin.html`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- Se a Meta redirecionar corretamente para o callback, o usuario deve ver uma tela de confirmacao do proprio blog antes de voltar ao admin.
+- Se a confirmacao nao aparecer depois do botao Entendi da Meta, o problema ainda esta no fluxo/configuracao de redirecionamento da Meta antes de chegar no sistema.
+
+### Validacao
+- `node --check public\\assets\\js\\admin\\admin-videos.js` executado com sucesso.
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-13 - Reautorizacao de paginas Meta
+
+### O que foi feito
+- A rota `/api/meta/connect` passou a iniciar o OAuth com `auth_type=rerequest` e `return_scopes=true` para forcar a Meta a reavaliar permissoes concedidas.
+- A mensagem quando nenhuma pagina e retornada ficou mais operacional, orientando o usuario a entrar com a conta administradora e usar `Editar configuracoes` para liberar todas as paginas desejadas.
+
+### Arquivos modificados
+- `app/api/meta/connect/route.ts`
+- `app/api/meta/callback/route.ts`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- O sistema salva corretamente as paginas que a Meta devolve.
+- Paginas ausentes dependem da selecao/autorizacao feita dentro da propria tela da Meta e das permissoes da conta logada sobre cada pagina.
+- Instagram ainda depende de permissao de Instagram no app da Meta e de perfil profissional vinculado a uma pagina.
+
+### Validacao
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-13 - Ativos Meta selecionaveis por projeto
+
+### O que foi feito
+- A aba Videos IA deixou de tratar Instagram/Facebook como conexoes separadas por projeto.
+- A conexao Meta/Facebook agora importa ativos para uma biblioteca local global do admin.
+- Cada projeto passa a selecionar quais ativos importados pertencem a ele: uma pagina do Facebook e, quando disponivel, um Instagram profissional.
+- A interface agora mostra grupos separados para `Pagina do Facebook para este projeto` e `Instagram profissional para este projeto`.
+- O script de videos foi versionado para `admin-videos.js?v=23`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `public/assets/js/admin/admin-videos.js`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- O usuario conecta a conta Meta/Facebook uma vez e depois filtra os ativos por projeto.
+- Perfis ja conectados anteriormente sao preservados como legado e aparecem na biblioteca de ativos Meta.
+- A selecao de ativos por projeto ainda fica em `localStorage` nesta etapa.
+
+### Validacao
+- `node --check public\\assets\\js\\admin\\admin-videos.js` executado com sucesso.
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-13 - Callback Meta com retorno automatico
+
+### O que foi feito
+- A tela de callback da Meta deixou de ficar parada apos `Conexao Meta finalizada`.
+- O callback agora envia o resultado ao admin, tenta fechar o popup automaticamente e redireciona para `/admin#videos` quando o navegador nao permite fechar a janela.
+- O botao da tela passou de `Aplicar no admin` para `Voltar para o admin`.
+
+### Arquivos modificados
+- `app/api/meta/callback/route.ts`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- A tela de callback pode aparecer rapidamente como confirmacao, mas nao deve prender o usuario nela.
+- Build de producao passou, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-13 - Correcao de Instagram no retorno Meta
+
+### O que foi feito
+- Corrigido o callback da Meta para nao descartar contas Instagram quando a conexao for iniciada pelo botao `Conectar conta Meta/Facebook`.
+- A mensagem de aviso foi ajustada para informar que Instagram ausente depende de perfil profissional, vinculo com pagina retornada e permissao/produto de Instagram no app da Meta.
+
+### Arquivos modificados
+- `app/api/meta/callback/route.ts`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- Se a Graph API devolver `instagram_business_account`, o admin passa a importar o Instagram mesmo quando o fluxo comecou pelo Facebook.
+- Paginas ausentes continuam dependendo da selecao/autorizacao feita na tela da Meta e das permissoes da conta logada.
+
+### Validacao
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-13 - Remocao de aviso fixo em Videos IA
+
+### O que foi feito
+- Removido o aviso fixo `Crie um video unico ou uma sequencia para varios dias` da subaba Criar videos.
+- Removido o CSS associado a `video-mode-note` e `video-mode-icon`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `CONTEXT.md`
+- `TODO.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Validacao
+- Busca por `video-mode-note`/texto do aviso nao retornou ocorrencias.
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-13 - Videos IA como gerador de conteudo
+
+### O que foi feito
+- A subaba Criar videos foi remodelada para funcionar como `Gerador de conteudo`, removendo a linguagem principal de lote.
+- O campo Produto virou selecao multipla de produtos do conteudo.
+- O campo de quantidade passou a representar `Quantas ideias de conteudo` devem ser geradas.
+- Foram removidos os campos de primeira publicacao e intervalo entre videos do fluxo principal.
+- O briefing foi renomeado para `Filtro criativo e pontos para lapidar`.
+- A lista inferior passou a se chamar `Ideias geradas`.
+- O script de videos foi versionado para `admin-videos.js?v=24`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `public/assets/js/admin/admin-videos.js`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- O usuario configura projeto, uso, ativos Meta, multiplos produtos, formato, quantidade de ideias, duracao, tom de voz, influencer, CTA e filtro criativo.
+- O botao principal gera a quantidade de ideias indicada, sem apresentar o fluxo como lote/agendamento.
+
+### Validacao
+- `node --check public\\assets\\js\\admin\\admin-videos.js` executado com sucesso.
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-13 - Ideias geradas legiveis em Videos IA
+
+### O que foi feito
+- A lista `Ideias geradas` deixou de usar colunas compactas e passou a renderizar cada ideia como um card legivel.
+- Cada card mostra titulo, projeto, produto, destino e tom em chips, com o roteiro em uma area propria.
+- Adicionado botao `Ver tudo`/`Recolher` para expandir o roteiro completo sem espremer a tela.
+- O script de videos foi versionado para `admin-videos.js?v=25`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `public/assets/js/admin/admin-videos.js`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-13.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- O usuario consegue ler o roteiro e as informacoes do conteudo gerado diretamente na lista.
+- Em telas menores, os botoes empilham abaixo do conteudo para preservar a leitura.
+
+### Validacao
+- `node --check public\\assets\\js\\admin\\admin-videos.js` executado com sucesso.
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-14 - Correcao de cache em Ideias geradas
+
+### O que foi feito
+- Atualizado o cache bust do script de Videos IA para `admin-videos.js?v=26`.
+- Adicionados headers `Cache-Control: no-store` para `/admin`, `/admin/:path*` e scripts do admin.
+- O objetivo foi impedir que o navegador continue carregando a tabela antiga de ideias geradas sem o botao `Ver tudo`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `next.config.mjs`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-14.md`
+- `CHANGELOG.md`
+
+### Validacao
+- `node --check public\\assets\\js\\admin\\admin-videos.js` executado com sucesso.
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-14 - Card recolhivel de influencer
+
+### O que foi feito
+- O card `Influencers do projeto` na aba Videos IA passou a abrir recolhido por padrao.
+- Mantida visivel apenas a selecao da influencer ativa, resumo e acoes rapidas.
+- A area de edicao de identidade, foto, manual e IDs fica atras do botao `Editar`/`Recolher`.
+- O estado aberto/recolhido fica salvo no navegador pela chave `mb_ai_video_influencer_collapsed_v1`.
+- `Nova influencer` abre automaticamente o editor.
+- O script de videos foi versionado para `admin-videos.js?v=27`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `public/assets/js/admin/admin-videos.js`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-14.md`
+- `CHANGELOG.md`
+
+### Validacao
+- `node --check public\\assets\\js\\admin\\admin-videos.js` executado com sucesso.
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-14 - Coluna lateral da influencer compacta
+
+### O que foi feito
+- Reduzida a largura da coluna lateral da influencer em Videos IA.
+- A grade principal passou de uma lateral com minimo de 420px para uma coluna compacta `clamp(300px, 24vw, 340px)`.
+- O card de influencer foi ajustado para caber melhor nessa largura: botoes em grid, padding menor, avatar menor e acoes empilhadas.
+- O breakpoint de empilhamento da tela mudou para 980px, mantendo o layout em duas colunas por mais tempo.
+- O script de videos foi versionado para `admin-videos.js?v=28`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-14.md`
+- `CHANGELOG.md`
+
+### Validacao
+- `node --check public\\assets\\js\\admin\\admin-videos.js` executado com sucesso.
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-14 - Reversao da coluna compacta da influencer
+
+### O que foi feito
+- Desfeita a ultima alteracao que reduzia a largura da coluna lateral da influencer em Videos IA.
+- A grade voltou para `minmax(0, 1.25fr) minmax(420px, .75fr)` com gap de 24px.
+- Os ajustes internos compactos do card tambem foram revertidos para o padrao anterior.
+- O card continua recolhivel, porque a reversao solicitada foi da alteracao de largura.
+- O script foi versionado para `admin-videos.js?v=29`.
+
+### Validacao
+- `npm run build` executado com sucesso, mantendo apenas warnings antigos de `<img>`.
+
+## Sessao 2026-07-14 - Etapa Remotion em Videos IA
+
+### O que foi feito
+- Adicionado Remotion como etapa de edicao automatica dentro da tela Videos IA.
+- A fila de ideias agora possui status especificos para Remotion: Aguardando Remotion, Editando no Remotion e Video editado.
+- Cada item com MP4 do HeyGen passa a exibir a acao Remotion, que coloca o conteudo na fila de edicao final.
+- O resumo da tela separa geracao HeyGen de edicao Remotion.
+- O CSV de Videos IA passou a exportar status Remotion e URL de video final.
+- O script de videos foi versionado para `admin-videos.js?v=30`.
+
+### Arquivos modificados
+- `private/blog-admin.html`
+- `public/assets/js/admin/admin-videos.js`
+- `CONTEXT.md`
+- `TODO.md`
+- `DECISIONS.md`
+- `docs/sessions/2026-07-14.md`
+- `CHANGELOG.md`
+
+### Estado atual
+- Remotion esta representado no fluxo operacional do admin, apos o MP4 sair do HeyGen.
+- A renderizacao automatica ainda nao foi implementada; a etapa atual organiza fila/status e prepara a interface para o endpoint futuro.
+
+### Proximo passo recomendado
+- Instalar/configurar Remotion e criar um template padrao para legenda, logo, CTA, cortes e exportacao final em MP4.
+
+### Deploy Remotion
+- Deploy de producao concluido na Vercel.
+- URL de producao: https://blog.mbfinance.com.br
+- URL direta do deploy: https://blog-mbfinace-6gulf3izu-growths-projects-da44dbf7.vercel.app

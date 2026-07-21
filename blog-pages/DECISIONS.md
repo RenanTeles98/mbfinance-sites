@@ -267,3 +267,346 @@
 - Decisao: manter o sticky CSS existente e reforcar o deploy com a lista atualizada.
   - Motivo: o comportamento sticky ja esta definido no CSS; a validacao principal agora e confirmar a versao publicada no Vercel.
   - Alternativas consideradas: usar JavaScript para fixar a sidebar no scroll, descartado porque CSS sticky e mais simples e menos sujeito a bugs.
+
+## 2026-06-02 - Dominio curto selecionavel por campanha
+
+- Decisao: permitir a escolha entre `mbnegocios.com.br` e `mbfinance.com.br` ao gerar um link curto.
+- Motivo: campanhas da MB Finance precisam usar o dominio da propria marca sem separar o contador de cliques.
+- Seguranca: a API aceita somente bases cadastradas em allowlist.
+- Infraestrutura: `mbfinance.com.br/c/[code]` encaminha ao redirecionador central do blog por regra Apache.
+- Validacao: destinos sao verificados antes de salvar o codigo e novamente no redirecionamento.
+- WhatsApp: `wa.me`, `api.whatsapp.com` e `whatsapp.com` sao permitidos porque fazem parte dos CTAs oficiais do site.
+
+## 2026-07-13 - Influencers por projeto em Videos IA
+
+- Decisao: cada projeto pode ter sua propria lista de influencers, filtrada automaticamente pelo projeto selecionado.
+- Motivo: um projeto pode ter uma identidade/personagem diferente, e os IDs de voz/aparencia nao devem aparecer misturados entre marcas.
+- Decisao: manter o cadastro inicial em `localStorage` nesta etapa.
+- Motivo: permite validar fluxo, layout e integracao com HeyGen antes de criar persistencia em banco.
+- Decisao: salvar manual, referencia visual, ID de aparencia e Voice ID dentro do perfil da influencer.
+- Motivo: preserva fidelidade de rosto/voz e evita preencher IDs tecnicos a cada lote.
+- Alternativas consideradas: manter um unico card por projeto, descartado porque nao escala para multiplas personagens; criar backend agora, adiado ate validar o fluxo operacional.
+
+## 2026-07-13 - Card de influencers em coluna unica
+
+- Decisao: usar coluna unica no formulario de influencer dentro da lateral da aba Videos IA.
+- Motivo: a lateral nao tem largura suficiente para duas colunas sem quebrar labels, inputs e textarea.
+- Alternativas consideradas: aumentar a largura da coluna direita inteira, descartado porque reduziria espaco do formulario principal de lote.
+
+## 2026-07-13 - Anexos locais no perfil da influencer
+
+- Decisao: salvar a foto da influencer como imagem compactada em `localStorage` nesta etapa.
+- Motivo: permite validar a experiencia visual sem criar storage de arquivos antes do fluxo estar aprovado.
+- Decisao: aceitar documento de manual como anexo local e extrair texto apenas de TXT/MD/JSON.
+- Motivo: PDF/DOC/DOCX exigem parser ou backend; anexar o arquivo ja resolve a organizacao do perfil sem aumentar a complexidade agora.
+- Alternativas consideradas: criar upload em storage agora, adiado ate a ferramenta deixar de ser local por navegador.
+
+## 2026-07-13 - PDFs de manual em IndexedDB
+
+- Decisao: armazenar PDFs/DOCs de manual em IndexedDB, mantendo no perfil apenas chave, nome, tipo e tamanho.
+- Motivo: `localStorage` tem limite pequeno e falha ao salvar PDFs maiores.
+- Alternativas consideradas: aumentar o limite em `localStorage`, descartado porque a falha continuaria dependendo do navegador; backend/storage continua sendo o destino final para uso multiusuario.
+
+## 2026-07-13 - Referencias visuais publicas por influencer
+
+### Decisao
+- As imagens de referencia da Helena Duarte foram copiadas para `public/images/influencers/helena-duarte/` e vinculadas ao perfil padrao da influencer.
+- Perfis existentes no navegador recebem a galeria por merge, preservando campos ja salvos como IDs de aparencia e voz.
+
+### Motivo
+- O usuario precisa consultar as referencias visuais dentro da ferramenta sem depender de caminhos locais do computador.
+- Manter as imagens em `public/images` torna os assets acessiveis no admin publicado e evita quebrar no deploy.
+
+### Alternativas consideradas
+- Continuar usando apenas URL manual: simples, mas nao resolve o fluxo de varias fotos de referencia.
+- Armazenar em banco/storage agora: mais robusto, mas maior escopo para a etapa atual.
+
+## 2026-07-13 - Manual padrao da Helena Duarte
+
+### Decisao
+- O resumo manual da Helena Duarte foi salvo como constante no modulo `admin-videos.js` e associado ao perfil padrao da influencer em MB Negocios.
+- O merge preserva ajustes locais do usuario e preenche o manual apenas quando o perfil salvo ainda nao tem manual.
+
+### Motivo
+- O manual precisa orientar a geracao de roteiros sem depender de colagem manual a cada uso.
+- Preservar dados locais evita sobrescrever configuracoes ja feitas no navegador do admin.
+
+## 2026-07-13 - Videos IA com criacao unica e lote agendado
+
+### Decisao
+- A tela Videos IA passou a ter duas acoes separadas: gerar um unico roteiro ou gerar lote.
+- O lote recebeu planejamento simples por data inicial e intervalo entre videos.
+
+### Motivo
+- A ferramenta precisa atender tanto demandas pontuais quanto producao em volume para dias diferentes.
+- Separar as acoes evita que o usuario precise usar quantidade 1 como workaround para criar apenas um video.
+
+## 2026-07-13 - Videos com uso e multiplas redes
+
+### Decisao
+- O campo Canal foi substituido por selecao multipla de redes.
+- Foi adicionado o campo Uso do video para diferenciar anuncios pagos, conteudo organico ou reaproveitamento em ambos.
+
+### Motivo
+- Um mesmo video pode ser publicado em varias redes, entao limitar a um unico canal criava uma decisao artificial.
+- O roteiro precisa mudar conforme o objetivo de uso, principalmente entre conteudo organico e anuncio pago.
+
+## 2026-07-13 - Redes filtradas por uso do video
+
+### Decisao
+- A lista de redes passa a ser filtrada pelo uso escolhido: organico, pago ou ambos.
+- Nomes de canais organicos foram simplificados para a plataforma/formato principal, sem sufixos como Reels/Shorts.
+
+### Motivo
+- Mostrar todos os canais para qualquer uso confundia o fluxo.
+- O usuario quer decidir primeiro se o video e conteudo, anuncio ou ambos; a lista de canais precisa responder a essa decisao.
+
+## 2026-07-13 - Kanban de linha editorial em Videos IA
+
+### Decisao
+- A primeira versao da linha editorial foi implementada dentro da aba Videos IA, com pilares fixos e Kanban salvo em localStorage.
+
+### Motivo
+- O fluxo diario de producao precisa administrar ideias e status antes da geracao de roteiro/video.
+- Manter localStorage nesta etapa preserva velocidade de validacao sem criar novas tabelas antes do fluxo estar fechado.
+
+## 2026-07-13 - Remocao dos cards auxiliares de Videos IA
+
+### Decisao
+- Remover da interface os cards Fluxo recomendado e Modelos rapidos.
+
+### Motivo
+- Esses cards estavam ocupando espaco visual e repetindo orientacoes que agora fazem menos sentido apos a criacao da linha editorial e do fluxo mais completo.
+
+## 2026-07-13 - Linha editorial em pagina dedicada
+
+### Decisao
+- O Kanban editorial foi separado da aba Videos IA e passou a ter uma tela propria no admin.
+- A tela usa o mesmo armazenamento e funcoes existentes, mas com layout mais amplo e colunas maiores.
+
+### Motivo
+- O Kanban dentro do gerador de videos deixava as informacoes comprimidas e dificultava mover/ler cards.
+- Linha editorial e uma rotina de planejamento anterior ao video, entao faz sentido estar em uma pagina independente.
+
+### Alternativas consideradas
+- Apenas aumentar o card dentro de Videos IA: reduziria pouco a compressao e manteria fluxos diferentes na mesma tela.
+- Criar outro sistema de Kanban do zero: desnecessario para a necessidade atual, ja que a logica existente funcionava.
+
+## 2026-07-13 - Submenu para fluxos de Videos IA
+
+### Decisao
+- A Linha editorial foi mantida dentro da pagina Videos IA como subaba, em vez de aparecer no menu principal.
+- O menu principal continua mais enxuto e a pagina Videos IA concentra criacao, planejamento editorial, influencer e fila de producao.
+
+### Motivo
+- A linha editorial faz parte do processo de criacao de videos com IA, nao de uma area geral isolada.
+- Submenus preservam espaco visual sem espalhar fluxos relacionados pelo sistema.
+
+### Alternativas consideradas
+- Manter Linha editorial como menu principal: deixava a navegacao global mais cheia e quebrava o contexto de Videos IA.
+- Recolocar o Kanban direto junto do formulario: voltaria a comprimir as informacoes.
+
+## 2026-07-13 - Kanban editorial com board em largura total
+
+### Decisao
+- O Kanban da Linha editorial passou a ocupar uma linha inteira abaixo dos controles, em vez de dividir a linha com pilares e formulario.
+
+### Motivo
+- O uso principal da subaba e visualizar e administrar cards; portanto, as colunas do board precisam receber a maior parte da largura da tela.
+
+### Alternativas consideradas
+- Apenas aumentar a largura minima das colunas mantendo o sidebar lateral: continuaria exigindo scroll horizontal cedo demais.
+- Esconder os pilares: economizaria espaco, mas removeria contexto util para cadastrar ideias.
+
+## 2026-07-13 - Remocao do card fixo de integracao em Videos IA
+
+### Decisao
+- O aviso fixo de integracao HeyGen foi removido da interface principal de Criar videos.
+- A fila de producao foi aproximada do formulario, ocupando a area que ficava vazia.
+
+### Motivo
+- O card azul chamava atencao para uma informacao tecnica que nao precisava competir com a rotina diaria.
+- A tela tinha um vazio grande antes da fila, prejudicando a percepcao de organizacao.
+
+### Alternativas consideradas
+- Manter o aviso como card menor: ainda ocuparia espaco e manteria ruido visual.
+- Mover o aviso para tooltip/documentacao futura: melhor para informacao tecnica de baixa frequencia.
+
+## 2026-07-13 - Videos IA sem limite central estreito
+
+### Decisao
+- O container de Videos IA passou de largura central limitada para largura total dentro da area administrativa.
+- A coluna lateral da influencer recebeu largura minima maior, enquanto o formulario principal ocupa o restante disponivel.
+
+### Motivo
+- A tela tinha espaco lateral vazio enquanto os campos ficavam comprimidos no centro.
+- A ferramenta de videos e operacional, entao deve priorizar densidade organizada e bom aproveitamento horizontal.
+
+### Alternativas consideradas
+- Apenas reduzir fontes e paddings: aumentaria densidade, mas deixaria a tela mais apertada.
+- Manter container central e esconder campos: reduziria informacao visivel sem resolver o desperdicio lateral.
+
+## 2026-07-13 - Perfis sociais locais antes do OAuth da Meta
+
+Decisao: a tela Videos IA passa a trabalhar com perfis sociais conectados por projeto, mas nesta etapa a conexao e um cadastro local no navegador.
+
+Motivo: a integracao real com Instagram/Facebook depende de Meta App, permisssoes, revisao e tokens. O cadastro local permite organizar o fluxo de criacao e preparar a experiencia de agendamento sem bloquear a evolucao da ferramenta.
+
+Alternativas consideradas: manter checkboxes de canais genericos, ou implementar OAuth completo agora. Os checkboxes nao resolvem a gestao por pagina/projeto; o OAuth completo exige configuracao externa ainda nao disponivel.
+
+## 2026-07-13 - OAuth real da Meta sem expor tokens no frontend
+
+Decisao: a conexao de Instagram/Facebook passa a usar OAuth server-side com a Meta. O frontend recebe somente os perfis retornados pela Graph API, sem access tokens.
+
+Motivo: o usuario precisa de conexao real com pagina/perfil, mas expor tokens de pagina no JavaScript publico criaria risco de seguranca. Para agendamento futuro, os tokens devem ser persistidos no servidor de forma criptografada.
+
+Alternativas consideradas: manter cadastro manual/fake, ou salvar access tokens no localStorage. O cadastro manual nao atende ao requisito de conexao real; token em localStorage foi descartado por seguranca.
+
+## 2026-07-13 - Callback Meta visivel e fallback de captura
+
+### Decisao
+- O callback OAuth da Meta passa a renderizar uma pagina de confirmacao em vez de fechar automaticamente o popup.
+- O admin captura o resultado por `postMessage`, `localStorage`, evento `storage`, retorno de foco e fechamento do popup.
+
+### Motivo
+- A janela da Meta podia fechar sem deixar claro se o callback do sistema foi executado ou se o retorno falhou antes de chegar ao admin.
+- Uma confirmacao visivel separa problema de configuracao da Meta de problema de aplicacao do resultado no frontend.
+
+### Alternativas consideradas
+- Manter fechamento automatico e apenas mostrar status no admin: descartado porque o usuario nao conseguia diagnosticar onde o fluxo parava.
+- Reabrir o fluxo OAuth em tela cheia: adiado, pois o popup ainda e mais confortavel para manter o admin aberto.
+
+## 2026-07-13 - Reautorizacao Meta para paginas ausentes
+
+### Decisao
+- O OAuth da Meta passou a usar `auth_type=rerequest` e `return_scopes=true`.
+
+### Motivo
+- A Meta pode retornar apenas as paginas previamente liberadas pelo usuario para o app, mesmo que o perfil administre outras paginas.
+- Forcar reautorizacao aumenta a chance de a tela `Editar configuracoes` permitir revisar a lista de paginas concedidas.
+
+### Alternativas consideradas
+- Tentar listar paginas sem consentimento explicito do usuario: nao e permitido pelo fluxo da Meta.
+- Salvar paginas manualmente como fallback: descartado para esta etapa porque o objetivo e conexao real via Meta.
+
+## 2026-07-13 - Biblioteca Meta e selecao por projeto
+
+### Decisao
+- A conexao com a Meta passa a importar ativos para uma biblioteca global local, enquanto cada projeto salva apenas os IDs dos ativos selecionados.
+
+### Motivo
+- O fluxo correto e conectar a conta Facebook/Meta uma vez e depois escolher qual pagina e qual Instagram pertencem a cada projeto.
+- Isso evita reconectar a Meta a cada projeto e prepara o caminho para agendamento por pagina/perfil.
+
+### Alternativas consideradas
+- Manter botoes separados `Conectar Instagram` e `Conectar Facebook`: descartado porque confundia conexao com selecao de destino.
+- Salvar todos os ativos importados automaticamente no projeto atual: descartado porque o usuario precisa filtrar manualmente quais pertencem ao projeto.
+
+## 2026-07-13 - Retorno automatico do callback Meta
+
+### Decisao
+- A tela de callback da Meta passa a fechar ou redirecionar automaticamente apos enviar o resultado ao admin.
+
+### Motivo
+- Depois que o fluxo foi diagnosticado, manter a pagina parada causava a percepcao de erro no uso diario.
+- O callback ainda fica visivel por um instante para diagnostico, mas deixa de bloquear o usuario.
+
+## 2026-07-13 - Importar Instagram independente do tipo de botao Meta
+
+### Decisao
+- O callback Meta passa a importar `instagram_business_account` sempre que esse campo vier no retorno da pagina.
+
+### Motivo
+- O fluxo do usuario agora conecta a conta Meta/Facebook uma vez e depois seleciona os ativos por projeto. Portanto, iniciar a conexao como Facebook nao deve impedir a importacao de Instagram vinculado.
+
+### Alternativas consideradas
+- Voltar a ter botoes separados para Instagram e Facebook: descartado porque conflita com o fluxo desejado de conexao unica e filtro por projeto.
+
+## 2026-07-13 - Videos IA orientado a ideias de conteudo
+
+### Decisao
+- A tela de criacao deixou de priorizar lote/agendamento e passou a funcionar como gerador de ideias de conteudo com quantidade configuravel.
+
+### Motivo
+- O fluxo desejado e gerar conteudos um por vez ou algumas ideias por rodada, filtrar as melhores e lapidar antes de produzir o video.
+- A selecao multipla de produtos permite roteiros combinando ofertas relacionadas sem duplicar formul�rios.
+
+### Alternativas consideradas
+- Manter o fluxo de lote com datas: descartado porque gerava confusao no momento atual, antes da etapa de calendario/agendamento.
+
+## 2026-07-13 - Ideias geradas em cards expansíveis
+
+### Decisao
+- A lista de ideias geradas em Videos IA passou de tabela compacta para cards expansíveis com metadados em chips.
+
+### Motivo
+- Roteiros longos e informacoes de destino ficavam ilegíveis em colunas estreitas, dificultando a escolha e lapidacao das melhores ideias.
+- Cards preservam a leitura do roteiro e mantem as acoes proximas sem sacrificar o conteudo principal.
+
+### Alternativas consideradas
+- Apenas aumentar a largura da primeira coluna: descartado porque continuaria comprimindo status e acoes.
+- Abrir os detalhes em modal: adiado, pois a leitura inline e mais rapida para revisar varias ideias em sequencia.
+
+## 2026-07-14 - Admin sem cache para scripts operacionais
+
+### Decisao
+- O admin e os scripts em `/assets/js/admin/` passam a ser servidos com `Cache-Control: no-store`.
+
+### Motivo
+- O painel administrativo muda com frequencia e o usuario precisa ver a alteracao imediatamente apos deploy.
+- O cache do navegador manteve a renderizacao antiga da lista de ideias, impedindo acesso ao roteiro completo.
+
+### Alternativas consideradas
+- Depender apenas de query string `v=`: funciona em muitos casos, mas nao resolve quando o HTML do admin fica preso em cache.
+- Pedir hard reload manual a cada deploy: ruim para rotina operacional.
+
+## 2026-07-14 - Card de influencer recolhivel
+
+### Decisao
+- A configuracao detalhada da influencer fica recolhida por padrao, mantendo apenas o resumo operacional visivel.
+
+### Motivo
+- Foto, manual e IDs tecnicos sao configuracoes de baixa frequencia e ocupavam muito espaco na rotina de geracao de conteudo.
+- Recolher o editor reduz ruido visual sem remover acesso aos campos quando for necessario ajustar a personagem.
+
+### Alternativas consideradas
+- Mover a configuracao para outra pagina: mais limpo, mas quebraria o fluxo atual de selecionar projeto e ajustar influencer no mesmo contexto.
+- Deixar sempre aberto: descartado pelo desperdicio de espaco apontado pelo usuario.
+
+## 2026-07-14 - Coluna compacta para influencer
+
+### Decisao
+- A coluna lateral da influencer em Videos IA passa a ter largura compacta fixa/responsiva entre 300px e 340px.
+
+### Motivo
+- O card de influencer e uma configuracao de baixa frequencia e nao deve competir por largura com o gerador de conteudo e a lista de ideias.
+- Manter a lateral estreita melhora a area de trabalho principal sem remover acesso ao resumo e aos controles da personagem.
+
+### Alternativas consideradas
+- Apenas recolher verticalmente o card: insuficiente, porque a queixa principal passou a ser largura ocupada.
+- Mover a influencer para modal: economizaria mais espaco, mas esconderia a personagem ativa e criaria um passo extra no fluxo.
+
+## 2026-07-14 - Reversao da coluna compacta da influencer
+
+### Decisao
+- A reducao de largura da coluna da influencer foi revertida, mantendo apenas o comportamento recolhivel do card.
+
+### Motivo
+- O usuario pediu para desfazer a alteracao anterior de largura.
+- Manter o recolhimento preserva a melhoria de altura/ruido sem insistir na redistribuicao horizontal rejeitada.
+
+## 2026-07-14 - Remotion como etapa depois do HeyGen
+
+### Decisao
+- Remotion foi adicionado primeiro como etapa de fluxo/status dentro de Videos IA, sem instalar ainda o render automatico.
+- A acao Remotion so fica disponivel quando o item ja possui `videoUrl` do HeyGen.
+- O resumo da tela passa a separar geracao do MP4 no HeyGen e edicao final no Remotion.
+
+### Motivo
+- O processo correto e: ideia/roteiro -> MP4 no HeyGen -> edicao final no Remotion.
+- Instalar e rodar Remotion exige definir template, armazenamento de assets e estrategia de renderizacao server-side, entao foi separado da organizacao do fluxo.
+- Bloquear Remotion ate existir MP4 evita colocar roteiros sem video na fila de edicao.
+
+### Alternativas consideradas
+- Instalar Remotion imediatamente: adiado para evitar uma integracao incompleta sem template e sem endpoint de render.
+- Manter edicao como status generico: descartado porque o usuario quer Remotion explicitamente no sistema.

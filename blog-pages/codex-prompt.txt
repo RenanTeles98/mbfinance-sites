@@ -1,0 +1,130 @@
+Tenho um painel admin em HTML puro servido por uma rota Next.js. A URL é https://blog.mbfinance.com.br/admin. O problema: a página carrega (topbar e barra de abas aparecem), mas a área de conteúdo abaixo das abas fica completamente em branco. Nem HTML estático como um <h2> aparece.
+
+=== ESTRUTURA DO PROJETO ===
+
+O HTML fica em: blog-pages/private/blog-admin.html
+É servido por: blog-pages/app/admin/route.ts (lê o arquivo com fs.readFileSync e retorna como text/html)
+Os JS ficam em: blog-pages/public/assets/js/admin/
+O middleware.ts protege /admin com cookie de sessão HMAC.
+
+=== CSS ATUAL DO HTML (inline no <head>) ===
+
+body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: #1e293b; min-height: 100vh; }
+
+#auth-screen { display: none !important; }
+
+#admin-app { display: flex; flex-direction: column; min-height: 100vh; }
+#topbar { height: 60px; background: #003956; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; flex-shrink: 0; }
+#tab-bar { height: 48px; background: #fff; border-bottom: 1.5px solid #e2e8f0; display: flex; align-items: center; padding: 0 20px; gap: 2px; flex-shrink: 0; }
+#admin-body { display: flex; flex: 1; }
+
+.admin-screen { display: none; }
+.admin-screen.active { display: block; width: 100%; padding-bottom: 60px; }
+
+#screen-posts.active { display: flex; flex-direction: row; min-height: calc(100vh - 60px - 48px); padding-bottom: 0; }
+
+=== ESTRUTURA DO BODY ===
+
+<div id="auth-screen">...</div>   <!-- hidden -->
+
+<div id="admin-app">
+  <div id="topbar">...</div>       <!-- aparece OK -->
+  <div id="tab-bar">
+    <button onclick="switchTab('analytics')">Métricas do site</button>
+    <button onclick="switchTab('posts')">Blog</button>
+    ... outros botões
+  </div>                           <!-- aparece OK -->
+  <div id="admin-body">
+    <div id="screen-posts" class="admin-screen">...</div>
+    <div id="screen-analytics" class="admin-screen active">
+      <div class="analytics-wrap">
+        <h2>Métricas do site</h2>   <!-- NÃO APARECE — ESTE É O PROBLEMA -->
+        <p>Acompanhe usuários...</p>
+        <select id="analytics-period-select">...</select>
+        ... mais elementos estáticos e dinâmicos
+      </div>
+    </div>
+    <div id="screen-campaigns" class="admin-screen">...</div>
+    <div id="screen-newsletter" class="admin-screen">...</div>
+    <div id="screen-calendar" class="admin-screen">...</div>
+    <div id="screen-generator" class="admin-screen">...</div>
+  </div>
+</div>
+
+=== SCRIPTS (fim do body, síncronos, nessa ordem) ===
+
+<script src="../assets/js/admin/admin-state.js"></script>
+<script src="../assets/js/admin/admin-utils.js"></script>
+<script src="../assets/js/admin/admin-blog.js"></script>
+<script src="../assets/js/admin/admin-newsletter.js"></script>
+<script src="../assets/js/admin/admin-calendar.js"></script>
+<script src="../assets/js/admin/admin-analytics.js"></script>
+<script src="../assets/js/admin/admin-campaigns.js"></script>
+<script src="../assets/js/admin/admin-ai.js"></script>
+<script src="../assets/js/admin/admin-banners.js"></script>
+<script src="../assets/js/admin/admin-core.js"></script>
+<script>
+  (function() {
+    var origInit = window.init;
+    window.init = function() {
+      if (origInit) origInit();
+      renderPautasBoard();
+      if (typeof window.renderEditorialAnalytics === 'function') window.renderEditorialAnalytics();
+    };
+  })();
+</script>
+
+=== admin-core.js (resumo) ===
+
+function init() {
+  const authStatus = localStorage.getItem('mb_admin_auth');
+  if (!authStatus) {
+    document.getElementById('admin-app').style.display = 'none';
+    return;
+  }
+  document.getElementById('admin-app').style.display = 'flex';
+  if (typeof loadPosts === 'function') loadPosts();
+  if (typeof renderAnalytics === 'function') renderAnalytics();
+  if (typeof updateOfficialBlogUi === 'function') updateOfficialBlogUi();
+}
+document.addEventListener('DOMContentLoaded', init);
+
+=== NO <head> DO HTML ===
+
+<script>localStorage.setItem('mb_admin_auth','true');</script>
+<!-- garante que init() encontra o auth antes do DOMContentLoaded -->
+
+=== app/admin/route.ts ===
+
+export async function GET() {
+  const html = fs.readFileSync(path.join(process.cwd(), 'private', 'blog-admin.html'), 'utf-8');
+  return new NextResponse(html, {
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+    },
+  });
+}
+
+=== O QUE CONFIRMA QUE JS ESTÁ RODANDO ===
+
+O badge "Conectado ao blog oficial" no topbar é dinâmico (definido por admin-blog.js
+via updateOfficialBlogUi). Ele aparece corretamente, confirmando que os scripts carregam
+e executam. O topbar e tab-bar aparecem estilizados corretamente.
+
+=== TENTATIVAS JÁ FEITAS QUE NÃO RESOLVERAM ===
+
+1. .admin-screen { height: 100%; overflow: auto; } + .admin-screen.active { display: block; }
+2. .admin-screen.active { display: block; height: calc(100vh - 60px - 48px); overflow-y: auto; }
+3. #admin-body { overflow-y: auto; min-height: 0; } + html, body { height: 100%; }
+4. #admin-app { display: none } + init() mostra via inline style → mesma coisa
+5. Cache-Control: no-store no route.ts para evitar cache da CDN Vercel
+6. Múltiplas combinações de flex/height/overflow no #admin-body e .admin-screen
+
+=== PERGUNTA ===
+
+Por que o conteúdo de #screen-analytics (e de todas as outras .admin-screen.active)
+não aparece visualmente na página, mesmo com display:block e width:100%?
+
+O que exatamente está fazendo o conteúdo ficar invisível? Mostre a correção
+mínima necessária no CSS ou JS para resolver isso definitivamente.

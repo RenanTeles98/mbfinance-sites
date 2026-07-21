@@ -5,6 +5,77 @@
 
 ---
 
+## ADR-041: Secao O problema de mb tributos usa produto principal e subprodutos
+
+**Data:** 2026-05-29
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+A segunda secao da pagina, "O problema", precisava explicar melhor onde nasce o credito tributario. O dono do projeto pediu que essa secao apresentasse os produtos principais e suas ramificacoes, com um breve texto explicativo para cada subproduto.
+
+### Decisao
+
+Substituir o bloco visual de ranking por segmentos na secao "O problema" por um painel de produtos analisados. O painel mantem dois produtos principais, PIS/COFINS e INSS, e lista suas ramificacoes em blocos compactos com titulo e descricao curta. A secao "Recuperacao tributaria" permanece como chamada comercial dos dois produtos principais.
+
+### Alternativas Consideradas
+
+- Criar uma nova secao separada so para subprodutos: descartado para evitar alongar a landing page e duplicar conteudo.
+- Aplicar a estrutura na secao de solucoes: descartado apos alinhamento do dono, porque o pedido era para a segunda secao "O problema".
+- Manter apenas tags simples: descartado porque o pedido exige breve descricao para cada subproduto.
+
+### Consequencias
+
+- A pagina comunica melhor a arquitetura comercial: produto principal primeiro, ramificacoes depois.
+- O visitante entende rapidamente quais frentes podem ser analisadas antes de abrir o WhatsApp.
+- Os nomes e descricoes dos subprodutos ainda precisam ser validados pelo especialista/Auditto antes de campanhas pagas.
+
+---
+
+## ADR-040: Pagina mb tributos explicita intermediacao da MB Finance
+
+**Data:** 2026-05-27
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+A MB Finance vai comercializar solucoes tributarias em parceria com a Auditto. O briefing deixou claro que a MB Finance atua como intermediaria entre cliente e Auditto, e que eventual responsabilidade tecnica/juridica pela execucao do servico deve ficar com a Auditto. A area tributaria possui varias frentes, mas neste momento apenas PIS/COFINS e INSS devem ser ofertados no site.
+
+### Decisao
+
+Transformar `public/pages/mb-tributos.html` em uma landing page comercial focada apenas em PIS/COFINS e INSS. O texto deve separar claramente o papel comercial da MB Finance do papel tecnico da Auditto. Os CTAs continuam apontando para WhatsApp. O CSS da pagina foi criado em `public/assets/css/mb-tributos.css`, evitando CSS inline no HTML.
+
+### Alternativas Consideradas
+
+- Manter a pagina generica de "em breve": descartado porque o produto ja precisa ser comercializado.
+- Apresentar todas as frentes tributarias da Auditto: descartado porque o escopo comercial definido foi apenas PIS/COFINS e INSS.
+- Ocultar a parceria/responsabilidade da Auditto: descartado porque aumentaria risco comercial e juridico.
+
+### Consequencias
+
+- A pagina fica pronta para captacao sem prometer resultado antes da analise tecnica.
+- O posicionamento juridico fica mais transparente para o cliente.
+- A secao de solucoes prioriza visualmente INSS antes de PIS/COFINS, conforme direcao comercial.
+- Os CTAs dos cards abrem o formulario diretamente no produto selecionado, reduzindo uma etapa desnecessaria no fluxo.
+- O fluxo "Como funciona" usa cards de processo responsivos em vez de lista vertical, para melhorar escaneabilidade e aparencia comercial.
+- A secao "Modelo comercial" enfatiza custo inicial zero e pagamento sobre resultado, por ser uma mensagem mais comercial do que uma lista operacional.
+- A prova de resultado foi criada como relato comercial e metricas, sem inventar depoimento nominal de cliente.
+- Comentarios de empresarios podem ser usados apenas como exemplos ilustrativos explicitamente rotulados, nao como depoimentos reais.
+- A secao "Papel de cada empresa" foi estruturada como fluxo de parceria e quadro de responsabilidades para reduzir ambiguidade entre intermediacao comercial e execucao tecnica.
+- A responsividade da secao de parceria usa desktop com grids horizontais e mobile em coluna compacta para evitar texto espremido e rolagem confusa.
+- No mobile, os cards de produtos usam carrossel horizontal com scroll snap para evitar uma pilha longa e preservar INSS como primeiro item.
+- No mobile, os cards de "Como funciona" tambem usam carrossel horizontal com scroll snap para manter o fluxo escaneavel sem ocupar altura excessiva.
+- A faixa inferior de metricas do hero foi removida para evitar poluicao visual e sobreposicao ruim com a imagem de fundo.
+- A copy de PIS/COFINS nao deve tratar o produto como dependente de prazo minimo/maximo; a qualificacao passa a depender dos produtos comprados e revendidos pelo cliente.
+- A secao "Quem ja fez" recebeu CSS defensivo baseado no id da secao para recuperar o layout mesmo com aspas invalidas nos atributos HTML.
+- A nomenclatura publica do produto de INSS deve evitar termos que estreitem demais a oferta comercial, pois existem ramificacoes diferentes dentro do produto.
+- CTAs principais de mb tributos devem evitar sombra/brilho excessivo quando o fundo ja for escuro, para manter o visual mais limpo.
+- A copy ainda deve ser validada pelo dono/Isabela/Auditto antes de campanha paga em escala.
+
+---
+
 ## ADR-039: Remover painel redundante de indicadores de trafego
 
 **Data:** 2026-05-14
@@ -949,3 +1020,16 @@ Resolver a configuracao GA4 por site no backend. O site `mb-finance` usa as vari
 ### Atualizacao
 
 - 2026-05-14: o Property ID `536401937` do MB Negocios foi recebido e aplicado como fallback no codigo, porque a CLI da Vercel nao estava autenticada para gravar a variavel de ambiente diretamente.
+
+## ADR-042: Links curtos de campanhas podem usar MB Negocios ou MB Finance
+
+**Data:** 2026-06-02
+**Status:** Aceita
+
+### Decisao
+
+Permitir que o admin escolha `mbnegocios.com.br` ou `mbfinance.com.br` ao gerar links curtos. A API aceita somente dominios cadastrados em allowlist. No CPanel da MB Finance, `/c/[code]` deve redirecionar para `https://blog.mbfinance.com.br/c/[code]`, preservando o contador central em Redis.
+
+### Motivo
+
+O encurtador retornava uma unica marca por configuracao global. A MB Finance precisa compartilhar links com seu proprio dominio sem duplicar storage ou contagem de cliques.

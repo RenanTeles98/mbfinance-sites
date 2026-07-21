@@ -80,6 +80,25 @@
   Header set Connection keep-alive
 </IfModule>
 
+# ── Segurança Adicional ──────────────────────
+<IfModule mod_headers.c>
+  # HSTS — força HTTPS por 1 ano, subdomínios incluídos
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # CSP Report-Only — monitorar violações por 2 semanas antes de aplicar em modo ativo
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://googleads.g.doubleclick.net https://cdn.growthbook.io; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://cdn.growthbook.io https://www.facebook.com; frame-ancestors 'self'"
+
+  # Permissions-Policy — desabilita funcionalidades sensíveis não utilizadas pelo site
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # Isolamento cross-origin
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
+</IfModule>
+
+# ── Desabilitar listagem de diretórios ───────
+Options -Indexes
+
 # ── ETag ─────────────────────────────────────
 <IfModule mod_headers.c>
   Header unset ETag

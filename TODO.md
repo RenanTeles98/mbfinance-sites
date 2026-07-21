@@ -6,6 +6,34 @@
 
 ## ðŸ”´ CrÃ­tico (fazer antes do prÃ³ximo push sÃ©rio)
 
+- [x] **Estruturar pagina mb tributos**
+  - Placeholder substituido por landing page real em `public/pages/mb-tributos.html`.
+  - Conteudo focado em PIS/COFINS e INSS.
+  - Parceria com Auditto e papel de intermediacao da MB Finance explicitados.
+  - CSS separado em `public/assets/css/mb-tributos.css`.
+  - Secao de solucoes ajustada para INSS aparecer antes de PIS/COFINS e os cards ficarem lado a lado em telas maiores.
+  - Cards de produto agora possuem CTA proprio que abre o formulario com o produto pre-selecionado.
+  - Secao "Como funciona" redesenhada para melhorar a leitura das etapas.
+  - Secao "Modelo comercial" repaginada para reforcar custo inicial zero e pagamento sobre resultado.
+  - Secao de prova "Resultado possivel" adicionada com metricas e aviso de variacao por caso.
+  - Comentarios ilustrativos de empresarios adicionados sem apresentar como depoimentos reais.
+  - Secao "Papel de cada empresa" reformulada para explicar MB Finance como relacionamento/intermediacao e Auditto como execucao tecnica.
+  - Responsividade da secao "Papel de cada empresa" ajustada para desktop e mobile.
+  - Cards de produtos ajustados como carrossel horizontal no mobile e grid em desktop.
+  - Cards da secao "Como funciona" ajustados como carrossel horizontal no mobile.
+  - Faixa de metricas do final do hero removida.
+  - Copy e modal de PIS/COFINS ajustados para qualificar pela compra e revenda de produtos, sem prazo minimo/maximo.
+  - Secao "Quem ja fez" corrigida visualmente com CSS responsivo para contornar atributos HTML quebrados por aspas invalidas.
+  - Nomenclatura anterior de INSS removida dos textos publicos; produto apresentado como INSS para contemplar ramificacoes diferentes.
+  - Brilho do CTA principal do hero de mb tributos removido.
+  - Secao "O problema" atualizada para exibir produtos principais e subprodutos com descricao curta.
+  - Validar copy juridica/comercial com Isabela/Auditto antes de campanhas.
+
+- [ ] **Validar subprodutos de mb tributos com especialista/Auditto**
+  - Confirmar nomenclatura comercial de PIS/COFINS Monofasico, Credito de PIS/COFINS sobre ICMS e Otimizacao de creditos no Lucro Real.
+  - Confirmar nomenclatura comercial de Exclusao de verbas indenizatorias, Teto de contribuicao INSS e Desoneracao da folha (CPRB).
+  - Definir se todos devem aparecer publicamente ou se algum deve ficar apenas no fluxo de diagnostico.
+
 - [x] **Corrigir periodo das metricas GA4 no painel**
   - API de analytics passa a respeitar `startDate` e `endDate`.
   - Consultas GA4 deixam de usar periodo fixo de 30 dias.
@@ -252,3 +280,9 @@
 - [ ] Preencher `GA4_MB_NEGOCIOS_PROPERTY_ID=536401937` tambem no Vercel quando a CLI estiver autenticada.
 - [ ] Garantir no GA4 que a service account principal tem acesso de leitura à propriedade MB Negocios.
 - [ ] Validar em producao que "MB Negocios (configurar GA4)" desapareceu apos deploy/env.
+
+## Atualizacao 2026-06-02 - Links curtos MB Finance
+
+- [ ] Publicar `blog-pages/` para liberar o seletor `mbnegocios.com.br` / `mbfinance.com.br`.
+- [ ] Enviar `cpanel-upload/public_html/.htaccess` ao CPanel da MB Finance.
+- [ ] Validar que `https://mbfinance.com.br/c/teste` deixa de retornar `404` e encaminha ao blog.

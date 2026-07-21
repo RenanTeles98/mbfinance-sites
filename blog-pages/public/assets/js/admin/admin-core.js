@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Admin Dashboard - Core Orchestrator
  */
 
@@ -25,7 +25,7 @@ async function login() {
 }
 
 const ADMIN_TAB_STORAGE_KEY = 'mb_admin_active_tab';
-const ADMIN_TABS = ['analytics', 'campaigns', 'posts', 'newsletter', 'banners'];
+const ADMIN_TABS = ['analytics', 'campaigns', 'videos', 'posts', 'newsletter', 'banners'];
 
 function getInitialTab() {
     const hashTab = window.location.hash ? window.location.hash.replace('#', '').trim() : '';
@@ -50,7 +50,7 @@ function persistActiveTab(id) {
 function init() {
     const authStatus = localStorage.getItem('mb_admin_auth');
     
-    // Se não estiver logado, garante que a tela de auth está visível e o app escondido
+    // Se nÃ£o estiver logado, garante que a tela de auth estÃ¡ visÃ­vel e o app escondido
     if (!authStatus) {
         document.getElementById('auth-screen').style.display = 'flex';
         document.getElementById('admin-app').style.display = 'none';
@@ -61,14 +61,14 @@ function init() {
     document.getElementById('auth-screen').style.display = 'none';
     document.getElementById('admin-app').style.display = 'flex';
 
-    // Carregar posts e métricas do blog
+    // Carregar posts e mÃ©tricas do blog
     if (typeof loadPosts === 'function') loadPosts();
     if (typeof renderEditorialAnalytics === 'function') renderEditorialAnalytics();
     
     // Atualizar UI do link oficial
     if (typeof updateOfficialBlogUi === 'function') updateOfficialBlogUi();
 
-    // Como métricas é o padrão (tela ativa no HTML), renderiza agora
+    // Como mÃ©tricas Ã© o padrÃ£o (tela ativa no HTML), renderiza agora
     switchTab(getInitialTab());
 }
 
@@ -87,13 +87,14 @@ function switchTab(id) {
     if (btn) btn.classList.add('active');
     persistActiveTab(id);
 
-    // Inicialização específica de cada aba
+    // InicializaÃ§Ã£o especÃ­fica de cada aba
     if (id === 'calendar' && typeof renderCalendar === 'function') renderCalendar();
     if (id === 'analytics' && typeof renderAnalytics === 'function') renderAnalytics();
     if (id === 'posts' && typeof renderEditorialAnalytics === 'function') renderEditorialAnalytics();
     if (id === 'newsletter' && typeof updateNewsletterList === 'function') updateNewsletterList();
     if (id === 'banners' && typeof loadBanners === 'function') loadBanners();
     if (id === 'campaigns' && typeof initCampaigns === 'function') initCampaigns();
+    if (id === 'videos' && typeof initVideos === 'function') initVideos();
 }
 
 function logout() {
@@ -110,3 +111,5 @@ document.addEventListener('DOMContentLoaded', init);
 window.login = login;
 window.switchTab = switchTab;
 window.logout = logout;
+
+

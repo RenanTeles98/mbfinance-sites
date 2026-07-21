@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@remotion/renderer": "^4.0.489",
     "@upstash/redis": "^1.34.9",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.0.1",
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
+    "remotion": "^4.0.489",
     "resend": "^6.12.2",
     "sanitize-html": "^2.17.3",
     "svix": "^1.90.0"

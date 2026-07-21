@@ -1,0 +1,125 @@
+/* Landing de produto — estilos compartilhados */
+
+@layer base {
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+}
+
+/* ── Fade-up animation ─────────────────────────────────────────────────────── */
+.fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Benefit cards ─────────────────────────────────────────────────────────── */
+.benefit-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 32px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.benefit-card:hover {
+    box-shadow: 0 16px 48px rgba(0, 57, 86, 0.09);
+    transform: translateY(-4px);
+}
+.benefit-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(0, 153, 221, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* ── Step number ───────────────────────────────────────────────────────────── */
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #0099dd;
+    color: #fff;
+    font-weight: 800;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 16px;
+}
+
+/* ── FAQ ───────────────────────────────────────────────────────────────────── */
+.faq-item {
+    border-bottom: 1px solid #e5e7eb;
+}
+.faq-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: #003956;
+    line-height: 1.45;
+}
+.faq-icon {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    color: #0099dd;
+}
+.faq-item.open .faq-icon {
+    transform: rotate(45deg);
+}
+.faq-content {
+    display: none;
+    padding: 0 0 22px;
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.7;
+}
+.faq-item.open .faq-content {
+    display: block;
+}
+
+/* ── Check list ────────────────────────────────────────────────────────────── */
+.check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: #334155;
+    line-height: 1.6;
+}
+.check-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: rgba(0, 153, 221, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* ── Stat cards ────────────────────────────────────────────────────────────── */
+.stat-card {
+    text-align: center;
+    padding: 32px 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+}

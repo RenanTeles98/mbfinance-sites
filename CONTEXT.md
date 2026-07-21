@@ -7,6 +7,103 @@
 
 ## Estado Atual
 
+### Sessao 2026-05-29 - Subprodutos na secao O problema
+
+- [x] Secao "O problema" de `public/pages/mb-tributos.html` ajustada para apresentar produtos principais e subprodutos.
+- [x] Produto PIS/COFINS passou a listar: PIS/COFINS Monofasico, Credito sobre ICMS e Creditos no Lucro Real.
+- [x] Produto INSS passou a listar: Verbas indenizatorias, Teto de contribuicao e Desoneracao da folha.
+- [x] Criado estilo externo `.tributos-subproducts-list` em `public/assets/css/mb-tributos.css`, sem adicionar CSS inline novo.
+- [x] Corrigida legenda residual do modal para exibir "INSS" em vez da nomenclatura anterior.
+- [x] Secao "Recuperacao tributaria" mantida como chamada dos dois produtos principais, sem detalhamento duplicado de subprodutos.
+
+Arquivos modificados nesta sessao:
+- `public/pages/mb-tributos.html`
+- `public/assets/css/mb-tributos.css`
+- `public/assets/js/use-cases/tributos-modal.js`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-29.md`
+
+Estado atual: segunda secao "O problema" comunica melhor a arquitetura comercial dos produtos, com descricoes curtas para cada subproduto.
+
+Onde o trabalho parou: aguardando revisao do especialista/Auditto sobre nomes e descricoes dos subprodutos.
+
+Proximo passo recomendado: validar se todos os subprodutos listados devem seguir para campanha publica ou se algum deve ficar apenas no diagnostico do WhatsApp.
+
+### Sessao 2026-05-28 - Ajuste visual mb tributos
+
+- [x] Removida a faixa de metricas do final do hero em `public/pages/mb-tributos.html`.
+- [x] Removida a regra responsiva antiga `.hero-stats-strip`, que ficou sem uso apos a retirada do bloco.
+- [x] Textos de PIS/COFINS ajustados para remover a ideia de prazo minimo/maximo e focar em produtos comprados e revendidos.
+- [x] Modal de PIS/COFINS atualizado para substituir tempo de CNPJ por pergunta sobre compra e revenda de produtos.
+- [x] Secao "Quem ja fez" recebeu CSS de correcao para recuperar o layout quebrado por aspas invalidas nos atributos HTML.
+- [x] Nomenclatura anterior de INSS removida dos textos publicos, metadados, FAQ estruturado e modal; a oferta passa a aparecer como "INSS".
+- [x] Removido o brilho/sombra do CTA principal "Quero minha analise gratuita" no hero de mb tributos.
+
+Arquivos modificados nesta sessao:
+- `public/pages/mb-tributos.html`
+- `public/assets/css/mb-tributos.css`
+- `public/assets/js/use-cases/tributos-modal.js`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-28.md`
+
+Estado atual: hero da pagina mb tributos sem a faixa inferior de numeros e produto de INSS apresentado de forma mais ampla.
+CTA principal do hero mantem cor azul e interacao, mas sem sombra/brilho externo.
+
+Onde o trabalho parou: aguardando revisao visual do dono em desktop e mobile.
+
+Proximo passo recomendado: conferir a pagina publicada para validar a nomenclatura de INSS e se a copy fica ampla o suficiente para as ramificacoes do produto.
+
+### Sessao 2026-05-27 - Pagina mb tributos
+
+- [x] Substituida a pagina placeholder `public/pages/mb-tributos.html` por uma landing page comercial completa para mb tributos.
+- [x] Conteudo estruturado a partir do briefing da Isabela e dos PDFs de PIS/COFINS e Auditto.
+- [x] Escopo comercial limitado a duas frentes: PIS e COFINS e INSS.
+- [x] Pagina deixa claro que a MB Finance atua como intermediaria comercial e que a execucao tecnica/responsabilidade do trabalho e da Auditto.
+- [x] Criado CSS externo `public/assets/css/mb-tributos.css`, sem voltar a colocar estilos inline no HTML.
+- [x] `public/sitemap.xml` atualizado para incluir a pagina mb tributos.
+- [x] CTAs apontam para WhatsApp e eventos continuam cobertos por `analytics-events.js`.
+- [x] Build local validado com `npm run build`.
+- [x] Ajustada a secao de solucoes para manter os dois produtos lado a lado em telas maiores e exibir INSS antes de PIS/COFINS.
+- [x] Removido o selo "Especial para condominios" do card de INSS.
+- [x] Adicionados botoes individuais nos cards de INSS e PIS/COFINS, abrindo o formulario com o produto ja selecionado.
+- [x] Botoes dos cards alinhados na base e sem efeito de brilho/sombra.
+- [x] Adicionado espacamento entre a lista de beneficios e os botoes dos cards.
+- [x] Copy do titulo da secao de solucoes ajustada para linguagem mais comercial e clara ao cliente.
+- [x] Fundo da secao "Modelo comercial" alterado para azul escuro da marca.
+- [x] Secao "Como funciona" redesenhada como fluxo visual em cards, substituindo a lista vertical de etapas.
+- [x] Secao "Modelo comercial" repaginada com destaque "R$ 0", cards de beneficios e CTA dedicado.
+- [x] Titulo principal da secao "Modelo comercial" ajustado para Inter com peso 600.
+- [x] Removido bloco visual "R$ 0" da secao "Modelo comercial".
+- [x] Removida a grade/textura do fundo da secao "Modelo comercial".
+- [x] Adicionada secao "Resultado possivel" com relato comercial, metricas de recuperacao e aviso de variacao por caso.
+- [x] Adicionados comentarios ilustrativos de empresarios na secao de prova, identificados como exemplos e nao depoimentos reais.
+- [x] Secao "Papel de cada empresa" reformulada para explicar o fluxo MB Finance/Auditto com divisao clara de responsabilidades.
+- [x] Responsividade da secao "Papel de cada empresa" ajustada com versoes desktop e mobile mais definidas.
+- [x] Cards de produtos da secao de solucoes convertidos em carrossel horizontal no mobile, mantendo grid lado a lado no desktop.
+- [x] Cards da secao "Como funciona" convertidos em carrossel horizontal no mobile, mantendo grid no desktop/tablet.
+
+Arquivos modificados/criados nesta sessao:
+- `public/pages/mb-tributos.html`
+- `public/assets/css/mb-tributos.css`
+- `public/sitemap.xml`
+- `CONTEXT.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `CHANGELOG.md`
+- `docs/sessions/2026-05-27.md`
+
+Estado atual: pagina mb tributos pronta para revisao visual e deploy, com a secao de parceria em formato mais comercial e claro.
+
+Onde o trabalho parou: aguardando validacao do dono sobre copy juridica/comercial e se o modelo de participacao do INSS deve mencionar percentuais publicamente.
+
+Proximo passo recomendado: validar a pagina publicada em desktop/mobile e confirmar com a Auditto/Isabela se o texto de responsabilidade tecnica esta juridicamente adequado.
+
 ### Sessao 2026-05-14 - Periodos das metricas GA4
 
 - [x] Corrigida a API `blog-pages/app/api/analytics/overview/route.ts` para repassar `startDate` e `endDate` enviados pelo painel.
@@ -611,6 +708,17 @@ Arquivos modificados nesta etapa:
 Estado atual: painel administrativo com textos principais normalizados em portugues brasileiro.
 
 Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
+
+## Atualizacao de sessao - 2026-06-02 - Links curtos MB Finance
+
+- Adicionado seletor de dominio na aba Campanhas do admin em `blog-pages/`.
+- O gerador permite escolher `mbnegocios.com.br` ou `mbfinance.com.br`.
+- A API `/api/shorten` valida o dominio solicitado por allowlist.
+- Preparada regra Apache em `cpanel-upload/public_html/.htaccess` para encaminhar `mbfinance.com.br/c/[code]` ao contador central do blog.
+
+Estado atual: codigo pronto; falta publicar `blog-pages/` e a nova `.htaccess` no CPanel.
+
+Validacao: `mbnegocios.com.br/c/teste` encaminha ao blog; antes da publicacao, `mbfinance.com.br/c/teste` responde `404`.
 
 ---
 

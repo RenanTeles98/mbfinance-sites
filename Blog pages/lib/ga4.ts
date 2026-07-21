@@ -110,6 +110,24 @@ function normalizePrivateKey(value: string) {
     .replace(/\s*-----END PRIVATE KEY-----/, "\n-----END PRIVATE KEY-----");
 }
 
+function buildAuthErrorMessage(errorText: string) {
+  if (errorText.includes("invalid_grant") && errorText.includes("account not found")) {
+    return [
+      "Credencial GA4 invalida: a service account configurada em GA4_CLIENT_EMAIL nao existe mais ou nao foi encontrada.",
+      "Gere uma nova chave no Google Cloud, atualize GA4_CLIENT_EMAIL e GA4_PRIVATE_KEY no Vercel e libere esse e-mail na propriedade do GA4.",
+    ].join(" ");
+  }
+
+  if (errorText.includes("invalid_grant")) {
+    return [
+      "Credencial GA4 recusada pelo Google.",
+      "Revise GA4_CLIENT_EMAIL, GA4_PRIVATE_KEY e o acesso da service account na propriedade do GA4.",
+    ].join(" ");
+  }
+
+  return `Falha ao autenticar no Google Analytics: ${errorText}`;
+}
+
 export function hasGa4Config() {
   return Boolean(
     getEnv("GA4_PROPERTY_ID") &&
@@ -161,7 +179,7 @@ async function getAccessToken() {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Falha ao autenticar no Google Analytics: ${errorText}`);
+    throw new Error(buildAuthErrorMessage(errorText));
   }
 
   const data = (await response.json()) as { access_token: string };
