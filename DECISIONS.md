@@ -1050,3 +1050,7 @@ As submarcas seguem a mesma convencao: `Mb Negócios` e `Mb Tributos`.
 ### Correcao de codificacao
 
 Os arquivos publicos devem ser lidos e gravados explicitamente em UTF-8. Isso evita que caracteres pt-BR sejam interpretados como Windows-1252 e exibidos como mojibake no navegador.
+
+### Rodape
+
+O rodape da home usa um espacamento horizontal maior entre colunas em desktop, preservando a grade em duas colunas no tablet e uma coluna no mobile.

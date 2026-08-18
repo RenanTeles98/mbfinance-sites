@@ -292,3 +292,4 @@
 - [x] Padronizar as submarcas como `Mb Negócios` e `Mb Tributos`.
 - [ ] Validar a grafia apos o deploy, incluindo titulos SEO e compartilhamentos em redes sociais.
 - [ ] Conferir o cache do navegador/CDN apos o deploy corretivo de codificacao UTF-8.
+- [ ] Validar visualmente o novo espacamento do rodape em desktop e tablet apos o proximo deploy.
