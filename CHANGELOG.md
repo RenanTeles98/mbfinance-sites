@@ -273,3 +273,4 @@ Principais marcos conhecidos:
 
 - Padronizada a grafia da marca para `Mb Finance` em todo o site, incluindo SEO, acessibilidade, mensagens de WhatsApp/e-mail e o pacote de publicacao CPanel.
 - Padronizadas as submarcas como `Mb Negócios` e `Mb Tributos`.
+- Corrigida a codificacao UTF-8 de textos publicos que apresentavam caracteres acentuados corrompidos.

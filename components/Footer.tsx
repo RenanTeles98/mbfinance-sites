@@ -32,13 +32,13 @@ import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 
 const products = [
   { label: "Conta PJ", href: "#produtos" },
-  { label: "Máquina de Cartão", href: "#produtos" },
+  { label: "M�quina de Cart�o", href: "#produtos" },
   { label: "Capital de Giro", href: "#produtos" },
-  { label: "Antecipação de Recebíveis", href: "#produtos" },
+  { label: "Antecipa��o de Receb�veis", href: "#produtos" },
 ];
 
 const company = [
-  { label: "Sobre Nós", href: "#sobre" },
+  { label: "Sobre N�s", href: "#sobre" },
   { label: "Como Funciona", href: "#como-funciona" },
   { label: "Diferenciais", href: "#diferenciais" },
   { label: "Depoimentos", href: "#depoimentos" },
@@ -57,7 +57,7 @@ export default function Footer() {
               <span className="text-brand-secondary">finance.</span>
             </div>
             <p className="text-white/35 text-sm leading-relaxed mb-6">
-              Hub de produtos financeiros para empresas. Conectamos seu negócio às melhores condições do mercado desde 2013.
+              Hub de produtos financeiros para empresas. Conectamos seu neg�cio �s melhores condi��es do mercado desde 2013.
             </p>
             <div className="flex gap-2">
               {[
@@ -128,7 +128,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2.5 text-white/40 text-sm">
                 <MapPin size={14} className="flex-shrink-0 mt-0.5" />
-                São Paulo, SP — Brasil
+                S�o Paulo, SP � Brasil
               </li>
             </ul>
 
@@ -147,10 +147,10 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-white/[0.05] mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/20 text-xs">
-            © {new Date().getFullYear()} Mb Finance. Todos os direitos reservados.
+            � {new Date().getFullYear()} Mb Finance. Todos os direitos reservados.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-white/20 hover:text-white/40 text-xs transition-colors">Política de Privacidade</a>
+            <a href="#" className="text-white/20 hover:text-white/40 text-xs transition-colors">Pol�tica de Privacidade</a>
             <a href="#" className="text-white/20 hover:text-white/40 text-xs transition-colors">Termos de Uso</a>
           </div>
         </div>

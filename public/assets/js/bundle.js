@@ -29,7 +29,7 @@ if (progress < 1) requestAnimationFrame(step);
 }
 requestAnimationFrame(step);
 }
-// UI: Navbar scroll effect, mobile menu, products dropdowndocument.addEventListener('DOMContentLoaded', function() {// ── Navbar scroll effect (logo change + scrolled class) ──────────────const navbar = document.getElementById('navbar');if (navbar) {let isHovered = false;function updateNav() {const isScrolled = window.scrollY > 80;const shouldBeScrolled = isScrolled || isHovered;navbar.classList.toggle('scrolled', shouldBeScrolled);const logoImg = document.getElementById('logo-img');
+// UI: Navbar scroll effect, mobile menu, products dropdowndocument.addEventListener('DOMContentLoaded', function() {// -- Navbar scroll effect (logo change + scrolled class) --------------const navbar = document.getElementById('navbar');if (navbar) {let isHovered = false;function updateNav() {const isScrolled = window.scrollY > 80;const shouldBeScrolled = isScrolled || isHovered;navbar.classList.toggle('scrolled', shouldBeScrolled);const logoImg = document.getElementById('logo-img');
 if (logoImg) {
 const logoNormal   = logoImg.dataset.logoNormal   || '/images/logo-branca.webp';
 const logoScrolled = logoImg.dataset.logoScrolled || '/images/logo.webp';
@@ -39,7 +39,7 @@ logoImg.src = nextLogo;
 }
 }
 }
-navbar.addEventListener('mouseenter', () => {isHovered = true;updateNav();});navbar.addEventListener('mouseleave', () => {isHovered = false;updateNav();});window.addEventListener('scroll', updateNav, { passive: true });updateNav();}// ── Mobile menu ───────────────────────────────────────────────────────const mobileMenu = document.getElementById('mobile-menu');const mobileOverlay = document.getElementById('mobile-overlay');const whatsappFloat = document.getElementById('whatsapp-float');function openMobileMenu() {mobileMenu.classList.add('open');mobileOverlay.classList.add('open');document.body.style.overflow = 'hidden';if (whatsappFloat) whatsappFloat.classList.add('is-hidden');}function closeMobileMenu() {mobileMenu.classList.remove('open');mobileOverlay.classList.remove('open');document.body.style.overflow = '';if (whatsappFloat) whatsappFloat.classList.remove('is-hidden');}// Expose globally — called from inline onclick in anchorswindow.closeMobileMenu = closeMobileMenu;const mobileMenuToggle = document.getElementById('mobile-menu-toggle');if (mobileMenuToggle) {mobileMenuToggle.addEventListener('click', () => {if (mobileMenu.classList.contains('open')) {closeMobileMenu();} else {openMobileMenu();}});}// ── Products dropdown ─────────────────────────────────────────────────const dropdown        = document.getElementById('produtos-dropdown');const megaMenuWrapper = document.getElementById('mega-menu-wrapper');const megaChevron     = document.getElementById('mega-menu-chevron');let ddHideTimer       = null;function showDropdown() {clearTimeout(ddHideTimer);if (dropdown) dropdown.classList.add('open');if (megaChevron) megaChevron.style.transform = 'rotate(180deg)';}function hideDropdown() {ddHideTimer = setTimeout(() => {if (dropdown) dropdown.classList.remove('open');if (megaChevron) megaChevron.style.transform = '';}, 120);}if (megaMenuWrapper) {megaMenuWrapper.addEventListener('mouseenter', showDropdown);megaMenuWrapper.addEventListener('mouseleave', hideDropdown);}if (dropdown) {dropdown.addEventListener('mouseenter', showDropdown);dropdown.addEventListener('mouseleave', hideDropdown);}// Expose globally — called from inline onclick (closeProdDropdown)window.closeProdDropdown = function() {if (dropdown) dropdown.classList.remove('open');if (megaChevron) megaChevron.style.transform = '';};});
+navbar.addEventListener('mouseenter', () => {isHovered = true;updateNav();});navbar.addEventListener('mouseleave', () => {isHovered = false;updateNav();});window.addEventListener('scroll', updateNav, { passive: true });updateNav();}// -- Mobile menu -------------------------------------------------------const mobileMenu = document.getElementById('mobile-menu');const mobileOverlay = document.getElementById('mobile-overlay');const whatsappFloat = document.getElementById('whatsapp-float');function openMobileMenu() {mobileMenu.classList.add('open');mobileOverlay.classList.add('open');document.body.style.overflow = 'hidden';if (whatsappFloat) whatsappFloat.classList.add('is-hidden');}function closeMobileMenu() {mobileMenu.classList.remove('open');mobileOverlay.classList.remove('open');document.body.style.overflow = '';if (whatsappFloat) whatsappFloat.classList.remove('is-hidden');}// Expose globally � called from inline onclick in anchorswindow.closeMobileMenu = closeMobileMenu;const mobileMenuToggle = document.getElementById('mobile-menu-toggle');if (mobileMenuToggle) {mobileMenuToggle.addEventListener('click', () => {if (mobileMenu.classList.contains('open')) {closeMobileMenu();} else {openMobileMenu();}});}// -- Products dropdown -------------------------------------------------const dropdown        = document.getElementById('produtos-dropdown');const megaMenuWrapper = document.getElementById('mega-menu-wrapper');const megaChevron     = document.getElementById('mega-menu-chevron');let ddHideTimer       = null;function showDropdown() {clearTimeout(ddHideTimer);if (dropdown) dropdown.classList.add('open');if (megaChevron) megaChevron.style.transform = 'rotate(180deg)';}function hideDropdown() {ddHideTimer = setTimeout(() => {if (dropdown) dropdown.classList.remove('open');if (megaChevron) megaChevron.style.transform = '';}, 120);}if (megaMenuWrapper) {megaMenuWrapper.addEventListener('mouseenter', showDropdown);megaMenuWrapper.addEventListener('mouseleave', hideDropdown);}if (dropdown) {dropdown.addEventListener('mouseenter', showDropdown);dropdown.addEventListener('mouseleave', hideDropdown);}// Expose globally � called from inline onclick (closeProdDropdown)window.closeProdDropdown = function() {if (dropdown) dropdown.classList.remove('open');if (megaChevron) megaChevron.style.transform = '';};});
 // UI: Product accordion and FAQ toggle
 function toggleAcc(btn) {
 var item = btn.closest('.acc-item');
@@ -89,7 +89,7 @@ const telOk = tel.length >= 14;
 const steps = (nomeOk ? 1 : 0) + (telOk ? 1 : 0);
 const pct = steps === 0 ? 0 : steps === 1 ? 50 : 100;
 document.getElementById('lead-progress-bar').style.width = pct + '%';
-const labels = ['0 de 2 etapas', 'Quase lá! Falta só o WhatsApp', 'Tudo certo! Clique para falar agora'];
+const labels = ['0 de 2 etapas', 'Quase l�! Falta s� o WhatsApp', 'Tudo certo! Clique para falar agora'];
 document.getElementById('lead-progress-label').textContent = labels[steps];
 if (steps === 2) {
 document.getElementById('lead-progress-label').style.color = '#0099dd';
@@ -106,11 +106,11 @@ gtag('event', eventName, Object.assign({ send_to: 'G-XS7HTFJKD6' }, params || {}
 }
 var _productSlugs = {
 'Conta Corrente Empresarial': 'conta_corrente',
-'Máquina de Cartão': 'maquina_cartao',
-'Seguros e Consórcios': 'seguros',
-'Crédito Rápido': 'credito_rapido',
-'Soluções Tributárias': 'tributarias',
-'Soluções Personalizadas': 'personalizadas',
+'M�quina de Cart�o': 'maquina_cartao',
+'Seguros e Cons�rcios': 'seguros',
+'Cr�dito R�pido': 'credito_rapido',
+'Solu��es Tribut�rias': 'tributarias',
+'Solu��es Personalizadas': 'personalizadas',
 'Telemedicina': 'telemedicina',
 };
 function openLeadModal(waUrl, produto) {
@@ -129,7 +129,7 @@ document.getElementById('lead-progress-bar').style.width = '0%';
 document.getElementById('lead-progress-label').textContent = '0 de 2 etapas';
 document.getElementById('lead-progress-label').style.color = '#94a3b8';
 document.getElementById('lead-progress-label').style.fontWeight = '400';
-// Produto: badge ou select (elemento pode não existir em outras pages)
+// Produto: badge ou select (elemento pode n�o existir em outras pages)
 const sel = document.getElementById('lead-produto-select');
 if (sel) {
 sel.style.display = 'none';
@@ -148,7 +148,7 @@ data: new Date().toLocaleString('pt-BR'),
 nome: nome,
 telefone: telefone,
 produto: _leadProduto || (selEl ? selEl.value : '') || '',
-status: 'Parcial — não enviou'
+status: 'Parcial � n�o enviou'
 });
 }
 }
@@ -161,7 +161,7 @@ e.preventDefault();
 const nome = document.getElementById('lead-nome').value.trim();
 const telefone = document.getElementById('lead-telefone').value.trim();
 const newsletterEl = document.getElementById('lead-newsletter');
-const newsletter = newsletterEl && newsletterEl.checked ? 'Sim' : 'Não';
+const newsletter = newsletterEl && newsletterEl.checked ? 'Sim' : 'N�o';
 const selEl = document.getElementById('lead-produto-select');
 const produtoSelecionado = _leadProduto || (selEl ? selEl.value : '') || '';
 // Envia para a planilha Google Sheets
@@ -170,21 +170,21 @@ data: new Date().toLocaleString('pt-BR'),
 nome: nome,
 telefone: telefone,
 produto: produtoSelecionado,
-status: 'Convertido — foi pro WhatsApp'
+status: 'Convertido � foi pro WhatsApp'
 });
 // Salva localmente como backup
 LeadStorage.save({ nome, telefone, newsletter, produto: produtoSelecionado, data: new Date().toISOString() });
 // Monta mensagem personalizada pro WhatsApp
 const msgsPorProduto = {
-'Conta Corrente Empresarial': `Olá! Gostaria de abrir uma Conta Corrente Empresarial para minha empresa pela Mb Finance. Podem me ajudar?`,
-'Máquina de Cartão': `Olá! Tenho interesse nas soluções de maquininha e gateway de pagamento da Mb Finance. Podem me passar mais informações?`,
-'Seguros e Consórcios': `Olá! Gostaria de conhecer as opções de Seguros e Consórcios da Mb Finance. Podem me ajudar?`,
-'Crédito Rápido': `Olá! Preciso de crédito rápido para minha empresa. Gostaria de saber as condições disponíveis.`,
-'Soluções Tributárias': `Olá! Tenho interesse nas Soluções Tributárias da Mb Finance. Podem me passar mais detalhes?`,
-'Soluções Personalizadas': `Olá! Gostaria de uma proposta de Solução Personalizada para minha empresa. Podem me ajudar?`,
-'Telemedicina': `Olá! Gostaria de conhecer os planos de Telemedicina da Mb Finance. Podem me passar mais informações?`,
+'Conta Corrente Empresarial': `Ol�! Gostaria de abrir uma Conta Corrente Empresarial para minha empresa pela Mb Finance. Podem me ajudar?`,
+'M�quina de Cart�o': `Ol�! Tenho interesse nas solu��es de maquininha e gateway de pagamento da Mb Finance. Podem me passar mais informa��es?`,
+'Seguros e Cons�rcios': `Ol�! Gostaria de conhecer as op��es de Seguros e Cons�rcios da Mb Finance. Podem me ajudar?`,
+'Cr�dito R�pido': `Ol�! Preciso de cr�dito r�pido para minha empresa. Gostaria de saber as condi��es dispon�veis.`,
+'Solu��es Tribut�rias': `Ol�! Tenho interesse nas Solu��es Tribut�rias da Mb Finance. Podem me passar mais detalhes?`,
+'Solu��es Personalizadas': `Ol�! Gostaria de uma proposta de Solu��o Personalizada para minha empresa. Podem me ajudar?`,
+'Telemedicina': `Ol�! Gostaria de conhecer os planos de Telemedicina da Mb Finance. Podem me passar mais informa��es?`,
 };
-let msg = msgsPorProduto[produtoSelecionado] || `Olá! Gostaria de falar com um especialista da Mb Finance.`;
+let msg = msgsPorProduto[produtoSelecionado] || `Ol�! Gostaria de falar com um especialista da Mb Finance.`;
 const baseUrl = _leadWaUrl.split('?')[0];
 const waLink = `${baseUrl}?text=${encodeURIComponent(msg)}`;
 trackGA4('generate_lead', { product: produtoSelecionado, source_area: 'lead_modal', form_name: 'main_site_lead_form' });
@@ -211,7 +211,7 @@ icon.style.display = 'none';
 }
 }
 // Counter animation (IntersectionObserver for data-counter elements)
-// Deferred to idle time — not needed for initial render
+// Deferred to idle time � not needed for initial render
 (function() {
 var idle = window.requestIdleCallback || function(cb) { setTimeout(cb, 200); };
 idle(function() {
@@ -259,7 +259,7 @@ const segmento = document.getElementById('parc-segmento').value;
 const msg      = document.getElementById('parc-msg').value.trim();
 if (!nome) { alert('Por favor, informe seu nome.'); return; }
 if (!tel)  { alert('Por favor, informe seu WhatsApp.'); return; }
-const texto = `Olá! Meu nome é ${nome} e tenho interesse em me tornar parceiro da Mb Finance.` +
+const texto = `Ol�! Meu nome � ${nome} e tenho interesse em me tornar parceiro da Mb Finance.` +
 (segmento ? `\n\nSegmento: ${segmento}.` : '') +
 (msg ? `\n\n${msg}` : '') +
 `\n\nWhatsApp para contato: ${tel}`;
@@ -267,7 +267,7 @@ window.open('https://wa.me/552139008295?text=' + encodeURIComponent(texto), '_bl
 closeParceriaModal();
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeParceriaModal(); });
-// UI: Visual animations - parallax, scroll-triggered steps, marquee carousel// Deferred to idle time so it doesn't block initial render(window.requestIdleCallback || function(cb) { setTimeout(cb, 300); })(function() {// ── Parallax ────────────────────────────────────────────────────────────────function updateParallax() {const windowH = window.innerHeight;// Hero backgroundconst hero = document.getElementById('parallax-hero');if (hero) {const scrollY = window.scrollY;hero.style.transform = `translateY(${scrollY * 0.22}px) scale(1.5)`;}// Cidade / Rio (Como Funciona)const cidade = document.getElementById('parallax-cidade');if (cidade) {const rect = cidade.closest('section').getBoundingClientRect();const centerOffset = (rect.top + rect.height / 2) - windowH / 2;cidade.style.transform = `translateY(${centerOffset * 0.22}px) scale(1.5)`;}}window.addEventListener('scroll', updateParallax, { passive: true });updateParallax();// ── Como Funciona: step animation ───────────────────────────────────────────(function(){var line = document.querySelector('.cf-line');var grid = document.querySelector('#como-funciona .grid');var section = document.getElementById('como-funciona');var currentStep = 0;var stepAnchors = [0.5, 0.34, 0.18, 0.04];function applySteps(n) {currentStep = Math.max(0, Math.min(4, n));if (line) line.classList.toggle('visible', currentStep > 0);[1,2,3,4].forEach(function(i){var step = document.getElementById('cf-step-' + i);if (!step) return;var on = i <= currentStep;step.classList.toggle('visible', on);var dot = step.querySelector('.cf-dot');if (dot) dot.classList.toggle('visible', on);});}function getStepFromScroll() {var rect = section.getBoundingClientRect();var windowH = window.innerHeight;var step = 0;stepAnchors.forEach(function(anchor, index){if (rect.top <= windowH * anchor) step = index + 1;});return step;}// Scroll normal da páginafunction checkScroll() {applySteps(getStepFromScroll());}// Scroll do mouse sobre a seção: página trava, etapas avançam/regridemfunction onWheel(e) {var now = Date.now();var goingDown = e.deltaY > 0;var goingUp   = e.deltaY < 0;// Se chegou no fim e quer descer, ou no início e quer subir → libera a páginaif ((goingDown && currentStep >= 4) || (goingUp && currentStep <= 0)) {isHovering = false;window.removeEventListener('wheel', onWheel);return; // não chama preventDefault → página rola normalmente}e.preventDefault();if (now - lastWheelStepAt < wheelStepCooldown) return;if ((wheelDeltaAccumulator > 0 && goingUp) || (wheelDeltaAccumulator < 0 && goingDown)) {wheelDeltaAccumulator = 0;}wheelDeltaAccumulator += e.deltaY;if (Math.abs(wheelDeltaAccumulator) < wheelStepThreshold) return;applySteps(currentStep + (wheelDeltaAccumulator > 0 ? 1 : -1));lastWheelStepAt = now;wheelDeltaAccumulator = 0;}// Só ativa o wheel interativo em desktop (sem touch)if (false) {section.addEventListener('mouseenter', function(){isHovering = true;currentStep = getStepFromScroll();wheelDeltaAccumulator = 0;lastWheelStepAt = 0;window.addEventListener('wheel', onWheel, { passive: false });});section.addEventListener('mouseleave', function(){isHovering = false;wheelDeltaAccumulator = 0;lastWheelStepAt = 0;window.removeEventListener('wheel', onWheel);});}window.addEventListener('scroll', checkScroll, { passive: true });checkScroll();})();// ── Marquee carousel — handled entirely by CSS @keyframes (see main.css) ──────// JS not needed: animation runs on browser compositor thread (smoother, no rAF).}); // end requestIdleCallback
+// UI: Visual animations - parallax, scroll-triggered steps, marquee carousel// Deferred to idle time so it doesn't block initial render(window.requestIdleCallback || function(cb) { setTimeout(cb, 300); })(function() {// -- Parallax ----------------------------------------------------------------function updateParallax() {const windowH = window.innerHeight;// Hero backgroundconst hero = document.getElementById('parallax-hero');if (hero) {const scrollY = window.scrollY;hero.style.transform = `translateY(${scrollY * 0.22}px) scale(1.5)`;}// Cidade / Rio (Como Funciona)const cidade = document.getElementById('parallax-cidade');if (cidade) {const rect = cidade.closest('section').getBoundingClientRect();const centerOffset = (rect.top + rect.height / 2) - windowH / 2;cidade.style.transform = `translateY(${centerOffset * 0.22}px) scale(1.5)`;}}window.addEventListener('scroll', updateParallax, { passive: true });updateParallax();// -- Como Funciona: step animation -------------------------------------------(function(){var line = document.querySelector('.cf-line');var grid = document.querySelector('#como-funciona .grid');var section = document.getElementById('como-funciona');var currentStep = 0;var stepAnchors = [0.5, 0.34, 0.18, 0.04];function applySteps(n) {currentStep = Math.max(0, Math.min(4, n));if (line) line.classList.toggle('visible', currentStep > 0);[1,2,3,4].forEach(function(i){var step = document.getElementById('cf-step-' + i);if (!step) return;var on = i <= currentStep;step.classList.toggle('visible', on);var dot = step.querySelector('.cf-dot');if (dot) dot.classList.toggle('visible', on);});}function getStepFromScroll() {var rect = section.getBoundingClientRect();var windowH = window.innerHeight;var step = 0;stepAnchors.forEach(function(anchor, index){if (rect.top <= windowH * anchor) step = index + 1;});return step;}// Scroll normal da p�ginafunction checkScroll() {applySteps(getStepFromScroll());}// Scroll do mouse sobre a se��o: p�gina trava, etapas avan�am/regridemfunction onWheel(e) {var now = Date.now();var goingDown = e.deltaY > 0;var goingUp   = e.deltaY < 0;// Se chegou no fim e quer descer, ou no in�cio e quer subir ? libera a p�ginaif ((goingDown && currentStep >= 4) || (goingUp && currentStep <= 0)) {isHovering = false;window.removeEventListener('wheel', onWheel);return; // n�o chama preventDefault ? p�gina rola normalmente}e.preventDefault();if (now - lastWheelStepAt < wheelStepCooldown) return;if ((wheelDeltaAccumulator > 0 && goingUp) || (wheelDeltaAccumulator < 0 && goingDown)) {wheelDeltaAccumulator = 0;}wheelDeltaAccumulator += e.deltaY;if (Math.abs(wheelDeltaAccumulator) < wheelStepThreshold) return;applySteps(currentStep + (wheelDeltaAccumulator > 0 ? 1 : -1));lastWheelStepAt = now;wheelDeltaAccumulator = 0;}// S� ativa o wheel interativo em desktop (sem touch)if (false) {section.addEventListener('mouseenter', function(){isHovering = true;currentStep = getStepFromScroll();wheelDeltaAccumulator = 0;lastWheelStepAt = 0;window.addEventListener('wheel', onWheel, { passive: false });});section.addEventListener('mouseleave', function(){isHovering = false;wheelDeltaAccumulator = 0;lastWheelStepAt = 0;window.removeEventListener('wheel', onWheel);});}window.addEventListener('scroll', checkScroll, { passive: true });checkScroll();})();// -- Marquee carousel � handled entirely by CSS @keyframes (see main.css) ------// JS not needed: animation runs on browser compositor thread (smoother, no rAF).}); // end requestIdleCallback
 // Seamless hero video loop: crossfade between two video elements
 (function () {
 var va = document.getElementById('hero-video-a');
@@ -324,7 +324,7 @@ banner.innerHTML = [
 '<div class="cookie-inner">',
 '  <div class="cookie-text">',
 '    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;color:#0099dd"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>',
-'    <p>Usamos cookies para analisar o tráfego e melhorar sua experiência. Ao continuar, você concorda com nossa <a href="/pages/politica-de-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</p>',
+'    <p>Usamos cookies para analisar o tr�fego e melhorar sua experi�ncia. Ao continuar, voc� concorda com nossa <a href="/pages/politica-de-privacidade.html" target="_blank" rel="noopener">Pol�tica de Privacidade</a>.</p>',
 '  </div>',
 '  <div class="cookie-actions">',
 '    <button id="cookie-reject" class="cookie-btn cookie-btn-outline">Recusar</button>',

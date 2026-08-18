@@ -5,95 +5,95 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 
-/* ─── DATA ─────────────────────────────────────────────────── */
+/* --- DATA --------------------------------------------------- */
 
 const timeline = [
   {
     year: "2013",
-    title: "Fundação no Rio de Janeiro",
+    title: "Funda��o no Rio de Janeiro",
     description:
-      "Mauro Barbosa e Fabiano Ribeiro fundam a Mb Finance com o propósito de democratizar o acesso a produtos financeiros de qualidade para empresas de todos os portes no Brasil.",
-    badge: "Fundação",
+      "Mauro Barbosa e Fabiano Ribeiro fundam a Mb Finance com o prop�sito de democratizar o acesso a produtos financeiros de qualidade para empresas de todos os portes no Brasil.",
+    badge: "Funda��o",
   },
   {
     year: "2014",
-    title: "Soluções de Crédito Customizadas",
+    title: "Solu��es de Cr�dito Customizadas",
     description:
-      "Introdução das primeiras soluções de crédito personalizadas para clientes PJ, ampliando o portfólio de produtos financeiros da Mb Finance e fortalecendo o relacionamento com a carteira inicial.",
+      "Introdu��o das primeiras solu��es de cr�dito personalizadas para clientes PJ, ampliando o portf�lio de produtos financeiros da Mb Finance e fortalecendo o relacionamento com a carteira inicial.",
     badge: null,
   },
   {
     year: "2015",
-    title: "Estruturação Financeira para Saúde",
+    title: "Estrutura��o Financeira para Sa�de",
     description:
-      "Estruturação de soluções financeiras especializadas para o setor de saúde e reabertura da carteira do SUS, consolidando a Mb Finance como referência em crédito para segmentos estratégicos.",
+      "Estrutura��o de solu��es financeiras especializadas para o setor de sa�de e reabertura da carteira do SUS, consolidando a Mb Finance como refer�ncia em cr�dito para segmentos estrat�gicos.",
     badge: null,
   },
   {
     year: "2017",
-    title: "Real Estate e Expansão da Estrutura",
+    title: "Real Estate e Expans�o da Estrutura",
     description:
-      "Incorporação de produtos de Real Estate ao portfólio e significativa expansão da estrutura operacional, preparando a empresa para um novo ciclo de crescimento acelerado.",
+      "Incorpora��o de produtos de Real Estate ao portf�lio e significativa expans�o da estrutura operacional, preparando a empresa para um novo ciclo de crescimento acelerado.",
     badge: null,
   },
   {
     year: "2020",
-    title: "Parceria com Conexão C6",
+    title: "Parceria com Conex�o C6",
     description:
-      "Início da parceria estratégica com o Conexão C6, com foco na abertura de contas C6 Pay para MEIs em todo o Brasil. Um novo capítulo que abriria o caminho para o crescimento exponencial da Mb Finance.",
+      "In�cio da parceria estrat�gica com o Conex�o C6, com foco na abertura de contas C6 Pay para MEIs em todo o Brasil. Um novo cap�tulo que abriria o caminho para o crescimento exponencial da Mb Finance.",
     badge: null,
   },
   {
     year: "2021",
-    title: "Consultoria Financeira e Consolidação no C6",
+    title: "Consultoria Financeira e Consolida��o no C6",
     description:
-      "Foco intenso em consultoria financeira e consolidação da posição da Mb Finance dentro do ecossistema Conexão C6, estruturando processos, governança e equipe para suportar o crescimento acelerado que viria a seguir.",
+      "Foco intenso em consultoria financeira e consolida��o da posi��o da Mb Finance dentro do ecossistema Conex�o C6, estruturando processos, governan�a e equipe para suportar o crescimento acelerado que viria a seguir.",
     badge: null,
-    trophy: { src: "/images/premios/premio-2021.png", label: "AgRio 2021 - 1º Lugar" },
+    trophy: { src: "/images/premios/premio-2021.png", label: "AgRio 2021 - 1� Lugar" },
   },
   {
     year: "2022",
-    title: "TOP 3 + Criação do Fomenta Mais",
+    title: "TOP 3 + Cria��o do Fomenta Mais",
     description:
-      "No final do ano, a Mb Finance estava entre os TOP 3 do projeto Conexão C6, superando a marca de 600 contas abertas por mês. Neste mesmo ano, criamos o Fomenta Mais — ampliando nossa capacidade de atender e fomentar o ecossistema de negócios parceiros.",
-    badge: "TOP 3 · Fomenta Mais",
-    trophy: { src: "/images/premios/premio-2022.png", label: "Destaque 2022 - Conexão C6" },
+      "No final do ano, a Mb Finance estava entre os TOP 3 do projeto Conex�o C6, superando a marca de 600 contas abertas por m�s. Neste mesmo ano, criamos o Fomenta Mais � ampliando nossa capacidade de atender e fomentar o ecossistema de neg�cios parceiros.",
+    badge: "TOP 3 � Fomenta Mais",
+    trophy: { src: "/images/premios/premio-2022.png", label: "Destaque 2022 - Conex�o C6" },
   },
   {
     year: "2023",
-    title: "Melhor Parceiro Conexão C6",
+    title: "Melhor Parceiro Conex�o C6",
     description:
-      "Primeiros a superar 1.500 contas/mês, chegando a 2.500 em julho. Investimos em governança e processos. Conquistamos o título de Melhor Parceiro do Conexão C6 — com lucro 3× maior que os demais parceiros do canal.",
+      "Primeiros a superar 1.500 contas/m�s, chegando a 2.500 em julho. Investimos em governan�a e processos. Conquistamos o t�tulo de Melhor Parceiro do Conex�o C6 � com lucro 3� maior que os demais parceiros do canal.",
     badge: "Melhor Parceiro",
-    trophy: { src: "/images/premios/premio-2023.png", label: "Awards 2023 - Melhor Escritório" },
+    trophy: { src: "/images/premios/premio-2023.png", label: "Awards 2023 - Melhor Escrit�rio" },
   },
   {
     year: "2024",
     title: "Recorde Nacional 59.230 Contas PJ",
     description:
-      "Estabelecemos o recorde nacional de abertura de contas PJ: 59.230 contas em um único ano. Premiados com o título de melhor escritório do Conexão C6, consolidando nossa liderança no projeto.",
+      "Estabelecemos o recorde nacional de abertura de contas PJ: 59.230 contas em um �nico ano. Premiados com o t�tulo de melhor escrit�rio do Conex�o C6, consolidando nossa lideran�a no projeto.",
     badge: "59.230 contas PJ",
-    trophy: { src: "/images/premios/premio-2024.png", label: "Awards 2024 - Melhor Escritório" },
+    trophy: { src: "/images/premios/premio-2024.png", label: "Awards 2024 - Melhor Escrit�rio" },
   },
   {
     year: "2025",
     title: "Novo Recorde 95.000 Contas PJ e R$ 100Mi com Mercado Pago",
     description:
-      "Superamos o próprio recorde: 95.000 contas PJ abertas em um único ano e conquistamos novamente o prêmio de melhor escritório do Conexão C6. Em parceria com o Mercado Pago, atingimos a marca de R$ 100 milhões em movimentação em tempo recorde — consolidando a Mb Finance como referência nacional em soluções financeiras para empresas.",
-    badge: "95.000 contas PJ · R$ 100Mi · Mercado Pago",
+      "Superamos o pr�prio recorde: 95.000 contas PJ abertas em um �nico ano e conquistamos novamente o pr�mio de melhor escrit�rio do Conex�o C6. Em parceria com o Mercado Pago, atingimos a marca de R$ 100 milh�es em movimenta��o em tempo recorde � consolidando a Mb Finance como refer�ncia nacional em solu��es financeiras para empresas.",
+    badge: "95.000 contas PJ � R$ 100Mi � Mercado Pago",
   },
   {
     year: "2026",
-    title: "Expansão do Portfólio de Produtos",
+    title: "Expans�o do Portf�lio de Produtos",
     description:
-      "Iniciamos 2026 com o propósito de expandir nosso portfólio além do crédito. Lançamos soluções em Seguros e Consórcios, Soluções Tributárias e Telemedicina — consolidando a Mb Finance como um Hub completo de soluções para empresas.",
-    badge: "Seguros · Tributário · Telemedicina",
+      "Iniciamos 2026 com o prop�sito de expandir nosso portf�lio al�m do cr�dito. Lan�amos solu��es em Seguros e Cons�rcios, Solu��es Tribut�rias e Telemedicina � consolidando a Mb Finance como um Hub completo de solu��es para empresas.",
+    badge: "Seguros � Tribut�rio � Telemedicina",
   },
 ];
 
-/* ─── COUNTER ───────────────────────────────────────────────── */
+/* --- COUNTER ------------------------------------------------- */
 
-/* ─── HORIZONTAL TIMELINE ───────────────────────────────────── */
+/* --- HORIZONTAL TIMELINE ------------------------------------- */
 
 function HorizontalTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -104,7 +104,7 @@ function HorizontalTimeline() {
 
   // Move the strip from 0 to -(N-1) cards worth of width
   // Each card ~380px + 32px gap = 412px; 11 cards total; viewport ~1200px
-  // Need to scroll: 11*412 - 1200 ≈ 3332px → use -110vw as rough value
+  // Need to scroll: 11*412 - 1200 � 3332px ? use -110vw as rough value
   const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-110vw"]);
 
   return (
@@ -118,11 +118,11 @@ function HorizontalTimeline() {
         {/* Section label */}
         <div className="px-8 md:px-16 mb-10 flex-shrink-0">
           <p className="text-[#0099dd] text-xs font-bold tracking-widest uppercase mb-3">
-            Nossa trajetória
+            Nossa trajet�ria
           </p>
           <h2 className="text-[#001e2e] text-4xl md:text-5xl font-black leading-tight">
-            Evolução e{" "}
-            <span className="text-[#0099dd]">Excelência</span>
+            Evolu��o e{" "}
+            <span className="text-[#0099dd]">Excel�ncia</span>
           </h2>
         </div>
 
@@ -191,14 +191,14 @@ function HorizontalTimeline() {
   );
 }
 
-/* ─── PAGE ──────────────────────────────────────────────────── */
+/* --- PAGE ---------------------------------------------------- */
 
 export default function SobrePage() {
   return (
     <>
       <main className="bg-white overflow-x-hidden max-w-full">
 
-      {/* ── HERO ─────────────────────────────────────────────── */}
+      {/* -- HERO ----------------------------------------------- */}
       <section
         className="relative min-h-screen flex items-center overflow-hidden"
         style={{ background: "linear-gradient(135deg, #001e2e 0%, #003956 60%, #005080 100%)" }}
@@ -221,8 +221,8 @@ export default function SobrePage() {
               Sobre a Mb Finance
             </p>
             <h1 className="text-white text-4xl md:text-6xl font-light tracking-[-0.04em] leading-[1.02] mb-8 max-w-5xl">
-              <span className="block">Conectamos empresas às</span>
-              <span className="block text-[#0099dd] font-normal">melhores soluções financeiras</span>
+              <span className="block">Conectamos empresas �s</span>
+              <span className="block text-[#0099dd] font-normal">melhores solu��es financeiras</span>
             </h1>
           </motion.div>
 
@@ -234,32 +234,32 @@ export default function SobrePage() {
           >
             <div>
               <p className="text-white/80 text-lg leading-relaxed mb-6">
-                A Mb Finance tem como missão conectar empresas brasileiras às
-                soluções financeiras mais adequadas para cada etapa da sua
-                trajetória, com tecnologia, visão financeira e soluções inovadoras.
-                Nossa evolução para um{" "}
+                A Mb Finance tem como miss�o conectar empresas brasileiras �s
+                solu��es financeiras mais adequadas para cada etapa da sua
+                trajet�ria, com tecnologia, vis�o financeira e solu��es inovadoras.
+                Nossa evolu��o para um{" "}
                 <strong className="text-white">Hub de Produtos Financeiros</strong>{" "}
-                reflete o compromisso de oferecer ao mercado uma atuação mais
-                ampla, consultiva e eficiente, reunindo em um só ecossistema
-                diferentes alternativas de crédito, serviços bancários e
-                soluções complementares.
+                reflete o compromisso de oferecer ao mercado uma atua��o mais
+                ampla, consultiva e eficiente, reunindo em um s� ecossistema
+                diferentes alternativas de cr�dito, servi�os banc�rios e
+                solu��es complementares.
               </p>
               <p className="text-white/60 text-base leading-relaxed">
-                Dessa forma, proporcionamos às empresas mais autonomia na tomada
-                de decisão, acesso a condições mais competitivas e um portfólio
-                diversificado, que vai além das opções limitadas de uma única
-                instituição financeira.
+                Dessa forma, proporcionamos �s empresas mais autonomia na tomada
+                de decis�o, acesso a condi��es mais competitivas e um portf�lio
+                diversificado, que vai al�m das op��es limitadas de uma �nica
+                institui��o financeira.
               </p>
             </div>
 
             <div className="flex flex-col gap-4">
               {[
-                { label: "Fundação", value: "2013" },
+                { label: "Funda��o", value: "2013" },
                 { label: "Sede", value: "Rio de Janeiro, RJ" },
                 { label: "Parceiro principal", value: "+ 40 parceiros" },
-                { label: "Foco", value: "Empresas de pequeno, médio e grande porte" },
+                { label: "Foco", value: "Empresas de pequeno, m�dio e grande porte" },
                 { label: "Clientes ativos", value: "+200.000 PJs", primary: true },
-                { label: "Crédito transacionado", value: "R$ 1,5 bilhão", primary: true },
+                { label: "Cr�dito transacionado", value: "R$ 1,5 bilh�o", primary: true },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -276,10 +276,10 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* ── HORIZONTAL TIMELINE ──────────────────────────────── */}
+      {/* -- HORIZONTAL TIMELINE -------------------------------- */}
       <HorizontalTimeline />
 
-      {/* ── CTA ──────────────────────────────────────────────── */}
+      {/* -- CTA ------------------------------------------------ */}
       <section
         className="relative overflow-hidden py-24"
         style={{ background: "linear-gradient(135deg, #001e2e 0%, #003956 100%)" }}
@@ -308,8 +308,8 @@ export default function SobrePage() {
               <span className="text-[#0099dd]">impulsionar sua empresa</span>?
             </h2>
             <p className="text-white/70 text-base md:text-xl mb-10 md:mb-14 max-w-2xl mx-auto font-light leading-relaxed">
-              Fale com um consultor Mb Finance e acesse soluções mais
-              inteligentes, competitivas e aderentes ao momento do seu negócio.
+              Fale com um consultor Mb Finance e acesse solu��es mais
+              inteligentes, competitivas e aderentes ao momento do seu neg�cio.
             </p>
             <Link
               href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}

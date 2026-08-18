@@ -5,13 +5,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Mb Finance | Hub de Produtos Financeiros para Empresas",
   description:
-    "A Mb Finance conecta empresários às melhores condições financeiras do mercado. Capital de giro, antecipação de recebíveis, conta PJ e maquininha com tecnologia e inteligência artificial.",
+    "A Mb Finance conecta empres�rios �s melhores condi��es financeiras do mercado. Capital de giro, antecipa��o de receb�veis, conta PJ e maquininha com tecnologia e intelig�ncia artificial.",
   keywords:
-    "capital de giro, antecipação de recebíveis, conta PJ, maquininha, crédito empresarial, hub financeiro, Mb Finance",
+    "capital de giro, antecipa��o de receb�veis, conta PJ, maquininha, cr�dito empresarial, hub financeiro, Mb Finance",
   openGraph: {
     title: "Mb Finance | Hub de Produtos Financeiros para Empresas",
     description:
-      "Mais de 130.000 empresas já escolheram a Mb Finance. Acesse as melhores condições financeiras do mercado em um só lugar.",
+      "Mais de 130.000 empresas j� escolheram a Mb Finance. Acesse as melhores condi��es financeiras do mercado em um s� lugar.",
     type: "website",
     locale: "pt_BR",
   },

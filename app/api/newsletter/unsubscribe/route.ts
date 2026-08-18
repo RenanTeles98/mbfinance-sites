@@ -24,13 +24,13 @@ export async function GET(request: Request) {
   const token = searchParams.get("token");
 
   if (!token) {
-    return new Response("Link inválido.", { status: 400 });
+    return new Response("Link inv�lido.", { status: 400 });
   }
 
   try {
     const email = verifyUnsubToken(token);
     if (!email) {
-      return new Response("Token inválido.", { status: 400 });
+      return new Response("Token inv�lido.", { status: 400 });
     }
     const subscribers = await readSubscribers();
     const updated = subscribers.map((s) =>
@@ -44,7 +44,7 @@ export async function GET(request: Request) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Inscrição cancelada — Mb Finance</title>
+  <title>Inscri��o cancelada � Mb Finance</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -134,23 +134,23 @@ export async function GET(request: Request) {
           <path d="M18 6L6 18M6 6l12 12"/>
         </svg>
       </div>
-      <h1>Inscrição cancelada</h1>
+      <h1>Inscri��o cancelada</h1>
       <p>
-        Você foi removido da nossa newsletter com sucesso.<br>
-        Não enviaremos mais emails para este endereço.<br><br>
+        Voc� foi removido da nossa newsletter com sucesso.<br>
+        N�o enviaremos mais emails para este endere�o.<br><br>
         Se mudar de ideia, pode se inscrever novamente a qualquer momento pelo nosso site.
       </p>
       <a href="https://mbfinance-sites.vercel.app/index.html" class="btn">Voltar ao site</a>
     </div>
   </div>
   <div class="footer">
-    &copy; Mb Finance — Hub Financeiro para Empresas PJ
+    &copy; Mb Finance � Hub Financeiro para Empresas PJ
   </div>
 </body>
 </html>`,
       { headers: { "Content-Type": "text/html; charset=utf-8" } }
     );
   } catch {
-    return new Response("Erro ao processar sua solicitação.", { status: 500 });
+    return new Response("Erro ao processar sua solicita��o.", { status: 500 });
   }
 }

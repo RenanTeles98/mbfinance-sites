@@ -12,36 +12,36 @@ const products = [
     icon: Building2,
     title: "Conta PJ",
     tag: "Zero tarifas",
-    description: "Conta empresarial completa com Pix ilimitado, cartão e gestão financeira integrada — sem taxas ocultas.",
-    features: ["Pix ilimitado", "Cartão empresarial", "Internet Banking 24/7", "Sem taxa de manutenção"],
-    msg: "Olá! Tenho interesse em abrir uma Conta PJ na Mb Finance.",
+    description: "Conta empresarial completa com Pix ilimitado, cart�o e gest�o financeira integrada � sem taxas ocultas.",
+    features: ["Pix ilimitado", "Cart�o empresarial", "Internet Banking 24/7", "Sem taxa de manuten��o"],
+    msg: "Ol�! Tenho interesse em abrir uma Conta PJ na Mb Finance.",
     accent: "#0099dd",
   },
   {
     icon: CreditCard,
-    title: "Máquina de Cartão",
+    title: "M�quina de Cart�o",
     tag: "Melhores taxas",
-    description: "Aceite todas as bandeiras com as menores taxas. Receba suas vendas com antecipação e sem surpresas.",
-    features: ["Todas as bandeiras", "Recebimento em D+1", "App de gestão", "Suporte 24h"],
-    msg: "Olá! Quero conhecer as taxas da Máquina de Cartão da Mb Finance.",
+    description: "Aceite todas as bandeiras com as menores taxas. Receba suas vendas com antecipa��o e sem surpresas.",
+    features: ["Todas as bandeiras", "Recebimento em D+1", "App de gest�o", "Suporte 24h"],
+    msg: "Ol�! Quero conhecer as taxas da M�quina de Cart�o da Mb Finance.",
     accent: "#3b82f6",
   },
   {
     icon: TrendingUp,
     title: "Capital de Giro",
-    tag: "Aprovação em 24h",
-    description: "Crédito para impulsionar seu negócio. Nossa IA encontra a melhor oferta entre todos os nossos parceiros.",
-    features: ["A partir de 1,2% a.m.", "Aprovação em 24h", "Parcelas flexíveis", "Sem garantia real"],
-    msg: "Olá! Preciso de Capital de Giro para minha empresa.",
+    tag: "Aprova��o em 24h",
+    description: "Cr�dito para impulsionar seu neg�cio. Nossa IA encontra a melhor oferta entre todos os nossos parceiros.",
+    features: ["A partir de 1,2% a.m.", "Aprova��o em 24h", "Parcelas flex�veis", "Sem garantia real"],
+    msg: "Ol�! Preciso de Capital de Giro para minha empresa.",
     accent: "#10b981",
   },
   {
     icon: Clock,
-    title: "Antecipação de Recebíveis",
+    title: "Antecipa��o de Receb�veis",
     tag: "Liquidez imediata",
-    description: "Transforme vendas a prazo em dinheiro imediato. Antecipe recebíveis de cartão, duplicatas e NFs.",
-    features: ["Antecipação de cartões", "Antecipação de duplicatas", "Dinheiro em conta hoje", "100% digital"],
-    msg: "Olá! Quero antecipar meus recebíveis. Quais as condições?",
+    description: "Transforme vendas a prazo em dinheiro imediato. Antecipe receb�veis de cart�o, duplicatas e NFs.",
+    features: ["Antecipa��o de cart�es", "Antecipa��o de duplicatas", "Dinheiro em conta hoje", "100% digital"],
+    msg: "Ol�! Quero antecipar meus receb�veis. Quais as condi��es?",
     accent: "#8b5cf6",
   },
 ];
@@ -70,10 +70,10 @@ export default function Products() {
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <h2 className="text-3xl sm:text-5xl font-black text-brand-primary leading-tight tracking-tight max-w-lg">
               Tudo que sua empresa precisa,{" "}
-              <span className="text-brand-secondary">em um só lugar</span>
+              <span className="text-brand-secondary">em um s� lugar</span>
             </h2>
             <p className="text-gray-500 text-sm max-w-xs leading-relaxed">
-              Produtos financeiros com as melhores condições do mercado, negociados especialmente para o seu negócio.
+              Produtos financeiros com as melhores condi��es do mercado, negociados especialmente para o seu neg�cio.
             </p>
           </div>
         </motion.div>

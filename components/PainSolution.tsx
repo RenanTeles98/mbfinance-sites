@@ -7,18 +7,18 @@ import { X, Check } from "lucide-react";
 
 const pains = [
   "Taxas altas impostas pelo seu banco atual",
-  "Crédito negado sem explicação",
-  "Processos lentos e burocráticos",
-  "Sem opções para comparar condições",
-  "Atendimento genérico e impessoal",
+  "Cr�dito negado sem explica��o",
+  "Processos lentos e burocr�ticos",
+  "Sem op��es para comparar condi��es",
+  "Atendimento gen�rico e impessoal",
 ];
 
 const solutions = [
-  "Acesso às melhores taxas de múltiplos parceiros",
-  "IA que maximiza suas chances de aprovação",
-  "Processo 100% digital, aprovação em até 24h",
-  "Comparativo automático entre instituições",
-  "Especialista dedicado ao seu negócio",
+  "Acesso �s melhores taxas de m�ltiplos parceiros",
+  "IA que maximiza suas chances de aprova��o",
+  "Processo 100% digital, aprova��o em at� 24h",
+  "Comparativo autom�tico entre institui��es",
+  "Especialista dedicado ao seu neg�cio",
 ];
 
 export default function PainSolution() {
@@ -43,10 +43,10 @@ export default function PainSolution() {
             O problema que resolvemos
           </p>
           <h2 className="text-3xl sm:text-5xl font-black text-brand-primary leading-tight tracking-tight">
-            Empresários limitados a{" "}
-            <span className="text-red-400">um único banco</span>
+            Empres�rios limitados a{" "}
+            <span className="text-red-400">um �nico banco</span>
             <br className="hidden sm:block" />
-            {" "}perdem dinheiro todo mês
+            {" "}perdem dinheiro todo m�s
           </h2>
         </motion.div>
 

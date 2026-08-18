@@ -123,7 +123,7 @@ export default async function BlogArticlePage({
                 <img src="/images/logo-horizontal-logo.branca.png" alt="Mb Finance" style={{ height: 36, width: "auto" }} />
               </a>
               <p className="max-w-[280px] text-[15px] font-medium leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-                Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado. Seu elo estratégico com as principais instituições bancárias do Brasil.
+                H� mais de 10 anos conectando empresas �s melhores solu��es financeiras do mercado. Seu elo estrat�gico com as principais institui��es banc�rias do Brasil.
               </p>
               <div className="flex gap-3">
                 <a href="https://www.linkedin.com/company/mbfassessoria/?viewAsMember=true" target="_blank" rel="noopener" className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all hover:bg-white/15">
@@ -135,11 +135,11 @@ export default async function BlogArticlePage({
               </div>
             </div>
 
-            {/* Col 2: Soluções */}
+            {/* Col 2: Solu��es */}
             <div className="lg:col-span-3">
-              <h4 className="mb-8 text-xs font-bold uppercase tracking-widest text-white">Soluções</h4>
+              <h4 className="mb-8 text-xs font-bold uppercase tracking-widest text-white">Solu��es</h4>
               <ul className="flex flex-col gap-3.5 text-sm font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
-                {["Conta Corrente Empresarial","Máquina de Cartão","Seguros e Consórcios","Crédito Rápido","Soluções Tributárias","Telemedicina","Soluções Personalizadas"].map((item) => (
+                {["Conta Corrente Empresarial","M�quina de Cart�o","Seguros e Cons�rcios","Cr�dito R�pido","Solu��es Tribut�rias","Telemedicina","Solu��es Personalizadas"].map((item) => (
                   <li key={item}><a href="/index.html#produtos" className="transition-colors hover:text-brand-secondary">{item}</a></li>
                 ))}
               </ul>
@@ -158,7 +158,7 @@ export default async function BlogArticlePage({
               <div>
                 <h4 className="mb-7 text-xs font-bold uppercase tracking-widest text-white">Legal</h4>
                 <ul className="flex flex-col gap-3.5 text-sm font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
-                  <li><a href="/pages/politica-de-privacidade.html" className="transition-colors hover:text-brand-secondary">Política de Privacidade</a></li>
+                  <li><a href="/pages/politica-de-privacidade.html" className="transition-colors hover:text-brand-secondary">Pol�tica de Privacidade</a></li>
                   <li><a href="/pages/termos-de-uso.html" className="transition-colors hover:text-brand-secondary">Termos de Uso</a></li>
                 </ul>
               </div>
@@ -170,11 +170,11 @@ export default async function BlogArticlePage({
               <div className="flex flex-col gap-6 text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
                 <div>
                   <div className="text-xl font-bold text-white">(21) 3900-8295</div>
-                  <div className="mt-1 text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.2)" }}>Seg - Sex: 9h às 18h</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.2)" }}>Seg - Sex: 9h �s 18h</div>
                 </div>
                 <a href="mailto:atendimento@mbfinance.com.br" className="text-[13px] transition-colors hover:text-white" style={{ color: "rgba(255,255,255,0.6)" }}>atendimento@mbfinance.com.br</a>
                 <div className="text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.3)" }}>
-                  Av. Rio Branco, 110 - 30º andar<br />
+                  Av. Rio Branco, 110 - 30� andar<br />
                   Centro, Rio de Janeiro - RJ<br />
                   CEP: 20040-006
                 </div>
@@ -185,7 +185,7 @@ export default async function BlogArticlePage({
           {/* Bottom bar */}
           <div className="border-t border-white/5 pt-10 text-center">
             <p className="text-[10px] uppercase leading-relaxed tracking-[2px] sm:text-[11px]" style={{ color: "rgba(255,255,255,0.35)" }}>
-              © 2026 MB ASSESSORIA E ESTRUTURAÇÃO DE NEGÓCIOS LTDA. CNPJ: 26.388.817/0001-72. TODOS OS DIREITOS RESERVADOS.
+              � 2026 MB ASSESSORIA E ESTRUTURA��O DE NEG�CIOS LTDA. CNPJ: 26.388.817/0001-72. TODOS OS DIREITOS RESERVADOS.
             </p>
           </div>
         </div>

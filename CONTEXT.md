@@ -12,6 +12,7 @@
 - [x] Nome da marca padronizado de todas as variacoes de `mb finance` para `Mb Finance` nas paginas publicas, metadados SEO, textos alternativos, mensagens de WhatsApp e e-mails.
 - [x] Nomes das submarcas padronizados para `Mb Negócios` e `Mb Tributos` nos menus, metadados e mensagens relacionadas.
 - [x] Atualizadas as copias de publicacao em `cpanel-upload/public_html/` para manter o deploy manual consistente com o site fonte.
+- [x] Corrigida a codificacao UTF-8 dos arquivos publicos afetados por uma gravacao incorreta, restaurando caracteres acentuados exibidos pelo site.
 
 Arquivos modificados nesta sessao: fontes do site em `app/`, `components/`, `content/`, `lib/`, `public/`, `cpanel-upload/public_html/` e scripts auxiliares de rodape.
 

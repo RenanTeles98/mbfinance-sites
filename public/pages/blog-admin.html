@@ -291,7 +291,7 @@
         .slot-preview { margin-top: 14px; padding: 12px 14px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
         .slot-preview-box { background: #e2e8f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.5px; }
 
-        /* VERIFICADOR ORTOGRÁFICO */
+        /* VERIFICADOR ORTOGR�FICO */
         #spell-modal { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.55); align-items:center; justify-content:center; }
         #spell-modal.open { display:flex; }
         .spell-card { background:#fff; border-radius:20px; padding:36px 32px; max-width:560px; width:90%; max-height:80vh; overflow-y:auto; box-shadow:0 24px 80px rgba(0,0,0,0.25); }
@@ -358,9 +358,9 @@
 <div id="auth-screen">
     <div class="auth-card">
         <div class="auth-logo"><span>mb</span><span>finance.</span></div>
-        <p class="auth-subtitle">Painel de administração do Blog</p>
+        <p class="auth-subtitle">Painel de administra��o do Blog</p>
         <label class="auth-label" for="auth-pass">Senha de acesso</label>
-        <input type="password" id="auth-pass" class="auth-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()">
+        <input type="password" id="auth-pass" class="auth-input" placeholder="��������" onkeydown="if(event.key==='Enter')login()">
         <p id="auth-error" class="auth-error">Senha incorreta. Tente novamente.</p>
         <button class="auth-btn" onclick="login()">Entrar no painel</button>
     </div>
@@ -393,7 +393,7 @@
     <div id="tab-bar">
         <button class="tab-btn active" id="tabBtn-analytics" onclick="switchTab('analytics')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-            Métricas do site
+            M�tricas do site
         </button>
         <button class="tab-btn" id="tabBtn-posts" onclick="switchTab('posts')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -409,7 +409,7 @@
         </button>
         <button class="tab-btn" id="tabBtn-calendar" onclick="switchTab('calendar')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Calendário Editorial
+            Calend�rio Editorial
         </button>
         <button class="tab-btn" id="tabBtn-generator" onclick="switchTab('generator')">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
@@ -430,7 +430,7 @@
                     </button>
                 </div>
                 <div class="post-list" id="post-list">
-                    <div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para começar.</div>
+                    <div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para come�ar.</div>
                 </div>
             </div>
 
@@ -441,7 +441,7 @@
                         <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     </div>
                     <h2 class="welcome-h">Editor de Blog</h2>
-                    <p class="welcome-p">Selecione um post na lista ou clique em "Novo Post" para começar a criar conteúdo.</p>
+                    <p class="welcome-p">Selecione um post na lista ou clique em "Novo Post" para come�ar a criar conte�do.</p>
                 </div>
 
             <div id="post-form" style="display:none">
@@ -455,7 +455,7 @@
                 </div>
 
                 <div class="field-group">
-                    <label class="field-label" for="f-title">Título</label>
+                    <label class="field-label" for="f-title">T�tulo</label>
                     <input type="text" id="f-title" class="field-input" placeholder="Ex: Como conseguir capital de giro com as melhores taxas" style="font-size:16px;font-weight:700;padding:12px 14px;" oninput="updateSeoPreview()">
                 </div>
 
@@ -463,12 +463,12 @@
                     <div>
                         <label class="field-label" for="f-category">Categoria</label>
                         <select id="f-category" class="field-select">
-                            <option value="credito">Crédito Empresarial</option>
-                            <option value="gestao">Gestão Financeira</option>
+                            <option value="credito">Cr�dito Empresarial</option>
+                            <option value="gestao">Gest�o Financeira</option>
                             <option value="conta-pj">Conta PJ</option>
                             <option value="mercado">Mercado</option>
-                            <option value="antecipacao">Antecipação</option>
-                            <option value="noticias">Notícias</option>
+                            <option value="antecipacao">Antecipa��o</option>
+                            <option value="noticias">Not�cias</option>
                         </select>
                     </div>
                     <div>
@@ -538,7 +538,7 @@
 
                 <div class="field-group">
                     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                        <label class="field-label" style="margin-bottom:0;">Conteúdo do Artigo</label>
+                        <label class="field-label" style="margin-bottom:0;">Conte�do do Artigo</label>
                         <button type="button" class="magic-btn" style="padding: 6px 12px; font-size: 11px; border-radius: 8px;" onclick="writeWithAI()">
                             <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
                             Escrever com IA
@@ -547,11 +547,11 @@
                     <div class="editor-wrap">
                         <div class="editor-toolbar">
                             <button class="tb-btn" onclick="cmd('bold')" title="Negrito"><b>N</b></button>
-                            <button class="tb-btn" onclick="cmd('italic')" title="Itálico"><i style="font-style:italic">I</i></button>
+                            <button class="tb-btn" onclick="cmd('italic')" title="It�lico"><i style="font-style:italic">I</i></button>
                             <div class="tb-sep"></div>
-                            <button class="tb-btn" onclick="cmd('formatBlock','h2')" title="Título H2" style="font-size:11px;width:36px">H2</button>
-                            <button class="tb-btn" onclick="cmd('formatBlock','h3')" title="Título H3" style="font-size:11px;width:36px">H3</button>
-                            <button class="tb-btn" onclick="cmd('formatBlock','p')" title="Parágrafo" style="font-size:11px;width:28px">P</button>
+                            <button class="tb-btn" onclick="cmd('formatBlock','h2')" title="T�tulo H2" style="font-size:11px;width:36px">H2</button>
+                            <button class="tb-btn" onclick="cmd('formatBlock','h3')" title="T�tulo H3" style="font-size:11px;width:36px">H3</button>
+                            <button class="tb-btn" onclick="cmd('formatBlock','p')" title="Par�grafo" style="font-size:11px;width:28px">P</button>
                             <div class="tb-sep"></div>
                             <button class="tb-btn" onclick="cmd('insertUnorderedList')" title="Lista">
                                 <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -559,7 +559,7 @@
                             <button class="tb-btn" onclick="cmd('insertOrderedList')" title="Lista numerada">
                                 <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
                             </button>
-                            <button class="tb-btn" onclick="cmd('formatBlock','blockquote')" title="Citação" style="font-size:16px;font-weight:900;color:#0099dd">"</button>
+                            <button class="tb-btn" onclick="cmd('formatBlock','blockquote')" title="Cita��o" style="font-size:16px;font-weight:900;color:#0099dd">"</button>
                             <div class="tb-sep"></div>
                             <button class="tb-btn" onclick="insertLink()" title="Link">
                                 <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
@@ -572,7 +572,7 @@
                                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10H11a8 8 0 000 16h10m0-16l-4-4m4 4l-4 4"/></svg>
                             </button>
                         </div>
-                        <div id="editor-content" class="editor-content" contenteditable="true" data-placeholder="Escreva o conteúdo do artigo aqui. Use a barra de ferramentas para formatar..."></div>
+                        <div id="editor-content" class="editor-content" contenteditable="true" data-placeholder="Escreva o conte�do do artigo aqui. Use a barra de ferramentas para formatar..."></div>
                     </div>
                 </div>
 
@@ -580,33 +580,33 @@
                 <div class="seo-box">
                     <div class="seo-box-title">
                         <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
-                        SEO — Como vai aparecer no Google
+                        SEO � Como vai aparecer no Google
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="f-seo-title">Título SEO <span class="field-hint">(aba do navegador e resultado do Google · máx. 60 caracteres)</span></label>
+                        <label class="field-label" for="f-seo-title">T�tulo SEO <span class="field-hint">(aba do navegador e resultado do Google � m�x. 60 caracteres)</span></label>
                         <input type="text" id="f-seo-title" class="field-input" placeholder="Ex: Capital de Giro com as Melhores Taxas | Mb Finance" maxlength="70" oninput="updateCharCount('f-seo-title','cnt-seo-title',60)">
                         <div class="char-count" id="cnt-seo-title">0/60</div>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="f-seo-desc">Meta Descrição <span class="field-hint">(texto abaixo do título no Google · máx. 155 caracteres)</span></label>
-                        <textarea id="f-seo-desc" class="field-textarea" rows="2" placeholder="Ex: A Mb Finance compara as melhores condições de capital de giro entre bancos e fintech para a sua empresa. Aprovação em 24h." maxlength="160" oninput="updateCharCount('f-seo-desc','cnt-seo-desc',155)"></textarea>
+                        <label class="field-label" for="f-seo-desc">Meta Descri��o <span class="field-hint">(texto abaixo do t�tulo no Google � m�x. 155 caracteres)</span></label>
+                        <textarea id="f-seo-desc" class="field-textarea" rows="2" placeholder="Ex: A Mb Finance compara as melhores condi��es de capital de giro entre bancos e fintech para a sua empresa. Aprova��o em 24h." maxlength="160" oninput="updateCharCount('f-seo-desc','cnt-seo-desc',155)"></textarea>
                         <div class="char-count" id="cnt-seo-desc">0/155</div>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="f-keywords">Palavras-chave <span class="field-hint">(separe por vírgulas — ex: capital de giro, crédito PJ, financiamento)</span></label>
-                        <input type="text" id="f-keywords" class="field-input" placeholder="capital de giro, crédito empresarial, financiamento PJ">
+                        <label class="field-label" for="f-keywords">Palavras-chave <span class="field-hint">(separe por v�rgulas � ex: capital de giro, cr�dito PJ, financiamento)</span></label>
+                        <input type="text" id="f-keywords" class="field-input" placeholder="capital de giro, cr�dito empresarial, financiamento PJ">
                     </div>
 
                     <!-- Google preview -->
                     <div class="field-group">
                         <div class="field-label" style="margin-bottom:8px">Preview no Google</div>
                         <div class="seo-preview">
-                            <div class="seo-preview-site" id="seo-prev-site">mbfinance.com.br › blog › artigo-slug</div>
-                            <div class="seo-preview-title" id="seo-prev-title">Título SEO aparecerá aqui</div>
-                            <div class="seo-preview-desc" id="seo-prev-desc">A meta descrição aparecerá aqui. Escreva algo atrativo para fazer o cliente clicar no seu resultado.</div>
+                            <div class="seo-preview-site" id="seo-prev-site">mbfinance.com.br � blog � artigo-slug</div>
+                            <div class="seo-preview-title" id="seo-prev-title">T�tulo SEO aparecer� aqui</div>
+                            <div class="seo-preview-desc" id="seo-prev-desc">A meta descri��o aparecer� aqui. Escreva algo atrativo para fazer o cliente clicar no seu resultado.</div>
                         </div>
                     </div>
                 </div>
@@ -624,12 +624,12 @@
         <div class="banners-wrap">
             <div class="banners-page-header">
                 <h2>Publicidade</h2>
-                <p>Configure os slots de anúncio que aparecerão na lateral direita das páginas do blog exportadas. Cole o código do Google AdSense ou qualquer outra rede de anúncios.</p>
+                <p>Configure os slots de an�ncio que aparecer�o na lateral direita das p�ginas do blog exportadas. Cole o c�digo do Google AdSense ou qualquer outra rede de an�ncios.</p>
             </div>
 
             <div class="banners-info-box">
                 <strong>Como funciona?</strong>
-                Os banners aparecerão em uma coluna lateral (300px) ao lado do conteúdo do blog e dos artigos, quando você exportar o blog. Tamanhos IAB padrão reconhecidos por todas as redes de anúncios.
+                Os banners aparecer�o em uma coluna lateral (300px) ao lado do conte�do do blog e dos artigos, quando voc� exportar o blog. Tamanhos IAB padr�o reconhecidos por todas as redes de an�ncios.
             </div>
 
             <!-- Slot 1: 300x250 -->
@@ -639,15 +639,15 @@
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
                     </div>
                     <div>
-                        <div class="slot-info-title">Slot 1 — Medium Rectangle</div>
-                        <div class="slot-info-sub">Posição: topo da lateral · Mais clicado do mercado</div>
+                        <div class="slot-info-title">Slot 1 � Medium Rectangle</div>
+                        <div class="slot-info-sub">Posi��o: topo da lateral � Mais clicado do mercado</div>
                     </div>
                 </div>
-                <span class="slot-size-pill">300 Á— 250 px</span>
-                <p class="slot-tip">Cole aqui o código do seu banner (Google AdSense, Taboola, etc.). Deixe em branco se não quiser usar este slot.</p>
-                <textarea id="banner-slot1" class="slot-textarea" placeholder="<!-- Cole aqui o código do banner 300x250 -->&#10;&#10;Ex: código do Google AdSense, script de rede de anúncios, etc."></textarea>
+                <span class="slot-size-pill">300 �� 250 px</span>
+                <p class="slot-tip">Cole aqui o c�digo do seu banner (Google AdSense, Taboola, etc.). Deixe em branco se n�o quiser usar este slot.</p>
+                <textarea id="banner-slot1" class="slot-textarea" placeholder="<!-- Cole aqui o c�digo do banner 300x250 -->&#10;&#10;Ex: c�digo do Google AdSense, script de rede de an�ncios, etc."></textarea>
                 <div class="slot-preview">
-                    <div class="slot-preview-box" style="width:150px;height:75px;">300 Á— 250</div>
+                    <div class="slot-preview-box" style="width:150px;height:75px;">300 �� 250</div>
                 </div>
             </div>
 
@@ -658,15 +658,15 @@
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h18M9 21V9"/></svg>
                     </div>
                     <div>
-                        <div class="slot-info-title">Slot 2 — Half Page / Skyscraper</div>
-                        <div class="slot-info-sub">Posição: abaixo do slot 1 · Alta visibilidade</div>
+                        <div class="slot-info-title">Slot 2 � Half Page / Skyscraper</div>
+                        <div class="slot-info-sub">Posi��o: abaixo do slot 1 � Alta visibilidade</div>
                     </div>
                 </div>
-                <span class="slot-size-pill">300 Á— 600 px</span>
-                <p class="slot-tip">Banner grande que acompanha a rolagem da página. Excelente para CPM alto.</p>
-                <textarea id="banner-slot2" class="slot-textarea" placeholder="<!-- Cole aqui o código do banner 300x600 -->&#10;&#10;Ex: código do Google AdSense, script de rede de anúncios, etc."></textarea>
+                <span class="slot-size-pill">300 �� 600 px</span>
+                <p class="slot-tip">Banner grande que acompanha a rolagem da p�gina. Excelente para CPM alto.</p>
+                <textarea id="banner-slot2" class="slot-textarea" placeholder="<!-- Cole aqui o c�digo do banner 300x600 -->&#10;&#10;Ex: c�digo do Google AdSense, script de rede de an�ncios, etc."></textarea>
                 <div class="slot-preview">
-                    <div class="slot-preview-box" style="width:100px;height:200px;">300 Á— 600</div>
+                    <div class="slot-preview-box" style="width:100px;height:200px;">300 �� 600</div>
                 </div>
             </div>
 
@@ -712,7 +712,7 @@
                         style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;margin-bottom:8px;outline:none;">
                     <input id="nl-new-name" type="text" placeholder="Nome (opcional)"
                         style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;margin-bottom:8px;outline:none;">
-                    <input id="nl-new-tags" type="text" placeholder="Listas: leads, clientes (separar por vírgula)"
+                    <input id="nl-new-tags" type="text" placeholder="Listas: leads, clientes (separar por v�rgula)"
                         style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;margin-bottom:8px;outline:none;">
                     <button onclick="nlAddSubscriber()"
                         style="width:100%;padding:10px;background:#003956;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:10px;cursor:pointer;">
@@ -729,7 +729,7 @@
                 </div>
             </div>
 
-            <!-- Main: compor + histórico -->
+            <!-- Main: compor + hist�rico -->
             <div style="background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:24px;">
                 <div style="display:flex;gap:4px;background:#f1f5f9;border-radius:12px;padding:4px;width:fit-content;margin-bottom:24px;">
                     <button id="nl-tab-send-btn" onclick="nlSwitchSubTab('send')"
@@ -738,22 +738,22 @@
                     </button>
                     <button id="nl-tab-hist-btn" onclick="nlSwitchSubTab('history')"
                         style="padding:8px 20px;font-size:13px;font-weight:700;border:none;border-radius:9px;cursor:pointer;background:transparent;color:#64748b;">
-                        Histórico
+                        Hist�rico
                     </button>
                     <button id="nl-tab-config-btn" onclick="nlSwitchSubTab('config')"
                         style="padding:8px 20px;font-size:13px;font-weight:700;border:none;border-radius:9px;cursor:pointer;background:transparent;color:#64748b;">
-                        Configurações
+                        Configura��es
                     </button>
                     <button id="nl-tab-stats-btn" onclick="nlSwitchSubTab('stats')"
                         style="padding:8px 20px;font-size:13px;font-weight:700;border:none;border-radius:9px;cursor:pointer;background:transparent;color:#64748b;">
-                        Estatísticas
+                        Estat�sticas
                     </button>
                 </div>
 
                 <!-- Compor -->
                 <div id="nl-panel-send">
                     <div style="margin-bottom:16px;">
-                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Destinatários</label>
+                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Destinat�rios</label>
                         <select id="nl-target-tag" onchange="nlUpdateRecipientCount()"
                             style="width:100%;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;background:#fff;cursor:pointer;">
                             <option value="">Todos os inscritos ativos</option>
@@ -761,31 +761,31 @@
                     </div>
                     <div style="display:flex;align-items:center;gap:10px;background:#eff9ff;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
                         <span id="nl-recipient-count" style="font-size:22px;font-weight:900;color:#0099dd;">0</span>
-                        <span style="font-size:13px;color:#475569;">inscrito(s) receberão este email</span>
+                        <span style="font-size:13px;color:#475569;">inscrito(s) receber�o este email</span>
                     </div>
                     <div style="margin-bottom:16px;">
                         <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Assunto *</label>
-                        <input id="nl-subject" type="text" placeholder="Ex: 5 formas de conseguir crédito mais barato em 2026"
+                        <input id="nl-subject" type="text" placeholder="Ex: 5 formas de conseguir cr�dito mais barato em 2026"
                             style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
                     </div>
                     <div style="margin-bottom:16px;">
-                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Texto de prévia <span style="font-weight:400;color:#94a3b8;">(aparece na caixa de entrada antes de abrir)</span></label>
-                        <input id="nl-preview-text" type="text" placeholder="Uma dica rápida para sua empresa..."
+                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Texto de pr�via <span style="font-weight:400;color:#94a3b8;">(aparece na caixa de entrada antes de abrir)</span></label>
+                        <input id="nl-preview-text" type="text" placeholder="Uma dica r�pida para sua empresa..."
                             style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
                     </div>
                     <div style="margin-bottom:20px;">
-                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;">Conteúdo do email *</label>
+                        <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;">Conte�do do email *</label>
                         <div id="nl-blocks-list" style="margin-bottom:10px;"></div>
-                        <!-- Botões adicionar bloco -->
+                        <!-- Bot�es adicionar bloco -->
                         <div style="padding:10px 12px;border:1.5px dashed #e2e8f0;border-radius:12px;background:#f8fafc;">
                             <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Adicionar bloco</p>
                             <div style="display:flex;flex-wrap:wrap;gap:6px;">
-                                <button class="nl-add-btn" onclick="nlAddBlock('heading')">T Título</button>
-                                <button class="nl-add-btn" onclick="nlAddBlock('subheading')">T Subtítulo</button>
-                                <button class="nl-add-btn" onclick="nlAddBlock('text')">¶ Texto</button>
-                                <button class="nl-add-btn" onclick="nlAddBlock('highlight')" style="color:#003956;border-color:#0099dd;">★ Destaque</button>
-                                <button class="nl-add-btn" onclick="nlAddBlock('button')" style="color:#fff;background:#003956;border-color:#003956;">► Botão</button>
-                                <button class="nl-add-btn" onclick="nlAddBlock('divider')">— Separador</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('heading')">T T�tulo</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('subheading')">T Subt�tulo</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('text')">� Texto</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('highlight')" style="color:#003956;border-color:#0099dd;">? Destaque</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('button')" style="color:#fff;background:#003956;border-color:#003956;">? Bot�o</button>
+                                <button class="nl-add-btn" onclick="nlAddBlock('divider')">� Separador</button>
                             </div>
                         </div>
                     </div>
@@ -798,14 +798,14 @@
                     </div>
                 </div>
 
-                <!-- Histórico -->
+                <!-- Hist�rico -->
                 <div id="nl-panel-history" style="display:none;">
                     <div id="nl-campaigns-list">
                         <p style="color:#94a3b8;font-size:13px;text-align:center;padding:40px 0;">Nenhuma campanha enviada ainda.</p>
                     </div>
                 </div>
 
-                <!-- Configurações -->
+                <!-- Configura��es -->
                 <div id="nl-panel-config" style="display:none;">
                     <div style="max-width:560px;">
                         <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#0099dd;margin:0 0 20px;">Remetente dos emails</p>
@@ -814,41 +814,41 @@
                             <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Nome do remetente</label>
                             <input id="nl-cfg-from-name" type="text" placeholder="Mb Finance"
                                 style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
-                            <p style="margin:5px 0 0;font-size:12px;color:#94a3b8;">Ex: "Mb Finance" — aparece no campo "De:" na caixa de entrada do destinatário.</p>
+                            <p style="margin:5px 0 0;font-size:12px;color:#94a3b8;">Ex: "Mb Finance" � aparece no campo "De:" na caixa de entrada do destinat�rio.</p>
                         </div>
 
                         <div style="margin-bottom:16px;">
                             <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Email do remetente</label>
                             <input id="nl-cfg-from-email" type="email" placeholder="newsletter@mbfinance.com.br"
                                 style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
-                            <p style="margin:5px 0 0;font-size:12px;color:#94a3b8;">O domínio precisa estar verificado no Resend. Configure também a variável <strong>RESEND_FROM_EMAIL</strong> na Vercel.</p>
+                            <p style="margin:5px 0 0;font-size:12px;color:#94a3b8;">O dom�nio precisa estar verificado no Resend. Configure tamb�m a vari�vel <strong>RESEND_FROM_EMAIL</strong> na Vercel.</p>
                         </div>
 
                         <div style="margin-bottom:24px;">
-                            <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Responder para (Reply-To) <span style="font-weight:400;color:#94a3b8;">— opcional</span></label>
+                            <label style="display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;">Responder para (Reply-To) <span style="font-weight:400;color:#94a3b8;">� opcional</span></label>
                             <input id="nl-cfg-reply-to" type="email" placeholder="contato@mbfinance.com.br"
                                 style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;outline:none;">
-                            <p style="margin:5px 0 0;font-size:12px;color:#94a3b8;">Se o destinatário clicar em "Responder", o email vai para este endereço.</p>
+                            <p style="margin:5px 0 0;font-size:12px;color:#94a3b8;">Se o destinat�rio clicar em "Responder", o email vai para este endere�o.</p>
                         </div>
 
                         <div id="nl-cfg-save-msg" style="display:none;margin-bottom:12px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;">
-                            Configurações salvas com sucesso!
+                            Configura��es salvas com sucesso!
                         </div>
 
                         <button onclick="nlSaveConfig()"
                             style="padding:12px 28px;background:#003956;color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;">
-                            Salvar configurações
+                            Salvar configura��es
                         </button>
                     </div>
                 </div>
 
-                <!-- Estatísticas -->
+                <!-- Estat�sticas -->
                 <div id="nl-panel-stats" style="display:none;">
                     <div style="background:#eff9ff;border:1px solid #bae6fd;border-radius:12px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:#0369a1;line-height:1.6;">
                         <strong>Como ativar o rastreamento:</strong><br>
-                        No painel do Resend → <strong>Webhooks</strong> → <strong>Add Webhook</strong><br>
+                        No painel do Resend ? <strong>Webhooks</strong> ? <strong>Add Webhook</strong><br>
                         URL: <code style="background:#fff;padding:2px 6px;border-radius:4px;font-size:12px;">https://blog.mbfinance.com.br/api/newsletter/webhook</code><br>
-                        Eventos: <strong>email.delivered · email.opened · email.clicked · email.bounced</strong>
+                        Eventos: <strong>email.delivered � email.opened � email.clicked � email.bounced</strong>
                     </div>
                     <div id="nl-stats-list">
                         <p style="color:#94a3b8;font-size:13px;text-align:center;padding:40px 0;">Nenhuma campanha com dados ainda.</p>
@@ -857,7 +857,7 @@
             </div>
         </div>
 
-        <!-- Preview ao vivo — coluna direita -->
+        <!-- Preview ao vivo � coluna direita -->
         <div style="position:sticky;top:16px;">
             <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#0099dd;margin:0 0 10px;">Preview do email</p>
             <div style="border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden;background:#f1f5f9;">
@@ -872,75 +872,75 @@
         <div class="analytics-wrap">
             <div class="analytics-page-header">
                 <div>
-                    <h2>Métricas do site</h2>
-                    <p>Acompanhe visitas, usuários, sessões, visualizações e as páginas mais acessadas do site. Abaixo, você continua vendo o resumo editorial do blog.</p>
+                    <h2>M�tricas do site</h2>
+                    <p>Acompanhe visitas, usu�rios, sess�es, visualiza��es e as p�ginas mais acessadas do site. Abaixo, voc� continua vendo o resumo editorial do blog.</p>
                 </div>
                 <div class="analytics-stamp" id="analytics-last-update">Atualizado agora</div>
             </div>
 
             <div class="analytics-grid">
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Usuários Totais</div>
+                    <div class="analytics-card-label">Usu�rios Totais</div>
                     <div class="analytics-card-value" id="ga-total-users">--</div>
-                    <div class="analytics-card-note">Usuários totais registrados no período consultado.</div>
+                    <div class="analytics-card-note">Usu�rios totais registrados no per�odo consultado.</div>
                 </div>
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Usuários Ativos</div>
+                    <div class="analytics-card-label">Usu�rios Ativos</div>
                     <div class="analytics-card-value" id="ga-active-users">--</div>
                     <div class="analytics-card-note">Pessoas que navegaram ativamente pelo site.</div>
                 </div>
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Sessões</div>
+                    <div class="analytics-card-label">Sess�es</div>
                     <div class="analytics-card-value" id="ga-sessions">--</div>
-                    <div class="analytics-card-note">Quantidade de sessões abertas no site.</div>
+                    <div class="analytics-card-note">Quantidade de sess�es abertas no site.</div>
                 </div>
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Visualizações</div>
+                    <div class="analytics-card-label">Visualiza��es</div>
                     <div class="analytics-card-value" id="ga-pageviews">--</div>
-                    <div class="analytics-card-note">Total de visualizações de páginas no período.</div>
+                    <div class="analytics-card-note">Total de visualiza��es de p�ginas no per�odo.</div>
                 </div>
             </div>
 
             <div class="analytics-panels" style="margin-bottom:18px;">
                 <div class="analytics-panel">
-                    <h3>Tráfego diário</h3>
-                    <div class="analytics-panel-sub">Últimos dias com usuários ativos, sessões e visualizações.</div>
+                    <h3>Tr�fego di�rio</h3>
+                    <div class="analytics-panel-sub">�ltimos dias com usu�rios ativos, sess�es e visualiza��es.</div>
                     <div id="ga-traffic-trend"></div>
                 </div>
                 <div class="analytics-panel">
-                    <h3>Páginas mais acessadas</h3>
-                    <div class="analytics-panel-sub">Ranking real das páginas mais vistas no site.</div>
+                    <h3>P�ginas mais acessadas</h3>
+                    <div class="analytics-panel-sub">Ranking real das p�ginas mais vistas no site.</div>
                     <div id="ga-top-pages"></div>
                 </div>
             </div>
 
             <div class="analytics-panel" style="margin-bottom:18px;">
-                <h3>Indicadores de tráfego</h3>
-                <div class="analytics-panel-sub">Leitura rápida do comportamento do site com base no GA4.</div>
+                <h3>Indicadores de tr�fego</h3>
+                <div class="analytics-panel-sub">Leitura r�pida do comportamento do site com base no GA4.</div>
                 <div class="analytics-highlight-list" id="ga-highlights"></div>
             </div>
 
             <div class="analytics-panels" style="margin-bottom:18px;">
                 <div class="analytics-panel">
-                    <h3>Países com mais acessos</h3>
-                    <div class="analytics-panel-sub">Origem geográfica mais forte dos usuários e sessões do site.</div>
+                    <h3>Pa�ses com mais acessos</h3>
+                    <div class="analytics-panel-sub">Origem geogr�fica mais forte dos usu�rios e sess�es do site.</div>
                     <div id="ga-top-countries"></div>
                 </div>
                 <div class="analytics-panel">
-                    <h3>Estados e regiões</h3>
-                    <div class="analytics-panel-sub">Locais com maior concentração de acessos dentro do país.</div>
+                    <h3>Estados e regi�es</h3>
+                    <div class="analytics-panel-sub">Locais com maior concentra��o de acessos dentro do pa�s.</div>
                     <div id="ga-top-regions"></div>
                 </div>
             </div>
 
             <div class="analytics-panels" style="margin-bottom:18px;">
                 <div class="analytics-panel">
-                    <h3>Gênero</h3>
-                    <div class="analytics-panel-sub">Distribuição demográfica quando o GA4 tiver esse sinal disponível.</div>
+                    <h3>G�nero</h3>
+                    <div class="analytics-panel-sub">Distribui��o demogr�fica quando o GA4 tiver esse sinal dispon�vel.</div>
                     <div id="ga-gender-breakdown"></div>
                 </div>
                 <div class="analytics-panel">
-                    <h3>Faixa etária</h3>
+                    <h3>Faixa et�ria</h3>
                     <div class="analytics-panel-sub">Faixas de idade estimadas pelo Google Analytics.</div>
                     <div id="ga-age-breakdown"></div>
                 </div>
@@ -948,20 +948,20 @@
 
             <div class="analytics-panels" style="margin-bottom:18px;">
                 <div class="analytics-panel">
-                    <h3>Distribuição por categoria</h3>
-                    <div class="analytics-panel-sub">Veja quais temas estão recebendo mais conteúdo no seu blog.</div>
+                    <h3>Distribui��o por categoria</h3>
+                    <div class="analytics-panel-sub">Veja quais temas est�o recebendo mais conte�do no seu blog.</div>
                     <div id="analytics-categories"></div>
                 </div>
                 <div class="analytics-panel">
                     <h3>Indicadores editoriais</h3>
-                    <div class="analytics-panel-sub">Resumo do painel de conteúdo.</div>
+                    <div class="analytics-panel-sub">Resumo do painel de conte�do.</div>
                     <div class="analytics-highlight-list" id="analytics-highlights"></div>
                 </div>
             </div>
 
             <div class="analytics-panel">
                 <h3>Posts mais recentes</h3>
-                <div class="analytics-panel-sub">Últimos conteúdos salvos no painel, com categoria, data e status.</div>
+                <div class="analytics-panel-sub">�ltimos conte�dos salvos no painel, com categoria, data e status.</div>
                 <div id="analytics-recent-posts"></div>
             </div>
         </div>
@@ -988,8 +988,8 @@
     <div id="screen-generator" class="admin-screen">
         <div class="generator-wrap">
             <div style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-size: 32px; color: #003956; margin-bottom: 12px;">Gerador de Conteúdo IA</h2>
-                <p style="color: #64748b; font-size: 16px;">Sugerimos tópicos e criamos rascunhos baseados no seu nicho de finanças empresariais.</p>
+                <h2 style="font-size: 32px; color: #003956; margin-bottom: 12px;">Gerador de Conte�do IA</h2>
+                <p style="color: #64748b; font-size: 16px;">Sugerimos t�picos e criamos rascunhos baseados no seu nicho de finan�as empresariais.</p>
                 <div style="margin-top: 32px; display: flex; justify-content: center; gap: 12px;">
                     <button class="magic-btn" onclick="generateIdeas()">
                         <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 22l-2.4-7.2L2.4 12.4l7.2-2.4L12 2z"/></svg>
@@ -1000,30 +1000,30 @@
 
             <div id="ai-loading-state" class="ai-loading">
                 <div style="margin: 0 auto; width: 60px; height: 60px; border: 4px solid #f1f5f9; border-top-color: #0099dd; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
-                <p style="font-weight: 700; color: #003956;">Analisando tendências do mercado financeiro...</p>
+                <p style="font-weight: 700; color: #003956;">Analisando tend�ncias do mercado financeiro...</p>
             </div>
 
             <div id="gen-results">
                 <!-- Ideias iniciais (mockup realista) -->
-                <div class="gen-card premium" onclick="applyIdea('A importância do Capital de Giro para a sobrevivência de pequenas empresas no Brasil', 'Um guia completo explicando o que é, como calcular e as melhores estratégias de manutenção.')">
-                    <span class="gen-badge badge-trend">Tendência</span>
-                    <h3 class="gen-title">A importância do Capital de Giro para a sobrevivência de pequenas empresas no Brasil</h3>
-                    <p class="gen-desc">Um guia completo explicando o que é, como calcular e as melhores estratégias de manutenção para garantir o fôlego da empresa.</p>
+                <div class="gen-card premium" onclick="applyIdea('A import�ncia do Capital de Giro para a sobreviv�ncia de pequenas empresas no Brasil', 'Um guia completo explicando o que �, como calcular e as melhores estrat�gias de manuten��o.')">
+                    <span class="gen-badge badge-trend">Tend�ncia</span>
+                    <h3 class="gen-title">A import�ncia do Capital de Giro para a sobreviv�ncia de pequenas empresas no Brasil</h3>
+                    <p class="gen-desc">Um guia completo explicando o que �, como calcular e as melhores estrat�gias de manuten��o para garantir o f�lego da empresa.</p>
                     <div class="gen-meta">
-                        <span>Pilar: Gestão</span>
+                        <span>Pilar: Gest�o</span>
                         <span>Tempo: 6 min</span>
-                        <span style="color: #0099dd;">→ Criar Rascunho IA</span>
+                        <span style="color: #0099dd;">? Criar Rascunho IA</span>
                     </div>
                 </div>
 
-                <div class="gen-card premium" onclick="applyIdea('Antecipação de Recebíveis vs. Empréstimo Bancário: Qual a melhor opção?', 'Comparativo técnico entre as duas modalidades de crédito mais usadas no mercado B2B.')">
-                    <span class="gen-badge badge-evergreen">Conteúdo Base</span>
-                    <h3 class="gen-title">Antecipação de Recebíveis vs. Empréstimo Bancário: Qual a melhor opção?</h3>
-                    <p class="gen-desc">Comparativo técnico focado em taxas, velocidade de liberação e impacto no balanço patrimonial para o empresário.</p>
+                <div class="gen-card premium" onclick="applyIdea('Antecipa��o de Receb�veis vs. Empr�stimo Banc�rio: Qual a melhor op��o?', 'Comparativo t�cnico entre as duas modalidades de cr�dito mais usadas no mercado B2B.')">
+                    <span class="gen-badge badge-evergreen">Conte�do Base</span>
+                    <h3 class="gen-title">Antecipa��o de Receb�veis vs. Empr�stimo Banc�rio: Qual a melhor op��o?</h3>
+                    <p class="gen-desc">Comparativo t�cnico focado em taxas, velocidade de libera��o e impacto no balan�o patrimonial para o empres�rio.</p>
                     <div class="gen-meta">
-                        <span>Pilar: Crédito</span>
+                        <span>Pilar: Cr�dito</span>
                         <span>Tempo: 8 min</span>
-                        <span style="color: #0099dd;">→ Criar Rascunho IA</span>
+                        <span style="color: #0099dd;">? Criar Rascunho IA</span>
                     </div>
                 </div>
             </div>
@@ -1036,7 +1036,7 @@
                         <p style="color: #94a3b8; font-size: 13px;">Acompanhe o volume de buscas no Brasil sobre temas do seu nicho.</p>
                     </div>
                     <div style="display: flex; gap: 8px;">
-                        <button class="calendar-btn" style="width: auto; padding: 0 12px; font-size: 11px;" onclick="loadTrends('credito')">Crédito</button>
+                        <button class="calendar-btn" style="width: auto; padding: 0 12px; font-size: 11px;" onclick="loadTrends('credito')">Cr�dito</button>
                         <button class="calendar-btn" style="width: auto; padding: 0 12px; font-size: 11px;" onclick="loadTrends('mercado')">Mercado</button>
                     </div>
                 </div>
@@ -1049,20 +1049,20 @@
     </div>
 </div>
 
-<div id="save-toast">✓ Post salvo!</div>
+<div id="save-toast">? Post salvo!</div>
 
 <!-- PREVIEW MODAL -->
 <div id="preview-modal" onclick="if(event.target===this)closePreview()">
     <div class="preview-inner">
         <div class="preview-topbar">
-            <span class="preview-label">Pré-visualização</span>
+            <span class="preview-label">Pr�-visualiza��o</span>
             <button class="preview-close" onclick="closePreview()">Fechar</button>
         </div>
         <div id="preview-content"></div>
     </div>
 </div>
 
-<!-- MODAL VERIFICADOR ORTOGRÁFICO -->
+<!-- MODAL VERIFICADOR ORTOGR�FICO -->
 <div id="spell-modal">
     <div class="spell-card">
         <h3 id="spell-modal-title">Verificando ortografia...</h3>

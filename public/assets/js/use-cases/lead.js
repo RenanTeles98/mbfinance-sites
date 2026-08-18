@@ -13,7 +13,7 @@ function updateLeadProgress() {
     const steps = (nomeOk ? 1 : 0) + (telOk ? 1 : 0);
     const pct = steps === 0 ? 0 : steps === 1 ? 50 : 100;
     document.getElementById('lead-progress-bar').style.width = pct + '%';
-    const labels = ['0 de 2 etapas', 'Quase lá! Falta só o WhatsApp', 'Tudo certo! Clique para falar agora'];
+    const labels = ['0 de 2 etapas', 'Quase l�! Falta s� o WhatsApp', 'Tudo certo! Clique para falar agora'];
     document.getElementById('lead-progress-label').textContent = labels[steps];
     if (steps === 2) {
         document.getElementById('lead-progress-label').style.color = '#0099dd';
@@ -34,7 +34,7 @@ var _productSlugs = {
     'Conta PJ Digital':  'conta_pj_digital',
     'C6 Pay':            'c6_pay',
     'C6 Business':       'c6_business',
-    'Crédito PJ':        'credito_pj',
+    'Cr�dito PJ':        'credito_pj',
     'C6 Conta Global':   'c6_conta_global',
     'C6 Tag':            'c6_tag',
 };
@@ -55,7 +55,7 @@ function openLeadModal(waUrl, produto) {
     document.getElementById('lead-progress-label').textContent = '0 de 2 etapas';
     document.getElementById('lead-progress-label').style.color = '#94a3b8';
     document.getElementById('lead-progress-label').style.fontWeight = '400';
-    // Produto: badge ou select (elemento pode não existir em outras pages)
+    // Produto: badge ou select (elemento pode n�o existir em outras pages)
     const sel = document.getElementById('lead-produto-select');
     if (sel) {
         sel.style.display = 'none';
@@ -75,7 +75,7 @@ function closeLeadModal() {
                 nome: nome,
                 telefone: telefone,
                 produto: _leadProduto || (selEl ? selEl.value : '') || '',
-                status: 'Parcial — não enviou'
+                status: 'Parcial � n�o enviou'
             });
         }
     }
@@ -91,7 +91,7 @@ function submitLead(e) {
     const nome = document.getElementById('lead-nome').value.trim();
     const telefone = document.getElementById('lead-telefone').value.trim();
     const newsletterEl = document.getElementById('lead-newsletter');
-    const newsletter = newsletterEl && newsletterEl.checked ? 'Sim' : 'Não';
+    const newsletter = newsletterEl && newsletterEl.checked ? 'Sim' : 'N�o';
     const selEl = document.getElementById('lead-produto-select');
     const produtoSelecionado = _leadProduto || (selEl ? selEl.value : '') || '';
 
@@ -101,7 +101,7 @@ function submitLead(e) {
         nome: nome,
         telefone: telefone,
         produto: produtoSelecionado,
-        status: 'Convertido — foi pro WhatsApp'
+        status: 'Convertido � foi pro WhatsApp'
     });
 
     // Salva localmente como backup
@@ -109,14 +109,14 @@ function submitLead(e) {
 
     // Monta mensagem personalizada pro WhatsApp
     const msgsPorProduto = {
-        'Conta PJ Digital':  'Olá! Gostaria de abrir uma Conta PJ Digital pelo Mb Negócios. Podem me ajudar?',
-        'C6 Pay':            'Olá! Tenho interesse na maquininha C6 Pay pelo Mb Negócios. Podem me passar mais informações?',
-        'C6 Business':       'Olá! Gostaria de conhecer o cartão C6 Business pelo Mb Negócios. Podem me ajudar?',
-        'Crédito PJ':        'Olá! Preciso de crédito para minha empresa. Gostaria de saber as condições disponíveis pelo Mb Negócios.',
-        'C6 Conta Global':   'Olá! Tenho interesse na C6 Conta Global pelo Mb Negócios. Podem me passar mais detalhes?',
-        'C6 Tag':            'Olá! Gostaria de conhecer o C6 Tag pelo Mb Negócios. Podem me ajudar?',
+        'Conta PJ Digital':  'Ol�! Gostaria de abrir uma Conta PJ Digital pelo Mb Neg�cios. Podem me ajudar?',
+        'C6 Pay':            'Ol�! Tenho interesse na maquininha C6 Pay pelo Mb Neg�cios. Podem me passar mais informa��es?',
+        'C6 Business':       'Ol�! Gostaria de conhecer o cart�o C6 Business pelo Mb Neg�cios. Podem me ajudar?',
+        'Cr�dito PJ':        'Ol�! Preciso de cr�dito para minha empresa. Gostaria de saber as condi��es dispon�veis pelo Mb Neg�cios.',
+        'C6 Conta Global':   'Ol�! Tenho interesse na C6 Conta Global pelo Mb Neg�cios. Podem me passar mais detalhes?',
+        'C6 Tag':            'Ol�! Gostaria de conhecer o C6 Tag pelo Mb Neg�cios. Podem me ajudar?',
     };
-    let msg = msgsPorProduto[produtoSelecionado] || 'Olá! Gostaria de falar com um especialista do Mb Negócios.';
+    let msg = msgsPorProduto[produtoSelecionado] || 'Ol�! Gostaria de falar com um especialista do Mb Neg�cios.';
 
     const baseUrl = _leadWaUrl.split('?')[0];
     const waLink = `${baseUrl}?text=${encodeURIComponent(msg)}`;
@@ -147,7 +147,7 @@ function toggleNewsletter() {
 }
 
 // Counter animation (IntersectionObserver for data-counter elements)
-// Deferred to idle time — not needed for initial render
+// Deferred to idle time � not needed for initial render
 (function() {
     var idle = window.requestIdleCallback || function(cb) { setTimeout(cb, 200); };
     idle(function() {

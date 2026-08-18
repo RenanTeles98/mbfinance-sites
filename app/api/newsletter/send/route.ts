@@ -55,8 +55,8 @@ function buildEmailHtml(subject: string, previewText: string, body: string, emai
           <tr>
             <td style="background:#f8fafc;padding:24px 40px;border-top:1px solid #e2e8f0;">
               <p style="margin:0;font-size:12px;color:#94a3b8;line-height:1.6;">
-                Você está recebendo este email porque se inscreveu na newsletter da Mb Finance.<br>
-                <a href="${siteUrl}/api/newsletter/unsubscribe?token=${token}" style="color:#0099dd;text-decoration:none;">Cancelar inscrição</a>
+                Voc� est� recebendo este email porque se inscreveu na newsletter da Mb Finance.<br>
+                <a href="${siteUrl}/api/newsletter/unsubscribe?token=${token}" style="color:#0099dd;text-decoration:none;">Cancelar inscri��o</a>
               </p>
             </td>
           </tr>
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
 
   if (!process.env.RESEND_API_KEY) {
     return NextResponse.json(
-      { ok: false, error: "RESEND_API_KEY não configurada. Adicione a variável de ambiente na Vercel." },
+      { ok: false, error: "RESEND_API_KEY n�o configurada. Adicione a vari�vel de ambiente na Vercel." },
       { status: 500 }
     );
   }
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
   const { subject, previewText, body, targetTag, recipientId, fromName, fromEmail, replyTo } = await request.json();
 
   if (!subject?.trim() || !body?.trim()) {
-    return NextResponse.json({ ok: false, error: "Assunto e conteúdo são obrigatórios" }, { status: 400 });
+    return NextResponse.json({ ok: false, error: "Assunto e conte�do s�o obrigat�rios" }, { status: 400 });
   }
 
   const subscribers = await readSubscribers();
@@ -110,7 +110,7 @@ export async function POST(request: Request) {
   let failed = 0;
   const errors: string[] = [];
 
-  // Resend batch: máx 100 por requisição
+  // Resend batch: m�x 100 por requisi��o
   const BATCH = 100;
   for (let i = 0; i < active.length; i += BATCH) {
     const chunk = active.slice(i, i + BATCH);

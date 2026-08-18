@@ -9,7 +9,7 @@ import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "@/lib/constants";
 export default function Hero() {
   return (
     <>
-      {/* ── Keyframes injetados via <style> ── */}
+      {/* -- Keyframes injetados via <style> -- */}
       <style>{`
         @keyframes aurora-drift {
           0%   { transform: translate(0%,  0%)  scale(1);    }
@@ -83,7 +83,7 @@ export default function Hero() {
         aria-label="Hero Mb Finance"
         style={{ position: "relative", width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", background: "#040f1a" }}
       >
-        {/* ── Blob de luz 1 (aurora principal) ── */}
+        {/* -- Blob de luz 1 (aurora principal) -- */}
         <div
           aria-hidden="true"
           className="aurora-layer-1"
@@ -98,7 +98,7 @@ export default function Hero() {
           }}
         />
 
-        {/* ── Blob de luz 2 (aurora secundária, fase oposta) ── */}
+        {/* -- Blob de luz 2 (aurora secund�ria, fase oposta) -- */}
         <div
           aria-hidden="true"
           className="aurora-layer-2"
@@ -113,7 +113,7 @@ export default function Hero() {
           }}
         />
 
-        {/* ── Grain / textura ── */}
+        {/* -- Grain / textura -- */}
         <div
           aria-hidden="true"
           style={{
@@ -128,7 +128,7 @@ export default function Hero() {
           }}
         />
 
-        {/* ── Vignette ── */}
+        {/* -- Vignette -- */}
         <div
           aria-hidden="true"
           style={{
@@ -140,7 +140,7 @@ export default function Hero() {
           }}
         />
 
-        {/* ── Scanlines ── */}
+        {/* -- Scanlines -- */}
         <div
           aria-hidden="true"
           style={{
@@ -152,17 +152,17 @@ export default function Hero() {
           }}
         />
 
-        {/* ── Background Nodes (Tech Connected Particles) ── */}
+        {/* -- Background Nodes (Tech Connected Particles) -- */}
         <BackgroundNodes />
 
-        {/* ── Conteúdo ── */}
+        {/* -- Conte�do -- */}
         <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "0 2rem", maxWidth: "1200px", width: "100%", margin: "0 auto" }}>
 
           {/* Eyebrow */}
           {/* Eyebrow Removido */}
 
 
-          {/* Título */}
+          {/* T�tulo */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -185,7 +185,7 @@ export default function Hero() {
                 color: "#ffffff",
                 filter: "drop-shadow(0 0 20px rgba(30,144,255,0.3))"
               }}>
-                Hub de Soluções Financeiras
+                Hub de Solu��es Financeiras
               </span>
             </span>
             <span
@@ -227,7 +227,7 @@ export default function Hero() {
               fontWeight: 500,
             }}
           >
-            Conectamos sua empresa a diversos produtos financeiros em um único lugar, com as melhores condições entre os nossos parceiros.
+            Conectamos sua empresa a diversos produtos financeiros em um �nico lugar, com as melhores condi��es entre os nossos parceiros.
           </motion.p>
 
           {/* CTA */}

@@ -18,7 +18,7 @@ function enviarParceria() {
     const msg      = document.getElementById('parc-msg').value.trim();
     if (!nome) { alert('Por favor, informe seu nome.'); return; }
     if (!tel)  { alert('Por favor, informe seu WhatsApp.'); return; }
-    const texto = `Olá! Meu nome é ${nome} e tenho interesse em me tornar parceiro da Mb Finance.` +
+    const texto = `Ol�! Meu nome � ${nome} e tenho interesse em me tornar parceiro da Mb Finance.` +
         (segmento ? `\n\nSegmento: ${segmento}.` : '') +
         (msg ? `\n\n${msg}` : '') +
         `\n\nWhatsApp para contato: ${tel}`;

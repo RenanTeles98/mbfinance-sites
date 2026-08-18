@@ -1,8 +1,8 @@
-﻿/**
+/**
  * Admin Dashboard - Blog Management (CRUD, Editor & Export)
  */
 
-/* ── STORAGE & SYNC ── */
+/* -- STORAGE & SYNC -- */
 function loadPosts() {
     const apiUrl = getPostsApiUrl();
     if (!apiUrl) {
@@ -115,7 +115,7 @@ async function syncOfficialBlog(showSuccess = true) {
 
         setSyncStatus('Publicado no blog oficial', 'online');
         if (showSuccess) {
-            alert('✅ Conteudo publicado no blog oficial.\n\nO blog oficial conectado ao app Next.js ja esta lendo esses posts automaticamente.');
+            alert('? Conteudo publicado no blog oficial.\n\nO blog oficial conectado ao app Next.js ja esta lendo esses posts automaticamente.');
         }
         return true;
     } catch (error) {
@@ -128,12 +128,12 @@ async function syncOfficialBlog(showSuccess = true) {
     }
 }
 
-/* ── SIDEBAR & RENDER ── */
+/* -- SIDEBAR & RENDER -- */
 function renderSidebar(triggerAnalytics = true) {
     const list = document.getElementById('post-list');
     if (!list) return;
     if (!posts.length) {
-        list.innerHTML = '<div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para começar.</div>';
+        list.innerHTML = '<div class="empty-list">Nenhum post ainda.<br>Clique em "Novo Post" para come�ar.</div>';
         if (typeof renderAnalytics === 'function' && triggerAnalytics) renderAnalytics();
         return;
     }
@@ -151,7 +151,7 @@ function renderSidebar(triggerAnalytics = true) {
             }
         }
 
-        // Busca métricas se existirem
+        // Busca m�tricas se existirem
         let views = 0;
         if (typeof analyticsData !== 'undefined' && analyticsData && analyticsData.topPages) {
             const page = analyticsData.topPages.find(item => item.pagePath === `/blog/${p.slug}` || item.pagePath === `/blog/${p.slug}.html`);
@@ -202,7 +202,7 @@ function editPost(id) {
 
 async function savePost() {
     const title = document.getElementById('f-title').value.trim();
-    if (!title) { alert('O título é obrigatório.'); document.getElementById('f-title').focus(); return; }
+    if (!title) { alert('O t�tulo � obrigat�rio.'); document.getElementById('f-title').focus(); return; }
 
     const cat = document.getElementById('f-category').value;
     const content = document.getElementById('editor-content').innerHTML;
@@ -257,7 +257,7 @@ async function savePost() {
 async function deleteCurrentPost() {
     if (!currentId) return;
     const p = posts.find(x => x.id === currentId);
-    if (!p || !confirm(`Excluir "${p.title}"?\nEsta ação não pode ser desfeita.`)) return;
+    if (!p || !confirm(`Excluir "${p.title}"?\nEsta a��o n�o pode ser desfeita.`)) return;
     posts = posts.filter(x => x.id !== currentId);
     persistLocal();
     await syncOfficialBlog(false);
@@ -266,7 +266,7 @@ async function deleteCurrentPost() {
     showWelcome();
 }
 
-/* ── UI HELPERS ── */
+/* -- UI HELPERS -- */
 function showForm()    { document.getElementById('welcome-screen').style.display = 'none'; document.getElementById('post-form').style.display = ''; }
 function showWelcome() { document.getElementById('welcome-screen').style.display = ''; document.getElementById('post-form').style.display = 'none'; }
 
@@ -332,12 +332,12 @@ function fillForm(p) {
 function showToast(msg) {
     const t = document.getElementById('save-toast');
     if (!t) return;
-    t.textContent = '✓ ' + (msg || 'Post salvo!');
+    t.textContent = '? ' + (msg || 'Post salvo!');
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-/* ── IMAGE HELPERS ── */
+/* -- IMAGE HELPERS -- */
 function updateImgPreview(url) {
     const img = document.getElementById('img-preview');
     if (!img) return;
@@ -397,7 +397,7 @@ function getImageValue() {
     return document.getElementById('f-image-b64').value || '';
 }
 
-/* ── SPELLCHECK LOGIC ── */
+/* -- SPELLCHECK LOGIC -- */
 let _spellCallback = null;
 
 function spellClose() {
@@ -437,8 +437,8 @@ async function checkSpelling(text, onOk) {
 
         if (errors.length === 0) {
             modalTitle.textContent = 'Tudo certo!';
-            modalSub.textContent = 'Nenhum erro ortográfico encontrado.';
-            modalBody.innerHTML = '<div class="spell-ok"><div class="spell-ok-icon">✅</div><p>Texto aprovado. Publicando...</p></div>';
+            modalSub.textContent = 'Nenhum erro ortogr�fico encontrado.';
+            modalBody.innerHTML = '<div class="spell-ok"><div class="spell-ok-icon">?</div><p>Texto aprovado. Publicando...</p></div>';
             modalActions.style.display = 'none';
             setTimeout(() => { modal.classList.remove('open'); onOk(); }, 1200);
         } else {
@@ -452,7 +452,7 @@ async function checkSpelling(text, onOk) {
                 list.innerHTML += `<div class="spell-error-item">
                     <div class="spell-word">"${word}"</div>
                     <div class="spell-msg">${m.message}</div>
-                    ${suggestions ? `<div class="spell-suggest">Sugestão: ${suggestions}</div>` : ''}
+                    ${suggestions ? `<div class="spell-suggest">Sugest�o: ${suggestions}</div>` : ''}
                 </div>`;
             });
             modalBody.appendChild(list);
@@ -465,7 +465,7 @@ async function checkSpelling(text, onOk) {
     }
 }
 
-/* ── EDITOR COMMANDS ── */
+/* -- EDITOR COMMANDS -- */
 function cmd(command, value) {
     document.getElementById('editor-content').focus();
     document.execCommand(command, false, value || null);
@@ -476,9 +476,9 @@ function insertLink() {
     if (url) { document.getElementById('editor-content').focus(); document.execCommand('createLink', false, url); }
 }
 
-/* ── PREVIEW ── */
+/* -- PREVIEW -- */
 function previewPost() {
-    const title   = document.getElementById('f-title').value.trim() || 'Sem título';
+    const title   = document.getElementById('f-title').value.trim() || 'Sem t�tulo';
     const cat     = document.getElementById('f-category').value;
     const excerpt = document.getElementById('f-excerpt').value.trim();
     const image   = getImageValue();
@@ -496,8 +496,8 @@ function previewPost() {
             <p class="preview-cat">${esc(CAT_LABELS[cat] || cat)}</p>
             <h1 class="preview-h1">${esc(title)}</h1>
             <div class="preview-meta">
-                <span>📅 ${fmtDate(date)}</span>
-                <span>⏱ ${esc(rt)}</span>
+                <span>?? ${fmtDate(date)}</span>
+                <span>? ${esc(rt)}</span>
             </div>
             ${excerpt ? `<div class="preview-excerpt">${esc(excerpt)}</div>` : ''}
             <div class="preview-content">${content}</div>
@@ -511,7 +511,7 @@ function closePreview() {
     document.body.style.overflow = '';
 }
 
-/* ── SEO ── */
+/* -- SEO -- */
 function updateCharCount(fieldId, counterId, max) {
     const field = document.getElementById(fieldId);
     if (!field) return;
@@ -530,8 +530,8 @@ function updateSeoPreview() {
     
     if (!titleField || !titleMainField || !descField) return;
 
-    const title  = titleField.value.trim() || titleMainField.value.trim() || 'Título SEO aparecerá aqui';
-    const desc   = descField.value.trim()  || 'A meta descrição aparecerá aqui. Escreva algo atrativo para fazer o cliente clicar no seu resultado.';
+    const title  = titleField.value.trim() || titleMainField.value.trim() || 'T�tulo SEO aparecer� aqui';
+    const desc   = descField.value.trim()  || 'A meta descri��o aparecer� aqui. Escreva algo atrativo para fazer o cliente clicar no seu resultado.';
     const slug   = slugify(titleMainField.value.trim() || 'artigo');
     const domain = localStorage.getItem('mb_site_domain') || 'mbfinance.com.br';
     
@@ -541,17 +541,17 @@ function updateSeoPreview() {
     
     if (prevTitle) prevTitle.textContent = title;
     if (prevDesc) prevDesc.textContent  = desc;
-    if (prevSite) prevSite.textContent  = domain.replace(/https?:\/\//,'') + ' › blog › artigo-' + slug;
+    if (prevSite) prevSite.textContent  = domain.replace(/https?:\/\//,'') + ' � blog � artigo-' + slug;
 }
 
-/* ── EXPORT ── */
+/* -- EXPORT -- */
 async function exportBlog() {
     const pub = posts.filter(p => p.published !== false);
     if (!pub.length) { alert('Nenhum post publicado para exportar.\nCrie posts e marque como "Publicado" antes de exportar.'); return; }
 
     let domain = localStorage.getItem('mb_site_domain') || '';
     if (!domain) {
-        domain = prompt('Qual é a URL do seu site?\n(Ex: https://mbfinance.com.br)', 'https://mbfinance.com.br');
+        domain = prompt('Qual � a URL do seu site?\n(Ex: https://mbfinance.com.br)', 'https://mbfinance.com.br');
         if (!domain) return;
         domain = domain.replace(/\/$/, '');
         localStorage.setItem('mb_site_domain', domain);
@@ -578,7 +578,7 @@ async function exportBlog() {
     a.download = 'mb-finance-blog.zip';
     a.click();
     URL.revokeObjectURL(a.href);
-    alert('✅ Blog exportado!\n\nDescompacte o arquivo e envie TODOS os arquivos para a pasta do seu site (onde está o mb-finance-completo.html).');
+    alert('? Blog exportado!\n\nDescompacte o arquivo e envie TODOS os arquivos para a pasta do seu site (onde est� o mb-finance-completo.html).');
 }
 
 function cardHTML(p) {
@@ -725,8 +725,8 @@ ${artSidebarCSS}
     <p class="art-cat">${esc(p.categoryLabel)}</p>
     <h1>${esc(p.title)}</h1>
     <div class="art-meta">
-      <span>📅 ${fmtDate(p.date)}</span>
-      <span>⏱ ${esc(p.readTime)}</span>
+      <span>?? ${fmtDate(p.date)}</span>
+      <span>? ${esc(p.readTime)}</span>
     </div>
   </div>
 </div>
@@ -739,15 +739,15 @@ ${artMainOpen}
   ${p.excerpt ? `<div class="art-excerpt-box">${esc(p.excerpt)}</div>` : ''}
   <div class="art-content">${p.content}</div>
   <div class="art-cta">
-    <h3>Precisa de crédito para sua empresa?</h3>
-    <p>A Mb Finance encontra as melhores condições entre todos os nossos parceiros.</p>
-    <a href="https://wa.me/552139008295?text=${encodeURIComponent('Olá! Li o artigo "' + p.title + '" e gostaria de falar com um especialista da Mb Finance.')}">
+    <h3>Precisa de cr�dito para sua empresa?</h3>
+    <p>A Mb Finance encontra as melhores condi��es entre todos os nossos parceiros.</p>
+    <a href="https://wa.me/552139008295?text=${encodeURIComponent('Ol�! Li o artigo "' + p.title + '" e gostaria de falar com um especialista da Mb Finance.')}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Falar com um especialista
     </a>
   </div>
 ${artMainClose}
-<footer class="footer"><p>© ${yr} Mb Finance. Todos os direitos reservados.</p></footer>
+<footer class="footer"><p>� ${yr} Mb Finance. Todos os direitos reservados.</p></footer>
 </body>
 </html>`;
 }
@@ -778,13 +778,13 @@ function buildBlogHTML(featured, gridPosts, allPosts, domain) {
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog Mb Finance | Crédito, Finanças e Gestão Empresarial</title>
-<meta name="description" content="Artigos sobre crédito empresarial, gestão financeira, conta PJ e oportunidades de mercado. Conteúdo exclusivo da Mb Finance para empresários.">
+<title>Blog Mb Finance | Cr�dito, Finan�as e Gest�o Empresarial</title>
+<meta name="description" content="Artigos sobre cr�dito empresarial, gest�o financeira, conta PJ e oportunidades de mercado. Conte�do exclusivo da Mb Finance para empres�rios.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="${canonical}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Blog Mb Finance | Crédito e Finanças Empresariais">
-<meta property="og:description" content="Artigos sobre crédito empresarial, gestão financeira e oportunidades para empresas.">
+<meta property="og:title" content="Blog Mb Finance | Cr�dito e Finan�as Empresariais">
+<meta property="og:description" content="Artigos sobre cr�dito empresarial, gest�o financeira e oportunidades para empresas.">
 <meta property="og:url" content="${canonical}">
 <link rel="icon" type="image/png" href="../images/logo-horizontal-logo.png.png">
 <link rel="stylesheet" href="../tailwind.min.css">
@@ -870,9 +870,9 @@ ${blogSidebarCSS}
 </nav>
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">Conteúdo exclusivo</div>
-    <h1 class="hero-title">Inteligência financeira para<br>o seu <span>negócio crescer</span></h1>
-    <p class="hero-sub">Análises, guias práticos e insights sobre crédito empresarial, gestão financeira e oportunidades de mercado.</p>
+    <div class="hero-tag">Conte�do exclusivo</div>
+    <h1 class="hero-title">Intelig�ncia financeira para<br>o seu <span>neg�cio crescer</span></h1>
+    <p class="hero-sub">An�lises, guias pr�ticos e insights sobre cr�dito empresarial, gest�o financeira e oportunidades de mercado.</p>
     <div class="search-box">
       <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
       <input type="text" id="search-input" placeholder="Buscar artigos..." oninput="searchCards(this.value)">
@@ -883,12 +883,12 @@ ${blogSidebarCSS}
 <div class="filter-bar">
   <div class="filter-inner">
     <button class="filter-btn active" onclick="filterCat(this,'todos')">Todos</button>
-    <button class="filter-btn" onclick="filterCat(this,'credito')">Crédito Empresarial</button>
-    <button class="filter-btn" onclick="filterCat(this,'gestao')">Gestão Financeira</button>
+    <button class="filter-btn" onclick="filterCat(this,'credito')">Cr�dito Empresarial</button>
+    <button class="filter-btn" onclick="filterCat(this,'gestao')">Gest�o Financeira</button>
     <button class="filter-btn" onclick="filterCat(this,'conta-pj')">Conta PJ</button>
     <button class="filter-btn" onclick="filterCat(this,'mercado')">Mercado</button>
-    <button class="filter-btn" onclick="filterCat(this,'antecipacao')">Antecipação</button>
-    <button class="filter-btn" onclick="filterCat(this,'noticias')">Notícias</button>
+    <button class="filter-btn" onclick="filterCat(this,'antecipacao')">Antecipa��o</button>
+    <button class="filter-btn" onclick="filterCat(this,'noticias')">Not�cias</button>
   </div>
 </div>
 ${blogMainOpen}
@@ -900,15 +900,15 @@ ${blogMainOpen}
     <div id="no-results" class="no-results">Nenhum artigo encontrado.</div>
   </div>
   <div class="newsletter">
-    <h3>Receba os melhores conteúdos</h3>
-    <p>Análises e artigos sobre finanças empresariais direto no seu e-mail, sem spam.</p>
+    <h3>Receba os melhores conte�dos</h3>
+    <p>An�lises e artigos sobre finan�as empresariais direto no seu e-mail, sem spam.</p>
     <div class="newsletter-form">
       <input type="email" class="newsletter-input" placeholder="seu@email.com.br">
       <button class="newsletter-btn">Quero receber</button>
     </div>
   </div>
 ${blogMainClose}
-<footer class="footer"><p>© ${yr} Mb Finance. Todos os direitos reservados.</p></footer>
+<footer class="footer"><p>� ${yr} Mb Finance. Todos os direitos reservados.</p></footer>
 <script>
 function searchCards(q){q=q.toLowerCase().trim();var cards=document.querySelectorAll('[data-cat]');var v=0;cards.forEach(function(c){var show=!q||c.textContent.toLowerCase().includes(q);c.style.display=show?'':'none';if(show)v++;});document.getElementById('no-results').style.display=v===0?'block':'none';if(q)document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});document.querySelector('.filter-btn').classList.add('active');}
 function filterCat(btn,cat){document.getElementById('search-input').value='';document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');document.querySelectorAll('[data-cat]').forEach(function(el){el.style.display=(cat==='todos'||el.getAttribute('data-cat')===cat)?'':'none';});}

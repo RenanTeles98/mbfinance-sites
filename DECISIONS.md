@@ -1046,3 +1046,7 @@ O encurtador retornava uma unica marca por configuracao global. A MB Finance pre
 ### Complemento
 
 As submarcas seguem a mesma convencao: `Mb Negócios` e `Mb Tributos`.
+
+### Correcao de codificacao
+
+Os arquivos publicos devem ser lidos e gravados explicitamente em UTF-8. Isso evita que caracteres pt-BR sejam interpretados como Windows-1252 e exibidos como mojibake no navegador.

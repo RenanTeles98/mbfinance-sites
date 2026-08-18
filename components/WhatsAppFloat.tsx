@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const WHATSAPP_NUMBER = "5511999999999";
 const WHATSAPP_MSG = encodeURIComponent(
-  "Olá! Vim pelo site da Mb Finance e gostaria de saber mais sobre os produtos disponíveis para minha empresa."
+  "Ol�! Vim pelo site da Mb Finance e gostaria de saber mais sobre os produtos dispon�veis para minha empresa."
 );
 
 export default function WhatsAppFloat() {
