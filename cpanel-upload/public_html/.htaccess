@@ -108,8 +108,6 @@ FileETag None
 # ── Redirecionamento HTTPS ───────────────────
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  # Links curtos da MB Finance usam o mesmo contador central do blog.
-  RewriteRule ^c/([a-z0-9]+)$ https://blog.mbfinance.com.br/c/$1 [L,R=302,NE]
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>

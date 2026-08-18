@@ -92,3 +92,18 @@ Só depois disso leia os arquivos de código realmente necessários para a taref
 Se houver conflito entre a conversa, a memória da IA e os arquivos do projeto:
 
 **Priorize os arquivos do projeto** (CONTEXT.md, DECISIONS.md, CLAUDE.md).
+
+---
+
+## 8) Mapa de projetos e limites
+
+- **Raiz**: aplicacao publicada no Vercel; reune rotas Next.js e o site estatico em `public/`.
+- **Home estatica efetiva**: `public/index.html`. A referencia antiga a `public/mb-finance-completo.html` esta obsoleta ate migracao explicita.
+- **`blog-pages/`**: fonte canonica publicada do blog/admin em `blog.mbfinance.com.br`. Alteracoes e deploys do blog devem partir desta pasta.
+- **Backup do blog divergente**: `archive/blog-pages-divergent-2026-08.zip` preserva a copia retirada da area de trabalho. Nunca usar como fonte de producao sem uma comparacao deliberada.
+- **`cpanel-upload/`**: pacote espelho para publicacao manual no CPanel. So sincronizar apos validar a mudanca correspondente em `public/`.
+- **SEO Machine**: repositorio independente em `C:\Users\MB NEGOCIOS\mbfinance-seomachine`. Nao misturar suas dependencias, configuracao ou arquivos de trabalho com a aplicacao web.
+- **`scripts/maintenance/`**: scripts manuais de manutencao; consultar `scripts/README.md` antes de executar.
+- **`archive/`**: materiais historicos sem uso em runtime; nao restaurar para a raiz sem confirmar sua necessidade.
+
+Antes de alterar rotas, variaveis, integracoes ou configuracoes de deploy, confirmar o projeto-alvo em `docs/PROJECT_STRUCTURE.md`.

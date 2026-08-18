@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Página principal -->
+  <!-- Pagina principal -->
   <url>
     <loc>https://mbfinance.com.br/</loc>
     <lastmod>2026-04-14</lastmod>
@@ -17,7 +17,15 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Política de Privacidade -->
+  <!-- Mb Tributos -->
+  <url>
+    <loc>https://mbfinance.com.br/pages/mb-tributos.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Politica de Privacidade -->
   <url>
     <loc>https://mbfinance.com.br/pages/politica-de-privacidade.html</loc>
     <lastmod>2026-04-14</lastmod>

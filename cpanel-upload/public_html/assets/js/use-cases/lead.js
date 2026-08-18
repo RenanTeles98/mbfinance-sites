@@ -86,6 +86,8 @@ function closeLeadModal() {
 
 function submitLead(e) {
     e.preventDefault();
+    const honeypot = document.getElementById('lead-honeypot');
+    if (honeypot && honeypot.value) return;
     const nome = document.getElementById('lead-nome').value.trim();
     const telefone = document.getElementById('lead-telefone').value.trim();
     const newsletterEl = document.getElementById('lead-newsletter');

@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import GoogleAdsTag from "@/components/GoogleAdsTag";
+import MetaPixel from "@/components/MetaPixel";
 import { readBlogPostBySlug, readPublishedBlogPosts } from "@/lib/blog-store";
 import { blogUrl, mainSiteUrl } from "@/lib/site";
 import type { BlogPost } from "@/types/blog";
@@ -17,48 +19,48 @@ function formatDate(date: string) {
   });
 }
 
-const AUTHOR_NAME = "Equipe MB Finance";
+const AUTHOR_NAME = "Equipe Mb Finance";
 
 const displayTitles: Record<string, string> = {
   "reforma-tributaria-o-que-muda-para-sua-empresa":
-    "Reforma Tributária: o que muda para a sua empresa a partir de 2026",
+    "Reforma TributÃ¡ria: o que muda para a sua empresa a partir de 2026",
 };
 
 const ctas: Record<string, { title: string; description: string; button: string; message: string }> = {
   "como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado": {
     title: "Precisa estruturar capital de giro?",
     description:
-      "A MB Finance ajuda sua empresa a organizar os dados, comparar propostas e encontrar linhas com melhor aderência ao caixa.",
+      "A Mb Finance ajuda sua empresa a organizar os dados, comparar propostas e encontrar linhas com melhor aderÃªncia ao caixa.",
     button: "Simular capital de giro",
-    message: "Olá! Li o artigo sobre capital de giro e quero simular uma linha para minha empresa.",
+    message: "OlÃ¡! Li o artigo sobre capital de giro e quero simular uma linha para minha empresa.",
   },
   "conta-pj-o-que-sua-empresa-precisa-saber-antes-de-escolher": {
-    title: "Quer comparar contas PJ com critério?",
+    title: "Quer comparar contas PJ com critÃ©rio?",
     description:
-      "A MB Finance avalia custo total, integração, atendimento e recursos bancários para indicar soluções alinhadas à rotina da sua empresa.",
+      "A Mb Finance avalia custo total, integraÃ§Ã£o, atendimento e recursos bancÃ¡rios para indicar soluÃ§Ãµes alinhadas Ã  rotina da sua empresa.",
     button: "Comparar contas PJ",
-    message: "Olá! Li o artigo sobre conta PJ e quero comparar opções para minha empresa.",
+    message: "OlÃ¡! Li o artigo sobre conta PJ e quero comparar opÃ§Ãµes para minha empresa.",
   },
   "antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio": {
-    title: "Quer antecipar recebíveis com controle?",
+    title: "Quer antecipar recebÃ­veis com controle?",
     description:
-      "A MB Finance compara taxas, prazos e custo efetivo para sua empresa usar antecipação sem pressionar o caixa futuro.",
-    button: "Calcular antecipação",
-    message: "Olá! Li o artigo sobre antecipação de recebíveis e quero calcular opções para minha empresa.",
+      "A Mb Finance compara taxas, prazos e custo efetivo para sua empresa usar antecipaÃ§Ã£o sem pressionar o caixa futuro.",
+    button: "Calcular antecipaÃ§Ã£o",
+    message: "OlÃ¡! Li o artigo sobre antecipaÃ§Ã£o de recebÃ­veis e quero calcular opÃ§Ãµes para minha empresa.",
   },
   "reforma-tributaria-o-que-muda-para-sua-empresa": {
-    title: "Quer preparar sua empresa para a Reforma Tributária?",
+    title: "Quer preparar sua empresa para a Reforma TributÃ¡ria?",
     description:
-      "A MB Finance ajuda a mapear impactos financeiros, contratos, precificação e rotina tributária antes da transição ganhar força.",
-    button: "Avaliar impactos tributários",
-    message: "Olá! Li o artigo sobre Reforma Tributária e quero avaliar os impactos na minha empresa.",
+      "A Mb Finance ajuda a mapear impactos financeiros, contratos, precificaÃ§Ã£o e rotina tributÃ¡ria antes da transiÃ§Ã£o ganhar forÃ§a.",
+    button: "Avaliar impactos tributÃ¡rios",
+    message: "OlÃ¡! Li o artigo sobre Reforma TributÃ¡ria e quero avaliar os impactos na minha empresa.",
   },
   "fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes": {
     title: "Quer organizar o fluxo de caixa?",
     description:
-      "A MB Finance ajuda sua empresa a conectar conta PJ, crédito e antecipação em uma rotina financeira mais previsível.",
+      "A Mb Finance ajuda sua empresa a conectar conta PJ, crÃ©dito e antecipaÃ§Ã£o em uma rotina financeira mais previsÃ­vel.",
     button: "Organizar meu caixa",
-    message: "Olá! Li o artigo sobre fluxo de caixa e quero organizar melhor o caixa da minha empresa.",
+    message: "OlÃ¡! Li o artigo sobre fluxo de caixa e quero organizar melhor o caixa da minha empresa.",
   },
 };
 
@@ -99,8 +101,8 @@ function enhanceArticleContent(post: BlogPost) {
   if (post.slug === "como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado") {
     content = replaceOnce(
       content,
-      "<ul><li>Prazo da operação e risco total percebido.</li><li>Garantia oferecida e qualidade dos recebíveis.</li><li>Destino do recurso e previsão de retorno.</li><li>Qualidade cadastral, fiscal e societária.</li><li>Histórico de relacionamento com o mercado.</li></ul>",
-      "<ul><li>Prazo da operação e risco total percebido: quanto maior a incerteza sobre pagamento e ciclo de caixa, maior tende a ser o custo.</li><li>Garantia oferecida e qualidade dos recebíveis: garantias sólidas e recebíveis previsíveis reduzem risco para a instituição.</li><li>Destino do recurso e previsão de retorno: crédito para estoque, contrato fechado ou expansão comprovável costuma ser melhor interpretado.</li><li>Qualidade cadastral, fiscal e societária: pendências, alterações recentes e inconsistências documentais atrasam análise e encarecem a proposta.</li><li>Histórico de relacionamento com o mercado: comportamento bancário, pontualidade e recorrência de faturamento ajudam a sustentar a negociação.</li></ul>"
+      "<ul><li>Prazo da operaÃ§Ã£o e risco total percebido.</li><li>Garantia oferecida e qualidade dos recebÃ­veis.</li><li>Destino do recurso e previsÃ£o de retorno.</li><li>Qualidade cadastral, fiscal e societÃ¡ria.</li><li>HistÃ³rico de relacionamento com o mercado.</li></ul>",
+      "<ul><li>Prazo da operaÃ§Ã£o e risco total percebido: quanto maior a incerteza sobre pagamento e ciclo de caixa, maior tende a ser o custo.</li><li>Garantia oferecida e qualidade dos recebÃ­veis: garantias sÃ³lidas e recebÃ­veis previsÃ­veis reduzem risco para a instituiÃ§Ã£o.</li><li>Destino do recurso e previsÃ£o de retorno: crÃ©dito para estoque, contrato fechado ou expansÃ£o comprovÃ¡vel costuma ser melhor interpretado.</li><li>Qualidade cadastral, fiscal e societÃ¡ria: pendÃªncias, alteraÃ§Ãµes recentes e inconsistÃªncias documentais atrasam anÃ¡lise e encarecem a proposta.</li><li>HistÃ³rico de relacionamento com o mercado: comportamento bancÃ¡rio, pontualidade e recorrÃªncia de faturamento ajudam a sustentar a negociaÃ§Ã£o.</li></ul>"
     );
     content = replaceOnce(
       content,
@@ -113,8 +115,8 @@ function enhanceArticleContent(post: BlogPost) {
     if (!content.includes("entenda quando vale antecipar")) {
       content = replaceOnce(
         content,
-        "antecipação de recebíveis vinculada",
-        'antecipação de recebíveis vinculada'
+        "antecipaÃ§Ã£o de recebÃ­veis vinculada",
+        'antecipaÃ§Ã£o de recebÃ­veis vinculada'
           + ' (<a href="/blog/antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio">entenda quando vale antecipar</a>)'
       );
     }
@@ -139,8 +141,8 @@ function enhanceArticleContent(post: BlogPost) {
     if (!content.includes("Exemplo simples: se a empresa antecipa R$ 100 mil")) {
       content = replaceOnce(
         content,
-        "<p>O empresário precisa olhar para o valor líquido recebido agora, para a data original do recebimento e para todas as tarifas envolvidas. Isso mostra o custo efetivo do adiantamento e permite comparar com outras alternativas, como <a href=\"/blog/como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado\">capital de giro</a> ou renegociação com fornecedor.</p>",
-        "<p>O empresário precisa olhar para o valor líquido recebido agora, para a data original do recebimento e para todas as tarifas envolvidas. Isso mostra o custo efetivo do adiantamento e permite comparar com outras alternativas, como <a href=\"/blog/como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado\">capital de giro</a> ou renegociação com fornecedor.</p><p>Exemplo simples: se a empresa antecipa R$ 100 mil que venceriam em 30 dias e recebe R$ 98 mil líquidos hoje, o custo financeiro é de R$ 2 mil no mês, ou 2% sobre o valor antecipado. Esse número precisa ser comparado com o ganho gerado pelo uso do dinheiro e com outras linhas disponíveis.</p>"
+        "<p>O empresÃ¡rio precisa olhar para o valor lÃ­quido recebido agora, para a data original do recebimento e para todas as tarifas envolvidas. Isso mostra o custo efetivo do adiantamento e permite comparar com outras alternativas, como <a href=\"/blog/como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado\">capital de giro</a> ou renegociaÃ§Ã£o com fornecedor.</p>",
+        "<p>O empresÃ¡rio precisa olhar para o valor lÃ­quido recebido agora, para a data original do recebimento e para todas as tarifas envolvidas. Isso mostra o custo efetivo do adiantamento e permite comparar com outras alternativas, como <a href=\"/blog/como-conseguir-capital-de-giro-com-as-melhores-taxas-do-mercado\">capital de giro</a> ou renegociaÃ§Ã£o com fornecedor.</p><p>Exemplo simples: se a empresa antecipa R$ 100 mil que venceriam em 30 dias e recebe R$ 98 mil lÃ­quidos hoje, o custo financeiro Ã© de R$ 2 mil no mÃªs, ou 2% sobre o valor antecipado. Esse nÃºmero precisa ser comparado com o ganho gerado pelo uso do dinheiro e com outras linhas disponÃ­veis.</p>"
       );
     }
   }
@@ -148,38 +150,38 @@ function enhanceArticleContent(post: BlogPost) {
   if (post.slug === "reforma-tributaria-o-que-muda-para-sua-empresa") {
     content = replaceOnce(
       content,
-      "<li>Fim do ICMS e ISS: substituídos pelo IBS a partir de 2029.</li>",
-      "<li>Substituição gradual de ICMS e ISS pelo IBS entre 2029 e 2032, com extinção completa prevista para 2033.</li>"
+      "<li>Fim do ICMS e ISS: substituÃ­dos pelo IBS a partir de 2029.</li>",
+      "<li>SubstituiÃ§Ã£o gradual de ICMS e ISS pelo IBS entre 2029 e 2032, com extinÃ§Ã£o completa prevista para 2033.</li>"
     );
     if (!content.includes("split payment")) {
       content = replaceOnce(
         content,
-        "<p>Também é importante revisar contratos com clientes e fornecedores que têm cláusulas atreladas a alíquotas vigentes. Mudança de regime sem revisão contratual gera exposição jurídica e financeira.</p>",
-        "<p>Também é importante revisar contratos com clientes e fornecedores que têm cláusulas atreladas a alíquotas vigentes. Mudança de regime sem revisão contratual gera exposição jurídica e financeira.</p><p>Outro ponto operacional é o split payment, mecanismo em que parte do imposto pode ser separada no momento da liquidação financeira. Para empresas com margens apertadas, isso exige atenção ao fluxo de caixa, conciliação e prazo real de disponibilidade dos recursos.</p><p>Para aprofundar o tema, consulte a <a href=\"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm\" target=\"_blank\" rel=\"noopener noreferrer\">Lei Complementar 214/2025</a> e os materiais oficiais da <a href=\"https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2025/janeiro/reforma-tributaria-sancionada-a-lei-complementar-214-2025\" target=\"_blank\" rel=\"noopener noreferrer\">Receita Federal</a>.</p>"
+        "<p>TambÃ©m Ã© importante revisar contratos com clientes e fornecedores que tÃªm clÃ¡usulas atreladas a alÃ­quotas vigentes. MudanÃ§a de regime sem revisÃ£o contratual gera exposiÃ§Ã£o jurÃ­dica e financeira.</p>",
+        "<p>TambÃ©m Ã© importante revisar contratos com clientes e fornecedores que tÃªm clÃ¡usulas atreladas a alÃ­quotas vigentes. MudanÃ§a de regime sem revisÃ£o contratual gera exposiÃ§Ã£o jurÃ­dica e financeira.</p><p>Outro ponto operacional Ã© o split payment, mecanismo em que parte do imposto pode ser separada no momento da liquidaÃ§Ã£o financeira. Para empresas com margens apertadas, isso exige atenÃ§Ã£o ao fluxo de caixa, conciliaÃ§Ã£o e prazo real de disponibilidade dos recursos.</p><p>Para aprofundar o tema, consulte a <a href=\"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm\" target=\"_blank\" rel=\"noopener noreferrer\">Lei Complementar 214/2025</a> e os materiais oficiais da <a href=\"https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2025/janeiro/reforma-tributaria-sancionada-a-lei-complementar-214-2025\" target=\"_blank\" rel=\"noopener noreferrer\">Receita Federal</a>.</p>"
       );
     }
     if (!content.includes("Perguntas frequentes")) {
-      content += "<h2>Perguntas frequentes</h2><h3>A Reforma Tributária muda tudo em 2026?</h3><p>Não. Em 2026 começa uma fase parcial e de teste, com transição gradual nos anos seguintes. O impacto completo aparece ao longo do cronograma até 2033.</p><h3>Empresa do Simples Nacional precisa se preocupar?</h3><p>Sim. Mesmo com regras próprias, clientes, fornecedores, créditos fiscais e formação de preço podem mudar durante a transição.</p><h3>O que revisar primeiro?</h3><p>Mapeie tributos atuais, contratos, precificação, sistemas de emissão fiscal e impacto no caixa projetado.</p>";
+      content += "<h2>Perguntas frequentes</h2><h3>A Reforma TributÃ¡ria muda tudo em 2026?</h3><p>NÃ£o. Em 2026 comeÃ§a uma fase parcial e de teste, com transiÃ§Ã£o gradual nos anos seguintes. O impacto completo aparece ao longo do cronograma atÃ© 2033.</p><h3>Empresa do Simples Nacional precisa se preocupar?</h3><p>Sim. Mesmo com regras prÃ³prias, clientes, fornecedores, crÃ©ditos fiscais e formaÃ§Ã£o de preÃ§o podem mudar durante a transiÃ§Ã£o.</p><h3>O que revisar primeiro?</h3><p>Mapeie tributos atuais, contratos, precificaÃ§Ã£o, sistemas de emissÃ£o fiscal e impacto no caixa projetado.</p>";
     }
   }
 
   if (post.slug === "fluxo-de-caixa-como-evitar-surpresas-no-fim-do-mes") {
-    if (!content.includes("<blockquote>Saldo é fotografia. Fluxo é filme.</blockquote>")) {
+    if (!content.includes("<blockquote>Saldo Ã© fotografia. Fluxo Ã© filme.</blockquote>")) {
       content = replaceOnce(
         content,
-        "<p>O empresário normalmente descobre que o caixa está apertado tarde demais. Isso acontece porque muita empresa acompanha apenas saldo em conta, e não fluxo de caixa. Saldo é fotografia. Fluxo é filme. Quem olha só para a fotografia perde o movimento das próximas semanas.</p>",
-        "<p>O empresário normalmente descobre que o caixa está apertado tarde demais. Isso acontece porque muita empresa acompanha apenas saldo em conta, e não fluxo de caixa. Saldo é fotografia. Fluxo é filme. Quem olha só para a fotografia perde o movimento das próximas semanas.</p><blockquote>Saldo é fotografia. Fluxo é filme.</blockquote>"
+        "<p>O empresÃ¡rio normalmente descobre que o caixa estÃ¡ apertado tarde demais. Isso acontece porque muita empresa acompanha apenas saldo em conta, e nÃ£o fluxo de caixa. Saldo Ã© fotografia. Fluxo Ã© filme. Quem olha sÃ³ para a fotografia perde o movimento das prÃ³ximas semanas.</p>",
+        "<p>O empresÃ¡rio normalmente descobre que o caixa estÃ¡ apertado tarde demais. Isso acontece porque muita empresa acompanha apenas saldo em conta, e nÃ£o fluxo de caixa. Saldo Ã© fotografia. Fluxo Ã© filme. Quem olha sÃ³ para a fotografia perde o movimento das prÃ³ximas semanas.</p><blockquote>Saldo Ã© fotografia. Fluxo Ã© filme.</blockquote>"
       );
     }
     content = replaceOnce(
       content,
-      "Ter de 15 a 30 dias de despesas fixas projetadas já muda a qualidade das decisões.",
-      "Ter de 15 a 30 dias de despesas fixas projetadas já muda a qualidade das decisões como ponto de partida; a meta saudável, quando possível, é caminhar para três ou mais meses de despesas essenciais."
+      "Ter de 15 a 30 dias de despesas fixas projetadas jÃ¡ muda a qualidade das decisÃµes.",
+      "Ter de 15 a 30 dias de despesas fixas projetadas jÃ¡ muda a qualidade das decisÃµes como ponto de partida; a meta saudÃ¡vel, quando possÃ­vel, Ã© caminhar para trÃªs ou mais meses de despesas essenciais."
     );
     content = replaceOnce(
       content,
       "antecipar uma linha previamente aprovada",
-      'usar <a href="/blog/antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio">antecipação de recebíveis</a> ou uma linha previamente aprovada'
+      'usar <a href="/blog/antecipacao-de-recebiveis-quando-vale-a-pena-para-o-seu-negocio">antecipaÃ§Ã£o de recebÃ­veis</a> ou uma linha previamente aprovada'
     );
   }
 
@@ -205,12 +207,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = await readBlogPostBySlug(params.slug);
   if (!post) {
-    return { title: "Artigo não encontrado | MB Finance" };
+    return { title: "Artigo nÃ£o encontrado | Mb Finance" };
   }
   const title = getDisplayTitle(post);
 
   return {
-    title: post.seoTitle || `${title} | MB Finance`,
+    title: post.seoTitle || `${title} | Mb Finance`,
     description: post.seoDesc || post.excerpt,
     alternates: {
       canonical: blogUrl(`/blog/${post.slug}`),
@@ -242,66 +244,66 @@ export default async function BlogArticlePage({
     'conta-pj': {
       label: "Conta Corrente Empresarial",
       title: "Abra sua conta empresarial sem burocracia",
-      description: "A MB Finance simplifica a abertura de conta nos principais bancos. Sem filas, sem papelada, com toda estrutura que seu CNPJ precisa.",
+      description: "A Mb Finance simplifica a abertura de conta nos principais bancos. Sem filas, sem papelada, com toda estrutura que seu CNPJ precisa.",
       button: "Abrir Conta Empresarial",
-      message: `Olá! Li o artigo "${title}" e quero abrir minha conta empresarial com a MB Finance.`,
+      message: `OlÃ¡! Li o artigo "${title}" e quero abrir minha conta empresarial com a Mb Finance.`,
     },
     'maquininha': {
-      label: "Máquina de Cartão",
+      label: "MÃ¡quina de CartÃ£o",
       title: "Pare de perder dinheiro nas taxas da maquininha",
-      description: "Maquininhas com as menores taxas do mercado e recebimento na hora. Sem aluguel, sem fidelidade, sem letra miúda.",
+      description: "Maquininhas com as menores taxas do mercado e recebimento na hora. Sem aluguel, sem fidelidade, sem letra miÃºda.",
       button: "Pedir Minha Maquininha",
-      message: `Olá! Li o artigo "${title}" e tenho interesse na Máquina de Cartão da MB Finance.`,
+      message: `OlÃ¡! Li o artigo "${title}" e tenho interesse na MÃ¡quina de CartÃ£o da Mb Finance.`,
     },
     'credito-rapido': {
-      label: "Crédito Rápido",
-      title: "Crédito para sua empresa com as melhores condições",
-      description: "A MB Finance conecta sua empresa a múltiplos bancos ao mesmo tempo — crédito empresarial, imobiliário e veicular com aprovação ágil.",
-      button: "Simular Crédito Agora",
-      message: `Olá! Li o artigo "${title}" e quero simular crédito para minha empresa com a MB Finance.`,
+      label: "CrÃ©dito RÃ¡pido",
+      title: "CrÃ©dito para sua empresa com as melhores condiÃ§Ãµes",
+      description: "A Mb Finance conecta sua empresa a mÃºltiplos bancos ao mesmo tempo â€” crÃ©dito empresarial, imobiliÃ¡rio e veicular com aprovaÃ§Ã£o Ã¡gil.",
+      button: "Simular CrÃ©dito Agora",
+      message: `OlÃ¡! Li o artigo "${title}" e quero simular crÃ©dito para minha empresa com a Mb Finance.`,
     },
     'antecipacao': {
-      label: "Antecipação de Recebíveis",
+      label: "AntecipaÃ§Ã£o de RecebÃ­veis",
       title: "Transforme vendas a prazo em dinheiro imediato",
-      description: "Antecipe recebíveis de cartão e boleto com as melhores taxas do mercado. Processo 100% digital, dinheiro na conta em horas.",
-      button: "Antecipar Meus Recebíveis",
-      message: `Olá! Li o artigo "${title}" e quero antecipar meus recebíveis com a MB Finance.`,
+      description: "Antecipe recebÃ­veis de cartÃ£o e boleto com as melhores taxas do mercado. Processo 100% digital, dinheiro na conta em horas.",
+      button: "Antecipar Meus RecebÃ­veis",
+      message: `OlÃ¡! Li o artigo "${title}" e quero antecipar meus recebÃ­veis com a Mb Finance.`,
     },
     'seguros': {
-      label: "Seguros e Consórcios",
-      title: "Proteja o patrimônio da sua empresa",
-      description: "A MB Finance estrutura seguros empresariais e consórcios com as melhores condições — proteção real para o que você levou anos construindo.",
-      button: "Conhecer Seguros e Consórcios",
-      message: `Olá! Li o artigo "${title}" e quero conhecer as opções de seguros e consórcios da MB Finance.`,
+      label: "Seguros e ConsÃ³rcios",
+      title: "Proteja o patrimÃ´nio da sua empresa",
+      description: "A Mb Finance estrutura seguros empresariais e consÃ³rcios com as melhores condiÃ§Ãµes â€” proteÃ§Ã£o real para o que vocÃª levou anos construindo.",
+      button: "Conhecer Seguros e ConsÃ³rcios",
+      message: `OlÃ¡! Li o artigo "${title}" e quero conhecer as opÃ§Ãµes de seguros e consÃ³rcios da Mb Finance.`,
     },
     'tributario': {
-      label: "Soluções Tributárias",
+      label: "SoluÃ§Ãµes TributÃ¡rias",
       title: "Pague menos impostos dentro da lei",
-      description: "Diagnóstico, recuperação e planejamento fiscal com especialistas que conhecem a realidade do empresário PJ. Sua empresa pode estar pagando mais do que deve.",
-      button: "Fazer Diagnóstico Tributário",
-      message: `Olá! Li o artigo "${title}" e quero fazer um diagnóstico tributário com a MB Finance.`,
+      description: "DiagnÃ³stico, recuperaÃ§Ã£o e planejamento fiscal com especialistas que conhecem a realidade do empresÃ¡rio PJ. Sua empresa pode estar pagando mais do que deve.",
+      button: "Fazer DiagnÃ³stico TributÃ¡rio",
+      message: `OlÃ¡! Li o artigo "${title}" e quero fazer um diagnÃ³stico tributÃ¡rio com a Mb Finance.`,
     },
     'telemedicina': {
       label: "Telemedicina",
-      title: "Médico na tela para você e sua equipe",
-      description: "Ofereça acesso a saúde para toda a família dos seus colaboradores — benefício de alto valor, sem o custo de um plano de saúde tradicional.",
+      title: "MÃ©dico na tela para vocÃª e sua equipe",
+      description: "OfereÃ§a acesso a saÃºde para toda a famÃ­lia dos seus colaboradores â€” benefÃ­cio de alto valor, sem o custo de um plano de saÃºde tradicional.",
       button: "Conhecer a Telemedicina",
-      message: `Olá! Li o artigo "${title}" e quero conhecer a solução de telemedicina da MB Finance.`,
+      message: `OlÃ¡! Li o artigo "${title}" e quero conhecer a soluÃ§Ã£o de telemedicina da Mb Finance.`,
     },
     'solucoes-personalizadas': {
-      label: "Soluções Personalizadas",
+      label: "SoluÃ§Ãµes Personalizadas",
       title: "Sua empresa precisa de mais do que o banco oferece",
-      description: "Para operações complexas e grandes empresas, a MB Finance estrutura soluções financeiras sob medida que os bancos tradicionais não entregam.",
+      description: "Para operaÃ§Ãµes complexas e grandes empresas, a Mb Finance estrutura soluÃ§Ãµes financeiras sob medida que os bancos tradicionais nÃ£o entregam.",
       button: "Falar com um Especialista",
-      message: `Olá! Li o artigo "${title}" e quero conhecer as soluções personalizadas da MB Finance para minha empresa.`,
+      message: `OlÃ¡! Li o artigo "${title}" e quero conhecer as soluÃ§Ãµes personalizadas da Mb Finance para minha empresa.`,
     },
   };
 
   const cta = (post.product && productCtas[post.product]) || ctas[post.slug] || {
     title: "Precisa falar com um especialista?",
-    description: "A MB Finance ajuda sua empresa a comparar linhas, contas e soluções com mais critério.",
+    description: "A Mb Finance ajuda sua empresa a comparar linhas, contas e soluÃ§Ãµes com mais critÃ©rio.",
     button: "Falar com um especialista",
-    message: `Olá! Li o artigo "${title}" e quero falar com um especialista.`,
+    message: `OlÃ¡! Li o artigo "${title}" e quero falar com um especialista.`,
     accent: "#0099dd",
   };
   const relatedPosts = getRelatedPosts(post, posts);
@@ -320,7 +322,7 @@ export default async function BlogArticlePage({
     },
     publisher: {
       "@type": "Organization",
-      name: "MB Finance",
+      name: "Mb Finance",
       logo: {
         "@type": "ImageObject",
         url: blogUrl("/images/logo-horizontal-logo.png.png"),
@@ -331,6 +333,8 @@ export default async function BlogArticlePage({
 
   return (
     <>
+      <GoogleAdsTag />
+      <MetaPixel />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -339,7 +343,7 @@ export default async function BlogArticlePage({
       <nav style={{ background: "#003956", position: "sticky", top: 0, zIndex: 100 }}>
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href={mainSiteUrl("/")}>
-            <img src="/images/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto", display: "block" }} />
+            <img src="/images/logo-horizontal-logo.branca.png" alt="Mb Finance" style={{ height: 36, width: "auto", display: "block" }} />
           </a>
           <a href="/blog" className="flex items-center gap-2 text-sm font-semibold text-white/65 transition-colors hover:text-white">
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 12H5M12 5l-7 7 7 7"/></svg>
@@ -415,7 +419,7 @@ export default async function BlogArticlePage({
         <div className="mt-10 overflow-hidden rounded-[24px] bg-[#003956] px-8 py-10 text-white" style={{ background: "linear-gradient(135deg, #003956 0%, #002840 100%)" }}>
           {post.product && productCtas[post.product] && (
             <p className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-sky-400">
-              MB Finance — {productCtas[post.product].label}
+              Mb Finance â€” {productCtas[post.product].label}
             </p>
           )}
           <h2 className="font-sans text-2xl font-black leading-snug md:text-3xl">{cta.title}</h2>
@@ -446,10 +450,10 @@ export default async function BlogArticlePage({
             {/* Col 1: Brand */}
             <div className="flex flex-col gap-7 lg:col-span-4">
               <a href={mainSiteUrl("/")} className="inline-block opacity-100 transition-opacity hover:opacity-80">
-                <img src="/images/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto" }} />
+                <img src="/images/logo-horizontal-logo.branca.png" alt="Mb Finance" style={{ height: 36, width: "auto" }} />
               </a>
               <p className="max-w-[280px] text-[15px] font-medium leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-                Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado. Seu elo estratégico com as principais instituições bancárias do Brasil.
+                HÃ¡ mais de 10 anos conectando empresas Ã s melhores soluÃ§Ãµes financeiras do mercado. Seu elo estratÃ©gico com as principais instituiÃ§Ãµes bancÃ¡rias do Brasil.
               </p>
               <div className="flex gap-3">
                 <a href="https://www.linkedin.com/company/mbfassessoria/?viewAsMember=true" target="_blank" rel="noopener" className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all hover:bg-white/15">
@@ -461,11 +465,11 @@ export default async function BlogArticlePage({
               </div>
             </div>
 
-            {/* Col 2: Soluções */}
+            {/* Col 2: SoluÃ§Ãµes */}
             <div className="lg:col-span-3">
-              <h4 className="mb-8 text-xs font-bold uppercase tracking-widest text-white">Soluções</h4>
+              <h4 className="mb-8 text-xs font-bold uppercase tracking-widest text-white">SoluÃ§Ãµes</h4>
               <ul className="flex flex-col gap-3.5 text-sm font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
-                {["Conta Corrente Empresarial","Máquina de Cartão","Seguros e Consórcios","Crédito Rápido","Soluções Tributárias","Telemedicina","Soluções Personalizadas"].map((item) => (
+                {["Conta Corrente Empresarial","MÃ¡quina de CartÃ£o","Seguros e ConsÃ³rcios","CrÃ©dito RÃ¡pido","SoluÃ§Ãµes TributÃ¡rias","Telemedicina","SoluÃ§Ãµes Personalizadas"].map((item) => (
                   <li key={item}><a href={mainSiteUrl("/#produtos")} className="transition-colors hover:text-brand-secondary">{item}</a></li>
                 ))}
               </ul>
@@ -484,7 +488,7 @@ export default async function BlogArticlePage({
               <div>
                 <h4 className="mb-7 text-xs font-bold uppercase tracking-widest text-white">Legal</h4>
                 <ul className="flex flex-col gap-3.5 text-sm font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
-                  <li><a href={mainSiteUrl("/pages/politica-de-privacidade.html")} className="transition-colors hover:text-brand-secondary">Política de Privacidade</a></li>
+                  <li><a href={mainSiteUrl("/pages/politica-de-privacidade.html")} className="transition-colors hover:text-brand-secondary">PolÃ­tica de Privacidade</a></li>
                   <li><a href={mainSiteUrl("/pages/termos-de-uso.html")} className="transition-colors hover:text-brand-secondary">Termos de Uso</a></li>
                 </ul>
               </div>
@@ -496,11 +500,11 @@ export default async function BlogArticlePage({
               <div className="flex flex-col gap-6 text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
                 <div>
                   <div className="text-xl font-bold text-white">(21) 3900-8295</div>
-                  <div className="mt-1 text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.2)" }}>Seg - Sex: 9h às 18h</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.2)" }}>Seg - Sex: 9h Ã s 18h</div>
                 </div>
                 <a href="mailto:atendimento@mbfinance.com.br" className="text-[13px] transition-colors hover:text-white" style={{ color: "rgba(255,255,255,0.6)" }}>atendimento@mbfinance.com.br</a>
                 <div className="text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.3)" }}>
-                  Av. Rio Branco, 110 - 30º andar<br />
+                  Av. Rio Branco, 110 - 30Âº andar<br />
                   Centro, Rio de Janeiro - RJ<br />
                   CEP: 20040-006
                 </div>
@@ -511,7 +515,7 @@ export default async function BlogArticlePage({
           {/* Bottom bar */}
           <div className="border-t border-white/5 pt-10 text-center">
             <p className="text-[10px] uppercase leading-relaxed tracking-[2px] sm:text-[11px]" style={{ color: "rgba(255,255,255,0.35)" }}>
-              © 2026 MB ASSESSORIA E ESTRUTURAÇÃO DE NEGÓCIOS LTDA. CNPJ: 26.388.817/0001-72. TODOS OS DIREITOS RESERVADOS.
+              Â© 2026 MB ASSESSORIA E ESTRUTURAÃ‡ÃƒO DE NEGÃ“CIOS LTDA. CNPJ: 26.388.817/0001-72. TODOS OS DIREITOS RESERVADOS.
             </p>
           </div>
         </div>

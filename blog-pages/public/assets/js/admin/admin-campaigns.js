@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Admin Dashboard - Campanhas e UTM Builder
  */
 
@@ -19,7 +19,7 @@ var CAMP_OBJECTIVES = {
     leads: 'Leads',
     whatsapp: 'WhatsApp',
     'conta-pj': 'Conta PJ',
-    trafego: 'Tráfego',
+    trafego: 'TrÃ¡fego',
     cadastro: 'Cadastro'
 };
 
@@ -40,8 +40,8 @@ function setCampButton(btn, icon, label) {
 }
 
 var DEFAULT_CAMPAIGN_PROJECTS = [
-    { id: 'mb-finance', name: 'MB Finance', domain: 'https://mbfinance.com.br' },
-    { id: 'mb-negocios', name: 'MB Negócios', domain: 'https://mbnegocios.com.br' },
+    { id: 'mb-finance', name: 'Mb Finance', domain: 'https://mbfinance.com.br' },
+    { id: 'mb-negocios', name: 'MB NegÃ³cios', domain: 'https://mbnegocios.com.br' },
 ];
 
 function isDefaultCampaignProject(id) {
@@ -174,9 +174,9 @@ function getCampaignProject(item) {
 }
 
 function formatCampaignDate(value) {
-    if (!value) return '—';
+    if (!value) return 'â€”';
     try { return new Date(value).toLocaleDateString('pt-BR'); }
-    catch (e) { return String(value || '—'); }
+    catch (e) { return String(value || 'â€”'); }
 }
 
 function getShortDisplayUrl(item) {
@@ -246,7 +246,7 @@ function renderCampaignSummary() {
         '<div class="camp-summary-card"><div class="camp-summary-label">Links criados</div><div class="camp-summary-value">' + formatCampClicks(totalLinks) + '</div><div class="camp-summary-note">' + formatCampClicks(active) + ' ativos</div></div>'
         + '<div class="camp-summary-card"><div class="camp-summary-label">Cliques totais</div><div class="camp-summary-value">' + formatCampClicks(totalClicks) + '</div><div class="camp-summary-note">Soma dos links curtos</div></div>'
         + '<div class="camp-summary-card"><div class="camp-summary-label">Mais clicado</div><div class="camp-summary-value">' + (top ? formatCampClicks(top.clicks || 0) : '0') + '</div><div class="camp-summary-note">' + cesc(top ? top.name : 'Nenhum link ainda') + '</div></div>'
-        + '<div class="camp-summary-card"><div class="camp-summary-label">Último clique</div><div class="camp-summary-value">' + (last ? new Date(last.lastClick).toLocaleDateString('pt-BR') : '—') + '</div><div class="camp-summary-note">' + cesc(last ? last.name : 'Aguardando cliques') + '</div></div>';
+        + '<div class="camp-summary-card"><div class="camp-summary-label">Ãšltimo clique</div><div class="camp-summary-value">' + (last ? new Date(last.lastClick).toLocaleDateString('pt-BR') : 'â€”') + '</div><div class="camp-summary-note">' + cesc(last ? last.name : 'Aguardando cliques') + '</div></div>';
 }
 
 function populateCampaignFilters() {
@@ -299,10 +299,10 @@ function updateCampaignProjectContext() {
     var selected = getSelectedCampaignProject();
     if (!note) return;
     if (!selected) {
-        note.textContent = 'Visão geral com todos os projetos. Selecione um projeto para filtrar métricas, links e criação.';
+        note.textContent = 'VisÃ£o geral com todos os projetos. Selecione um projeto para filtrar mÃ©tricas, links e criaÃ§Ã£o.';
         return;
     }
-    note.textContent = 'Mostrando métricas, links e criação para ' + getProjectNameById(selected) + '.';
+    note.textContent = 'Mostrando mÃ©tricas, links e criaÃ§Ã£o para ' + getProjectNameById(selected) + '.';
 }
 
 function onCampaignCreateProjectChange() {
@@ -377,7 +377,7 @@ function saveCampaignProject() {
 function deleteCampaignProject(id) {
     if (!id) return;
     if (isDefaultCampaignProject(id)) {
-        alert('MB Finance e MB Negócios são projetos base e não podem ser apagados.');
+        alert('Mb Finance e MB NegÃ³cios sÃ£o projetos base e nÃ£o podem ser apagados.');
         return;
     }
     var used = loadCampaigns().some(function(item) { return normalizeProjectId(getCampaignProject(item)) === id; });
@@ -528,17 +528,17 @@ function shortenUrl(url) {
                     if (display) display.textContent = data.short;
                     if (wrap)  wrap.style.display = 'block';
                 } else {
-                    var msg = data.error || 'Não foi possível encurtar o link.';
-                    if (msg.indexOf('Redis') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta função.';
+                    var msg = data.error || 'NÃ£o foi possÃ­vel encurtar o link.';
+                    if (msg.indexOf('Redis') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta funÃ§Ã£o.';
                     showCampaignShortError(msg, false);
                 }
             })
             .catch(function(err) {
                 if (loading) loading.style.display = 'none';
-                var msg = 'Não foi possível encurtar o link.';
-                if (err && err.message && err.message.indexOf('404') !== -1) msg = 'API não encontrada — o site precisa estar no ar via Vercel.';
-                if (err && err.message && err.message.indexOf('503') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta função.';
-                if (err && err.message && err.message.indexOf('destino') !== -1) msg = err.message + '. Confira se o endereço foi digitado corretamente.';
+                var msg = 'NÃ£o foi possÃ­vel encurtar o link.';
+                if (err && err.message && err.message.indexOf('404') !== -1) msg = 'API nÃ£o encontrada â€” o site precisa estar no ar via Vercel.';
+                if (err && err.message && err.message.indexOf('503') !== -1) msg = 'Configure o Redis (Upstash) no Vercel para usar esta funÃ§Ã£o.';
+                if (err && err.message && err.message.indexOf('destino') !== -1) msg = err.message + '. Confira se o endereÃ§o foi digitado corretamente.';
                 var canRelease = false;
                 if (err && err.message && err.message.toLowerCase().indexOf('apelido') !== -1) {
                     msg = err.message;
@@ -676,7 +676,7 @@ function duplicateCampaign(id) {
     var channelEl = document.getElementById('camp-channel');
     if (document.getElementById('camp-url')) document.getElementById('camp-url').value = item.targetUrl || getCampaignBaseUrl(item.url);
     if (document.getElementById('camp-project')) document.getElementById('camp-project').value = item.projectId || normalizeProjectId(getCampaignProject(item));
-    if (document.getElementById('camp-name')) document.getElementById('camp-name').value = (item.name || 'Campanha') + ' - cópia';
+    if (document.getElementById('camp-name')) document.getElementById('camp-name').value = (item.name || 'Campanha') + ' - cÃ³pia';
     if (channelEl) channelEl.value = channelValue;
     if (document.getElementById('camp-content')) document.getElementById('camp-content').value = item.content || '';
     if (document.getElementById('camp-slug')) document.getElementById('camp-slug').value = '';
@@ -769,9 +769,9 @@ function renderSavedLinks() {
         var width = Math.round((Number(c.clicks || 0) / maxClicks) * 100);
         var lastClick = c.lastClick ? formatCampaignDate(c.lastClick) : 'Sem cliques';
         rows += '<div class="camp-saved-row">'
-            + '<div><div class="camp-project-pill" title="' + cesc(getCampaignProject(c)) + '">' + cesc(getCampaignProject(c)) + '</div><div class="camp-saved-name" title="' + cesc(c.name) + '">' + cesc(c.name || 'Campanha sem nome') + '</div><div class="camp-saved-detail">Criado em ' + cesc(c.date || '—') + ' · ' + cesc(getCampObjectiveLabel(c.objective)) + (c.notes ? ' · ' + cesc(c.notes) : '') + '</div></div>'
+            + '<div><div class="camp-project-pill" title="' + cesc(getCampaignProject(c)) + '">' + cesc(getCampaignProject(c)) + '</div><div class="camp-saved-name" title="' + cesc(c.name) + '">' + cesc(c.name || 'Campanha sem nome') + '</div><div class="camp-saved-detail">Criado em ' + cesc(c.date || 'â€”') + ' Â· ' + cesc(getCampObjectiveLabel(c.objective)) + (c.notes ? ' Â· ' + cesc(c.notes) : '') + '</div></div>'
             + '<div><div class="camp-link-short" title="' + cesc(shortDisplay) + '">' + cesc(shortDisplay) + '</div><div class="camp-link-dest" title="' + cesc(c.targetUrl || c.url || '') + '">' + cesc(c.targetUrl || c.url || '') + '</div></div>'
-            + '<div class="camp-click-cell"><div class="camp-click-count" data-short-code="' + cesc(code) + '">' + (code ? formatCampClicks(c.clicks || 0) : '—') + '</div><div class="camp-click-bar"><div class="camp-click-fill" data-click-fill-code="' + cesc(code) + '" style="width:' + width + '%"></div></div></div>'
+            + '<div class="camp-click-cell"><div class="camp-click-count" data-short-code="' + cesc(code) + '">' + (code ? formatCampClicks(c.clicks || 0) : 'â€”') + '</div><div class="camp-click-bar"><div class="camp-click-fill" data-click-fill-code="' + cesc(code) + '" style="width:' + width + '%"></div></div></div>'
             + '<div><div class="camp-last-click' + (c.lastClick ? '' : ' empty') + '" data-last-click-code="' + cesc(code) + '">' + cesc(lastClick) + '</div></div>'
             + '<div><span class="camp-channel-badge">' + cesc(c.channel) + '</span></div>'
             + '<div><span class="camp-status-badge camp-status-' + status + '">' + cesc(getCampStatusLabel(status)) + '</span></div>'
@@ -779,11 +779,11 @@ function renderSavedLinks() {
             + '<button id="camp-copy-saved-' + c.id + '" class="camp-action-btn" onclick="copySavedCamp(' + c.id + ')" title="Copiar URL">' + campButtonHtml('copy', 'Copiar') + '</button>'
             + '<button class="camp-action-btn camp-icon-only" onclick="duplicateCampaign(' + c.id + ')" title="Duplicar link" aria-label="Duplicar link">' + CAMP_ICONS.duplicate + '</button>'
             + (isConfirmingDelete
-                ? '<button class="camp-action-btn camp-del-btn camp-confirm-del-btn" onclick="requestDeleteCampaign(' + c.id + ')" title="Confirmar exclusão">Confirmar</button>'
+                ? '<button class="camp-action-btn camp-del-btn camp-confirm-del-btn" onclick="requestDeleteCampaign(' + c.id + ')" title="Confirmar exclusÃ£o">Confirmar</button>'
                 : '<button class="camp-action-btn camp-del-btn camp-icon-only" onclick="requestDeleteCampaign(' + c.id + ')" title="Excluir" aria-label="Excluir link">' + CAMP_ICONS.close + '</button>')
             + '</div></div>';
     }
-    el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Projeto / campanha</span><span>Link personalizado</span><span style="text-align:center">Cliques</span><span>Último clique</span><span>Canal</span><span>Status</span><span></span></div>' + rows + '</div>';
+    el.innerHTML = '<div class="camp-saved-table"><div class="camp-saved-header"><span>Projeto / campanha</span><span>Link personalizado</span><span style="text-align:center">Cliques</span><span>Ãšltimo clique</span><span>Canal</span><span>Status</span><span></span></div>' + rows + '</div>';
     loadCampaignClickStats();
 }
 function loadCampaignClickStats() {
@@ -823,7 +823,7 @@ function loadCampaignClickStats() {
         })
         .catch(function() {
             document.querySelectorAll('[data-short-code]').forEach(function(el) {
-                if (el.getAttribute('data-short-code')) el.textContent = '—';
+                if (el.getAttribute('data-short-code')) el.textContent = 'â€”';
             });
         });
 }
@@ -1038,7 +1038,7 @@ function renderClientLinks() {
         var code = item.shortCode || extractShortCode(item.shortUrl || '');
         var lastClick = item.lastClick ? formatCampaignDate(item.lastClick) : 'Sem cliques';
         return '<div class="camp-client-row">'
-            + '<div><div class="camp-client-name">' + cesc(item.name || 'Cliente sem nome') + '</div><div class="camp-client-meta">CNPJ: ' + cesc(item.cnpj || '-') + (item.company ? ' · ' + cesc(item.company) : '') + (item.phone ? ' · ' + cesc(item.phone) : '') + '</div></div>'
+            + '<div><div class="camp-client-name">' + cesc(item.name || 'Cliente sem nome') + '</div><div class="camp-client-meta">CNPJ: ' + cesc(item.cnpj || '-') + (item.company ? ' Â· ' + cesc(item.company) : '') + (item.phone ? ' Â· ' + cesc(item.phone) : '') + '</div></div>'
             + '<div><div class="camp-client-link" title="' + cesc(item.shortUrl || '') + '">' + cesc(item.shortUrl || 'Link pendente') + '</div><div class="camp-client-msg" title="' + cesc(item.message || '') + '">' + cesc(item.message || '') + '</div></div>'
             + '<div class="camp-click-cell"><div class="camp-click-count" data-client-code="' + cesc(code) + '">' + formatCampClicks(item.clicks || 0) + '</div><div class="camp-click-bar"><div class="camp-click-fill" data-client-fill-code="' + cesc(code) + '" style="width:' + Math.min(100, Number(item.clicks || 0) * 12) + '%"></div></div></div>'
             + '<div><div class="camp-last-click' + (item.lastClick ? '' : ' empty') + '" data-client-last-code="' + cesc(code) + '">' + cesc(lastClick) + '</div></div>'
@@ -1211,21 +1211,21 @@ window.copyWappMessage         = copyWappMessage;
 window.openWhatsApp            = openWhatsApp;
 window.exportCampaignsCSV      = exportCampaignsCSV;
 
-// ── TEMPLATE WHATSAPP ────────────────────────────────────────────────────────
+// â”€â”€ TEMPLATE WHATSAPP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 var WAPP_TPL_KEY = 'mb_wapp_templates_v1';
 
 var WAPP_TEMPLATES = {
-    'capital-giro':   'Olá, {nome}! A MB Finance tem uma solução de Capital de Giro com condições especiais para a sua empresa — sem burocracia e análise rápida. Acesse e saiba mais: {link}',
-    'conta-pj':       'Olá, {nome}! Abra sua Conta PJ com a MB Finance e tenha acesso aos melhores produtos financeiros do mercado para o seu negócio. Acesse: {link}',
-    'maquina-cartao': 'Olá, {nome}! Aceite cartões com a Máquina de Cartão da MB Finance — as melhores taxas para PJ e sem aluguel. Saiba mais: {link}',
-    'antecipacao':    'Olá, {nome}! Antecipe seus recebíveis com a MB Finance e garanta o fluxo de caixa da sua empresa. Taxas competitivas e aprovação rápida. Acesse: {link}',
-    'personalizado':  'Olá, {nome}! A MB Finance tem uma condição especial para a sua empresa. Acesse: {link}',
+    'capital-giro':   'OlÃ¡, {nome}! A Mb Finance tem uma soluÃ§Ã£o de Capital de Giro com condiÃ§Ãµes especiais para a sua empresa â€” sem burocracia e anÃ¡lise rÃ¡pida. Acesse e saiba mais: {link}',
+    'conta-pj':       'OlÃ¡, {nome}! Abra sua Conta PJ com a Mb Finance e tenha acesso aos melhores produtos financeiros do mercado para o seu negÃ³cio. Acesse: {link}',
+    'maquina-cartao': 'OlÃ¡, {nome}! Aceite cartÃµes com a MÃ¡quina de CartÃ£o da Mb Finance â€” as melhores taxas para PJ e sem aluguel. Saiba mais: {link}',
+    'antecipacao':    'OlÃ¡, {nome}! Antecipe seus recebÃ­veis com a Mb Finance e garanta o fluxo de caixa da sua empresa. Taxas competitivas e aprovaÃ§Ã£o rÃ¡pida. Acesse: {link}',
+    'personalizado':  'OlÃ¡, {nome}! A Mb Finance tem uma condiÃ§Ã£o especial para a sua empresa. Acesse: {link}',
 };
 
 var WAPP_PRODUCT_LABELS = {
     'capital-giro': 'Capital de Giro', 'conta-pj': 'Conta PJ',
-    'maquina-cartao': 'Máquina de Cartão', 'antecipacao': 'Antecipação',
+    'maquina-cartao': 'MÃ¡quina de CartÃ£o', 'antecipacao': 'AntecipaÃ§Ã£o',
     'personalizado': 'Personalizado',
 };
 
@@ -1331,7 +1331,7 @@ function openWhatsApp() {
     window.open('https://wa.me/?text=' + encodeURIComponent(preview.value), '_blank');
 }
 
-// ── EXPORT CSV ───────────────────────────────────────────────────────────────
+// â”€â”€ EXPORT CSV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function exportCampaignsCSV() {
     var list = loadCampaigns();
@@ -1352,7 +1352,7 @@ function exportCampaignsCSV() {
             '"' + String(c.url     || '').replace(/"/g, '""') + '"',
         ].join(',');
     });
-    var csv = '﻿' + [header.join(',')].concat(rows).join('\r\n');
+    var csv = 'ï»¿' + [header.join(',')].concat(rows).join('\r\n');
     var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     var url  = URL.createObjectURL(blob);
     var a    = document.createElement('a');

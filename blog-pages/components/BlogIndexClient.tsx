@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { pushAnalyticsEvent } from "@/components/AnalyticsTracker";
@@ -8,15 +8,15 @@ import "@/app/blog/blog.css";
 
 const filters = [
   { label: "Todos", value: "todos" },
-  { label: "Crédito", value: "credito" },
-  { label: "Gestão", value: "gestao" },
+  { label: "CrÃ©dito", value: "credito" },
+  { label: "GestÃ£o", value: "gestao" },
   { label: "Conta PJ", value: "conta-pj" },
-  { label: "Antecipação", value: "antecipacao" },
+  { label: "AntecipaÃ§Ã£o", value: "antecipacao" },
   { label: "Tributos", value: "gestao-tributaria" },
 ];
 
 const specialistWhatsAppUrl = `https://wa.me/552139008295?text=${encodeURIComponent(
-  "Olá! Vim pelo hub financeiro da MB Finance e gostaria de falar com um especialista."
+  "OlÃ¡! Vim pelo hub financeiro da Mb Finance e gostaria de falar com um especialista."
 )}`;
 
 function formatDate(date: string) {
@@ -84,21 +84,21 @@ function NewsletterModal({ onClose }: { onClose: () => void }) {
     <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true">
       <div className="modal-card" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose} type="button" aria-label="Fechar">
-          ×
+          Ã—
         </button>
 
         {status === "success" ? (
           <div className="modal-success">
-            <span aria-hidden="true">✓</span>
+            <span aria-hidden="true">âœ“</span>
             <h2>Cadastro realizado!</h2>
-            <p>Você vai receber análises financeiras no seu e-mail em breve.</p>
+            <p>VocÃª vai receber anÃ¡lises financeiras no seu e-mail em breve.</p>
             <button type="button" onClick={onClose}>Fechar</button>
           </div>
         ) : (
           <>
-            <p className="modal-kicker">MB Finance · Newsletter</p>
-            <h2>Receba conteúdos exclusivos no seu e-mail</h2>
-            <p>Dicas, guias e novidades sobre crédito, gestão financeira e soluções PJ — antes de todo mundo.</p>
+            <p className="modal-kicker">Mb Finance Â· Newsletter</p>
+            <h2>Receba conteÃºdos exclusivos no seu e-mail</h2>
+            <p>Dicas, guias e novidades sobre crÃ©dito, gestÃ£o financeira e soluÃ§Ãµes PJ â€” antes de todo mundo.</p>
             <form onSubmit={handleSubmit} className="modal-form">
               <input
                 type="email"
@@ -113,7 +113,7 @@ function NewsletterModal({ onClose }: { onClose: () => void }) {
               </button>
             </form>
             {status === "error" && (
-              <small className="modal-error">Não foi possível cadastrar. Tente novamente.</small>
+              <small className="modal-error">NÃ£o foi possÃ­vel cadastrar. Tente novamente.</small>
             )}
             <p className="modal-fine">Sem spam. Cancele quando quiser.</p>
           </>
@@ -157,10 +157,10 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
       <nav className="blog-nav">
         <div className="blog-nav-inner">
           <a href={mainSiteUrl("/")} className="blog-logo-link">
-            <img src="/images/logo-horizontal-logo.branca.png" alt="mb finance" width="146" height="36" />
+            <img src="/images/logo-horizontal-logo.branca.png" alt="Mb Finance" width="146" height="36" />
           </a>
           <a href={mainSiteUrl("/")} className="blog-back">
-            <span aria-hidden="true">←</span>
+            <span aria-hidden="true">â†</span>
             Voltar ao site
           </a>
         </div>
@@ -170,8 +170,8 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         <div className="blog-shell blog-hero-inner">
           <div className="blog-hero-text">
             <p className="blog-hero-kicker">Hub Financeiro para Empresas</p>
-            <h1>Conteúdo financeiro para empresas que precisam decidir melhor</h1>
-            <p>Análises, guias e estratégias sobre crédito, gestão de caixa, tributos e soluções PJ.</p>
+            <h1>ConteÃºdo financeiro para empresas que precisam decidir melhor</h1>
+            <p>AnÃ¡lises, guias e estratÃ©gias sobre crÃ©dito, gestÃ£o de caixa, tributos e soluÃ§Ãµes PJ.</p>
           </div>
           <div className="blog-hero-actions">
             <button
@@ -181,7 +181,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
               data-analytics-area="hero"
               data-analytics-label="abrir_newsletter"
             >
-              Receber conteúdos exclusivos
+              Receber conteÃºdos exclusivos
             </button>
           </div>
         </div>
@@ -220,13 +220,13 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
           {searchQuery.trim() ? (
             <>
               <span>Resultados para &ldquo;{searchQuery}&rdquo;</span>
-              <strong>·</strong>
+              <strong>Â·</strong>
               <strong>{visiblePosts.length} {visiblePosts.length === 1 ? "artigo" : "artigos"}</strong>
             </>
           ) : (
             <>
-              <span>{activeFilterLabel === "Todos" ? "Todos os conteúdos" : activeFilterLabel}</span>
-              <strong>·</strong>
+              <span>{activeFilterLabel === "Todos" ? "Todos os conteÃºdos" : activeFilterLabel}</span>
+              <strong>Â·</strong>
               <strong>{visiblePosts.length} {visiblePosts.length === 1 ? "artigo" : "artigos"}</strong>
             </>
           )}
@@ -246,7 +246,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
               <h1>{leadPost.title}</h1>
               <p>{leadPost.excerpt}</p>
               <ArticleMeta post={leadPost} />
-              <span className="lead-read-more">Ler análise →</span>
+              <span className="lead-read-more">Ler anÃ¡lise â†’</span>
             </a>
 
             <div className="side-feature-stack">
@@ -329,7 +329,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
               </section>
 
 <section className="sidebar-card sidebar-specialist-card">
-                <p>Precisa de orientação personalizada?</p>
+                <p>Precisa de orientaÃ§Ã£o personalizada?</p>
                 <a
                   href={specialistWhatsAppUrl}
                   target="_blank"
@@ -348,9 +348,9 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
       <section className="blog-cta-section">
         <div className="blog-shell blog-cta-box">
           <div>
-            <span>Atendimento MB Finance</span>
-            <h2>Precisa escolher a solução certa para sua empresa?</h2>
-            <p>Fale com um especialista para comparar crédito, conta PJ, antecipação e gestão de caixa.</p>
+            <span>Atendimento Mb Finance</span>
+            <h2>Precisa escolher a soluÃ§Ã£o certa para sua empresa?</h2>
+            <p>Fale com um especialista para comparar crÃ©dito, conta PJ, antecipaÃ§Ã£o e gestÃ£o de caixa.</p>
           </div>
           <a href={specialistWhatsAppUrl} target="_blank" rel="noopener noreferrer">
             Falar com especialista
@@ -373,7 +373,7 @@ function BlogFooter() {
           <div className="footer-col">
             <a href={mainSiteUrl("/")} className="footer-logo">mb<span>finance.</span></a>
             <p className="footer-bio">
-              Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado.
+              HÃ¡ mais de 10 anos conectando empresas Ã s melhores soluÃ§Ãµes financeiras do mercado.
             </p>
             <div className="footer-social">
               <a href="https://www.linkedin.com/company/mbfassessoria/?viewAsMember=true" target="_blank" rel="noopener noreferrer">in</a>
@@ -382,12 +382,12 @@ function BlogFooter() {
           </div>
 
           <div className="footer-col">
-            <h4>Soluções</h4>
+            <h4>SoluÃ§Ãµes</h4>
             <ul>
               <li><a href={mainSiteUrl("/#produtos")}>Conta Corrente Empresarial</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Máquina de Cartão</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Crédito Rápido</a></li>
-              <li><a href={mainSiteUrl("/#produtos")}>Soluções Tributárias</a></li>
+              <li><a href={mainSiteUrl("/#produtos")}>MÃ¡quina de CartÃ£o</a></li>
+              <li><a href={mainSiteUrl("/#produtos")}>CrÃ©dito RÃ¡pido</a></li>
+              <li><a href={mainSiteUrl("/#produtos")}>SoluÃ§Ãµes TributÃ¡rias</a></li>
             </ul>
           </div>
 
@@ -396,7 +396,7 @@ function BlogFooter() {
             <ul>
               <li><a href={mainSiteUrl("/#como-funciona")}>Como funciona</a></li>
               <li><a href="https://mbfinance.inhire.app/vagas">Trabalhe conosco</a></li>
-              <li><a href={mainSiteUrl("/pages/politica-de-privacidade.html")}>Política de privacidade</a></li>
+              <li><a href={mainSiteUrl("/pages/politica-de-privacidade.html")}>PolÃ­tica de privacidade</a></li>
               <li><a href={mainSiteUrl("/pages/termos-de-uso.html")}>Termos de uso</a></li>
             </ul>
           </div>
@@ -404,13 +404,13 @@ function BlogFooter() {
           <div className="footer-col">
             <h4>Contato</h4>
             <span className="footer-phone">(21) 3900-8295</span>
-            <span className="footer-hours">Seg - Sex: 9h às 18h</span>
+            <span className="footer-hours">Seg - Sex: 9h Ã s 18h</span>
             <p><a href="mailto:atendimento@mbfinance.com.br">atendimento@mbfinance.com.br</a></p>
-            <p>Av. Rio Branco, 110 - 30º andar<br />Centro, Rio de Janeiro - RJ</p>
+            <p>Av. Rio Branco, 110 - 30Âº andar<br />Centro, Rio de Janeiro - RJ</p>
           </div>
         </div>
         <div className="footer-bottom">
-          © 2026 MB Assessoria e Estruturação de Negócios LTDA. Todos os direitos reservados.
+          Â© 2026 MB Assessoria e EstruturaÃ§Ã£o de NegÃ³cios LTDA. Todos os direitos reservados.
         </div>
       </div>
     </footer>

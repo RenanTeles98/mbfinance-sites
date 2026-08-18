@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local migration backups
+/archive/blog-pages-divergent-2026-08.zip

@@ -1,4 +1,4 @@
-import { createSign } from "crypto";
+﻿import { createSign } from "crypto";
 
 const GA_SCOPE = "https://www.googleapis.com/auth/analytics.readonly";
 const GA_TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -211,7 +211,7 @@ function getBuiltInSites(): GaSiteConfig[] {
   return [
     {
       key: "mb-finance",
-      name: "MB Finance",
+      name: "Mb Finance",
       propertyId: getEnv("GA4_PROPERTY_ID"),
       clientEmail: getEnv("GA4_CLIENT_EMAIL"),
       privateKey: getEnv("GA4_PRIVATE_KEY"),
@@ -219,7 +219,7 @@ function getBuiltInSites(): GaSiteConfig[] {
     },
     {
       key: "mb-negocios",
-      name: "MB Negócios",
+      name: "MB NegÃ³cios",
       propertyId: mbNegociosPropertyId,
       clientEmail: mbNegociosClientEmail,
       privateKey: mbNegociosPrivateKey,
@@ -397,21 +397,21 @@ function formatRangeLabel(startDate: string, endDate: string) {
 
   const start = parseIsoDate(startDate);
   const end = parseIsoDate(endDate);
-  if (!start || !end || start > end) return "Últimos 30 dias";
+  if (!start || !end || start > end) return "Ãšltimos 30 dias";
 
   const days = Math.max(
     1,
     Math.round((end.getTime() - start.getTime()) / 86400000) + 1
   );
   if (endDate === today) {
-    if (days === 7) return "Últimos 7 dias";
-    if (days === 30) return "Últimos 30 dias";
-    if (days === 90) return "Últimos 90 dias";
-    if (days === 180) return "Últimos 180 dias";
-    if (days >= 365 && days <= 366) return "Últimos 12 meses";
+    if (days === 7) return "Ãšltimos 7 dias";
+    if (days === 30) return "Ãšltimos 30 dias";
+    if (days === 90) return "Ãšltimos 90 dias";
+    if (days === 180) return "Ãšltimos 180 dias";
+    if (days >= 365 && days <= 366) return "Ãšltimos 12 meses";
   }
 
-  return `${startDate} até ${endDate}`;
+  return `${startDate} atÃ© ${endDate}`;
 }
 
 function cleanDimensionValue(value?: string, fallback = "Nao informado") {
@@ -892,7 +892,7 @@ export async function getGa4Overview(
     "product_click_conta_pj_digital": "Conta PJ Digital",
     "product_click_c6_pay":           "C6 Pay",
     "product_click_c6_business":      "C6 Business",
-    "product_click_credito_pj":       "Crédito PJ",
+    "product_click_credito_pj":       "CrÃ©dito PJ",
     "product_click_c6_conta_global":  "C6 Conta Global",
     "product_click_c6_tag":           "C6 Tag",
   };

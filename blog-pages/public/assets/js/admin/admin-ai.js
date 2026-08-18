@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Admin Dashboard - AI Idea Generator & Smart Writing
  */
 
@@ -10,27 +10,27 @@ async function generateIdeas() {
     loading.style.display = 'block';
     results.style.opacity = '0.3';
 
-    // Simula inteligência artificial com delay
+    // Simula inteligÃªncia artificial com delay
     await new Promise(r => setTimeout(r, 2000));
 
     const topics = [
         {
-            title: "Crédito Rural vs. Comercial: Como o agronegócio pode financiar a expansão urbana",
-            desc: "Análise sobre linhas de crédito híbridas para empresas que operam na transição agro-industrial.",
-            pilar: "Crédito",
+            title: "CrÃ©dito Rural vs. Comercial: Como o agronegÃ³cio pode financiar a expansÃ£o urbana",
+            desc: "AnÃ¡lise sobre linhas de crÃ©dito hÃ­bridas para empresas que operam na transiÃ§Ã£o agro-industrial.",
+            pilar: "CrÃ©dito",
             time: "8 min",
             type: "Trend"
         },
         {
-            title: "Planejamento Tributário para 2026: O que muda para o Simples Nacional",
-            desc: "Quais são as novas faixas e como preparar o caixa para as atualizações da reforma.",
-            pilar: "Gestão",
+            title: "Planejamento TributÃ¡rio para 2026: O que muda para o Simples Nacional",
+            desc: "Quais sÃ£o as novas faixas e como preparar o caixa para as atualizaÃ§Ãµes da reforma.",
+            pilar: "GestÃ£o",
             time: "10 min",
             type: "Evergreen"
         },
         {
-            title: "O impacto da tecnologia na análise de risco de crédito para PMEs",
-            desc: "Como algoritmos e Open Finance estão democratizando o acesso a capital.",
+            title: "O impacto da tecnologia na anÃ¡lise de risco de crÃ©dito para PMEs",
+            desc: "Como algoritmos e Open Finance estÃ£o democratizando o acesso a capital.",
             pilar: "Mercado",
             time: "6 min",
             type: "Pillar"
@@ -39,13 +39,13 @@ async function generateIdeas() {
 
     results.innerHTML = topics.map(t => `
         <div class="gen-card premium" onclick="applyIdea('${t.title.replace(/'/g,"\\'")}', '${t.desc.replace(/'/g,"\\'")}')">
-            <span class="gen-badge ${t.type === 'Trend' ? 'badge-trend' : 'badge-evergreen'}">${t.type === 'Trend' ? 'Tendência' : 'Estratégico'}</span>
+            <span class="gen-badge ${t.type === 'Trend' ? 'badge-trend' : 'badge-evergreen'}">${t.type === 'Trend' ? 'TendÃªncia' : 'EstratÃ©gico'}</span>
             <h3 class="gen-title">${t.title}</h3>
             <p class="gen-desc">${t.desc}</p>
             <div class="gen-meta">
                 <span>Pilar: ${t.pilar}</span>
                 <span>Tempo: ${t.time}</span>
-                <span style="color: #0099dd;">→ Criar rascunho com IA</span>
+                <span style="color: #0099dd;">â†’ Criar rascunho com IA</span>
             </div>
         </div>
     `).join('');
@@ -74,30 +74,30 @@ async function writeWithAI() {
     const title = document.getElementById('f-title').value;
     const editor = document.getElementById('editor-content');
     
-    if (!title) return alert("Por favor, preencha o título primeiro para que a IA saiba sobre o que escrever.");
+    if (!title) return alert("Por favor, preencha o tÃ­tulo primeiro para que a IA saiba sobre o que escrever.");
     
     editor.innerHTML = "Gerando rascunho inteligente...";
     editor.style.opacity = '0.5';
     
-    // Simulação de escrita baseada no nicho
+    // SimulaÃ§Ã£o de escrita baseada no nicho
     await new Promise(r => setTimeout(r, 3000));
     
-    const article = `<h2>1. Introdução ao tema: ${title}</h2>
-<p>No atual cenário econômico brasileiro, empresários enfrentam desafios constantes para manter a saúde financeira de seus negócios. Compreender ${title.toLowerCase()} não é apenas um diferencial, mas uma necessidade de sobrevivência e crescimento.</p>
+    const article = `<h2>1. IntroduÃ§Ã£o ao tema: ${title}</h2>
+<p>No atual cenÃ¡rio econÃ´mico brasileiro, empresÃ¡rios enfrentam desafios constantes para manter a saÃºde financeira de seus negÃ³cios. Compreender ${title.toLowerCase()} nÃ£o Ã© apenas um diferencial, mas uma necessidade de sobrevivÃªncia e crescimento.</p>
 
 <h2>2. O contexto do setor</h2>
-<p>A gestão eficiente dos recursos permite que a empresa aproveite oportunidades de mercado sem comprometer sua liquidez. É fundamental analisar como as tendências de crédito e tecnologia impactam diretamente o dia a dia da operação.</p>
+<p>A gestÃ£o eficiente dos recursos permite que a empresa aproveite oportunidades de mercado sem comprometer sua liquidez. Ã‰ fundamental analisar como as tendÃªncias de crÃ©dito e tecnologia impactam diretamente o dia a dia da operaÃ§Ã£o.</p>
 
-<h2>3. Passo a passo para implementação</h2>
+<h2>3. Passo a passo para implementaÃ§Ã£o</h2>
 <ul>
-    <li>Análise de métricas internas;</li>
-    <li>Avaliação de parceiros financeiros estratégicos;</li>
-    <li>Revisão periódica de taxas e custos ocultos;</li>
-    <li>Foco em automação de processos.</li>
+    <li>AnÃ¡lise de mÃ©tricas internas;</li>
+    <li>AvaliaÃ§Ã£o de parceiros financeiros estratÃ©gicos;</li>
+    <li>RevisÃ£o periÃ³dica de taxas e custos ocultos;</li>
+    <li>Foco em automaÃ§Ã£o de processos.</li>
 </ul>
 
-<h2>4. Conclusão</h2>
-<p>Em resumo, focar em ${title.toLowerCase()} permite uma visão mais clara do futuro do negócio. Na MB Finance, acreditamos que a informação é a melhor ferramenta para o sucesso empresarial.</p>`;
+<h2>4. ConclusÃ£o</h2>
+<p>Em resumo, focar em ${title.toLowerCase()} permite uma visÃ£o mais clara do futuro do negÃ³cio. Na Mb Finance, acreditamos que a informaÃ§Ã£o Ã© a melhor ferramenta para o sucesso empresarial.</p>`;
 
     editor.innerHTML = article;
     editor.style.opacity = '1';

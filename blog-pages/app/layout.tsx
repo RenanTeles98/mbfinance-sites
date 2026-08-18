@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Script from "next/script";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { BLOG_BASE_URL } from "@/lib/site";
@@ -7,13 +7,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(BLOG_BASE_URL),
   title: {
-    default: "Blog MB Finance",
-    template: "%s | MB Finance",
+    default: "Blog Mb Finance",
+    template: "%s | Mb Finance",
   },
   description:
-    "Conteúdos sobre crédito empresarial, conta PJ, antecipação de recebíveis e gestão financeira para empresas.",
+    "ConteÃºdos sobre crÃ©dito empresarial, conta PJ, antecipaÃ§Ã£o de recebÃ­veis e gestÃ£o financeira para empresas.",
   keywords:
-    "capital de giro, antecipação de recebíveis, conta PJ, crédito empresarial, gestão financeira, MB Finance",
+    "capital de giro, antecipaÃ§Ã£o de recebÃ­veis, conta PJ, crÃ©dito empresarial, gestÃ£o financeira, Mb Finance",
   alternates: {
     canonical: BLOG_BASE_URL,
   },
@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     apple: "/images/logo-icon.png",
   },
   openGraph: {
-    title: "Blog MB Finance",
+    title: "Blog Mb Finance",
     description:
-      "Artigos sobre crédito empresarial, liquidez, conta PJ e gestão financeira para empresas.",
+      "Artigos sobre crÃ©dito empresarial, liquidez, conta PJ e gestÃ£o financeira para empresas.",
     url: BLOG_BASE_URL,
-    siteName: "Blog MB Finance",
+    siteName: "Blog Mb Finance",
     type: "website",
     locale: "pt_BR",
   },

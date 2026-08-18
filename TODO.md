@@ -295,3 +295,12 @@
 - [ ] Validar visualmente o novo espacamento do rodape em desktop e tablet apos o proximo deploy.
 - [ ] Confirmar no site publicado que a distribuicao das colunas do rodape esta perceptivelmente mais espacada.
 - [ ] Confirmar no site publicado que os titulos do rodape tem respiro visual antes dos links.
+
+---
+
+## Auditoria estrutural - proxima prioridade
+
+- [x] **Consolidar a fonte canonica do blog e do painel administrativo**: `blog-pages/` confirmado como fonte publicada; a copia divergente foi preservada em backup local e removida da area de trabalho.
+- [x] **Definir o processo do pacote CPanel**: `scripts/maintenance/Sync-CpanelPackage.ps1` confere diferencas e sincroniza apenas com `-Apply`, preservando arquivos exclusivos do CPanel.
+
+- [ ] **Revisar o arquivo historico apos backup externo**: `archive/root-assets-2026-08/` preserva imagens sem uso e um pacote antigo. So remover definitivamente depois de confirmar que existe backup externo e que nao ha necessidade comercial.

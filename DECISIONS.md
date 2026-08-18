@@ -1058,3 +1058,68 @@ O rodape da home usa um espacamento horizontal maior entre colunas em desktop, p
 Para garantir o resultado independente das utilidades compiladas do Tailwind, a distribuicao desktop ficou em `public/assets/css/footer.css` e recebeu copia equivalente no pacote CPanel.
 
 O mesmo CSS define margem inferior explicita nos titulos das colunas, garantindo separacao consistente dos links.
+
+---
+
+## ADR-042: Preservar projetos divergentes durante a consolidacao estrutural
+
+**Data:** 2026-08-18  
+**Status:** Aceita  
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+A auditoria identificou duas copias divergentes do blog (`blog-pages/` e `Blog pages/`), uma copia estatica de publicacao para CPanel e um repositorio SEO independente. A raiz e `blog-pages/` possuem configuracao local para o mesmo projeto Vercel, enquanto a copia com nome capitalizado possui alteracoes locais e nao informa vinculo de deploy.
+
+### Decisao
+
+Documentar os limites e manter todos os diretorios em seus caminhos atuais nesta etapa. A fonte canonica do blog e a raiz do deploy devem ser confirmadas antes de qualquer movimentacao, mesclagem, exclusao ou publicacao.
+
+### Alternativas Consideradas
+
+- Mover imediatamente tudo para `apps/`: descartado porque altera a raiz de build/deploy e pode publicar a aplicacao errada.
+- Apagar a copia aparentemente duplicada: descartado porque ha diferencas funcionais e trabalho local nao consolidado.
+- Ignorar a duplicacao: descartado porque aumenta o risco de manutencao e deploy conflitante.
+
+### Consequencias
+
+- A reorganizacao inicial e segura e documental.
+- O proximo ciclo precisa de uma decisao explicita de propriedade para o blog.
+- Nenhuma credencial, arquivo de conteudo ou alteracao local existente foi exposta ou perdida.
+
+### Atualizacao de execucao
+
+`blog-pages/` foi confirmado como fonte do deployment ativo. A copia divergente foi comparada: seus recursos exclusivos de rastreamento foram incorporados sem substituir funcionalidades mais completas da fonte oficial. Um backup sem `.env.local` foi criado em `archive/blog-pages-divergent-2026-08.zip`, e o diretorio duplicado foi removido da area de trabalho.
+
+---
+
+## ADR-043: Separar scripts e materiais historicos da raiz
+
+**Data:** 2026-08-18  
+**Status:** Aceita  
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+A raiz continha scripts de manutencao misturados a configuracoes do projeto, duas imagens sem referencias e um arquivo ZIP historico. Isso dificultava que uma pessoa nova identificasse o que e necessario para executar o projeto.
+
+### Decisao
+
+Mover os scripts para `scripts/maintenance/` e preservar os materiais sem uso em `archive/root-assets-2026-08/`. Manter configuracoes do Next.js, Vercel, dependencias e variaveis de ambiente na raiz, onde as ferramentas as esperam.
+
+### Consequencias
+
+- A raiz fica mais legivel sem alterar o runtime ou excluir dados.
+- Scripts e materiais historicos passam a ter documentacao de finalidade.
+- A exclusao definitiva de arquivos arquivados continua dependente de backup e confirmacao.
+
+---
+
+## ADR-044: Separar SEO Machine e sincronizar CPanel de forma explicita
+
+**Data:** 2026-08-18  
+**Status:** Aceita
+
+O SEO Machine foi movido para `C:\Users\MB NEGOCIOS\mbfinance-seomachine`, fora do repositorio web. O pacote CPanel continua versionado, mas suas diferencas passam a ser verificadas por `scripts/maintenance/Sync-CpanelPackage.ps1`; o script somente copia arquivos com `-Apply` e nunca remove arquivos exclusivos do CPanel.
+
+Consequencias: o Git aninhado foi removido da aplicacao web, o processo CPanel ficou auditavel e dependencias/builds locais podem ser recriados por `npm install` e `npm run build`.

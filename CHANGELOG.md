@@ -277,3 +277,35 @@ Principais marcos conhecidos:
 - Aumentado o espacamento entre as colunas do rodape da home em desktop.
 - Reorganizada a grade desktop do rodape para melhorar a separacao visual das colunas.
 - Aumentado o espacamento entre os titulos e os links do rodape.
+
+## 2026-08-18 - Auditoria estrutural
+
+### Adicionado
+
+- `docs/PROJECT_STRUCTURE.md` com o mapa das aplicacoes, responsabilidades, integracoes em nivel seguro, riscos e plano de consolidacao.
+
+### Modificado
+
+- `AGENTS.md` atualizado com a home efetivamente existente e as fronteiras entre site, blog, CPanel e ferramenta SEO.
+- Documentacao de contexto, decisoes e backlog atualizada para impedir movimentacoes inseguras de projetos duplicados.
+
+## 2026-08-18 - Organizacao fisica da raiz
+
+### Modificado
+
+- Scripts de manutencao movidos para `scripts/maintenance/`.
+- Imagens sem referencias e pacote historico movidos para `archive/root-assets-2026-08/`, sem exclusao de dados.
+
+## 2026-08-18 - Consolidacao do blog
+
+### Modificado
+
+- `blog-pages/` definido como unica fonte canônica do blog publicado.
+- Meta Pixel e Google Ads adicionados às páginas públicas do blog, sem remover recursos de comentários, engajamento e analytics já existentes.
+- Diretório duplicado `Blog pages/` removido da área de trabalho após backup local validado, sem arquivos de ambiente.
+
+## 2026-08-18 - Organizacao final do repositorio
+
+- SEO Machine transferido para repositorio independente fora da pasta do site.
+- Criado processo de conferencia e sincronizacao explicita para o pacote CPanel; 10 arquivos foram sincronizados sem alterar arquivos exclusivos do servidor.
+- Removidos dependencias, builds e arquivos TypeScript regeneraveis locais.

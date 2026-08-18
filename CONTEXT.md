@@ -726,6 +726,37 @@ Estado atual: painel administrativo com textos principais normalizados em portug
 
 Validacao: `npm run build` em `blog-pages/` executado com sucesso; restaram apenas avisos preexistentes de `<img>` do Next.js.
 
+### Sessao 2026-08-18 - Organizacao final e operacao CPanel
+
+- [x] Atualizado `CLAUDE.md` com a fonte efetiva da home, do blog e a separacao do SEO Machine.
+- [x] Movido o repositorio SEO para `C:\Users\MB NEGOCIOS\mbfinance-seomachine`, preservando Git e alteracoes locais.
+- [x] Criado `scripts/maintenance/Sync-CpanelPackage.ps1` para conferencia e sincronizacao explicita do pacote CPanel.
+- [x] Sincronizados 10 arquivos de `public/` para `cpanel-upload/public_html/`, preservando cinco arquivos exclusivos do CPanel.
+- [x] Removidos `node_modules`, `.next` e arquivos TypeScript gerados; sao recriados por instalacao/build.
+
+Estado atual: o repositorio web contem somente os projetos e materiais necessarios ao site. Para voltar a executar localmente, rode `npm install` na raiz e em `blog-pages/` quando necessario.
+
+---
+
+### Sessao 2026-08-18 - Auditoria e organizacao estrutural
+
+- [x] Mapeadas as unidades de codigo, configuracao e publicacao: raiz, `blog-pages/`, `Blog pages/`, `cpanel-upload/` e `seomachine/`.
+- [x] Registrada a arquitetura atual e os riscos de deploy/duplicacao em `docs/PROJECT_STRUCTURE.md`.
+- [x] Atualizado `AGENTS.md` com as fronteiras entre site, blog, CPanel e ferramenta SEO.
+- [x] Preservadas as alteracoes locais ja existentes; nenhum projeto, segredo, midia ou configuracao de deploy foi apagado ou movido.
+
+Estado atual: a fonte canonica e unica do blog e `blog-pages/`, confirmada pela configuracao do deployment ativo em `blog.mbfinance.com.br`. A copia divergente foi comparada, teve apenas os rastreadores independentes incorporados e foi preservada em backup local sem `.env.local`. O institucional `mbfinance.com.br` esta no CPanel e usa o pacote espelho em `cpanel-upload/public_html/`.
+
+Proximo passo recomendado: criar uma previa isolada de `blog-pages/` antes de futuras alteracoes relevantes e manter apenas esse diretorio como origem do blog.
+
+### Sessao 2026-08-18 - Organizacao fisica da raiz
+
+- [x] Movidos scripts manuais para `scripts/maintenance/` e documentados em `scripts/README.md`.
+- [x] Movidos `image.png`, `image copy.png` e `public.zip`, sem exclusao, para `archive/root-assets-2026-08/`.
+- [x] Confirmado que as duas imagens e o pacote nao possuem referencias no site, blog ou pacote CPanel.
+
+Estado atual: a raiz contem somente arquivos de configuracao, documentacao e dependencias de primeiro nivel; materiais auxiliares e historicos estao em pastas identificadas.
+
 ## Atualizacao de sessao - 2026-06-02 - Links curtos MB Finance
 
 - Adicionado seletor de dominio na aba Campanhas do admin em `blog-pages/`.

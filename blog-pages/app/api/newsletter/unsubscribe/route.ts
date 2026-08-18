@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from "crypto";
+﻿import { createHmac, timingSafeEqual } from "crypto";
 import { readSubscribers, writeSubscribers } from "@/lib/newsletter-store";
 import { MAIN_SITE_URL } from "@/lib/site";
 
@@ -25,13 +25,13 @@ export async function GET(request: Request) {
   const token = searchParams.get("token");
 
   if (!token) {
-    return new Response("Link inválido.", { status: 400 });
+    return new Response("Link invÃ¡lido.", { status: 400 });
   }
 
   try {
     const email = verifyUnsubToken(token);
     if (!email) {
-      return new Response("Token inválido.", { status: 400 });
+      return new Response("Token invÃ¡lido.", { status: 400 });
     }
     const subscribers = await readSubscribers();
     const updated = subscribers.map((s) =>
@@ -45,7 +45,7 @@ export async function GET(request: Request) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Inscrição cancelada — MB Finance</title>
+  <title>InscriÃ§Ã£o cancelada â€” Mb Finance</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -135,23 +135,23 @@ export async function GET(request: Request) {
           <path d="M18 6L6 18M6 6l12 12"/>
         </svg>
       </div>
-      <h1>Inscrição cancelada</h1>
+      <h1>InscriÃ§Ã£o cancelada</h1>
       <p>
-        Você foi removido da nossa newsletter com sucesso.<br>
-        Não enviaremos mais emails para este endereço.<br><br>
+        VocÃª foi removido da nossa newsletter com sucesso.<br>
+        NÃ£o enviaremos mais emails para este endereÃ§o.<br><br>
         Se mudar de ideia, pode se inscrever novamente a qualquer momento pelo nosso site.
       </p>
       <a href="${MAIN_SITE_URL}" class="btn">Voltar ao site</a>
     </div>
   </div>
   <div class="footer">
-    &copy; MB Finance — Hub Financeiro para Empresas PJ
+    &copy; Mb Finance â€” Hub Financeiro para Empresas PJ
   </div>
 </body>
 </html>`,
       { headers: { "Content-Type": "text/html; charset=utf-8" } }
     );
   } catch {
-    return new Response("Erro ao processar sua solicitação.", { status: 500 });
+    return new Response("Erro ao processar sua solicitaÃ§Ã£o.", { status: 500 });
   }
 }

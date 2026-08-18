@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Admin Dashboard - Analytics (GA4 Integration)
  */
 
@@ -108,7 +108,7 @@ function renderAnalyticsSiteSelector(sites, selectedKey) {
     if (!select) return;
 
     const fallbackSites = [
-        { key: 'mb-finance', name: 'MB Finance', configured: true },
+        { key: 'mb-finance', name: 'Mb Finance', configured: true },
         { key: 'mb-negocios', name: 'MB Negocios', configured: false },
         { key: 'fomenta', name: 'Fomenta', configured: false }
     ];
@@ -129,12 +129,12 @@ function setAnalyticsPanelHtml(targetId, html) {
 
 function resetTrafficPanels(message) {
     document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">' + esc(message) + '</div>';
-    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de tráfego por enquanto.</div>';
-    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Configure as variáveis do GA4 no Vercel e confirme o acesso da conta de serviço na propriedade.</div>';
-    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Sem dados geográficos disponíveis ainda.</div>';
-    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Sem dados regionais disponíveis ainda.</div>';
-    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de gênero disponíveis ainda.</div>';
-    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de idade disponíveis ainda.</div>';
+    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Sem dados reais de trÃ¡fego por enquanto.</div>';
+    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Configure as variÃ¡veis do GA4 no Vercel e confirme o acesso da conta de serviÃ§o na propriedade.</div>';
+    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Sem dados geogrÃ¡ficos disponÃ­veis ainda.</div>';
+    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Sem dados regionais disponÃ­veis ainda.</div>';
+    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de gÃªnero disponÃ­veis ainda.</div>';
+    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Sem dados de idade disponÃ­veis ainda.</div>';
     setAnalyticsPanelHtml('ga-strategic-quality', '<div class="analytics-empty">Sem dados estrategicos disponiveis ainda.</div>');
     setAnalyticsPanelHtml('ga-channel-conversions', '<div class="analytics-empty">Sem dados de conversao por canal ainda.</div>');
     setAnalyticsPanelHtml('ga-campaign-conversions', '<div class="analytics-empty">Sem dados de conversao por campanha ainda.</div>');
@@ -156,8 +156,8 @@ function renderTrendBadge(targetId, current, previous, invertGood) {
     var isPositive = pct > 0;
     var isGood = invertGood ? !isPositive : isPositive;
     var cls = Math.abs(pct) < 2 ? 'ga-trend-neutral' : (isGood ? 'ga-trend-up' : 'ga-trend-down');
-    var arrow = pct > 1.9 ? '↑' : pct < -1.9 ? '↓' : '→';
-    el.innerHTML = '<span class="ga-trend-badge ' + cls + '">' + arrow + ' ' + abs + '% vs mês ant.</span>';
+    var arrow = pct > 1.9 ? 'â†‘' : pct < -1.9 ? 'â†“' : 'â†’';
+    el.innerHTML = '<span class="ga-trend-badge ' + cls + '">' + arrow + ' ' + abs + '% vs mÃªs ant.</span>';
 }
 
 function renderAlerts(data) {
@@ -168,15 +168,15 @@ function renderAlerts(data) {
     var prev = data.previousPeriod || {};
 
     if (typeof data.generateLeadTotal === 'number' && data.generateLeadTotal === 0 && s.sessions > 20) {
-        alerts.push({ type: 'warn', icon: '⚠️', msg: 'Nenhum lead registrado nos últimos 30 dias. Verifique se os botões do site estão funcionando corretamente.' });
+        alerts.push({ type: 'warn', icon: 'âš ï¸', msg: 'Nenhum lead registrado nos Ãºltimos 30 dias. Verifique se os botÃµes do site estÃ£o funcionando corretamente.' });
     }
     if (s.bounceRate && s.bounceRate > 0.70) {
-        alerts.push({ type: 'danger', icon: '🔴', msg: 'Taxa de rejeição em ' + (s.bounceRate * 100).toFixed(0) + '% — acima do limite saudável de 70%. Avalie o conteúdo e velocidade da homepage.' });
+        alerts.push({ type: 'danger', icon: 'ðŸ”´', msg: 'Taxa de rejeiÃ§Ã£o em ' + (s.bounceRate * 100).toFixed(0) + '% â€” acima do limite saudÃ¡vel de 70%. Avalie o conteÃºdo e velocidade da homepage.' });
     }
     if (prev.activeUsers && s.activeUsers) {
         var drop = (s.activeUsers - prev.activeUsers) / prev.activeUsers;
         if (drop < -0.20) {
-            alerts.push({ type: 'danger', icon: '📉', msg: 'Tráfego caiu ' + Math.abs(Math.round(drop * 100)) + '% em relação ao mês anterior (' + formatInteger(prev.activeUsers) + ' → ' + formatInteger(s.activeUsers) + ' usuários ativos).' });
+            alerts.push({ type: 'danger', icon: 'ðŸ“‰', msg: 'TrÃ¡fego caiu ' + Math.abs(Math.round(drop * 100)) + '% em relaÃ§Ã£o ao mÃªs anterior (' + formatInteger(prev.activeUsers) + ' â†’ ' + formatInteger(s.activeUsers) + ' usuÃ¡rios ativos).' });
         }
     }
 
@@ -198,13 +198,13 @@ function renderFunnel(data) {
     var c6Clicks = typeof data.c6AppClickTotal === 'number' ? data.c6AppClickTotal : 0;
 
     if (!sessions) {
-        el.innerHTML = '<div class="analytics-empty">Sem dados suficientes para o funil ainda. O GA4 precisa acumular sessões no período.</div>';
+        el.innerHTML = '<div class="analytics-empty">Sem dados suficientes para o funil ainda. O GA4 precisa acumular sessÃµes no perÃ­odo.</div>';
         return;
     }
 
     var steps = [
         { label: 'Visitantes', count: sessions, pct: 100 },
-        { label: 'Formulário aberto', count: modalOpens, pct: sessions ? ((modalOpens / sessions) * 100) : 0 },
+        { label: 'FormulÃ¡rio aberto', count: modalOpens, pct: sessions ? ((modalOpens / sessions) * 100) : 0 },
         { label: 'Lead enviado', count: leadsSent, pct: sessions ? ((leadsSent / sessions) * 100) : 0 },
         { label: 'Baixou app C6 Bank', count: c6Clicks, pct: sessions ? ((c6Clicks / sessions) * 100) : 0 },
     ];
@@ -237,12 +237,12 @@ async function renderTrafficAnalytics() {
     var bounceEl = document.getElementById('ga-bounce-rate');
     if (bounceEl) bounceEl.textContent = '--';
     document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Carregando dados do Google Analytics...</div>';
-    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Carregando páginas mais acessadas...</div>';
-    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Carregando indicadores de tráfego...</div>';
-    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Carregando países com mais acessos...</div>';
-    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Carregando estados e regiões...</div>';
-    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Carregando gênero...</div>';
-    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Carregando faixa etária...</div>';
+    document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Carregando pÃ¡ginas mais acessadas...</div>';
+    document.getElementById('ga-highlights').innerHTML = '<div class="analytics-empty">Carregando indicadores de trÃ¡fego...</div>';
+    document.getElementById('ga-top-countries').innerHTML = '<div class="analytics-empty">Carregando paÃ­ses com mais acessos...</div>';
+    document.getElementById('ga-top-regions').innerHTML = '<div class="analytics-empty">Carregando estados e regiÃµes...</div>';
+    document.getElementById('ga-gender-breakdown').innerHTML = '<div class="analytics-empty">Carregando gÃªnero...</div>';
+    document.getElementById('ga-age-breakdown').innerHTML = '<div class="analytics-empty">Carregando faixa etÃ¡ria...</div>';
 
     setAnalyticsPanelHtml('ga-strategic-quality', '<div class="analytics-empty">Carregando leitura estrategica...</div>');
     setAnalyticsPanelHtml('ga-channel-conversions', '<div class="analytics-empty">Carregando conversoes por canal...</div>');
@@ -260,8 +260,8 @@ async function renderTrafficAnalytics() {
 
         if (!response.ok || !data || !data.configured || !data.summary) {
             const siteName = data && data.siteName ? data.siteName : 'este site';
-            const message = (data && data.error) ? data.error : 'GA4 não configurado ou sem acesso liberado para ' + siteName + '.';
-            document.getElementById('analytics-last-update').textContent = 'GA4 indisponível';
+            const message = (data && data.error) ? data.error : 'GA4 nÃ£o configurado ou sem acesso liberado para ' + siteName + '.';
+            document.getElementById('analytics-last-update').textContent = 'GA4 indisponÃ­vel';
             resetTrafficPanels(message);
             return;
         }
@@ -286,7 +286,7 @@ async function renderTrafficAnalytics() {
         var bounceRateEl = document.getElementById('ga-bounce-rate');
         if (bounceRateEl) bounceRateEl.textContent = summary.bounceRate ? (summary.bounceRate * 100).toFixed(1) + '%' : '--';
 
-        // Taxa de conversão
+        // Taxa de conversÃ£o
         var convRateEl = document.getElementById('ga-conversion-rate');
         if (convRateEl) {
             var convRate = summary.sessions ? ((summary.pjLeadClicks / summary.sessions) * 100) : 0;
@@ -330,14 +330,14 @@ async function renderTrafficAnalytics() {
         renderFunnel(data);
 
         if (!trend.length) {
-            document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Ainda não há volume suficiente para montar a tendência diária.</div>';
+            document.getElementById('ga-traffic-trend').innerHTML = '<div class="analytics-empty">Ainda nÃ£o hÃ¡ volume suficiente para montar a tendÃªncia diÃ¡ria.</div>';
         } else {
             const trendRows = trend.slice(-10).map(point =>
                 '<div class="analytics-highlight-item">'
                 + '<div class="analytics-highlight-label">' + esc(point.date) + '</div>'
                 + '<div class="analytics-highlight-value">'
                 + formatInteger(point.eventCount || point.screenPageViews) + ' eventos<br>'
-                + formatInteger(point.sessions) + ' sessões · '
+                + formatInteger(point.sessions) + ' sessÃµes Â· '
                 + formatInteger(point.activeUsers) + ' ativos'
                 + '</div></div>'
             ).join('');
@@ -345,11 +345,11 @@ async function renderTrafficAnalytics() {
         }
 
         if (!topPages.length) {
-            document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Nenhuma página acessada registrada ainda.</div>';
+            document.getElementById('ga-top-pages').innerHTML = '<div class="analytics-empty">Nenhuma pÃ¡gina acessada registrada ainda.</div>';
         } else {
-            document.getElementById('ga-top-pages').innerHTML = '<table class="analytics-table"><thead><tr><th>Página</th><th>Visualizações</th><th>Usuários</th><th>Sessões</th></tr></thead><tbody>'
+            document.getElementById('ga-top-pages').innerHTML = '<table class="analytics-table"><thead><tr><th>PÃ¡gina</th><th>VisualizaÃ§Ãµes</th><th>UsuÃ¡rios</th><th>SessÃµes</th></tr></thead><tbody>'
                 + topPages.map(page => '<tr>'
-                    + '<td><div class="analytics-post-title">' + esc(page.pageTitle || 'Sem título') + '</div><div class="analytics-post-meta">' + esc(page.pagePath || '/') + '</div></td>'
+                    + '<td><div class="analytics-post-title">' + esc(page.pageTitle || 'Sem tÃ­tulo') + '</div><div class="analytics-post-meta">' + esc(page.pagePath || '/') + '</div></td>'
                     + '<td>' + formatInteger(page.screenPageViews) + '</td>'
                     + '<td>' + formatInteger(page.activeUsers) + '</td>'
                     + '<td>' + formatInteger(page.sessions) + '</td>'
@@ -357,30 +357,30 @@ async function renderTrafficAnalytics() {
                 + '</tbody></table>';
         }
 
-        const engagementPct = summary.engagementRate ? (summary.engagementRate * 100).toFixed(1) + '%' : 'Não disponível';
+        const engagementPct = summary.engagementRate ? (summary.engagementRate * 100).toFixed(1) + '%' : 'NÃ£o disponÃ­vel';
         const whatsappClicks = typeof data.whatsappClicks === 'number' ? data.whatsappClicks : null;
         const generateLeadTotal = typeof data.generateLeadTotal === 'number' ? data.generateLeadTotal : null;
 
         document.getElementById('ga-highlights').innerHTML = ''
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads gerados</div><div class="analytics-highlight-value">' + formatInteger(summary.pjLeadClicks) + ' cliques para Conta PJ</div></div>'
             + (whatsappClicks !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Cliques no WhatsApp</div><div class="analytics-highlight-value">' + formatInteger(whatsappClicks) + ' eventos</div></div>' : '')
-            + (generateLeadTotal !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads convertidos</div><div class="analytics-highlight-value">' + formatInteger(generateLeadTotal) + ' formulários enviados</div></div>' : '')
-            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Visualizações de página</div><div class="analytics-highlight-value">' + formatInteger(summary.screenPageViews) + ' visualizações</div></div>'
+            + (generateLeadTotal !== null ? '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Leads convertidos</div><div class="analytics-highlight-value">' + formatInteger(generateLeadTotal) + ' formulÃ¡rios enviados</div></div>' : '')
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">VisualizaÃ§Ãµes de pÃ¡gina</div><div class="analytics-highlight-value">' + formatInteger(summary.screenPageViews) + ' visualizaÃ§Ãµes</div></div>'
             + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de engajamento</div><div class="analytics-highlight-value">' + engagementPct + '</div></div>'
-            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Duração média da sessão</div><div class="analytics-highlight-value">' + formatDuration(summary.averageSessionDuration) + '</div></div>'
-            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Visualizações por sessão</div><div class="analytics-highlight-value">' + esc(avgViewsPerSession) + '</div></div>'
-            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Propriedade GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'Não disponível') + '</div></div>'
-            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Situação</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">DuraÃ§Ã£o mÃ©dia da sessÃ£o</div><div class="analytics-highlight-value">' + formatDuration(summary.averageSessionDuration) + '</div></div>'
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">VisualizaÃ§Ãµes por sessÃ£o</div><div class="analytics-highlight-value">' + esc(avgViewsPerSession) + '</div></div>'
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Propriedade GA4</div><div class="analytics-highlight-value">' + esc(data.propertyId || 'NÃ£o disponÃ­vel') + '</div></div>'
+            + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">SituaÃ§Ã£o</div><div class="analytics-highlight-value">Coleta ativa no site</div></div>';
 
         renderProductClicks('ga-product-clicks', Array.isArray(data.productClicks) ? data.productClicks : []);
         renderConversionTable('ga-channel-conversions', Array.isArray(data.channelConversions) ? data.channelConversions : [], 'channel');
         renderConversionTable('ga-device-breakdown', Array.isArray(data.deviceBreakdown) ? data.deviceBreakdown : [], 'device');
         renderConversionTable('ga-landing-pages', Array.isArray(data.landingPages) ? data.landingPages : [], 'landing');
 
-        renderGeoTable('ga-top-countries', topCountries, 'Ainda não há países suficientes registrados no período.', false);
-        renderGeoTable('ga-top-regions', topRegions, 'Ainda não há estados ou regiões suficientes registrados no período.', true);
-        renderDemographicList('ga-gender-breakdown', genderBreakdown, 'O GA4 ainda não disponibilizou gênero para este período ou propriedade.');
-        renderDemographicList('ga-age-breakdown', ageBreakdown, 'O GA4 ainda não disponibilizou faixa etária para este período ou propriedade.');
+        renderGeoTable('ga-top-countries', topCountries, 'Ainda nÃ£o hÃ¡ paÃ­ses suficientes registrados no perÃ­odo.', false);
+        renderGeoTable('ga-top-regions', topRegions, 'Ainda nÃ£o hÃ¡ estados ou regiÃµes suficientes registrados no perÃ­odo.', true);
+        renderDemographicList('ga-gender-breakdown', genderBreakdown, 'O GA4 ainda nÃ£o disponibilizou gÃªnero para este perÃ­odo ou propriedade.');
+        renderDemographicList('ga-age-breakdown', ageBreakdown, 'O GA4 ainda nÃ£o disponibilizou faixa etÃ¡ria para este perÃ­odo ou propriedade.');
 
         ['ga-traffic-trend','ga-top-pages','ga-highlights','ga-top-countries','ga-top-regions',
          'ga-gender-breakdown','ga-age-breakdown',
@@ -414,7 +414,7 @@ function renderEditorialAnalytics() {
     const topCategory = categories[0] || ['Sem categoria', 0];
 
     if (!total) {
-        root.innerHTML = '<div class="analytics-empty">Nenhuma publicação cadastrada ainda.</div>';
+        root.innerHTML = '<div class="analytics-empty">Nenhuma publicaÃ§Ã£o cadastrada ainda.</div>';
     } else {
         const max = Math.max(...categories.map(([, count]) => count));
         root.innerHTML = '<div class="category-list">' + categories.map(([name, count]) => {
@@ -422,16 +422,16 @@ function renderEditorialAnalytics() {
             return '<div class="category-row">'
                 + '<div class="category-name">' + esc(name) + '</div>'
                 + '<div class="category-bar"><div class="category-fill" style="width:' + width + '%"></div></div>'
-                + '<div class="category-count">' + count + ' publicação' + (count > 1 ? 's' : '') + '</div>'
+                + '<div class="category-count">' + count + ' publicaÃ§Ã£o' + (count > 1 ? 's' : '') + '</div>'
                 + '</div>';
         }).join('') + '</div>';
     }
 
     document.getElementById('analytics-highlights').innerHTML = ''
-        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Categoria líder</div><div class="analytics-highlight-value">' + esc(topCategory[0]) + '<br>' + topCategory[1] + ' publicação' + (topCategory[1] === 1 ? '' : 's') + '</div></div>'
-        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Tempo médio de leitura</div><div class="analytics-highlight-value">' + (avgRead ? avgRead + ' min' : 'Não disponível') + '</div></div>'
-        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de publicação</div><div class="analytics-highlight-value">' + (total ? Math.round((published / total) * 100) : 0) + '%</div></div>'
-        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Última atualização</div><div class="analytics-highlight-value">' + (latestDate ? formatAnalyticsDate(latestDate) : 'Sem data') + '</div></div>';
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Categoria lÃ­der</div><div class="analytics-highlight-value">' + esc(topCategory[0]) + '<br>' + topCategory[1] + ' publicaÃ§Ã£o' + (topCategory[1] === 1 ? '' : 's') + '</div></div>'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Tempo mÃ©dio de leitura</div><div class="analytics-highlight-value">' + (avgRead ? avgRead + ' min' : 'NÃ£o disponÃ­vel') + '</div></div>'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Taxa de publicaÃ§Ã£o</div><div class="analytics-highlight-value">' + (total ? Math.round((published / total) * 100) : 0) + '%</div></div>'
+        + '<div class="analytics-highlight-item"><div class="analytics-highlight-label">Ãšltima atualizaÃ§Ã£o</div><div class="analytics-highlight-value">' + (latestDate ? formatAnalyticsDate(latestDate) : 'Sem data') + '</div></div>';
 
     if (!total) return;
 
@@ -446,70 +446,70 @@ function renderAnalytics() {
 var GEO_PT = {
     'State of Acre': 'Acre',
     'State of Alagoas': 'Alagoas',
-    'State of Amapa': 'Amapá',
+    'State of Amapa': 'AmapÃ¡',
     'State of Amazonas': 'Amazonas',
     'State of Bahia': 'Bahia',
-    'State of Ceara': 'Ceará',
+    'State of Ceara': 'CearÃ¡',
     'State of Distrito Federal': 'Distrito Federal',
-    'State of Espirito Santo': 'Espírito Santo',
-    'State of Goias': 'Goiás',
-    'State of Maranhao': 'Maranhão',
+    'State of Espirito Santo': 'EspÃ­rito Santo',
+    'State of Goias': 'GoiÃ¡s',
+    'State of Maranhao': 'MaranhÃ£o',
     'State of Mato Grosso': 'Mato Grosso',
     'State of Mato Grosso do Sul': 'Mato Grosso do Sul',
     'State of Minas Gerais': 'Minas Gerais',
-    'State of Para': 'Pará',
-    'State of Paraiba': 'Paraíba',
-    'State of Parana': 'Paraná',
+    'State of Para': 'ParÃ¡',
+    'State of Paraiba': 'ParaÃ­ba',
+    'State of Parana': 'ParanÃ¡',
     'State of Pernambuco': 'Pernambuco',
-    'State of Piaui': 'Piauí',
+    'State of Piaui': 'PiauÃ­',
     'State of Rio de Janeiro': 'Rio de Janeiro',
     'State of Rio Grande do Norte': 'Rio Grande do Norte',
     'State of Rio Grande do Sul': 'Rio Grande do Sul',
-    'State of Rondonia': 'Rondônia',
+    'State of Rondonia': 'RondÃ´nia',
     'State of Roraima': 'Roraima',
     'State of Santa Catarina': 'Santa Catarina',
-    'State of Sao Paulo': 'São Paulo',
+    'State of Sao Paulo': 'SÃ£o Paulo',
     'State of Sergipe': 'Sergipe',
     'State of Tocantins': 'Tocantins',
     'Brazil': 'Brasil',
     'United States': 'Estados Unidos',
     'Portugal': 'Portugal',
     'Argentina': 'Argentina',
-    'Colombia': 'Colômbia',
-    'Mexico': 'México',
+    'Colombia': 'ColÃ´mbia',
+    'Mexico': 'MÃ©xico',
     'Germany': 'Alemanha',
-    'France': 'França',
+    'France': 'FranÃ§a',
     'United Kingdom': 'Reino Unido',
-    'Italy': 'Itália',
+    'Italy': 'ItÃ¡lia',
     'Spain': 'Espanha',
-    'Japan': 'Japão',
+    'Japan': 'JapÃ£o',
     'China': 'China',
-    'Canada': 'Canadá',
-    'Australia': 'Austrália',
-    'Netherlands': 'Países Baixos',
-    'Switzerland': 'Suíça',
-    'Belgium': 'Bélgica',
-    'Sweden': 'Suécia',
+    'Canada': 'CanadÃ¡',
+    'Australia': 'AustrÃ¡lia',
+    'Netherlands': 'PaÃ­ses Baixos',
+    'Switzerland': 'SuÃ­Ã§a',
+    'Belgium': 'BÃ©lgica',
+    'Sweden': 'SuÃ©cia',
     'Norway': 'Noruega',
     'Denmark': 'Dinamarca',
-    'Finland': 'Finlândia',
-    'Poland': 'Polônia',
-    'Russia': 'Rússia',
-    'India': 'Índia',
+    'Finland': 'FinlÃ¢ndia',
+    'Poland': 'PolÃ´nia',
+    'Russia': 'RÃºssia',
+    'India': 'Ãndia',
     'South Korea': 'Coreia do Sul',
-    'South Africa': 'África do Sul',
+    'South Africa': 'Ãfrica do Sul',
     'Chile': 'Chile',
     'Peru': 'Peru',
     'Venezuela': 'Venezuela',
     'Ecuador': 'Equador',
-    'Bolivia': 'Bolívia',
+    'Bolivia': 'BolÃ­via',
     'Paraguay': 'Paraguai',
     'Uruguay': 'Uruguai',
     'Angola': 'Angola',
-    'Mozambique': 'Moçambique',
+    'Mozambique': 'MoÃ§ambique',
     'Cape Verde': 'Cabo Verde',
-    'Guinea-Bissau': 'Guiné-Bissau',
-    'Sao Tome and Principe': 'São Tomé e Príncipe',
+    'Guinea-Bissau': 'GuinÃ©-Bissau',
+    'Sao Tome and Principe': 'SÃ£o TomÃ© e PrÃ­ncipe',
     'Timor-Leste': 'Timor-Leste',
     'Macau': 'Macau',
 };
@@ -527,9 +527,9 @@ function renderGeoTable(targetId, rows, emptyMessage, secondaryLabel) {
         return;
     }
 
-    target.innerHTML = '<table class="analytics-table"><thead><tr><th>' + esc(secondaryLabel ? 'Local' : 'País') + '</th><th>Usuários</th><th>Sessões</th></tr></thead><tbody>'
+    target.innerHTML = '<table class="analytics-table"><thead><tr><th>' + esc(secondaryLabel ? 'Local' : 'PaÃ­s') + '</th><th>UsuÃ¡rios</th><th>SessÃµes</th></tr></thead><tbody>'
         + rows.map(row => '<tr>'
-            + '<td><div class="analytics-post-title">' + esc(translateGeo(row.label) || 'Não informado') + '</div>'
+            + '<td><div class="analytics-post-title">' + esc(translateGeo(row.label) || 'NÃ£o informado') + '</div>'
             + (secondaryLabel && row.secondaryLabel ? '<div class="analytics-post-meta">' + esc(translateGeo(row.secondaryLabel)) + '</div>' : '')
             + '</td>'
             + '<td>' + formatInteger(row.activeUsers) + '</td>'
@@ -542,23 +542,23 @@ function formatDemographicLabel(label) {
     const value = String(label || '').toLowerCase();
     if (value === 'male') return 'Masculino';
     if (value === 'female') return 'Feminino';
-    if (value === 'unknown' || value === 'not set' || value === '(not set)') return 'Não identificado';
-    return label || 'Não informado';
+    if (value === 'unknown' || value === 'not set' || value === '(not set)') return 'NÃ£o identificado';
+    return label || 'NÃ£o informado';
 }
 
 function renderDemographicList(targetId, rows, emptyMessage) {
     const target = document.getElementById(targetId);
     if (!target) return;
     if (!Array.isArray(rows) || !rows.length) {
-        target.innerHTML = '<div class="analytics-empty">' + esc('O GA4 ainda não liberou dados demográficos para esta propriedade. Ative os dados fornecidos pelo Google/Google Signals no GA4 e aguarde volume suficiente de usuários.') + '</div>';
+        target.innerHTML = '<div class="analytics-empty">' + esc('O GA4 ainda nÃ£o liberou dados demogrÃ¡ficos para esta propriedade. Ative os dados fornecidos pelo Google/Google Signals no GA4 e aguarde volume suficiente de usuÃ¡rios.') + '</div>';
         return;
     }
 
     const normalizedRows = rows.map(row => Object.assign({}, row, { label: formatDemographicLabel(row.label) }));
     target.innerHTML = '<div class="analytics-highlight-list">'
         + normalizedRows.map(row => '<div class="analytics-highlight-item">'
-            + '<div class="analytics-highlight-label">' + esc(row.label || 'Não informado') + '</div>'
-            + '<div class="analytics-highlight-value">' + formatInteger(row.activeUsers) + ' usuários</div>'
+            + '<div class="analytics-highlight-label">' + esc(row.label || 'NÃ£o informado') + '</div>'
+            + '<div class="analytics-highlight-value">' + formatInteger(row.activeUsers) + ' usuÃ¡rios</div>'
             + '</div>').join('')
         + '</div>';
 }
@@ -566,28 +566,28 @@ function renderDemographicList(targetId, rows, emptyMessage) {
 function getTrafficChannelDetails(channel) {
     const normalized = String(channel || '').trim().toLowerCase();
     const details = {
-        'direct': { label: 'Direto', help: 'Acesso sem origem identificada. Normalmente acontece quando a pessoa digita o endereço do site, usa favorito ou vem de um link sem rastreamento.' },
-        'referral': { label: 'Referência', help: 'Visitantes que chegaram por links em outros sites, portais, blogs ou parceiros.' },
-        'organic social': { label: 'Social orgânico', help: 'Acessos vindos de redes sociais sem anúncio pago, como Instagram, Facebook, LinkedIn ou outras redes.' },
-        'organic search': { label: 'Busca orgânica', help: 'Visitantes que encontraram o site em resultados gratuitos de buscadores, como Google ou Bing.' },
-        'unassigned': { label: 'Não classificado', help: 'O GA4 recebeu a visita, mas não conseguiu encaixar a origem em um canal padrão.' },
-        'cross-network': { label: 'Rede cruzada', help: 'Tráfego de campanhas do Google que aparecem em várias redes ao mesmo tempo, como Pesquisa, Display, YouTube e Discover.' },
-        'paid search': { label: 'Busca paga', help: 'Visitantes vindos de anúncios pagos em buscadores, como campanhas de Google Ads na pesquisa.' },
-        'paid social': { label: 'Social pago', help: 'Visitantes vindos de anúncios pagos em redes sociais.' },
-        'paid shopping': { label: 'Shopping pago', help: 'Visitantes vindos de anúncios pagos em vitrines de produtos, como campanhas de Shopping.' },
-        'paid video': { label: 'Vídeo pago', help: 'Visitantes vindos de anúncios pagos em vídeo, como YouTube Ads.' },
-        'organic video': { label: 'Vídeo orgânico', help: 'Visitantes vindos de vídeos sem mídia paga, como resultados orgânicos do YouTube.' },
-        'organic shopping': { label: 'Shopping orgânico', help: 'Visitantes vindos de resultados gratuitos de produtos em buscadores ou vitrines.' },
-        'display': { label: 'Display', help: 'Visitantes vindos de banners e anúncios gráficos em sites, aplicativos ou redes de display.' },
+        'direct': { label: 'Direto', help: 'Acesso sem origem identificada. Normalmente acontece quando a pessoa digita o endereÃ§o do site, usa favorito ou vem de um link sem rastreamento.' },
+        'referral': { label: 'ReferÃªncia', help: 'Visitantes que chegaram por links em outros sites, portais, blogs ou parceiros.' },
+        'organic social': { label: 'Social orgÃ¢nico', help: 'Acessos vindos de redes sociais sem anÃºncio pago, como Instagram, Facebook, LinkedIn ou outras redes.' },
+        'organic search': { label: 'Busca orgÃ¢nica', help: 'Visitantes que encontraram o site em resultados gratuitos de buscadores, como Google ou Bing.' },
+        'unassigned': { label: 'NÃ£o classificado', help: 'O GA4 recebeu a visita, mas nÃ£o conseguiu encaixar a origem em um canal padrÃ£o.' },
+        'cross-network': { label: 'Rede cruzada', help: 'TrÃ¡fego de campanhas do Google que aparecem em vÃ¡rias redes ao mesmo tempo, como Pesquisa, Display, YouTube e Discover.' },
+        'paid search': { label: 'Busca paga', help: 'Visitantes vindos de anÃºncios pagos em buscadores, como campanhas de Google Ads na pesquisa.' },
+        'paid social': { label: 'Social pago', help: 'Visitantes vindos de anÃºncios pagos em redes sociais.' },
+        'paid shopping': { label: 'Shopping pago', help: 'Visitantes vindos de anÃºncios pagos em vitrines de produtos, como campanhas de Shopping.' },
+        'paid video': { label: 'VÃ­deo pago', help: 'Visitantes vindos de anÃºncios pagos em vÃ­deo, como YouTube Ads.' },
+        'organic video': { label: 'VÃ­deo orgÃ¢nico', help: 'Visitantes vindos de vÃ­deos sem mÃ­dia paga, como resultados orgÃ¢nicos do YouTube.' },
+        'organic shopping': { label: 'Shopping orgÃ¢nico', help: 'Visitantes vindos de resultados gratuitos de produtos em buscadores ou vitrines.' },
+        'display': { label: 'Display', help: 'Visitantes vindos de banners e anÃºncios grÃ¡ficos em sites, aplicativos ou redes de display.' },
         'email': { label: 'E-mail', help: 'Visitantes que chegaram por links de campanhas de e-mail ou newsletter.' },
         'sms': { label: 'SMS', help: 'Visitantes que chegaram por links enviados por mensagem SMS.' },
-        'mobile push notifications': { label: 'Notificações push', help: 'Visitantes que chegaram por notificações enviadas para celular ou navegador.' },
+        'mobile push notifications': { label: 'NotificaÃ§Ãµes push', help: 'Visitantes que chegaram por notificaÃ§Ãµes enviadas para celular ou navegador.' },
         'affiliates': { label: 'Afiliados', help: 'Visitantes vindos de parceiros ou afiliados rastreados pelo GA4.' },
-        'audio': { label: 'Áudio', help: 'Visitantes vindos de campanhas ou links associados a mídia de áudio.' }
+        'audio': { label: 'Ãudio', help: 'Visitantes vindos de campanhas ou links associados a mÃ­dia de Ã¡udio.' }
     };
     return details[normalized] || {
         label: channel || 'Desconhecido',
-        help: 'Canal de tráfego retornado pelo GA4 para esta origem de visitantes.'
+        help: 'Canal de trÃ¡fego retornado pelo GA4 para esta origem de visitantes.'
     };
 }
 
@@ -597,9 +597,9 @@ function formatTrafficSourceValue(value, fallback) {
     if (!raw || normalized === '(not set)' || normalized === 'not set' || normalized === 'unknown') return fallback;
     if (normalized === '(direct)' || normalized === 'direct') return 'Direto';
     if (normalized === '(none)' || normalized === 'none') return 'Nenhuma';
-    if (normalized === 'organic') return 'Orgânico';
+    if (normalized === 'organic') return 'OrgÃ¢nico';
     if (normalized === 'cpc' || normalized === 'ppc' || normalized === 'paid') return 'Pago';
-    if (normalized === 'referral') return 'Referência';
+    if (normalized === 'referral') return 'ReferÃªncia';
     if (normalized === 'google') return 'Google';
     if (normalized === 'whatsapp') return 'WhatsApp';
     if (normalized === 'sms') return 'SMS';
@@ -610,7 +610,7 @@ function renderTrafficSources(targetId, rows) {
     const target = document.getElementById(targetId);
     if (!target) return;
     if (!Array.isArray(rows) || !rows.length) {
-        target.innerHTML = '<div class="analytics-empty">Dados de origem de tráfego indisponíveis ainda. O GA4 precisa acumular sessões suficientes no período.</div>';
+        target.innerHTML = '<div class="analytics-empty">Dados de origem de trÃ¡fego indisponÃ­veis ainda. O GA4 precisa acumular sessÃµes suficientes no perÃ­odo.</div>';
         return;
     }
     const max = Math.max(...rows.map(r => r.activeUsers || 0), 1);
@@ -619,9 +619,9 @@ function renderTrafficSources(targetId, rows) {
             const width = Math.max(8, Math.round(((row.activeUsers || 0) / max) * 100));
             const channel = getTrafficChannelDetails(row.channel);
             return '<div class="category-row">'
-                + '<div class="category-name"><span class="category-name-text">' + esc(channel.label) + '</span><button class="analytics-info-icon" type="button" aria-label="Explicação sobre ' + esc(channel.label) + '" title="' + esc(channel.help) + '">i</button></div>'
+                + '<div class="category-name"><span class="category-name-text">' + esc(channel.label) + '</span><button class="analytics-info-icon" type="button" aria-label="ExplicaÃ§Ã£o sobre ' + esc(channel.label) + '" title="' + esc(channel.help) + '">i</button></div>'
                 + '<div class="category-bar"><div class="category-fill" style="width:' + width + '%"></div></div>'
-                + '<div class="category-count">' + formatInteger(row.activeUsers) + ' usuários</div>'
+                + '<div class="category-count">' + formatInteger(row.activeUsers) + ' usuÃ¡rios</div>'
                 + '</div>';
         }).join('')
         + '</div>';
@@ -631,12 +631,12 @@ function renderTrafficSourceCampaigns(targetId, rows) {
     const target = document.getElementById(targetId);
     if (!target) return;
     if (!Array.isArray(rows) || !rows.length) {
-        target.innerHTML = '<div class="analytics-empty">Dados de origem, mídia e campanha indisponíveis ainda. O GA4 precisa acumular sessões suficientes no período.</div>';
+        target.innerHTML = '<div class="analytics-empty">Dados de origem, mÃ­dia e campanha indisponÃ­veis ainda. O GA4 precisa acumular sessÃµes suficientes no perÃ­odo.</div>';
         return;
     }
 
     const max = Math.max(...rows.map(r => r.sessions || r.activeUsers || 0), 1);
-    target.innerHTML = '<table class="analytics-table"><thead><tr><th>Origem / mídia / campanha</th><th>Sessões</th><th>Usuários</th><th>Eventos</th></tr></thead><tbody>'
+    target.innerHTML = '<table class="analytics-table"><thead><tr><th>Origem / mÃ­dia / campanha</th><th>SessÃµes</th><th>UsuÃ¡rios</th><th>Eventos</th></tr></thead><tbody>'
         + rows.map(function(row) {
             const width = Math.max(8, Math.round(((row.sessions || row.activeUsers || 0) / max) * 100));
             const channel = getTrafficChannelDetails(row.channel);
@@ -647,7 +647,7 @@ function renderTrafficSourceCampaigns(targetId, rows) {
             return '<tr>'
                 + '<td>'
                 + '<div class="analytics-post-title">' + esc(source) + ' / ' + esc(medium) + '</div>'
-                + '<div class="analytics-post-meta">' + esc(campaign) + ' - ' + esc(channel.label) + ' <button class="analytics-info-icon" type="button" aria-label="Explicação sobre ' + esc(channel.label) + '" title="' + esc(channel.help) + '">i</button></div>'
+                + '<div class="analytics-post-meta">' + esc(campaign) + ' - ' + esc(channel.label) + ' <button class="analytics-info-icon" type="button" aria-label="ExplicaÃ§Ã£o sobre ' + esc(channel.label) + '" title="' + esc(channel.help) + '">i</button></div>'
                 + '<div class="category-bar" style="margin-top:8px;"><div class="category-fill" style="width:' + width + '%"></div></div>'
                 + '</td>'
                 + '<td>' + formatInteger(row.sessions) + '</td>'
@@ -700,21 +700,21 @@ function renderConversionTable(targetId, rows, type) {
 
     var max = Math.max(...rows.map(function(row) { return row.leads || row.sessions || row.activeUsers || 0; }), 1);
     var LANDING_NAMES = {
-        '/':                        'Página inicial',
-        '/index.html':              'Página inicial',
-        '/mb-finance-completo.html':'Página inicial',
-        '/pages/sobre.html':        'Sobre nós',
+        '/':                        'PÃ¡gina inicial',
+        '/index.html':              'PÃ¡gina inicial',
+        '/mb-finance-completo.html':'PÃ¡gina inicial',
+        '/pages/sobre.html':        'Sobre nÃ³s',
         '/pages/blog.html':         'Blog',
         '/pages/blog-admin.html':   'Admin do blog',
         '/pages/mb-tributos.html':  'MB Tributos',
-        '/pages/credito-rapido.html':'Crédito Rápido',
+        '/pages/credito-rapido.html':'CrÃ©dito RÃ¡pido',
         '/pages/capital-de-giro.html':'Capital de Giro',
-        '/pages/conta-pj-c6.html':  'Conta PJ — C6 Bank',
-        '/pages/politica-de-privacidade.html': 'Política de Privacidade',
+        '/pages/conta-pj-c6.html':  'Conta PJ â€” C6 Bank',
+        '/pages/politica-de-privacidade.html': 'PolÃ­tica de Privacidade',
         '/pages/termos-de-uso.html':'Termos de Uso',
     };
     var friendlyLanding = function(path) {
-        if (!path) return 'Página inicial';
+        if (!path) return 'PÃ¡gina inicial';
         var clean = path.split('?')[0].split('#')[0];
         if (LANDING_NAMES[clean]) return LANDING_NAMES[clean];
         if (clean.startsWith('/blog/')) return 'Blog: ' + clean.replace('/blog/', '').replace(/-/g, ' ');
@@ -751,7 +751,7 @@ var ALL_PRODUCTS = [
     'Conta PJ Digital',
     'C6 Pay',
     'C6 Business',
-    'Crédito PJ',
+    'CrÃ©dito PJ',
     'C6 Conta Global',
     'C6 Tag',
 ];
@@ -773,10 +773,10 @@ function renderProductClicks(targetId, rows) {
     const max = Math.max(...merged.map(function(r) { return r.clicks; }), 1);
 
     target.innerHTML = '<div class="category-list">'
-        + (hasAnyData ? '' : '<div style="font-size:12px;color:#94a3b8;margin-bottom:14px;padding:10px 14px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px;text-align:center;">Aguardando dados do GA4 — os cliques aparecerão aqui assim que o desenvolvedor subir o site atualizado.</div>')
+        + (hasAnyData ? '' : '<div style="font-size:12px;color:#94a3b8;margin-bottom:14px;padding:10px 14px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px;text-align:center;">Aguardando dados do GA4 â€” os cliques aparecerÃ£o aqui assim que o desenvolvedor subir o site atualizado.</div>')
         + merged.map(function(row) {
             const width = hasAnyData ? Math.max(4, Math.round((row.clicks / max) * 100)) : 0;
-            const countLabel = hasAnyData ? (formatInteger(row.clicks) + ' clique' + (row.clicks !== 1 ? 's' : '')) : '— aguardando';
+            const countLabel = hasAnyData ? (formatInteger(row.clicks) + ' clique' + (row.clicks !== 1 ? 's' : '')) : 'â€” aguardando';
             return '<div class="category-row">'
                 + '<div class="category-name">' + esc(row.product) + '</div>'
                 + '<div class="category-bar"><div class="category-fill" style="width:' + width + '%"></div></div>'

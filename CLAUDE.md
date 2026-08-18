@@ -1,5 +1,7 @@
 # CLAUDE.md — MB Finance Sites
 
+> **Estado operacional (2026-08-18):** a home estática efetiva é `public/index.html`; o blog publicado está em `blog-pages/`; o SEO Machine foi separado para `C:\Users\MB NEGOCIOS\mbfinance-seomachine`. Para a estrutura atual, `AGENTS.md` e `docs/PROJECT_STRUCTURE.md` prevalecem sobre referências antigas deste documento.
+
 Contexto completo do projeto para não perder o fio. Leia antes de qualquer tarefa.
 
 ---

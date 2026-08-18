@@ -141,7 +141,7 @@ function saveVideoInfluencers(map) { localStorage.setItem(VIDEO_INFLUENCER_STORA
 
 function getVideoProjects() {
     if (typeof loadCampaignProjects === 'function') return loadCampaignProjects();
-    return [{ id: 'mb-finance', name: 'MB Finance' }, { id: 'mb-negocios', name: 'MB Negocios' }];
+    return [{ id: 'mb-finance', name: 'Mb Finance' }, { id: 'mb-negocios', name: 'MB Negocios' }];
 }
 
 function populateVideoProjects() {
