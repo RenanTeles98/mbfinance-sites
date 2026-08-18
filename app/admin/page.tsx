@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import BlogAdminApp from "@/components/admin/BlogAdminApp";
 
 export const metadata: Metadata = {
-  title: "Admin do Blog | MB Finance",
+  title: "Admin do Blog | Mb Finance",
   description: "Painel oficial para editar e publicar os conteudos do blog.",
 };
 

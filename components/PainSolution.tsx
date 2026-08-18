@@ -51,7 +51,7 @@ export default function PainSolution() {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {/* Sem MB Finance */}
+          {/* Sem Mb Finance */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -62,7 +62,7 @@ export default function PainSolution() {
               <div className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center">
                 <X size={16} className="text-red-400" />
               </div>
-              <span className="text-gray-500 font-semibold text-sm">Sem a MB Finance</span>
+              <span className="text-gray-500 font-semibold text-sm">Sem a Mb Finance</span>
             </div>
             <ul className="space-y-4">
               {pains.map((pain) => (
@@ -74,7 +74,7 @@ export default function PainSolution() {
             </ul>
           </motion.div>
 
-          {/* Com MB Finance */}
+          {/* Com Mb Finance */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -89,7 +89,7 @@ export default function PainSolution() {
               <div className="w-8 h-8 rounded-lg bg-brand-secondary/20 flex items-center justify-center">
                 <Check size={16} className="text-brand-secondary" />
               </div>
-              <span className="text-brand-primary font-semibold text-sm">Com a MB Finance</span>
+              <span className="text-brand-primary font-semibold text-sm">Com a Mb Finance</span>
             </div>
             <ul className="space-y-4">
               {solutions.map((s) => (

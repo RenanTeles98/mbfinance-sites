@@ -176,15 +176,15 @@ status: 'Convertido — foi pro WhatsApp'
 LeadStorage.save({ nome, telefone, newsletter, produto: produtoSelecionado, data: new Date().toISOString() });
 // Monta mensagem personalizada pro WhatsApp
 const msgsPorProduto = {
-'Conta Corrente Empresarial': `Olá! Gostaria de abrir uma Conta Corrente Empresarial para minha empresa pela mb finance. Podem me ajudar?`,
-'Máquina de Cartão': `Olá! Tenho interesse nas soluções de maquininha e gateway de pagamento da mb finance. Podem me passar mais informações?`,
-'Seguros e Consórcios': `Olá! Gostaria de conhecer as opções de Seguros e Consórcios da mb finance. Podem me ajudar?`,
+'Conta Corrente Empresarial': `Olá! Gostaria de abrir uma Conta Corrente Empresarial para minha empresa pela Mb Finance. Podem me ajudar?`,
+'Máquina de Cartão': `Olá! Tenho interesse nas soluções de maquininha e gateway de pagamento da Mb Finance. Podem me passar mais informações?`,
+'Seguros e Consórcios': `Olá! Gostaria de conhecer as opções de Seguros e Consórcios da Mb Finance. Podem me ajudar?`,
 'Crédito Rápido': `Olá! Preciso de crédito rápido para minha empresa. Gostaria de saber as condições disponíveis.`,
-'Soluções Tributárias': `Olá! Tenho interesse nas Soluções Tributárias da mb finance. Podem me passar mais detalhes?`,
+'Soluções Tributárias': `Olá! Tenho interesse nas Soluções Tributárias da Mb Finance. Podem me passar mais detalhes?`,
 'Soluções Personalizadas': `Olá! Gostaria de uma proposta de Solução Personalizada para minha empresa. Podem me ajudar?`,
-'Telemedicina': `Olá! Gostaria de conhecer os planos de Telemedicina da mb finance. Podem me passar mais informações?`,
+'Telemedicina': `Olá! Gostaria de conhecer os planos de Telemedicina da Mb Finance. Podem me passar mais informações?`,
 };
-let msg = msgsPorProduto[produtoSelecionado] || `Olá! Gostaria de falar com um especialista da mb finance.`;
+let msg = msgsPorProduto[produtoSelecionado] || `Olá! Gostaria de falar com um especialista da Mb Finance.`;
 const baseUrl = _leadWaUrl.split('?')[0];
 const waLink = `${baseUrl}?text=${encodeURIComponent(msg)}`;
 trackGA4('generate_lead', { product: produtoSelecionado, source_area: 'lead_modal', form_name: 'main_site_lead_form' });
@@ -259,7 +259,7 @@ const segmento = document.getElementById('parc-segmento').value;
 const msg      = document.getElementById('parc-msg').value.trim();
 if (!nome) { alert('Por favor, informe seu nome.'); return; }
 if (!tel)  { alert('Por favor, informe seu WhatsApp.'); return; }
-const texto = `Olá! Meu nome é ${nome} e tenho interesse em me tornar parceiro da mb finance.` +
+const texto = `Olá! Meu nome é ${nome} e tenho interesse em me tornar parceiro da Mb Finance.` +
 (segmento ? `\n\nSegmento: ${segmento}.` : '') +
 (msg ? `\n\n${msg}` : '') +
 `\n\nWhatsApp para contato: ${tel}`;

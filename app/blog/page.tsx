@@ -6,7 +6,7 @@ import NewsletterSignup from "@/components/NewsletterSignup";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Blog MB Finance",
+  title: "Blog Mb Finance",
   description:
     "Conteudos sobre credito empresarial, conta PJ, antecipacao de recebiveis e gestao financeira.",
 };
@@ -30,7 +30,7 @@ export default async function BlogIndexPage() {
       <section className="bg-[#003956] px-6 py-16 text-white">
         <div className="mx-auto max-w-6xl">
           <p className="mb-5 inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.28em] text-sky-300">
-            Blog MB Finance
+            Blog Mb Finance
           </p>
           <h1 className="max-w-4xl font-sans text-4xl font-bold leading-tight md:text-6xl">
             Conteudo para empresas que querem decidir melhor.

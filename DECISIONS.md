@@ -1033,3 +1033,12 @@ Permitir que o admin escolha `mbnegocios.com.br` ou `mbfinance.com.br` ao gerar 
 ### Motivo
 
 O encurtador retornava uma unica marca por configuracao global. A MB Finance precisa compartilhar links com seu proprio dominio sem duplicar storage ou contagem de cliques.
+## ADR-043: Grafia institucional da marca
+
+**Data:** 2026-08-18
+
+**Decisao:** usar `Mb Finance` como grafia institucional em todos os textos visiveis, metadados, mensagens automatizadas e atributos de acessibilidade.
+
+**Motivo:** padronizacao solicitada pela supervisao para evitar variacoes como `mb finance` e `MB Finance` na experiencia e comunicacao da marca.
+
+**Alternativas consideradas:** manter a grafia anterior em caixas diferentes conforme cada pagina. Rejeitada por prejudicar a consistencia da identidade.

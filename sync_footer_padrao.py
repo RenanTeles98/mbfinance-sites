@@ -10,7 +10,7 @@ FOOTER = '''    <footer class="text-white" style="background:#040f1a; padding: 1
                 <div class="lg:col-span-4 space-y-8">
                     <div class="mb-8">
                         <a href="../mb-finance-completo.html" class="inline-block hover:opacity-80 transition-opacity">
-                            <img src="../images/logo-horizontal-logo.branca.png" alt="mb finance" style="height: 36px; width: auto;">
+                            <img src="../images/logo-horizontal-logo.branca.png" alt="Mb Finance" style="height: 36px; width: auto;">
                         </a>
                     </div>
                     <p class="font-medium text-[15px] leading-relaxed max-w-sm" style="color: rgba(255,255,255,0.45);">

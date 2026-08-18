@@ -1,4 +1,4 @@
-﻿import { createHmac, timingSafeEqual } from "crypto";
+import { createHmac, timingSafeEqual } from "crypto";
 import { readSubscribers, writeSubscribers } from "@/lib/newsletter-store";
 
 function verifyUnsubToken(token: string): string | null {
@@ -44,7 +44,7 @@ export async function GET(request: Request) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Inscrição cancelada — MB Finance</title>
+  <title>Inscrição cancelada — Mb Finance</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -144,7 +144,7 @@ export async function GET(request: Request) {
     </div>
   </div>
   <div class="footer">
-    &copy; MB Finance — Hub Financeiro para Empresas PJ
+    &copy; Mb Finance — Hub Financeiro para Empresas PJ
   </div>
 </body>
 </html>`,

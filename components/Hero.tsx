@@ -80,7 +80,7 @@ export default function Hero() {
 
       <section
         id="inicio"
-        aria-label="Hero MB Finance"
+        aria-label="Hero Mb Finance"
         style={{ position: "relative", width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", background: "#040f1a" }}
       >
         {/* ── Blob de luz 1 (aurora principal) ── */}

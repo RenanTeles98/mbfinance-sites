@@ -269,3 +269,6 @@ Principais marcos conhecidos:
 
 - Adicionada a metrica "Leads Gerados" ao painel administrativo do blog publicado em `blog-pages/`.
 - A API de analytics do blog passou a contar eventos GA4 de abertura/clique de lead para Conta PJ.
+# 2026-08-18
+
+- Padronizada a grafia da marca para `Mb Finance` em todo o site, incluindo SEO, acessibilidade, mensagens de WhatsApp/e-mail e o pacote de publicacao CPanel.

@@ -147,7 +147,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-white/[0.05] mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/20 text-xs">
-            © {new Date().getFullYear()} MB Finance. Todos os direitos reservados.
+            © {new Date().getFullYear()} Mb Finance. Todos os direitos reservados.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-white/20 hover:text-white/40 text-xs transition-colors">Política de Privacidade</a>

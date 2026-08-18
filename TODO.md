@@ -286,3 +286,7 @@
 - [ ] Publicar `blog-pages/` para liberar o seletor `mbnegocios.com.br` / `mbfinance.com.br`.
 - [ ] Enviar `cpanel-upload/public_html/.htaccess` ao CPanel da MB Finance.
 - [ ] Validar que `https://mbfinance.com.br/c/teste` deixa de retornar `404` e encaminha ao blog.
+## Atualizacao 2026-08-18 - Padronizacao da marca
+
+- [x] Padronizar a grafia da marca para `Mb Finance` em todo o site e no pacote de publicacao CPanel.
+- [ ] Validar a grafia apos o deploy, incluindo titulos SEO e compartilhamentos em redes sociais.

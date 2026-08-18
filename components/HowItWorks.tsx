@@ -7,7 +7,7 @@ import { MessageCircle, Search, FileCheck, Handshake } from "lucide-react";
 
 const WHATSAPP_NUMBER = "5511999999999";
 const WHATSAPP_MSG = encodeURIComponent(
-  "Olá! Vim pelo site da MB Finance e quero dar o primeiro passo para melhorar as condições financeiras da minha empresa."
+  "Olá! Vim pelo site da Mb Finance e quero dar o primeiro passo para melhorar as condições financeiras da minha empresa."
 );
 
 const steps = [

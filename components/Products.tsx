@@ -14,7 +14,7 @@ const products = [
     tag: "Zero tarifas",
     description: "Conta empresarial completa com Pix ilimitado, cartão e gestão financeira integrada — sem taxas ocultas.",
     features: ["Pix ilimitado", "Cartão empresarial", "Internet Banking 24/7", "Sem taxa de manutenção"],
-    msg: "Olá! Tenho interesse em abrir uma Conta PJ na MB Finance.",
+    msg: "Olá! Tenho interesse em abrir uma Conta PJ na Mb Finance.",
     accent: "#0099dd",
   },
   {
@@ -23,7 +23,7 @@ const products = [
     tag: "Melhores taxas",
     description: "Aceite todas as bandeiras com as menores taxas. Receba suas vendas com antecipação e sem surpresas.",
     features: ["Todas as bandeiras", "Recebimento em D+1", "App de gestão", "Suporte 24h"],
-    msg: "Olá! Quero conhecer as taxas da Máquina de Cartão da MB Finance.",
+    msg: "Olá! Quero conhecer as taxas da Máquina de Cartão da Mb Finance.",
     accent: "#3b82f6",
   },
   {

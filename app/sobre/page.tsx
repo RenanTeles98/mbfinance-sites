@@ -12,21 +12,21 @@ const timeline = [
     year: "2013",
     title: "Fundação no Rio de Janeiro",
     description:
-      "Mauro Barbosa e Fabiano Ribeiro fundam a MB Finance com o propósito de democratizar o acesso a produtos financeiros de qualidade para empresas de todos os portes no Brasil.",
+      "Mauro Barbosa e Fabiano Ribeiro fundam a Mb Finance com o propósito de democratizar o acesso a produtos financeiros de qualidade para empresas de todos os portes no Brasil.",
     badge: "Fundação",
   },
   {
     year: "2014",
     title: "Soluções de Crédito Customizadas",
     description:
-      "Introdução das primeiras soluções de crédito personalizadas para clientes PJ, ampliando o portfólio de produtos financeiros da MB Finance e fortalecendo o relacionamento com a carteira inicial.",
+      "Introdução das primeiras soluções de crédito personalizadas para clientes PJ, ampliando o portfólio de produtos financeiros da Mb Finance e fortalecendo o relacionamento com a carteira inicial.",
     badge: null,
   },
   {
     year: "2015",
     title: "Estruturação Financeira para Saúde",
     description:
-      "Estruturação de soluções financeiras especializadas para o setor de saúde e reabertura da carteira do SUS, consolidando a MB Finance como referência em crédito para segmentos estratégicos.",
+      "Estruturação de soluções financeiras especializadas para o setor de saúde e reabertura da carteira do SUS, consolidando a Mb Finance como referência em crédito para segmentos estratégicos.",
     badge: null,
   },
   {
@@ -40,14 +40,14 @@ const timeline = [
     year: "2020",
     title: "Parceria com Conexão C6",
     description:
-      "Início da parceria estratégica com o Conexão C6, com foco na abertura de contas C6 Pay para MEIs em todo o Brasil. Um novo capítulo que abriria o caminho para o crescimento exponencial da MB Finance.",
+      "Início da parceria estratégica com o Conexão C6, com foco na abertura de contas C6 Pay para MEIs em todo o Brasil. Um novo capítulo que abriria o caminho para o crescimento exponencial da Mb Finance.",
     badge: null,
   },
   {
     year: "2021",
     title: "Consultoria Financeira e Consolidação no C6",
     description:
-      "Foco intenso em consultoria financeira e consolidação da posição da MB Finance dentro do ecossistema Conexão C6, estruturando processos, governança e equipe para suportar o crescimento acelerado que viria a seguir.",
+      "Foco intenso em consultoria financeira e consolidação da posição da Mb Finance dentro do ecossistema Conexão C6, estruturando processos, governança e equipe para suportar o crescimento acelerado que viria a seguir.",
     badge: null,
     trophy: { src: "/images/premios/premio-2021.png", label: "AgRio 2021 - 1º Lugar" },
   },
@@ -55,7 +55,7 @@ const timeline = [
     year: "2022",
     title: "TOP 3 + Criação do Fomenta Mais",
     description:
-      "No final do ano, a MB Finance estava entre os TOP 3 do projeto Conexão C6, superando a marca de 600 contas abertas por mês. Neste mesmo ano, criamos o Fomenta Mais — ampliando nossa capacidade de atender e fomentar o ecossistema de negócios parceiros.",
+      "No final do ano, a Mb Finance estava entre os TOP 3 do projeto Conexão C6, superando a marca de 600 contas abertas por mês. Neste mesmo ano, criamos o Fomenta Mais — ampliando nossa capacidade de atender e fomentar o ecossistema de negócios parceiros.",
     badge: "TOP 3 · Fomenta Mais",
     trophy: { src: "/images/premios/premio-2022.png", label: "Destaque 2022 - Conexão C6" },
   },
@@ -79,14 +79,14 @@ const timeline = [
     year: "2025",
     title: "Novo Recorde 95.000 Contas PJ e R$ 100Mi com Mercado Pago",
     description:
-      "Superamos o próprio recorde: 95.000 contas PJ abertas em um único ano e conquistamos novamente o prêmio de melhor escritório do Conexão C6. Em parceria com o Mercado Pago, atingimos a marca de R$ 100 milhões em movimentação em tempo recorde — consolidando a MB Finance como referência nacional em soluções financeiras para empresas.",
+      "Superamos o próprio recorde: 95.000 contas PJ abertas em um único ano e conquistamos novamente o prêmio de melhor escritório do Conexão C6. Em parceria com o Mercado Pago, atingimos a marca de R$ 100 milhões em movimentação em tempo recorde — consolidando a Mb Finance como referência nacional em soluções financeiras para empresas.",
     badge: "95.000 contas PJ · R$ 100Mi · Mercado Pago",
   },
   {
     year: "2026",
     title: "Expansão do Portfólio de Produtos",
     description:
-      "Iniciamos 2026 com o propósito de expandir nosso portfólio além do crédito. Lançamos soluções em Seguros e Consórcios, Soluções Tributárias e Telemedicina — consolidando a MB Finance como um Hub completo de soluções para empresas.",
+      "Iniciamos 2026 com o propósito de expandir nosso portfólio além do crédito. Lançamos soluções em Seguros e Consórcios, Soluções Tributárias e Telemedicina — consolidando a Mb Finance como um Hub completo de soluções para empresas.",
     badge: "Seguros · Tributário · Telemedicina",
   },
 ];
@@ -218,7 +218,7 @@ export default function SobrePage() {
             transition={{ duration: 0.7 }}
           >
             <p className="text-[#0099dd] text-xs font-bold tracking-widest uppercase mb-6">
-              Sobre a MB Finance
+              Sobre a Mb Finance
             </p>
             <h1 className="text-white text-4xl md:text-6xl font-light tracking-[-0.04em] leading-[1.02] mb-8 max-w-5xl">
               <span className="block">Conectamos empresas às</span>
@@ -234,7 +234,7 @@ export default function SobrePage() {
           >
             <div>
               <p className="text-white/80 text-lg leading-relaxed mb-6">
-                A MB Finance tem como missão conectar empresas brasileiras às
+                A Mb Finance tem como missão conectar empresas brasileiras às
                 soluções financeiras mais adequadas para cada etapa da sua
                 trajetória, com tecnologia, visão financeira e soluções inovadoras.
                 Nossa evolução para um{" "}
@@ -304,11 +304,11 @@ export default function SobrePage() {
               Vamos conversar
             </p>
             <h2 className="text-white text-4xl md:text-6xl font-black leading-[1.08] mb-8 max-w-4xl mx-auto">
-              Pronto para descobrir como a MB Finance pode{" "}
+              Pronto para descobrir como a Mb Finance pode{" "}
               <span className="text-[#0099dd]">impulsionar sua empresa</span>?
             </h2>
             <p className="text-white/70 text-base md:text-xl mb-10 md:mb-14 max-w-2xl mx-auto font-light leading-relaxed">
-              Fale com um consultor MB Finance e acesse soluções mais
+              Fale com um consultor Mb Finance e acesse soluções mais
               inteligentes, competitivas e aderentes ao momento do seu negócio.
             </p>
             <Link

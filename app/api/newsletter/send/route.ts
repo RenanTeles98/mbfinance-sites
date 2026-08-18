@@ -55,7 +55,7 @@ function buildEmailHtml(subject: string, previewText: string, body: string, emai
           <tr>
             <td style="background:#f8fafc;padding:24px 40px;border-top:1px solid #e2e8f0;">
               <p style="margin:0;font-size:12px;color:#94a3b8;line-height:1.6;">
-                Você está recebendo este email porque se inscreveu na newsletter da MB Finance.<br>
+                Você está recebendo este email porque se inscreveu na newsletter da Mb Finance.<br>
                 <a href="${siteUrl}/api/newsletter/unsubscribe?token=${token}" style="color:#0099dd;text-decoration:none;">Cancelar inscrição</a>
               </p>
             </td>
@@ -101,7 +101,7 @@ export async function POST(request: Request) {
 
   const resend = new Resend(process.env.RESEND_API_KEY);
   const senderEmail = fromEmail || process.env.RESEND_FROM_EMAIL || "newsletter@mbfinance.com.br";
-  const senderName  = fromName  || "MB Finance";
+  const senderName  = fromName  || "Mb Finance";
 
   // Criar ID da campanha antes do envio para rastrear eventos
   const campaignId = crypto.randomUUID();

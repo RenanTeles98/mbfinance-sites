@@ -7,6 +7,17 @@
 
 ## Estado Atual
 
+### Sessao 2026-08-18 - Padronizacao da marca Mb Finance
+
+- [x] Nome da marca padronizado de todas as variacoes de `mb finance` para `Mb Finance` nas paginas publicas, metadados SEO, textos alternativos, mensagens de WhatsApp e e-mails.
+- [x] Atualizadas as copias de publicacao em `cpanel-upload/public_html/` para manter o deploy manual consistente com o site fonte.
+
+Arquivos modificados nesta sessao: fontes do site em `app/`, `components/`, `content/`, `lib/`, `public/`, `cpanel-upload/public_html/` e scripts auxiliares de rodape.
+
+Estado atual: a marca exibida e distribuida pelo site usa a grafia `Mb Finance`.
+
+Proximo passo recomendado: publicar a versao atualizada e validar o cache do navegador/CDN.
+
 ### Sessao 2026-05-29 - Subprodutos na secao O problema
 
 - [x] Secao "O problema" de `public/pages/mb-tributos.html` ajustada para apresentar produtos principais e subprodutos.

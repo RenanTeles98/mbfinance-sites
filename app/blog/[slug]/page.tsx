@@ -25,11 +25,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = await readBlogPostBySlug(params.slug);
   if (!post) {
-    return { title: "Artigo nao encontrado | MB Finance" };
+    return { title: "Artigo nao encontrado | Mb Finance" };
   }
 
   return {
-    title: post.seoTitle || `${post.title} | MB Finance`,
+    title: post.seoTitle || `${post.title} | Mb Finance`,
     description: post.seoDesc || post.excerpt,
   };
 }
@@ -48,7 +48,7 @@ export default async function BlogArticlePage({
       <nav style={{ background: "#003956", position: "sticky", top: 0, zIndex: 100 }}>
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href="/index.html">
-            <img src="/images/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto", display: "block" }} />
+            <img src="/images/logo-horizontal-logo.branca.png" alt="Mb Finance" style={{ height: 36, width: "auto", display: "block" }} />
           </a>
           <a href="/pages/blog.html" className="flex items-center gap-2 text-sm font-semibold text-white/65 transition-colors hover:text-white">
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 12H5M12 5l-7 7 7 7"/></svg>
@@ -100,7 +100,7 @@ export default async function BlogArticlePage({
         <div className="mt-10 rounded-[24px] bg-[#003956] px-8 py-10 text-white">
           <h2 className="font-sans text-3xl font-black">Precisa falar com um especialista?</h2>
           <p className="mt-3 max-w-2xl text-white/70">
-            A MB Finance ajuda sua empresa a comparar linhas, contas e solucoes com mais criterio.
+            A Mb Finance ajuda sua empresa a comparar linhas, contas e solucoes com mais criterio.
           </p>
           <a
             href={`https://wa.me/552139008295?text=${encodeURIComponent(
@@ -120,7 +120,7 @@ export default async function BlogArticlePage({
             {/* Col 1: Brand */}
             <div className="flex flex-col gap-7 lg:col-span-4">
               <a href="/index.html" className="inline-block opacity-100 transition-opacity hover:opacity-80">
-                <img src="/images/logo-horizontal-logo.branca.png" alt="MB Finance" style={{ height: 36, width: "auto" }} />
+                <img src="/images/logo-horizontal-logo.branca.png" alt="Mb Finance" style={{ height: 36, width: "auto" }} />
               </a>
               <p className="max-w-[280px] text-[15px] font-medium leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
                 Há mais de 10 anos conectando empresas às melhores soluções financeiras do mercado. Seu elo estratégico com as principais instituições bancárias do Brasil.
