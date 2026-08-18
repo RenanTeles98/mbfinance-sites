@@ -109,14 +109,14 @@ function submitLead(e) {
 
     // Monta mensagem personalizada pro WhatsApp
     const msgsPorProduto = {
-        'Conta PJ Digital':  'Olá! Gostaria de abrir uma Conta PJ Digital pelo MB Negócios. Podem me ajudar?',
-        'C6 Pay':            'Olá! Tenho interesse na maquininha C6 Pay pelo MB Negócios. Podem me passar mais informações?',
-        'C6 Business':       'Olá! Gostaria de conhecer o cartão C6 Business pelo MB Negócios. Podem me ajudar?',
-        'Crédito PJ':        'Olá! Preciso de crédito para minha empresa. Gostaria de saber as condições disponíveis pelo MB Negócios.',
-        'C6 Conta Global':   'Olá! Tenho interesse na C6 Conta Global pelo MB Negócios. Podem me passar mais detalhes?',
-        'C6 Tag':            'Olá! Gostaria de conhecer o C6 Tag pelo MB Negócios. Podem me ajudar?',
+        'Conta PJ Digital':  'Olá! Gostaria de abrir uma Conta PJ Digital pelo Mb Negócios. Podem me ajudar?',
+        'C6 Pay':            'Olá! Tenho interesse na maquininha C6 Pay pelo Mb Negócios. Podem me passar mais informações?',
+        'C6 Business':       'Olá! Gostaria de conhecer o cartão C6 Business pelo Mb Negócios. Podem me ajudar?',
+        'Crédito PJ':        'Olá! Preciso de crédito para minha empresa. Gostaria de saber as condições disponíveis pelo Mb Negócios.',
+        'C6 Conta Global':   'Olá! Tenho interesse na C6 Conta Global pelo Mb Negócios. Podem me passar mais detalhes?',
+        'C6 Tag':            'Olá! Gostaria de conhecer o C6 Tag pelo Mb Negócios. Podem me ajudar?',
     };
-    let msg = msgsPorProduto[produtoSelecionado] || 'Olá! Gostaria de falar com um especialista do MB Negócios.';
+    let msg = msgsPorProduto[produtoSelecionado] || 'Olá! Gostaria de falar com um especialista do Mb Negócios.';
 
     const baseUrl = _leadWaUrl.split('?')[0];
     const waLink = `${baseUrl}?text=${encodeURIComponent(msg)}`;

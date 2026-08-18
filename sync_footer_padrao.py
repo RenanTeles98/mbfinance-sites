@@ -1,6 +1,6 @@
-import os, re
+﻿import os, re
 
-pages_dir = r'c:/Users/MB NEGOCIOS/Mb finance- Sites/public/pages'
+pages_dir = r'c:/Users/Mb Negócios/Mb finance- Sites/public/pages'
 
 FOOTER = '''    <footer class="text-white" style="background:#040f1a; padding: 120px 0;">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
@@ -65,7 +65,7 @@ FOOTER = '''    <footer class="text-white" style="background:#040f1a; padding: 1
                     <ul class="space-y-4 font-medium text-sm" style="color: rgba(255,255,255,0.4);">
                         <li><a href="https://mbnegocios.com.br/" target="_blank" rel="noopener" class="hover:text-[#0099dd] transition-colors">MB Neg\u00f3cios</a></li>
                         <li><a href="https://fomentamais.com.br/" target="_blank" rel="noopener" class="hover:text-[#0099dd] transition-colors">Fomenta Mais</a></li>
-                        <li><a href="mb-tributos.html" class="hover:text-[#0099dd] transition-colors">MB Tributos</a></li>
+                        <li><a href="mb-tributos.html" class="hover:text-[#0099dd] transition-colors">Mb Tributos</a></li>
                     </ul>
                 </div>
 

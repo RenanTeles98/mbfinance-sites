@@ -272,3 +272,4 @@ Principais marcos conhecidos:
 # 2026-08-18
 
 - Padronizada a grafia da marca para `Mb Finance` em todo o site, incluindo SEO, acessibilidade, mensagens de WhatsApp/e-mail e o pacote de publicacao CPanel.
+- Padronizadas as submarcas como `Mb Negócios` e `Mb Tributos`.

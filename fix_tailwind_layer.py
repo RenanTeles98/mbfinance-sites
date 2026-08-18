@@ -1,6 +1,6 @@
-import os
+﻿import os
 
-pages_dir = r'c:/Users/MB NEGOCIOS/Mb finance- Sites/public/pages'
+pages_dir = r'c:/Users/Mb Negócios/Mb finance- Sites/public/pages'
 
 # Map exact strings to wrap in @layer base
 patterns = [

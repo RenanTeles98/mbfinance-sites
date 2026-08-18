@@ -1042,3 +1042,7 @@ O encurtador retornava uma unica marca por configuracao global. A MB Finance pre
 **Motivo:** padronizacao solicitada pela supervisao para evitar variacoes como `mb finance` e `MB Finance` na experiencia e comunicacao da marca.
 
 **Alternativas consideradas:** manter a grafia anterior em caixas diferentes conforme cada pagina. Rejeitada por prejudicar a consistencia da identidade.
+
+### Complemento
+
+As submarcas seguem a mesma convencao: `Mb Negócios` e `Mb Tributos`.

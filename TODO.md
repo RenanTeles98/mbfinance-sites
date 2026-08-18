@@ -289,4 +289,5 @@
 ## Atualizacao 2026-08-18 - Padronizacao da marca
 
 - [x] Padronizar a grafia da marca para `Mb Finance` em todo o site e no pacote de publicacao CPanel.
+- [x] Padronizar as submarcas como `Mb Negócios` e `Mb Tributos`.
 - [ ] Validar a grafia apos o deploy, incluindo titulos SEO e compartilhamentos em redes sociais.
