@@ -1054,3 +1054,5 @@ Os arquivos publicos devem ser lidos e gravados explicitamente em UTF-8. Isso ev
 ### Rodape
 
 O rodape da home usa um espacamento horizontal maior entre colunas em desktop, preservando a grade em duas colunas no tablet e uma coluna no mobile.
+
+Para garantir o resultado independente das utilidades compiladas do Tailwind, a distribuicao desktop ficou em `public/assets/css/footer.css` e recebeu copia equivalente no pacote CPanel.

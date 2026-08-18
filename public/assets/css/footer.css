@@ -1,0 +1,12 @@
+@media (min-width: 1024px) {
+  footer .footer-columns {
+    grid-template-columns: minmax(13rem, 1.8fr) repeat(4, minmax(8rem, 1fr)) !important;
+    column-gap: clamp(2.5rem, 4vw, 4rem) !important;
+    row-gap: 3rem !important;
+  }
+
+  footer .footer-columns > .lg\:col-span-4,
+  footer .footer-columns > .lg\:col-span-2 {
+    grid-column: auto !important;
+  }
+}

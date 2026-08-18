@@ -15,6 +15,7 @@
 - [x] Atualizadas as copias de publicacao em `cpanel-upload/public_html/` para manter o deploy manual consistente com o site fonte.
 - [x] Corrigida a codificacao UTF-8 dos arquivos publicos afetados por uma gravacao incorreta, restaurando caracteres acentuados exibidos pelo site.
 - [x] Aumentado o espacamento horizontal entre as colunas do rodape da home em telas grandes.
+- [x] Grade do rodape da home reorganizada com CSS dedicado para distribuir de forma uniforme a marca e as quatro colunas informativas no desktop.
 
 Arquivos modificados nesta sessao: fontes do site em `app/`, `components/`, `content/`, `lib/`, `public/`, `cpanel-upload/public_html/` e scripts auxiliares de rodape.
 

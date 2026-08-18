@@ -293,3 +293,4 @@
 - [ ] Validar a grafia apos o deploy, incluindo titulos SEO e compartilhamentos em redes sociais.
 - [ ] Conferir o cache do navegador/CDN apos o deploy corretivo de codificacao UTF-8.
 - [ ] Validar visualmente o novo espacamento do rodape em desktop e tablet apos o proximo deploy.
+- [ ] Confirmar no site publicado que a distribuicao das colunas do rodape esta perceptivelmente mais espacada.
