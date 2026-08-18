@@ -9,4 +9,8 @@
   footer .footer-columns > .lg\:col-span-2 {
     grid-column: auto !important;
   }
+
+  footer .footer-columns h3 {
+    margin-bottom: 1.5rem !important;
+  }
 }

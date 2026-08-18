@@ -276,3 +276,4 @@ Principais marcos conhecidos:
 - Corrigida a codificacao UTF-8 de textos publicos que apresentavam caracteres acentuados corrompidos.
 - Aumentado o espacamento entre as colunas do rodape da home em desktop.
 - Reorganizada a grade desktop do rodape para melhorar a separacao visual das colunas.
+- Aumentado o espacamento entre os titulos e os links do rodape.

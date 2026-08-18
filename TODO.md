@@ -294,3 +294,4 @@
 - [ ] Conferir o cache do navegador/CDN apos o deploy corretivo de codificacao UTF-8.
 - [ ] Validar visualmente o novo espacamento do rodape em desktop e tablet apos o proximo deploy.
 - [ ] Confirmar no site publicado que a distribuicao das colunas do rodape esta perceptivelmente mais espacada.
+- [ ] Confirmar no site publicado que os titulos do rodape tem respiro visual antes dos links.
