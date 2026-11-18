@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-11-18 - Atualizacao do pacote CPanel
+
+### Modificado
+- Atualizado `cpanel-upload/mbfinance-cpanel-public_html.zip` para refletir o diretorio espelho validado `cpanel-upload/public_html/`.
+- Confirmada a correspondencia dos caminhos compartilhados do pacote com `public/`.
+
 ## 2026-05-29 - Subprodutos em mb tributos
 
 ### Modificado

@@ -5,6 +5,34 @@
 
 ---
 
+## ADR-042: Publicar no GitHub somente o pacote CPanel validado
+
+**Data:** 2026-11-18
+**Status:** Aceita
+**Decisores:** Dono do projeto + IA
+
+### Contexto
+
+O pedido foi atualizar o GitHub com a versao mais recente trabalhada. A branch `master` estava sincronizada com `origin/master` e a unica alteracao de projeto pendente era o ZIP espelho do CPanel. As regras do repositorio exigem validar esse espelho contra os arquivos de `public/`.
+
+### Decisao
+
+Publicar `cpanel-upload/mbfinance-cpanel-public_html.zip` depois de confirmar que seus 128 arquivos correspondem a `cpanel-upload/public_html/` e que os caminhos compartilhados com `public/` estao iguais. Restaurar `.env.example` ao conteudo versionado, sem incluir uma alteracao acidental de um caractere.
+
+### Alternativas Consideradas
+
+- Incluir todas as alteracoes locais sem inspecao: descartada porque `.env.example` tinha um caractere extra sem relacao com a versao do site.
+- Sincronizar novamente o diretorio espelho: descartada porque o ZIP ja correspondia ao diretorio canonico.
+- Alterar `public/index.html`: descartada porque nao havia mudanca local nesse arquivo.
+
+### Consequencias
+
+- O ZIP atualizado foi publicado em `origin/master` no commit `40716c7`.
+- Nenhum arquivo de codigo ou configuracao de deploy foi alterado nesta sessao.
+- O pacote continua alinhado ao diretorio espelho validado.
+
+---
+
 ## ADR-041: Secao O problema de mb tributos usa produto principal e subprodutos
 
 **Data:** 2026-05-29

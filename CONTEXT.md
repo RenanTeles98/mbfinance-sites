@@ -1,11 +1,26 @@
 ﻿# CONTEXT.md â€” Estado Atual do Projeto
 
-> Ãšltima atualizaÃ§Ã£o: 2026-04-27
+> Última atualização: 2026-11-18
 > Atualizado por: IA - Codex
 
 ---
 
 ## Estado Atual
+
+### Sessao 2026-11-18 - Atualizacao do GitHub
+
+- [x] Validado `cpanel-upload/mbfinance-cpanel-public_html.zip`: os 128 arquivos correspondem a `cpanel-upload/public_html/`, e os caminhos compartilhados com `public/` tambem correspondem.
+- [x] Publicado o pacote validado em `origin/master` no commit `40716c7` (`chore: atualiza pacote de publicacao do CPanel`).
+- [x] Restaurado `.env.example` ao conteudo versionado apos remover um `e` acidental no inicio do comentario.
+- [x] Confirmado que `public/index.html` nao tinha alteracoes locais pendentes nesta sessao.
+
+Arquivos modificados nesta sessao: `cpanel-upload/mbfinance-cpanel-public_html.zip`, `CONTEXT.md`, `DECISIONS.md`, `TODO.md`, `CHANGELOG.md` e `docs/sessions/2026-11-18.md`.
+
+Estado atual: `master` esta sincronizada com `origin/master`; o pacote espelho do CPanel esta publicado no GitHub.
+
+Onde o trabalho parou: envio concluido e documentado.
+
+Proximo passo recomendado: nenhum para esta publicacao.
 
 ### Sessao 2026-08-18 - Padronizacao da marca Mb Finance
 

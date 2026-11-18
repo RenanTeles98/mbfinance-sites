@@ -4,6 +4,11 @@
 
 ---
 
+## Atualizacao 2026-11-18 - GitHub
+
+- [x] Validar e publicar `cpanel-upload/mbfinance-cpanel-public_html.zip` em `origin/master` (commit `40716c7`).
+- [x] Restaurar `.env.example` ao conteudo versionado; nenhuma alteracao local ficou pendente nesse arquivo.
+
 ## ðŸ”´ CrÃ­tico (fazer antes do prÃ³ximo push sÃ©rio)
 
 - [x] **Estruturar pagina mb tributos**
